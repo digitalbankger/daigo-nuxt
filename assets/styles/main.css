@@ -1,0 +1,71 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply font-sans;
+  background-color: #fff;
+}
+
+#app {
+  background-color: #fff;
+}
+
+::placeholder {
+  font-weight: 300;
+  letter-spacing:0.5px;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-weight: 300;
+  letter-spacing:0.5px;
+}
+
+input {
+  border: 1px solid #11111134;
+
+}
+input:focus {
+  border-color: #659CFF;
+}
+input:focus-visible {
+  outline: none;
+}
+
+* {
+  user-select: none;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (max-width: 325px) {
+  ::placeholder {
+    font-size: 14px;
+  }
+  
+  input::placeholder,
+  textarea::placeholder {
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+
+#nuxt-devtools-anchor.nuxt-devtools-hide .nuxt-devtools-panel-content[data-v-154550e3] {
+  opacity: 1 !important;
+}
+#nuxt-devtools-anchor.nuxt-devtools-hide .nuxt-devtools-panel[data-v-154550e3] {
+  max-width: 180px !important;
+}
+#nuxt-devtools-anchor .nuxt-devtools-panel[data-v-154550e3] {
+  height: 50px !important;
+  border-radius: 30px !important;
+}
