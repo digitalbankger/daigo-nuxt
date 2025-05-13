@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
 import type { Banner, Review, Story } from '~/types/content'
-import { fetchBanner, fetchReviews, fetchStories } from '~/services/contentService'
 
 export const useContentStore = defineStore('content', () => {
   const banner = ref<Banner | null>(null)
@@ -10,9 +9,28 @@ export const useContentStore = defineStore('content', () => {
 
   async function load() {
     if (isLoaded.value) return
-    banner.value = await fetchBanner()
-    stories.value = await fetchStories()
-    reviews.value = await fetchReviews()
+
+    const [bannerRes, storiesRes, reviewsRes] = await Promise.all([
+      useFetch<Banner>('/api/content/banner', {
+        server: true,
+        lazy: false,
+        default: () => null,
+      }),
+      useFetch<Story[]>('/api/content/stories', {
+        server: true,
+        lazy: true,
+        default: () => [],
+      }),
+      useFetch<Review[]>('/api/content/reviews', {
+        server: true,
+        lazy: false,
+        default: () => [],
+      })
+    ])
+
+    banner.value = bannerRes.data.value
+    stories.value = storiesRes.data.value || []
+    reviews.value = reviewsRes.data.value || []
     isLoaded.value = true
   }
 

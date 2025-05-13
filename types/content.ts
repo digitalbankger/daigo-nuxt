@@ -17,9 +17,9 @@ export interface Story {
 }
 
 export interface Review {
-  id: number
-  userName: string
-  rating: number
-  comment: string
-  avatar?: string
+  id: number;
+  photo_urls: string[];
+  file_url?: string;
+  feedback_preview: string;
+  author: string;
 }

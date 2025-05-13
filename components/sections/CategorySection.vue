@@ -63,7 +63,7 @@ const categories: Category[] = [
             class="absolute top-4 right-4 w-10 h-10 transition-transform duration-300 transform rotate-0 group-hover:rotate-45"
           />
 
-          <h3 class="text-2xl mb-4 w-8/12">
+          <h3 class="text-2xl mb-4 w-[70%]">
             {{ category.title }}
           </h3>
 
