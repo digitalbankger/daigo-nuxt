@@ -1,5 +1,5 @@
 import type { Pinia } from 'pinia'
-import { useDeviceStore } from '~/store/deviceStore'
+import { useDeviceStore } from '~/stores/deviceStore'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const pinia = nuxtApp.$pinia as Pinia

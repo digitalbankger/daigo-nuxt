@@ -2,7 +2,7 @@
 import type { Story } from '~/types/content'
 import { useIntersectionObserver } from '@vueuse/core'
 
-const stories = ref<Story[]>([])
+const modelStories = defineModel<Story[]>('stories')
 const target = ref<HTMLElement | null>(null)
 const loaded = ref(false)
 
@@ -12,7 +12,7 @@ const emit = defineEmits<{
 
 const fetchStories = async () => {
   const { data } = await useFetch<Story[]>('/api/content/stories', { server: false })
-  if (data.value) stories.value = data.value
+  if (data.value) modelStories.value = data.value
 }
 
 useIntersectionObserver(
@@ -28,12 +28,12 @@ useIntersectionObserver(
 </script>
 
 <template>
-  <div ref="target" class="flex gap-7 overflow-x-auto px-4 py-2 mx-auto">
+  <div ref="target" class="w-full flex items-center justify-start md:justify-center gap-4 overflow-x-auto px-4 py-2 mx-auto">
     <div
-      v-for="story in stories"
+      v-for="story in modelStories"
       :key="story.id"
       class="gradient-border w-[104px] h-[104px] rounded-full p-[2px] flex items-center justify-center shrink-0 cursor-pointer"
-      @click="emit('opening', story)"
+      @click="emit('open', story)"
     >
       <NuxtImg
         :src="story.thumbnail"
@@ -48,12 +48,6 @@ useIntersectionObserver(
 
 <style scoped>
 .gradient-border {
-  background: conic-gradient(
-    #e14283,
-    #ffe158,
-    #3bc041,
-    #4f8eff,
-    #e14283
-  );
+  background: conic-gradient(#e14283, #ffe158, #3bc041, #4f8eff, #e14283);
 }
 </style>

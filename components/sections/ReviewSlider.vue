@@ -1,6 +1,6 @@
 <template>
-  <div class="relative py-10">
-    <div class="flex items-center justify-between mb-6">
+  <div class="relative py-20">
+    <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
       <h2 class="text-slider font-medium">Знаменитости о Дайго</h2>
       <div class="flex gap-2">
         <button class="swiper-button-prev">
@@ -35,7 +35,12 @@
         :key="review.id"
         class="md:!w-[80%]"
       >
-        <ReviewCard :review="review" />
+
+        <ReviewCard
+          :review="review"
+          @open-review="emit('open-review', review)"
+        />
+
       </SwiperSlide>
     </Swiper>
 
@@ -43,6 +48,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, nextTick } from 'vue'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -52,6 +58,10 @@ import type { Review } from '~/types/content'
 import ReviewCard from '~/components/ReviewCard.vue'
 import type { NavigationOptions } from 'swiper/types'
 defineProps<{ reviews: Review[] }>()
+
+const emit = defineEmits<{
+  (e: 'open-review', review: Review): void
+}>()
 
 const swiperRef = ref()
 
@@ -70,7 +80,7 @@ onMounted(() => {
   content: none !important;
 }
 .swiper-button-prev, .swiper-button-next {
-  top: 84px;
+  top: 50px;
   justify-content: flex-end;
 }
 .swiper-button-prev {

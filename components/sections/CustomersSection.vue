@@ -1,100 +1,204 @@
 <script setup lang="ts">
+import { ref, computed } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import 'swiper/css'
 
-const categories = [
-  { id: 0, 
-    title: 'Принцип действия метабиотиков', 
-    text: 'Метабиотики — это новейший класс функциональных добавок, которые не содержат живые микроорганизмы, а их метаболиты и клеточный материал.', 
-    image: '/images/customers/allPrinciples.webp', 
-    lazy: true,
-    styles: {
-      card: 'relative overflow-hidden bg-hoverbtn h-[446px] w-full rounded-[30px] md:py-5 md:px-6',
-      title: 'relative z-10 w-4/6 font-medium leading-tight mt-6 mb-4 text-[clamp(1.4rem,6vw,2.2rem)]',
-      text: 'relative z-10 text-base font-normal w-3/5',
-      image: 'absolute bottom-0 right-0 w-[44%]',
-    },
-    isMetabiotic: true 
+defineProps<{
+  hideTitle?: boolean
+}>()
+
+const productGroups = [
+  {
+    id: 'metabiotics',
+    title: 'Принцип действия метабиотиков',
+    label: 'Метабиотики',
+    slides: [
+      {
+        text: 'Восстановить баланс кишечной микрофлоры и наладить работу ЖКТ. Укрепить иммунитет.',
+        image: '/images/customers/allPrinciples.webp',
+        imageWidth: 'w-[44%]',
+        tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
+        slugs: ['gastro'],
+      },
+      {
+        text: 'Восстановить баланс микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.',
+        image: '/images/customers/shampoo.png',
+        imageWidth: 'w-[44%]',
+        tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
+        slugs: ['gastro', 'skin'],
+      },
+      {
+        text: 'Восстановить здоровый баланс микрофлоры полости рта и улучшить здоровье зубов.',
+        image: '/images/customers/dent.png',
+        imageWidth: 'w-[65%]',
+        tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
+        slugs: ['gastro', 'skin', 'teeth'],
+      },
+    ],
+    preview: '/images/customers/allPrinciples-prev.png',
   },
-  { id: 1, title: 'Принцип действия плазмогенов', image: '/images/customers/tamotsu-group.png', 
-    styles: {
-      card: 'w-full h-[207px] relative',
-      title: 'text-xl',
-      image: 'absolute bottom-0 right-0 w-[56%]',
-    }, 
-    slug: 'plazmogeny' 
+  {
+    id: 'plazmogeny',
+    title: 'Принцип действия плазмогенов',
+    label: 'Плазмогены',
+    slides: [
+      {
+        text: 'Восстановить когнитивные функции мозга, улучшить память и концентрацию внимания.\n\nУлучшить состояние при хронической усталости и информационном истощении.',
+        image: '/images/customers/tamotsu-single.png',
+        imageWidth: 'w-[34%] right-10',
+        tags: ['Нервная система и мозг'],
+        slugs: ['brain'],
+      },
+    ],
+    preview: '/images/customers/tamotsu-group.png',
   },
-  { id: 2, title: 'Более 100 лет истории', image: '/images/customers/history.png', 
-    styles: {
-      card: 'w-full h-[207px] relative',
-      title: 'text-xl',
-      image: 'absolute bottom-0 right-0 w-[70%]',
-    }, 
-    slug: 'plazmogeny' 
-  },
-  { id: 3, title: 'Принцип действия аминопептидобиотиков', image: '/images/customers/brainy.png', 
-    styles: {
-      card: 'w-full h-[207px] relative',
-      title: 'text-xl',
-      image: 'absolute bottom-0 right-0 w-[56%]',
-    }, 
-    slug: 'aminopeptidobiotiki' 
-  },
-  { id: 4, title: 'Производство', image: '/images/customers/factury.png', 
-    styles: {
-      card: 'w-full h-[207px] relative',
-      title: 'text-xl',
-      image: 'absolute bottom-0 right-0 w-[50%]',
-    }, 
-    slug: 'factory' 
+  {
+    id: 'peptidy',
+    title: 'Принцип действия пептидов',
+    label: 'Пептиды',
+    slides: [
+      {
+        text: 'Улучшить защитную и эстетическую функции кожи и обеспечить профилактику возрастного старения кожи.\n\nВосстановить кожу после травматических воздействий.',
+        image: '/images/customers/dermic-single.png',
+        imageWidth: 'w-[44%] right-2 bottom-4',
+        tags: ['Нервная система и мозг', 'Кожа и волосы', 'Кости и мышцы'],
+        slugs: ['brain', 'skin', 'bones'],
+      },
+      {
+        text: 'Улучшить работу нервной системы и мозга.\n\nПротиводействовать тревожности и депрессии.\nПомочь бороться с бессонницей, снять метеочувствительность.',
+        image: '/images/customers/brainy-single.png',
+        imageWidth: 'w-[44%] right-2 bottom-4',
+        tags: ['Нервная система и мозг', 'Кожа и волосы'],
+        slugs: ['brain', 'skin'],
+      },
+      {
+        text: 'Улучшить работу суставов, укрепить хрящевую, костную и мышечную ткани.\nВосстановить суставы после травм.',
+        image: '/images/customers/jointic-single.png',
+        imageWidth: 'w-[44%] right-2 bottom-4',
+        tags: ['Нервная система и мозг', 'Кожа и волосы', 'Кости и мышцы'],
+        slugs: ['brain', 'skin', 'bones'],
+      },
+    ],
+    preview: '/images/customers/brainy.png',
   },
 ]
+
+
+const selectedGroupId = ref('metabiotics')
+const selectedGroup = computed(() =>
+  productGroups.find((g) => g.id === selectedGroupId.value)
+)
+const currentSlide = ref(0)
 </script>
 
 <template>
   <section class="relative w-full overflow-hidden">
-    <h2 class="text-slider font-medium mb-8">
-      Покупателям
+    <h2 v-if="!hideTitle" class="text-slider font-medium mb-8">Покупателям
     </h2>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      <UiCard
-        v-if="categories[0]?.isMetabiotic"
-        :card="{
-          title: categories[0].title,
-          text: categories[0].text,
-          imageSrc: categories[0].image,
-          lazy: categories[0].lazy,
-          styles: categories[0].styles,
-          showArrow: true,
-          tags: [
-            { label: 'Зубы и десны', color: 'bg-[#B7F2FF]' },
-            { label: 'Кости и мышцы', color: 'bg-[#B7FFBA]' },
-            { label: 'Нервная система и мозг', color: 'bg-[#FFD9E3]' },
-            { label: 'Кожа и волосы', color: 'bg-[#BDEBFF]' },
-            { label: 'Кишечник и иммунитет', color: 'bg-[#FFF48B]' },
-          ]
-        }"
-        class="w-full"
-      />
-
-      <div class="grid grid-cols-2 gap-6">
-        <NuxtLink
-          v-for="category in categories.slice(1)"
-          :key="category.id"
-          :to="`/catalog?category=${category.slug}`"
-          class="relative h-[207px] overflow-hidden group bg-hoverbtn rounded-2.5xl flex flex-col justify-between items-start transition-transform duration-300 hover:-translate-y-1 hover:no-underline"
+    <div class="flex flex-row gap-6">
+      <div class="w-4/6 rounded-3xl relative overflow-hidden">
+        <Transition name="fade" mode="out-in">
+        <Swiper
+          v-if="selectedGroup"
+          :key="selectedGroup.id"
+          :slides-per-view="1"
+          :loop="false"
+          @slideChange="({ realIndex }) => currentSlide = realIndex"
         >
-          <UiCard  
-            :card="{
-              title: category.title,
-              imageSrc: category.image,
-              lazy: category.lazy,
-              styles: category.styles,
-              showArrow: false
+          <SwiperSlide
+            v-for="(slide, index) in selectedGroup.slides"
+            :key="index"
+          >
+            <div class="relative p-6 transition bg-hoverbtn h-[446px] rounded-[30px] md:py-5 md:px-12">
+              <div v-if="slide.tags?.length" class="flex flex-wrap gap-3 mb-4 w-4/6">
+                <span
+                  v-for="(tag, i) in slide.tags"
+                  :key="tag"
+                  class="text-lg px-4 py-1 rounded-md"
+                  :class="slide.tags.length === 1 ? 'bg-[#B5EBFF]' : ['bg-[#FFF279]', 'bg-[#B7FFBA]', 'bg-[#FFCDDD]'][i % 3]"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+
+              <div class="flex justify-between items-start">
+                <div>
+                  <h3 class="text-[clamp(1.4rem,6vw,2.8rem)] font-medium leading-tight mt-6 mb-4">
+                    {{ selectedGroup?.label }}
+                  </h3>
+                  <p
+                    class="text-base font-normal"
+                    :class="selectedGroup?.id === 'peptidy' ? 'w-3/6' : 'w-3/5'"
+                  >
+                    {{ slide.text }}
+                  </p>
+
+                  <NuxtLink
+                    :to="`/catalog?category=${slide.slugs.join(',')}`"
+                    class="mt-6 inline-block px-4 py-2 text-white bg-blue-500 rounded-full hover:bg-blue-600 transition"
+                  >
+                    Подробнее
+                  </NuxtLink>
+                </div>
+
+                <img
+                  :src="slide.image"
+                  :alt="selectedGroup?.label"
+                  class="absolute bottom-0 right-0"
+                  :class="slide.imageWidth"
+                  loading="lazy"
+                />
+
+              </div>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+        </Transition>
+
+        <div class="flex gap-2 absolute bottom-6 left-12 z-20">
+          <div
+            v-for="(_, i) in selectedGroup?.slides.length"
+            :key="i"
+            class="h-[3px] w-16 rounded-full transition-colors"
+            :style="{
+              backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A'
             }"
           />
-        </NuxtLink>
+        </div>
+
+      </div>
+
+      <div class="w-2/6 grid grid-cols-1 gap-6">
+        <button
+          v-for="group in productGroups.filter(g => g.id !== selectedGroupId)"
+          :key="group.id"
+          @click="selectedGroupId = group.id; currentSlide = 0"
+          class="relative h-[207px] overflow-hidden bg-hoverbtn rounded-2.5xl flex flex-col justify-between items-start transition-transform duration-300 hover:-translate-y-1 w-full text-left"
+        >
+          <div class="p-4 relative z-10">
+            <h3 class="text-xl w-4/6">{{ group.title }}</h3>
+          </div>
+          <img
+            :src="group.preview"
+            alt="preview"
+            class="absolute bottom-0 right-0 w-[56%]"
+            loading="lazy"
+          />
+        </button>
       </div>
     </div>
   </section>
 </template>
 
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+</style>

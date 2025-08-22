@@ -6,13 +6,15 @@ export default defineEventHandler((): Story[] => {
       id: 1,
       title: "Акция 2+1",
       thumbnail: "http://localhost:3000/images/mock/stories/ellipse1.jpeg",
-      slides: ["http://localhost:3000/images/mock/stories/story.png", "http:/localhost:3000//images/mock/stories/story2.png"]
+      slides: ["http://localhost:3000/images/mock/stories/story.png", "http:/localhost:3000//images/mock/stories/story2.png"],
+      productIds: [1, 15]
     },
     {
       id: 2,
       title: "Tamotsu",
       thumbnail: "http://localhost:3000/images/mock/stories/ellipse2.jpeg",
-      slides: ["http://localhost:3000/images/mock/stories/story2.png"]
+      slides: ["http://localhost:3000/images/mock/stories/story2.png"],
+      productIds: [1, 15]
     },
     {
       id: 3,

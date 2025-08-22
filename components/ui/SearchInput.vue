@@ -151,12 +151,12 @@ const promosFiltered = computed(() => {
 
 
 <template>
-  <div class="relative w-[416px]">
+  <div class="relative w-full">
     <input
       v-model="searchQuery"
       :placeholder="placeholder"
       type="text"
-      class="w-full h-order rounded-md bg-hoverbtn ps-14 pe-6 py-2 transition border-none focus:ring-1 focus:ring-primary focus:outline-none"
+      class="w-full h-order rounded-lg bg-hoverbtn ps-14 pe-6 py-2 transition border-none focus:ring-1 focus:ring-primary focus:outline-none"
       @focus="showDropdown = true"
       @blur="hideDropdown"
     />
@@ -177,7 +177,7 @@ const promosFiltered = computed(() => {
 
     <div
       v-if="dropdownEnabled && showDropdown"
-      class="absolute z-50 top-full left-0 w-full mt-1 rounded-md border bg-white shadow-lg pb-2"
+      class="absolute z-50 top-full left-0 w-full mt-1 rounded-lg border bg-white shadow-lg pb-2"
     >
       <div class="p-3 space-y-4 text-sm text-gray-700">
         <div>

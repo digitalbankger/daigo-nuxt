@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useContentStore } from '~/store/contentStore'
+import { useContentStore } from '~/stores/contentStore'
 
 const content = useContentStore()
 
@@ -30,10 +30,10 @@ const content = useContentStore()
                 Идеальный подарок для заботы о здоровье и красоте, получатель сможет сам выбрать, что он хочет.
             </p>
             <NuxtLink
-              :to="'/articles'"
-              class="inline-flex justify-center items-center gap-2 py-3 px-5 text-white text-xl font-normal transition duration-300 rounded-lg tracking-wide w-72 bg-primary hover:text-white"
+              :to="'/akcii'"
+              class="inline-flex justify-center items-center gap-2 py-3 px-5 text-white text-xl font-normal transition duration-300 rounded-lg tracking-wide w-72 bg-primary hover:bg-primary/80 hover:text-white"
             >
-              Перейти к статьям
+              Купить сертификат
             </NuxtLink>
         </div>
 

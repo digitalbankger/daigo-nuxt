@@ -14,7 +14,7 @@ const categories: Category[] = [
   { id: 3, title: 'Зубы и десны', image: '/images/categories/zuby.png', slug: 'zuby-i-desna' },
   { id: 4, title: 'Кости и мышцы', image: '/images/categories/kosti.png', slug: 'kosti-i-myshtsy' },
   { id: 5, title: 'Нервная система и мозг', image: '/images/categories/brain.png', slug: 'mozg-i-nervnaya-sistema' },
-  { id: 6, image: '/images/categories/promo.png', isPromo: true },
+  { id: 6, image: '/images/categories/akcii.png', isPromo: true },
 ]
 </script>
 
@@ -24,38 +24,44 @@ const categories: Category[] = [
       Выбор продуктов по направлениям
     </h2>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       <template v-for="category in categories" :key="category.id">
         <div
           v-if="category.isPromo"
-          class="col-span-1 sm:col-span-2 lg:col-span-1 xl:col-span-2 bg-cover bg-bottom rounded-2.5xl px-6 py-7 flex flex-col gap-3 justify-center relative overflow-hidden"
-          :style="{ backgroundImage: `url(${category.image})`}"
+          class="col-span-2 sm:col-span-2 lg:col-span-1 xl:col-span-2 
+             bg-cover bg-bottom rounded-2.5xl px-6 py-7 flex flex-row gap-3 relative overflow-hidden bg-cpinklight"
         >
-          <h3 class="text-xl sm:text-[46px] font-medium text-black mb-2">
-            Акция <span class="text-[#FF64E7]">WELCOME10</span>
-          </h3>
-          <p class="text-base sm:text-2xl text-gray-800 mb-4 leading-snug">
-            Скидка <span class="text-[#FF00B8] font-medium">10%</span> на первый заказ<br />
-            по промокоду <span class="font-medium">WELCOME10</span>
-          </p>
-          <NuxtLink
-            to="/"
-            class="text-[#FF64E7] inline-flex items-center gap-2 text-2xl font-normal transition duration-300 group"
-          >
-            Применить промокод
-            <img
-              src="/icons/arrow-pink.svg"
-              alt="→"
-              class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
-            />
-          </NuxtLink>
+          <img src="/icons/deal.svg" class="absolute top-0 left-6 z-0"/>
 
+          <div class="relative z-10 flex flex-col gap-3 w-[55%] justify-center">
+            <h3 class="text-xl md:text-product font-medium text-black mb-2">
+              Акции <span class="text-[#FA458A]">Daigo</span>
+            </h3>
+            <p class="text-base md:text-2xl text-gray-800 my-4 leading-snug">
+              Актуальная информация<br></br>о скидках и акциях
+            </p>
+            <NuxtLink
+              to="/akcii"
+              class="text-[#FA458A] inline-flex items-center gap-2 text-2xl font-normal transition duration-300 group"
+            >
+              Перейти к акциям
+              <img
+                src="/icons/arrow-pink.svg"
+                alt="→"
+                class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
+              />
+            </NuxtLink>
+          </div>
+
+          <div class="relative z-10 w-[45%]">
+            <img src="/images/categories/akcii.png" />
+          </div>
         </div>
 
         <NuxtLink
           v-else
           :to="`/catalog?category=${category.slug}`"
-          class="relative overflow-hidden group bg-hoverbtn rounded-2.5xl px-6 py-7 flex flex-col justify-between items-start min-h-[280px] transition-transform duration-300 hover:-translate-y-1 hover:no-underline"
+          class="relative overflow-hidden group bg-hoverbtn border border-hoverbtn rounded-2.5xl px-6 py-7 flex flex-col justify-between items-start min-h-[280px] transition-transform duration-300  hover:shadow-productcard hover:no-underline"
         >
           <img
             src="/icons/arrow-up-right.svg"

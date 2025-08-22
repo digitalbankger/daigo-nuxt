@@ -16,6 +16,8 @@ export default {
         textbtnhover: '#49454F',
         iconcolor: '#49454F',
         cpink: '#ff71c7',
+        cpinklight: '#FFEBF1',
+        cgreen: '#16B819',
         border: '#11111134',
         productbg: "#F7F7F7"
       },
@@ -37,6 +39,9 @@ export default {
       },
       fontSize: {
         slider: 'clamp(36px, 8vw, 56px)',
+        product: 'clamp(30px, 8vw, 46px)',
+        head: 'clamp(56px, 8vw, 80px)',
+        cardhead: 'clamp(20px, 8vw, 32px)',
         sliderSmall: '20px',
         '2xl': '1.5rem',
         '1.5xl': '1.37rem',
@@ -55,11 +60,14 @@ export default {
         '38': '11rem',
         '66': '17rem',
         '210': '210px',
+        '1/45': '23%',
       },
       boxShadow: {
-        productcard: '0px 1px 2px 0px #3F3F3F26',
-        poductcardlg: '0px 1px 18px 0px #3F3F3F26',
+        productcard: '0px 1px 4px 0px #3F3F3F26',
+        productcardlg: '0px 1px 18px 0px #3F3F3F26',
         light: '0 1px 4px rgba(0, 0, 0, 0.06)',
+        fp: '0px 1px 6px 0px #00000014',
+        pc: '0px 1px 5px 0px #00000014',
       },
       rotate: {
         '135': '135deg',
@@ -67,7 +75,16 @@ export default {
       },
       padding: {
         '34': '34px'
-      }
+      },
+      keyframes: {
+        floatY: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-6px)' },
+        },
+      },
+      animation: {
+        float: 'floatY 4s ease-in-out infinite',
+      },
     } 
   },
   plugins: [],

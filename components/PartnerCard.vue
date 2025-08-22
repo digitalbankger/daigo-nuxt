@@ -1,15 +1,33 @@
 <template>
-  <div class="border border-[#EBEBEB] rounded-2xl p-5 bg-white h-full flex flex-col items-center justify-start">
-    <img :src="logo" :alt="name" class="mb-4 max-h-[60px] object-contain" />
-    <h3 class="text-center text-xl font-medium mb-2">{{ name }}</h3>
-    <p class="text-center text-sm">{{ description }}</p>
+  <div class="relative bg-hoverbtn rounded-3xl p-8 min-h-[430px] h-full flex flex-col justify-start items-start">
+  <img
+    v-if="partner.logo"
+    :src="partner.logo"
+    :alt="partner.name"
+    class="max-h-[92px] mb-4"
+  />
+
+  <div class="w-[100%]">
+    <h3 class="text-2xl font-medium mb-2">{{ partner.name }}</h3>
+    <p class="text-base text-black/70 mb-4">{{ partner.about }}</p>
+    <p class="border-l-2 border-black ps-4 text-base whitespace-pre-line" v-html="partner.description"></p>
   </div>
+
+  <img
+    src="/icons/arrow-up-right.svg"
+    alt="arrow"
+    class="absolute w-8 h-8 top-4 right-4"
+  />
+</div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-  logo: string
-  name: string
-  description: string
+  partner: {
+    name: string
+    about: string
+    description: string
+    logo?: string
+  }
 }>()
 </script>

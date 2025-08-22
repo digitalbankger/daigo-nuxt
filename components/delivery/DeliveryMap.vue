@@ -1,0 +1,55 @@
+<script setup lang="ts">
+</script>
+
+<template>
+  <section class="w-full py-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+      <div class="relative">
+        <div class="bg-gray-100 rounded-2xl h-[500px] relative overflow-hidden">
+          <img 
+            src="/icons/placeholder.svg?height=500&width=640"
+            alt="Карта доставки по Москве"
+            class="w-full h-full object-cover rounded-lg"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <div>
+          <h2 class="text-3xl font-medium mb-4">Москва</h2>
+          <div class="space-y-4">
+            <div class="flex items-start gap-3">
+              <div>
+                <p class="text-2xl my-2 font-normal">Большой московский регион, включая 21, столица 2</p>
+              </div>
+            </div>
+
+            <div class="text-lg flex flex-row items-center gap-2">
+              <img src="/icons/phone.svg" />
+              <span>Телефон: +7 (905) 200-40-09</span>
+            </div>
+            <div class="text-lg flex flex-row items-center gap-2">
+              <img src="/icons/bi_mailbox.svg" /> 
+              <span>Email: info@daigo.ru</span>
+            </div>
+            <div class="text-lg flex flex-row items-center gap-2">
+              <img src="/icons/clock.svg" /> 
+              <span>Часы работы: пн-пт 9:00 – 18:00</span>
+            </div>
+
+          </div>
+
+          <div class="mt-8 w-full">
+            <a 
+              href="https://yandex.ru/maps/?text=Большой%20сухаревский%20переулок%2021%20строение%202" 
+              target="_blank" 
+              class="text-primary border border-primary px-4 py-3 rounded-lg hover:bg-primary hover:text-white transition-colors w-full flex items-center justify-center">
+              Проложить маршрут
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

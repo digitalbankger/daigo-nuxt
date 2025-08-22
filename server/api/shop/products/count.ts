@@ -1,0 +1,219 @@
+import type { Product } from '~/types/product'
+
+export default defineEventHandler((event) => {
+  const query = getQuery(event)
+
+  const allProducts: Product[] = [
+    {
+      id: 1,
+      name: 'Daigo Lux',
+      subtitle: 'Для кишечника и иммунитета',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
+      price: 95700,
+      properties: {
+        'pomogaet-pri': 'allergiya',
+        'napravlennost': 'kishechnik-i-immunitet',
+        'klass-produkta': 'aminobiotiki',
+        'produkty': 'daigo-lux',
+        'dlya-kogo': 'dlya-detej-i-mam',
+        'sostav': 'peptid-khlorelly-iph-c',
+        'forma-vypuska': 'zhidkost',
+        'strana-proizvoditel': 'yaponiya'
+      }
+    },
+    {
+      id: 2,
+      name: 'Daigo Dent',
+      subtitle: 'Для зубов и дёсен',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      price: 3200,
+      properties: {
+        'pomogaet-pri': 'karies',
+        'napravlennost': 'zuby-i-desna',
+        'klass-produkta': 'metobiotiki',
+        'produkty': 'daigo-dent',
+        'dlya-kogo': 'dlya-detej-i-mam',
+        'sostav': 'vitamin-b3',
+        'forma-vypuska': 'pasta',
+        'strana-proizvoditel': 'yaponiya'
+      }
+    },
+    {
+      id: 3,
+      name: 'Daigo Brainy',
+      subtitle: 'Для мозга и памяти',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-brainy.png',
+      price: 8900,
+      properties: {
+        'pomogaet-pri': 'demenciya',
+        'napravlennost': 'mozg-i-nervnaya-sistema',
+        'klass-produkta': 'plazmalogeny',
+        'produkty': 'daigo-brainy',
+        'dlya-kogo': 'dlya-aktivnogo-dolgoletiya',
+        'sostav': 'vitamin-b14',
+        'forma-vypuska': 'kapsuly',
+        'strana-proizvoditel': 'italiya'
+      }
+    },
+    {
+      id: 4,
+      name: 'Daigo Dermic',
+      subtitle: 'Для кожи',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-dermic.png',
+      price: 16200,
+      properties: {
+        'pomogaet-pri': 'akne',
+        'napravlennost': 'kozha-i-volosy',
+        'klass-produkta': 'aminobiotiki',
+        'produkty': 'daigo-dermic',
+        'dlya-kogo': 'dlya-detej-i-mam',
+        'sostav': 'vitamin-a',
+        'forma-vypuska': 'gel-kapsuly',
+        'strana-proizvoditel': 'yaponiya'
+      }
+    },
+    {
+      id: 5,
+      name: 'Tamotsu',
+      subtitle: 'Для энергии и иммунитета',
+      image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
+      price: 67500,
+      properties: {
+        'pomogaet-pri': 'utomlyaemost',
+        'napravlennost': 'kishechnik-i-immunitet',
+        'klass-produkta': 'omega-3',
+        'produkty': 'tamotsu',
+        'dlya-kogo': 'dlya-aktivnogo-dolgoletiya',
+        'sostav': 'omega-9',
+        'forma-vypuska': 'kapsuly',
+        'strana-proizvoditel': 'italiya'
+      }
+    },
+    {
+      id: 5,
+      name: 'Daigo Dent',
+      subtitle: 'Зубы и десна',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      price: 3200,
+      properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
+    },
+    {
+      id: 6,
+      name: 'Daigo Shampoo',
+      subtitle: 'Кожа и волосы',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
+      price: 16200,
+      properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
+    },
+    {
+      id: 7,
+      name: 'Omega-3',
+      subtitle: 'Жир печени трески',
+      image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
+      price: 14000,
+      properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
+    },
+    {
+      id: 8,
+      name: 'Lactis zoo',
+      subtitle: 'Для животных',
+      image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
+      price: 6200,
+      properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
+    },
+    {
+      id: 9,
+      name: 'Daigo Emperor',
+      subtitle: 'Год здоровья в подарок',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
+      price: 1097000,
+      properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
+    },
+    {
+      id: 10,
+      name: 'Daigo Lux 2 страница',
+      subtitle: 'Для кишечника и иммунитета',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
+      price: 95700,
+      properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
+    },
+    {
+      id: 11,
+      name: 'Daigo 5 ml 2 страница',
+      subtitle: 'Для кишечника и иммунитета',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-5ml.png',
+      price: 13100,
+      properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
+    },
+    {
+      id: 12,
+      name: 'Daigo 10 ml 2 страница',
+      subtitle: 'Для кишечника и иммунитета',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-10ml.png',
+      price: 24100,
+      properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
+    },
+    {
+      id: 13,
+      name: 'Tamotsu 2 страница',
+      subtitle: 'Для мозга и нервной системы',
+      image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
+      price: 67500,
+      properties: { 'Помогает при': 'brain', 'Состав': 'peptides' }
+    },
+    {
+      id: 14,
+      name: 'Daigo Dent 2 страница',
+      subtitle: 'Зубы и десна',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      price: 3200,
+      properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
+    },
+    {
+      id: 15,
+      name: 'Daigo Shampoo 2 страница',
+      subtitle: 'Кожа и волосы',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
+      price: 16200,
+      properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
+    },
+    {
+      id: 16,
+      name: 'Omega-3 2 страница',
+      subtitle: 'Жир печени трески',
+      image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
+      price: 14000,
+      properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
+    },
+    {
+      id: 17,
+      name: 'Lactis zoo 2 страница',
+      subtitle: 'Для животных',
+      image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
+      price: 6200,
+      properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
+    },
+    {
+      id: 18,
+      name: 'Daigo Emperor 2 страница',
+      subtitle: 'Год здоровья в подарок',
+      image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
+      price: 1097000,
+      properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
+    }
+  ]
+
+  const filtered = allProducts.filter(p =>
+    Object.entries(query).every(([key, raw]) => {
+      if (key === 'page') return true
+
+      const values = typeof raw === 'string'
+        ? raw.split(',')
+        : Array.isArray(raw) ? raw.flatMap(v => v.split(',')) : []
+
+      return values.includes(p.properties[key])
+    })
+  )
+
+  return { count: filtered.length }
+})

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useContentStore } from '~/store/contentStore'
+import { useContentStore } from '~/stores/contentStore'
 
 const content = useContentStore()
 
