@@ -66,7 +66,7 @@
     </div>
   </div>
   
-  <div class="flex flex-row items-center justify-between pt-3 pb-2 gap-7 px-2 overflow-scroll md:overflow-hidden">
+  <div class="flex flex-row items-center justify-between pt-3 pb-2 gap-7 px-2 overflow-x-auto no-scrollbar scroll-touch md:overflow-hidden ">
     <div class="flex items-center gap-7 shrink-0">
       <ul class="flex items-center gap-5 md:text-xl font-normal tracking-wide text-black">
         <li class="inline-flex items-center gap-2 text-cgreen">

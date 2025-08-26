@@ -1,7 +1,7 @@
 <template>
   <div class="relative py-0">
     <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
-      <h2 class="text-slider font-medium mb-6">Награды и сертификаты</h2>
+      <h2 class="text-slider font-medium leading-tight mb-2 md:mb-6">Награды и сертификаты</h2>
       <div class="flex gap-2">
         <button class="swiper-button-prev">
           <img src="/icons/arrow-left.svg" alt="prev" class="w-full" />
@@ -47,7 +47,7 @@
         <div
           v-for="(_, i) in rewards.length"
           :key="i"
-          class="h-[3px] w-16 rounded-full transition-colors"
+          class="h-[2.5px] md:h-[3px] w-8 md:w-16 rounded-full transition-colors"
           :style="{
             backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A'
           }"

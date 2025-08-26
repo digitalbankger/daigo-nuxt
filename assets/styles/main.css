@@ -69,3 +69,26 @@ input:focus-visible {
   height: 50px !important;
   border-radius: 30px !important;
 }
+
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-touch {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 767px) {
+    .no-scrollbar-mobile {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .no-scrollbar-mobile::-webkit-scrollbar { display: none; }
+  }
+}

@@ -7,9 +7,7 @@ import InfoSection from '~/components/sections/InfoSection.vue'
 import CustomersSection from '~/components/sections/CustomersSection.vue'
 import SertificatSection from '~/components/sections/SertificatSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
-import WideSelectionSection from '~/components/sections/WideSelectionSection.vue'
 import AppSection from '~/components/sections/AppSection.vue'
-import SubscribeSection from '~/components/sections/SubscribeSection.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import MediaModal from '~/components/reviews/MediaModal.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
@@ -97,7 +95,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
     </ClientOnly>
     <!-- <WideSelectionSection /> -->
     <AppSection />
-    <SubscribeSection />
+    <!-- <SubscribeSection /> -->
   </div>
   </BaseContainer>
 

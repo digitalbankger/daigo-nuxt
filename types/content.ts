@@ -1,11 +1,15 @@
 export interface Banner {
   id: number
   image: string
+  imageDesktop?: string
+  imageMobile?: string
+  mobileHeight?: string
   title: string
   titleSize: string
   descWidth: string
   html: string
   buttonText: string
+  mobileButtonText?: string
   buttonLink: string
   tags?: BannerTag[]
 }

@@ -5,9 +5,7 @@ import { ref } from 'vue'
 import type { Swiper as SwiperInstance } from 'swiper'
 import type { Banner } from '~/types/content'
 
-defineProps<{
-  banners: Banner[]
-}>()
+defineProps<{ banners: Banner[] }>()
 
 const activeIndex = ref(0)
 const swiperRef = ref<SwiperInstance | null>(null)
@@ -15,15 +13,11 @@ const swiperRef = ref<SwiperInstance | null>(null)
 const setSwiper = (swiper: SwiperInstance) => {
   swiperRef.value = swiper
 }
-
 const goToSlide = (index: number) => {
   swiperRef.value?.slideToLoop(index)
 }
 
-/** Цвет по умолчанию, если с бэка не пришёл */
 const defaultTagColor = '#E6F4FF'
-
-/** Хелпер: есть ли теги у баннера */
 const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 </script>
 
@@ -36,22 +30,30 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
       :loop="true"
       @swiper="setSwiper"
       @slideChange="(swiper) => activeIndex = swiper.realIndex"
-      class="!pb-10 rounded-3xl"
+      class="md:!pb-10 rounded-3xl"
     >
       <SwiperSlide
         v-for="banner in banners"
         :key="banner.id"
-        class="flex flex-col md:flex-row items-center justify-between px-6 md:px-16 py-12 md:py-16 rounded-xl bg-cover bg-center text-white"
-        :style="{ backgroundImage: `url(${banner.image})`, height: '500px' }"
+        class="banner-slide flex flex-col md:flex-row items-center justify-between px-4 md:px-16 py-6 md:py-16 rounded-xl bg-cover bg-right-bottom text-white"
+        :style="{
+          // НЕ меняем твои стили: десктоп по-прежнему берет 500px и backgroundImage
+          backgroundImage: 'var(--bg-desktop)',
+          height: '500px',
+          // Новые CSS-переменные — только для media-query ниже
+          '--bg-desktop': `url(${banner.imageDesktop ?? banner.image})`,
+          '--bg-mobile':  `url(${banner.imageMobile ?? banner.image})`,
+          '--mobileHeight': banner.mobileHeight || 'clamp(420px, 78vh, 720px)',
+        }"
       >
         <div class="w-full md:max-w-[50%] lg:max-w-[60%]">
-          <div v-if="hasTags(banner)" class="mb-4 flex flex-wrap gap-4">
+          <div v-if="hasTags(banner)" class="mb-5 flex flex-wrap gap-2 md:gap-4">
             <component
               v-for="(tag, i) in banner.tags"
               :key="i"
               :is="tag.href ? 'NuxtLink' : 'span'"
               :to="tag.href"
-              class="px-3 py-2 rounded-lg text-lg text-black select-none"
+              class="px-2 md:px-3 py-2 md:py-2 rounded-lg text-xs md:text-lg text-black select-none"
               :style="{ backgroundColor: tag.color || defaultTagColor }"
               :aria-label="tag.label"
             >
@@ -61,29 +63,22 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 
           <h1
             v-if="banner.title"
-            class="font-medium leading-tight mb-4 text-[clamp(2rem,6vw,3.4rem)]"
+            class="font-medium leading-[1.2] md:leading-tight mb-4 text-[clamp(2rem,6vw,3.4rem)]"
           >
             {{ banner.title }}
           </h1>
 
           <div
             v-html="banner.html"
-            class="mb-6 text-[clamp(1rem,6vw,1.5rem)] flex flex-col gap-4 font-light max-w-[90%] sm:max-w-[80%] lg:max-w-[560px]"
+            class="mb-4 text-[clamp(0.875rem,4vw,1.5rem)] flex flex-col gap-4 font-light max-w-[90%] sm:max-w-[80%] lg:max-w-[560px]"
           />
 
           <NuxtLink
-            v-if="banner.buttonLink && banner.buttonText"
+            v-if="banner.buttonLink"
             :to="banner.buttonLink"
-            class="border-none bg-white hover:bg-gray-100 text-black w-72 justify-center rounded-lg inline-flex items-center gap-2 py-3 text-xl font-normal transition duration-300 group"
+            class="w-content border-none bg-white hover:bg-gray-100 text-black md:w-72 justify-center rounded-md md:rounded-lg inline-flex items-center gap-2 px-5 py-2 md:py-3 text-base md:text-xl font-normal transition duration-300 group"
           >
-            {{ banner.buttonText }}
-            <!-- <img
-              src="/icons/arrow.svg"
-              alt="→"
-              class="w-5 h-5 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
-              loading="lazy"
-              decoding="async"
-            /> -->
+            {{ $device.isMobile ? (banner.mobileButtonText || banner.buttonText) : banner.buttonText }}
           </NuxtLink>
         </div>
 
@@ -102,3 +97,13 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
     </Swiper>
   </section>
 </template>
+
+<style scoped>
+/* Только мобильные правки через переменные, не ломая текущие классы */
+@media (max-width: 767px) {
+  .banner-slide {
+    background-image: var(--bg-mobile) !important; /* подставляем мобильную картинку */
+    height: var(--mobileHeight) !important;        /* динамическая высота */
+  }
+}
+</style>

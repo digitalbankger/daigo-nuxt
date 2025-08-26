@@ -1,19 +1,19 @@
 <template>
-  <div class="relative h-[465px] md:px-14 md:py-12 rounded-3xl bg-hoverbtn flex flex-col md:flex-row gap-4">
-    <div class="flex flex-col justify-starttext-center md:w-1/2 md:text-left">
-      <p class="leading-tight mb-4 text-[clamp(2rem,6vw,2.8rem)]">{{ review.author }}</p>
-      <p class="leading-tight my-4 text-xl text-black/70">{{ review.author_role }}</p>
+  <div class="relative min-h-[520px] md:min-h-[465px] md:h-[465px] md:px-14 md:py-12 rounded-2xl md:rounded-3xl bg-hoverbtn flex flex-col md:flex-row gap-4">
+    <div class="flex flex-col justify-start md:w-1/2 text-left order-2 md:order-1 px-4 pb-6 md:px-0 md:py-0">
+      <p class="leading-tight mb-2 md:mb-4 text-[clamp(1.6rem,6vw,2.8rem)]">{{ review.author }}</p>
+      <p class="leading-tight mt-2 md:my-4 text-xs md:text-xl text-black/70">{{ review.author_role }}</p>
       <div class="flex flex-row gap-3 mt-3">
         <img
           src="/icons/ps-dark.svg"
           alt="→"
-          class="w-6 h-6 pt-0.5"
+          class="w-4 md:w-6 h-4 md:h-6 pt-0.5"
         />
-        <p class="text-xl">{{ review.feedback_preview }}</p>
+        <p class="text-sm md:text-xl">{{ review.feedback_preview }}</p>
         <img
           src="/icons/ps-dark.svg"
           alt="→"
-          class="w-6 h-6 pt-0.5 rotate-180 mt-auto"
+          class="w-4 md:w-6 h-4 md:h-6 pt-0.5 rotate-180 mt-auto"
         />
       </div>
       <!-- <NuxtLink
@@ -32,12 +32,12 @@
       </NuxtLink> -->
     </div>
 
-    <div class="relative w-1/2">
+    <div class="relative w-full md:w-1/2 order-1 md:order-2">
       <NuxtImg
         v-if="review.photo_urls[0]"
         :src="review.photo_urls[0]"
         alt="Фото автора"
-        class="md:w-auto md:h-full mx-auto"
+        class="md:w-auto h-[296px] md:h-full mx-auto"
         format="webp"
         sizes="(max-width: 390px)"
         loading="lazy"

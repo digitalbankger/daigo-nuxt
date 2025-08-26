@@ -26,6 +26,11 @@ export default {
         '2.5xl': '1.25em',
         '4xl': '2.5rem',
       },
+      backgroundSize: {
+        '50': '50%',
+        '80': '80%',
+        '70': '70%',
+      },
       height: {
         '50': '50px',
         'order': '54px',
@@ -38,7 +43,7 @@ export default {
         sans: ['Golos', 'sans-serif'],
       },
       fontSize: {
-        slider: 'clamp(36px, 8vw, 56px)',
+        slider: 'clamp(32px, 8vw, 56px)',
         product: 'clamp(30px, 8vw, 46px)',
         head: 'clamp(56px, 8vw, 80px)',
         cardhead: 'clamp(20px, 8vw, 32px)',
