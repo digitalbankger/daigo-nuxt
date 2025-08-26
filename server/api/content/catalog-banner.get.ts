@@ -8,7 +8,7 @@ export default defineEventHandler((): CatalogBanner => {
     text: 'Чтобы подробнее узнать о товарах от Дайго, рекомендуем ознакомиться со статьями на нашем сайте',
     buttonText: 'Перейти к статьям',
     buttonLink: '/promo',
-    imageDesktop: 'http://localhost:3000/images/mock/catalog/catalog-banner-new.png',
+    imageDesktop: 'https//nuxt.daigo.ru/images/mock/catalog/catalog-banner-new.png',
     imageTablet: '/images/mock/catalog/catalog-banner-tablet.webp',
     imageMobile: '/images/mock/catalog/catalog-banner-mobile.webp'
   }

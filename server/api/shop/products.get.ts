@@ -11,7 +11,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Lux',
       subtitle: 'Для кишечника и иммунитета',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-lux.png',
       price: 95700,
       properties: {
         'pomogaet-pri': 'allergiya',
@@ -29,7 +29,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Dent',
       subtitle: 'Для зубов и дёсен',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-dent.png',
       price: 3200,
       properties: {
         'pomogaet-pri': 'karies',
@@ -47,7 +47,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Brainy',
       subtitle: 'Для мозга и памяти',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-brainy.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-brainy.png',
       price: 8900,
       properties: {
         'pomogaet-pri': 'demenciya',
@@ -65,7 +65,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Dermic',
       subtitle: 'Для кожи',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-dermic.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-dermic.png',
       price: 16200,
       properties: {
         'pomogaet-pri': 'akne',
@@ -83,7 +83,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Tamotsu',
       subtitle: 'Для энергии и иммунитета',
-      image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/tamotsu.png',
       price: 67500,
       properties: {
         'pomogaet-pri': 'utomlyaemost',
@@ -101,7 +101,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Dent',
       subtitle: 'Зубы и десна',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-dent.png',
       price: 3200,
       properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
     },
@@ -110,7 +110,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Shampoo',
       subtitle: 'Кожа и волосы',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-shampoo.png',
       price: 16200,
       properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
     },
@@ -119,7 +119,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Omega-3',
       subtitle: 'Жир печени трески',
-      image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/omega-3.png',
       price: 14000,
       properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
     },
@@ -128,7 +128,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Lactis zoo',
       subtitle: 'Для животных',
-      image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/lactis-zoo.png',
       price: 6200,
       properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
     },
@@ -137,7 +137,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Emperor',
       subtitle: 'Год здоровья в подарок',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-emperor.png',
       price: 1097000,
       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
     },
@@ -146,7 +146,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Lux 2 страница',
       subtitle: 'Для кишечника и иммунитета',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-lux.png',
       price: 95700,
       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
     },
@@ -155,7 +155,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo 5 ml 2 страница',
       subtitle: 'Для кишечника и иммунитета',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-5ml.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-5ml.png',
       price: 13100,
       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
     },
@@ -164,7 +164,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo 10 ml 2 страница',
       subtitle: 'Для кишечника и иммунитета',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-10ml.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-10ml.png',
       price: 24100,
       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
     },
@@ -173,7 +173,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Tamotsu 2 страница',
       subtitle: 'Для мозга и нервной системы',
-      image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/tamotsu.png',
       price: 67500,
       properties: { 'Помогает при': 'brain', 'Состав': 'peptides' }
     },
@@ -182,7 +182,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Dent 2 страница',
       subtitle: 'Зубы и десна',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-dent.png',
       price: 3200,
       properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
     },
@@ -191,7 +191,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Shampoo 2 страница',
       subtitle: 'Кожа и волосы',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-shampoo.png',
       price: 16200,
       properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
     },
@@ -200,7 +200,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Omega-3 2 страница',
       subtitle: 'Жир печени трески',
-      image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/omega-3.png',
       price: 14000,
       properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
     },
@@ -209,7 +209,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Lactis zoo 2 страница',
       subtitle: 'Для животных',
-      image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/lactis-zoo.png',
       price: 6200,
       properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
     },
@@ -218,7 +218,7 @@ export default defineEventHandler((event) => {
       slug: 'daigo-lux',
       name: 'Daigo Emperor 2 страница',
       subtitle: 'Год здоровья в подарок',
-      image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
+      image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-emperor.png',
       price: 1097000,
       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
     }

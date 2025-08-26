@@ -248,22 +248,22 @@ export default defineEventHandler((event) => {
       },
       images: [
             {
-                image_url: "http://localhost:3000/images/mock/product/lux1.png",
+                image_url: "https//nuxt.daigo.ru/images/mock/product/lux1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux2.png",
+                image_url: "https//nuxt.daigo.ru/images/mock/product/lux2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux3.png",
+                image_url: "https//nuxt.daigo.ru/images/mock/product/lux3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux4.png",
+                image_url: "https//nuxt.daigo.ru/images/mock/product/lux4.png",
                 is_primary: false,
                 display_order: 0
             }

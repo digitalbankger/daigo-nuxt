@@ -26,7 +26,7 @@
 
       <div class="w-1/2 flex">
         <NuxtImg
-          src="http://localhost:3000/images/wide-selection.webp"
+          src="https//nuxt.daigo.ru/images/wide-selection.webp"
           alt="Продукты Daigo"
           format="webp"
           loading="lazy"

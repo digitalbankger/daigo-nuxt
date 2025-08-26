@@ -7,14 +7,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'printsip-dejstviya-metabiotikov',
     title: 'Принцип действия метабиотиков',
     preview: 'Как работают метабиотики и почему важен курсовой приём.',
-    image: 'http://localhost:3000/images/mock/article/gen.jpg',
+    image: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
     comments: 10,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Разбираем этапы восстановления микрофлоры и накопительный эффект.',
-    cover: 'http://localhost:3000/images/mock/article/gen.jpg',
+    cover: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Статьи', to: '/articles' },
@@ -28,7 +28,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https//nuxt.daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -57,7 +57,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https//nuxt.daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -75,7 +75,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 и популярные/рекомендованные можно получить отдельными ручками, но для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/mock/article/gen.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -85,8 +85,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { id: 1, title: 'Daigo Lux', image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'https//nuxt.daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   }
 }

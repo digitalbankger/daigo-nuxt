@@ -13,7 +13,7 @@
         :class="expanded ? 'max-h-[1000px]' : 'max-h-[100px]'"
       >
         <NuxtImg
-          src="http://localhost:3000/images/partners/partners-all.webp"
+          src="https//nuxt.daigo.ru/images/partners/partners-all.webp"
           alt="Наши партнёры"
           format="webp"
           loading="lazy"

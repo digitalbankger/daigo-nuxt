@@ -175,7 +175,7 @@ definePageMeta({
           <div class="flex lg:flex-row gap-10">
             <div class="md:w-5/12">
               <NuxtImg
-                src="http://localhost:3000/images/about/director.jpg"
+                src="https//nuxt.daigo.ru/images/about/director.jpg"
                 alt="Генеральный директор Daigo"
                 format="webp"
                 loading="lazy"
