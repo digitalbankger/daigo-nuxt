@@ -20,8 +20,8 @@ const activeIndex = ref(0)
 
 <template>
   <section class="">
-    <div class="flex flex-col md:flex-col gap-6">
-      <div class="relative flex-1 aspect-[6/5] rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
+    <div class="flex flex-col md:flex-col gap-4 md:gap-6">
+      <div class="relative flex-1 aspect-[6/5] rounded-2xl md:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
         <NuxtImg
           :src="sortedImages[activeIndex]?.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
@@ -33,18 +33,18 @@ const activeIndex = ref(0)
         />
         <div
           v-if="hasDiscount"
-          class="absolute bottom-5 left-5 bg-cgreen text-white text-2xl px-3 py-1 rounded-xl shadow flex flex-row gap-2 items-center"
+          class="absolute bottom-3 md:bottom-5 left-3 md:left-5 bg-cgreen text-white text-base md:text-2xl px-3 py-1 rounded-lg md:rounded-xl shadow flex flex-row gap-2 items-center"
         >
           <img src="/icons/fire.svg" alt="fire" />
           <span>Акция</span>
         </div>
       </div>
 
-      <div class="flex md:flex-row gap-3 overflow-x-auto md:overflow-visible">
+      <div class="flex md:flex-row gap-3 overflow-x-auto no-scrollbar scroll-touch px-1 md:px-0">
         <button
           v-for="(img, index) in sortedImages"
           :key="img.image_url"
-          class="w-32 h-32 shrink-0 border-2 rounded-xl overflow-hidden bg-hoverbtn"
+          class="w-20 md:w-32 h-20 md:h-32 shrink-0 border rounded-lg md:rounded-xl overflow-hidden bg-hoverbtn"
           :class="index === activeIndex ? 'border-primary' : 'border-transparent'"
           @click="activeIndex = index"
         >

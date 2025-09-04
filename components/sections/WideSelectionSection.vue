@@ -1,11 +1,11 @@
 <template>
-  <section class="relative w-full py-16 md:py-16">
-    <div class="flex lg:flex-row gap-10">
-      <div class="md:w-1/2">
-        <h2 class="font-medium leading-tight mb-5 text-slider">
+  <section class="relative w-full pt-6 pb-2 md:py-16">
+    <div class="flex flex-col lg:flex-row gap-10">
+      <div class="w-full md:w-1/2 order-2 md:order-1">
+        <h2 class="font-medium leading-tight mb-5 text-slider w-10/12 md:w-full">
           Ключевые свойства Дайго
         </h2>
-         <ul class="text-lg leading-relaxed space-y-4 list-disc list-outside pl-4">
+         <ul class="text-sm md:text-lg leading-relaxed space-y-4 list-disc list-outside pl-4">
           <li>
             Органический продукт: все ингредиенты проходят строгий контроль и сертификацию
           </li>
@@ -24,9 +24,9 @@
         </ul>
       </div>
 
-      <div class="w-1/2 flex">
+      <div class="w-full md:w-1/2 flex order-1 md:order-2">
         <NuxtImg
-          src="https//nuxt.daigo.ru/images/wide-selection.webp"
+          src="http://localhost:3000/images/wide-selection.webp"
           alt="Продукты Daigo"
           format="webp"
           loading="lazy"

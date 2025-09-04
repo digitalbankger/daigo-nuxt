@@ -1,16 +1,17 @@
 <template>
   <NuxtLink :to="`/catalog/${product.slug}`" custom v-slot="{ navigate }">
     <article
-      class="relative transition rounded-2xl shadow-pc cursor-pointer"
+      class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer
+             h-full flex flex-col" 
       role="link"
       tabindex="0"
       @click="navigate"
       @keydown.enter.space="navigate"
       aria-label="Открыть страницу товара"
     >
-      <!-- изображение с lazyloading -->
+      <!-- изображение -->
       <div
-        class="w-full h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-4 rounded-xl"
+        class="w-full h-[130px] md:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
         :class="{ 'h-[462px]': globalIndex === 0 || isLast }"
       >
         <NuxtImg
@@ -24,22 +25,30 @@
         />
       </div>
 
-      <div class="p-4">
+      <!-- контент -->
+      <div class="p-2 md:p-4 flex flex-col flex-1"> <!-- ВАЖНО -->
+        <!-- Заголовок: фиксируем высоту под 2 строки -->
         <h3
-          class="font-medium leading-tight mb-2 text-[clamp(1rem,6vw,1.4rem)]"
-          :class="{ 'text-[clamp(2rem,6vw,2.8rem)]': globalIndex === 0 || isLast }"
+          class="font-normal md:font-medium leading-tight mb-2
+                 text-[clamp(0.875rem,5vw,1.4rem)]
+                 line-clamp-2 min-h-[3.5rem] md:min-h-[3.2rem]"
+          :class="{ 'text-[clamp(2rem,6vw,2.8rem)] min-h-0 line-clamp-none': globalIndex === 0 || isLast }"
         >
           {{ product.name }}
         </h3>
+
+        <!-- Подзаголовок (только md+): тоже ограничим -->
         <p
-          class="text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70"
-          :class="{ 'text-[clamp(1rem,6vw,1.25rem)]': globalIndex === 0 || isLast }"
+          class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70
+                 line-clamp-2 min-h-[3rem]"
+          :class="{ 'text-[clamp(1rem,6vw,1.25rem)] min-h-0 line-clamp-none': globalIndex === 0 || isLast }"
         >
           {{ product.subtitle }}
         </p>
 
-        <div class="flex flex-col items-start gap-4">
-          <p class="font-medium leading-tight text-[clamp(1rem,6vw,1.4rem)]">
+        <!-- НИЖНИЙ БЛОК ПРИЛИПАЕТ К НИЗУ -->
+        <div class="mt-auto flex flex-col items-start gap-4"> <!-- ВАЖНО -->
+          <p class="font-medium leading-tight text-[clamp(1rem,5vw,1.4rem)]">
             {{ product.price.toLocaleString() }} ₽
           </p>
 
@@ -48,14 +57,17 @@
             v-if="quantityInCart === 0"
             type="button"
             @click.stop="addToCartHandler"
-            class="w-full flex items-center justify-center bg-primary text-white px-4 py-3 rounded-lg"
+            class="w-full h-11 md:h-12 flex items-center justify-center bg-primary text-base text-white px-2 md:px-4 rounded-lg"
           >
-            <img src="/icons/add-to-cart.svg" alt="" class="w-5 h-5 mr-2" />
+            <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2" />
             В корзину
           </button>
 
-          <!-- если товар уже есть – блок с плюс/минус -->
-          <div v-else class="flex items-center gap-2 bg-primary p-2 rounded-lg w-full justify-between">
+          <!-- если товар уже есть – блок с плюс/минус (фиксируем высоту) -->
+          <div
+            v-else
+            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full justify-between h-11 md:h-12"
+          >
             <button
               type="button"
               @click.stop="decrementHandler"

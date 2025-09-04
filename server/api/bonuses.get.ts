@@ -9,9 +9,6 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // Здесь должна быть реальная логика — запрос в Go API, БД и т.п.
-  // Сейчас стоит мок (заглушка):
-
   return [
     {
       operation_type: 'credit',

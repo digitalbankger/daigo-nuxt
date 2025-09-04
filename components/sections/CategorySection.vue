@@ -16,6 +16,11 @@ const categories: Category[] = [
   { id: 5, title: 'Нервная система и мозг', image: '/images/categories/brain.png', slug: 'mozg-i-nervnaya-sistema' },
   { id: 6, image: '/images/categories/akcii.png', isPromo: true },
 ]
+
+const linkFor = (c: Category) => {
+  if (!c.slug || c.slug === 'catalog') return '/catalog'
+  return { path: '/catalog', query: { napravlennost: c.slug } }
+}
 </script>
 
 <template>
@@ -60,7 +65,7 @@ const categories: Category[] = [
 
         <NuxtLink
           v-else
-          :to="`/catalog?category=${category.slug}`"
+          :to="linkFor(category)"
           class="relative overflow-hidden group bg-hoverbtn border border-hoverbtn rounded-xl md:rounded-2.5xl px-2.5 md:px-6 py-3 md:py-7 flex flex-col justify-between items-start min-h-[190px] md:min-h-[280px] transition-transform duration-300  hover:shadow-productcard hover:no-underline"
         >
           <img
@@ -70,10 +75,10 @@ const categories: Category[] = [
           />
 
           <h3 
-            class="text-base md:text-2xl mb-4 w-[70%] font-light md:font-normal"
+            class="text-base md:text-2xl mb-4 w-[74%] leading-tight font-light md:font-normal"
             :class="{
               'w-[86%]': category.slug === 'catalog',
-              '!w-[90%]': category.slug === 'mozg-i-nervnaya-sistema'
+              '!w-[90%] md:!w-[70%]': category.slug === 'mozg-i-nervnaya-sistema'
             }"
 
           >
@@ -84,7 +89,7 @@ const categories: Category[] = [
             :src="category.image"
             :alt="category.title"
             class="absolute bottom-0 right-0 mt-auto"
-            :class="category.slug === 'catalog' ? 'w-full' : 'w-[60%]'"
+            :class="category.slug === 'catalog' ? 'w-full' : 'w-[70%] md:w-[60%]'"
           />
           
         </NuxtLink>

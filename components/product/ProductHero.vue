@@ -7,7 +7,7 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
 </script>
 
 <template>
-  <section class="mb-10 py-10">
+  <section class="mb-2 md:mb-10 py-5 md:py-10">
     <div class="flex flex-col md:flex-row gap-8 items-start">
       <div class="w-full md:w-1/2 relative">
         <ProductGallery
@@ -20,22 +20,22 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
       <!-- Инфо -->
       <div class="w-full md:w-1/2 flex flex-col gap-4">
 
-        <h1 class="text-product font-medium leading-tight mb-2">
+        <h1 class="text-2xl md:text-product font-medium leading-tight mb-2">
           {{ product.title }}
         </h1>
 
-        <h2 class="text-xl font-medium">
+        <h2 class="text-sm md:text-xl font-medium">
           {{ product.subtitle }}
         </h2>
 
-        <p class="text-lg">
+        <p class="text-sm md:text-lg">
           {{ product.shortDescription }}
         </p>
 
-        <div class="flex gap-4 mt-4">
+        <div class="flex gap-3 md:gap-4 mt-4">
           <NuxtLink
             to="#description"
-            class="text-base bg-[#EEF4FF] rounded-xl px-4 py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-2"
+            class="text-sm md:text-base bg-[#EEF4FF] rounded-lg md:rounded-xl px-2 md:px-4 py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-1 md:gap-2"
           >
             <span>Описание товара</span>
 
@@ -45,7 +45,7 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
               viewBox="0 0 10 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4 transition-colors"
+              class="w-3 md:w-4 h-3 md:h-4 transition-colors pt-0.5 md:pt-0"
             >
               <path
                 fill="currentColor"
@@ -56,24 +56,24 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
             </svg>
           </NuxtLink>
 
-          <NuxtLink to="#reviews" class="text-base text-primary border border-primary rounded-xl px-4 py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-2">
+          <NuxtLink to="#reviews" class="text-sm md:text-base text-primary border border-primary rounded-lg md:rounded-xl px-2 md:px-4 py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 md:gap-2">
             <img src="/icons/star.svg" alt="fire" />
             <span>Отзывы</span>
-            <img src="/icons/arrow-m-primary.svg" alt="arrow" class="w-4 h-4" />
+            <img src="/icons/arrow-m-primary.svg" alt="arrow" class="w-3 md:w-4 h-3 md:h-4 pt-0.5 md:pt-0" />
           </NuxtLink>
         </div>
 
         <div class="text-2xl mt-6 font-bold flex items-center gap-4">
           <span
             v-if="hasDiscount"
-            class="text-black/40 line-through text-cardhead font-normal"
+            class="text-black/40 line-through text-base md:text-cardhead font-normal"
           >
             {{ product.oldPrice?.toLocaleString() }} ₽
           </span>
-          <span class="text-cgreen text-product font-medium">{{ product.price.toLocaleString() }} ₽</span>
+          <span class="text-cgreen text-2xl md:text-product font-medium">{{ product.price.toLocaleString() }} ₽</span>
         </div>
 
-        <div class="flex justify-between gap-6 mt-6">
+        <div class="flex flex-col md:flex-row justify-between gap-4 md:gap-6 mt-3 md:mt-6">
           <Button variant="solid" class="w-full md:w-[50%]">
             <template #icon>
               <svg class="w-5 h-5 fill-current transition-colors" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">

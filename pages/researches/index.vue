@@ -25,7 +25,7 @@ useHead({
         <h1 class="text-slider font-medium">Исследования</h1>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
         <NuxtLink
           v-for="cat in store.categories"
           :to="`/researches/${cat.slug}`"
@@ -42,7 +42,7 @@ useHead({
               height="350"
             />
           </div>
-          <h2 class="text-cardhead font-medium text-black leading-tight mb-4">
+          <h2 class="text-xl md:text-cardhead font-medium text-black leading-tight mb-4">
             {{ cat.title }}
           </h2>
           <span class="flex flex-row gap-2 items-center text-black/50">          

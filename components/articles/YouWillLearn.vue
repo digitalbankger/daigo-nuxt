@@ -69,7 +69,7 @@ function go(id: string) {
   <nav v-if="items.length" aria-label="Оглавление статьи" class="select-none">
     <button
       type="button"
-      class="w-full flex items-center justify-start gap-4 text-cardhead md:text-cardhead leading-none font-medium"
+      class="w-full flex items-center justify-start gap-4 text-xl md:text-cardhead leading-none font-medium"
       :aria-expanded="open"
       @click="open = !open"
     >
@@ -77,26 +77,26 @@ function go(id: string) {
       <img
         src="/icons/arrow-right-pag.svg"
         alt=""
-        class="w-6 h-6 transition-transform duration-200 mt-1"
+        class="w-4 md:w-6 h-4 md:h-6 transition-transform duration-200 mt-1"
         :class="open ? '-rotate-90' : 'rotate-90'"
       />
     </button>
 
     <ul
       v-show="open"
-      class="mt-8 space-y-4 list-disc pl-6"
+      class="mt-6 md:mt-8 space-y-2 md:space-y-4 list-disc pl-4 md:pl-6"
     >
       <li
         v-for="i in items"
         :key="i.id"
         :class="[
-          'marker:text-primary marker:font-semibold marker:text-2xl',
+          'marker:text-primary marker:font-semibold md:marker:text-2xl',
           i.level === 3 ? 'ml-4' : ''
         ]"
       >
         <a
           href="#"
-          class="text-xl text-primary hover:border-b hover:border-primary transition-colors duration-300"
+          class="text-sm md:text-xl text-primary hover:border-b hover:border-primary transition-colors duration-300"
           @click.prevent="go(i.id)"
         >
           {{ i.text }}

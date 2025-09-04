@@ -8,14 +8,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'proizvodstvo-daigo',
     title: 'Принцип действия метабиотиков',
     preview: 'Как работают метабиотики и почему важен курсовой приём.',
-    image: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'http://localhost:3000/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
     comments: 2,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Исследуем действие метабиотиков и накопительный эффект.',
-    cover: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
+    cover: 'http://localhost:3000/images/mock/article/gen.jpg',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Исследования', to: '/research' },
@@ -30,7 +30,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https//nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'http://localhost:3000/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -51,7 +51,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Нобору Фурукава',
         position: 'Профессор',
-        avatarUrl: 'https//nuxt.daigo.ru/images/mock/research/author.jpg',
+        avatarUrl: 'http://localhost:3000/images/mock/research/author.jpg',
         description: 'Исследует микробиоту и влияние метабиотиков.',
         social: [
           { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -69,7 +69,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https//nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'http://localhost:3000/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -81,7 +81,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https//nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'http://localhost:3000/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,

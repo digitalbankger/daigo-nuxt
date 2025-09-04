@@ -53,10 +53,29 @@ useHead({
 
 <template>
   <BaseContainer>
-    <div class="flex flex-col gap-10">
-      <h1 class="text-head leading-tight font-medium mb-8">Контакты</h1>
+    <div class="flex flex-col gap-6 md:gap-10">
+      <h1 class="text-cardhead md:text-head leading-tight font-medium mb-4 md:mb-8">Контакты</h1>
+      <div class="flex md:hidden flex-row gap-2 items-start">
+        <img
+          src="/images/daigo-office.jpg"
+          class="rounded mb-1 md:mb-3 w-1/2"
+          alt="Офис Daigo"
+        />
+        <div class="w-1/2 flex flex-col gap-1 items-start">
+          <img src="/logo.svg" alt="daigo logo" class="h-5 md:h-6" />
+          <div class="font-medium">Москва</div>
+          <div class="text-sm mb-1 md:mb-3 text-black/60">Головной офис компании Да́йго</div>
+        </div>
+      </div>
+      <a
+        href="https://yandex.ru/maps/?rtext=~55.770816,37.631017"
+        target="_blank"
+        class="w-36 text-primary text-sm mt-1 inline-block md:hidden border-b border-primary"
+      >
+        Проложить маршрут
+      </a>
+      <div class="hidden md:block relative w-full max-w-full overflow-hidden">
 
-      <div class="relative w-full max-w-full overflow-hidden">
         <img src="/images/russia-map.png" alt="Карта России" class="w-[92%] h-full" />
 
         <div
@@ -94,75 +113,75 @@ useHead({
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-start gap-32">
-        <div class="flex flex-col gap-5">
-          <div class="text-3xl font-medium mb-2">Москва</div>
-          <div class="text-xl font-medium">Большой сухаревский переулок 21 строение 2
+      <div class="flex flex-col md:flex-row justify-start gap-10 md:gap-32">
+        <div class="flex flex-col gap-4 md:gap-5">
+          <div class="text-xl md:text-3xl font-medium mb-0 md:mb-2">Москва</div>
+          <div class="text-sm md:text-xl font-normal md:font-medium">Большой сухаревский переулок 21 строение 2
           </div>
 
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/phone.svg" />
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/phone.svg" class="w-5 md:w-6"/>
             <span>Телефон: 8 800 555 20 43</span>
           </div>
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/bi_mailbox.svg" /> 
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6"/> 
             <span>Email: info@daigo.ru</span>
           </div>
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/clock.svg" /> 
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/clock.svg" class="w-5 md:w-6"/> 
             <span>Часы работы: пн-пт 9:00 – 18:00</span>
           </div>
         </div>
 
-        <div class="flex flex-col gap-5">
-          <div class="text-3xl font-medium mb-2">Санкт-Петербург</div>
-          <div class="text-xl font-medium">Гражданский проспект 26</div>
+        <div class="flex flex-col gap-4 md:gap-5">
+          <div class="text-xl md:text-3xl font-medium mb-0 md:mb-2">Санкт-Петербург</div>
+          <div class="text-sm md:text-xl font-normal md:font-medium">Гражданский проспект 26</div>
 
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/phone.svg" />
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/phone.svg" class="w-5 md:w-6" />
             <span>Телефон: +7 (905) 200-40-09</span>
           </div>
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/bi_mailbox.svg" /> 
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6" /> 
             <span>Email: info@daigo.ru</span>
           </div>
-          <div class="text-lg flex flex-row items-center gap-2">
-            <img src="/icons/clock.svg" /> 
+          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/clock.svg" class="w-5 md:w-6" /> 
             <span>Часы работы: пн-пт 9:00 – 18:00</span>
           </div>
         </div>
       </div>
 
       <div class="flex flex-col lg:flex-col gap-6 items-start mt-6">
-        <h2 class="text-slider font-medium mb-4">Головной офис в Москве</h2>
+        <h2 class="text-xl md:text-slider font-medium mb-0 md:mb-4">Головной офис в Москве</h2>
         <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
             <div class="w-full lg:w-4/6 rounded-xl overflow-hidden">
               <video
                 controls
                 preload="none"
                 poster="/images/video-cover.jpg"
-                class="w-full h-auto rounded-4xl"
+                class="w-full h-auto rounded-xl md:rounded-4xl"
               >
                 <source :src="videoUrl" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
               <div>
                 <p class="text-lg font-medium mb-2 mt-4">Мы в социальных сетях</p>
-                <div class="flex gap-6">
+                <div class="flex gap-4 md:gap-6">
                   <a href="https://ya.ru" target="_blank" rel="noopener">
-                    <img src="/icons/social/dzen.svg" alt="Дзен" class="w-8 h-8" loading="lazy" />
+                    <img src="/icons/social/dzen.svg" alt="Дзен" class="w-6 md:w-8" loading="lazy" />
                   </a>
                   <a href="https://vk.com" target="_blank" rel="noopener">
-                    <img src="/icons/social/vk.svg" alt="VK" class="w-8 h-8" loading="lazy" />
+                    <img src="/icons/social/vk.svg" alt="VK" class="w-6 md:w-8" loading="lazy" />
                   </a>
                   <a href="https://t.me" target="_blank" rel="noopener">
-                    <img src="/icons/social/telegram.svg" alt="Telegram" class="w-8 h-8" loading="lazy" />
+                    <img src="/icons/social/telegram.svg" alt="Telegram" class="w-6 md:w-8" loading="lazy" />
                   </a>
                   <a href="https://youtube.com" target="_blank" rel="noopener">
-                    <img src="/icons/social/youtube.svg" alt="YouTube" class="w-8 h-8" loading="lazy" />
+                    <img src="/icons/social/youtube.svg" alt="YouTube" class="w-6 md:w-8" loading="lazy" />
                   </a>
                   <a href="https://daigo.store" target="_blank" rel="noopener">
-                    <img src="/icons/social/yam.svg" alt="Daigo" class="w-8 h-8" loading="lazy" />
+                    <img src="/icons/social/yam.svg" alt="Daigo" class="w-6 md:w-8" loading="lazy" />
                   </a>
                 </div>
               </div>
@@ -170,7 +189,7 @@ useHead({
 
             <div class="w-full lg:w-2/6 flex flex-col gap-4">
               <form class="flex flex-col gap-4">
-                <h2 class="text-3xl font-medium">Напишите нам</h2>
+                <h2 class="text-xl md:text-3xl font-medium mt-2 md:mt-0">Напишите нам</h2>
                 <input type="text" placeholder="ФИО" class="border rounded-lg p-2" />
                 <input type="tel" placeholder="+7 (___) ___-__-__" class="border rounded-lg p-2" />
                 <textarea placeholder="Сообщение" rows="5" class="border rounded-lg p-2"></textarea>
@@ -187,6 +206,18 @@ useHead({
             </div>
         </div>
       </div>
+
+      <div class="text-xl md:text-3xl font-medium mb-0 md:mt-4 md:-mb-6">Реквизиты</div>
+      <ul class="text-sm md:text-xl flex flex-col gap-3 md:gap-2">
+        <li class=""> Федоров Дмитрий Вячеславович;</li>
+        <li class="">127051, г. Москва, вн. тер. г. муниципальный округ Мещанский, пер. Большой Сухаревский,  д. 21, стр. 2;</li>
+        <li class="">ИНН: 9718234724;</li>
+        <li class="">ОГРН: 1237700627988 от 21.09.2023;</li>
+        <li class="">Расчетный счет: 40702 810 8027 8000 6158 в АО "АЛЬФА-БАНК";</li>
+        <li class="">БИК 044525593;</li>
+        <li class="">Корр. счет: 30101 810 2000 0000 0593;</li>
+        <li class="">ОКПО: 94076386;</li>
+      </ul>
     </div>
   </BaseContainer>
 </template>

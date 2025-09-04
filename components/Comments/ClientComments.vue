@@ -67,8 +67,8 @@ const count = computed(() => comments.value.length)
   <section>
     <!-- Заголовок -->
     <div class="flex items-baseline gap-3">
-      <h3 class="text-slider font-medium">Комментарии</h3>
-      <span class="text-product text-black/50">{{ count }}</span>
+      <h3 class="text-xl md:text-slider font-medium">Комментарии</h3>
+      <span class="text-xl md:text-product text-black/50">{{ count }}</span>
     </div>
 
     <!-- Форма -->
@@ -125,8 +125,8 @@ const count = computed(() => comments.value.length)
           decoding="async"
         /> -->
         <div class="min-w-0">
-          <p class="font-medium text-lg">{{ c.author.name }}</p>
-          <p class="mt-2 text-lg leading-relaxed">
+          <p class="font-medium text-base md:text-lg">{{ c.author.name }}</p>
+          <p class="mt-2 text-sm md:text-lg leading-relaxed">
             {{ c.message }}
           </p>
           <div class="mt-2 flex items-center gap-4 text-xs text-black/50">

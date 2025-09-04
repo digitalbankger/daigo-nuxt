@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-4 md:gap-8">
         <div class="w-full md:w-3/4">
           <div class="grid grid-cols-1 md:grid-cols-3 py-8 space-y-6">
             <div>

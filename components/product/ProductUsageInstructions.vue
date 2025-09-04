@@ -1,7 +1,7 @@
 <template>
   <section class="space-y-8">
     <!-- Заголовок -->
-    <h2 class="text-product font-medium">Инструкция по применению</h2>
+    <h2 class="text-product leading-tight font-medium">Инструкция <br class="block md:hidden" /> по применению</h2>
 
     <!-- Содержимое -->
     <div class="flex flex-col md:flex-row gap-6 items-start">
@@ -22,14 +22,14 @@
             :key="group.title"
             class="space-y-2"
           >
-            <h3 class="font-medium text-cardhead mb-5">{{ group.title }}</h3>
+            <h3 class="font-medium text-xl md:text-cardhead mb-5">{{ group.title }}</h3>
             <ul class="space-y-3">
               <li
                 v-for="(step, i) in group.steps"
                 :key="i"
-                class="flex items-start gap-2 text-lg"
+                class="flex items-start gap-2 text-sm md:text-lg"
               >
-                <img v-if="step.icon" :src="step.icon" alt="" class="w-6 h-6" />
+                <img v-if="step.icon" :src="step.icon" alt="" class="w-5 md:w-6 h-5 md:h-6" />
                 <span>{{ step.text }}</span>
               </li>
             </ul>
@@ -52,9 +52,9 @@
 
     <!-- Видео -->
     <div v-if="data.videoUrl" class="mt-6">
-      <h3 class="text-product font-medium mb-8">Видео инструкция по применению</h3>
+      <h3 class="text-xl md:text-product leading-tight font-medium mb-4 md:mb-8">Видео инструкция <br class="block md:hidden" />по применению</h3>
       <div
-        class="relative w-full h-[610px] aspect-video rounded-3xl overflow-hidden bg-hoverbtn cursor-pointer"
+        class="relative w-full h-[210px] md:h-[610px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-hoverbtn cursor-pointer"
         @click="showVideo = true"
       >
         <img
@@ -69,7 +69,7 @@
         </div> -->
       </div>
 
-      <div class="mt-8 space-y-4 text-2xl" v-html="data.text" ></div>
+      <div class="mt-8 space-y-4 text-sm md:text-2xl" v-html="data.text" ></div>
 
       <MediaModal
         :show="showVideo"

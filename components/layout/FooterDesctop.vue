@@ -29,7 +29,7 @@
         </div>
       </div>
 
-      <div class="flex flex-row justify-between items-start gap-8">
+      <div class="flex flex-row justify-between items-start gap-4 md:gap-8">
         <div class="md:w-3/4">
           <div class="grid grid-cols-1 md:grid-cols-3 py-8">
             <div>
@@ -97,7 +97,7 @@
           <p class="text-[6px]">С 1905 г. заботимся о вашем здоровье</p>
         </div>
 
-        <div class="flex gap-5 mt-1">
+        <div class="flex gap-3 md:gap-5 mt-1">
           <a href="https://ya.ru" target="_blank" rel="noopener">
             <img src="/icons/social/dzen.svg" alt="Дзен" class="w-6 h-6" loading="lazy" />
           </a>
@@ -116,7 +116,7 @@
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+      <div class="flex flex-col md:flex-row justify-between items-start gap-4 md:gap-8">
         <div class="w-full md:w-3/4">
           <div class="grid grid-cols-1 md:grid-cols-3 pt-8 pb-2 space-y-6">
             <div>

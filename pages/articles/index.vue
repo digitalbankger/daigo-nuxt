@@ -125,32 +125,37 @@ useHead(() => {
         </div>
       </Transition>
 
-      <div class="hidden md:flex flex-wrap gap-4 mb-6">
+      <div class="flex items-center gap-4 mb-6">
+        <!-- Кнопка фильтра -->
         <div
-          class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer"
+          class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
           @click="openFilters"
           aria-label="Открыть фильтры"
         >
           <img src="/icons/filter.svg" width="20" alt="Фильтр" />
         </div>
-        <button
-          v-for="tag in [
-            { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
-            { label: 'Нервная система и мозг', value: 'mozg-i-nervnaya-sistema' },
-            { label: 'Кожа и волосы', value: 'kozha-i-volosy' }
-          ]"
-          :key="tag.value"
-          class="px-4 py-2 rounded-md"
-          :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
-          @click="router.push({ query: { ...route.query, napravlennost: tag.value, page: '1' } })"
-          type="button"
-        >
-          {{ tag.label }}
-        </button>
+
+        <!-- Теги со скроллом -->
+        <div class="flex overflow-x-auto gap-4 no-scrollbar">
+          <button
+            v-for="tag in [
+              { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
+              { label: 'Нервная система и мозг', value: 'mozg-i-nervnaya-sistema' },
+              { label: 'Кожа и волосы', value: 'kozha-i-volosy' }
+            ]"
+            :key="tag.value"
+            class="flex-shrink-0 px-4 py-2 rounded-md"
+            :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
+            @click="router.push({ query: { ...route.query, napravlennost: tag.value, page: '1' } })"
+            type="button"
+          >
+            {{ tag.label }}
+          </button>
+        </div>
       </div>
 
       <div v-if="(articlesStore.articles ?? articlesStore.list).length > 0">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
           <ArticleCard
             v-for="article in (articlesStore.articles ?? articlesStore.list)"
             :key="article.slug"

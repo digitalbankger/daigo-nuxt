@@ -28,10 +28,14 @@ const form = cartStore.userForm
 const coupon = ref('')
 
 // ошибки
-const errors = reactive<{ fullName: string; phone: string; city: string }>({
+const errors = reactive<{ 
+  fullName: string; 
+  phone: string; 
+  //city: string 
+}>({
   fullName: '',
   phone: '',
-  city: '',
+  //city: '',
 })
 
 // ссылки на компоненты инпутов (экспонируют focus())
@@ -39,7 +43,7 @@ type Focusable = { focus: () => void } | null
 const inputRefs = {
   fullName: ref<Focusable>(null),
   phone: ref<Focusable>(null),
-  city: ref<Focusable>(null),
+  //city: ref<Focusable>(null),
 }
 
 // суммы
@@ -63,7 +67,11 @@ const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity
 const enableCta = computed(() => {
   if (props.mode === 'checkout') return true
   if (authStore.isAuthenticated) return true
-  return Boolean(form.fullName.trim() && form.phone.trim() && form.city.trim())
+  return Boolean(
+    form.fullName.trim() && 
+    form.phone.trim() 
+    //form.city.trim()
+  )
 })
 
 async function handleCta() {
@@ -71,20 +79,24 @@ async function handleCta() {
     // валидация
     errors.fullName = form.fullName.trim() ? '' : 'Введите ФИО'
     errors.phone    = form.phone.trim() ? '' : 'Введите телефон'
-    errors.city     = form.city.trim() ? '' : 'Введите город'
+    //errors.city     = form.city.trim() ? '' : 'Введите город'
 
     if (errors.fullName || errors.phone || errors.city) {
       await nextTick()
       if (errors.fullName) return inputRefs.fullName.value?.focus()
       if (errors.phone)    return inputRefs.phone.value?.focus()
-      if (errors.city)     return inputRefs.city.value?.focus()
+      //if (errors.city)     return inputRefs.city.value?.focus()
       return
     }
 
     // регистрация гостя
     const { data } = await useFetch('/api/users/create', {
       method: 'POST',
-      body: { fullName: form.fullName, phone: form.phone, city: form.city },
+      body: { 
+        fullName: form.fullName, 
+        phone: form.phone, 
+        //city: form.city 
+      },
     })
     if (!data.value?.success) {
       alert(data.value?.message || 'Не удалось создать пользователя')
@@ -94,7 +106,7 @@ async function handleCta() {
       id: data.value.userId || null,
       fullName: form.fullName,
       phone: form.phone,
-      city: form.city,
+      //city: form.city,
     })
   }
   navigateTo('/order')
@@ -126,12 +138,12 @@ async function applyCoupon() {
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-productcard p-6 w-full md:w-[416px] flex flex-col gap-4">
+  <div class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
     <!-- Форма для гостя. Показываем только в режиме корзины и только если пользователь
          не авторизован. На странице оформления заказа (mode='checkout') эта форма
          находится отдельно, поэтому здесь она скрыта. -->
     <div v-if="props.mode !== 'checkout' && !authStore.isAuthenticated" class="space-y-4">
-      <div class="flex flex-row gap-4">
+      <div class="flex flex-col md:flex-row gap-4">
         <UiInput
           ref="inputRefs.fullName"
           v-model="form.fullName"
@@ -159,22 +171,9 @@ async function applyCoupon() {
         />
       </div>
 
-      <UiInput
-        ref="inputRefs.city"
-        v-model="form.city"
-        name="city"
-        autocomplete="address-level2"
-        placeholder="Город"
-        type="text"
-        :maxlength="80"
-        :error="errors.city"
-        background="bg-white"
-        @blur="errors.city = form.city.trim() ? '' : 'Введите город'"
-      />
-
       <Button
         variant="solid"
-        class="w-full bg- hover:bg-hoverbtn hover:text-black text-white py-3 rounded-lg transition"
+        class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
         @click="onClickCta"
       >
         Перейти к оформлению
@@ -182,8 +181,8 @@ async function applyCoupon() {
     </div>
 
     <!-- Детали заказа -->
-    <div class="space-y-4 text-base">
-      <h3 class="text-cardhead font-medium mb-8 mt-4">Детали заказа</h3>
+    <div class="space-y-3 md:space-y-4 text-sm md:text-base">
+      <h3 class="text-2xl md:text-cardhead font-medium mb-6 md:mb-8 mt-4">Детали заказа</h3>
 
       <div class="flex justify-between">
         <span>Товаров в корзине</span>
@@ -207,7 +206,7 @@ async function applyCoupon() {
 
       <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
         <span>Бонусов к начислению</span>
-        <span class="text-lg font-medium">100</span>
+        <span class="text-base md:text-lg font-medium">100</span>
       </div>
 
       <div class="flex justify-between font-medium text-xl">
@@ -218,7 +217,7 @@ async function applyCoupon() {
 
     <!-- Промокод. Показывается только в режиме корзины. На странице оформления
          промокод добавляется на предыдущем шаге -->
-    <div v-if="props.mode !== 'checkout'" class="flex flex-row space-x-3">
+    <div v-if="props.mode !== 'checkout'" class="flex flex-row space-x-2 md:space-x-3">
       <UiInput
         v-model="coupon"
         name="coupon"

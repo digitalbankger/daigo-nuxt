@@ -1,20 +1,22 @@
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Autoplay } from 'swiper/modules'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import type { Swiper as SwiperInstance } from 'swiper'
 import type { Banner } from '~/types/content'
 
-defineProps<{ banners: Banner[] }>()
+const props = defineProps<{ banners: Banner[] }>()
 
 const activeIndex = ref(0)
 const swiperRef = ref<SwiperInstance | null>(null)
 
-const setSwiper = (swiper: SwiperInstance) => {
-  swiperRef.value = swiper
-}
+const setSwiper = (swiper: SwiperInstance) => { swiperRef.value = swiper }
+const hasMultiple = computed(() => Array.isArray(props.banners) && props.banners.length > 1)
+
 const goToSlide = (index: number) => {
-  swiperRef.value?.slideToLoop(index)
+  if (!swiperRef.value) return
+  if (hasMultiple.value) swiperRef.value.slideToLoop(index)
+  else swiperRef.value.slideTo(index)
 }
 
 const defaultTagColor = '#E6F4FF'
@@ -25,22 +27,21 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
   <section v-if="Array.isArray(banners) && banners.length" class="relative w-full overflow-hidden">
     <Swiper
       :modules="[Autoplay]"
-      :autoplay="{ delay: 10000 }"
+      :autoplay="hasMultiple ? { delay: 10000 } : false"
       :space-between="20"
-      :loop="true"
+      :loop="hasMultiple"
+      :allow-touch-move="hasMultiple"
       @swiper="setSwiper"
       @slideChange="(swiper) => activeIndex = swiper.realIndex"
-      class="md:!pb-10 rounded-3xl"
+      class="rounded-3xl"
     >
       <SwiperSlide
         v-for="banner in banners"
         :key="banner.id"
         class="banner-slide flex flex-col md:flex-row items-center justify-between px-4 md:px-16 py-6 md:py-16 rounded-xl bg-cover bg-right-bottom text-white"
         :style="{
-          // НЕ меняем твои стили: десктоп по-прежнему берет 500px и backgroundImage
           backgroundImage: 'var(--bg-desktop)',
           height: '500px',
-          // Новые CSS-переменные — только для media-query ниже
           '--bg-desktop': `url(${banner.imageDesktop ?? banner.image})`,
           '--bg-mobile':  `url(${banner.imageMobile ?? banner.image})`,
           '--mobileHeight': banner.mobileHeight || 'clamp(420px, 78vh, 720px)',
@@ -78,15 +79,15 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
             :to="banner.buttonLink"
             class="w-content border-none bg-white hover:bg-gray-100 text-black md:w-72 justify-center rounded-md md:rounded-lg inline-flex items-center gap-2 px-5 py-2 md:py-3 text-base md:text-xl font-normal transition duration-300 group"
           >
-            {{ $device.isMobile ? (banner.mobileButtonText || banner.buttonText) : banner.buttonText }}
+            {{ $device?.isMobile ? (banner.mobileButtonText || banner.buttonText) : banner.buttonText }}
           </NuxtLink>
         </div>
 
-        <!-- Точки-пагинация -->
-        <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-10">
+        <!-- Точки показываем только если баннеров > 1 -->
+        <div v-if="hasMultiple" class="absolute bottom-5 left-0 right-0 flex justify-center gap-2 z-10">
           <button
-            v-for="(_, i) in banners.length"
-            :key="i"
+            v-for="(b, i) in banners"
+            :key="b.id ?? i"
             @click="goToSlide(i)"
             class="w-2 h-2 rounded-full transition-all duration-300"
             :class="[ i === activeIndex ? 'bg-white scale-110' : 'bg-white/40' ]"
@@ -99,11 +100,10 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 </template>
 
 <style scoped>
-/* Только мобильные правки через переменные, не ломая текущие классы */
 @media (max-width: 767px) {
   .banner-slide {
-    background-image: var(--bg-mobile) !important; /* подставляем мобильную картинку */
-    height: var(--mobileHeight) !important;        /* динамическая высота */
+    background-image: var(--bg-mobile) !important;
+    height: var(--mobileHeight) !important;
   }
 }
 </style>

@@ -40,7 +40,7 @@ const bottomCard = {
   lazy: true,
   styles: {
     card: 'bg-hoverbtn rounded-xl h-[207px] md:h-[294px] !p-4 md:!p-6',
-    title: 'text-base md:text-2xl w-[80%] md:w-[70%]',
+    title: 'text-base md:text-2xl w-[80%] md:w-[70%] leading-tight',
     image: 'w-auto h-full object-cover absolute bottom-0 right-0',
   },
 }

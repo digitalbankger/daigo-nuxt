@@ -68,6 +68,12 @@ function togglePlay() {
   wavesurfer.value?.playPause()
 }
 
+function productLink(p: any) {
+  if (p?.slug) return `/catalog/${p.slug}`
+  if (p?.id)   return `/product/${p.id}`
+  return '/catalog'
+}
+
 onMounted(() => {
   if (props.review.type === 'audio') initWaveSurfer()
 })
@@ -88,17 +94,17 @@ onUnmounted(() => {
     <template v-if="review.type === 'celebrity'">
       <div
         @click="emit('open-story')"
-        class="h-[230px] relative cursor-pointer rounded-xl overflow-hidden transition hover:-translate-y-2 bg-white"
+        class="h-[210px] md:h-[230px] relative cursor-pointer rounded-xl overflow-hidden transition hover:-translate-y-2 bg-white"
       >
-        <NuxtImg :src="review.preview" format="webp" class="w-full h-[230px] object-cover" />
+        <NuxtImg :src="review.preview" format="webp" class="w-full h-[210px] md:h-[230px] object-cover" />
 
-        <div class="absolute top-2 left-1 flex items-center gap-2 text-white rounded-full px-2 py-1 text-xs">
-          <div class="gradient-border rounded-full p-[1px]">
+        <div class="absolute top-2 left-1 flex items-center gap-1 md:gap-2 text-white rounded-full px-1 md:px-2 py-1 text-[10px] md:text-xs">
+          <div class="gradient-border rounded-full p-[1px] w-5 md:w-8 h-5 md:h-8">
             <NuxtImg
               v-if="review.photo_urls"
               :src="review.avatar || review.photo_urls[0]"
               format="webp"
-              class="w-8 h-8 rounded-full object-cover bg-hoverbtn p-1"
+              class="w-5 md:w-8 h-5 md:h-8 rounded-full object-cover bg-hoverbtn p-1"
             />
           </div>
           <span>{{ review.author }}</span>
@@ -120,16 +126,24 @@ onUnmounted(() => {
           <div class="absolute top-3 left-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">
             Видео
           </div>
-          <div v-if="relatedProducts.length" class="absolute bottom-3 left-3 mt-4 flex flex-col w-fit flex-wrap gap-2">
-            <div
+          <div
+            v-if="relatedProducts.length"
+            class="absolute bottom-3 left-3 mt-4 flex flex-col w-fit flex-wrap gap-2"
+          >
+            <NuxtLink
               v-for="product in relatedProducts"
               :key="product.id"
-              class="flex items-center gap-2 bg-[#EEF4FF] text-primary rounded px-2 py-1"
+              :to="productLink(product)"
+              prefetch
+              @click.stop
+              class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
+              :aria-label="`Перейти к товару ${product.name}`"
             >
               <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
               <span class="text-sm">{{ product.name }}</span>
-            </div>
+            </NuxtLink>
           </div>
+
           <div class="absolute bottom-3 right-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">
             {{ review.duration || '00:00' }}
           </div>
@@ -149,15 +163,21 @@ onUnmounted(() => {
           <NuxtImg v-if="review.photo_urls" :src="review.preview || review.photo_urls[0]" format="webp" class="w-full h-[335px] object-cover" />
           <div class="absolute top-3 left-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">Аудио</div>
 
-          <div v-if="relatedProducts.length" class="absolute bottom-3 left-3 mt-4 flex flex-col w-fit flex-wrap gap-2">
-            <div
+          <div
+            v-if="relatedProducts.length"
+            class="absolute bottom-3 left-3 mt-4 flex flex-col w-fit flex-wrap gap-2"
+          >
+            <NuxtLink
               v-for="product in relatedProducts"
               :key="product.id"
-              class="flex items-center gap-2 bg-[#EEF4FF] text-primary rounded px-2 py-1"
+              :to="productLink(product)"
+              prefetch
+              @click.stop
+              class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
             >
               <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
               <span class="text-sm">{{ product.name }}</span>
-            </div>
+            </NuxtLink>
           </div>
         </div>
 
@@ -191,26 +211,29 @@ onUnmounted(() => {
 
         <div class="flex flex-row items-center justify-between gap-2">
           <div class="flex items-center gap-2">
-            <div class="gradient-border rounded-full p-[1px]">
-              <NuxtImg v-if="review.photo_urls" :src="review.avatar || review.photo_urls[0]" format="webp" class="w-8 h-8 rounded-full object-cover bg-hoverbtn p-1" />
+            <div class="gradient-border rounded-full p-[1px] w-6 h-6 md:w-8 md:h-8">
+              <NuxtImg v-if="review.photo_urls" :src="review.avatar || review.photo_urls[0]" format="webp" class="w-6 h-6 md:w-8 md:h-8 rounded-full object-cover bg-hoverbtn p-1" />
             </div>
-            <span class="text-lg font-semibold" itemprop="name">{{ review.author }}</span>
+            <span class="text-sm md:text-lg font-medium" itemprop="name">{{ review.author }}</span>
           </div>
-          <span class="w-fit top-3 left-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">Отзыв о Даиго</span>
+          <span class="w-fit top-3 left-3 text-xs md:text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">Отзыв о Даиго</span>
         </div>
 
         <p class="text-base mt-3 mb-4 line-clamp-4">{{ review.feedback_preview }}</p>
 
         <div v-if="relatedProducts.length" class="mt-auto my-4 flex flex-row w-fit flex-wrap gap-2">
-          <div
+          <NuxtLink
             v-for="product in relatedProducts"
             :key="product.id"
-            class="flex items-center gap-2 bg-[#EEF4FF] text-primary rounded px-2 py-1"
+            :to="productLink(product)"
+            prefetch
+            class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
           >
             <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
             <span class="text-sm">{{ product.name }}</span>
-          </div>
+          </NuxtLink>
         </div>
+
         <NuxtLink
           :to="review.file_url"
           class="inline-flex items-center gap-2 py-3 text-base text-primary font-normal transition duration-300 group"

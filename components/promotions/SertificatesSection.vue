@@ -15,15 +15,15 @@ function disableFloating() {
 </script>
 
 <template>
-  <section class="relative w-full py-16 md:py-20">
-    <div class="container px-4 mx-auto">
-      <h2 class="text-4xl md:text-5xl font-medium mb-12">
+  <section class="relative w-full py-8 md:py-20">
+    <div class="container px-0 md:px-4 mx-auto">
+      <h2 class="text-4xl md:text-5xl font-medium leading-tight mb-6 md:mb-12">
         Подарочные сертификаты
       </h2>
 
-      <div class="flex flex-col lg:flex-row gap-10 items-center">
+      <div class="flex flex-col lg:flex-row gap-4 md:gap-10 items-start md:items-center">
         <div
-          class="w-1/2 min-h-[500px] group relative mx-auto"
+          class="w-1/2 min-h-[500px] group relative mx-auto order-2 md:order-1"
           @mouseenter="enableFloating"
           @mouseleave="disableFloating"
         >
@@ -97,12 +97,12 @@ function disableFloating() {
           </div>
         </div>
 
-        <div class="w-1/2 flex flex-col gap-4">
-          <h3 class="text-2xl md:text-3xl font-medium mb-4">
+        <div class="w-full md:w-1/2 flex flex-col gap-4 order-1 md:order-2">
+          <h3 class="text-base md:text-3xl font-medium mb-4">
             Номинал от 10 000 ₽ до 100 000 ₽
           </h3>
 
-          <ul class="text-lg md:text-lg space-y-3 mb-4">
+          <ul class="text-sm md:text-lg space-y-3 mb-4">
             <li class="flex items-center gap-3">
               <img
                 src="/icons/bi_mailbox.svg" class="w-5 h-5"
@@ -125,7 +125,7 @@ function disableFloating() {
             </li>
           </ul>
 
-          <p class="text-lg md:text-lg mb-2">
+          <p class="text-sm md:text-lg mb-2">
             Сертификат не подлежит обналичиванию. Действует 1 год.
           </p>
           <p class="text-sm md:text-lg mb-4">
@@ -133,7 +133,7 @@ function disableFloating() {
           </p>
 
           <UiButton
-            class="mt-2 !w-60"
+            class="mt-2 w-full md:!w-60"
             :to="'/promotions/certificates'"
             variant="solid"
           >

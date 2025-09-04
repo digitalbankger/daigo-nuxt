@@ -1,10 +1,10 @@
 <template>
   <div class="relative p-6 transition" :class="card.styles?.card">
-    <div v-if="card.tags?.length" class="flex flex-wrap gap-3 mb-4 w-4/5" :class="card.styles?.tags">
+    <div v-if="card.tags?.length" class="flex flex-wrap gap-2 md:gap-3 mb-4 w-4/5" :class="card.styles?.tags">
       <span
         v-for="tag in card.tags"
         :key="tag.label"
-        class="text-lg px-4 py-1 rounded-md"
+        class="text-sm md:text-lg px-4 py-2 md:py-1 rounded-md"
         :class="tag.color"
       >
         {{ tag.label }}
@@ -17,9 +17,9 @@
           {{ card.title }}
         </h3>
         <ul v-if="card.list?.length" class="mt-2 space-y-4">
-          <li v-for="(it, i) in card.list" :key="i" class="flex items-start gap-3">
-            <img :src="it.icon || '/icons/checkbox-blue.svg'" alt="" class="w-5 h-5 mt-0.5" />
-            <span class="text-xl md:text-2xl leading-snug">{{ it.text }}</span>
+          <li v-for="(it, i) in card.list" :key="i" class="flex items-center md:items-start gap-1 md:gap-3">
+            <img :src="it.icon || '/icons/checkbox-blue.svg'" alt="" class="w-5 h-5 mt-0 md:mt-0.5" />
+            <span class="text-sm md:text-2xl leading-snug">{{ it.text }}</span>
           </li>
         </ul>
         <p v-if="card.subtitle" :class="card.styles?.subtitle">

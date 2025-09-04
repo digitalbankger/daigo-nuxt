@@ -9,7 +9,12 @@ import { defineEventHandler, readBody } from 'h3'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   // Простая валидация входных данных
-  if (!body || !body.fullName || !body.phone || !body.city) {
+  if (
+    !body || 
+    !body.fullName || 
+    !body.phone
+    //!body.city
+  ) {
     return { success: false, message: 'Некорректные данные' }
   }
   // TODO: вызвать реальный сервис создания пользователя и вернуть id

@@ -77,12 +77,12 @@ useHead({
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <NuxtLink to="/" class="inline-flex gap-2 mb-4 text-lg">
-        <img src="/icons/back.svg" class="w-6" /> Вернуться назад
+      <NuxtLink to="/" class="inline-flex gap-2 mb-2 md:mb-4 text-sm md:text-lg">
+        <img src="/icons/back.svg" class="w-5 md:w-6" /> Вернуться назад
       </NuxtLink>
-      <h1 class="text-[clamp(2.5rem,6vw,4rem)] font-medium mb-8 flex items-end gap-8">
+      <h1 class="text-[clamp(2rem,6vw,4rem)] font-medium mb-8 flex items-end gap-4 md:gap-8">
         <span>Корзина</span>
-        <span v-if="cartStore.items.length" class="text-xl font-light mb-4">{{ cartStore.items.length }} {{ cartStore.items.length === 1 ? 'товар' : 'товара' }}</span>
+        <span v-if="cartStore.items.length" class="text-sm md:text-xl font-light mb-2 md:mb-4">{{ cartStore.items.length }} {{ cartStore.items.length === 1 ? 'товар' : 'товара' }}</span>
       </h1>
 
       <div class="flex flex-col lg:flex-row gap-10">

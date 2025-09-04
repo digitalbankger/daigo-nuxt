@@ -1,58 +1,66 @@
 import { defineStore } from 'pinia'
-import type { UserProfile } from '~/types/user'
-import { $fetch } from 'ofetch'
+import { ref } from 'vue'
+import { fetchUser, updateUser, type UserProfile } from '@/services/userService'
+import { useAuthStore } from '@/stores/authStore'
+import { log, time, timeEnd } from '@/utils/debug'
 
 export const useUserStore = defineStore('user', () => {
   const profile = ref<UserProfile | null>(null)
   const isLoaded = ref(false)
 
-  async function load() {
-    console.log('[userStore] load() вызван')
-
-    if (isLoaded.value) return
-
-    try {
-      const data = await $fetch<UserProfile>('/api/auth/user/profile')
-      console.log('[userStore] данные загружены:', data)
-
-      profile.value = data
+  async function loadProfile() {
+    const auth = useAuthStore()
+    log('[user] loadProfile:start uid=', auth.userId)
+    if (!auth.userId) {
       isLoaded.value = true
-    } catch (error) {
-      console.error('[userStore] Ошибка загрузки профиля:', error)
-    }
-  }
-
-  async function saveProfile(updatedData: Partial<UserProfile>) {
-    if (!profile.value?.id) {
-      console.warn('[userStore] Нет ID пользователя — нельзя обновить профиль')
+      log('[user] skip: no uid')
       return
     }
 
+    time('fetchUser')
     try {
-      const updatedProfile = await $fetch<UserProfile>(`/api/auth/user/${profile.value.id}/update`, {
-        method: 'PATCH',
-        body: updatedData,
-      })
-
+      const data = await fetchUser(auth.userId)
       profile.value = {
-        ...profile.value,
-        ...updatedProfile,
+        ...data,
+        addresses: data.addresses ?? [],
+        cards: data.cards ?? [],
+        bonuses: {
+          valid: { value: data.bonuses?.valid?.value ?? 0 },
+          expiring: {
+            value: data.bonuses?.expiring?.value ?? 0,
+            date_end: data.bonuses?.expiring?.date_end ?? null
+          },
+          expired: { value: data.bonuses?.expired?.value ?? 0 }
+        }
       }
-    } catch (error) {
-      console.error('[userStore] Ошибка обновления профиля:', error)
+      log('[user] profile ok:', !!profile.value, 'name=', profile.value?.first_name)
+    } catch (e) {
+      log('[user] loadProfile error', e)
+      // если профиль не удалось получить (напр. 401) — выходим из сессии
+      useAuthStore().logout()
+    } finally {
+      isLoaded.value = true
+      timeEnd('fetchUser')
+      log('[user] loadProfile:done isLoaded=', isLoaded.value)
+    }
+  }
+
+  async function saveProfile(patch: Partial<UserProfile>) {
+    if (!profile.value?.id) return
+    try {
+      const updated = await updateUser(profile.value.id, patch)
+      profile.value = { ...profile.value, ...updated }
+      log('[user] saveProfile ok', Object.keys(patch))
+    } catch (e) {
+      log('[user] saveProfile error', e)
     }
   }
 
   function clear() {
     profile.value = null
     isLoaded.value = false
+    log('[user] cleared')
   }
 
-  return {
-    profile,
-    load,
-    saveProfile,
-    isLoaded,
-    clear,
-  }
+  return { profile, isLoaded, loadProfile, saveProfile, clear, load: loadProfile }
 })

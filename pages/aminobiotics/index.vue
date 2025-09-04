@@ -2,7 +2,7 @@
 definePageMeta({ layout: 'main' })
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
-import PopularArticles from '~/components/PopularArticles.vue'
+import PopularArticles from '~/components/articles/PopularArticles.vue'
 
 useHead({
   title: 'Принцип действия аминобиотиков | daigo',
@@ -51,7 +51,7 @@ useHead({
             Принципы действия аминобиотиков
             </h1>
             <nuxt-img
-            src="https//nuxt.daigo.ru/images/principes-amino/aminobiotiki.jpg"
+            src="http://localhost:3000/images/principes-amino/aminobiotiki.jpg"
             alt="Линейка аминобиотиков Brainy, Jointic, Dermic"
             format="webp"
             quality="80"
@@ -84,7 +84,7 @@ useHead({
                 <div class="w-3/5 flex flex-col gap-6">
                     <div class="flex flex-col gap-6">
                         <nuxt-img
-                            src="https//nuxt.daigo.ru/images/principes-amino/chto-takoe-hlorella.jpg"
+                            src="http://localhost:3000/images/principes-amino/chto-takoe-hlorella.jpg"
                             alt="Что такое хлорелла?"
                             format="webp"
                             quality="80"
@@ -102,7 +102,7 @@ useHead({
                 </div>
                 <div class="w-2/6 ms-auto flex flex-col gap-4">
                     <nuxt-img
-                        src="https//nuxt.daigo.ru/images/principes-amino/hlorella.jpg"
+                        src="http://localhost:3000/images/principes-amino/hlorella.jpg"
                         alt="Хлорелла"
                         format="webp"
                         quality="80"
@@ -123,7 +123,7 @@ useHead({
                 Аминокислоты: основа жизненно важных процессов в организме
             </h2>
             <nuxt-img
-                src="https//nuxt.daigo.ru/images/principes-amino/amino1.jpg"
+                src="http://localhost:3000/images/principes-amino/amino1.jpg"
                 alt="Tamotsu упаковка"
                 format="webp"
                 quality="80"
@@ -142,7 +142,7 @@ useHead({
         <section class="flex flex-col lg:flex-row gap-6 items-start py-5">
             <div class="w-full lg:w-1/2">
             <nuxt-img
-                src="https//nuxt.daigo.ru/images/principes-amino/amino2.jpg"
+                src="http://localhost:3000/images/principes-amino/amino2.jpg"
                 alt="Daigo Brainy курс"
                 format="webp"
                 quality="80"
@@ -173,7 +173,7 @@ useHead({
             </div>
             <div class="w-full lg:w-1/2">
             <nuxt-img
-                src="https//nuxt.daigo.ru/images/principes-amino/amino4.jpg"
+                src="http://localhost:3000/images/principes-amino/amino4.jpg"
                 alt="Daigo Dermic курс"
                 format="webp"
                 quality="80"
@@ -186,7 +186,7 @@ useHead({
         <section class="flex flex-col lg:flex-row gap-6 items-start">
             <div class="w-full lg:w-1/2">
             <nuxt-img
-                src="https//nuxt.daigo.ru/images/principes-amino/amino3.jpg"
+                src="http://localhost:3000/images/principes-amino/amino3.jpg"
                 alt="Daigo Jointic курс"
                 format="webp"
                 quality="80"
@@ -210,7 +210,7 @@ useHead({
             <h2 class="text-[46px] font-medium">Часто задаваемые вопросы</h2>
             <div class="flex flex-row gap-6 items-start">
             <nuxt-img
-                src="https//nuxt.daigo.ru/images/principes/faq.jpg"
+                src="http://localhost:3000/images/principes/faq.jpg"
                 alt="Tamotsu на тарелке"
                 format="webp"
                 quality="80"

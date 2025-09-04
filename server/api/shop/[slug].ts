@@ -4,68 +4,10 @@ export default defineEventHandler((event) => {
   const productsMock = [
     {
       id: 1,
-      slug: 'daigo-lux',
+      slug: 'metabiotik-daigo-lux',
       title: 'Метабиотик для кишечника Daigo Lux',
       subtitle: 'Японский органический метабиотик премиум-класса',
       shortDescription: 'Daigo Lux создаёт идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.',
-      // descriptionSections: [
-      //   {
-      //     type: 'text-with-image',
-      //     title: 'Особенности Daigo Lux',
-      //     content: `
-      //       <p>Дайго Люкс содержит <span class="text-primary font-medium">в 1,5 раза больше</span> активных веществ, чем Дайго.</p>
-      //       <p>В процессе производства Дайго Люкс проходит <span class="text-primary font-medium">дополнительную ступень ферментации</span>, которая значительно повышает усваиваемость продукта.</p>
-      //       <p>Дайго Люкс <span class="text-primary font-medium">работает быстрее</span>, чем Дайго, но при меньшей дозировке.</p>
-      //       <p>На полноценный курс хватает одной бутылочки.</p>
-      //     `,
-      //     image: '/images/mock/product/lux1.png',
-      //     imagePosition: 'right'
-      //   },
-      //   {
-      //     type: 'feature-cards',
-      //     items: [
-      //       {
-      //         title: 'Восстанавливает иммунитет',
-      //         description: 'Активируя пейеровы бляшки в кишечнике',
-      //         image: '/icons/shield.png'
-      //       },
-      //       {
-      //         title: 'Повышает уровень энергии',
-      //         description: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-      //         image: '/images/content/energy.png'
-      //       },
-      //       {
-      //         title: 'Подавляет Хеликобактер Пилори',
-      //         description: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-      //         image: '/icons/bacteria.png'
-      //       },
-      //       {
-      //         title: 'Восстанавливает родную микрофлору',
-      //         description: 'Поддерживает полезные бактерии и способствует их росту',
-      //         image: '/icons/microflora.png'
-      //       }
-      //     ]
-      //   },
-      //   {
-      //     type: 'text-with-image',
-      //     title: 'Регулярный приём',
-      //     content: `
-      //       Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.
-      //     `,
-      //     image: '/images/content/regular-use.png',
-      //     imagePosition: 'left'
-      //   },
-      //   {
-      //     type: 'text-with-image',
-      //     title: 'Влияние Дайго Люкс на обмен веществ',
-      //     content: `
-      //       Дайго Люкс способствует улучшению углеводного, жирового, белкового и витаминного обмена веществ, а также восстановлению организма на клеточном уровне, что способствует активному долголетию.
-      //     `,
-      //     image: '/images/mock/product/lux3.png',
-      //     imagePosition: 'right'
-      //   }
-      // ],
-
       descriptionSections: [
         {
           type: 'cards',
@@ -83,7 +25,7 @@ export default defineEventHandler((event) => {
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: '/icons/shield.png'
+              image: '/images/mock/product/lux1.png'
             },
             {
               title: 'Повышает уровень энергии',
@@ -93,7 +35,7 @@ export default defineEventHandler((event) => {
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: '/icons/bacteria.png'
+              image: '/images/mock/product/lux1.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
@@ -169,13 +111,13 @@ export default defineEventHandler((event) => {
         `,
         image: '/images/mock/product/lux-comp.jpg',
       },
-      usageInstructions: {    //Инструкция для разных возрастов + видео и уведомление
+      usageInstructions: {
         groups: [
           {
             title: 'Взрослым',
             steps: [
               { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
-              { icon: '/icons/water.svg', text: 'Развести в чистой воде' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
           {
@@ -189,7 +131,7 @@ export default defineEventHandler((event) => {
             title: 'Детям от 2 до 3 лет',
             steps: [
               { icon: '/icons/drop.svg', text: '2 капли' },
-              { icon: '/icons/water.svg', text: 'Развести в чистой воде' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
           {
@@ -217,8 +159,8 @@ export default defineEventHandler((event) => {
         videoUrl: '/videos/daigo.mp4',
         videoPoster: '/images/mock/product/instr-poster.jpg',
         footnote: 'Можно применять для профилактики постоянно. Срок годности — 3 года...',
-        text: `<p class="text-2xl font-medium">Можно применять для профилактики постоянно.</p>
-              <p class="text-2xl">Срок годности — 3 года.<br>
+        text: `<p class="text-sm md:text-2xl font-medium">Можно применять для профилактики постоянно.</p>
+              <p class="text-sm md:text-2xl">Срок годности — 3 года.<br>
               Условия хранения: хранить в сухом, прохладном, защищённом от света, недоступном для детей месте, при температуре от 0 °C до 25 °C.</p>`
       },
       productionSection: {
@@ -248,22 +190,22 @@ export default defineEventHandler((event) => {
       },
       images: [
             {
-                image_url: "https//nuxt.daigo.ru/images/mock/product/lux1.png",
+                image_url: "http://localhost:3000/images/mock/product/lux1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https//nuxt.daigo.ru/images/mock/product/lux2.png",
+                image_url: "http://localhost:3000/images/mock/product/lux2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https//nuxt.daigo.ru/images/mock/product/lux3.png",
+                image_url: "http://localhost:3000/images/mock/product/lux3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https//nuxt.daigo.ru/images/mock/product/lux4.png",
+                image_url: "http://localhost:3000/images/mock/product/lux4.png",
                 is_primary: false,
                 display_order: 0
             }

@@ -1,5 +1,10 @@
 <template>
-  <div class="bg-white max-w-[500px] mx-auto rounded-xl shadow-fp p-6">
+  <div
+    :class="[
+      'bg-white max-w-[500px] mx-auto rounded-xl p-6',
+      { 'shadow-fp': withShadow }
+    ]"
+  >
     <h3 class="font-medium leading-tight mb-6 text-[clamp(1.6rem,6vw,2.2rem)]">Фильтры</h3>
 
     <div
@@ -61,6 +66,7 @@ const props = defineProps<{
     counts: Record<string, number>
     fetchCounts: (baseQuery?: Record<string, string[]>) => void
   }
+  withShadow?: boolean
 }>()
 
 const filters = computed(() => props.store.filters)

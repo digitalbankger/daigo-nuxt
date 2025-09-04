@@ -7,6 +7,8 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import YouWillLearn from '~/components/articles/YouWillLearn.vue'
 import Button from '~/components/ui/Button.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
+import RecommendedCarousel from '~/components/articles/RecommendedCarousel.vue'
+import PopularArticles from '~/components/articles/PopularArticles.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -152,7 +154,7 @@ const downloadAllFiles = () => {
   <BaseContainer >
     <div class="container mx-auto py-2 lg:py-4">
       <!-- breadcrumbs -->
-      <nav aria-label="Хлебные крошки" class="mb-4 text-base text-black/50">
+      <nav aria-label="Хлебные крошки" class="mb-4 text-sm md:text-base text-black/50">
         <ul class="flex flex-wrap items-center gap-1">
           <li v-for="(bc, i) in article?.breadcrumbs" :key="bc.to" class="flex items-center gap-2">
             <NuxtLink :to="bc.to" class="hover:text-black underline-offset-4 hover:underline">{{ bc.label }}</NuxtLink>
@@ -162,25 +164,25 @@ const downloadAllFiles = () => {
       </nav>
 
       <!-- title -->
-      <h1 class="text-head font-medium leading-tight">{{ article?.title }}</h1>
-      <div class="mt-8 flex flex-wrap items-center gap-6 text-black">
-            <div class="text-2xl flex flex-row items-center gap-2">
-              <img src="/icons/publications/calendar.svg" class="w-5"/>
+      <h1 class="text-3xl md:text-head font-medium leading-tight">{{ article?.title }}</h1>
+      <div class="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-6 text-black">
+            <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
+              <img src="/icons/publications/calendar.svg" class="w-4 md:w-5"/>
               <span>{{ new Date(article?.date || '').toLocaleDateString('ru-RU') }}</span>
             </div>
           
-            <div class="text-2xl flex flex-row items-center gap-2">
-              <img src="/icons/publications/clock.svg" class="w-5"/>
+            <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
+              <img src="/icons/publications/clock.svg" class="w-4 md:w-5"/>
               <span aria-label="Время чтения">{{ article?.time }} мин</span>
             </div>
             
-            <div class="text-2xl flex flex-row items-center gap-2">
-              <img src="/icons/publications/ye.svg" class="w-6"/>
+            <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
+              <img src="/icons/publications/ye.svg" class="w-5 md:w-6"/>
               <span aria-label="Просмотры">{{ article?.views }}</span>
             </div>
             
-            <div class="text-2xl flex flex-row items-center gap-2">
-              <img src="/icons/publications/comment.svg" class="w-5"/>
+            <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
+              <img src="/icons/publications/comment.svg" class="w-4 md:w-5"/>
               <span aria-label="Комментарии">{{ article?.comments }}</span>
             </div>
       </div>
@@ -205,14 +207,14 @@ const downloadAllFiles = () => {
           <!-- actions -->
           <div class="mt-4 flex gap-8">
             <div
-             class="text-2xl flex flex-row items-center gap-2"
+             class="text-sm md:text-2xl flex flex-row items-center gap-2"
              @click="goToComments"
             >
               <img src="/icons/publications/comment.svg" class="w-5"/>
               <span aria-label="Комментарии">Комментарии</span>
             </div>
             <div
-             class="text-2xl flex flex-row items-center gap-2"
+             class="text-sm md:text-2xl flex flex-row items-center gap-2"
              @click="shareNative"
             >
               <img src="/icons/publications/share.svg" class="w-5"/>
@@ -220,7 +222,22 @@ const downloadAllFiles = () => {
             </div>
           </div>
 
-          <YouWillLearn :key="slug" :container-ids="['article-top','article-bottom']" />
+          <!-- теги mobile -->
+          <div v-if="article?.tags?.length" class="block md:hidden">
+            <h3 class="text-xl md:text-cardhead font-medium">Теги</h3>
+            <div class="mt-3 flex flex-wrap gap-2 md:gap-3">
+              <NuxtLink
+                v-for="tag in article!.tags!"
+                :key="tag.id"
+                :to="`/articles?napravlennost=${tag.slug}`"
+                class="px-2 md:px-3 py-2 rounded-lg bg-hoverbtn hover:bg-gray-100 text-sm md:text-base"
+              >
+                {{ tag.label }}
+              </NuxtLink>
+            </div>
+          </div>
+
+          <YouWillLearn :key="slug" :container-ids="['article-top','article-bottom']" class="py-0 md:py-6"/>
 
           <!-- content top -->
           <section 
@@ -239,11 +256,11 @@ const downloadAllFiles = () => {
             <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
               <!-- ЛЕВАЯ КОЛОНКА: материалы -->
               <div class="w-full md:w-8/12">
-                <h2 class="text-3xl md:text-product leading-tight font-medium">
+                <h2 class="text-xl md:text-product leading-tight font-medium">
                   {{ article!.materials!.title }}
                 </h2>
 
-                <div v-if="article!.materials!.text" class="text-xl mt-3 text-black" v-html="article!.materials!.text">
+                <div v-if="article!.materials!.text" class="text-sm md:text-xl mt-3 text-black" v-html="article!.materials!.text">
                 </div>
 
                 <!-- список файлов без индивидуальных кнопок, с синими маркерами -->
@@ -256,7 +273,7 @@ const downloadAllFiles = () => {
                     <img src="/icons/file.svg" class="w-5 h-5 flex-shrink-0" />
 
                     <div class="min-w-0">
-                      <p class="text-xl text-black">
+                      <p class="text-base md:text-xl text-black">
                         {{ file.title }}
                       </p>
                     </div>
@@ -266,7 +283,7 @@ const downloadAllFiles = () => {
                 <Button
                   variant="solid"
                   v-if="article!.materials!.files?.length"
-                  class="mt-6"
+                  class="mt-6 w-full md:!w-60 hidden md:flex"
                   @click="downloadAllFiles"
                 >
                   Скачать все материалы
@@ -275,29 +292,29 @@ const downloadAllFiles = () => {
 
               <!-- ПРАВАЯ КОЛОНКА: специалист -->
               <div v-if="article!.materials!.specialist" class="w-full md:w-4/12 flex md:justify-end">
-                <div class="w-full md:w-auto flex flex-col items-start gap-5">
+                <div class="w-full md:w-auto flex flex-row md:flex-col items-start gap-3 md:gap-5">
                   <nuxt-img
                     :src="article!.materials!.specialist!.avatarUrl"
                     alt=""
                     width="96"
                     height="96"
-                    class="h-32 w-32 rounded-full object-cover flex-shrink-0"
+                    class="h-24 md:h-32 w-24 md:w-32 rounded-full object-cover flex-shrink-0"
                     loading="lazy"
                     decoding="async"
                   />
                   <div class="min-w-0">
-                    <p class="text-base text-black/50"> {{ article!.materials!.specialist!.position }} </p>
-                    <p class="mt-1 text-xl font-medium"> {{ article!.materials!.specialist!.name }} </p>
+                    <p class="text-xs md:text-base text-black/50"> {{ article!.materials!.specialist!.position }} </p>
+                    <p class="mt-1 text-sm md:text-xl font-medium"> {{ article!.materials!.specialist!.name }} </p>
                     <p
                       v-if="article!.materials!.specialist!.description"
-                      class="my-2 text-sm"
+                      class="my-2 text-sm hidden md:block"
                     >
                       {{ article!.materials!.specialist!.description }}
                     </p>
 
                     <div
                       v-if="article!.materials!.specialist!.social?.length"
-                      class="mt-6 flex items-center gap-4"
+                      class="mt-3 md:mt-6 flex items-center gap-4"
                     >
                       <NuxtLink
                         v-for="s in article!.materials!.specialist!.social"
@@ -314,6 +331,20 @@ const downloadAllFiles = () => {
                   </div>
                 </div>
               </div>
+              <p
+                v-if="article!.materials!.specialist!.description"
+                class="m-0 text-sm block md:hidden"
+              >
+                {{ article!.materials!.specialist!.description }}
+              </p>
+              <Button
+                  variant="solid"
+                  v-if="article!.materials!.files?.length"
+                  class="mt-0 w-full md:!w-60 flex md:hidden"
+                  @click="downloadAllFiles"
+                >
+                  Скачать все материалы
+              </Button>
             </div>
           </section>
 
@@ -327,18 +358,18 @@ const downloadAllFiles = () => {
           </section>
 
           <!-- Топ 5 -->
-          <section class="mt-12">
-            <h2 class="text-product font-semibold">Топ 5 популярных статей</h2>
-            <div class="mt-4 gap-6">
-              <ul  class="mt-8 space-y-4 list-disc pl-6">
+          <section class="mt-12 py-0 md:py-6">
+            <h2 class="text-xl md:text-product font-medium">Топ 5 популярных статей</h2>
+            <div class="mt-0 md:mt-4 gap-6">
+              <ul  class="mt-4 md:mt-8 space-y-2 md:space-y-4 list-disc pl-4 md:pl-6">
                 <li
                   v-for="i in list"
                   :key="i.id"
-                  class="marker:text-primary marker:font-semibold marker:text-2xl"
+                  class="marker:text-primary marker:font-semibold md:marker:text-2xl"
                 >
                   <NuxtLink
                     :to="toUrl(i)"
-                    class="text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300"
+                    class="text-sm md:text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300"
                   >
                     {{ i.title }}
                   </NuxtLink>
@@ -353,7 +384,7 @@ const downloadAllFiles = () => {
             <ClientFAQ :items="faq" />
           </section> -->
           <section class="mt-16 flex flex-col gap-6">
-              <h2 class="text-product font-medium">Часто задаваемые вопросы</h2>
+              <h2 class="text-xl md:text-product font-medium">Часто задаваемые вопросы</h2>
               <div class="w-full flex flex-col">
                   <AccordionItem title="Что такое коэнзим Q10?">
                       Это антиоксидант, участвующий в выработке энергии в клетках. Поддерживает сердечно-сосудистую систему.
@@ -373,11 +404,17 @@ const downloadAllFiles = () => {
               </div>
           </section>
 
+          <RecommendedCarousel
+            v-if="article?.recommended?.length"
+            :items="article!.recommended"
+            class="md:hidden"
+          />
+
           <!-- Понравилась статья? -->
           <section class="md:w-5/12 mt-12 py-5">
             <hr class="border-black/10 mb-6 w-5/6" />
-            <h2 class="text-cardhead font-medium">Понравилась статья?</h2>
-            <p class="mt-2 text-lg">Поделитесь статьёй с друзьями в социальных сетях</p>
+            <h2 class="text-xl md:text-cardhead font-medium">Понравилась статья?</h2>
+            <p class="mt-2 text-sm text-lg">Поделитесь статьёй с друзьями в социальных сетях</p>
 
             <div class="mt-4 flex items-center gap-4">
               <a
@@ -439,7 +476,7 @@ const downloadAllFiles = () => {
         <!-- sidebar -->
         <aside class="lg:col-span-4">
           <!-- теги -->
-          <div v-if="article?.tags?.length" class="">
+          <div v-if="article?.tags?.length" class="hidden md:block">
             <h3 class="text-cardhead font-medium">Теги</h3>
             <div class="mt-3 flex flex-wrap gap-3">
               <NuxtLink
@@ -454,7 +491,7 @@ const downloadAllFiles = () => {
           </div>
 
           <!-- рекомендованные -->
-          <div v-if="article?.recommended?.length" class="mt-12">
+          <div v-if="article?.recommended?.length" class="mt-12 hidden md:block">
             <h3 class="text-cardhead font-medium">Рекомендации для вас</h3>
             <ul class="mt-3 space-y-4">
               <li v-for="it in article.recommended" :key="it.id" class="flex gap-4">
@@ -496,8 +533,8 @@ const downloadAllFiles = () => {
 
       </div>
 
-      <section class="w-full flex flex-col gap-6 py-5 mt-12">
-        <h2 class="text-product font-medium">Популярные статьи</h2>
+      <section class="w-full flex flex-col gap-6 py-2 md:py-5 mt-6 md:mt-12">
+        <h2 class="text-product leading-tight font-medium">Популярные статьи</h2>
         <PopularArticles />
       </section>
 

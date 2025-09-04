@@ -96,7 +96,7 @@ const currentSlide = ref(0)
     <h2 v-if="!hideTitle" class="text-slider font-medium mb-6 md:mb-8">Покупателям
     </h2>
 
-    <div class="flex flex-col md:flex-row gap-6">
+    <div class="flex flex-col md:flex-row gap-4 md:gap-6">
       <div class="w-full md:w-4/6 rounded-3xl relative overflow-hidden">
         <Transition name="fade" mode="out-in">
         <Swiper

@@ -47,7 +47,7 @@ export interface PromoNotice {
 export interface UserForm {
   fullName: string
   phone: string
-  city: string
+  //city: string
 }
 
 /**
@@ -64,7 +64,9 @@ export const useCartStore = defineStore('cart', () => {
   // Локальное хранилище для гостя
   const localCart = ref<CartItem[]>([])
   // Форма для неавторизованного пользователя
-  const userForm = ref<UserForm>({ fullName: '', phone: '', city: '' })
+  const userForm = ref<UserForm>({ fullName: '', phone: '', 
+    //city: '' 
+  })
 
   /**
    * Вычисление остатка дней до окончания акции. Считаем целое число дней,

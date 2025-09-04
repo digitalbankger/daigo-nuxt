@@ -34,6 +34,7 @@ defineProps<{
       <div class="mt-auto">
         <Button
           variant="outline"
+          class="w-full"
           @click="$emit('apply', promotion)"
         >
           Применить акцию

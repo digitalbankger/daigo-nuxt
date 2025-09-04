@@ -1,7 +1,7 @@
 export interface ProductCard {
   tag: string | undefined
   oldPrice: number | undefined
-  id: number
+  product_id: number
   slug: string
   name: string
   subtitle: string
@@ -13,7 +13,7 @@ export interface ProductCard {
 }
 
 export interface ProductMini {
-  id: number
+  product_id: number
   title: string
   image: string
   price: number
@@ -101,7 +101,7 @@ export interface ProductProductionSection {
 }
 
 export interface Product {
-  id: number
+  product_id: number
   slug: string
   title: string
   subtitle?: string

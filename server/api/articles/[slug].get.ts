@@ -7,14 +7,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'printsip-dejstviya-metabiotikov',
     title: 'Принцип действия метабиотиков',
     preview: 'Как работают метабиотики и почему важен курсовой приём.',
-    image: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'http://localhost:3000/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
     comments: 10,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Разбираем этапы восстановления микрофлоры и накопительный эффект.',
-    cover: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg',
+    cover: 'http://localhost:3000/images/mock/article/gen.jpg',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Статьи', to: '/articles' },
@@ -28,7 +28,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'https//nuxt.daigo.ru/images/mock/article/spec.jpg',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -36,8 +36,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       ]
     },
     contentTop: `
-      <h2 id="first" class="text-product font-medium mb-4">Метабиотик Дайго</h2>
-      <p>В современном мире, где фармацевтические препараты часто предлагают быстрое, но кратковременное решение проблем со здоровьем, все больше людей обращают внимание на натуральные добавки, которые работают на клеточном уровне. Одной из таких добавок является метабиотик Daigo, который зарекомендовал себя как эффективное средство для восстановления микрофлоры кишечника и улучшения общего состояния организма. Однако, в отличие от синтетических препаратов, Дайго требует курсового приёма для достижения максимального эффекта. В этой статье мы расскажем, какие изменения происходят в организме на каждом этапе приёма Daigo, и почему длительный приём так важен.
+      <h2 id="first" class="text-xl md:text-product font-medium mb-4">Метабиотик Дайго</h2>
+      <p class="text-sm md:text-base">В современном мире, где фармацевтические препараты часто предлагают быстрое, но кратковременное решение проблем со здоровьем, все больше людей обращают внимание на натуральные добавки, которые работают на клеточном уровне. Одной из таких добавок является метабиотик Daigo, который зарекомендовал себя как эффективное средство для восстановления микрофлоры кишечника и улучшения общего состояния организма. Однако, в отличие от синтетических препаратов, Дайго требует курсового приёма для достижения максимального эффекта. В этой статье мы расскажем, какие изменения происходят в организме на каждом этапе приёма Daigo, и почему длительный приём так важен.
 <br><br>
 Дайго — это органический метабиотик из Японии, который содержит ферменты и клеточный материал 16 видов полезных кишечных лактобактерий. Эти компоненты работают синергетически, чтобы восстановить баланс микрофлоры кишечника, улучшить пищеварение и укрепить иммунитет, тем самым положительно влияя на все важнейшие процессы в организме. В отличие от пробиотиков, которые содержат живые бактерии, метабиотики содержат продукты их метаболизма, что делает их более устойчивыми к воздействию желудочного сока, позволяет им эффективно достигать кишечника и восстанавливать родную микрофлору, а не пытаться заселить чужеродную.
 <br><br>
@@ -57,7 +57,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'https//nuxt.daigo.ru/images/mock/article/spec.jpg',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -69,13 +69,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       downloadAllUrl: '/files/all.zip'
     },
     contentBottom: `
-      <h2 id="second" class="text-product font-medium mb-4">Где купить надежные метабиотки?</h2>
+      <h2 id="second" class="text-xl md:text-product font-medium mb-4">Где купить надежные метабиотки?</h2>
       <img src="/images/mock/article/a2.jpg" alt="Этапы восстановления" loading="lazy" decoding="async"/>
-      <p>Органический состав Daigo делает продукт уникальным и безопасным, при этом сохраняя высокую эффективность. Однако натуральность всегда работает на принципе накопительного эффекта. Это означает, что работать метабиотик начинает сразу, но его действие проявляется постепенно, по мере того как организм адаптируется к изменениям. Кратковременный приём может дать временное улучшение, но только длительный курс позволяет достичь устойчивых результатов. Это связано с тем, что восстановление микрофлоры кишечника — это сложный процесс, который требует времени.</p>
+      <p class="text-sm md:text-base">Органический состав Daigo делает продукт уникальным и безопасным, при этом сохраняя высокую эффективность. Однако натуральность всегда работает на принципе накопительного эффекта. Это означает, что работать метабиотик начинает сразу, но его действие проявляется постепенно, по мере того как организм адаптируется к изменениям. Кратковременный приём может дать временное улучшение, но только длительный курс позволяет достичь устойчивых результатов. Это связано с тем, что восстановление микрофлоры кишечника — это сложный процесс, который требует времени.</p>
     `,
     // Топ-5 и популярные/рекомендованные можно получить отдельными ручками, но для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'https//nuxt.daigo.ru/images/mock/article/gen.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -85,8 +86,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'https//nuxt.daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'https//nuxt.daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   }
 }

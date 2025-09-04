@@ -2,11 +2,15 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   ssr: true,
   devtools: { enabled: true },
-
+  image: {
+    domains: ['api.daigo.ru'],
+  },
   runtimeConfig: {
     dadataToken: process.env.NUXT_DADATA_TOKEN,
     public: {
-      apiBase: process.env.API_BASE || '/api'
+      apiBase: process.env.API_BASE || '/api',
+      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
+      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://nuxt.daigo.ru',
     }
   },
 
@@ -31,7 +35,10 @@ export default defineNuxtConfig({
     '@/assets/styles/main.css',
   ],
 
-  plugins: ['~/plugins/directives.ts'],
+  plugins: [
+    '~/plugins/directives.ts',
+    '~/plugins/auth-init.client.ts',
+  ],
 
   modules: [
     '@nuxtjs/tailwindcss',

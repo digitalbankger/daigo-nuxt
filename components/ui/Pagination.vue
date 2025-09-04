@@ -30,10 +30,10 @@ const goToPage = (page: number) => {
 </script>
 
 <template>
-  <ul class="flex gap-2 text-2xl justify-center items-center my-20">
+  <ul class="flex gap-2 text-xl md:text-2xl justify-center items-center mt-10 mb-0 md:my-20">
     <li>
       <button class="text-black/50 hover:text-black me-2" :disabled="current === 1" @click="goToPage(current - 1)">
-        <img src="/icons/arrow-right-pag.svg" alt="Previous" class="rotate-180" />
+        <img src="/icons/arrow-right-pag.svg" alt="Previous" class="rotate-180 w-10/12 md:w-full" />
       </button>
     </li>
     <li v-for="item in pages" :key="item">
@@ -48,7 +48,7 @@ const goToPage = (page: number) => {
     </li>
     <li>
       <button class="text-black/50 hover:text-black ms-2" :disabled="current === total" @click="goToPage(current + 1)">
-        <img src="/icons/arrow-right-pag.svg" alt="Next" />
+        <img src="/icons/arrow-right-pag.svg" alt="Next" class=" w-10/12 md:w-full" />
       </button>
     </li>
   </ul>

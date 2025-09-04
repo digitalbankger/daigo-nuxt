@@ -22,10 +22,12 @@ watchEffect(async () => {
   catalogStore.setPage(page.value)
 
   const normalizedQuery = Object.fromEntries(
-    Object.entries(route.query).map(([key, value]) => [
-      key,
-      Array.isArray(value) ? value[0] ?? '' : value ?? ''
-    ])
+    Object.entries(route.query)
+      .filter(([key]) => key !== 'empty')
+      .map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value[0] ?? '' : value ?? ''
+      ])
   ) as Record<string, string>
 
   await catalogStore.fetchProducts(normalizedQuery)
@@ -84,8 +86,11 @@ useHead(() => {
   }
 })
 
-const firstRow = computed(() => catalogStore.products.slice(0, 3))
-const otherProducts = computed(() => catalogStore.products.slice(3))
+const firstRowMobile = computed(() => catalogStore.products.slice(0, 2))
+const firstRowDesktop = computed(() => catalogStore.products.slice(0, 3))
+
+const otherProductsMobile = computed(() => catalogStore.products.slice(2))
+const otherProductsDesktop = computed(() => catalogStore.products.slice(3))
 
 const isFilterModalOpen = ref(false)
 
@@ -103,13 +108,37 @@ function closeFilters() {
   <BaseContainer>
     <section class="relative w-full">
       <div class="flex flex-row items-centr justify-between">
-        <h1 class="text-slider font-medium mb-10">Каталог</h1>
-        <div class="md:hidden flex flex-row items-center gap-4 cursor-pointer" @click="openFilters">
-          <p class="text-2xl">Фильтры</p>
-          <img src="/icons/sort.svg" class="" width="20"/>
+        <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
+      </div>
+      <div class="flex lg:hidden items-center gap-4 mb-6">
+        <!-- Кнопка фильтра -->
+        <div
+          class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
+          @click="openFilters"
+          aria-label="Открыть фильтры"
+        >
+          <img src="/icons/filter.svg" width="20" alt="Фильтр" />
+        </div>
+
+        <!-- Теги со скроллом -->
+        <div class="flex overflow-x-auto gap-4 no-scrollbar">
+          <button
+            v-for="tag in [
+              { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
+              { label: 'Нервная система и мозг', value: 'mozg-i-nervnaya-sistema' },
+              { label: 'Кожа и волосы', value: 'kozha-i-volosy' }
+            ]"
+            :key="tag.value"
+            class="flex-shrink-0 px-4 py-2 rounded-md"
+            :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
+            @click="router.push({ query: { ...route.query, napravlennost: tag.value, page: '1' } })"
+            type="button"
+          >
+            {{ tag.label }}
+          </button>
         </div>
       </div>
-      
+
       <Transition name="fade">
         <div
           v-if="isFilterModalOpen"
@@ -121,7 +150,7 @@ function closeFilters() {
       <Transition name="slide-left">
         <div
           v-if="isFilterModalOpen"
-          class="fixed inset-y-0 left-0 z-50 w-full sm:w-[500px] bg-white p-6 overflow-y-auto"
+          class="fixed inset-y-0 left-0 z-50 w-11/12 rounded-r-2xl sm:w-[500px] bg-white p-3 md:p-6 overflow-y-auto"
         >
           <div class="w-full flex justify-between items-center mb-4">
             <button @click="closeFilters" class="absolute top-4 right-4">
@@ -137,17 +166,28 @@ function closeFilters() {
       <div 
         class="flex flex-row gap-7"
       >
-        <aside class="w-full lg:w-1/4">
-          <FilterPanel :store="catalogStore" />
+        <aside class="hidden lg:block w-full lg:w-1/4">
+          <FilterPanel :store="catalogStore" :with-shadow="true" />
         </aside>
         
         <div 
           v-if="catalogStore.products.length"
           class="w-full lg:w-3/4"
         >
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-20  items-start">
+          <!-- ПЕРВЫЙ РЯД -->
+          <!-- mobile: 2 товара -->
+          <div class="grid grid-cols-2 gap-4 gap-y-6 md:hidden">
             <ProductCard
-              v-for="product in firstRow"
+              v-for="product in firstRowMobile"
+              :key="product.id"
+              :product="product"
+            />
+          </div>
+
+          <!-- desktop/tablet: 3 товара -->
+          <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
+            <ProductCard
+              v-for="product in firstRowDesktop"
               :key="product.id"
               :product="product"
             />
@@ -156,12 +196,23 @@ function closeFilters() {
           <CatalogBanner
             v-if="catalogStore.catalogBanner"
             :banner="catalogStore.catalogBanner"
-            class="my-10"
+            class="my-5 md:my-10"
           />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 gap-y-20">
+          <!-- ОСТАЛЬНЫЕ ТОВАРЫ -->
+          <!-- mobile: всё, что после первых двух -->
+          <div class="grid grid-cols-2 gap-4 md:gap-6 gap-y-6 md:gap-y-20 md:hidden">
             <ProductCard
-              v-for="product in otherProducts"
+              v-for="product in otherProductsMobile"
+              :key="product.id"
+              :product="product"
+            />
+          </div>
+
+          <!-- desktop/tablet: всё, что после первых трёх -->
+          <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
+            <ProductCard
+              v-for="product in otherProductsDesktop"
               :key="product.id"
               :product="product"
             />
@@ -169,11 +220,11 @@ function closeFilters() {
 
           <Pagination :current="page" :total="catalogStore.totalPages" />
 
-          <div class="mt-10 text-sm text-gray-700 leading-relaxed">
-            <h2 class="md:w-[88%] font-medium leading-tight mb-6 text-[clamp(2rem,6vw,2.8rem)]">
+          <div class="mt-0 text-sm text-gray-700 leading-relaxed h-2 relative overflow-hidden">
+            <h2 class="md:w-[88%] font-medium leading-tight mb-6 text-[clamp(2rem,6vw,2.8rem)] text-white">
               Широкий выбор биологически активных добавок на Daigo.ru
             </h2>
-            <p class="mb-20 text-base md:text-lg">
+            <p class="mb-20 text-base md:text-lg text-white">
               Онлайн магазин БАДов «Дайго» - это надёжное место для покупки качественных биологически активных добавок. 
               <br>Забота о здоровье становится все более актуальной темой. Люди стремятся к жизни полной энергии и бодрости, и правильное питание играет здесь ключевую роль. 
               <br>Магазин «Дайго» предлагает широкий ассортимент БАДов, которые помогут поддержать организм в тонусе, улучшить общее состояние и повысить иммунитет. <br><br>Один из ключевых принципов магазина «Дайго» - это качество и безопасность продукции. Представленные на сайте товары прошли строгий контроль качества, что позволяет быть уверенными в их эффективности и безопасности для здоровья. Приятным бонусом для наших клиентов является удобная система заказа и доставки. Вы можете оформить покупку в любое время, не выходя из дома, и получить заказ в кратчайшие сроки. Забота о собственном здоровье — это важный шаг на пути к полноценной и счастливой жизни. Поддерживайте организм с помощью качественных биологически активных добавок из магазина «Дайго» и наслаждайтесь активным образом жизни!
