@@ -21,6 +21,8 @@ export interface ProductMini {
   badge?: string
 }
 
+export interface FaqItem { q: string; a: string }
+export interface ProductFaq { image?: string; items: FaqItem[] }
 
 export interface ProductUsage {
   ageGroup: string
@@ -122,4 +124,5 @@ export interface Product {
   productionSection?: ProductProductionSection
   images?: ProductImage[]
   descriptionSections?: ProductDescriptionSection[]
+  faq?: ProductFaq
 }

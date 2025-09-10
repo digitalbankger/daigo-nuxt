@@ -3,7 +3,7 @@ export default defineEventHandler((event) => {
 
   const productsMock = [
     {
-      id: 1,
+      product_id: "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
       slug: 'metabiotik-daigo-lux',
       title: 'Метабиотик для кишечника Daigo Lux',
       subtitle: 'Японский органический метабиотик премиум-класса',
@@ -20,37 +20,37 @@ export default defineEventHandler((event) => {
                 <p>Дайго Люкс <span class="text-primary font-medium">работает быстрее</span>, чем Дайго, но при меньшей дозировке.</p>
                 <p>На полноценный курс хватает одной бутылочки.</p>
               `,
-              image: '/images/mock/product/lux1.png'
+              image: '/images/mock/product/lux/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: '/images/mock/product/lux1.png'
+              image: '/images/mock/product/lux/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: '/images/content/energy.png'
+              image: '/images/mock/product/lux/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: '/images/mock/product/lux1.png'
+              image: '/images/mock/product/lux/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: '/icons/microflora.png'
+              image: '/images/mock/product/lux/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
-              image: '/images/content/regular-use.png'
+              image: '/images/mock/product/lux/desc-6.png'
             },
             {
               title: 'Влияние Дайго Люкс на обмен веществ',
               text: `Дайго Люкс способствует улучшению углеводного, жирового, белкового и витаминного обмена веществ, а также восстановлению организма на клеточном уровне, что способствует активному долголетию.`,
-              image: '/images/mock/product/lux3.png'
+              image: '/images/mock/product/lux/desc-7.png'
             }
           ]
         }
@@ -61,11 +61,11 @@ export default defineEventHandler((event) => {
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: '/images/mock/product/lux-poster.jpg',
+      videoPoster: '/images/mock/product/lux/lux-poster.jpg',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: '/images/mock/product/lux-principles.jpg',
+        image: '/images/mock/product/lux/lux-principles.jpg',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -78,7 +78,7 @@ export default defineEventHandler((event) => {
       },
       effect: {
         title: 'Эффект',
-        image: '/images/mock/product/lux-effect.jpg',
+        image: '/images/mock/product/lux/lux-effect.jpg',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -109,7 +109,7 @@ export default defineEventHandler((event) => {
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: '/images/mock/product/lux-comp.jpg',
+        image: '/images/mock/product/lux/lux-comp.jpg',
       },
       usageInstructions: {
         groups: [
@@ -145,7 +145,7 @@ export default defineEventHandler((event) => {
             title: 'Детям от 6 до 10 лет',
             steps: [
               { icon: '/icons/drop.svg', text: '8 капель' },
-              { icon: '/icons/water.svg', text: 'Развести в чистой воде' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
           {
@@ -157,10 +157,10 @@ export default defineEventHandler((event) => {
           },
         ],
         videoUrl: '/videos/daigo.mp4',
-        videoPoster: '/images/mock/product/instr-poster.jpg',
+        videoPoster: '/images/mock/product/lux/instr-poster.jpg',
         footnote: 'Можно применять для профилактики постоянно. Срок годности — 3 года...',
-        text: `<p class="text-sm md:text-2xl font-medium">Можно применять для профилактики постоянно.</p>
-              <p class="text-sm md:text-2xl">Срок годности — 3 года.<br>
+        text: `<p class="text-sm md:text-base lg:text-2xl font-medium">Можно применять для профилактики постоянно.</p>
+              <p class="text-sm md:text-base lg:text-2xl leading-tight">Срок годности — 3 года.<br>
               Условия хранения: хранить в сухом, прохладном, защищённом от света, недоступном для детей месте, при температуре от 0 °C до 25 °C.</p>`
       },
       productionSection: {
@@ -168,7 +168,7 @@ export default defineEventHandler((event) => {
         title: 'Производство революционного продукта Daigo Lux',
         images: {
           type: 'single',
-          image: '/images/mock/product/lux-prod.jpg',
+          image: '/images/mock/product/lux/lux-prod.jpg',
         },
         details: {
           soyBeansKg: 15,
@@ -185,31 +185,41 @@ export default defineEventHandler((event) => {
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: '/images/mock/product/lux1.png'
+          image: '/images/mock/product/lux/lux1.png'
         }
       },
       images: [
             {
-                image_url: "http://localhost:3000/images/mock/product/lux1.png",
+                image_url: "http://localhost:3000/images/mock/product/lux/lux1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux2.png",
+                image_url: "http://localhost:3000/images/mock/product/lux/lux2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux3.png",
+                image_url: "http://localhost:3000/images/mock/product/lux/lux3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "http://localhost:3000/images/mock/product/lux4.png",
+                image_url: "http://localhost:3000/images/mock/product/lux/lux4.png",
                 is_primary: false,
                 display_order: 0
             }
       ],
+      faq: {
+        image: 'http://localhost:3000/images/mock/product/lux/lux-faq.jpg',
+        items: [
+          { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
+          { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
+          { q: 'Как долго принимать?', a: 'Рекомендуем курс 4–8 недель, далее по самочувствию.' },
+          { q: 'Совместим с антибиотиками?', a: 'Да, часто применяют после курса антибиотиков для восстановления микрофлоры.' },
+          { q: 'Есть ли противопоказания?', a: 'Индивидуальная непереносимость компонентов. При хронических заболеваниях — консультация врача.' }
+        ]
+      }
     }
     // другие товары из апишки
 
@@ -282,14 +292,14 @@ export default defineEventHandler((event) => {
     // Сбор происходит в период наибольшего накопления полезных веществ – нереста трески.
 
     // Не содержит синтетических добавок и лишних примесей.`,
-    //         image: '/images/mock/product/fat-acid-1.png'
+    //         image: '/images/mock/product/lux/fat-acid-1.png'
     //       },
     //       {
     //         title: 'Омега-3',
     //         text: `Омега-3 жирные кислоты являются важнейшей для здоровья добавкой к пище. Это строительный материал для мембран клеток всех органов и систем человеческого организма. Однако сам организм их не производит, они поступают только извне.
 
     // Омега-3 жирные кислоты необходимы для полноценного роста и развития, а также для функционирования нервной, иммунной и сердечно-сосудистой систем, улучшают вязкость крови, поддерживают активность лейкоцитов, снижают уровень холестерина.`,
-    //         image: '/images/mock/product/fat-acid-2.png'
+    //         image: '/images/mock/product/lux/fat-acid-2.png'
     //       }
     //     ]
     //   }

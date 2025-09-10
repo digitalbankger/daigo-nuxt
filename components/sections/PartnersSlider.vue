@@ -1,13 +1,13 @@
 <template>
-  <div class="relative !pl-[0%] md:!pl-[8%]">
+  <div class="relative !pl-[0%] sm:!pl-[8%]">
     <!-- Заголовок и стрелки -->
     <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
-      <div class="hidden md:flex gap-2 absolute right-0 -top-14">
+      <div class="hidden sm:flex gap-2 sm:gap-5 absolute right-0 -top-14">
         <button class="swiper-button-prev-partner">
-          <img src="/icons/arrow-left.svg" alt="prev" class="w-2/3" />
+          <img src="/icons/arrow-left.svg" alt="prev" class="w-2/3 sm:w-11/12" />
         </button>
         <button class="swiper-button-next-partner">
-          <img src="/icons/arrow-right.svg" alt="next" class="w-2/3" />
+          <img src="/icons/arrow-right.svg" alt="next" class="w-2/3 sm:w-11/12" />
         </button>
       </div>
     </div>
@@ -42,11 +42,11 @@
       </SwiperSlide>
     </Swiper>
 
-    <div class="flex gap-2 absolute bottom-0 right-0 md:right-0 z-20">
+    <div class="flex gap-2 absolute bottom-0 right-0 sm:right-0 z-20">
       <div
         v-for="(_, i) in partners.length"
         :key="i"
-        class="h-[2.5px] md:h-[3px] w-8 md:w-16 rounded-full transition-colors"
+        class="h-[2.5px] sm:h-[3px] w-8 sm:w-16 rounded-full transition-colors"
         :style="{
           backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A'
         }"

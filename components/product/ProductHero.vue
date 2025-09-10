@@ -1,15 +1,111 @@
+
 <script setup lang="ts">
 import type { Product } from '~/types/product'
 import Button from '~/components/ui/Button.vue'
+import { computed, onMounted, ref } from 'vue'
+import { useCartStore } from '~/stores/cartStore'
+
 const { product } = defineProps<{ product: Product }>()
+const cartStore = useCartStore()
 
 const hasDiscount = computed(() => product.oldPrice && product.oldPrice > product.price)
+
+// ✅ используем строковый ID (UUID). На всякий случай делаем fallback на другие поля.
+const productIdStr = computed(() => {
+  const p: any = product
+  const id = p?.product_id ?? p?.id ?? p?.uuid ?? p?.productId
+  return id ? String(id) : ''
+})
+
+const adding = ref(false)
+
+// Картинка для корзины (primary → display_order)
+const coverImageUrl = computed<string | undefined>(() => {
+  const imgs = product.images || []
+  if (!imgs.length) return undefined
+  const sorted = [...imgs].sort((a, b) => {
+    if (a.is_primary) return -1
+    if (b.is_primary) return 1
+    return (a.display_order || 0) - (b.display_order || 0)
+  })
+  return sorted[0]?.image_url || undefined
+})
+
+/** Кол-во в корзине: суммируем все позиции с тем же строковым ID */
+const quantityInCart = computed(() =>
+  cartStore.items
+    .filter(i => String(i.id) === productIdStr.value)
+    .reduce((sum, i) => sum + i.quantity, 0)
+)
+
+async function ensureCartLoadedOnce() {
+  if (cartStore.items.length === 0) {
+    try { await cartStore.loadCart() } catch {}
+  }
+}
+
+async function addToCartHandler() {
+  if (adding.value || !productIdStr.value) return
+  adding.value = true
+  try {
+    await ensureCartLoadedOnce()
+    await cartStore.addToCart({
+      id: productIdStr.value as unknown as any, // строковый UUID
+      title: product.title,
+      subtitle: product.subtitle,
+      price: product.price,
+      oldPrice: product.oldPrice,
+      quantity: 1,
+      image: coverImageUrl.value ?? ''
+    })
+  } catch (e) {
+    console.warn('addToCart failed, syncing cart...', e)
+    await cartStore.loadCart()
+  } finally {
+    adding.value = false
+  }
+}
+
+async function incrementHandler() {
+  if (adding.value || !productIdStr.value) return
+  adding.value = true
+  try {
+    await cartStore.updateItem(
+      productIdStr.value as unknown as any,
+      (quantityInCart.value || 0) + 1
+    )
+  } catch (e) {
+    console.warn('updateItem(+1) failed, syncing cart...', e)
+    await cartStore.loadCart()
+  } finally {
+    adding.value = false
+  }
+}
+
+async function decrementHandler() {
+  if (adding.value || !productIdStr.value) return
+  adding.value = true
+  try {
+    await cartStore.updateItem(
+      productIdStr.value as unknown as any,
+      Math.max(0, (quantityInCart.value || 0) - 1)
+    )
+  } catch (e) {
+    console.warn('updateItem(-1) failed, syncing cart...', e)
+    await cartStore.loadCart()
+  } finally {
+    adding.value = false
+  }
+}
+
+// Подтягиваем корзину на клиенте, чтобы после перезагрузки было актуальное количество
+onMounted(ensureCartLoadedOnce)
 </script>
 
 <template>
-  <section class="mb-2 md:mb-10 py-5 md:py-10">
-    <div class="flex flex-col md:flex-row gap-8 items-start">
-      <div class="w-full md:w-1/2 relative">
+  <section class="mb-2 sm:mb-6 xl:mb-10 py-5 sm:py-6 xl:py-10">
+    <div class="flex flex-col sm:flex-row sm:gap-6 xl:gap-8 items-start">
+      <div class="w-full sm:w-1/2 relative">
         <ProductGallery
           v-if="product.images?.length"
           :images="product.images"
@@ -18,64 +114,66 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
       </div>
 
       <!-- Инфо -->
-      <div class="w-full md:w-1/2 flex flex-col gap-4">
-
-        <h1 class="text-2xl md:text-product font-medium leading-tight mb-2">
+      <div class="w-full sm:w-1/2 flex flex-col gap-4">
+        <h1 class="text-2xl sm:text-3xl xl:text-product font-medium !leading-tight mb-2">
           {{ product.title }}
         </h1>
 
-        <h2 class="text-sm md:text-xl font-medium">
+        <h2 class="text-sm sm:text-lg xl:text-xl font-medium">
           {{ product.subtitle }}
         </h2>
 
-        <p class="text-sm md:text-lg">
+        <p class="text-sm sm:text-base xl:text-lg">
           {{ product.shortDescription }}
         </p>
 
-        <div class="flex gap-3 md:gap-4 mt-4">
+        <div class="flex gap-3 sm:gap-4 mt-4">
           <NuxtLink
             to="#description"
-            class="text-sm md:text-base bg-[#EEF4FF] rounded-lg md:rounded-xl px-2 md:px-4 py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-1 md:gap-2"
+            class="text-sm xl:text-base bg-[#EEF4FF] rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-1 sm:gap-2"
           >
             <span>Описание товара</span>
-
-            <svg
-              width="10"
-              height="18"
-              viewBox="0 0 10 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-3 md:w-4 h-3 md:h-4 transition-colors pt-0.5 md:pt-0"
+                        <svg
+              width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg"
+              class="w-3 sm:w-4 h-3 sm:h-4 transition-colors pt-0.5 sm:pt-0"
             >
               <path
-                fill="currentColor"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M0.807884 16.943C0.74968 16.885 0.703502 16.816 0.671994 16.7401C0.640486 16.6641 0.624268 16.5827 0.624268 16.5005C0.624268 16.4183 0.640486 16.3369 0.671994 16.261C0.703502 16.1851 0.74968 16.1161 0.807884 16.058L7.86663 9.00053L0.807884 1.94303C0.749775 1.88492 0.703679 1.81594 0.67223 1.74001C0.640781 1.66409 0.624595 1.58271 0.624595 1.50053C0.624595 1.41835 0.640781 1.33698 0.67223 1.26105C0.703679 1.18513 0.749775 1.11614 0.807884 1.05803C0.865994 0.999922 0.934981 0.953825 1.0109 0.922377C1.08683 0.890928 1.1682 0.874743 1.25038 0.874743C1.33256 0.874743 1.41394 0.890928 1.48986 0.922377C1.56579 0.953825 1.63477 0.999922 1.69288 1.05803L9.19288 8.55803C9.25109 8.61609 9.29727 8.68506 9.32877 8.76099C9.36028 8.83692 9.3765 8.91832 9.3765 9.00053C9.3765 9.08274 9.36028 9.16414 9.32877 9.24007C9.29727 9.316 9.25109 9.38497 9.19288 9.44303L1.69288 16.943C1.63483 17.0012 1.56586 17.0474 1.48993 17.0789C1.414 17.1104 1.33259 17.1266 1.25038 17.1266C1.16818 17.1266 1.08677 17.1104 1.01084 17.0789C0.934911 17.0474 0.865942 17.0012 0.807884 16.943Z" 
+                fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"
+                d="M0.807884 16.943C0.74968 16.885 0.703502 16.816 0.671994 16.7401C0.640486 16.6641 0.624268 16.5827 0.624268 16.5005C0.624268 16.4183 0.640486 16.3369 0.671994 16.261C0.703502 16.1851 0.74968 16.1161 0.807884 16.058L7.86663 9.00053L0.807884 1.94303C0.749775 1.88492 0.703679 1.81594 0.67223 1.74001C0.640781 1.66409 0.624595 1.58271 0.624595 1.50053C0.624595 1.41835 0.640781 1.33698 0.67223 1.26105C0.703679 1.18513 0.749775 1.11614 0.807884 1.05803C0.865994 0.999922 0.934981 0.953825 1.0109 0.922377C1.08683 0.890928 1.1682 0.874743 1.25038 0.874743C1.33256 0.874743 1.41394 0.890928 1.48986 0.922377C1.56579 0.953825 1.63477 0.999922 1.69288 1.05803L9.19288 8.55803C9.25109 8.61609 9.29727 8.68506 9.32877 8.76099C9.36028 8.83692 9.3765 8.91832 9.3765 9.00053C9.3765 9.08274 9.36028 9.16414 9.32877 9.24007C9.29727 9.316 9.25109 9.38497 9.19288 9.44303L1.69288 16.943C1.63483 17.0012 1.56586 17.0474 1.48993 17.0789C1.414 17.1104 1.33259 17.1266 1.25038 17.1266C1.16818 17.1266 1.08677 17.1104 1.01084 17.0789C0.934911 17.0474 0.865942 17.0012 0.807884 16.943Z"
               />
             </svg>
           </NuxtLink>
 
-          <NuxtLink to="#reviews" class="text-sm md:text-base text-primary border border-primary rounded-lg md:rounded-xl px-2 md:px-4 py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 md:gap-2">
+          <NuxtLink
+            to="#reviews"
+            class="text-sm xl:text-base text-primary border border-primary rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 sm:gap-2"
+          >
             <img src="/icons/star.svg" alt="fire" />
             <span>Отзывы</span>
-            <img src="/icons/arrow-m-primary.svg" alt="arrow" class="w-3 md:w-4 h-3 md:h-4 pt-0.5 md:pt-0" />
+            <img src="/icons/arrow-m-primary.svg" alt="arrow" class="w-3 sm:w-4 h-3 sm:h-4 pt-0.5 sm:pt-0" />
           </NuxtLink>
         </div>
 
         <div class="text-2xl mt-6 font-bold flex items-center gap-4">
-          <span
-            v-if="hasDiscount"
-            class="text-black/40 line-through text-base md:text-cardhead font-normal"
-          >
+          <span v-if="hasDiscount" class="text-black/40 line-through text-base sm:text-2xl xl:text-cardhead font-normal">
             {{ product.oldPrice?.toLocaleString() }} ₽
           </span>
-          <span class="text-cgreen text-2xl md:text-product font-medium">{{ product.price.toLocaleString() }} ₽</span>
+          <span class="text-cgreen text-2xl sm:text-4xl xl:text-product font-medium">
+            {{ product.price.toLocaleString() }} ₽
+          </span>
         </div>
 
-        <div class="flex flex-col md:flex-row justify-between gap-4 md:gap-6 mt-3 md:mt-6">
-          <Button variant="solid" class="w-full md:w-[50%]">
-            <template #icon>
+        <!-- CTA -->
+        <div id="product-cta" class="flex flex-col sm:flex-row justify-between gap-4 sm:gap-6 mt-3 sm:mt-6">
+          <!-- Если товара нет — большая кнопка -->
+          <Button
+            v-if="quantityInCart === 0"
+            :disabled="adding || !productIdStr"
+            variant="solid"
+            class="w-full sm:w-[50%] disabled:opacity-60"
+            @click="addToCartHandler"
+          >
+                        <template #icon>
               <svg class="w-5 h-5 fill-current transition-colors" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                 <path
                   fill="currentColor"
@@ -86,7 +184,17 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
             В корзину
           </Button>
 
-          <Button variant="outline" class="w-full md:w-[50%]">
+          <!-- Если есть — контрол + / − -->
+          <div
+            v-else
+            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+          >
+            <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
+            <span class="min-w-[2rem] text-center">{{ quantityInCart }}</span>
+            <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+          </div>
+
+          <Button variant="outline" class="w-full sm:w-[50%]">
             <template #icon>
               <svg class="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -97,7 +205,6 @@ const hasDiscount = computed(() => product.oldPrice && product.oldPrice > produc
             </template>
             Консультация
           </Button>
-
         </div>
       </div>
     </div>

@@ -291,25 +291,25 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
         </aside>
       </div>
       <section
-      class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
-    >
-    <img src="/images/subscription-product.png" alt="Banner" class="absolute  z-0 right-0" />
-    <img src="/images/subscription-left.png" alt="Banner" class="absolute z-0 left-0" />
-      <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
-        <h2 class="font-medium leading-tight text-slider">
-          Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
-        </h2>
-        <p class="text-lg md:text-2xl leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
-          Оставьте свою электронную почту и получайте дайджест полезных видео и статей раз в неделю, а также узнавайте первыми о новых акциях и предложениях
-        </p>
-        <Button
-          variant="solid"
-          class="!text-black text-lg bg-white hover:bg-gray-100 w-60"
-        >
-          Отправить
-      </Button>
-      </div>
-    </section>
+        class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
+      >
+        <img src="/images/subscription-product.png" alt="Banner" class="absolute  z-0 right-0" />
+        <img src="/images/subscription-left.png" alt="Banner" class="absolute z-0 left-0" />
+        <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
+          <h2 class="font-medium leading-tight text-slider">
+            Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
+          </h2>
+          <p class="text-lg md:text-2xl leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
+            Оставьте свою электронную почту и получайте дайджест полезных видео и статей раз в неделю, а также узнавайте  первыми о новых акциях и предложениях
+          </p>
+          <Button
+            variant="solid"
+            class="!text-black text-lg bg-white hover:bg-gray-100 w-60"
+          >
+            Отправить
+          </Button>
+        </div>
+      </section>
     </div>
   </BaseContainer>
 </template>

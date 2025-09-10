@@ -43,7 +43,7 @@ export default {
         sans: ['Golos', 'sans-serif'],
       },
       fontSize: {
-        slider: 'clamp(32px, 8vw, 56px)',
+        slider: 'clamp(28px, 8vw, 56px)',
         product: 'clamp(30px, 8vw, 46px)',
         head: 'clamp(56px, 8vw, 80px)',
         cardhead: 'clamp(20px, 8vw, 32px)',
@@ -56,7 +56,7 @@ export default {
       screens: {
         xs: { max: '250px' },
         mm: { max: '430px' },
-
+        'xs-max': { max: '350px' },
       },
       width: {
         '18': '4rem',

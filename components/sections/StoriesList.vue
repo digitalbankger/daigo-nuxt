@@ -28,17 +28,17 @@ useIntersectionObserver(
 </script>
 
 <template>
-  <div ref="target" class="w-full flex items-center justify-start md:justify-center gap-4 overflow-x-auto no-scrollbar scroll-touch px-4 py-2 mx-auto">
+  <div ref="target" class="w-full flex items-center justify-start sm:justify-center gap-4 overflow-x-auto no-scrollbar scroll-touch px-4 py-2 mx-auto">
     <div
       v-for="story in modelStories"
       :key="story.id"
-      class="gradient-border w-[80px] md:w-[104px] h-[80px] md:h-[104px] rounded-full p-[2px] flex items-center justify-center shrink-0 cursor-pointer"
+      class="gradient-border w-[70px] sm:w-[94px] lg:w-[104px] h-[70px] sm:h-[95px] lg:h-[104px] rounded-full p-[4px] flex items-center justify-center shrink-0 cursor-pointer"
       @click="emit('open', story)"
     >
       <NuxtImg
         :src="story.thumbnail"
         :alt="story.title"
-        class="w-[74px] md:w-[100px] h-[74px] md:h-[100px] object-cover rounded-full transition-transform duration-300 hover:scale-105"
+        class="aspect-[1/1] w-[74px] sm:w-[90px] lg:w-[100px] h-[64px] sm:h-[90px] lg:h-[99px] object-cover rounded-full transition-transform duration-300 hover:scale-105"
         format="webp"
         loading="lazy"
         width="100"
@@ -50,6 +50,6 @@ useIntersectionObserver(
 
 <style scoped>
 .gradient-border {
-  background: conic-gradient(#e14283, #ffe158, #3bc041, #4f8eff, #e14283);
+  background: conic-gradient(#3bc041, #ffe158, #e14283, #e14283, #4f8eff);
 }
 </style>

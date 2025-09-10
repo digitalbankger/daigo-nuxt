@@ -16,21 +16,21 @@ const productGroups = [
       {
         text: 'Восстановить баланс кишечной микрофлоры и наладить работу ЖКТ. Укрепить иммунитет.',
         image: '/images/customers/allPrinciples.webp',
-        imageWidth: 'w-[80%] md:w-[44%]',
+        imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
         slugs: ['gastro'],
       },
       {
         text: 'Восстановить баланс микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.',
         image: '/images/customers/shampoo.png',
-        imageWidth: 'w-[80%] md:w-[44%]',
+        imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
         slugs: ['gastro', 'skin'],
       },
       {
         text: 'Восстановить здоровый баланс микрофлоры полости рта и улучшить здоровье зубов.',
         image: '/images/customers/dent.png',
-        imageWidth: 'w-[90%] md:w-[65%]',
+        imageWidth: 'w-[90%] sm:w-[65%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
         slugs: ['gastro', 'skin', 'teeth'],
       },
@@ -45,7 +45,7 @@ const productGroups = [
       {
         text: 'Восстановить когнитивные функции мозга, улучшить память и концентрацию внимания.\n\nУлучшить состояние при хронической усталости и информационном истощении.',
         image: '/images/customers/tamotsu-single.png',
-        imageWidth: 'w-[50%] md:w-[34%] -right-8 md:right-10',
+        imageWidth: 'w-[50%] sm:w-[34%] -right-8 sm:right-10',
         tags: ['Нервная система и мозг'],
         slugs: ['brain'],
       },
@@ -93,11 +93,11 @@ const currentSlide = ref(0)
 
 <template>
   <section class="relative w-full overflow-hidden">
-    <h2 v-if="!hideTitle" class="text-slider font-medium mb-6 md:mb-8">Покупателям
+    <h2 v-if="!hideTitle" class="text-slider sm:text-product lg:text-slider font-medium mb-6 sm:mb-8">Покупателям
     </h2>
 
-    <div class="flex flex-col md:flex-row gap-4 md:gap-6">
-      <div class="w-full md:w-4/6 rounded-3xl relative overflow-hidden">
+    <div class="flex flex-col lg:flex-row gap-4 sm:gap-6">
+      <div class="w-full lg:w-4/6 rounded-3xl relative overflow-hidden">
         <Transition name="fade" mode="out-in">
         <Swiper
           v-if="selectedGroup"
@@ -110,26 +110,28 @@ const currentSlide = ref(0)
             v-for="(slide, index) in selectedGroup.slides"
             :key="index"
           >
-            <div class="relative p-6 transition bg-hoverbtn h-[446px] rounded-[30px] md:py-5 md:px-12">
-              <div v-if="slide.tags?.length" class="flex flex-wrap gap-4 md:gap-3 mb-4 w-full md:w-4/6">
+            <div class="relative p-6 transition bg-hoverbtn h-[446px] rounded-[30px] lg:py-5 sm:p-10 lg:px-12">
+              <div v-if="slide.tags?.length" class="flex flex-wrap gap-3 mb-4 w-full sm:w-4/6">
                 <span
                   v-for="(tag, i) in slide.tags"
                   :key="tag"
-                  class="px-3 py-2 md:py-2 rounded-lg text-sm md:text-lg text-black select-none"
+                  class="px-3 py-2 sm:py-2 rounded-lg text-sm sm:text-lg text-black select-none"
                   :class="slide.tags.length === 1 ? 'bg-[#B5EBFF]' : ['bg-[#FFF279]', 'bg-[#B7FFBA]', 'bg-[#FFCDDD]'][i % 3]"
                 >
                   {{ tag }}
                 </span>
               </div>
 
-              <div class="flex justify-between items-start">
+              <div
+               class="flex justify-between items-start"
+               >
                 <div>
-                  <h3 class="text-[clamp(1.4rem,6vw,2.8rem)] font-medium leading-tight mt-10 md:mt-6 mb-4">
+                  <h3 class="text-[clamp(1.4rem,6vw,2.8rem)] font-medium leading-tight mt-8 sm:mt-4 mb-4">
                     {{ selectedGroup?.label }}
                   </h3>
                   <p
-                    class="text-sm md:text-base font-normal"
-                    :class="selectedGroup?.id === 'peptidy' ? 'w-3/6' : 'w-3/5'"
+                    class="text-sm sm:text-base font-normal"
+                    :class="selectedGroup?.id === 'peptidy' ? 'w-full sm:w-3/5' : 'w-3/5'"
                   >
                     {{ slide.text }}
                   </p>
@@ -145,7 +147,7 @@ const currentSlide = ref(0)
                 <img
                   :src="slide.image"
                   :alt="selectedGroup?.label"
-                  class="absolute bottom-0 -right-20 md:right-0"
+                  class="absolute bottom-0 -right-20 sm:right-0"
                   :class="slide.imageWidth"
                   loading="lazy"
                 />
@@ -156,11 +158,11 @@ const currentSlide = ref(0)
         </Swiper>
         </Transition>
 
-        <div class="flex gap-2 absolute bottom-6 left-6 md:left-12 z-20">
+        <div class="flex gap-2 absolute bottom-6 left-6 sm:left-12 z-20">
           <div
             v-for="(_, i) in selectedGroup?.slides.length"
             :key="i"
-            class="h-[3px] w-10 md:w-16 rounded-full transition-colors"
+            class="h-[3px] w-10 sm:w-16 rounded-full transition-colors"
             :style="{
               backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A'
             }"
@@ -169,15 +171,15 @@ const currentSlide = ref(0)
 
       </div>
 
-      <div class="w-full md:w-2/6 grid grid-cols-1 gap-6">
+      <div class="w-full lg:w-2/6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6">
         <button
           v-for="group in productGroups.filter(g => g.id !== selectedGroupId)"
           :key="group.id"
           @click="selectedGroupId = group.id; currentSlide = 0"
           class="relative h-[207px] overflow-hidden bg-hoverbtn rounded-2.5xl flex flex-col justify-between items-start transition-transform duration-300 hover:-translate-y-1 w-full text-left"
         >
-          <div class="p-4 relative z-10">
-            <h3 class="text-xl w-4/6">{{ group.title }}</h3>
+          <div class="p-4 sm:px-10 lg:p-4 relative z-10">
+            <h3 class="text-xl w-4/6 sm:w-full lg:w-4/6">{{ group.title }}</h3>
           </div>
           <img
             :src="group.preview"

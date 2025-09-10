@@ -52,8 +52,8 @@ const submit = async () => {
 
 <template>
   <div class="space-y-6">
-    <h1 class="text-3xl md:text-4xl font-medium">Войти или создать профиль</h1>
-    <p class="text-xl">
+    <h1 class="text-3xl lg:text-4xl font-medium">Войти или создать профиль</h1>
+    <p class="text-base lg:text-xl">
       После входа вы сможете заказывать товары с бесплатной доставкой и отслеживать историю заказов.
     </p>
 

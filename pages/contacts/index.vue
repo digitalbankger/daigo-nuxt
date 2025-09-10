@@ -79,7 +79,7 @@ useHead({
         <img src="/images/russia-map.png" alt="Карта России" class="w-[92%] h-full" />
 
         <div
-          class="absolute left-[22%] top-[53%] z-10 cursor-pointer"
+          class="absolute md:left-[30%] lg:left-[22%] md:top-[40%] lg:top-[53%] z-10 cursor-pointer"
           @click="togglePopup"
         >
           <span class="block absolute -left-36 top-16 w-6 h-6 bg-blue-400 rounded-full opacity-75 animate-ping"></span>
@@ -88,7 +88,7 @@ useHead({
 
         <div
           v-if="!showPopup"
-          class="backdrop-blur-xl bg-white/30 border border-white/20 rounded-xl shadow-lg shadow-[#0057ED1A] absolute z-20 bg-white p-4 w-[280px] left-[0%] top-[30%] -translate-y-1/2"
+          class="backdrop-blur-xl bg-white/30 border border-white/20 rounded-xl shadow-lg shadow-[#0057ED1A] absolute z-20 bg-white p-4 w-[280px] md:left-[20%] lg:left-[0%] md:top-[40%] lg:top-[30%] -translate-y-1/2"
         >
           <div class="flex flex-row gap-2 items-start">
             <img
@@ -113,39 +113,39 @@ useHead({
         </div>
       </div>
 
-      <div class="flex flex-col md:flex-row justify-start gap-10 md:gap-32">
+      <div class="flex flex-col md:flex-row justify-start gap-10 md:gap-24 lg:gap-32">
         <div class="flex flex-col gap-4 md:gap-5">
-          <div class="text-xl md:text-3xl font-medium mb-0 md:mb-2">Москва</div>
-          <div class="text-sm md:text-xl font-normal md:font-medium">Большой сухаревский переулок 21 строение 2
+          <div class="text-xl sm:text-2xl lg:text-3xl font-medium mb-0 md:mb-2">Москва</div>
+          <div class="text-sm sm:text-base lg:text-xl font-normal md:font-medium">Большой сухаревский переулок 21 строение 2
           </div>
 
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/phone.svg" class="w-5 md:w-6"/>
             <span>Телефон: 8 800 555 20 43</span>
           </div>
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6"/> 
             <span>Email: info@daigo.ru</span>
           </div>
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/clock.svg" class="w-5 md:w-6"/> 
             <span>Часы работы: пн-пт 9:00 – 18:00</span>
           </div>
         </div>
 
         <div class="flex flex-col gap-4 md:gap-5">
-          <div class="text-xl md:text-3xl font-medium mb-0 md:mb-2">Санкт-Петербург</div>
-          <div class="text-sm md:text-xl font-normal md:font-medium">Гражданский проспект 26</div>
+          <div class="text-xl sm:text-2xl lg:text-3xl font-medium mb-0 md:mb-2">Санкт-Петербург</div>
+          <div class="text-sm sm:text-base lg:text-xl font-normal md:font-medium">Гражданский проспект 26</div>
 
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/phone.svg" class="w-5 md:w-6" />
             <span>Телефон: +7 (905) 200-40-09</span>
           </div>
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6" /> 
             <span>Email: info@daigo.ru</span>
           </div>
-          <div class="text-sm md:text-lg flex flex-row items-center gap-2">
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/clock.svg" class="w-5 md:w-6" /> 
             <span>Часы работы: пн-пт 9:00 – 18:00</span>
           </div>
@@ -153,7 +153,7 @@ useHead({
       </div>
 
       <div class="flex flex-col lg:flex-col gap-6 items-start mt-6">
-        <h2 class="text-xl md:text-slider font-medium mb-0 md:mb-4">Головной офис в Москве</h2>
+        <h2 class="text-xl sm:text-product lg:text-slider font-medium mb-0 md:mb-4">Головной офис в Москве</h2>
         <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
             <div class="w-full lg:w-4/6 rounded-xl overflow-hidden">
               <video

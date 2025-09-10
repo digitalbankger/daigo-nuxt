@@ -176,7 +176,7 @@ function closeFilters() {
         >
           <!-- ПЕРВЫЙ РЯД -->
           <!-- mobile: 2 товара -->
-          <div class="grid grid-cols-2 gap-4 gap-y-6 md:hidden">
+          <div class="grid grid-cols-2 gap-4 gap-y-6 lg:hidden">
             <ProductCard
               v-for="product in firstRowMobile"
               :key="product.id"
@@ -185,7 +185,7 @@ function closeFilters() {
           </div>
 
           <!-- desktop/tablet: 3 товара -->
-          <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
+          <div class="hidden lg:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
               v-for="product in firstRowDesktop"
               :key="product.id"

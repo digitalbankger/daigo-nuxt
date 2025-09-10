@@ -7,7 +7,7 @@
       <div class="relative">
         <div class="bg-gray-100 rounded-2xl h-[500px] relative overflow-hidden">
           <img 
-            src="/icons/placeholder.svg?height=500&width=640"
+            src="/images/delivery/map.jpg?height=500&width=640"
             alt="Карта доставки по Москве"
             class="w-full h-full object-cover rounded-lg"
             loading="lazy"

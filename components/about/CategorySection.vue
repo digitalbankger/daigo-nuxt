@@ -18,18 +18,18 @@ const categories: Category[] = [
 <template>
   <section class="relative w-full overflow-hidden">
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-3 gap-6">
       <template v-for="category in categories" :key="category.id">
         <div
-          class="relative overflow-hidden group bg-hoverbtn rounded-2.5xl px-6 py-7 flex flex-col justify-between items-start min-h-[150px] md:min-h-[280px] transition-transform duration-300"
+          class="relative overflow-hidden group bg-hoverbtn rounded-2.5xl px-6 py-7 flex flex-col justify-between items-start min-h-[150px] sm:min-h-[220px] lg:min-h-[280px] transition-transform duration-300"
         >
 
-          <h3 class="text-[32px] md:text-[56px] font-medium mb-2 w-[70%]">
+          <h3 class="text-[32px] sm:text-[56px] font-medium mb-2 w-[70%]">
             {{ category.title }}
           </h3>
           <p 
-            class="text-sm md:text-base text-gray-600 mb-auto"
-            :class="category.id === 0 ? 'w-[70%]' : 'w-[56%] md:w-[50%]'"
+            class="text-sm sm:text-base text-gray-600 mb-auto"
+            :class="category.id === 0 ? 'w-[70%] sm:w-2/5 lg:w-[70%]' : 'w-[56%] sm:w-[50%]'"
           >
             {{ category.content }}
           </p>
@@ -38,7 +38,7 @@ const categories: Category[] = [
             :src="category.image"
             :alt="category.title"
             class="absolute bottom-0 right-0 mt-auto"
-            :class="category.id === 2 ? 'w-[36%] md:w-[40%]' : 'w-[40%] md:w-[50%]'"
+            :class="category.id === 2 ? 'w-[36%] sm:w-3/12 lg:w-[40%]' : 'w-[40%] sm:w-3/12 lg:w-[50%]'"
           />
           
         </div>

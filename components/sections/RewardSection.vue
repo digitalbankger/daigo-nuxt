@@ -1,8 +1,8 @@
 <template>
   <div class="relative py-0">
     <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
-      <h2 class="text-slider font-medium leading-tight mb-2 md:mb-6">Награды и сертификаты</h2>
-      <div class="flex gap-2">
+      <h2 class="text-slider sm:text-product lg:text-slider font-medium leading-tight mb-2 sm:mb-6">Награды и сертификаты</h2>
+      <div class="flex sm:hidden gap-2">
         <button class="swiper-button-prev">
           <img src="/icons/arrow-left.svg" alt="prev" class="w-full" />
         </button>
@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div class="relative !pl-[0%] md:!pl-[8%]">
+    <div class="relative !pl-[0%] sm:!pl-[8%]">
       <!-- Слайдер -->
       <Swiper
         ref="swiperRef"
@@ -43,11 +43,11 @@
       </Swiper>
 
       <!-- Пагинация-полоски (как в партнёрах) -->
-      <div class="flex gap-2 absolute bottom-0 right-0 md:right-0 z-20">
+      <div class="flex gap-2 absolute bottom-0 right-0 sm:right-0 z-20">
         <div
           v-for="(_, i) in rewards.length"
           :key="i"
-          class="h-[2.5px] md:h-[3px] w-8 md:w-16 rounded-full transition-colors"
+          class="h-[2.5px] sm:h-[3px] w-8 sm:w-16 rounded-full transition-colors"
           :style="{
             backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A'
           }"
@@ -64,15 +64,11 @@ import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 
-import type { Review } from '~/types/content'
 import RewardCard from '~/components/RewardCard.vue'
 import type { NavigationOptions } from 'swiper/types'
 
-defineProps<{ reviews: Review[] }>()
-const emit = defineEmits<{ (e: 'open-review', review: Review): void }>()
-
 const swiperRef = ref()
-const currentSlide = ref(0) // ← добавили
+const currentSlide = ref(0)
 
 const rewards = [
   {
@@ -94,7 +90,7 @@ const rewards = [
 onMounted(() => {
   nextTick(() => {
     swiperRef.value?.swiper?.update()
-    currentSlide.value = swiperRef.value?.swiper?.realIndex ?? 0 // стартовое значение, как в партнёрах
+    currentSlide.value = swiperRef.value?.swiper?.realIndex ?? 0
   })
 })
 </script>

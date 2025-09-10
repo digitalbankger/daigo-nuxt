@@ -66,9 +66,12 @@ export const useArticlesStore = defineStore('articles', () => {
     try {
       setLoading(key, true)
       const cleaned = cleanQuery(query)
-      const response = await $fetch<Paged<ArticleListItem>>('/api/articles', { query: cleaned })
-      list.value = response.items || []
-      totalPages.value = Math.ceil((response.total || 0) / perPage)
+      const response = await $fetch<any>('/api/articles', { query: cleaned })
+      const items = response?.items ?? response?.data ?? (Array.isArray(response) ? response : [])
+      const total = response?.total ?? response?.count ?? items.length
+
+      list.value = Array.isArray(items) ? items : []
+      totalPages.value = Math.max(1, Math.ceil(Number(total) / perPage))
       setError(key, null)
     } catch (e: any) {
       setError(key, e?.message || 'Failed to fetch articles')

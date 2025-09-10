@@ -1,5 +1,5 @@
+import { computed } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
-
 
 export const useCart = () => {
   const store = useCartStore()
@@ -10,32 +10,23 @@ export const useCart = () => {
     store.items.reduce((sum, i) => sum + i.price * i.quantity, 0)
   )
 
-  const addToCart = async (product: {
-    id: number
-    title: string
-    price: number
-    image: string
-    subtitle?: string
-  }, quantity = 1) => {
+  /** Добавить товар. Если уже есть, увеличиваем количество */
+  const addToCart = async (
+    product: {
+      id: number
+      title: string
+      price: number
+      image: string
+      subtitle?: string
+    },
+    quantity = 1
+  ) => {
     const existing = store.items.find(i => i.id === product.id)
-
     if (existing) {
       await store.updateItem(product.id, existing.quantity + quantity)
     } else {
-      const newItem = {
-        ...product,
-        quantity
-      }
-      store.items.push(newItem)
-
-      if (!store.isAuthenticated) {
-        store.saveToLocal()
-      } else {
-        await $fetch('/api/cart/update', {
-          method: 'POST',
-          body: { id: product.id, quantity }
-        })
-      }
+      const newItem = { ...product, quantity } as any
+      await store.addToCart(newItem)
     }
   }
 

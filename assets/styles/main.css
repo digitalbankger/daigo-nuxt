@@ -3,9 +3,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden
+}
+
 body {
   @apply font-sans;
   background-color: #fff;
+  max-width: 100%;
+  width: 100%;
+  overflow-x: hidden
 }
 
 #app {
@@ -42,14 +51,16 @@ input:focus-visible {
   -webkit-tap-highlight-color: transparent;
 }
 
-@media (max-width: 325px) {
+@media (max-width: 33px) {
   ::placeholder {
     font-size: 14px;
   }
-  
   input::placeholder,
   textarea::placeholder {
     font-size: 14px;
+  }
+  .text-slider {
+    font-size: 2rem !important;
   }
 }
 

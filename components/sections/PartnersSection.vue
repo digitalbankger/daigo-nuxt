@@ -1,12 +1,12 @@
 <template>
   <section class="relative w-full">
-    <h2 class="text-slider font-medium mb-2 md:mb-4">Наши партнёры</h2>
+    <h2 class="text-slider font-medium mb-2 sm:mb-4">Наши партнёры</h2>
     <div class="">
       <PartnersSlider
       />
     </div>
 
-    <div class="hidden md:block w-full py-12">
+    <div class="hidden sm:block w-full py-12">
       <!-- Картинка с ограничением высоты -->
       <div
         class="overflow-hidden transition-all duration-500"
@@ -33,7 +33,7 @@
 
     </div>
 
-    <div class="block md:hidden w-full pt-12 pb-2">
+    <div class="block sm:hidden w-full pt-12 pb-2">
       <img
         src="/images/partners-mob.png"
         alt="Наши партнёры"

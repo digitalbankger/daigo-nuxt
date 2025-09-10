@@ -118,13 +118,13 @@ async function toggleProducts() {
         <transition name="fade">
           <div
             v-if="showProducts && relatedProducts.length"
-            class="w-full absolute bottom-0 left-0 right-0 bg-primary md:bg-white p-4 z-40 max-h-[50vh] md:max-h-[44vh] rounded-t-xl shadow-xl"
+            class="w-full absolute bottom-0 left-0 right-0 bg-white p-4 z-40 max-h-[50vh] md:max-h-[44vh] rounded-t-xl shadow-xl"
           >
             <div class="flex items-center justify-between mb-2">
-              <div class="text-sm text-white md:text-black/70">
+              <div class="text-sm text-black/70">
                 Сопутствующие товары · {{ relatedProducts.length }}
               </div>
-              <button class="text-sm text-white md:text-primary hover:underline" @click="toggleProducts">Свернуть</button>
+              <button class="text-sm text-primary hover:underline" @click="toggleProducts">Свернуть</button>
             </div>
 
             <div

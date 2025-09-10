@@ -1,20 +1,20 @@
 <template>
   <section class="space-y-8">
     <!-- Заголовок -->
-    <h2 class="text-product leading-tight font-medium">Инструкция <br class="block md:hidden" /> по применению</h2>
+    <h2 class="text-product leading-tight font-medium">Инструкция <br class="block sm:hidden" /> по применению</h2>
 
     <!-- Содержимое -->
-    <div class="flex flex-col md:flex-row gap-6 items-start">
+    <div class="flex flex-col sm:flex-row gap-6 items-start">
       <!-- Картинка (если есть) -->
       <div
         v-if="data.image"
-        class="w-full md:w-[40%] bg-hoverbtn rounded-3xl overflow-hidden"
+        class="w-full sm:w-[40%] bg-hoverbtn rounded-3xl overflow-hidden"
       >
         <img :src="data.image" alt="Инструкция" class="w-full h-auto object-cover" />
       </div>
 
       <!-- Текстовые блоки -->
-      <div class="w-full" :class="{ 'md:w-[60%]': data.image }">
+      <div class="w-full" :class="{ 'sm:w-[60%]': data.image }">
         <!-- Формат с группами -->
         <div v-if="data.groups" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
@@ -22,14 +22,14 @@
             :key="group.title"
             class="space-y-2"
           >
-            <h3 class="font-medium text-xl md:text-cardhead mb-5">{{ group.title }}</h3>
+            <h3 class="font-medium text-xl xl:text-cardhead mb-5">{{ group.title }}</h3>
             <ul class="space-y-3">
               <li
                 v-for="(step, i) in group.steps"
                 :key="i"
-                class="flex items-start gap-2 text-sm md:text-lg"
+                class="flex items-start gap-2 text-sm xl:text-lg"
               >
-                <img v-if="step.icon" :src="step.icon" alt="" class="w-5 md:w-6 h-5 md:h-6" />
+                <img v-if="step.icon" :src="step.icon" alt="" class="w-5 sm:w-6 h-5 sm:h-6" />
                 <span>{{ step.text }}</span>
               </li>
             </ul>
@@ -52,9 +52,9 @@
 
     <!-- Видео -->
     <div v-if="data.videoUrl" class="mt-6">
-      <h3 class="text-xl md:text-product leading-tight font-medium mb-4 md:mb-8">Видео инструкция <br class="block md:hidden" />по применению</h3>
+      <h3 class="text-xl sm:text-3xl lg:text-product leading-tight font-medium mb-4 sm:mb-8 sm:mt-6">Видео инструкция <br class="block sm:hidden" />по применению</h3>
       <div
-        class="relative w-full h-[210px] md:h-[610px] aspect-video rounded-2xl md:rounded-3xl overflow-hidden bg-hoverbtn cursor-pointer"
+        class="relative w-full h-[210px] sm:h-[350px] lg:h-[610px] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden bg-hoverbtn cursor-pointer"
         @click="showVideo = true"
       >
         <img
@@ -69,7 +69,7 @@
         </div> -->
       </div>
 
-      <div class="mt-8 space-y-4 text-sm md:text-2xl" v-html="data.text" ></div>
+      <div class="mt-8 space-y-4 text-sm sm:text-2xl" v-html="data.text" ></div>
 
       <MediaModal
         :show="showVideo"

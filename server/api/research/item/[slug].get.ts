@@ -1,7 +1,6 @@
 import { getRouterParams, createError } from 'h3'
 import type { ArticleDetail } from '~/types/articles'
 
-// Моки исследований по slug
 const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
   'proizvodstvo-daigo': {
     id: 1,

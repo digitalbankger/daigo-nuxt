@@ -14,7 +14,7 @@
     />
 
     <div class="flex flex-col lg:flex-row items-center justify-between gap-14 relative z-10">
-      <div class="md:w-7/12">
+      <div class="sm:w-7/12">
         <h2 class="font-medium text-[32px] leading-[130%] mb-4">
           Хотите принять участие в программе лояльности и узнавать об акциях и скидках?
         </h2>
@@ -23,7 +23,7 @@
         </p>
       </div>
 
-      <form @submit.prevent="submit" class="flex flex-col gap-3 md:w-[33%] me-auto">
+      <form @submit.prevent="submit" class="flex flex-col gap-3 sm:w-[33%] me-auto">
         <BaseInput
           v-model="email"
           placeholder="Email@gmail.com"

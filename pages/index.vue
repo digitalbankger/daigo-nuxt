@@ -90,7 +90,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
       <CustomersSection />
       <SertificatSection />
 
-      <h2 class="text-slider font-medium mt-8">
+      <h2 class="text-slider md:text-product lg:text-slider font-medium mt-8">
         О компании Да́йго
       </h2>
       <AboutSection />

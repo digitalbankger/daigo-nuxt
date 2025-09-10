@@ -38,23 +38,22 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
       <SwiperSlide
         v-for="banner in banners"
         :key="banner.id"
-        class="banner-slide flex flex-col md:flex-row items-center justify-between px-4 md:px-16 py-6 md:py-16 rounded-xl bg-cover bg-right-bottom text-white"
+        class="banner-slide flex flex-col sm:flex-row items-center justify-between px-4 sm:px-8 lg:px-16 py-6 sm:py-10 lg:py-16 rounded-xl bg-cover bg-right-bottom text-white h-[420px] sm:h-[360px] lg:h-[500px]"
         :style="{
           backgroundImage: 'var(--bg-desktop)',
-          height: '500px',
           '--bg-desktop': `url(${banner.imageDesktop ?? banner.image})`,
           '--bg-mobile':  `url(${banner.imageMobile ?? banner.image})`,
           '--mobileHeight': banner.mobileHeight || 'clamp(420px, 78vh, 720px)',
         }"
       >
-        <div class="w-full md:max-w-[50%] lg:max-w-[60%]">
-          <div v-if="hasTags(banner)" class="mb-5 flex flex-wrap gap-2 md:gap-4">
+        <div class="w-full sm:max-w-[80%] lg:max-w-[60%]">
+          <div v-if="hasTags(banner)" class="mb-5 flex flex-wrap gap-2 sm:gap-3 lg:gap-4">
             <component
               v-for="(tag, i) in banner.tags"
               :key="i"
               :is="tag.href ? 'NuxtLink' : 'span'"
               :to="tag.href"
-              class="px-2 md:px-3 py-2 md:py-2 rounded-lg text-xs md:text-lg text-black select-none"
+              class="px-2 lg:px-3 py-2 rounded-lg text-xs sm:text-sm lg:text-lg text-black select-none"
               :style="{ backgroundColor: tag.color || defaultTagColor }"
               :aria-label="tag.label"
             >
@@ -64,20 +63,20 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 
           <h1
             v-if="banner.title"
-            class="font-medium leading-[1.2] md:leading-tight mb-4 text-[clamp(2rem,6vw,3.4rem)]"
+            class="font-medium leading-[1.2] sm:leading-tight mb-4 text-[clamp(2rem,6vw,3.4rem)]"
           >
             {{ banner.title }}
           </h1>
 
           <div
             v-html="banner.html"
-            class="mb-4 text-[clamp(0.875rem,4vw,1.5rem)] flex flex-col gap-4 font-light max-w-[90%] sm:max-w-[80%] lg:max-w-[560px]"
+            class="mb-4 text-[clamp(0.875rem,4vw,1.5rem)] sm:!text-1.2rem lg:text-[clamp(0.875rem,4vw,1.5rem)] flex flex-col gap-4 font-light max-w-[90%] sm:max-w-[80%] lg:max-w-[560px]"
           />
 
           <NuxtLink
             v-if="banner.buttonLink"
             :to="banner.buttonLink"
-            class="w-content border-none bg-white hover:bg-gray-100 text-black md:w-72 justify-center rounded-md md:rounded-lg inline-flex items-center gap-2 px-5 py-2 md:py-3 text-base md:text-xl font-normal transition duration-300 group"
+            class="w-content border-none bg-white hover:bg-gray-100 text-black sm:w-72 justify-center rounded-md sm:rounded-lg inline-flex items-center gap-2 px-5 py-2 sm:py-3 text-sm sm:text-base lg:text-xl font-normal transition duration-300 group"
           >
             {{ $device?.isMobile ? (banner.mobileButtonText || banner.buttonText) : banner.buttonText }}
           </NuxtLink>
@@ -103,6 +102,7 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 @media (max-width: 767px) {
   .banner-slide {
     background-image: var(--bg-mobile) !important;
+    
     height: var(--mobileHeight) !important;
   }
 }

@@ -4,6 +4,8 @@ export interface Banner {
   imageDesktop?: string
   imageMobile?: string
   mobileHeight?: string
+  imageTablet?: string
+  tabletHeight?: string
   title: string
   titleSize: string
   descWidth: string

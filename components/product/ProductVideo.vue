@@ -6,12 +6,12 @@
     <!-- Постер с кнопкой Play -->
     <div
       v-if="videoPoster"
-      class="relative w-full aspect-video rounded-2xl md:rounded-3xl overflow-hidden h-[210px] md:h-[600px] bg-hoverbtn cursor-pointer shadow-productcard"
+      class="relative w-full aspect-video rounded-2xl sm:rounded-3xl overflow-hidden h-[210px] sm:h-[350px] lg:h-[600px] bg-hoverbtn cursor-pointer shadow-productcard"
       @click="openVideoModal"
     >
       <img
         :src="videoPoster"
-        class="w-full h-[210px] md:h-[600px] object-cover"
+        class="w-full h-[210px] sm:h-[350px] lg:h-[600px] object-cover"
         alt="Видео постер"
       />
       <!-- <div class="absolute inset-0 flex items-center justify-center">

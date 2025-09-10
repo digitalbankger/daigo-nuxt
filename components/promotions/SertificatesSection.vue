@@ -15,15 +15,15 @@ function disableFloating() {
 </script>
 
 <template>
-  <section class="relative w-full py-8 md:py-20">
-    <div class="container px-0 md:px-4 mx-auto">
-      <h2 class="text-4xl md:text-5xl font-medium leading-tight mb-6 md:mb-12">
+  <section class="relative w-full py-8 sm:py-20">
+    <div class="container px-0 sm:px-4 mx-auto">
+      <h2 class="text-4xl sm:text-5xl font-medium leading-tight mb-6 sm:mb-12">
         Подарочные сертификаты
       </h2>
 
-      <div class="flex flex-col lg:flex-row gap-4 md:gap-10 items-start md:items-center">
+      <div class="flex flex-col lg:flex-row gap-4 sm:gap-10 items-start sm:items-center">
         <div
-          class="w-1/2 min-h-[500px] group relative mx-auto order-2 md:order-1"
+          class="w-1/2 min-h-[500px] group relative mx-auto order-2 sm:order-1 hidden lg:block"
           @mouseenter="enableFloating"
           @mouseleave="disableFloating"
         >
@@ -38,7 +38,7 @@ function disableFloating() {
             />
             <img
               src="/images/promotions/cert-100k.png"
-              class="md:w-[50%] mb-auto"
+              class="sm:w-[50%] mb-auto"
               :class="floating ? 'animate-float-up' : ''"
             />
           </div>
@@ -54,7 +54,7 @@ function disableFloating() {
             />
             <img
               src="/images/promotions/cert-50k.png"
-              class="md:w-[50%] ms-auto"
+              class="sm:w-[50%] ms-auto"
               :class="floating ? 'animate-float-down' : ''"
             />
           </div>
@@ -70,7 +70,7 @@ function disableFloating() {
             />
             <img
               src="/images/promotions/cert-20k.png"
-              class="md:w-[50%]"
+              class="sm:w-[50%]"
               :class="floating ? 'animate-float-up' : ''"
             />
           </div>
@@ -91,18 +91,18 @@ function disableFloating() {
             />
             <img
               src="/images/promotions/cert-10k.png"
-              class="md:w-[50%] ms-auto"
+              class="sm:w-[50%] ms-auto"
               :class="floating ? 'animate-float-down' : ''"
             />
           </div>
         </div>
 
-        <div class="w-full md:w-1/2 flex flex-col gap-4 order-1 md:order-2">
-          <h3 class="text-base md:text-3xl font-medium mb-4">
+        <div class="w-full lg:w-1/2 flex flex-col gap-4 order-1 sm:order-2">
+          <h3 class="text-base sm:text-3xl font-medium mb-4">
             Номинал от 10 000 ₽ до 100 000 ₽
           </h3>
 
-          <ul class="text-sm md:text-lg space-y-3 mb-4">
+          <ul class="text-sm sm:text-lg space-y-3 mb-4">
             <li class="flex items-center gap-3">
               <img
                 src="/icons/bi_mailbox.svg" class="w-5 h-5"
@@ -125,21 +125,22 @@ function disableFloating() {
             </li>
           </ul>
 
-          <p class="text-sm md:text-lg mb-2">
+          <p class="text-sm sm:text-lg mb-2">
             Сертификат не подлежит обналичиванию. Действует 1 год.
           </p>
-          <p class="text-sm md:text-lg mb-4">
+          <p class="text-sm sm:text-lg mb-4">
             Используется за 1 покупку, остаток сгорает. На сертификаты не распространяется скидка по промокоду "Welcome10"
           </p>
 
           <UiButton
-            class="mt-2 w-full md:!w-60"
+            class="mt-2 w-full lg:!w-60"
             :to="'/promotions/certificates'"
             variant="solid"
           >
             Узнать подробнее
           </UiButton>
         </div>
+        <img src="/images/promotions/promo-sert-mob.jpg" class="w-full block lg:hidden order-2"/>
       </div>
     </div>
   </section>

@@ -24,8 +24,8 @@ const handleApply = async (promotion: any) => {
 </script>
 
 <template>
-  <section class="relative w-full overflow-hidden py-4 md:py-10">
-    <h2 class="text-slider font-medium leading-tight mb-4 md:mb-10">Действующие акции</h2>
+  <section class="relative w-full overflow-hidden py-4 sm:py-10">
+    <h2 class="text-slider sm:text-product lg:text-slider font-medium leading-tight mb-4 sm:mb-10">Действующие акции</h2>
 
     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
       <PromotionItem

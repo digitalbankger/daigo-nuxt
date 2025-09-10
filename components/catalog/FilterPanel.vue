@@ -1,7 +1,7 @@
 <template>
   <div
     :class="[
-      'bg-white max-w-[500px] mx-auto rounded-xl p-6',
+      'bg-white max-w-[500px] mx-auto rounded-xl p-6 pb-20 lg:p-6',
       { 'shadow-fp': withShadow }
     ]"
   >

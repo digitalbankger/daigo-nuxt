@@ -20,7 +20,6 @@ const orderStore = useCartOrderStore()
 // Загружаем корзину на сервере (для SSR) и на клиенте. В серверном
 // рендере await отработает в setup, а в браузере повторим загрузку
 // через onMounted для гарантии отображения промо-уведомлений и товаров.
-await cartStore.loadCart()
 onMounted(() => {
   cartStore.loadCart()
 })

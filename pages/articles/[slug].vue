@@ -413,7 +413,7 @@ const downloadAllFiles = () => {
           <!-- Понравилась статья? -->
           <section class="md:w-5/12 mt-12 py-5">
             <hr class="border-black/10 mb-6 w-5/6" />
-            <h2 class="text-xl md:text-cardhead font-medium">Понравилась статья?</h2>
+            <h2 class="text-xl md:text-cardhead font-medium !leading-tight">Понравилась статья?</h2>
             <p class="mt-2 text-sm text-lg">Поделитесь статьёй с друзьями в социальных сетях</p>
 
             <div class="mt-4 flex items-center gap-4">

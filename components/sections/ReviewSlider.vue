@@ -1,12 +1,12 @@
 <template>
-  <section class="relative py-12 md:py-20">
+  <section class="relative py-12 sm:py-20">
     <!-- Заголовок + ДЕСКТОП стрелки (реальные для Swiper) -->
-    <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
-      <h2 class="text-slider font-medium leading-tight w-9/12 md:w-full mb-2">
-        Знаменитости о Дайго
+    <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6 px-5 lg:px-0">
+      <h2 class="text-slider sm:text-product lg:text-slider font-medium leading-tight w-9/12 sm:w-full mb-2">
+        Знаменитости <br class="sm:hidden"/>о Дайго
       </h2>
 
-      <div class="relative hidden md:flex gap-6 justify-center mt-6">
+      <div class="relative hidden sm:flex gap-6 justify-center mt-6">
         <button type="button" class="nav-btn" aria-label="Предыдущий" @click="goPrev">
           <img src="/icons/arrow-left.svg" alt="prev" class="w-full" loading="lazy" />
         </button>
@@ -41,7 +41,7 @@
         <SwiperSlide
           v-for="review in reviews"
           :key="review.id"
-          class="!w-full md:!w-[80%]"
+          class="!w-full sm:!w-[96%] lg:!w-[80%] px-5 lg:px-0"
         >
           <ReviewCard
             :review="review"
@@ -52,7 +52,7 @@
     </ClientOnly>
 
     <!-- МОБИЛЬНЫЕ стрелки (прокси) — по центру под слайдером -->
-    <div class="relative flex md:hidden gap-6 justify-center mt-6">
+    <div class="relative flex sm:hidden gap-6 justify-center mt-6">
       <button type="button" class="nav-btn" aria-label="Предыдущий" @click="goPrev">
         <img src="/icons/arrow-left.svg" alt="prev" class="w-full" loading="lazy" />
       </button>

@@ -8,49 +8,36 @@ import UiInput from '../ui/UiInput.vue'
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 
-// Определяем пропы. Карточка может работать в двух режимах:
-//  - 'cart' (по умолчанию) — отображается на странице корзины, показывает форму
-//    для гостя, промокод и кнопку «Перейти к оформлению».
-//  - 'checkout' — используется на странице оформления заказа. В этом режиме
-//    форма гостя и промокод скрываются, а кнопка внутри карточки вызывает
-//    событие cta (например, «Оформить заказ»).
+// Режим отображения: 'cart' (по умолчанию) или 'checkout'
 const props = defineProps<{ mode?: 'cart' | 'checkout' }>()
-
-// Подготавливаем эмиттер. В режиме checkout карточка эмитит событие
-// `cta` при клике на кнопку, чтобы родительская страница могла выполнить
-// действие (напр. отправить заказ).
+// Для режима checkout эмитим событие cta (например, для submit заказа)
 const emit = defineEmits(['cta'])
 
-// форма гостя хранится в store
+// Форма гостя хранится в cartStore
 const form = cartStore.userForm
 
-// промокод
+// Промокод
 const coupon = ref('')
 
-// ошибки
-const errors = reactive<{ 
-  fullName: string; 
-  phone: string; 
-  //city: string 
-}>({
+// Ошибки валидации формы
+const errors = reactive<{ fullName: string; phone: string }>({
   fullName: '',
   phone: '',
-  //city: '',
 })
 
-// ссылки на компоненты инпутов (экспонируют focus())
+// Ссылки на инпуты, чтобы фокусировать при ошибке
 type Focusable = { focus: () => void } | null
 const inputRefs = {
   fullName: ref<Focusable>(null),
   phone: ref<Focusable>(null),
-  //city: ref<Focusable>(null),
 }
 
-// суммы
+// Сумма товаров
 const total = computed(() =>
   cartStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
 )
 
+// Скидка (из promoNotice, иначе 15%)
 const discountAmount = computed(() => {
   const promo = cartStore.promoNotice
   if (promo && (promo.type === 'discount' || promo.type === 'code') && promo.discount) {
@@ -59,62 +46,52 @@ const discountAmount = computed(() => {
   return Math.round(total.value * 0.15)
 })
 
+// Итоговая сумма
 const totalWithDiscount = computed(() => total.value - discountAmount.value)
+// Количество единиц товаров
 const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
 
-// блокировка CTA (опционально). На странице оформления заказа (mode = checkout)
-// кнопку мы всегда отображаем, так как действия (оформить заказ) обрабатываются родителем.
+// Разрешить нажатие CTA: в checkout всегда, иначе если авторизован или форма гостя заполнена
 const enableCta = computed(() => {
   if (props.mode === 'checkout') return true
   if (authStore.isAuthenticated) return true
-  return Boolean(
-    form.fullName.trim() && 
-    form.phone.trim() 
-    //form.city.trim()
-  )
+  return Boolean(form.fullName.trim() && form.phone.trim())
 })
 
+/**
+ * Проверяем форму гостя и вызываем preOrder() в cartStore.
+ * После успешного предварительного оформления для авторизованного
+ * пользователя переходим на /order. Для гостя бэкенд отправит SMS,
+ * поэтому редирект осуществляется после успешного входа.
+ */
 async function handleCta() {
   if (!authStore.isAuthenticated) {
-    // валидация
+    // Проверяем поля формы гостя
     errors.fullName = form.fullName.trim() ? '' : 'Введите ФИО'
-    errors.phone    = form.phone.trim() ? '' : 'Введите телефон'
-    //errors.city     = form.city.trim() ? '' : 'Введите город'
+    errors.phone    = form.phone.trim()    ? '' : 'Введите телефон'
 
-    if (errors.fullName || errors.phone || errors.city) {
+    if (errors.fullName || errors.phone) {
       await nextTick()
       if (errors.fullName) return inputRefs.fullName.value?.focus()
       if (errors.phone)    return inputRefs.phone.value?.focus()
-      //if (errors.city)     return inputRefs.city.value?.focus()
       return
     }
-
-    // регистрация гостя
-    const { data } = await useFetch('/api/users/create', {
-      method: 'POST',
-      body: { 
-        fullName: form.fullName, 
-        phone: form.phone, 
-        //city: form.city 
-      },
-    })
-    if (!data.value?.success) {
-      alert(data.value?.message || 'Не удалось создать пользователя')
-      return
-    }
-    authStore.setUser({
-      id: data.value.userId || null,
-      fullName: form.fullName,
-      phone: form.phone,
-      //city: form.city,
-    })
   }
-  navigateTo('/order')
+  try {
+    // Отправляем предварительный заказ (определяет режим самостоятельно)
+    await cartStore.preOrder()
+    // Для авторизованного сразу переходим на страницу оформления
+    if (authStore.isAuthenticated) {
+      navigateTo('/order')
+    } else {
+      // Для гостя: ждём подтверждения SMS, а редирект делаем в authStore после входа.
+    }
+  } catch (e) {
+    alert('Не удалось оформить заказ')
+  }
 }
 
-// Внешний обработчик для кнопки внутри карточки. В режиме checkout
-// эмитим событие cta, чтобы родитель мог вызвать submit(). В режиме cart
-// вызываем handleCta() и переходим на страницу оформления.
+// Обработчик клика по кнопке. В режиме checkout эмитит событие cta.
 async function onClickCta() {
   if (props.mode === 'checkout') {
     emit('cta')
@@ -123,25 +100,23 @@ async function onClickCta() {
   await handleCta()
 }
 
+// Применить промокод через cartStore
 async function applyCoupon() {
   if (!coupon.value.trim()) return
-  const { data } = await useFetch('/api/cart/apply-coupon', {
-    method: 'POST',
-    body: { code: coupon.value },
-  })
-  if (data.value?.success) {
-    if (data.value.promo_notice) cartStore.promoNotice = data.value.promo_notice
-  } else {
-    alert(data.value?.message || 'Промокод недействителен')
+  try {
+    await cartStore.applyCoupon(coupon.value)
+    coupon.value = ''
+  } catch (e) {
+    alert('Промокод недействителен')
   }
 }
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
-    <!-- Форма для гостя. Показываем только в режиме корзины и только если пользователь
-         не авторизован. На странице оформления заказа (mode='checkout') эта форма
-         находится отдельно, поэтому здесь она скрыта. -->
+  <div
+    class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4"
+  >
+    <!-- Форма гостя (только в режиме корзины и если пользователь не авторизован) -->
     <div v-if="props.mode !== 'checkout' && !authStore.isAuthenticated" class="space-y-4">
       <div class="flex flex-col md:flex-row gap-4">
         <UiInput
@@ -174,6 +149,7 @@ async function applyCoupon() {
       <Button
         variant="solid"
         class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
+        :disabled="!enableCta"
         @click="onClickCta"
       >
         Перейти к оформлению
@@ -201,12 +177,12 @@ async function applyCoupon() {
 
       <div class="flex justify-between font-medium text-cgreen">
         <span>Скидка</span>
-        <span>{{ cartStore.promoNotice?.discount ?? 15 }}%</span>
+        <span>{{ cartStore.promoNotice?.discount ?? 0 }}%</span>
       </div>
 
       <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
         <span>Бонусов к начислению</span>
-        <span class="text-base md:text-lg font-medium">100</span>
+        <span class="text-base md:text-lg font-medium">0</span>
       </div>
 
       <div class="flex justify-between font-medium text-xl">
@@ -215,8 +191,7 @@ async function applyCoupon() {
       </div>
     </div>
 
-    <!-- Промокод. Показывается только в режиме корзины. На странице оформления
-         промокод добавляется на предыдущем шаге -->
+    <!-- Промокод (виден только в режиме корзины) -->
     <div v-if="props.mode !== 'checkout'" class="flex flex-row space-x-2 md:space-x-3">
       <UiInput
         v-model="coupon"
@@ -246,9 +221,7 @@ async function applyCoupon() {
       </Button>
     </div>
 
-    <!-- Кнопка оформления заказа в режиме checkout. Она вызывается только если
-         props.mode === 'checkout'. На странице корзины эта кнопка выводится
-         внутри формы гостя -->
+    <!-- Кнопка оформления заказа в режиме checkout -->
     <div v-if="props.mode === 'checkout'" class="pt-4">
       <Button
         variant="solid"
