@@ -1,16 +1,26 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref, computed } from 'vue'
+import { useRuntimeConfig } from '#imports'
 import type { Product } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 
 const props = defineProps<{ product: Product; observeTarget?: string }>()
 const cartStore = useCartStore()
 
+const { public: pub } = useRuntimeConfig()
+const IMG_BASE = (pub.testApiBase || 'https://nuxt.daigo.ru').replace(/\/$/, '')
+const abs = (u?: string | null) => {
+  if (!u) return ''
+  if (/^https?:\/\//i.test(u)) return u
+  return `${IMG_BASE}${u.startsWith('/') ? '' : '/'}${u}`
+}
+
 const isVisible = ref(false)
 const adding = ref(false)
 
 const hasDiscount = computed(() => props.product.oldPrice && props.product.oldPrice > props.product.price)
 const productIdStr = computed(() => String(props.product.product_id))
+
 
 const coverImageUrl = computed<string | null>(() => {
   const imgs = props.product.images || []
@@ -135,9 +145,11 @@ onBeforeUnmount(() => {
       <div class="shrink-0">
         <NuxtImg
           v-if="coverImageUrl"
-          :src="coverImageUrl"
+          :src="abs(coverImageUrl)"
           :alt="product.title"
-          width="64" height="64" format="webp" loading="lazy"
+          width="64" height="64"
+          loading="lazy"
+          provider="none"
           class="w-14 h-14 md:w-16 md:h-16 rounded-xl object-contain bg-gray-50"
         />
         <div v-else class="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gray-100" />
