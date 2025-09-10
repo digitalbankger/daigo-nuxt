@@ -1,23 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useRuntimeConfig } from '#imports'
 import type { ProductImage } from '~/types/product'
 
 const { images, hasDiscount } = defineProps<{
   images: ProductImage[]
   hasDiscount: boolean
 }>()
-
-// base из runtimeConfig.public.testApiBase
-const { public: pub } = useRuntimeConfig()
-const IMG_BASE = (pub.testApiBase || 'https://nuxt.daigo.ru').replace(/\/$/, '')
-
-// helper: делаем абсолютный URL
-const abs = (u?: string | null) => {
-  if (!u) return ''
-  if (/^https?:\/\//i.test(u)) return u
-  return `${IMG_BASE}${u.startsWith('/') ? '' : '/'}${u}`
-}
 
 const sortedImages = computed(() =>
   [...images].sort((a, b) => {
@@ -31,16 +19,16 @@ const activeIndex = ref(0)
 </script>
 
 <template>
-  <section>
+  <section class="">
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
       <div class="relative flex-1 aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
         <NuxtImg
-          :src="abs(sortedImages[activeIndex]?.image_url)"
+          :src="sortedImages[activeIndex]?.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
           width="640"
           height="480"
+          format="webp"
           loading="eager"
-          provider="none"
           class="max-w-full max-h-full object-contain transition-all duration-300"
         />
         <div
@@ -61,11 +49,11 @@ const activeIndex = ref(0)
           @click="activeIndex = index"
         >
           <NuxtImg
-            :src="abs(img.image_url)"
+            :src="img.image_url"
             width="80"
             height="80"
+            format="webp"
             loading="lazy"
-            provider="none"
             class="w-full h-full object-contain"
           />
         </button>
