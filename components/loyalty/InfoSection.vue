@@ -17,14 +17,14 @@ function disableFloating() {
 <template>
   <section class="relative w-full py-5 md:py-5">
     <div class="container mx-auto">
-      <h2 class="text-slider font-medium mb-8">
+      <h2 class="text-slider sm:text-product lg:text-slider font-medium mb-8">
         Как начисляются бонусы?
       </h2>
 
       <div class="flex flex-col lg:flex-row gap-10 items-center">
 
         <div class="w-full flex flex-col gap-4">
-          <h3 class="text-2xl md:text-3xl font-medium mb-1">
+          <h3 class="text-lg sm:text-2xl md:text-3xl font-medium mb-1">
             1 отзыв = 1000 бонусов
           </h3>
 
@@ -32,7 +32,7 @@ function disableFloating() {
             Начисляем 1000 бонусов за отзыв о наших продуктах
           </p>
 
-          <h3 class="text-2xl md:text-3xl font-medium mb-1">
+          <h3 class="text-lg sm:text-2xl md:text-3xl font-medium mb-1">
             10% при заказе от 300 000 ₽  
           </h3>
 
@@ -40,7 +40,7 @@ function disableFloating() {
             При 1 заказе от 300.000 рублей начисляем 10%
           </p>
 
-          <h3 class="text-2xl md:text-3xl font-medium mb-1">
+          <h3 class="text-lg sm:text-2xl md:text-3xl font-medium mb-1">
             1% при заказе до 300 000 ₽
           </h3>
 

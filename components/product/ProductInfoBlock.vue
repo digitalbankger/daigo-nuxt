@@ -10,8 +10,8 @@ defineProps<{
 
 <template>
   <section
-    class="flex flex-col lg:flex-row gap-8 items-start"
-    :class="imagePosition === 'left' ? 'sm:flex-row-reverse' : ''"
+    class="flex flex-col gap-8 items-start"
+    :class="imagePosition === 'left' ? 'sm:flex-row-reverse' : 'lg:flex-row'"
   >
     <!-- Изображение -->
     <div class="relative w-full lg:w-[42%] h-[528px] aspect-[4/3] bg-hoverbtn rounded-3xl overflow-hidden hidden lg:block">

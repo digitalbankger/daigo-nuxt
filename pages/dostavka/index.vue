@@ -11,7 +11,7 @@ definePageMeta({ layout: 'main' })
 
 <template>
   <BaseContainer>
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-6 lg:gap-10">
       <DeliveryBanner />
       <DeliveryPartners />
       <DeliveryMap />

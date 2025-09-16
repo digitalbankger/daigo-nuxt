@@ -28,7 +28,7 @@ const fullImage = computed(() => {
 </script>
 
 <template>
-  <div class="flex gap-4 md:gap-8 border-b pb-4 w-full md:w-4/5">
+  <div class="flex gap-4 md:gap-8 border-b pb-4 w-full lg:w-4/5">
     <!-- используем вычисленное свойство fullImage -->
     <img
       :src="fullImage"

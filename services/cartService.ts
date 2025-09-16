@@ -131,7 +131,7 @@ export const cartService = {
     const { daigoApiBase } = useRuntimeConfig().public
     await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/migrate`, {
       method: 'POST',
-      body: { user_id: userId }
+      body: { daigo_id: userId }
     })
   }
 

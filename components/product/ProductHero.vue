@@ -50,7 +50,7 @@ async function addToCartHandler() {
   try {
     await ensureCartLoadedOnce()
     await cartStore.addToCart({
-      id: productIdStr.value as unknown as any, // строковый UUID
+      id: productIdStr.value as unknown as any,
       title: product.title,
       subtitle: product.subtitle,
       price: product.price,
@@ -115,7 +115,7 @@ onMounted(ensureCartLoadedOnce)
 
       <!-- Инфо -->
       <div class="w-full sm:w-1/2 flex flex-col gap-4">
-        <h1 class="text-2xl sm:text-3xl xl:text-product font-medium !leading-tight mb-2">
+        <h1 class="text-2xl sm:text-3xl xl:text-product font-medium !leading-tight mt-4 sm:mt-0 mb-2">
           {{ product.title }}
         </h1>
 
@@ -123,7 +123,7 @@ onMounted(ensureCartLoadedOnce)
           {{ product.subtitle }}
         </h2>
 
-        <p class="text-sm sm:text-base xl:text-lg">
+        <p class="text-sm sm:text-base xl:text-lg whitespace-pre-line">
           {{ product.shortDescription }}
         </p>
 

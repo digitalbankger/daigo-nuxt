@@ -94,13 +94,20 @@ useHead(() => {
       </ClientOnly>
       
       <ProductDescription :product="product" />
-
+      <ProductInfoBlock
+        v-if="product.combo"
+        :title="product.combo.title"
+        :image="product.combo.image"
+        :content="product.combo.text"
+        image-position="right"
+        class="mt-6 md:mt-12"
+      />
       <ProductInfoBlock
         v-if="product.actionPrinciple"
         :title="product.actionPrinciple.title"
         :image="product.actionPrinciple.image"
         :content="product.actionPrinciple.text"
-        image-position="right"
+        :image-position="product.actionPrinciple.imagePosition || 'right'"
         class="mt-6 md:mt-12"
       />
 
@@ -109,7 +116,16 @@ useHead(() => {
         :title="product.effect.title"
         :image="product.effect.image"
         :content="product.effect.content"
-        image-position="left"
+        :image-position="product.effect.imagePosition || 'left'"
+        class="mt-6 md:mt-12"
+      />
+
+      <ProductInfoBlock
+        v-if="product.effectCombo"
+        :title="product.effectCombo.title"
+        :image="product.effectCombo.image"
+        :content="product.effectCombo.content"
+        :image-position="product.effectCombo.imagePosition || 'right'"
         class="mt-6 md:mt-12"
       />
 
@@ -121,6 +137,15 @@ useHead(() => {
         :image="product.composition.image"
         :content="product.composition.content"
         image-position="right"
+        class="mt-6 md:mt-12"
+      />
+
+      <ProductInfoBlock
+        v-if="product.compositionCombo"
+        :title="product.compositionCombo.title"
+        :image="product.compositionCombo.image"
+        :content="product.compositionCombo.content"
+        image-position="left"
         class="mt-6 md:mt-12"
       />
 

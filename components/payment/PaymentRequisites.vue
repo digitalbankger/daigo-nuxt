@@ -9,7 +9,7 @@
     
     <div class="flex flex-col gap-6">
       <div>
-        <div class="space-y-2 text-lg">
+        <div class="space-y-2 text-sm lg:text-lg">
           <p>ООО «МЕТАБИОТИК» 107497, Г. МОСКВА, ВН.ТЕР. Г. МУНИЦИПАЛЬНЫЙ ОКРУГ ГОЛЬЯНОВО, ПРОЕЗД 2-Й ИРТЫШСКИЙ, Д. 4Б, СТР. 1</p>
           <p><span class="font-medium">ИНН:</span> 9718234724</p>
           <p><span class="font-medium">КПП:</span> 771801001</p>
