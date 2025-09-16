@@ -132,6 +132,16 @@ export interface Product {
   videoUrl?: string
   videoPoster?: string
   isActive: boolean
+  nabor?: {
+    title: string
+    image: string
+    text: string
+  }
+  naborCombo?: {
+    title: string
+    image: string
+    text: string
+  }
   combo?: {
     title: string
     image: string

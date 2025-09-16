@@ -17,7 +17,7 @@ const publicationCards = [
     styles: {
       card: 'relative overflow-hidden bg-[#B7FFBA] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
       title: 'relative z-10 font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
-      text: 'relative z-10 w-full text-[clamp(1rem,4vw,1.5rem)] lg:w-4/5 sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal',
+      text: 'relative z-10 w-full text-[clamp(1rem,4vw,1.5rem)] lg:w-4/5 sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
       image: 'absolute bottom-0 right-0 w-[55%]',
       extraImage: 'absolute top-0 left-0 w-[31%] z-0',
     }
@@ -34,7 +34,7 @@ const publicationCards = [
     styles: {
       card: 'relative overflow-hidden bg-[#B5EBFF] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
       title: 'relative z-10 font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
-      text: 'relative z-10 text-[clamp(1rem,4vw,1.5rem)] sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal',
+      text: 'relative z-10 text-[clamp(1rem,4vw,1.5rem)] sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
       image: 'absolute bottom-0 right-0 w-[60%]',
       extraImage: 'absolute top-0 left-0 w-[34%] z-0',
     }

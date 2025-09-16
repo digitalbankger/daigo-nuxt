@@ -36,7 +36,7 @@ const fullImage = computed(() => {
       class="w-4/12 md:w-[304px] h-[125px] md:h-[217px] object-contain bg-hoverbtn rounded-lg md:rounded-2xl"
     />
     <div class="flex-1 h-[120px] md:h-[210px] flex flex-col justify-between">
-      <h3 class="text-sm md:text-2xl">{{ props.item.title }}</h3>
+      <h3 class="text-sm md:text-2xl leading-tight">{{ props.item.title }}</h3>
       <div class="flex flex-col gap-4 mt-auto">
         <p class="mt-4 flex items-center gap-2">
           <span

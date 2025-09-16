@@ -2,32 +2,19 @@
 import MediaModal from '~/components/reviews/MediaModal.vue'
 import { ref } from 'vue'
 
-interface UsageStep {
-  icon?: string
-  text: string
-}
-interface UsageGroup {
-  title: string
-  steps: UsageStep[]
-}
-interface UsageCombo {
-  title: string
-  groups: UsageGroup[]
-}
+interface UsageStep { icon?: string; text: string }
+interface UsageGroup { title: string; steps: UsageStep[] }
+interface UsageCombo { title: string; groups: UsageGroup[] }
 
 interface ProductUsageInstruction {
-  // блок 1 (например, Daigo Lux)
   comboTitle?: string
   groups?: UsageGroup[]
 
-  // блок 2 (например, Tamotsu)
   comboTitle2?: string
   groups2?: UsageGroup[]
 
-  // ДОПОЛНИТЕЛЬНО: любые другие товары
   combos?: UsageCombo[]
 
-  // общий медиа/доп.инфо
   text?: string
   image?: string
   videoUrl?: string
@@ -38,13 +25,15 @@ interface ProductUsageInstruction {
 const props = defineProps<{ data: ProductUsageInstruction }>()
 const showVideo = ref(false)
 
-/** Возвращает классы сетки в зависимости от количества групп */
-const gridCols = (len = 0) => {
+/** Кол-во колонок с учётом наличия картинки */
+const gridCols = (len = 0, hasImage = false) => {
   if (len <= 1) return 'sm:grid-cols-1 lg:grid-cols-1'
   if (len === 2) return 'sm:grid-cols-2 lg:grid-cols-2'
-  return 'sm:grid-cols-2 lg:grid-cols-3'
+  // len > 2
+  return hasImage ? 'sm:grid-cols-2 lg:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'
 }
 </script>
+
 
 <template>
   <section class="space-y-8">
@@ -81,10 +70,10 @@ const gridCols = (len = 0) => {
           </h3>
 
           <div
-            v-if="data.groups?.length"
-            class="grid grid-cols-1 gap-8"
-            :class="gridCols(data.groups.length)"
-          >
+  v-if="data.groups?.length"
+  class="grid grid-cols-1 gap-8"
+  :class="gridCols(data.groups.length, !!data.image)"
+>
             <div
               v-for="group in data.groups"
               :key="group.title"
@@ -130,10 +119,10 @@ const gridCols = (len = 0) => {
           </h3>
 
           <div
-            v-if="data.groups2?.length"
-            class="grid grid-cols-1 gap-8"
-            :class="gridCols(data.groups2.length)"
-          >
+  v-if="data.groups2?.length"
+  class="grid grid-cols-1 gap-8"
+  :class="gridCols(data.groups2.length, !!data.image)"
+>
             <div
               v-for="group in data.groups2"
               :key="group.title"

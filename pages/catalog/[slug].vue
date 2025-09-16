@@ -94,6 +94,25 @@ useHead(() => {
       </ClientOnly>
       
       <ProductDescription :product="product" />
+      
+      <ProductInfoBlock
+        v-if="product.nabor"
+        :title="product.nabor.title"
+        :image="product.nabor.image"
+        :content="product.nabor.text"
+        image-position="left"
+        class="mt-6 md:mt-12"
+      />
+
+      <ProductInfoBlock
+        v-if="product.naborCombo"
+        :title="product.naborCombo.title"
+        :image="product.naborCombo.image"
+        :content="product.naborCombo.text"
+        image-position="right"
+        class="mt-6 md:mt-12"
+      />
+
       <ProductInfoBlock
         v-if="product.combo"
         :title="product.combo.title"
