@@ -18,7 +18,7 @@
 
       <!-- Контент поверх изображения -->
       <div class="relative z-10 px-4 md:px-6 lg:px-10 py-4 lg:py-8 text-white">
-        <h2 class="font-medium leading-tight text-[clamp(1.1rem,4vw,2rem)] sm:text-3xl lg:text-[clamp(1.1rem,4vw,2rem)] mb-3">
+        <h2 class="font-medium leading-tight text-[clamp(1rem,4vw,2rem)] sm:text-3xl lg:text-[clamp(1.1rem,4vw,2rem)] mb-3">
           {{ banner.title_first }}
           <span v-if="banner.title_second" class="ms-1 rounded-md px-1 md:px-3 py-1 text-black bg-[#C3FF00]">
             {{ banner.title_second }}
