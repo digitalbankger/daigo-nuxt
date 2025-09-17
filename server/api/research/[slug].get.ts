@@ -5,7 +5,7 @@ export default defineEventHandler((event) => {
     id: 1,
     slug,
     title: 'Метабиотики',
-    image: 'http://localhost:3000/images/mock/researches/cat-1.png',
+    image: 'https://nuxt.daigo.ru/images/mock/researches/cat-1.png',
     researchCount: 10
   }
 
@@ -15,7 +15,7 @@ export default defineEventHandler((event) => {
       id: 1,
       title: 'Производство Да́йго',
       slug: 'proizvodstvo-daigo',
-      image: 'http://localhost:3000/images/mock/researches/subcat-1.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-1.png',
       date: '2025-02-18',
       category: slug,
       isFeatured: true
@@ -24,7 +24,7 @@ export default defineEventHandler((event) => {
       id: 2,
       title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo на симптомы поллиноза, вызываемого пыльцой кедра',
       slug: 'kombinirovannoe-vozdeystvie-sublingvalnoy-immunoterapii-i-daigo-na-simptomy-pollinoza-vyzyvaemogo-py',
-      image: 'http://localhost:3000/images/mock/researches/subcat-2.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
       date: '2025-02-18',
       category: slug,
       isFeatured: true
@@ -33,7 +33,7 @@ export default defineEventHandler((event) => {
       id: 3,
       title: 'Дайго способствует уменьшению проницаемости кишечной стенки',
       slug: 'daygo-sposobstvuet-umensheniyu-pronitsaemost-kishechnoy-stenki',
-      image: 'http://localhost:3000/images/mock/researches/subcat-3.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
       date: '2025-02-18',
       category: slug,
       isFeatured: true
@@ -44,7 +44,7 @@ export default defineEventHandler((event) => {
       id: 4,
       title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
       slug: 'sport-microbiota',
-      image: 'http://localhost:3000/images/mock/researches/subcat-4.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-4.png',
       date: '2025-06-30',
       category: slug
     },
@@ -52,7 +52,7 @@ export default defineEventHandler((event) => {
       id: 5,
       title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливостицип действия метабиотиков',
       slug: 'gastro',
-      image: 'http://localhost:3000/images/mock/researches/subcat-5.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-5.png',
       date: '2025-06-30',
       category: slug
     },
@@ -60,7 +60,7 @@ export default defineEventHandler((event) => {
       id: 6,
       title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
       slug: 'gastro',
-      image: 'http://localhost:3000/images/mock/researches/subcat-5.png',
+      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-5.png',
       date: '2025-06-30',
       category: slug
     },
