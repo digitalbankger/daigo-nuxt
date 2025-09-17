@@ -58,9 +58,9 @@
             <div>
               <p class="font-medium text-xl mb-2">Юридическая информация</p>
               <ul class="space-y-2 w-5/6 text-base">
-                <li><NuxtLink to="/legal/consent">Согласие на обработку персональных данных</NuxtLink></li>
-                <li><NuxtLink to="/legal/personal-data">Политика обработки персональных данных</NuxtLink></li>
-                <li><NuxtLink to="/legal/privacy">Политика конфиденциальности</NuxtLink></li>
+                <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
+                <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
+                <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
               </ul>
             </div>
           </div>

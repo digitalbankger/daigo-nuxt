@@ -23,7 +23,7 @@ export default defineEventHandler((event) => {
     {
       id: 2,
       title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo на симптомы поллиноза, вызываемого пыльцой кедра',
-      slug: 'kishechnaya-stenka',
+      slug: 'kombinirovannoe-vozdeystvie-sublingvalnoy-immunoterapii-i-daigo-na-simptomy-pollinoza-vyzyvaemogo-py',
       image: 'http://localhost:3000/images/mock/researches/subcat-2.png',
       date: '2025-02-18',
       category: slug,
@@ -31,7 +31,8 @@ export default defineEventHandler((event) => {
     },
     {
       id: 3,
-      title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
+      title: 'Дайго способствует уменьшению проницаемости кишечной стенки',
+      slug: 'daygo-sposobstvuet-umensheniyu-pronitsaemost-kishechnoy-stenki',
       image: 'http://localhost:3000/images/mock/researches/subcat-3.png',
       date: '2025-02-18',
       category: slug,

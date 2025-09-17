@@ -30,7 +30,7 @@ if (error.value) {
 const title = research.value?.title ?? 'Исследование'
 const description = research.value?.description ?? research.value?.preview ?? ''
 const cover = research.value?.cover || research.value?.image || '/og-default.jpg'
-const canonical = `https://example.com/researches/item/${slug.value}`
+const canonical = `https://daigo.ru/researches/item/${slug.value}`
 
 useSeoMeta({
   title,
@@ -140,7 +140,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
             </p>
           </div>
         </div>
-        <div class="w-full md:w-1/2 flex flex-col gap-6">
+        <div class="flex flex-col gap-6" :class="research?.author ? 'w-full md:w-1/2' : 'w-full'">
           <div class="flex flex-wrap items-center gap-6 text-black ms-auto">
             <div class="text-2xl flex items-center gap-2">
               <img src="/icons/publications/calendar.svg" class="w-5"/><span>{{ new Date(research?.date || '').toLocaleDateString('ru-RU') }}</span>

@@ -112,7 +112,7 @@ function fmt(d: string) {
       </div>
 
       <!-- Все исследования -->
-      <h2 class="text-xl lg:text-slider font-medium mb-4">Все исследования</h2>
+      <h2 class="text-xl lg:text-slider font-medium mb-8">Все исследования</h2>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
         <NuxtLink
           v-for="it in others"

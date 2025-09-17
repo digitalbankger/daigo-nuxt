@@ -3738,24 +3738,24 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       slug: 'sertifikat-20-000',
       template: 'certificate',     
 
-      title: 'Сертификат на 10 000 ₽',
+      title: 'Сертификат на 20 000 ₽',
       subtitle: 'Подарок, который всегда к месту',
       shortDescription:
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
-      price: 10000,
+      price: 20000,
       oldPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: 'https://products.s3.firstvds.ru/sert20/product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert10/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert10/sec.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert10/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert10/four.png',
+        imgFirst: 'https://products.s3.firstvds.ru/sert20/first.png',
+        imgSec: 'https://products.s3.firstvds.ru/sert20/sec.png',
+        imgThirt: 'https://products.s3.firstvds.ru/sert20/thirt.png',
+        imgFour: 'https://products.s3.firstvds.ru/sert20/four.png',
       },
       faq: {
         items: [
@@ -3770,24 +3770,24 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       slug: 'sertifikat-50-000',
       template: 'certificate',     
 
-      title: 'Сертификат на 10 000 ₽',
+      title: 'Сертификат на 50 000 ₽',
       subtitle: 'Подарок, который всегда к месту',
       shortDescription:
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
-      price: 10000,
+      price: 50000,
       oldPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: 'https://products.s3.firstvds.ru/sert10/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert10/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert10/sec.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert10/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert10/four.png',
+        imgFirst: 'https://products.s3.firstvds.ru/sert50/first.png',
+        imgSec: 'https://products.s3.firstvds.ru/sert50/sec.png',
+        imgThirt: 'https://products.s3.firstvds.ru/sert50/thirt.png',
+        imgFour: 'https://products.s3.firstvds.ru/sert50/four.png',
       },
       faq: {
         items: [
@@ -3802,24 +3802,24 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       slug: 'sertifikat-100-000',
       template: 'certificate',     
 
-      title: 'Сертификат на 10 000 ₽',
+      title: 'Сертификат на 100 000 ₽',
       subtitle: 'Подарок, который всегда к месту',
       shortDescription:
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
-      price: 10000,
+      price: 100000,
       oldPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: 'https://products.s3.firstvds.ru/sert100/product-100.png', is_primary: true, display_order: 0, alt: 'Сертификат 100 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert10/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert10/sec.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert10/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert10/four.png',
+        imgFirst: 'https://products.s3.firstvds.ru/sert100/first.png',
+        imgSec: 'https://products.s3.firstvds.ru/sert100/sec.png',
+        imgThirt: 'https://products.s3.firstvds.ru/sert100/thirt.png',
+        imgFour: 'https://products.s3.firstvds.ru/sert100/four.png',
       },
       faq: {
         items: [

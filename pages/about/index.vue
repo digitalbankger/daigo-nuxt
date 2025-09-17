@@ -7,6 +7,7 @@ import WideSelectionSection from '~/components/sections/WideSelectionSection.vue
 import CustomersSection from '~/components/sections/CustomersSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
 import RewardSection from '~/components/sections/RewardSection.vue'
+import type { link } from 'fs'
 
 useHead({
   title: 'О компании Daigo – Производитель продукции для здоровья',
@@ -150,8 +151,8 @@ definePageMeta({
               ],
               title: 'Результаты подкреплены исследованиями',
               list: [
-                { text: 'Производство Daigo', icon: '/icons/file.svg' },
-                { text: 'Плазмалогены',       icon: '/icons/file.svg' },
+                { text: 'Производство Daigo', icon: '/icons/file.svg', link: '/researches/proizvodstvo-daigo' },
+                { text: 'Плазмалогены',       icon: '/icons/file.svg', link: '/researches' },
               ],
               imageSrc: '/images/about/materialy.png',
               button: { text: 'Читать все исследования', link: '/researches' },
@@ -175,7 +176,7 @@ definePageMeta({
           <div class="flex flex-col lg:flex-row gap-4 lg:gap-10">
             <div class="lg:w-5/12">
               <NuxtImg
-                src="http://localhost:3000/images/about/director.jpg"
+                src="http://nuxt.daigo.ru/images/about/director.jpg"
                 alt="Генеральный директор Daigo"
                 format="webp"
                 loading="lazy"
