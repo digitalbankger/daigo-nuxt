@@ -3218,7 +3218,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
     },
     // Пол года здоровья 
     {
-      product_id: "9175d764-b04b-4783-a50f-pol-goda-zdorovya",
+      product_id: "885050a4-b76d-4e4e-8041-b7a1899afc66",
       slug: 'pol-goda-zdorovya-daigo',
       title: 'Полгода здоровья от Дайго',
       subtitle: '',
@@ -3462,7 +3462,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
     },
     // Подарочный набор Daigo Emperor
     {
-      product_id: "9175d764-b04b-4783-a50f-emperor",
+      product_id: "c4bf7bd7-7437-41df-b4b4-1484c4172eb9",
       slug: 'daigo-emperor',
       title: 'Подарочный набор Daigo Emperor',
       subtitle: '',
