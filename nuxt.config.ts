@@ -13,9 +13,21 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
+    // Главная: ISR каждые 10 минут
     '/': { isr: 600 },
+
+    // Долгий кэш статики Nuxt
     '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
+
+    // IPX-трансформации (для @nuxt/image) — кэш для CDN + SWR
+    '/_ipx/**': {
+      headers: {
+        'cache-control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
+      }
+    },
+
+    // Пример серверного API с кэш-заголовками (под ISR)
     '/api/home': {
       headers: {
         'cache-control': 'public, max-age=0, s-maxage=600, stale-while-revalidate=86400'
@@ -27,7 +39,7 @@ export default defineNuxtConfig({
     devErrorHandler: true,
     logLevel: 5,
     storage: {
-      // Кэш Nitro (cachedEventHandler/cachedFunction)
+      // Кэш Nitro (для cachedEventHandler/cachedFunction)
       cache: process.env.REDIS_URL
         ? { driver: 'redis', url: process.env.REDIS_URL, base: 'cache' }
         : { driver: 'fs', base: './.nitro/cache' },
@@ -63,8 +75,11 @@ export default defineNuxtConfig({
 
   image: {
     provider: 'ipx',
-    domains: ['api.daigo.ru'],
-    ipx: {},
+    // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
+    domains: ['api.daigo.ru', 'nuxt.daigo.ru', 'daigo.ru'],
+    ipx: {
+      // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
+    },
     presets: {
       product: {
         modifiers: {
