@@ -88,13 +88,13 @@ function saveAddress() {
       >Курьером</button>
 
       <button
-        class="px-4 py-2 rounded-xl border transition min-w-[120px] text-center"
+        class="px-4 py-3 rounded-lg border transition min-w-[120px] text-center"
         :class="selectedKind === 'pvz' ? 'bg-[#EEF4FF] text-black border-primary' : 'bg-white border-gray-300'"
         @click="selectedKind = 'pvz'"
       >ПВЗ</button>
 
       <button
-        class="px-4 py-2 rounded-xl border transition min-w-[120px] text-center"
+        class="px-4 py-3 rounded-lg border transition min-w-[120px] text-center"
         :class="selectedKind === 'pickup' ? 'bg-[#EEF4FF] text-black border-primary' : 'bg-white border-gray-300'"
         @click="selectedKind = 'pickup'"
       >Самовывоз</button>
@@ -116,7 +116,7 @@ function saveAddress() {
             v-model="store.state.deliveryId"
           />
           <span class="font-medium">{{ opt.title }}</span>
-          <span class="text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
+          <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
       </div>
 
@@ -157,7 +157,7 @@ function saveAddress() {
             v-model="store.state.deliveryId"
           />
           <span class="font-medium">{{ opt.title }}</span>
-          <span class="text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
+          <span class="hidden text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
       </div>
 

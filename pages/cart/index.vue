@@ -1,32 +1,38 @@
 <script setup lang="ts">
+import { defineAsyncComponent, watch } from 'vue'
+import { useSeoMeta, useHead, navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import CartItem from '~/components/cart/CartItem.vue'
-import CartGift from '~/components/cart/CartGift.vue'
-import OrderSummary from '~/components/checkout/SummaryCard.vue'
 
 import { useCartStore } from '~/stores/cartStore'
 import { useCartOrderStore, type CartItem as OrderItem } from '~/stores/cartOrderStore'
-import { onMounted, watch } from 'vue'
 
-definePageMeta({ layout: 'main' })
+definePageMeta({
+  layout: 'main',
+  ssr: false
+})
+
+/* Ленивые компоненты (ускоряет первоначальный рендер) */
+const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.vue'))
+const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
+const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
 
-// Подтягиваем корзину на клиенте (SSR тоже ок — но на клиенте дублируем для верности)
-onMounted(() => {
-  cartStore.loadCart()
-})
+/* Мгновенно триггерим запрос корзины на клиенте, без ожидания mounted */
+if (import.meta.client) {
+  void cartStore.loadCart()
+}
 
-// Синхронизация с cartOrderStore (если используется далее по цепочке)
+/* Синхронизация с cartOrderStore */
 function syncOrderStore() {
   const items: OrderItem[] = cartStore.items.map(i => ({
-    id: String(i.id),           // сохраняем строковый UUID или число как строку
+    id: String(i.id),
     title: i.title,
-    price: i.price,             // цена за единицу
-    qty: i.quantity,            // кол-во
+    price: i.price,
+    qty: i.quantity,
     img: i.image || '',
-    tag: i.tag,
+    tag: i.tag
   }))
   orderStore.state.items = items
 }
@@ -43,7 +49,6 @@ useSeoMeta({
   ogImage: 'https://daigo.ru/og/cart-preview.jpg'
 })
 
-// JSON-LD — берём значения из стора (итоги не считаем на клиенте)
 useHead({
   script: [{
     type: 'application/ld+json',
@@ -72,11 +77,7 @@ useHead({
   }]
 })
 
-// Обработчик CTA из SummaryCard в режиме корзины
 function onCartCta() {
-  // Если авторизован — сразу на страницу оформления
-  // Если нет — SummaryCard сам валидирует форму и вызывает cartStore.preOrder(),
-  // а дальнейший редирект после успешной авторизации вы можете сделать в своём auth-потоке.
   navigateTo('/order')
 }
 </script>
@@ -99,9 +100,7 @@ function onCartCta() {
       </h1>
 
       <div class="flex flex-col lg:flex-row gap-10">
-        <!-- Список товаров и подарков -->
         <div class="flex-1 flex flex-col gap-6 lg:w-8/12">
-          <!-- Промо-уведомление -->
           <div
             v-if="cartStore.promoNotice"
             class="flex items-center gap-2 bg-gray-100 rounded-lg px-4 py-3 text-sm mb-6"
@@ -134,12 +133,8 @@ function onCartCta() {
           />
         </div>
 
-        <!-- Итоги -->
         <div class="lg:sticky top-8 w-full lg:w-auto">
-          <OrderSummary
-            :mode="'cart'"
-            @cta="onCartCta"
-          />
+          <OrderSummary :mode="'cart'" @cta="onCartCta" />
         </div>
       </div>
     </section>

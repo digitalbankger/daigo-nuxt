@@ -148,6 +148,9 @@ async function removeCoupon() {
         />
       </div>
 
+      <img v-if="authLoading" src="/public/images/steps.png" class="transition"/>
+      <p v-if="authLoading" class="text-sm text-black/50">Пуш уведомление может идти до 2 минут.</p>
+
       <Button
         variant="solid"
         class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"

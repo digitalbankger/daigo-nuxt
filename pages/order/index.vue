@@ -44,7 +44,7 @@ async function submit() {
       </NuxtLink>
 
       <div class="w-full flex items-center justify-between gap-8 mb-6">
-        <h1 class="text-[clamp(2.8rem,6vw,4.8rem)] font-medium">Оформление заказа</h1>
+        <h1 class="text-[clamp(1.8rem,6vw,4.8rem)] font-medium">Оформление заказа</h1>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">

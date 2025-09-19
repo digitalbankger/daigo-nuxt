@@ -28,7 +28,7 @@ function abs(src?: string) {
 </script>
 
 <template>
-  <div class="flex items-center gap-6 overflow-x-auto pb-2">
+  <div class="flex flex-wrap items-center gap-6 overflow-x-auto pb-2 sm:w-full">
     <div v-for="it in items" :key="it.id" class="flex flex-col items-start min-w-[80px] gap-2">
       <div class="w-28 h-28 rounded-xl bg-gray-100 overflow-hidden">
         <!-- Вариант 1: обычный <img> -->
