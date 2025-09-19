@@ -23,7 +23,6 @@ onMounted(async () => {
     // ничего не await’им на верхнем уровне setup — только внутри onMounted
     await Promise.allSettled([
       contentStore.loadAllReviews(),
-      catalogStore.fetchProducts({}),
     ])
   } catch (e) {
     loadError.value = e

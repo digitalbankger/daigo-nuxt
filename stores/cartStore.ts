@@ -36,21 +36,37 @@ export interface UserForm {
   phone: string
 }
 
+// ➕ Информация о купоне из ответа бэка
+export interface CouponInfo {
+  id?: number
+  code?: string
+  applied?: boolean
+  discount_percent?: number
+  discount_amount?: number
+}
+
 export const useCartStore = defineStore('cart', () => {
   const auth = useAuthStore()
   const userStore = useUserStore()
 
-  // state
+  // --- state ---
   const items = ref<CartItem[]>([])
   const gifts = ref<CartGift[]>([])
   const promoNotice = ref<PromoNotice | null>(null)
+  const isLoaded = ref(false)
+
+  // Новые итоговые поля из бэка (с запасными значениями)
+  const subtotal = ref<number>(0)        // сумма без скидки
+  const total = ref<number>(0)           // итог со скидкой
+  const discountAmount = ref<number>(0)  // абсолютная скидка в рублях
+  const couponInfo = ref<CouponInfo | null>(null)
 
   // sessionID гостя (храним только на клиенте)
   const guestSessionId = ref<string | null>(
     process.client ? localStorage.getItem('guest_session_id') : null
   )
 
-  // форма для неавторизованного (нужна только чтобы инициировать авторизацию из корзины)
+  // форма для гостя (для старта авторизации из корзины)
   const userForm = ref<UserForm>({ fullName: '', phone: '' })
 
   const daysLeft = computed(() => {
@@ -76,47 +92,63 @@ export const useCartStore = defineStore('cart', () => {
     return guestSessionId.value!
   }
 
+  /** Маппер айтемов с бэка */
+  function mapApiItem(i: any): CartItem {
+    return {
+      id: i.product_id,
+      title: i.title || i.name,
+      subtitle: i.subtitle || '',
+      price: Number(i.price ?? 0),
+      oldPrice: i.old_price != null ? Number(i.old_price) : undefined,
+      quantity: Number(i.quantity ?? 0),
+      image: i.image || '',
+      tag: i.tag,
+    }
+  }
+
+  /** Применить состояние корзины с сервера + безопасные фоллбеки */
+  function applyServerCartState(data: any) {
+    const mapped = (data?.items || []).map(mapApiItem)
+    items.value = mapped.sort((a, b) => String(a.id).localeCompare(String(b.id)))
+    gifts.value = data?.gifts || []
+    promoNotice.value = data?.promo_notice || null
+
+    // Итоги
+    const calcSubtotal = mapped.reduce((s, it) => s + it.price * it.quantity, 0)
+    subtotal.value = Number(data?.subtotal ?? calcSubtotal)
+
+    // если на бэке прислали discount_amount — используем, иначе 0
+    discountAmount.value = Number(data?.discount_amount ?? 0)
+
+    // total: либо из бэка, либо subtotal - discountAmount (не ниже нуля)
+    const srvTotal = data?.total
+    total.value =
+      srvTotal != null ? Number(srvTotal) : Math.max(0, subtotal.value - discountAmount.value)
+
+    // Купон (если есть)
+    couponInfo.value = data?.coupon_info || null
+  }
+
   /** Загрузка корзины */
   async function loadCart() {
     try {
       if (isAuthenticated.value && userId.value) {
         const data: any = await cartService.getUserCart(userId.value)
-        const mapped = (data.items || []).map((i: any) => ({
-          id: i.product_id,
-          title: i.title || i.name,
-          subtitle: i.subtitle || '',
-          price: i.price,
-          oldPrice: i.old_price,
-          quantity: i.quantity,
-          image: i.image || '',
-          tag: i.tag
-        }))
-        items.value = mapped.sort((a, b) => String(a.id).localeCompare(String(b.id)))
-        gifts.value = data.gifts || []
-        // если с бэка будут приходить уведомления по акциям — мапим сюда
-        promoNotice.value = data.promo_notice || null
+        applyServerCartState(data)
       } else {
         if (process.server) {
           items.value = []
           gifts.value = []
           promoNotice.value = null
+          subtotal.value = 0
+          total.value = 0
+          discountAmount.value = 0
+          couponInfo.value = null
           return
         }
         const sid = ensureGuestSession()
         const data: any = await cartService.getGuestCart(sid)
-        const mapped = (data.items || []).map((i: any) => ({
-          id: i.product_id,
-          title: i.title || i.name,
-          subtitle: i.subtitle || '',
-          price: i.price,
-          oldPrice: i.old_price,
-          quantity: i.quantity,
-          image: i.image || '',
-          tag: i.tag
-        }))
-        items.value = mapped.sort((a, b) => String(a.id).localeCompare(String(b.id)))
-        gifts.value = data.gifts || []
-        promoNotice.value = data.promo_notice || null
+        applyServerCartState(data)
       }
     } catch (e: any) {
       if (e?.response?.status === 404) {
@@ -124,31 +156,39 @@ export const useCartStore = defineStore('cart', () => {
         items.value = []
         gifts.value = []
         promoNotice.value = null
+        subtotal.value = 0
+        total.value = 0
+        discountAmount.value = 0
+        couponInfo.value = null
         if (process.client) localStorage.removeItem('guest_session_id')
         guestSessionId.value = null
       } else {
         console.warn('Ошибка при загрузке корзины', e)
       }
+    } finally {
+      isLoaded.value = true
     }
   }
 
-  /** Добавление товара */
+  /** Добавление товара (оптимистично) */
   async function addToCart(item: CartItem) {
-    // локальный optimistic update
     const existing = items.value.find(i => String(i.id) === String(item.id))
     if (existing) existing.quantity += item.quantity
     else items.value.push({ ...item })
 
-    if (isAuthenticated.value && userId.value) {
-      await cartService.addUserItem(userId.value, item.id, item.quantity)
-    } else {
-      const sid = ensureGuestSession()
-      await cartService.addGuestItem(sid, item.id, item.quantity)
+    try {
+      if (isAuthenticated.value && userId.value) {
+        await cartService.addUserItem(userId.value, item.id, item.quantity)
+      } else {
+        const sid = ensureGuestSession()
+        await cartService.addGuestItem(sid, item.id, item.quantity)
+      }
+    } finally {
+      await loadCart()
     }
-    await loadCart()
   }
 
-  /** Обновление количества */
+  /** Обновление количества (оптимистично) */
   async function updateItem(id: string | number, quantity: number) {
     if (quantity <= 0) {
       await removeItem(id)
@@ -157,25 +197,31 @@ export const useCartStore = defineStore('cart', () => {
     const existing = items.value.find(i => String(i.id) === String(id))
     if (existing) existing.quantity = quantity
 
-    if (isAuthenticated.value && userId.value) {
-      await cartService.updateUserItem(userId.value, id, quantity)
-    } else {
-      const sid = ensureGuestSession()
-      await cartService.updateGuestItem(sid, id, quantity)
+    try {
+      if (isAuthenticated.value && userId.value) {
+        await cartService.updateUserItem(userId.value, id, quantity)
+      } else {
+        const sid = ensureGuestSession()
+        await cartService.updateGuestItem(sid, id, quantity)
+      }
+    } finally {
+      await loadCart()
     }
-    await loadCart()
   }
 
-  /** Удалить товар */
+  /** Удалить товар (оптимистично) */
   async function removeItem(id: string | number) {
     items.value = items.value.filter(i => String(i.id) !== String(id))
-    if (isAuthenticated.value && userId.value) {
-      await cartService.removeUserItem(userId.value, id)
-    } else {
-      const sid = ensureGuestSession()
-      await cartService.removeGuestItem(sid, id)
+    try {
+      if (isAuthenticated.value && userId.value) {
+        await cartService.removeUserItem(userId.value, id)
+      } else {
+        const sid = ensureGuestSession()
+        await cartService.removeGuestItem(sid, id)
+      }
+    } finally {
+      await loadCart()
     }
-    await loadCart()
   }
 
   /** Очистить корзину */
@@ -191,20 +237,29 @@ export const useCartStore = defineStore('cart', () => {
     items.value = []
     gifts.value = []
     promoNotice.value = null
+    subtotal.value = 0
+    total.value = 0
+    discountAmount.value = 0
+    couponInfo.value = null
   }
 
-  /** Применить промокод */
+  /** Применить промокод — используем ответ бэка целиком */
   async function applyCoupon(code: string) {
-    if (!code.trim()) return
+    const trimmed = (code || '').trim()
+    if (!trimmed) return
+
+    let res: any
     if (isAuthenticated.value && userId.value) {
-      const res: any = await cartService.applyUserCoupon(userId.value, code)
-      promoNotice.value = res.promo_notice || null
+      res = await cartService.applyUserCoupon(userId.value, trimmed)
     } else {
       const sid = ensureGuestSession()
-      const res: any = await cartService.applyGuestCoupon(sid, code)
-      promoNotice.value = res.promo_notice || null
+      res = await cartService.applyGuestCoupon(sid, trimmed)
     }
+
+    applyServerCartState(res)
+    // На случай асинхронных перерасчётов на бэке:
     await loadCart()
+    return res
   }
 
   /** Удалить промокод */
@@ -215,13 +270,11 @@ export const useCartStore = defineStore('cart', () => {
       const sid = ensureGuestSession()
       await cartService.removeGuestCoupon(sid)
     }
-    promoNotice.value = null
     await loadCart()
   }
 
   /**
-   * ВАЖНО: preOrder — ТОЛЬКО для авторизованного.
-   * Для гостя preOrder НЕ вызываем (по ТЗ).
+   * preOrder — ТОЛЬКО для авторизованного.
    */
   async function preOrder() {
     if (!isAuthenticated.value || !userId.value) {
@@ -231,6 +284,12 @@ export const useCartStore = defineStore('cart', () => {
     const fio = profile?.first_name || userForm.value.fullName
     const phone = profile?.phone_number || userForm.value.phone
     await cartService.preOrderUser(userId.value, fio, phone)
+  }
+
+  async function ensureLoaded() {
+    if (!isLoaded.value) {
+      await loadCart()
+    }
   }
 
   /**
@@ -243,7 +302,6 @@ export const useCartStore = defineStore('cart', () => {
 
     const sid = guestSessionId.value
     if (!sid) {
-      // ничего не мигрируем — корзина уже могла быть пустой
       await loadCart()
       return
     }
@@ -254,34 +312,67 @@ export const useCartStore = defineStore('cart', () => {
     await loadCart()
   }
 
+  // внутри defineStore(...) рядом с остальными actions
+
+async function apply2plus1(productId: string, promotionId?: number) {
+  let res: any
+  if (isAuthenticated.value && userId.value) {
+    // /v1/shop/cart/{daigoID}/apply-2plus1
+    res = await cartService.apply2Plus1User(userId.value, {
+      product_id: productId,
+      promotion_id: promotionId, // сервер может игнорить, но лучше передать
+    })
+  } else {
+    const sid = ensureGuestSession()
+    // /v1/shop/guest-cart/{sessionID}/apply-2plus1
+    res = await cartService.apply2Plus1Guest(sid, {
+      product_id: productId,
+      promotion_id: promotionId,
+    })
+  }
+  applyServerCartState(res)
+  await loadCart()
+  return res
+}
+
+
   return {
     // state
     items, gifts, promoNotice, userForm, daysLeft,
-    isAuthenticated,
+    isAuthenticated, isLoaded, 
+    // новые суммы/купоны из бэка
+    subtotal, total, discountAmount, couponInfo,
 
     // actions
     loadCart,
+    ensureLoaded,
     addToCart,
     updateItem,
     removeItem,
     clearCart,
     applyCoupon,
     removeCoupon,
-    preOrder,               // только для авторизованного!
-    migrateGuestToUser,     // миграция после логина
+    preOrder,
+    migrateGuestToUser,
+    apply2plus1
   }
 })
 
 
 
 
+
+
+
+
+
+// // stores/cartStore.ts
 // import { defineStore } from 'pinia'
 // import { computed, ref } from 'vue'
 // import { useAuthStore } from '~/stores/authStore'
 // import { useUserStore } from '~/stores/userStore'
 // import { cartService } from '~/services/cartService'
 
-// /** Важное: id может быть string (UUID) или number — не приводим тип насильно */
 // export interface CartItem {
 //   id: string | number
 //   title: string
@@ -308,50 +399,28 @@ export const useCartStore = defineStore('cart', () => {
 //   endTime: string
 // }
 
-// /** Полная информация о купоне из ответа бэка */
-// export interface CouponInfo {
-//   id?: number
-//   code?: string
-//   applied?: boolean
-//   discount_percent?: number
-//   discount_amount?: number
-// }
-
 // export interface UserForm {
 //   fullName: string
 //   phone: string
-// }
-
-// function normId(id: string | number) {
-//   return String(id)
 // }
 
 // export const useCartStore = defineStore('cart', () => {
 //   const auth = useAuthStore()
 //   const userStore = useUserStore()
 
-//   // --- state ---
+//   // state
 //   const items = ref<CartItem[]>([])
 //   const gifts = ref<CartGift[]>([])
 //   const promoNotice = ref<PromoNotice | null>(null)
-
-//   // 💰 суммы от бэкенда — показываем как есть, не пересчитываем на клиенте
-//   const subtotal = ref<number>(0)
-//   const total = ref<number>(0)
-//   const discountAmount = ref<number>(0)
-//   const couponInfo = ref<CouponInfo | null>(null)
 
 //   // sessionID гостя (храним только на клиенте)
 //   const guestSessionId = ref<string | null>(
 //     process.client ? localStorage.getItem('guest_session_id') : null
 //   )
 
-//   // форма для неавторизованного
+//   // форма для неавторизованного (нужна только чтобы инициировать авторизацию из корзины)
 //   const userForm = ref<UserForm>({ fullName: '', phone: '' })
 
-//   const isAuthenticated = computed(() => auth.isAuthenticated)
-
-//   // время окончания акции (для счётчика)
 //   const daysLeft = computed(() => {
 //     if (!promoNotice.value?.endTime) return null
 //     const end = new Date(promoNotice.value.endTime)
@@ -359,6 +428,9 @@ export const useCartStore = defineStore('cart', () => {
 //     const diff = Math.ceil((end.getTime() - now.getTime()) / (1000 * 60 * 60 * 24))
 //     return diff > 0 ? diff : null
 //   })
+
+//   const isAuthenticated = computed(() => auth.isAuthenticated)
+//   const userId = computed(() => auth.userId)
 
 //   /** Получить/создать sessionID для гостя (только на клиенте) */
 //   function ensureGuestSession() {
@@ -372,78 +444,55 @@ export const useCartStore = defineStore('cart', () => {
 //     return guestSessionId.value!
 //   }
 
-//   /** Маппинг item из бэка в CartItem */
-//   function mapApiItem(i: any): CartItem {
-//     return {
-//       id: i.product_id, // не трогаем тип: UUID string или number — как пришло
-//       title: i.title || i.name,
-//       subtitle: i.subtitle || '',
-//       price: Number(i.price || 0),
-//       oldPrice: i.old_price ? Number(i.old_price) : undefined,
-//       quantity: Number(i.quantity || 0),
-//       image: i.image || '',
-//       tag: i.tag
-//     }
-//   }
-
-//   /** Сброс сумм/купона */
-//   function resetTotals() {
-//     subtotal.value = 0
-//     total.value = 0
-//     discountAmount.value = 0
-//     couponInfo.value = null
-//   }
-
 //   /** Загрузка корзины */
 //   async function loadCart() {
 //     try {
-//       if (isAuthenticated.value && auth.userId) {
-//         const data: any = await cartService.getUserCart(auth.userId)
-
-//         const mapped = (data.items || []).map(mapApiItem)
-//         // стабильный порядок (по строковому id)
-//         items.value = mapped.sort((a, b) => normId(a.id).localeCompare(normId(b.id)))
-
+//       if (isAuthenticated.value && userId.value) {
+//         const data: any = await cartService.getUserCart(userId.value)
+//         const mapped = (data.items || []).map((i: any) => ({
+//           id: i.product_id,
+//           title: i.title || i.name,
+//           subtitle: i.subtitle || '',
+//           price: i.price,
+//           oldPrice: i.old_price,
+//           quantity: i.quantity,
+//           image: i.image || '',
+//           tag: i.tag
+//         }))
+//         items.value = mapped.sort((a, b) => String(a.id).localeCompare(String(b.id)))
 //         gifts.value = data.gifts || []
+//         // если с бэка будут приходить уведомления по акциям — мапим сюда
 //         promoNotice.value = data.promo_notice || null
-
-//         // суммы и купон — строго из ответа бэка
-//         subtotal.value = Number(data.subtotal || 0)
-//         total.value = Number(data.total || 0)
-//         discountAmount.value = Number(data.discount_amount || 0)
-//         couponInfo.value = data.coupon_info || null
 //       } else {
 //         if (process.server) {
 //           items.value = []
 //           gifts.value = []
 //           promoNotice.value = null
-//           resetTotals()
 //           return
 //         }
 //         const sid = ensureGuestSession()
 //         const data: any = await cartService.getGuestCart(sid)
-
-//         const mapped = (data.items || []).map(mapApiItem)
-//         items.value = mapped.sort((a, b) => normId(a.id).localeCompare(normId(b.id)))
-
+//         const mapped = (data.items || []).map((i: any) => ({
+//           id: i.product_id,
+//           title: i.title || i.name,
+//           subtitle: i.subtitle || '',
+//           price: i.price,
+//           oldPrice: i.old_price,
+//           quantity: i.quantity,
+//           image: i.image || '',
+//           tag: i.tag
+//         }))
+//         items.value = mapped.sort((a, b) => String(a.id).localeCompare(String(b.id)))
 //         gifts.value = data.gifts || []
 //         promoNotice.value = data.promo_notice || null
-
-//         subtotal.value = Number(data.subtotal || 0)
-//         total.value = Number(data.total || 0)
-//         discountAmount.value = Number(data.discount_amount || 0)
-//         couponInfo.value = data.coupon_info || null
 //       }
 //     } catch (e: any) {
-//       // Если сессии нет на бэкенде (404), очищаем состояние и sessionID
 //       if (e?.response?.status === 404) {
+//         // если гостевой сессии нет на бэке — сбрасываем локально
 //         items.value = []
 //         gifts.value = []
 //         promoNotice.value = null
-//         resetTotals()
-//         if (process.client) {
-//           localStorage.removeItem('guest_session_id')
-//         }
+//         if (process.client) localStorage.removeItem('guest_session_id')
 //         guestSessionId.value = null
 //       } else {
 //         console.warn('Ошибка при загрузке корзины', e)
@@ -451,18 +500,15 @@ export const useCartStore = defineStore('cart', () => {
 //     }
 //   }
 
-//   /** Добавление товара (оптимистично, с нормализацией id) */
+//   /** Добавление товара */
 //   async function addToCart(item: CartItem) {
-//     const targetId = normId(item.id)
-//     const existing = items.value.find(i => normId(i.id) === targetId)
-//     if (existing) {
-//       existing.quantity += item.quantity
-//     } else {
-//       items.value.push({ ...item })
-//     }
+//     // локальный optimistic update
+//     const existing = items.value.find(i => String(i.id) === String(item.id))
+//     if (existing) existing.quantity += item.quantity
+//     else items.value.push({ ...item })
 
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.addUserItem(auth.userId, item.id, item.quantity)
+//     if (isAuthenticated.value && userId.value) {
+//       await cartService.addUserItem(userId.value, item.id, item.quantity)
 //     } else {
 //       const sid = ensureGuestSession()
 //       await cartService.addGuestItem(sid, item.id, item.quantity)
@@ -476,14 +522,11 @@ export const useCartStore = defineStore('cart', () => {
 //       await removeItem(id)
 //       return
 //     }
-//     const nId = normId(id)
-//     const existing = items.value.find(i => normId(i.id) === nId)
-//     if (existing) {
-//       existing.quantity = quantity
-//     }
+//     const existing = items.value.find(i => String(i.id) === String(id))
+//     if (existing) existing.quantity = quantity
 
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.updateUserItem(auth.userId, id, quantity)
+//     if (isAuthenticated.value && userId.value) {
+//       await cartService.updateUserItem(userId.value, id, quantity)
 //     } else {
 //       const sid = ensureGuestSession()
 //       await cartService.updateGuestItem(sid, id, quantity)
@@ -493,11 +536,9 @@ export const useCartStore = defineStore('cart', () => {
 
 //   /** Удалить товар */
 //   async function removeItem(id: string | number) {
-//     const nId = normId(id)
-//     items.value = items.value.filter(i => normId(i.id) !== nId)
-
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.removeUserItem(auth.userId, id)
+//     items.value = items.value.filter(i => String(i.id) !== String(id))
+//     if (isAuthenticated.value && userId.value) {
+//       await cartService.removeUserItem(userId.value, id)
 //     } else {
 //       const sid = ensureGuestSession()
 //       await cartService.removeGuestItem(sid, id)
@@ -507,91 +548,83 @@ export const useCartStore = defineStore('cart', () => {
 
 //   /** Очистить корзину */
 //   async function clearCart() {
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.clearUserCart(auth.userId)
+//     if (isAuthenticated.value && userId.value) {
+//       await cartService.clearUserCart(userId.value)
 //     } else {
 //       const sid = ensureGuestSession()
 //       await cartService.clearGuestCart(sid)
-//       // сбрасываем sessionID и корзину
-//       if (process.client) {
-//         localStorage.removeItem('guest_session_id')
-//       }
+//       if (process.client) localStorage.removeItem('guest_session_id')
 //       guestSessionId.value = null
 //     }
 //     items.value = []
 //     gifts.value = []
 //     promoNotice.value = null
-//     resetTotals()
 //   }
 
-//   /** Применить промокод (итоги берём из последующего loadCart) */
+//   /** Применить промокод */
 //   async function applyCoupon(code: string) {
-//     const trimmed = (code || '').trim()
-//     if (!trimmed) return
-
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.applyUserCoupon(auth.userId, trimmed)
+//     if (!code.trim()) return
+//     if (isAuthenticated.value && userId.value) {
+//       const res: any = await cartService.applyUserCoupon(userId.value, code)
+//       promoNotice.value = res.promo_notice || null
 //     } else {
 //       const sid = ensureGuestSession()
-//       await cartService.applyGuestCoupon(sid, trimmed)
+//       const res: any = await cartService.applyGuestCoupon(sid, code)
+//       promoNotice.value = res.promo_notice || null
 //     }
 //     await loadCart()
 //   }
 
 //   /** Удалить промокод */
 //   async function removeCoupon() {
-//     if (isAuthenticated.value && auth.userId) {
-//       await cartService.removeUserCoupon(auth.userId)
+//     if (isAuthenticated.value && userId.value) {
+//       await cartService.removeUserCoupon(userId.value)
 //     } else {
 //       const sid = ensureGuestSession()
 //       await cartService.removeGuestCoupon(sid)
 //     }
+//     promoNotice.value = null
 //     await loadCart()
 //   }
 
 //   /**
-//    * Предварительное оформление (contacts only).
-//    * Скидки/итоги НЕ шлём — они уже на бэке в корзине.
+//    * ВАЖНО: preOrder — ТОЛЬКО для авторизованного.
+//    * Для гостя preOrder НЕ вызываем (по ТЗ).
 //    */
 //   async function preOrder() {
-//     if (isAuthenticated.value && auth.userId) {
-//       const profile = userStore.profile
-//       const fio = profile?.first_name || userForm.value.fullName
-//       const phone = profile?.phone_number || userForm.value.phone
-//       await cartService.preOrderUser(auth.userId, fio, phone)
-//     } else {
-//       const sid = ensureGuestSession()
-//       const fio = userForm.value.fullName
-//       const phone = userForm.value.phone
-//       await cartService.preOrderGuest(sid, fio, phone)
+//     if (!isAuthenticated.value || !userId.value) {
+//       throw new Error('AUTH_REQUIRED')
 //     }
+//     const profile = userStore.profile
+//     const fio = profile?.first_name || userForm.value.fullName
+//     const phone = profile?.phone_number || userForm.value.phone
+//     await cartService.preOrderUser(userId.value, fio, phone)
 //   }
 
 //   /**
-//    * (Опционально) Миграция гостевой корзины в пользовательскую
-//    * — удобно вызвать сразу после успешной авторизации.
+//    * Миграция гостевой корзины в пользовательскую после успешной авторизации.
 //    */
-//   async function migrateGuestCartToUser(userId: number | string) {
-//     const sid = process.client ? localStorage.getItem('guest_session_id') : null
-//     if (!sid) return
-//     await cartService.migrateGuestToUser(sid, userId)
+//   async function migrateGuestToUser(targetUserId?: string | number) {
+//     const uid = targetUserId ?? userId.value
+//     if (!uid) return
+//     if (process.server) return
+
+//     const sid = guestSessionId.value
+//     if (!sid) {
+//       // ничего не мигрируем — корзина уже могла быть пустой
+//       await loadCart()
+//       return
+//     }
+//     await cartService.migrateGuestToUser(sid, uid)
+//     // после успешной миграции — чистим гостевую сессию
+//     localStorage.removeItem('guest_session_id')
+//     guestSessionId.value = null
 //     await loadCart()
 //   }
 
 //   return {
 //     // state
-//     items,
-//     gifts,
-//     promoNotice,
-//     userForm,
-//     // суммы/купоны с бэка
-//     subtotal,
-//     total,
-//     discountAmount,
-//     couponInfo,
-
-//     // computed/helpers
-//     daysLeft,
+//     items, gifts, promoNotice, userForm, daysLeft,
 //     isAuthenticated,
 
 //     // actions
@@ -602,7 +635,9 @@ export const useCartStore = defineStore('cart', () => {
 //     clearCart,
 //     applyCoupon,
 //     removeCoupon,
-//     preOrder,
-//     migrateGuestCartToUser, // пригодится в auth-flow
+//     preOrder,               // только для авторизованного!
+//     migrateGuestToUser,     // миграция после логина
 //   }
 // })
+
+

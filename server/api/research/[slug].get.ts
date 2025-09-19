@@ -43,24 +43,24 @@ export default defineEventHandler((event) => {
     {
       id: 4,
       title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
-      slug: 'sport-microbiota',
+      slug: 'issledovanie-o-vliyanii-daygo-na-mikrobiotu-kishechnika-sportsmenovi-i-povyshenie-vynoslivosti',
       image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-4.png',
       date: '2025-06-30',
       category: slug
     },
     {
       id: 5,
-      title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливостицип действия метабиотиков',
-      slug: 'gastro',
-      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-5.png',
+      title: 'Дайго и активация клеток натуральных киллеров и иммунорегуляция',
+      slug: 'daygo-i-aktivatsiya-kletok-naturalnykh-killerov-i-immunoregulyatsiya',
+      image: 'https://s3.firstvds.ru/researches/c8y2xvmydy7unrw9m3zqt01l06byiqgo.webp',
       date: '2025-06-30',
       category: slug
     },
     {
       id: 6,
-      title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
-      slug: 'gastro',
-      image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-5.png',
+      title: 'Daigo и эффектиная борьба с микробом Хеликобактер Пилори',
+      slug: 'daigo-i-effektinaya-borba-s-mikrobom-khelikobakter-pilori',
+      image: 'https://s3.firstvds.ru/researches/1a4gj9sezzmfp0fm0ec06pkakc6eq76w6.webp',
       date: '2025-06-30',
       category: slug
     },

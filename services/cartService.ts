@@ -5,6 +5,24 @@ import { useRuntimeConfig } from '#imports'
  * (uuid, сохраняется в localStorage), для авторизованного пользователя – daigo_id.
  */
 export const cartService = {
+
+   apply2Plus1Guest(sessionId: string, body: { product_id: string; promotion_id?: number }) {
+        const { daigoApiBase } = useRuntimeConfig().public
+
+    return $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/apply-2plus1`, {
+      method: 'POST',
+      body,
+    })
+  },
+
+  apply2Plus1User(userId: string | number, body: { product_id: string; promotion_id?: number }) {
+        const { daigoApiBase } = useRuntimeConfig().public
+
+    return $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/apply-2plus1`, {
+      method: 'POST',
+      body,
+    })
+  },
   /** Получить корзину пользователя */
   async getUserCart(userId: number | string) {
     const { daigoApiBase } = useRuntimeConfig().public

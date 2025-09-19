@@ -18,21 +18,21 @@ const productGroups = [
         image: '/images/customers/allPrinciples.webp',
         imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['gastro'],
+        slugs: ['klass-produkta=metobiotiki'],
       },
       {
         text: 'Восстановить баланс микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.',
         image: '/images/customers/shampoo.png',
         imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['gastro', 'skin'],
+        slugs: ['klass-produkta=metobiotiki&napravlennost=kozha-i-volosy&page=1'],
       },
       {
         text: 'Восстановить здоровый баланс микрофлоры полости рта и улучшить здоровье зубов.',
         image: '/images/customers/dent.png',
         imageWidth: 'w-[90%] sm:w-[65%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['gastro', 'skin', 'teeth'],
+        slugs: ['klass-produkta=metobiotiki&napravlennost=zuby-i-desna'],
       },
     ],
     preview: '/images/customers/allPrinciples-prev.png',
@@ -47,7 +47,7 @@ const productGroups = [
         image: '/images/customers/tamotsu-single.png',
         imageWidth: 'w-[50%] sm:w-[34%] -right-8 sm:right-10',
         tags: ['Нервная система и мозг'],
-        slugs: ['brain'],
+        slugs: ['napravlennost=mozg-i-nervnaya-sistema'],
       },
     ],
     preview: '/images/customers/tamotsu-group.png',
@@ -62,21 +62,21 @@ const productGroups = [
         image: '/images/customers/dermic-single.png',
         imageWidth: 'w-[44%] right-2 bottom-4',
         tags: ['Нервная система и мозг', 'Кожа и волосы', 'Кости и мышцы'],
-        slugs: ['brain', 'skin', 'bones'],
+        slugs: ['napravlennost=mozg-i-nervnaya-sistema&klass-produkta=aminobiotiki'],
       },
       {
         text: 'Улучшить работу нервной системы и мозга.\n\nПротиводействовать тревожности и депрессии.\nПомочь бороться с бессонницей, снять метеочувствительность.',
         image: '/images/customers/brainy-single.png',
         imageWidth: 'w-[44%] right-2 bottom-4',
         tags: ['Нервная система и мозг', 'Кожа и волосы'],
-        slugs: ['brain', 'skin'],
+        slugs: ['napravlennost=mozg-i-nervnaya-sistema&klass-produkta=aminobiotiki'],
       },
       {
         text: 'Улучшить работу суставов, укрепить хрящевую, костную и мышечную ткани.\nВосстановить суставы после травм.',
         image: '/images/customers/jointic-single.png',
         imageWidth: 'w-[44%] right-2 bottom-4',
         tags: ['Нервная система и мозг', 'Кожа и волосы', 'Кости и мышцы'],
-        slugs: ['brain', 'skin', 'bones'],
+        slugs: ['klass-produkta=aminobiotiki&page=1'],
       },
     ],
     preview: '/images/customers/brainy.png',
@@ -135,9 +135,14 @@ const currentSlide = ref(0)
                   >
                     {{ slide.text }}
                   </p>
-
+                  <!-- <NuxtLink
+                    :to="`/catalog?klass-produkta=${slide.slugs.join(',')}`"
+                    class="mt-6 inline-block px-4 py-2 text-white bg-primary rounded-full hover:bg-prymary/80 transition"
+                  >
+                    Подробнее
+                  </NuxtLink> -->
                   <NuxtLink
-                    :to="`/catalog?category=${slide.slugs.join(',')}`"
+                    :to="`/catalog?${slide.slugs}`"
                     class="mt-6 inline-block px-4 py-2 text-white bg-primary rounded-full hover:bg-prymary/80 transition"
                   >
                     Подробнее

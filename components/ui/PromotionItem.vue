@@ -1,41 +1,50 @@
 <script setup lang="ts">
-import Button from './Button.vue';
+import Button from './Button.vue'
 
-defineProps<{
-  promotion: {
-    id: number | string
-    title: string
-    description: string
-    image: string
-    coupon?: string
-    promo_type: 'discount' | 'gift' | 'code'
-  }
-}>()
+type PromoType = 'discount' | 'gift' | 'code'
+interface Promotion {
+  id: number | string
+  title: string
+  description: string
+  image: string
+  coupon?: string | null
+  promo_type: PromoType
+}
+
+const props = defineProps<{ promotion: Promotion }>()
+const emit = defineEmits<{ (e: 'apply', promotion: Promotion): void }>()
 </script>
 
 <template>
-  <div class="bg-white rounded-xl overflow-hidden flex flex-col cursor-pointer">
+  <div class="bg-white rounded-xl overflow-hidden flex flex-col">
     <img
       :src="promotion.image"
       :alt="promotion.title"
-      class="w-full object-contein"
+      class="w-full h-auto object-contain"
       loading="lazy"
-      @click="$emit('apply', promotion)"
+      decoding="async"
+      @click="emit('apply', promotion)"
     />
-    <div class="lg:hidden py-4 flex flex-col flex-1">
-      <!-- <h3 class="text-xl font-semibold mb-2">{{ promotion.title }}</h3>
-      <p class="text-sm text-gray-700 mb-4 line-clamp-3">{{ promotion.description }}</p>
+
+    <div class="py-4 flex flex-col flex-1">
+      <h3 class="text-2xl font-medium mb-2 leading-snug">{{ promotion.title }}</h3>
+
+      <p
+        v-if="promotion.description"
+        class="text-base text-black/70 mb-4"
+        v-html="promotion.description"
+      />
 
       <div v-if="promotion.coupon" class="mb-4">
-        <div class="text-sm text-gray-600">Промокод:</div>
-        <div class="font-bold text-base">{{ promotion.coupon }}</div>
-      </div> -->
+        <div class="text-sm text-black/70">Промокод:</div>
+        <div class="font-medium text-base text-primary tracking-wide select-all">{{ promotion.coupon }}</div>
+      </div>
 
       <div class="mt-auto">
         <Button
           variant="outline"
           class="w-full"
-          @click="$emit('apply', promotion)"
+          @click="emit('apply', promotion)"
         >
           Применить акцию
         </Button>

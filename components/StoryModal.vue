@@ -62,7 +62,9 @@ async function loadRelatedProducts() {
   const { data } = await useFetch<{ items: Product[] }>('/api/shop/products', {
     query: { product_ids: ids.join(',') }
   })
-  relatedProducts.value = data.value?.items || []
+
+  relatedProducts.value = (data.value?.items || [])
+    .filter(p => (p?.price ?? 0) > 0) // ← строго исключаем 0
 }
 
 /** при смене сториса — дотянуть детали и (если есть) товары */
@@ -82,6 +84,7 @@ async function toggleProducts() {
   showProducts.value = !showProducts.value
   if (showProducts.value) await loadRelatedProducts()
 }
+
 </script>
 
 <template>
@@ -129,9 +132,11 @@ async function toggleProducts() {
 
             <div
               ref="rail"
-              class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 pr-1"
+              class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 pr-1
+                    select-none cursor-grab active:cursor-grabbing"
               aria-roledescription="карусель"
             >
+
               <NuxtLink
                 v-for="p in relatedProducts"
                 :key="p.id"

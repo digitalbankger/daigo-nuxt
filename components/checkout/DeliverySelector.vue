@@ -26,6 +26,10 @@ const selectedKind = computed<'courier' | 'pvz' | 'pickup'>({
     if (list && list.length) {
       store.setDelivery(list[0].id)
     }
+    // NEW: при выборе ПВЗ гарантируем отсутствие флага private_house
+    if (value === 'pvz') {
+      store.setAddress({ private_house: false })
+    }
   },
 })
 
@@ -65,13 +69,8 @@ const isPvzSelected = computed(() => {
   return opt?.kind === 'pvz'
 })
 
-/** Заглушка под будущее окно выбора ПВЗ на карте */
-function openPvzMap() {
-  console.info('[pvz] open map placeholder')
-}
-
-/** Сохранение адреса (заглушка под реальный вызов/валидацию) */
 function saveAddress() {
+  // тут может быть валидация/вызов API
   console.info('[address] saved', { ...store.state.address })
 }
 </script>
@@ -144,6 +143,7 @@ function saveAddress() {
 
     <!-- ПВЗ -->
     <div v-if="selectedKind === 'pvz'" class="space-y-4">
+      <!-- провайдер ПВЗ -->
       <div v-if="pvzOptions.length" class="space-y-2">
         <label
           v-for="opt in pvzOptions"
@@ -161,17 +161,29 @@ function saveAddress() {
         </label>
       </div>
 
-      <Button variant="outline" class="!mt-2" type="button" @click="openPvzMap">
-        Выбрать адрес на карте
-      </Button>
+      <!-- NEW: те же поля, что и у курьера (без 'Частный дом') -->
+      <div v-if="isPvzSelected" class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <!-- Для ПВЗ в качестве «улица и дом» вводим адрес пункта -->
+          <UiInput
+            v-model="street"
+            placeholder="Адрес пункта выдачи (улица, дом)"
+            background="bg-white"
+            :error="store.errors.address.street || store.errors.address.pvzAddress"
+          />
+          <UiInput v-model="apartment" placeholder="Квартира/Офис (необязательно)" background="bg-white" />
 
-      <!-- Временное текстовое поле адреса ПВЗ -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-        <UiInput v-model="pvzAddr" placeholder="Адрес ПВЗ" background="bg-white" :error="store.errors.address.pvzAddress" />
-      </div>
+          <!-- подъезд/этаж/домофон можно оставить на случай доп.инструкций -->
+          <UiInput v-model="entrance" placeholder="Подъезд (необязательно)" background="bg-white" />
+          <UiInput v-model="floor" placeholder="Этаж (необязательно)" background="bg-white" />
+          <UiInput v-model="intercom" placeholder="Домофон (необязательно)" background="bg-white" />
+        </div>
 
-      <div class="flex justify-start">
-        <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>
+        <!-- Чекбокс «Частный дом» для ПВЗ не показываем -->
+
+        <div class="flex justify-start">
+          <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>
+        </div>
       </div>
     </div>
 

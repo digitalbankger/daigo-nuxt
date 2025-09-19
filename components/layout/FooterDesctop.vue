@@ -11,16 +11,16 @@
         </div>
 
         <div class="flex gap-5">
-          <a href="https://ya.ru" target="_blank" rel="noopener">
+          <a href="https://dzen.ru/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/dzen.svg" alt="Дзен" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://vk.com" target="_blank" rel="noopener">
+          <a href="https://vk.com/daigoru?roistat_visit=429655" target="_blank" rel="noopener">
             <img src="/icons/social/vk.svg" alt="VK" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://t.me" target="_blank" rel="noopener">
+          <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener">
+          <a href="https://www.youtube.com/@daigojp_ru" target="_blank" rel="noopener">
             <img src="/icons/social/youtube.svg" alt="YouTube" class="w-6 h-6" loading="lazy" />
           </a>
           <a href="https://daigo.store" target="_blank" rel="noopener">
@@ -77,10 +77,9 @@
           <img src="/icons/social/qr.svg" alt="QR-код приложения" class="w-4/6 md:w-full lg:w-4/6 ms-auto" loading="lazy" />
           <p class="w-4/6 md:w-full lg:w-4/6 my-2 ms-auto text-base md:text-sm lg:text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
           <div class="w-4/6 md:w-full lg:w-4/6 ms-auto flex justify-center gap-4 mt-2">
-            <img src="/icons/social/huawei.svg" alt="Huawei" class="w-8" loading="lazy" />
-            <img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" />
+            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
             <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
-            <img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" />
+            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
           </div>
         </div>
       </div>
@@ -98,13 +97,13 @@
         </div>
 
         <div class="flex gap-3 md:gap-5 mt-1">
-          <a href="https://ya.ru" target="_blank" rel="noopener">
+          <a href="https://dzen.ru/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/dzen.svg" alt="Дзен" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://vk.com" target="_blank" rel="noopener">
+          <a href="https://vk.com/daigoru?roistat_visit=429655" target="_blank" rel="noopener">
             <img src="/icons/social/vk.svg" alt="VK" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://t.me" target="_blank" rel="noopener">
+          <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
           <a href="https://youtube.com" target="_blank" rel="noopener">
@@ -198,10 +197,9 @@
           <p class="block md:hidden w-full my-2 ms-0 md:ms-auto text-sm md:text-base leading-tight">Скачать мобильное приложение Дайго</p>
           <p class="hidden md:block w-4/6 my-2 ms-0 md:ms-auto text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
           <div class="w-full ms-0 md:ms-auto flex justify-start gap-4 mt-4">
-            <img src="/icons/social/huawei.svg" alt="Huawei" class="w-8" loading="lazy" />
-            <img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" />
+            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
             <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
-            <img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" />
+            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
           </div>
         </div>
       </div>

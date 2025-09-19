@@ -13,65 +13,51 @@ const userStore = useUserStore()
 const props = defineProps<{ mode?: 'cart' | 'checkout' }>()
 const emit = defineEmits(['cta'])
 
-// Форма всегда одна — и для гостя, и для авторизованного
 const form = cartStore.userForm
 
-// Промокод
+// промокод в поле
 const coupon = ref('')
 
 // ошибки
-const errors = reactive<{ fullName: string; phone: string }>({
-  fullName: '',
-  phone: '',
-})
+const errors = reactive<{ fullName: string; phone: string }>({ fullName: '', phone: '' })
 
 type Focusable = { focus: () => void } | null
-const inputRefs = {
-  fullName: ref<Focusable>(null),
-  phone: ref<Focusable>(null),
-}
+const inputRefs = { fullName: ref<Focusable>(null), phone: ref<Focusable>(null) }
 
-const total = computed(() =>
-  cartStore.items.reduce((sum, item) => sum + item.price * item.quantity, 0)
-)
-const totalWithDiscount = computed(() => total.value)
-const itemCount = computed(() =>
-  cartStore.items.reduce((s, i) => s + i.quantity, 0)
-)
+// суммы и инфо о купоне из стора
+const subtotal = computed(() => cartStore.subtotal)
+const grandTotal = computed(() => cartStore.total)
+const discountAmount = computed(() => cartStore.discountAmount)
+const couponInfo = computed(() => cartStore.couponInfo)
 
-// В корзине (mode !== 'checkout') кнопка активна только когда оба поля заполнены
+const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
+
 const enableCta = computed(() =>
-  props.mode === 'checkout'
-    ? true
-    : Boolean(form.fullName.trim() && form.phone.trim())
+  props.mode === 'checkout' ? true : Boolean(form.fullName.trim() && form.phone.trim())
 )
 
 const authLoading = ref(false)
 const preOrderLoading = ref(false)
 
-// Подставляем ФИО/телефон из профиля для авторизованного
 async function prefillFromProfile() {
   if (!authStore.isAuthenticated) return
   try {
-    if (!userStore.profile) {
-      await userStore.loadProfile()
-    }
+    if (!userStore.profile) await userStore.loadProfile()
     const p = userStore.profile
     if (!p) return
-    const fio =
-      [p.first_name, p.last_name].filter(Boolean).join(' ').trim() ||
-      form.fullName
+    const fio = [p.first_name, p.last_name].filter(Boolean).join(' ').trim() || form.fullName
     const phone = p.phone_number || form.phone
     if (!form.fullName) form.fullName = fio
     if (!form.phone) form.phone = phone
-  } catch (e) {
-    // молча, чтобы не мешать UX
-    console.warn('prefillFromProfile failed', e)
-  }
+  } catch (e) { /* no-op */ }
 }
-
 onMounted(prefillFromProfile)
 watch(() => authStore.isAuthenticated, (v) => v && prefillFromProfile())
+
+// показываем код из ответа бэка в поле
+watch(couponInfo, (ci) => {
+  coupon.value = ci?.code || ''
+}, { immediate: true })
 
 function validateFields() {
   errors.fullName = form.fullName.trim() ? '' : 'Введите ФИО'
@@ -80,13 +66,7 @@ function validateFields() {
 }
 
 async function handleCta() {
-  // В режиме checkout карточка просто эмитит событие (кнопка "Оформить заказ")
-  if (props.mode === 'checkout') {
-    emit('cta')
-    return
-  }
-
-  // В корзине — всегда валидируем оба поля
+  if (props.mode === 'checkout') { emit('cta'); return }
   const ok = validateFields()
   if (!ok) {
     await nextTick()
@@ -94,25 +74,15 @@ async function handleCta() {
     if (errors.phone) return inputRefs.phone.value?.focus()
     return
   }
-
-  // Авторизованный → pre-order с fio/phone из формы и переход на /order
   if (authStore.isAuthenticated) {
     if (preOrderLoading.value) return
     try {
       preOrderLoading.value = true
-      await cartStore.preOrder() // cartStore отправит { fio, phone_number }
+      await cartStore.preOrder()
       navigateTo('/order')
-    } catch (e) {
-      console.warn('preOrder error', e)
-      alert('Не удалось продолжить оформление')
-    } finally {
-      preOrderLoading.value = false
-    }
+    } finally { preOrderLoading.value = false }
     return
   }
-
-  // Гость → запускаем авторизацию (остаёмся на странице),
-  // после получения токенов мигрируем корзину и идём на /order (это делает authStore)
   try {
     authLoading.value = true
     await authStore.loginOrRegister({
@@ -121,30 +91,34 @@ async function handleCta() {
       isRegister: false,
       redirectTo: '/order'
     })
-  } catch (e) {
-    console.error('Auth start failed', e)
-    alert('Не удалось запустить авторизацию')
-  } finally {
-    authLoading.value = false
-  }
+  } finally { authLoading.value = false }
 }
 
 async function applyCoupon() {
-  if (!coupon.value.trim()) return
+  const code = coupon.value.trim()
+  if (!code || couponInfo.value?.applied) return
   try {
-    await cartStore.applyCoupon(coupon.value)
-    coupon.value = ''
+    await cartStore.applyCoupon(code)
+    // поле само обновится из watch(couponInfo)
   } catch {
     alert('Промокод недействителен')
+  }
+}
+
+// оставляем хэндлер удаления на будущее (кнопку закомментируем в шаблоне)
+async function removeCoupon() {
+  try {
+    await cartStore.removeCoupon()
+    coupon.value = ''
+  } catch {
+    alert('Не удалось удалить промокод')
   }
 }
 </script>
 
 <template>
-  <div
-    class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4"
-  >
-    <!-- Поля ФИО и Телефон показываем ВСЕГДА в корзине (и гостю, и авторизованному) -->
+  <div class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
+    <!-- Блок полей (как было) -->
     <div v-if="props.mode !== 'checkout'" class="space-y-4">
       <div class="flex flex-col md:flex-row gap-4">
         <UiInput
@@ -190,61 +164,75 @@ async function applyCoupon() {
     <div class="space-y-3 md:space-y-4 text-sm md:text-base">
       <h3 class="text-2xl md:text-cardhead font-medium mb-6 md:mb-8 mt-4">Детали заказа</h3>
 
-      <div class="flex justify-between">
-        <span>Товаров в корзине</span>
-        <span>{{ itemCount }} шт</span>
-      </div>
-
-      <div class="flex justify-between">
-        <span>Стоимость продуктов</span>
-        <span>{{ total.toLocaleString() }} ₽</span>
-      </div>
-
-      <div class="flex justify-between">
-        <span>Доставка</span>
-        <span>Бесплатно</span>
-      </div>
+      <div class="flex justify-between"><span>Товаров в корзине</span><span>{{ itemCount }} шт</span></div>
+      <div class="flex justify-between"><span>Стоимость продуктов</span><span>{{ subtotal.toLocaleString() }} ₽</span></div>
+      <div class="flex justify-between"><span>Доставка</span><span>Бесплатно</span></div>
 
       <div class="flex justify-between font-medium text-cgreen">
         <span>Скидка</span>
-        <span>{{ cartStore.promoNotice?.discount ?? 0 }}%</span>
+        <span>
+          <template v-if="couponInfo?.applied">
+            −{{ discountAmount.toLocaleString() }} ₽
+            <span v-if="typeof couponInfo?.discount_percent === 'number'">
+              ({{ couponInfo!.discount_percent }}%)
+            </span>
+          </template>
+          <template v-else>0 ₽</template>
+        </span>
       </div>
 
       <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
-        <span>Бонусов к начислению</span>
-        <span class="text-base md:text-lg font-medium">0</span>
+        <span>Бонусов к начислению</span><span class="text-base md:text-lg font-medium">0</span>
       </div>
 
       <div class="flex justify-between font-medium text-xl">
-        <span>Итого</span>
-        <span>{{ totalWithDiscount.toLocaleString() }} ₽</span>
+        <span>Итого</span><span>{{ grandTotal.toLocaleString() }} ₽</span>
       </div>
     </div>
 
     <!-- Промокод — только в корзине -->
-    <div v-if="props.mode !== 'checkout'" class="flex flex-row space-x-2 md:space-x-3">
+    <div v-if="props.mode !== 'checkout'" class="flex flex-row gap-2 md:gap-3 items-start">
       <UiInput
         v-model="coupon"
         name="coupon"
         type="text"
         placeholder="Промокод"
-        background="bg-white !border-cgreen"
+        background="bg-white !border-cgreen !text-cgreen"
       >
         <template #right>
           <button
             type="button"
+            class="pl-2 transition"
+            :class="couponInfo?.applied ? 'text-gray-300 cursor-not-allowed' : 'text-cgreen hover:text-cgreen/80'"
+            :disabled="!!couponInfo?.applied"
             @click="applyCoupon"
-            class="pl-2 text-cgreen hover:text-cgreen/80 transition"
+            aria-label="Применить промокод"
           >
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
+
+          <!--
+          <button
+            v-if="couponInfo?.applied"
+            type="button"
+            @click="removeCoupon"
+            class="pl-2 text-red-500 hover:text-red-600 transition"
+            aria-label="Удалить промокод"
+            title="Удалить промокод"
+          >
+            ✕
+          </button>
+          -->
         </template>
       </UiInput>
+
       <Button
         variant="outline"
-        class="h-[52px] w-ful !border-cgreen !text-cgreen hover:!bg-cgreen hover:!text-white"
+        class="h-[52px] w-full !border-cgreen"
+        :class="couponInfo?.applied ? '!text-gray-300 cursor-not-allowed hover:bg-transparent' : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
+        :disabled="!!couponInfo?.applied || !coupon.trim()"
         @click="applyCoupon"
       >
         Применить
@@ -253,11 +241,7 @@ async function applyCoupon() {
 
     <!-- Кнопка в режиме checkout -->
     <div v-if="props.mode === 'checkout'" class="pt-4">
-      <Button
-        variant="solid"
-        class="w-full bg-black text-white py-3 rounded-lg transition"
-        @click="handleCta"
-      >
+      <Button variant="solid" class="w-full bg-black text-white py-3 rounded-lg transition" @click="handleCta">
         Оформить заказ
       </Button>
     </div>

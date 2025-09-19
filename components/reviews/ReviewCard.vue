@@ -3,7 +3,7 @@ import type { Review } from '~/types/content'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import WaveSurfer from 'wavesurfer.js'
 import { playExclusive } from '~/utils/audioController'
-import { useCatalogStore } from '~/stores/catalogStore'
+import { useProductsByIds } from '~/composables/useProductsByIds'
 
 const props = defineProps<{ review: Review }>()
 const emit = defineEmits(['open-story'])
@@ -12,15 +12,8 @@ const mediaSource = computed(() =>
   props.review.mediaUrl || props.review.video_url || props.review.file_url
 )
 
-const catalogStore = useCatalogStore()
-const relatedProducts = computed(() => {
-  const ids = Array.isArray(props.review.productIds)
-    ? props.review.productIds
-    : props.review.productId
-    ? [props.review.productId]
-    : []
-  return catalogStore.products.filter(p => ids.includes(p.id))
-})
+const ids = computed<(string|number)[]>(() => props.review.productIds ?? [])
+const { items: relatedProducts } = useProductsByIds(ids)
 
 // Аудио
 const waveformRef = ref<HTMLDivElement | null>(null)
@@ -132,7 +125,7 @@ onUnmounted(() => {
           >
             <NuxtLink
               v-for="product in relatedProducts"
-              :key="product.id"
+              :key="product.product_id"
               :to="productLink(product)"
               prefetch
               @click.stop

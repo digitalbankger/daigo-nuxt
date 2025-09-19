@@ -123,15 +123,15 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
           </li>
         </ul>
       </nav>
-
+ 
       <!-- title + мета -->
-      <h1 class="text-head font-medium leading-tight">{{ research?.title }}</h1>
+      <h1 class="text-[22px] sm:text-[46px] lg:text-[60px] font-medium leading-tight">{{ research?.title }}</h1>
       <div class="flex flex-col md:flex-row gap-8 justify-between my-16">
         <div 
           v-if="research?.author"
-          class="w-full md:w-1/2 flex flex-row gap-8"
+          class="w-full md:w-1/2 flex flex-col sm:flex-row gap-4 sm:gap-8"
         >
-          <img :src="research?.author?.avatarUrl" />
+          <img :src="research?.author?.avatarUrl" class="w-1/3 "/>
           <div class="flex flex-col">
             <p class="text-lg text-black/50">{{ research!.author!.position }}</p>
             <p class="mt-1 text-2xl font-medium">{{ research!.author!.name }}</p>
@@ -141,26 +141,26 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
           </div>
         </div>
         <div class="flex flex-col gap-6" :class="research?.author ? 'w-full md:w-1/2' : 'w-full'">
-          <div class="flex flex-wrap items-center gap-6 text-black ms-auto">
-            <div class="text-2xl flex items-center gap-2">
-              <img src="/icons/publications/calendar.svg" class="w-5"/><span>{{ new Date(research?.date || '').toLocaleDateString('ru-RU') }}</span>
+          <div class="flex flex-wrap items-center gap-6 text-black sm:ms-auto">
+            <div class="text-sm md:text-2xl flex items-center gap-2">
+              <img src="/icons/publications/calendar.svg" class="w-4 md:w-5"/><span>{{ new Date(research?.date || '').toLocaleDateString('ru-RU') }}</span>
             </div>
-            <div class="text-2xl flex items-center gap-2">
-              <img src="/icons/publications/clock.svg" class="w-5"/><span aria-label="Время чтения">{{ research?.time }} мин</span>
+            <div class="text-sm md:text-2xl flex items-center gap-2">
+              <img src="/icons/publications/clock.svg" class="w-4 md:w-5"/><span aria-label="Время чтения">{{ research?.time }} мин</span>
             </div>
-            <div class="text-2xl flex items-center gap-2">
-              <img src="/icons/publications/ye.svg" class="w-6"/><span aria-label="Просмотры">{{ research?.views }}</span>
+            <div class="text-sm md:text-2xl flex items-center gap-2">
+              <img src="/icons/publications/ye.svg" class="w-4 md:w-5"/><span aria-label="Просмотры">{{ research?.views }}</span>
             </div>
-            <div class="text-2xl flex items-center gap-2">
-              <img src="/icons/publications/comment.svg" class="w-5"/><span aria-label="Комментарии">{{ research?.comments }}</span>
+            <div class="text-sm md:text-2xl flex items-center gap-2">
+              <img src="/icons/publications/comment.svg" class="w-4 md:w-5"/><span aria-label="Комментарии">{{ research?.comments }}</span>
             </div>
           </div>
 
           <div class="flex gap-8 ms-auto">
-            <button type="button" class="text-2xl flex items-center gap-2" @click="goToComments">
+            <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="goToComments">
               <img src="/icons/publications/comment.svg" class="w-5"/><span>Комментарии</span>
             </button>
-            <button type="button" class="text-2xl flex items-center gap-2" @click="shareNative">
+            <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="shareNative">
               <img src="/icons/publications/share.svg" class="w-5"/><span class="text-[#FF64E7]">Поделиться</span>
             </button>
           </div>
@@ -172,7 +172,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
         <main class="lg:col-span-8 space-y-8">
           <!-- cover -->
           <nuxt-img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
-            loading="lazy" decoding="async" class="w-full rounded-2xl object-cover" />
+            loading="lazy" decoding="async" class="w-full rounded-2xl object-cover h-[200px] sm:h-[460px]" />
 
           <!-- Вы узнаете -->
           <YouWillLearn :key="slug" :container-ids="['research-top','research-bottom']" />
@@ -226,10 +226,10 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
 
           <!-- Топ 5 -->
           <section class="mt-12">
-            <h2 class="text-product font-semibold">Топ 5 популярных статей</h2>
+            <h2 class="text-xl md:text-product font-medium">Топ 5 популярных статей</h2>
             <ul class="mt-8 space-y-4 list-disc pl-6">
-              <li v-for="i in list" :key="i.id" class="marker:text-primary marker:font-semibold marker:text-2xl">
-                <NuxtLink :to="toUrl(i)" class="text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300">
+              <li v-for="i in list" :key="i.id" class="marker:text-primary marker:font-semibold md:marker:text-2xl">
+                <NuxtLink :to="toUrl(i)" class="text-sm md:text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300">
                   {{ i.title }}
                 </NuxtLink>
               </li>
@@ -238,7 +238,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
 
           <!-- FAQ (как заглушка) -->
           <section class="mt-16 flex flex-col gap-6">
-            <h2 class="text-product font-medium">Часто задаваемые вопросы</h2>
+            <h2 class="text-xl md:text-product font-medium">Часто задаваемые вопросы</h2>
             <div class="w-full flex flex-col">
               <AccordionItem title="Что такое коэнзим Q10?">Антиоксидант, участвующий в выработке энергии…</AccordionItem>
               <AccordionItem title="Чем полезен Tamotsu?">Улучшает память и когнитивные функции…</AccordionItem>
@@ -250,8 +250,8 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
           <!-- Понравилось? -->
           <section class="md:w-5/12 mt-12 py-5">
             <hr class="border-black/10 mb-6 w-5/6" />
-            <h2 class="text-cardhead font-medium">Понравилось исследование?</h2>
-            <p class="mt-2 text-lg">Поделитесь с друзьями в социальных сетях</p>
+            <h2 class="text-xl md:text-cardhead font-medium !leading-tight">Понравилось исследование?</h2>
+            <p class="mt-2 text-sm text-lg">Поделитесь с друзьями в социальных сетях</p>
             <div class="mt-4 flex items-center gap-4">
               <a :href="shareLinks.whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="/icons/social/whatsapp.svg" class="w-7 h-7" /></a>
               <a :href="shareLinks.telegram" target="_blank" rel="noopener" aria-label="Telegram"><img src="/icons/social/telegram.svg" class="w-7 h-7" /></a>
@@ -280,7 +280,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
             </div>
           </div> -->
           <div v-if="research?.recommended?.length" class="">
-            <h3 class="text-cardhead font-medium">Больше исследований</h3>
+            <h3 class="text-xl md:text-cardhead font-medium">Больше исследований</h3>
             <ul class="mt-4 space-y-4">
               <li v-for="it in research.recommended" :key="it.id" class="flex gap-4">
                 <div class="w-5/12"><nuxt-img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" /></div>

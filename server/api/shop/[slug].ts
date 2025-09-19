@@ -2843,7 +2843,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
     },
     // Супермозг
     {
-      product_id: "5e99fdfa-5c31-455c-8ac1-supermozg",
+      product_id: "ddbdceba-5ba2-4308-bc05-bda8cd0394d6",
       slug: 'nabor-supermozg',
       title: 'Набор «СУПЕРМОЗГ»',
       subtitle: '',
@@ -2974,7 +2974,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
     },
     // Полный набор здоровья 
     {
-      product_id: "9175d764-b04b-4783-a50f-polnyy-nabor-zdorovya",
+      product_id: "e1c11d41-fdf0-4005-a5e7-50c98afefb42",
       slug: 'polnyy-nabor-zdorovya-daigo',
       title: 'Полный набор здоровья от Дайго',
       subtitle: '',
@@ -3747,15 +3747,15 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       oldPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert20/product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: 'https://products.s3.firstvds.ru/sert20/	sert-product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert20/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert20/sec.png',
+        imgFirst: 'https://products.s3.firstvds.ru/sert20/first.webp',
+        imgSec: 'https://products.s3.firstvds.ru/sert20/second.webp',
         imgThirt: 'https://products.s3.firstvds.ru/sert20/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert20/four.png',
+        imgFour: 'https://products.s3.firstvds.ru/sert20/four.webp',
       },
       faq: {
         items: [
@@ -3785,7 +3785,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       // изображения для внутренних секций
       certImages: {
         imgFirst: 'https://products.s3.firstvds.ru/sert50/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert50/sec.png',
+        imgSec: 'https://products.s3.firstvds.ru/sert50/second.png',
         imgThirt: 'https://products.s3.firstvds.ru/sert50/thirt.png',
         imgFour: 'https://products.s3.firstvds.ru/sert50/four.png',
       },
@@ -3817,7 +3817,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       // изображения для внутренних секций
       certImages: {
         imgFirst: 'https://products.s3.firstvds.ru/sert100/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert100/sec.png',
+        imgSec: 'https://products.s3.firstvds.ru/sert100/second.png',
         imgThirt: 'https://products.s3.firstvds.ru/sert100/thirt.png',
         imgFour: 'https://products.s3.firstvds.ru/sert100/four.png',
       },
