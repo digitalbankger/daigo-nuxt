@@ -73,7 +73,7 @@ export default defineEventHandler((): Review[] => {
       type: 'video',
       author: 'Аноним',
       feedback_preview: 'Если правильно вкладываться в свой организм...',
-      photo_urls: ['https://s3.firstvds.ru/feedbacks/video/daigo10.png'],
+      photo_urls: ['https://s3.firstvds.ru/feedbacks/video/daigo-10.png'],
       video_url: 'https://s3.firstvds.ru/feedbacks/video/daigo10.MOV',
       duration: '00:30',
       productIds: ['cafac368-1074-417d-bb3e-4470b4e28190'],
