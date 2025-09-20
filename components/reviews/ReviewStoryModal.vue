@@ -2,6 +2,7 @@
 import type { Review } from '~/types/content'
 import type { Product } from '~/types/product'
 import ReviewStorySlide from './ReviewStorySlide.vue'
+import SmartImg from '../SmartImg.vue';
 
 // (опционально) мой лёгкий компонент карусели
 // import ProductCarousel from '~/components/ui/ProductCarousel.vue'
@@ -65,7 +66,7 @@ function next() {
       <transition name="fade">
         <div
           v-if="showProducts"
-          class="w-full absolute bottom-0 left-0 right-0 bg-white p-4 z-40 max-h-[36vh] rounded-t-lg shadow-xl"
+          class="w-full absolute bottom-0 left-0 right-0 bg-white p-4 z-40 max-h-[40vh] rounded-t-lg shadow-xl"
         >
           <div v-if="productsLoading" class="text-sm text-gray-500 px-1 py-2">Загружаем товары…</div>
           <div v-else-if="productsError" class="text-sm text-red-600 px-1 py-2">Не удалось загрузить товары</div>
@@ -77,7 +78,7 @@ function next() {
               class="snap-start flex-shrink-0 w-[min(70vw,240px)] bg-white rounded-xl p-3 shadow"
             >
               <NuxtLink :to="p.slug ? `/catalog/${p.slug}` : `/product/${p.id}`">
-                <NuxtImg
+                <SmartImg
                   :src="p.image"
                   :alt="p.name"
                   width="500"

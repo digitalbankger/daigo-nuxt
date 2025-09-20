@@ -1,29 +1,30 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
+import { useHead } from '#imports'
+import BaseContainer from '~/components/layout/BaseContainer.vue'
+import ReviewCard from '~/components/reviews/ReviewCard.vue'
+import MediaModal from '~/components/reviews/MediaModal.vue'
+import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 import { useReviewsStore } from '~/stores/reviewsStore'
 import type { Review } from '~/types/content'
-import ReviewCard from '~/components/reviews/ReviewCard.vue'
-import StoryModal from '~/components/StoryModal.vue'
-import MediaModal from '~/components/reviews/MediaModal.vue'
-import { useCatalogStore } from '~/stores/catalogStore'
-import BaseContainer from '~/components/layout/BaseContainer.vue'
-import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 
-const contentStore = useReviewsStore()
-const catalogStore = useCatalogStore()
+// Ленивая модалка полного текстового отзыва
+const ReviewTextModal = defineAsyncComponent(
+  () => import('@/components/reviews/ReviewFullModal.vue')
+)
 
-// локальные флаги загрузки/ошибки, чтобы не блокировать монтирование страницы
+const reviewsStore = useReviewsStore()
+
+// Состояния загрузки
 const isLoading = ref(true)
 const loadError = ref<unknown>(null)
 
+// Загрузка данных
 onMounted(async () => {
   try {
-    // ничего не await’им на верхнем уровне setup — только внутри onMounted
-    await Promise.allSettled([
-      contentStore.loadAllReviews(),
-    ])
+    await Promise.allSettled([reviewsStore.loadAllReviews()])
   } catch (e) {
     loadError.value = e
     console.error('[otzyvy] load error', e)
@@ -32,37 +33,59 @@ onMounted(async () => {
   }
 })
 
-// данные из стора
-const reviews = computed<Review[]>(() => contentStore.allReviews ?? [])
+// Данные
+const reviews = computed<Review[]>(() => reviewsStore.allReviews ?? [])
 const celebrityReviews = computed(() => reviews.value.filter(r => r.type === 'celebrity'))
 
-// модалки
-const isModalOpen = ref(false)
+// Модалки: сторис «известных»
+const isCelebModalOpen = ref(false)
 const modalReviews = ref<Review[]>([])
-const selectedStory = ref<Review | null>(null)
 
 function openStory(review: Review) {
   const list = celebrityReviews.value
   const index = list.findIndex(r => r.id === review.id)
   if (index !== -1) {
     modalReviews.value = [...list.slice(index), ...list.slice(0, index)]
-    isModalOpen.value = true
+    isCelebModalOpen.value = true
   }
 }
 
-const currentStoryIndex = computed(() =>
-  celebrityReviews.value.findIndex(r => r.id === selectedStory.value?.id)
-)
+// Модалка: видео/аудио карточек (не «сторис»)
+const selectedStory = ref<Review | null>(null)
 
-function showNextStory() {
-  const next = celebrityReviews.value[currentStoryIndex.value + 1]
-  if (next) selectedStory.value = next
-}
+// Модалка: полный текст отзыва
+const selectedTextReview = ref<Review | null>(null)
+const isTextModalOpen = computed(() => !!selectedTextReview.value)
+function openText(review: Review) { selectedTextReview.value = review }
+function closeText() { selectedTextReview.value = null }
 
-function showPrevStory() {
-  const prev = celebrityReviews.value[currentStoryIndex.value - 1]
-  if (prev) selectedStory.value = prev
-}
+// SEO мета
+useHead(() => {
+  const title = 'Отзывы о Daigo — видео, аудио и тексты'
+  const description = 'Живые отзывы пользователей и известных людей о Daigo: видео, аудио и текстовые впечатления. Сопутствующие товары и полезные истории.'
+  const url = 'https://your-domain/otzyvy'
+  return {
+    title,
+    meta: [
+      { name: 'description', content: description },
+      { property: 'og:title', content: title },
+      { property: 'og:description', content: description },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:url', content: url }
+    ],
+    script: [
+      {
+        type: 'application/ld+json',
+        children: JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'CollectionPage',
+          name: title,
+          description
+        })
+      }
+    ]
+  }
+})
 </script>
 
 <template>
@@ -75,10 +98,13 @@ function showPrevStory() {
       <p v-else-if="loadError" class="text-center text-red-500">Не удалось загрузить отзывы</p>
 
       <template v-else-if="reviews.length">
-        <!-- Сторис от знаменитостей -->
+        <!-- Сторис от известных людей -->
         <div class="flex justify-between items-center mb-4">
-          <h2 class="font-medium text-[clamp(1.2rem,4vw,2.8rem)] leading-tight">Отзывы от известных людей</h2>
+          <h2 class="font-medium text-[clamp(1.2rem,4vw,2.8rem)] leading-tight">
+            Отзывы от известных людей
+          </h2>
         </div>
+
         <div class="overflow-x-auto scrollbar-hidden mb-10 md:mb-16 py-6 border-b border-black/20">
           <div class="flex gap-4 md:gap-8 min-w-full">
             <ReviewCard
@@ -92,67 +118,92 @@ function showPrevStory() {
 
         <!-- Видео отзывы -->
         <div class="flex justify-between items-center mb-6">
-          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">Видео отзывы</h2>
+          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
+            Видео отзывы
+          </h2>
           <NuxtLink to="/otzyvy/daigo-video" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-16">
           <ReviewCard
             v-for="review in reviews.filter(r => r.type === 'video')"
             :key="review.id"
             :review="review"
-            @open-story="() => selectedStory = review"
+            @open-story="() => (selectedStory = review)"
           />
         </div>
 
         <!-- Аудио отзывы -->
         <div class="flex justify-between items-center mb-6">
-          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">Аудио отзывы</h2>
+          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
+            Аудио отзывы
+          </h2>
           <NuxtLink to="/otzyvy/daigo-audio" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
           <ReviewCard
             v-for="review in reviews.filter(r => r.type === 'audio')"
             :key="review.id"
             :review="review"
-            @open-story="() => selectedStory = review"
+            @open-story="() => (selectedStory = review)"
           />
         </div>
 
         <!-- Текстовые отзывы -->
         <div class="flex justify-between items-center mb-4">
-          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">Текстовые отзывы</h2>
+          <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
+            Текстовые отзывы
+          </h2>
           <NuxtLink to="/otzyvy/daigo-text" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           <ReviewCard
             v-for="review in reviews.filter(r => r.type === 'text')"
             :key="review.id"
             :review="review"
+            @open-text="openText"
           />
         </div>
       </template>
 
       <p v-else class="text-center text-gray-500">Пока нет отзывов.</p>
 
-      <ReviewStoryModal
-        :isOpen="isModalOpen"
-        :reviews="modalReviews"
-        @close="isModalOpen = false"
-      />
+      <!-- Модалка сторис «известных» -->
+      <ClientOnly>
+        <ReviewStoryModal
+          :isOpen="isCelebModalOpen"
+          :reviews="modalReviews"
+          @close="isCelebModalOpen = false"
+        />
+      </ClientOnly>
 
-      <MediaModal
-        v-if="selectedStory"
-        :show="!!selectedStory"
-        :type="selectedStory.video_url ? 'video' : selectedStory.file_url ? 'audio' : 'image'"
-        :src="selectedStory.video_url || selectedStory.file_url || selectedStory.preview"
-        :onClose="() => selectedStory = null"
-      />
+      <!-- Модалка видео/аудио -->
+      <ClientOnly>
+        <MediaModal
+          v-if="selectedStory"
+          :show="!!selectedStory"
+          :type="selectedStory.video_url ? 'video' : selectedStory.file_url ? 'audio' : 'image'"
+          :src="selectedStory.video_url || selectedStory.file_url || selectedStory.preview"
+          :onClose="() => (selectedStory = null)"
+        />
+      </ClientOnly>
+
+      <!-- Модалка полного текста -->
+      <ClientOnly>
+        <ReviewTextModal
+          :show="isTextModalOpen"
+          :review="selectedTextReview"
+          :onClose="closeText"
+        />
+      </ClientOnly>
     </section>
   </BaseContainer>
 </template>

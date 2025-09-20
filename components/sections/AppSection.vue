@@ -5,7 +5,7 @@
         <h2 class="font-medium leading-tight mb-5 text-[clamp(1.6rem,6vw,2.8rem)] sm:text-3xl lg:text-[clamp(1.6rem,6vw,2.8rem)]">
           Установите приложение DAIGO
         </h2>
-        <p class="font-normal text-sm sm:text-base lg:text-2xl leading-tight mb-8 w-11/12 sm:w-full">
+        <p class="font-normal text-sm sm:text-base lg:text-2xl !leading-tight mb-8 w-11/12 sm:w-full">
           С приложением удобней! В приложении вы можете приобрести товары от Дайго, а также следить за акциями и предложениями
         </p>
         <a
@@ -17,14 +17,14 @@
         </a>
       </div>
 
-      <NuxtImg
+      <SmartImg
         src="https://nuxt.daigo.ru/images/app/app-preview.png"
         alt="Скриншоты приложения DAIGO"
-        width="400"
-        height="400"
-        format="webp"
+        :size="400"           
+        :width="400"         
+        :height="400"
         loading="lazy"
-        placeholder
+        decoding="async"
         class="relative -mt-36 sm:mt-0 mx-auto sm:absolute right-0 sm:right-6 lg:right-10 w-10/12 sm:w-5/12 lg:w-[30%] object-contain order-1 sm:order-2"
       />
     </div>

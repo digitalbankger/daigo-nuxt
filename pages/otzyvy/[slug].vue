@@ -1,28 +1,32 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { computed, ref, onMounted, watch } from 'vue'
-import { useRoute, useRouter } from '#imports'
+import { computed, ref, onMounted, watch, defineAsyncComponent } from 'vue'
+import { useRoute, useRouter, useSeoMeta } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ReviewCard from '~/components/reviews/ReviewCard.vue'
 import MediaModal from '~/components/reviews/MediaModal.vue'
-import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 import type { Review } from '~/types/content'
 import { useReviewsStore } from '~/stores/reviewsStore'
+
+/* Ленивая модалка полного текста */
+const ReviewTextModal = defineAsyncComponent(
+  () => import('~/components/reviews/ReviewFullModal.vue')
+)
 
 /** поддерживаем и ваши текущие "daigo-*" и короткие слаги */
 const TYPE_MAP: Record<string, { type: Review['type'], h1: string, seoTitle: string, seoDesc: string }> = {
   // видео
-  'video':        { type: 'video',      h1: 'Видео отзывы', seoTitle: 'Видео отзывы Daigo', seoDesc: 'Смотрите видео-отзывы покупателей Daigo.' },
-  'daigo-video':  { type: 'video',      h1: 'Видео отзывы', seoTitle: 'Видео отзывы Daigo', seoDesc: 'Смотрите видео-отзывы покупателей Daigo.' },
+  'video':        { type: 'video',      h1: 'Видео отзывы',      seoTitle: 'Видео отзывы Daigo',      seoDesc: 'Смотрите видео-отзывы покупателей Daigo.' },
+  'daigo-video':  { type: 'video',      h1: 'Видео отзывы',      seoTitle: 'Видео отзывы Daigo',      seoDesc: 'Смотрите видео-отзывы покупателей Daigo.' },
 
   // аудио
-  'audio':        { type: 'audio',      h1: 'Аудио отзывы', seoTitle: 'Аудио отзывы Daigo', seoDesc: 'Слушайте аудио-отзывы покупателей Daigo.' },
-  'daigo-audio':  { type: 'audio',      h1: 'Аудио отзывы', seoTitle: 'Аудио отзывы Daigo', seoDesc: 'Слушайте аудио-отзывы покупателей Daigo.' },
+  'audio':        { type: 'audio',      h1: 'Аудио отзывы',      seoTitle: 'Аудио отзывы Daigo',      seoDesc: 'Слушайте аудио-отзывы покупателей Daigo.' },
+  'daigo-audio':  { type: 'audio',      h1: 'Аудио отзывы',      seoTitle: 'Аудио отзывы Daigo',      seoDesc: 'Слушайте аудио-отзывы покупателей Daigo.' },
 
   // текст
-  'text':         { type: 'text',       h1: 'Текстовые отзывы', seoTitle: 'Текстовые отзывы Daigo', seoDesc: 'Читайте текстовые отзывы покупателей Daigo.' },
-  'daigo-text':   { type: 'text',       h1: 'Текстовые отзывы', seoTitle: 'Текстовые отзывы Daigo', seoDesc: 'Читайте текстовые отзывы покупателей Daigo.' },
+  'text':         { type: 'text',       h1: 'Текстовые отзывы',  seoTitle: 'Текстовые отзывы Daigo',  seoDesc: 'Читайте текстовые отзывы покупателей Daigo.' },
+  'daigo-text':   { type: 'text',       h1: 'Текстовые отзывы',  seoTitle: 'Текстовые отзывы Daigo',  seoDesc: 'Читайте текстовые отзывы покупателей Daigo.' },
 
   // «сторис» от известных людей (если понадобится отдельная страница)
   'celebrity':    { type: 'celebrity',  h1: 'Отзывы от известных людей', seoTitle: 'Отзывы от известных людей', seoDesc: 'Сторис и отзывы известных людей о Daigo.' },
@@ -80,9 +84,15 @@ function go(p: number) {
   router.push({ query: { ...route.query, page: p } })
 }
 
-/** Модалки (видео/аудио/картинки) */
-const selected = ref<Review | null>(null)
-function openMedia(r: Review) { selected.value = r }
+/** Модалка для видео/аудио/картинок (событие open-story) */
+const selectedMedia = ref<Review | null>(null)
+function openMedia(r: Review) { selectedMedia.value = r }
+
+/** Модалка детального текста (событие open-text) */
+const selectedTextReview = ref<Review | null>(null)
+const isTextModalOpen = computed(() => !!selectedTextReview.value)
+function openText(r: Review) { selectedTextReview.value = r }
+function closeText() { selectedTextReview.value = null }
 
 /** SEO / OG */
 useSeoMeta({
@@ -91,7 +101,7 @@ useSeoMeta({
   ogTitle: conf.value.seoTitle,
   ogDescription: conf.value.seoDesc,
   ogType: 'website',
-  ogUrl: () => `https://daigo.ru${route.fullPath}`, // если нужен каноникал — подставьте свой домен
+  ogUrl: () => `https://daigo.ru${route.fullPath}`,
 })
 </script>
 
@@ -114,6 +124,7 @@ useSeoMeta({
             :key="r.id"
             :review="r"
             @open-story="() => openMedia(r)"
+            @open-text="openText"
           />
         </div>
 
@@ -138,13 +149,24 @@ useSeoMeta({
       </template>
 
       <!-- Модалка медиа -->
-      <MediaModal
-        v-if="selected"
-        :show="!!selected"
-        :type="selected.video_url ? 'video' : selected.file_url ? 'audio' : 'image'"
-        :src="selected.video_url || selected.file_url || selected.preview"
-        :onClose="() => selected = null"
-      />
+      <ClientOnly>
+        <MediaModal
+          v-if="selectedMedia"
+          :show="!!selectedMedia"
+          :type="selectedMedia.video_url ? 'video' : selectedMedia.file_url ? 'audio' : 'image'"
+          :src="selectedMedia.video_url || selectedMedia.file_url || selectedMedia.preview"
+          :onClose="() => (selectedMedia = null)"
+        />
+      </ClientOnly>
+
+      <!-- Модалка полного текста -->
+      <ClientOnly>
+        <ReviewTextModal
+          :show="isTextModalOpen"
+          :review="selectedTextReview"
+          :onClose="closeText"
+        />
+      </ClientOnly>
     </section>
   </BaseContainer>
 </template>

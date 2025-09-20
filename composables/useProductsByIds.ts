@@ -16,16 +16,19 @@ export function useProductsByIds(idsSource: IdsSrc) {
   )
 
   async function load() {
-    items.value = []
-    error.value = null
-    if (!normalizedIds.value.length) return
+    // если ID нет — точно ничего не тянем
+    if (!normalizedIds.value.length) {
+      items.value = []
+      return
+    }
 
     try { abortCtrl?.abort() } catch {}
     abortCtrl = new AbortController()
     loading.value = true
     try {
       const data = await $fetch<{ items: Product[] }>('/api/shop/products', {
-        query: { ids: normalizedIds.value.join(',') },
+        // ВАЖНО: product_ids, а не ids
+        query: { product_ids: normalizedIds.value.join(',') },
         signal: abortCtrl.signal
       })
       items.value = data?.items ?? []

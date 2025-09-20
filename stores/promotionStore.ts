@@ -98,7 +98,7 @@ export const usePromoStore = defineStore('promoStore', {
 
       // discount → если есть связанный товар — ведём на него
       if (promo.promo_type === 'discount' && promo.product_slug) {
-        navigateTo(`/product/${promo.product_slug}`)
+        navigateTo(`/catalog/${promo.product_slug}`)
         return
       }
 

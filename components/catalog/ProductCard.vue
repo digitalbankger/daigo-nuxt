@@ -14,11 +14,12 @@
         class="w-full h-[130px] md:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
         :class="{ 'h-[462px]': globalIndex === 0 || isLast }"
       >
-        <NuxtImg
+        <SmartImg
           :src="product.image"
           :alt="product.name"
-          width="500"
-          height="500"
+          :size="500"
+          :width="500"
+          :height="500"
           class="object-contain"
           loading="lazy"
           decoding="async"
@@ -26,8 +27,8 @@
       </div>
 
       <!-- контент -->
-      <div class="p-2 md:p-4 flex flex-col flex-1"> <!-- ВАЖНО -->
-        <!-- Заголовок: фиксируем высоту под 2 строки -->
+      <div class="p-2 md:p-4 flex flex-col flex-1"> 
+      
         <h3
           class="font-normal md:font-medium leading-tight mb-2
                  text-[clamp(0.875rem,5vw,1.4rem)]

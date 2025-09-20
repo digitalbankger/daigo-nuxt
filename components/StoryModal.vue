@@ -144,7 +144,7 @@ async function toggleProducts() {
                 class="snap-start shrink-0 w-[220px] bg-white border border-gray-100 rounded-xl p-3 hover:shadow-md transition focus:outline-none focus:ring-2 focus:ring-primary"
                 @click.stop
               >
-                <NuxtImg
+                <SmartImg
                   :src="p.image"
                   :alt="p.name"
                   width="400"
