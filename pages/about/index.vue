@@ -175,14 +175,13 @@ definePageMeta({
           </h2>
           <div class="flex flex-col lg:flex-row gap-4 lg:gap-10">
             <div class="lg:w-5/12">
-              <SmartImg
+              <img
                 src="https://nuxt.daigo.ru/images/about/director.jpg"
                 alt="Генеральный директор Daigo"
                 format="webp"
                 loading="lazy"
                 width="528"
                 height="524"
-                placeholder
                 class="max-w-full h-auto w-full mx-auto"
               />
               <li class="flex flex-col gap-1 mt-4">

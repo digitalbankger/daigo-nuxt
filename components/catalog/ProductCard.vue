@@ -14,7 +14,7 @@
         class="w-full h-[130px] md:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
         :class="{ 'h-[462px]': globalIndex === 0 || isLast }"
       >
-        <SmartImg
+        <img
           :src="product.image"
           :alt="product.name"
           :size="500"
