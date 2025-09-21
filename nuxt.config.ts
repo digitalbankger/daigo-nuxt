@@ -74,9 +74,9 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/device', '@nuxt/image', '@vueuse/nuxt'],
 
   image: {
-    provider: 'ipx',
+    provider: 'static',
     // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
-    domains: ['api.daigo.ru', 'nuxt.daigo.ru', 'daigo.ru'],
+    domains: ['nuxt.daigo.ru', 'api.daigo.ru', 'daigo.ru'],
     ipx: {
       // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
     },

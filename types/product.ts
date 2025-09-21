@@ -9,6 +9,8 @@ export interface ProductCard {
   price: number
   originalPrice?: number
   discount?: number
+  sort: number
+  sortOrder: number
   properties: Record<string, string>
 }
 
@@ -19,6 +21,7 @@ export interface ProductMini {
   price: number
   url: string
   badge?: string
+  sort?: number
 }
 
 export interface FaqItem { q: string; a: string }
@@ -116,6 +119,7 @@ export interface ProductProductionSection {
 }
 
 export interface Product {
+  sort: number
   product_id: number
   slug: string
   title: string

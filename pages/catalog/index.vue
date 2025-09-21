@@ -18,9 +18,27 @@ await catalogStore.fetchCatalogBanner()
 
 const page = computed(() => Number(route.query.page || 1))
 
-const visibleProducts = computed(() =>
-  catalogStore.products.filter(p => (p.price ?? 0) > 0)
-)
+const PIVOT = 15 
+
+const visibleProducts = computed(() => {
+  const products = catalogStore.products.filter(p => (p.price ?? 0) > 0)
+
+  return products.slice().sort((a, b) => {
+    const aSort = Number.isFinite(+a.sort) ? +a.sort : 0
+    const bSort = Number.isFinite(+b.sort) ? +b.sort : 0
+
+    const aKey = aSort === 0 ? PIVOT + 0.5 : aSort
+    const bKey = bSort === 0 ? PIVOT + 0.5 : bSort
+
+    if (aKey !== bKey) return aKey - bKey
+
+    // стабильный порядок внутри одинаковых ключей
+    // сначала по name (если есть), иначе по id
+    const aTie = String(a.title ?? a.product_id ?? '')
+    const bTie = String(b.title ?? b.product_id ?? '')
+    return aTie.localeCompare(bTie, 'ru')
+  })
+})
 
 watchEffect(async () => {
   catalogStore.setPage(page.value)
