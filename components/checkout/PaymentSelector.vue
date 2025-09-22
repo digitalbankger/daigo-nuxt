@@ -129,7 +129,7 @@ function cardClass(active: boolean) {
       >
         <div class="w-full flex items-center justify-center gap-3">
           <!-- Логотип -->
-          <NuxtImg
+          <img
             v-if="m.img"
             :src="m.img"
             :alt="m.label"

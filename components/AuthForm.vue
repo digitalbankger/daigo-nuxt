@@ -105,6 +105,9 @@ const submit = async () => {
         @enter="submit"
       />
 
+      <img v-if="isLoading" src="/public/images/steps.png" class="transition"/>
+      <p v-if="isLoading" class="text-sm text-black/50">Пуш уведомление может идти до 2 минут.</p>
+
       <button
         class="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-lg font-medium bg-primary text-white hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed"
         :disabled="!canSubmit"

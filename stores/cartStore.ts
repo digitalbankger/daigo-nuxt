@@ -106,6 +106,11 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  const itemsCount = computed(() =>
+    items.value.reduce((sum, it) => sum + (it.quantity ?? 0), 0)
+  )
+  const itemsUniqueCount = computed(() => items.value.length)
+
   /** Применить состояние корзины с сервера + безопасные фоллбеки */
   function applyServerCartState(data: any) {
     const mapped = (data?.items || []).map(mapApiItem)
@@ -342,6 +347,9 @@ async function apply2plus1(productId: string, promotionId?: number) {
     isAuthenticated, isLoaded, 
     // новые суммы/купоны из бэка
     subtotal, total, discountAmount, couponInfo,
+    
+    itemsCount,
+    itemsUniqueCount,
 
     // actions
     loadCart,

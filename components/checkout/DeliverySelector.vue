@@ -4,6 +4,7 @@ import { useCheckoutStore } from '~/stores/checkoutStore'
 import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import Button from '~/components/ui/Button.vue'
+import AddressSuggest from '@/components/checkout/AddressSuggest.vue' // автодополнение улица+дом
 
 const store = useCheckoutStore()
 
@@ -23,21 +24,20 @@ const selectedKind = computed<'courier' | 'pvz' | 'pickup'>({
     if (value === 'courier') list = courierOptions.value
     else if (value === 'pvz') list = pvzOptions.value
     else if (value === 'pickup') list = pickupOptions.value
-    if (list && list.length) {
-      store.setDelivery(list[0].id)
-    }
-    // NEW: при выборе ПВЗ гарантируем отсутствие флага private_house
-    if (value === 'pvz') {
-      store.setAddress({ private_house: false })
-    }
+    if (list && list.length) store.setDelivery(list[0].id)
+
+    // при выборе ПВЗ гарантируем отсутствие флага private_house
+    if (value === 'pvz') store.setAddress({ private_house: false })
   },
 })
 
-/** Прокси-поля адреса */
-const street = computed<string>({
-  get: () => store.state.address.street ?? '',
-  set: v => store.setAddress({ street: v || undefined }),
+/** Поля адреса */
+const addressLine = computed<string>({
+  // ТЕКСТ в инпуте: полная строка "город, улица, дом"
+  get: () => store.state.address.address_line ?? '',
+  set: v => store.setAddress({ address_line: v || undefined }),
 })
+
 const apartment = computed<string>({
   get: () => store.state.address.apartment ?? '',
   set: v => store.setAddress({ apartment: v || undefined }),
@@ -54,6 +54,8 @@ const intercom = computed<string>({
   get: () => store.state.address.intercom ?? '',
   set: v => store.setAddress({ intercom: v || undefined }),
 })
+
+/** Отдельная строка для адреса ПВЗ (если храните отдельно) */
 const pvzAddr = computed<string>({
   get: () => store.state.address.pvzAddress ?? store.pvzAddress ?? '',
   set: v => store.setAddress({ pvzAddress: v || undefined }),
@@ -69,8 +71,43 @@ const isPvzSelected = computed(() => {
   return opt?.kind === 'pvz'
 })
 
+/** FIAS выбранного города — приходит из шага с CitySuggest */
+const cityFiasId = computed<string | null>(() => store.state.address.city_fias_id ?? null)
+
+/** Тип подсказки адреса */
+type AddrItem = {
+  value: string
+  full: string
+  fias_id: string | null
+  postal_code: string | null
+  street: string | null
+  house: string | null
+  block: string | null
+  flat: string | null
+}
+
+/** Обработка выбора адреса из DaData (КУРЬЕР) */
+function onAddressSelectCourier(it: AddrItem) {
+  store.setAddress?.({
+    address_line: it.value,            // показать в инпуте полную строку
+    street: it.street || it.value,     // короткая форма (улица)
+    house: it.house || undefined,
+    block: it.block || undefined,
+    postal_code: it.postal_code ?? undefined,
+  })
+}
+
+/** Обработка выбора адреса из DaData (ПВЗ) */
+function onAddressSelectPvz(it: AddrItem) {
+  store.setAddress?.({
+    address_line: it.value,            // можно держать единое поле для отправки на бэк
+    pvzAddress: it.value,
+    postal_code: it.postal_code ?? undefined,
+  })
+}
+
 function saveAddress() {
-  // тут может быть валидация/вызов API
+  // тут может быть валидация/вызов API/предрасчёт
   console.info('[address] saved', { ...store.state.address })
 }
 </script>
@@ -109,12 +146,7 @@ function saveAddress() {
           :key="opt.id"
           class="flex items-center gap-2 cursor-pointer"
         >
-          <input
-            type="radio"
-            class="form-radio"
-            :value="opt.id"
-            v-model="store.state.deliveryId"
-          />
+          <input type="radio" class="form-radio" :value="opt.id" v-model="store.state.deliveryId" />
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
@@ -123,7 +155,23 @@ function saveAddress() {
       <!-- Адресные поля -->
       <div v-if="isCourierSelected" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <UiInput v-model="street" placeholder="Улица и дом" background="bg-white" :error="store.errors.address.street" />
+          <!-- Улица + дом с DaData (зависит от выбранного города) -->
+          <div class="md:col-span-2">
+            <AddressSuggest
+              v-model="addressLine"
+              :cityFiasId="cityFiasId"
+              :disabled="!cityFiasId"
+              @select="onAddressSelectCourier"
+              placeholder="Улица и дом"
+            />
+            <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
+              Сначала выберите город — подсказки адреса будут точнее.
+            </p>
+            <p v-if="store.errors.address.street" class="mt-1 text-xs text-red-600">
+              {{ store.errors.address.street }}
+            </p>
+          </div>
+
           <UiInput v-model="apartment" placeholder="Квартира/Офис" background="bg-white" />
 
           <UiInput v-if="!store.state.address.private_house" v-model="entrance" placeholder="Подъезд" background="bg-white" />
@@ -150,36 +198,38 @@ function saveAddress() {
           :key="opt.id"
           class="flex items-center gap-2 cursor-pointer"
         >
-          <input
-            type="radio"
-            class="form-radio"
-            :value="opt.id"
-            v-model="store.state.deliveryId"
-          />
+          <input type="radio" class="form-radio" :value="opt.id" v-model="store.state.deliveryId" />
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
       </div>
 
-      <!-- NEW: те же поля, что и у курьера (без 'Частный дом') -->
       <div v-if="isPvzSelected" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <!-- Для ПВЗ в качестве «улица и дом» вводим адрес пункта -->
-          <UiInput
-            v-model="street"
-            placeholder="Адрес пункта выдачи (улица, дом)"
-            background="bg-white"
-            :error="store.errors.address.street || store.errors.address.pvzAddress"
-          />
-          <UiInput v-model="apartment" placeholder="Квартира/Офис (необязательно)" background="bg-white" />
+          <!-- Адрес пункта выдачи: через DaData -->
+          <div class="md:col-span-2">
+            <AddressSuggest
+              v-model="pvzAddr"
+              :cityFiasId="cityFiasId"
+              :disabled="!cityFiasId"
+              @select="onAddressSelectPvz"
+              background="bg-white"
+              placeholder="Адрес пункта выдачи (улица, дом)"
+            />
+            <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
+              Сначала выберите город — подсказки адреса будут точнее.
+            </p>
+            <p v-if="store.errors.address.street || store.errors.address.pvzAddress" class="mt-1 text-xs text-red-600">
+              {{ store.errors.address.street || store.errors.address.pvzAddress }}
+            </p>
+          </div>
 
-          <!-- подъезд/этаж/домофон можно оставить на случай доп.инструкций -->
+          <!-- Доп.инструкции (опционально) -->
+          <UiInput v-model="apartment" placeholder="Квартира/Офис (необязательно)" background="bg-white" />
           <UiInput v-model="entrance" placeholder="Подъезд (необязательно)" background="bg-white" />
           <UiInput v-model="floor" placeholder="Этаж (необязательно)" background="bg-white" />
           <UiInput v-model="intercom" placeholder="Домофон (необязательно)" background="bg-white" />
         </div>
-
-        <!-- Чекбокс «Частный дом» для ПВЗ не показываем -->
 
         <div class="flex justify-start">
           <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>
@@ -194,7 +244,7 @@ function saveAddress() {
           {{ opt.subtitle || 'г. Москва, Большой Сухаревский переулок, дом. 21, стр. 2' }}
         </div>
         <div class="flex flex-row gap-2 items-center text-lg" v-if="opt.eta">
-          <img src="/icons/clock.svg" class="w-5" />
+          <img src="/icons/clock.svg" class="w-5" alt="" />
           <span>{{ opt.eta }}</span>
         </div>
         <div class="text-red-600 text-sm" v-if="store.errors.address.pickupAddress">

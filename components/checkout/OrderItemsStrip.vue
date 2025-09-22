@@ -35,7 +35,7 @@ function abs(src?: string) {
         <!-- <img v-if="it.img" :src="abs(it.img)" class="w-full h-full object-cover" /> -->
 
         <!-- Вариант 2: Nuxt Image (рекомендую) -->
-        <NuxtImg
+        <img
           v-if="it.img"
           :src="abs(it.img)"
           :alt="it.title"

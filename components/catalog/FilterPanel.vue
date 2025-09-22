@@ -8,7 +8,7 @@
     <h3 class="font-medium leading-tight mb-6 text-[clamp(1.6rem,6vw,2.2rem)]">Фильтры</h3>
 
     <div
-      v-for="group in filters"
+      v-for="group in filteredGroups"
       :key="group.slug"
       class="border-b border-gray-200 py-3"
     >
@@ -27,7 +27,7 @@
 
       <div v-if="isOpen(group.slug)" class="mt-5 space-y-4">
         <label
-          v-for="option in group.options"
+          v-for="option in visibleOptions(group)"
           :key="option.value"
           class="flex items-center gap-2 text-base"
         >
@@ -80,6 +80,9 @@ const opened   = ref<string[]>([])
 /** Только слаги реальных групп фильтров (для отбраковки page/empty и пр.) */
 const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
 
+/** Есть ли полученные счётчики (чтобы не скрывать всё до загрузки) */
+const hasCounts = computed(() => Object.keys(counts.value || {}).length > 0)
+
 function toggle(slug: string) {
   opened.value.includes(slug)
     ? (opened.value = opened.value.filter(s => s !== slug))
@@ -126,6 +129,33 @@ function hydrateFromRoute() {
   }
 }
 
+/** Возвращаем только видимые опции внутри группы.
+ *  Правила показа:
+ *   - Пока нет counts → показываем все (не мигать при загрузке);
+ *   - Если опция выбрана → показываем (даже если count=0);
+ *   - Если для опции нет counts → показываем;
+ *   - Иначе показываем только при count > 0.
+ */
+function visibleOptions(group: FilterGroup) {
+  const selectedForGroup = selected[group.slug] || []
+  return group.options.filter(opt => {
+    if (!hasCounts.value) return true
+    if (selectedForGroup.includes(opt.value)) return true
+    const key = `${group.slug}__${opt.value}`
+    const c = counts.value[key]
+    if (c === undefined) return true
+    return c > 0
+  })
+}
+
+/** Список групп, у которых остались видимые опции */
+const filteredGroups = computed<FilterGroup[]>(() => {
+  if (!hasCounts.value) return filters.value
+  return filters.value
+    .map(g => ({ ...g, options: visibleOptions(g) }))
+    .filter(g => g.options.length > 0)
+})
+
 onMounted(() => {
   hydrateFromRoute()
   props.store.fetchCounts(cleanedSelected())
@@ -133,7 +163,6 @@ onMounted(() => {
 
 /** Если фильтры загрузились позже — повторно инициализируем из URL и пересчитаем */
 watch(() => filters.value, () => {
-  // не затираем уже выбранное — только добавим недостающие из URL
   hydrateFromRoute()
   props.store.fetchCounts(cleanedSelected())
 }, { deep: true })

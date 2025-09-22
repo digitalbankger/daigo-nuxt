@@ -10,7 +10,7 @@ interface Category {
 
 const categories: Category[] = [
   { id: 0, title: '>25', content: 'Опубликованных исследований в Японии, России и Европе', image: '/images/about/feat1.png', },
-  { id: 1, title: '>500', content: 'Врачей сотрудничают с Daigo', image: '/images/about/feat2.png',},
+  { id: 1, title: '>4000', content: 'Врачей сотрудничают с Daigo', image: '/images/about/feat2.png',},
   { id: 2, title: '>400 000', content: 'Eдиниц проданной продукции', image: '/images/about/feat3.png',},
 ]
 </script>

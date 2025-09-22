@@ -9,7 +9,7 @@
           С приложением удобней! В приложении вы можете приобрести товары от Дайго, а также следить за акциями и предложениями
         </p>
         <a
-          href="https://apps.rustore.ru/app/yourappidhere"
+          href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"
           target="_blank"
           rel="noopener"
         >

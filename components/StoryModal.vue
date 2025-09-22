@@ -88,7 +88,7 @@ async function toggleProducts() {
 </script>
 
 <template>
-  <div v-if="isOpen" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+  <div v-if="isOpen" class="fixed inset-0 z-[990] bg-black/90 flex items-center justify-center">
     <div class="relative flex h-full md:h-[90vh] w-full max-w-5xl overflow-visible">
       <button class="absolute top-3 md:top-4 right-4 md:right-4 text-white z-50" @click="close">✕</button>
 
