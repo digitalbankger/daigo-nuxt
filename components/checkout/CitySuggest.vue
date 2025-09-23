@@ -28,8 +28,10 @@ const props = defineProps<{
   inputmode?: 'text' | 'tel' | 'numeric' | 'email' | 'search' | 'url'
   maxlength?: number
   id?: string
-  /** динамический фон (как в UiInput), по умолчанию bg-hoverbtn */
+  /** как в UiInput, по умолчанию bg-hoverbtn */
   background?: string
+  /** глушить автофилл и менеджеры паролей */
+  suppressAutofill?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -41,7 +43,7 @@ const emit = defineEmits<{
   (e: 'clear'): void
 }>()
 
-// --- UI, как в UiInput ---
+// ----- UI (совместимо с UiInput) -----
 const inputEl = ref<HTMLInputElement | null>(null)
 const isFocused = ref(false)
 const showError = computed(() => props.error !== '' && props.error !== false && props.error != null)
@@ -50,7 +52,11 @@ const errorText = computed(() =>
 )
 const bgClass = computed(() => props.background || 'bg-hoverbtn')
 
-// --- значение + подсказки ---
+// стабильные id/aria
+const baseId = computed(() => props.id || 'city-input')
+const listboxId = computed(() => `${baseId.value}-listbox`)
+
+// ----- значение + подсказки -----
 const input = ref<string>((props.modelValue ?? '') as string)
 const open = ref(false)
 const loading = ref(false)
@@ -69,10 +75,13 @@ watch(() => props.modelValue, v => {
   if (val !== input.value) input.value = val
 })
 
-watch(input, async (q) => {
+// --- дебаунс 200ms + отмена предыдущего запроса ---
+let t: number | undefined
+watch(input, (q) => {
   emit('update:modelValue', (q as string) ?? '')
   const trimmed = String(q || '').trim()
 
+  if (t) { clearTimeout(t); t = undefined }
   if (!trimmed) { items.value = []; open.value = false; return }
 
   if (lastSelected.value && trimmed === lastSelected.value) {
@@ -81,15 +90,18 @@ watch(input, async (q) => {
     return
   }
 
-  loading.value = true
-  try {
-    const data = await city(trimmed)
-    items.value = data
-    open.value = data.length > 0
-    hovered.value = data.length ? 0 : -1
-  } finally {
-    loading.value = false
-  }
+  t = window.setTimeout(async () => {
+    loading.value = true
+    try {
+      cancel() // на всякий случай отменим предыдущий
+      const data = await city(trimmed)
+      items.value = data
+      open.value = data.length > 0
+      hovered.value = data.length ? 0 : -1
+    } finally {
+      loading.value = false
+    }
+  }, 200)
 })
 
 function select(i: number) {
@@ -108,12 +120,8 @@ function select(i: number) {
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Enter') {
-    if (open.value && hovered.value >= 0) {
-      e.preventDefault()
-      select(hovered.value)
-    } else {
-      emit('enter')
-    }
+    if (open.value && hovered.value >= 0) { e.preventDefault(); select(hovered.value) }
+    else emit('enter')
   }
   if (!open.value) return
   if (e.key === 'ArrowDown') { e.preventDefault(); hovered.value = Math.min(hovered.value + 1, items.value.length - 1) }
@@ -129,6 +137,7 @@ function onFocus() {
 function onBlur() {
   isFocused.value = false
   emit('blur')
+  // даём время выбрать мышкой
   setTimeout(() => { open.value = false }, 120)
 }
 
@@ -142,11 +151,29 @@ function clear() {
   emit('clear')
   inputEl.value?.focus()
 }
+
+// ---- анти-автофилл ----
+const suppress = computed(() => props.suppressAutofill !== false)
+const safeAutocomplete = computed(() => {
+  if (props.autocomplete != null) return props.autocomplete
+  return suppress.value ? 'off' : undefined
+})
+const safeName = computed(() => props.name || (suppress.value ? 'city_input' : undefined))
+
+// readonly-трик для iOS/Safari
+const antiReadonly = ref(false)
+onMounted(() => { if (suppress.value) antiReadonly.value = true })
+function handleFocus() {
+  if (suppress.value && antiReadonly.value) {
+    setTimeout(() => { antiReadonly.value = false }, 0)
+  }
+  onFocus()
+}
 </script>
 
 <template>
   <div class="w-full group relative">
-    <label v-if="label" class="block text-sm mb-1 text-gray-700" :for="id">
+    <label v-if="label" class="block text-sm mb-1 text-gray-700" :for="baseId">
       {{ label }}
     </label>
 
@@ -163,24 +190,35 @@ function clear() {
 
       <input
         ref="inputEl"
-        :id="id"
-        :name="name"
+        :id="baseId"
+        :name="safeName"
         type="text"
         class="w-full outline-none placeholder-gray-400 border-none"
         :class="bgClass"
         :placeholder="placeholder || 'Город'"
         :value="input"
         @input="(e:any)=> input = e.target.value"
-        :readonly="readonly"
+        :readonly="readonly || antiReadonly"
         :disabled="disabled"
-        :autocomplete="autocomplete"
-        :inputmode="inputmode"
+        :autocomplete="safeAutocomplete"
+        :inputmode="inputmode || 'text'"
         :maxlength="maxlength"
         :aria-invalid="showError ? 'true' : 'false'"
-        :aria-errormessage="showError ? (id ? id + '-error' : undefined) : undefined"
+        :aria-errormessage="showError ? (baseId + '-error') : undefined"
+        role="combobox"
         aria-autocomplete="list"
+        aria-haspopup="listbox"
         :aria-expanded="open ? 'true' : 'false'"
-        @focus="onFocus"
+        :aria-controls="listboxId"
+        spellcheck="false"
+        autocapitalize="off"
+        enterkeyhint="done"
+        :data-lpignore="suppress ? 'true' : null"           <!-- LastPass -->
+        :data-1p-ignore="suppress ? 'true' : null"          <!-- 1Password -->
+        :data-bwignore="suppress ? 'true' : null"           <!-- Bitwarden -->
+        :data-bitwarden-watching="suppress ? 'false' : null"
+        data-form-type="other"
+        @focus="handleFocus"
         @blur="onBlur"
         @keydown="onKeydown"
       />
@@ -205,7 +243,8 @@ function clear() {
     <!-- дропдаун -->
     <ul
       v-if="open && items.length"
-      class="absolute left-0 right-0 mt-1 max-h-64 overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg z-[10000]"
+      :id="listboxId"
+      class="absolute left-0 right-0 mt-1 max-h-64 overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg z-[2147483647] pointer-events-auto"
       role="listbox"
     >
       <li
@@ -223,7 +262,7 @@ function clear() {
 
     <p
       v-if="showError && errorText"
-      :id="id ? id + '-error' : undefined"
+      :id="baseId + '-error'"
       class="mt-1 text-sm text-red-600 flex items-center gap-1"
     >
       <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">

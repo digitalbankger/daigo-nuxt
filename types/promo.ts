@@ -8,6 +8,7 @@ export interface RelatedProduct {
 
 /** Как отдаёт API */
 export interface ApiPromotionItem {
+  banner: any
   id: number
   promo_type: PromoType
   banner_url: string

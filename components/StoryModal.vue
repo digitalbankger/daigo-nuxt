@@ -96,7 +96,7 @@ async function toggleProducts() {
         <div
           v-for="(story, i) in visibleStories"
           :key="story.id"
-          class="w-full md:w-[40vw] absolute transition-all duration-500 ease-in-out"
+          class="w-full md:w-[400px] absolute transition-all duration-500 ease-in-out"
           :class="[
             i === 0 ? 'z-30 scale-100 opacity-100' : '',
             i === 1 ? 'z-20 scale-75 opacity-50 translate-x-[70%]' : '',

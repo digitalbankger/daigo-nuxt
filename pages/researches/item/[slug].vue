@@ -1,4 +1,3 @@
-<!-- pages/researches/item/[slug].vue -->
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { defineAsyncComponent } from 'vue'
@@ -8,6 +7,7 @@ import Button from '~/components/ui/Button.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
 import { useResearchStore } from '~/stores/researchStore'
 import type { ArticleDetail } from '~/types/articles'
+import UiInput from '~/components/ui/UiInput.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -109,6 +109,34 @@ function downloadAllFiles() {
 // клиенсткие виджеты
 const ClientFAQ = defineAsyncComponent(() => import('~/components/FAQ/ClientFAQ.vue'))
 const ClientComments = defineAsyncComponent(() => import('~/components/Comments/ClientComments.vue'))
+
+
+const email = ref('')
+const loading = ref(false)
+const success = ref(false)
+const emailErr = ref<string | boolean>('')
+
+const emailValid = computed(() =>
+  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
+)
+function validateEmail() {
+  if (!email.value.trim()) { emailErr.value = 'Введите e-mail'; return false }
+  if (!emailValid.value)   { emailErr.value = 'Некорректный e-mail'; return false }
+  emailErr.value = ''
+  return true
+}
+const sleep = (ms:number) => new Promise(r => setTimeout(r, ms))
+async function submitSubscribe() {
+  if (loading.value) return
+  if (!validateEmail()) return
+  loading.value = true
+  try {
+    await sleep(900)
+    success.value = true
+  } finally {
+    loading.value = false
+  }
+}
 </script>
 
 <template>
@@ -171,7 +199,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
         <!-- main -->
         <main class="lg:col-span-8 space-y-8">
           <!-- cover -->
-          <nuxt-img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
+          <img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
             loading="lazy" decoding="async" class="w-full rounded-2xl object-cover h-[200px] sm:h-[460px]" />
 
           <!-- Вы узнаете -->
@@ -199,7 +227,7 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
 
               <div v-if="research!.materials!.specialist" class="w-full md:w-4/12 flex md:justify-end">
                 <div class="w-full md:w-auto flex flex-col items-start gap-5">
-                  <nuxt-img :src="research!.materials!.specialist!.avatarUrl" alt="" width="96" height="96"
+                  <img :src="research!.materials!.specialist!.avatarUrl" alt="" width="96" height="96"
                     class="h-32 w-32 rounded-full object-cover" loading="lazy" decoding="async" />
                   <div class="min-w-0">
                     <p class="text-base text-black/50">{{ research!.materials!.specialist!.position }}</p>
@@ -283,33 +311,69 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
             <h3 class="text-xl md:text-cardhead font-medium">Больше исследований</h3>
             <ul class="mt-4 space-y-4">
               <li v-for="it in research.recommended" :key="it.id" class="flex gap-4">
-                <div class="w-5/12"><nuxt-img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" /></div>
+                <div class="w-5/12"><img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" /></div>
                 <div class="w-7/12"><NuxtLink :to="`/articles/${it.slug}`" class="text-xl line-clamp-4">{{ it.title }}</NuxtLink></div>
               </li>
             </ul>
           </div>
         </aside>
       </div>
-      <section
-        class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
+<section
+  class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
+>
+  <img src="/images/subscription-product.png" alt="" class="absolute z-0 right-0 hidden md:block" />
+  <img src="/images/subscription-left.png" alt="" class="absolute z-0 left-0 hidden md:block" />
+
+  <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
+    <h2 class="font-medium leading-tight text-3xl md:text-slider">
+      Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
+    </h2>
+
+    <p class="text-sm md:text-2xl leading-5 md:leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
+      Оставьте свою электронную почту и получайте дайджест полезных материалов раз в неделю, а также узнавайте первыми о новых акциях и предложениях.
+    </p>
+
+    <!-- успех -->
+    <transition name="fade">
+      <div v-if="success" class="mt-2 bg-white/20 rounded-lg px-4 py-3 backdrop-blur">
+        <p class="text-white text-base md:text-lg">🎉 Спасибо! Подписка успешно оформлена.</p>
+        <p class="text-white/80 text-sm">(сейчас это тестовый успех)</p>
+      </div>
+    </transition>
+
+    <!-- форма (без v-else, чтобы не было ошибки «v-else без v-if» ) -->
+    <form
+      v-if="!success"
+      class="mt-2 flex w-full max-w-xl gap-3 flex-col sm:flex-row"
+      @submit.prevent="submitSubscribe"
+      novalidate
+    >
+      <UiInput
+        v-model="email"
+        type="email"
+        placeholder="Ваш e-mail"
+        autocomplete="email"
+        background="!bg-white"
+        class="!text-black/70 placeholder:text-black/70 !border-0"
+        :error="emailErr"
+        @enter="submitSubscribe"
+      />
+      <Button
+        variant="solid"
+        class="!text-black text-lg bg-white hover:bg-gray-100 w-full sm:w-60"
+        type="submit"
+        :disabled="loading"
       >
-        <img src="/images/subscription-product.png" alt="Banner" class="absolute  z-0 right-0" />
-        <img src="/images/subscription-left.png" alt="Banner" class="absolute z-0 left-0" />
-        <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
-          <h2 class="font-medium leading-tight text-slider">
-            Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
-          </h2>
-          <p class="text-lg md:text-2xl leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
-            Оставьте свою электронную почту и получайте дайджест полезных видео и статей раз в неделю, а также узнавайте  первыми о новых акциях и предложениях
-          </p>
-          <Button
-            variant="solid"
-            class="!text-black text-lg bg-white hover:bg-gray-100 w-60"
-          >
-            Отправить
-          </Button>
-        </div>
-      </section>
+        {{ loading ? 'Отправка…' : 'Отправить' }}
+      </Button>
+    </form>
+
+    <p v-if="!success" class="text-xs md:text-sm text-white/80 mt-1">
+      Нажимая «Отправить», вы соглашаетесь с условиями обработки персональных данных.
+    </p>
+  </div>
+</section>
+
     </div>
   </BaseContainer>
 </template>
