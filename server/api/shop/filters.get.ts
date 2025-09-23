@@ -67,6 +67,7 @@ export default defineEventHandler(() => {
         { label: 'Daigo Jointic', value: 'daigo-jointic' },
         { label: 'Daigo Lactis Zoo', value: 'daigo-lactis-zoo' },
         { label: 'Омега 3', value: 'omega-3' },
+        { label: 'Сертификаты', value: 'sertificate' },
       ],
     },
     {

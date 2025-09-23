@@ -28,7 +28,8 @@ async function submit() {
   }
   // если пришёл order_id — ведём на спасибо
   if ((res as any).order_id) {
-    return navigateTo(`/thanks?order=${(res as any).order_id}`)
+    // return navigateTo(`/thanks?order=${(res as any).order_id}`)
+    return navigateTo(`/orders`)
   }
   // иначе на профиль, если без оплаты
   return navigateTo('/profile')

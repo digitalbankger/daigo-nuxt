@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   runtimeConfig: {
-    dadataToken: process.env.NUXT_DADATA_TOKEN,
+    dadataToken: process.env.NUXT_DADATA_TOKEN || 'ac0fc720467713631eff0602ba19a2648c34f21d',
     public: {
       apiBase: process.env.API_BASE || '/api',
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',

@@ -18,21 +18,21 @@ const productGroups = [
         image: '/images/customers/allPrinciples.webp',
         imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['klass-produkta=metobiotiki'],
+        slugs: ['articles/chto-takoe-metabiotiki'],
       },
       {
         text: 'Восстановить баланс микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.',
         image: '/images/customers/shampoo.png',
         imageWidth: 'w-[80%] sm:w-[44%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['klass-produkta=metobiotiki&napravlennost=kozha-i-volosy&page=1'],
+        slugs: ['articles/chto-takoe-metabiotiki'],
       },
       {
         text: 'Восстановить здоровый баланс микрофлоры полости рта и улучшить здоровье зубов.',
         image: '/images/customers/dent.png',
         imageWidth: 'w-[90%] sm:w-[65%]',
         tags: ['Кишечник и иммунитет', 'Кожа и волосы', 'Зубы и десны'],
-        slugs: ['klass-produkta=metobiotiki&napravlennost=zuby-i-desna'],
+        slugs: ['articles/chto-takoe-metabiotiki'],
       },
     ],
     preview: '/images/customers/allPrinciples-prev.png',
@@ -142,7 +142,7 @@ const currentSlide = ref(0)
                     Подробнее
                   </NuxtLink> -->
                   <NuxtLink
-                    :to="`/catalog?${slide.slugs}`"
+                    :to="`/${slide.slugs}`"
                     class="mt-6 inline-block px-4 py-2 text-white bg-primary rounded-full hover:bg-prymary/80 transition"
                   >
                     Подробнее

@@ -114,12 +114,12 @@ import type { ArticleListItem, Paged } from '~/types/articles'
 // моковые данные
 const ALL: ArticleListItem[] = [
   {
-    id: 1,
-    slug: 'printsip-dejstviya-metabiotikov',
-    title: 'Принцип действия метабиотиков',
-    preview: 'Секреторные выделения лактобактерий активизируют действие родных лактобактерий кишечника...',
+    id: 3,
+    slug: 'chto-takoe-metabiotiki',
+    title: 'Что такое Метабиотики',
+    preview: 'Метабиотики — будущее вашего здоровья: новая эпоха биотехнологий...',
     image: '/images/articles/first.jpg',
-    date: '2025-06-30',
+    date: '2025-08-05',
     time: 8,
     views: 200,
     comments: 10,
@@ -127,28 +127,72 @@ const ALL: ArticleListItem[] = [
   },
   {
     id: 2,
-    slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu',
-    title: 'Как подготовить кожу к пляжному сезону?',
-    preview: 'Красота изнутри: как подготовить кожу за пару недель?',
-    image: '/images/articles/sec.jpg',
-    date: '2025-06-24',
-    time: 10,
-    views: 150,
-    comments: 4,
-    properties: { napravlennost: 'kozha-i-volosy' }
+    slug: 'po-polochkam-printsip-deystviya-daigo',
+    title: '1. По полочкам: принцип действия Daigo',
+    preview: 'Причины нарушения баланса микрофлоры...',
+    image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
   {
-    id: 3,
-    slug: 'sindrom-puteshestvennika',
-    title: 'Синдром путешественника',
-    preview: 'Как перелеты и смена климата влияют на микробиом?',
-    image: '/images/articles/th.jpg',
-    date: '2025-05-31',
-    time: 6,
-    views: 180,
-    comments: 2,
-    properties: { napravlennost: 'mozg-i-nervnaya-sistema' }
-  }
+    id: 1,
+    slug: 'na-chto-vliyaet-mikroflora-kishechnika',
+    title: '2. На что влияет микрофлора кишечника?',
+    preview: 'Главные функции микрофлоры кишечника...',
+    image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  }, 
+  {
+    id: 4,
+    slug: 'antibiotiki-i-mikroflora-kak-vosstanovit-kishechnik-posle-lecheniya',
+    title: 'Антибиотики и микрофлора: как восстановить кишечник после лечения?',
+    preview: 'Антибиотики — одно из величайших достижений медицины, спасшее миллионы жизней...',
+    image: 'https://s3.firstvds.ru/articles/fmgwngk0nmpabku69hwvbfxl3n7bwifz.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  
+  
+  
+  
+  
+  
+  
+  
+  // {
+  //   id: 2,
+  //   slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu',
+  //   title: 'Как подготовить кожу к пляжному сезону?',
+  //   preview: 'Красота изнутри: как подготовить кожу за пару недель?',
+  //   image: '/images/articles/sec.jpg',
+  //   date: '2025-06-24',
+  //   time: 10,
+  //   views: 150,
+  //   comments: 4,
+  //   properties: { napravlennost: 'kozha-i-volosy' }
+  // },
+  // {
+  //   id: 3,
+  //   slug: 'sindrom-puteshestvennika',
+  //   title: 'Синдром путешественника',
+  //   preview: 'Как перелеты и смена климата влияют на микробиом?',
+  //   image: '/images/articles/th.jpg',
+  //   date: '2025-05-31',
+  //   time: 6,
+  //   views: 180,
+  //   comments: 2,
+  //   properties: { napravlennost: 'mozg-i-nervnaya-sistema' }
+  // }
 ]
 
 // какие ключи из query считаем “фильтрами” (можно расширять по твоим группам фильтров)
