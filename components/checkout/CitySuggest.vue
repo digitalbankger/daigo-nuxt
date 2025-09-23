@@ -213,9 +213,9 @@ function handleFocus() {
         spellcheck="false"
         autocapitalize="off"
         enterkeyhint="done"
-        :data-lpignore="suppress ? 'true' : null"           <!-- LastPass -->
-        :data-1p-ignore="suppress ? 'true' : null"          <!-- 1Password -->
-        :data-bwignore="suppress ? 'true' : null"           <!-- Bitwarden -->
+        :data-lpignore="suppress ? 'true' : null"         
+        :data-1p-ignore="suppress ? 'true' : null"      
+        :data-bwignore="suppress ? 'true' : null"      
         :data-bitwarden-watching="suppress ? 'false' : null"
         data-form-type="other"
         @focus="handleFocus"
