@@ -51,20 +51,6 @@ const methods: MethodCard[] = [
     layout: 'logo-only',
   },
   {
-    value: 'installments',
-    label: 'Долями',
-    description: 'Оплата покупок частями',
-    img: 'https://nuxt.daigo.ru/images/oplata/dolyame.png',
-    layout: 'text',
-  },
-  {
-    value: 'credit',
-    label: 'Т-Банк',
-    description: 'Рассрочка',
-    img: 'https://nuxt.daigo.ru/images/oplata/tbank.png',
-    layout: 'text',
-  },
-  {
     value: 'card_online',
     label: 'Банковская карта',
     description: 'Оплата картой онлайн',
@@ -83,6 +69,20 @@ const methods: MethodCard[] = [
     label: 'Наличными курьеру',
     description: 'Оплата наличными',
     img: 'https://nuxt.daigo.ru/images/oplata/couriercash.png',
+    layout: 'text',
+  },
+  {
+    value: 'installments',
+    label: 'Долями',
+    description: 'Оплата покупок частями',
+    img: 'https://nuxt.daigo.ru/images/oplata/dolyame.png',
+    layout: 'text',
+  },
+  {
+    value: 'credit',
+    label: 'Т-Банк',
+    description: 'Рассрочка',
+    img: 'https://nuxt.daigo.ru/images/oplata/tbank.png',
     layout: 'text',
   },
 ]

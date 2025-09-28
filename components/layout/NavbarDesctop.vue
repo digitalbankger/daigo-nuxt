@@ -1,11 +1,11 @@
 <template>
   <StickyHeader />
   <nav class="py-6">
-  <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-2">
+  <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
     <div class="flex items-center gap-7 shrink-0">
       <NuxtLink to="/" aria-label="Главная">
         <img src="/logo.svg" alt="daigo logo" class="md:h-12 xl:h-16" />
-        <p class="text-[8px] md:text-[10px] text-[#454749] mt-1">С 1905 г. заботимся о вашем здоровье</p>
+        <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">С 1905 г. заботимся о вашем здоровье</p>
       </NuxtLink>
 
       <NuxtLink
@@ -77,7 +77,7 @@
     </div>
   </div>
   
-  <div class="flex flex-row items-center justify-between pt-3 pb-2 gap-7 px-2 overflow-x-auto no-scrollbar scroll-touch md:overflow-hidden ">
+  <div class="flex flex-row items-center justify-between pt-3 pb-2 gap-7 px-0 sm:px-2 overflow-x-auto no-scrollbar scroll-touch md:overflow-hidden ">
     <div class="flex items-center gap-7 shrink-0">
       <ul class="flex items-center gap-5 md:text-xl font-normal tracking-wide text-black">
         <li class="inline-flex items-center gap-2 text-cgreen">

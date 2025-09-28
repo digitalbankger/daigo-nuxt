@@ -107,7 +107,7 @@ useSeoMeta({
 
 <template>
   <BaseContainer>
-    <section class="relative w-full px-5">
+    <section class="relative w-full">
       <h1 class="text-[clamp(2.4rem,6vw,3.4rem)] font-medium mb-8">
         {{ conf.h1 }}
       </h1>

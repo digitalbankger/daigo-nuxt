@@ -217,7 +217,7 @@ definePageMeta({
           </div>
         </section>
 
-        <section class="relative w-full pb-6 lg:pb-12">
+        <!-- <section class="relative w-full pb-6 lg:pb-12">
           <h2 class="text-slider sm:text-product lg:text-slider font-medium mb-3 lg:mb-5">Команда</h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
             <article
@@ -225,7 +225,6 @@ definePageMeta({
               :key="p.id ?? p.name"
               class="relative overflow-hidden rounded-xl lg:rounded-3xl bg-gray-100"
             >
-              <!-- Изображение -->
               <div class="aspect-[3/4] lg:aspect-[1/1] w-full">
                 <img
                   :src="p.photo"
@@ -236,7 +235,6 @@ definePageMeta({
                 />
               </div>
 
-              <!-- Нижняя плашка (как в макете) -->
               <div
                 class="absolute left-0 right-0 bottom-0 rounded-xl lg:rounded-2xl bg-white/50 backdrop-blur shadow-sm px-2 py-3 lg:p-6"
               >
@@ -249,7 +247,7 @@ definePageMeta({
               </div>
             </article>
           </div>
-        </section>
+        </section> -->
       <section class="relative w-full pb-6 lg:pb-12">
         <h2 class="text-3xl lg:text-slider font-medium mb-5">Благотворительность</h2>
 

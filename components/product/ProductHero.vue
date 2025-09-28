@@ -193,7 +193,7 @@ onMounted(ensureCartLoadedOnce)
             class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
             <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
-            <span class="min-w-[2rem] text-center">{{ quantityInCart }}</span>
+            <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
             <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
           </div>
 

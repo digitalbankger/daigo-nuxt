@@ -176,13 +176,19 @@ onBeforeUnmount(() => {
       </button>
 
       <!-- Если есть — компактный + / − -->
-      <div
+      <div class="flex flex-col gap-2"
         v-else
-        class="shrink-0 flex items-center gap-2 bg-[#5B8CFF] text-white px-2 py-1 rounded-lg sm:rounded-xl h-10 md:h-12"
       >
-        <button type="button" :disabled="adding" @click="decrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
-        <span class="min-w-[2rem] text-center">{{ quantityInCart }}</span>
-        <button type="button" :disabled="adding" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+        <nuxt-link to="/cart" class="text-black/70 mx-auto hidden sm:block">
+          В корзину
+        </nuxt-link>
+        <div
+          class="shrink-0 flex items-center gap-2 bg-[#5B8CFF] text-white px-2 py-1 rounded-lg sm:rounded-xl h-10 md:h-12"
+        >
+          <button type="button" :disabled="adding" @click="decrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
+          <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
+          <button type="button" :disabled="adding" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+        </div>
       </div>
       </div>
     </aside>

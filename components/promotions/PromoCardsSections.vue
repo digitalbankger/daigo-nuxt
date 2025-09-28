@@ -1,52 +1,70 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
-import { usePromoStore } from '~/stores/promotionStore'
+import { usePromoStore } from '~/stores/promotionStore'   // ← ваш стор
 import { useModalStore } from '~/stores/modalStore'
 import PromotionItem from '~/components/ui/PromotionItem.vue'
 
-type PromoType = 'discount' | 'gift' | 'code'
+type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice'
 interface Promotion {
   id: number | string
   title: string
-  description: string
+  description?: string
   image: string
   coupon?: string | null
   promo_type: PromoType
+  // флаг с бэка (может уже быть в типах)
+  is_applied?: boolean
 }
 
 const promoStore = usePromoStore()
 const modalStore = useModalStore()
-const { promotions, isApplying } = storeToRefs(promoStore)
+
+// берём состояния из стора
+const { promotions, isApplying, pendingId } = storeToRefs(promoStore)
 
 onMounted(() => {
+  // на CSR подгружаем, если SSR не вернул (например, нет session_id на сервере)
   if (!promotions.value.length) promoStore.loadPromotions()
 })
 
-const handleApply = async (promotion: Promotion) => {
+async function handleApply(promotion: Promotion) {
   try {
-    // ВАЖНО: вызываем promoStore.apply (не applyPromotion)
-    const result: any = await promoStore.apply(promotion)
+    const res: any = await promoStore.apply(promotion as any)
+
+    // Для 'discount' стор делает navigateTo — модалка не нужна
+    if (promotion.promo_type === 'discount') return
 
     const success =
-      result?.success === true ||
-      result?.applied === true ||
-      typeof result?.discount_amount === 'number' ||
-      typeof result?.discount_percent === 'number'
-
-    // Для типов 'discount' без запроса стор делает navigateTo — модалка не нужна
-    if (promotion.promo_type === 'discount') return
+      res === true || // случай 2+1 → просто true
+      res?.success === true ||
+      res?.applied === true ||
+      typeof res?.discount_amount === 'number' ||
+      typeof res?.discount_percent === 'number'
 
     modalStore.show({
       title: success ? '✅ Успешно' : '❌ Ошибка',
       message:
-        (result?.message as string) ||
+        res?.message ||
         (success ? 'Акция применена' : 'Не удалось применить акцию'),
     })
   } catch (e: any) {
     modalStore.show({
       title: '❌ Ошибка',
       message: e?.message || 'Не удалось применить акцию',
+    })
+  }
+}
+
+
+async function handleCancel() {
+  try {
+    await promoStore.cancelActive()
+    modalStore.show({ title: 'Готово', message: 'Акция отменена' })
+  } catch (e: any) {
+    modalStore.show({
+      title: '❌ Ошибка',
+      message: e?.message || 'Не удалось отменить акцию',
     })
   }
 }
@@ -63,16 +81,17 @@ const handleApply = async (promotion: Promotion) => {
         v-for="promotion in promotions"
         :key="promotion.id"
         :promotion="promotion"
+        :is-applied="Boolean(promotion.is_applied)"
+        :busy="pendingId === promotion.id"
         @apply="handleApply"
+        @cancel="handleCancel"
       />
     </div>
 
-    <div
-      v-if="isApplying"
-      class="fixed inset-0 z-50 bg-black/30 flex items-center justify-center"
-    >
+    <!-- глобальный индикатор -->
+    <div v-if="isApplying" class="fixed inset-0 z-50 bg-black/30 flex items-center justify-center">
       <div class="bg-white px-6 py-4 rounded-xl shadow-lg">
-        Применение…
+        Выполняется…
       </div>
     </div>
   </section>

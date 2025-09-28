@@ -62,7 +62,7 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
               :key="i"
               :is="tag.href ? 'NuxtLink' : 'span'"
               :to="tag.href"
-              class="px-2 lg:px-3 py-2 rounded-lg text-xs sm:text-base lg:text-lg text-black select-none"
+              class="px-2 lg:px-3 py-2 rounded-lg xs-max:text-[10px] text-xs sm:text-base lg:text-lg text-black select-none"
               :style="{ backgroundColor: tag.color || defaultTagColor }"
               :aria-label="tag.label"
             >
@@ -72,7 +72,7 @@ const hasTags = (b: Banner) => Array.isArray(b?.tags) && b.tags.length > 0
 
           <h1
             v-if="banner.title"
-            class="font-medium leading-[1.2] sm:leading-tight mb-4 text-[clamp(2rem,6vw,3.4rem)]"
+            class="font-medium leading-[1.2] sm:leading-tight mb-4 xs-max:text-[1.8rem] text-[clamp(2rem,6vw,3.4rem)]"
           >
             {{ banner.title }}
           </h1>

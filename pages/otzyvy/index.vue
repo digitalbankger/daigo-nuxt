@@ -90,7 +90,7 @@ useHead(() => {
 
 <template>
   <BaseContainer>
-    <section class="relative w-full px-2 md:px-5">
+    <section class="relative w-full">
       <h1 class="text-[clamp(2.4rem,6vw,4rem)] font-medium mb-4 md:mb-10">Отзывы</h1>
 
       <!-- Скелет / состояния -->

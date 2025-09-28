@@ -160,9 +160,9 @@ function saveAddress() {
             <AddressSuggest
               v-model="addressLine"
               :cityFiasId="cityFiasId"
-              :disabled="!cityFiasId"
               @select="onAddressSelectCourier"
               placeholder="Улица и дом"
+              background="bg-white"
             />
             <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
               Сначала выберите город — подсказки адреса будут точнее.
@@ -211,7 +211,6 @@ function saveAddress() {
             <AddressSuggest
               v-model="pvzAddr"
               :cityFiasId="cityFiasId"
-              :disabled="!cityFiasId"
               @select="onAddressSelectPvz"
               background="bg-white"
               placeholder="Адрес пункта выдачи (улица, дом)"

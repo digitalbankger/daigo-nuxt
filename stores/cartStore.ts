@@ -317,29 +317,18 @@ export const useCartStore = defineStore('cart', () => {
     await loadCart()
   }
 
-  // внутри defineStore(...) рядом с остальными actions
-
-async function apply2plus1(productId: string, promotionId?: number) {
-  let res: any
-  if (isAuthenticated.value && userId.value) {
-    // /v1/shop/cart/{daigoID}/apply-2plus1
-    res = await cartService.apply2Plus1User(userId.value, {
-      product_id: productId,
-      promotion_id: promotionId, // сервер может игнорить, но лучше передать
-    })
-  } else {
-    const sid = ensureGuestSession()
-    // /v1/shop/guest-cart/{sessionID}/apply-2plus1
-    res = await cartService.apply2Plus1Guest(sid, {
-      product_id: productId,
-      promotion_id: promotionId,
-    })
+  async function apply2plus1(productId: string) {
+    let res: any
+    if (isAuthenticated.value && userId.value) {
+      res = await cartService.apply2Plus1User(userId.value, { product_id: productId })
+    } else {
+      const sid = ensureGuestSession()
+      res = await cartService.apply2Plus1Guest(sid, { product_id: productId })
+    }
+    // сервер сам применяет правило; просто перечитаем корзину
+    await loadCart()
+    return res
   }
-  applyServerCartState(res)
-  await loadCart()
-  return res
-}
-
 
   return {
     // state
