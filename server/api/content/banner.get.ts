@@ -48,55 +48,27 @@
 
 
 export default defineEventHandler(async (event) => {
-  const cfg = useRuntimeConfig(event) as any
-
-  const apiBase: string =
-    cfg?.public?.daigoApiBase ||
+  const base =
+    useRuntimeConfig(event).public.daigoApiBase ||
     'https://api.daigo.ru'
 
-  const filesBase: string =
-    cfg?.public?.daigoFilesBase ||
-    apiBase
+  const url = `${base}/v1/shop/content/main-banners`
 
-  const url = `${apiBase}/v1/shop/content/main-banners`
+  // Нормализуем URLы картинок (бэк шлёт относительные пути)
+  const filesBase =
+    useRuntimeConfig(event).public.daigoFilesBase ||
+    base
 
-  // Делает абсолютный URL для относительных путей
-  const normalizeImg = (src: any): string | null => {
-    if (!src) return null
+  const normalizeImg = (src: any): string => {
+    if (!src) return ''
     const s = String(src)
     if (s.startsWith('http') || s.startsWith('data:')) return s
     const root = filesBase.replace(/\/$/, '')
     return root + (s.startsWith('/') ? s : `/${s}`)
   }
 
+  // Приводим к вашему интерфейсу Banner из ~/types/content
   const toBanner = (b: any, idx: number) => {
-    // соберём сырые значения из возможных ключей
-    const desktopRaw =
-      b?.image_desktop ??
-      b?.image ??
-      b?.image_url ??
-      b?.desktop_image ??
-      b?.desktopImage
-
-    const mobileRaw =
-      b?.image_mobile ??
-      b?.mobile_image ??
-      b?.mobileImage ??
-      b?.imageMobile
-
-    const tabletRaw =
-      b?.image_tablet ??
-      b?.tablet_image ??
-      b?.tabletImage ??
-      b?.imageTablet
-
-    // нормализуем и проставим фолбэки
-    const desktop = normalizeImg(desktopRaw)
-    const mobile  = normalizeImg(mobileRaw)  || desktop
-    const tablet  = normalizeImg(tabletRaw)  || desktop
-
-    const placeholder = '/images/placeholder-banner.jpg'
-
     // теги могут прийти строками или объектами — унифицируем
     const tags = Array.isArray(b?.tags)
       ? b.tags.map((t: any) =>
@@ -104,50 +76,62 @@ export default defineEventHandler(async (event) => {
             ? { label: t, color: '#FFF05D' }
             : {
                 label: t?.label ?? t?.title ?? '',
-                color: t?.color ?? t?.hex ?? '#FFF05D',
-                href:  t?.href  ?? t?.to   ?? undefined
+                color: t?.color ?? t?.hex ?? '#FFF05D'
               }
         )
       : []
 
     return {
       id: b?.id ?? b?.banner_id ?? idx,
-
-      // для обратной совместимости
-      image: desktop || placeholder,
-
-      // явные каналы
-      imageDesktop: desktop || placeholder,
-      imageTablet:  tablet  || desktop || placeholder,
-      imageMobile:  mobile  || desktop || placeholder,
-
-      // размеры/тексты
-      mobileHeight: b?.mobile_height ?? b?.mobileHeight ?? '405px',
-      tabletHeight: b?.tablet_height ?? b?.tabletHeight ?? '500px',
+      image: normalizeImg(
+        b?.image ||
+        b?.image_url ||
+        b?.desktop_image ||
+        b?.desktopImage
+      ),
+      imageMobile: normalizeImg(
+        b?.image_mobile ||
+        b?.mobile_image ||
+        b?.mobileImage ||
+        b?.imageMobile
+      ),
+      mobileHeight: b?.mobile_height || b?.mobileHeight || '405px',
 
       title: b?.title ?? '',
-      titleSize: b?.title_size ?? b?.titleSize ?? '5em',
-      descWidth: b?.desc_width ?? b?.descWidth ?? '550px',
+      titleSize: b?.title_size || b?.titleSize || '5em',
+      descWidth: b?.desc_width || b?.descWidth || '550px',
 
-      html: b?.html ?? b?.description_html ?? b?.descriptionHtml ?? '',
+      // HTML-описание (оставляем как есть — у вас компонент ждёт HTML-строку)
+      html:
+        b?.html ||
+        b?.description_html ||
+        b?.descriptionHtml ||
+        '',
 
-      buttonText:       b?.button_text ?? b?.buttonText ?? 'Узнать больше',
-      mobileButtonText: b?.mobile_button_text ?? b?.mobileButtonText ?? b?.buttonText ?? 'Узнать больше',
-      buttonLink:       b?.button_link ?? b?.buttonLink ?? b?.link ?? '/catalog',
+      buttonText: b?.button_text || b?.buttonText || 'Узнать больше',
+      mobileButtonText:
+        b?.mobile_button_text ||
+        b?.mobileButtonText ||
+        b?.buttonText ||
+        'Узнать больше',
+      buttonLink: b?.button_link || b?.buttonLink || b?.link || '/catalog',
 
       tags
     }
   }
 
   try {
+    // Тянем боевые баннеры и маппим
     const raw: any = await $fetch(url, { timeout: 8000 })
     const list: any[] = Array.isArray(raw) ? raw : (raw?.banners ?? [])
-    return list.map(toBanner)
+    const banners = list.map(toBanner)
+
+    return banners
   } catch (e: any) {
+    // На ошибке вернём пустой список, чтобы главная не падала
     if (import.meta.dev) {
       console.error('[banner] upstream error', e?.response ?? e)
     }
-    // не ломаем главную
     return []
   }
 })

@@ -1,21 +1,51 @@
-import { defineEventHandler, getQuery, createError } from 'h3'
-import { dadataFetch, simplify } from './_utils'
+import type { H3Event } from 'h3'
 
-export default defineEventHandler(async (event) => {
-  const { q = '', limit = '10' } = getQuery(event)
-  const token = useRuntimeConfig(event).dadataToken
-  if (!token) throw createError({ statusCode: 500, statusMessage: 'DaData token not configured' })
-  if (!q) return []
+interface DadataSuggestion<T = any> {
+  value: string
+  unrestricted_value: string
+  data: T
+}
+interface DadataResponse<T = any> {
+  suggestions: DadataSuggestion<T>[]
+}
 
-  // Границы: от city до settlement — вернёт города/поселения
-  const body = {
-    query: String(q),
-    count: Math.min(Number(limit) || 10, 20),
-    from_bound: { value: 'city' },
-    to_bound:   { value: 'settlement' },
-    restrict_value: false
+export default defineEventHandler(async (event: H3Event) => {
+  const query = getQuery(event)
+  const q = String(query.q || '').trim()
+  if (!q) return { suggestions: [] }
+
+  const { dadataToken } = useRuntimeConfig()
+
+  const res = await $fetch<DadataResponse>(
+    'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Token ${dadataToken}`,
+      },
+      body: {
+        query: q,
+        // Ограничим только города/населённые пункты:
+        from_bound: { value: 'city' },
+        to_bound: { value: 'settlement' },
+        // Можно добавлять locations для РФ:
+        // locations: [{ country_iso_code: 'RU' }]
+        restrict_value: true
+      }
+    }
+  )
+
+  return {
+    suggestions: res.suggestions.map(s => ({
+      value: s.value,
+      data: {
+        city_fias_id: s.data.city_fias_id || s.data.settlement_fias_id,
+        city_kladr_id: s.data.city_kladr_id || s.data.settlement_kladr_id,
+        city: s.data.city || s.data.settlement || s.data.region_with_type,
+        region: s.data.region_with_type,
+      }
+    }))
   }
-
-  const resp = await dadataFetch<any>('suggest/address', body, token)
-  return simplify(resp)
 })

@@ -1,3 +1,4 @@
+<!-- pages/researches/item/[slug].vue -->
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { defineAsyncComponent } from 'vue'
@@ -7,7 +8,6 @@ import Button from '~/components/ui/Button.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
 import { useResearchStore } from '~/stores/researchStore'
 import type { ArticleDetail } from '~/types/articles'
-import UiInput from '~/components/ui/UiInput.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -30,7 +30,7 @@ if (error.value) {
 const title = research.value?.title ?? 'Исследование'
 const description = research.value?.description ?? research.value?.preview ?? ''
 const cover = research.value?.cover || research.value?.image || '/og-default.jpg'
-const canonical = `https://daigo.ru/researches/item/${slug.value}`
+const canonical = `https://example.com/researches/item/${slug.value}`
 
 useSeoMeta({
   title,
@@ -109,34 +109,6 @@ function downloadAllFiles() {
 // клиенсткие виджеты
 const ClientFAQ = defineAsyncComponent(() => import('~/components/FAQ/ClientFAQ.vue'))
 const ClientComments = defineAsyncComponent(() => import('~/components/Comments/ClientComments.vue'))
-
-
-const email = ref('')
-const loading = ref(false)
-const success = ref(false)
-const emailErr = ref<string | boolean>('')
-
-const emailValid = computed(() =>
-  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
-)
-function validateEmail() {
-  if (!email.value.trim()) { emailErr.value = 'Введите e-mail'; return false }
-  if (!emailValid.value)   { emailErr.value = 'Некорректный e-mail'; return false }
-  emailErr.value = ''
-  return true
-}
-const sleep = (ms:number) => new Promise(r => setTimeout(r, ms))
-async function submitSubscribe() {
-  if (loading.value) return
-  if (!validateEmail()) return
-  loading.value = true
-  try {
-    await sleep(900)
-    success.value = true
-  } finally {
-    loading.value = false
-  }
-}
 </script>
 
 <template>
@@ -151,15 +123,15 @@ async function submitSubscribe() {
           </li>
         </ul>
       </nav>
- 
+
       <!-- title + мета -->
-      <h1 class="text-[22px] sm:text-[46px] lg:text-[60px] font-medium leading-tight">{{ research?.title }}</h1>
+      <h1 class="text-head font-medium leading-tight">{{ research?.title }}</h1>
       <div class="flex flex-col md:flex-row gap-8 justify-between my-16">
         <div 
           v-if="research?.author"
-          class="w-full md:w-1/2 flex flex-col sm:flex-row gap-4 sm:gap-8"
+          class="w-full md:w-1/2 flex flex-row gap-8"
         >
-          <img :src="research?.author?.avatarUrl" class="w-1/3 "/>
+          <img :src="research?.author?.avatarUrl" />
           <div class="flex flex-col">
             <p class="text-lg text-black/50">{{ research!.author!.position }}</p>
             <p class="mt-1 text-2xl font-medium">{{ research!.author!.name }}</p>
@@ -168,27 +140,27 @@ async function submitSubscribe() {
             </p>
           </div>
         </div>
-        <div class="flex flex-col gap-6" :class="research?.author ? 'w-full md:w-1/2' : 'w-full'">
-          <div class="flex flex-wrap items-center gap-6 text-black sm:ms-auto">
-            <div class="text-sm md:text-2xl flex items-center gap-2">
-              <img src="/icons/publications/calendar.svg" class="w-4 md:w-5"/><span>{{ new Date(research?.date || '').toLocaleDateString('ru-RU') }}</span>
+        <div class="w-full md:w-1/2 flex flex-col gap-6">
+          <div class="flex flex-wrap items-center gap-6 text-black ms-auto">
+            <div class="text-2xl flex items-center gap-2">
+              <img src="/icons/publications/calendar.svg" class="w-5"/><span>{{ new Date(research?.date || '').toLocaleDateString('ru-RU') }}</span>
             </div>
-            <div class="text-sm md:text-2xl flex items-center gap-2">
-              <img src="/icons/publications/clock.svg" class="w-4 md:w-5"/><span aria-label="Время чтения">{{ research?.time }} мин</span>
+            <div class="text-2xl flex items-center gap-2">
+              <img src="/icons/publications/clock.svg" class="w-5"/><span aria-label="Время чтения">{{ research?.time }} мин</span>
             </div>
-            <div class="text-sm md:text-2xl flex items-center gap-2">
-              <img src="/icons/publications/ye.svg" class="w-4 md:w-5"/><span aria-label="Просмотры">{{ research?.views }}</span>
+            <div class="text-2xl flex items-center gap-2">
+              <img src="/icons/publications/ye.svg" class="w-6"/><span aria-label="Просмотры">{{ research?.views }}</span>
             </div>
-            <div class="text-sm md:text-2xl flex items-center gap-2">
-              <img src="/icons/publications/comment.svg" class="w-4 md:w-5"/><span aria-label="Комментарии">{{ research?.comments }}</span>
+            <div class="text-2xl flex items-center gap-2">
+              <img src="/icons/publications/comment.svg" class="w-5"/><span aria-label="Комментарии">{{ research?.comments }}</span>
             </div>
           </div>
 
           <div class="flex gap-8 ms-auto">
-            <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="goToComments">
+            <button type="button" class="text-2xl flex items-center gap-2" @click="goToComments">
               <img src="/icons/publications/comment.svg" class="w-5"/><span>Комментарии</span>
             </button>
-            <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="shareNative">
+            <button type="button" class="text-2xl flex items-center gap-2" @click="shareNative">
               <img src="/icons/publications/share.svg" class="w-5"/><span class="text-[#FF64E7]">Поделиться</span>
             </button>
           </div>
@@ -199,8 +171,8 @@ async function submitSubscribe() {
         <!-- main -->
         <main class="lg:col-span-8 space-y-8">
           <!-- cover -->
-          <img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
-            loading="lazy" decoding="async" class="w-full rounded-2xl object-cover h-[200px] sm:h-[460px]" />
+          <nuxt-img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
+            loading="lazy" decoding="async" class="w-full rounded-2xl object-cover" />
 
           <!-- Вы узнаете -->
           <YouWillLearn :key="slug" :container-ids="['research-top','research-bottom']" />
@@ -227,7 +199,7 @@ async function submitSubscribe() {
 
               <div v-if="research!.materials!.specialist" class="w-full md:w-4/12 flex md:justify-end">
                 <div class="w-full md:w-auto flex flex-col items-start gap-5">
-                  <img :src="research!.materials!.specialist!.avatarUrl" alt="" width="96" height="96"
+                  <nuxt-img :src="research!.materials!.specialist!.avatarUrl" alt="" width="96" height="96"
                     class="h-32 w-32 rounded-full object-cover" loading="lazy" decoding="async" />
                   <div class="min-w-0">
                     <p class="text-base text-black/50">{{ research!.materials!.specialist!.position }}</p>
@@ -254,10 +226,10 @@ async function submitSubscribe() {
 
           <!-- Топ 5 -->
           <section class="mt-12">
-            <h2 class="text-xl md:text-product font-medium">Топ 5 популярных статей</h2>
+            <h2 class="text-product font-semibold">Топ 5 популярных статей</h2>
             <ul class="mt-8 space-y-4 list-disc pl-6">
-              <li v-for="i in list" :key="i.id" class="marker:text-primary marker:font-semibold md:marker:text-2xl">
-                <NuxtLink :to="toUrl(i)" class="text-sm md:text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300">
+              <li v-for="i in list" :key="i.id" class="marker:text-primary marker:font-semibold marker:text-2xl">
+                <NuxtLink :to="toUrl(i)" class="text-2xl text-primary hover:border-b hover:border-primary transition-colors duration-300">
                   {{ i.title }}
                 </NuxtLink>
               </li>
@@ -266,7 +238,7 @@ async function submitSubscribe() {
 
           <!-- FAQ (как заглушка) -->
           <section class="mt-16 flex flex-col gap-6">
-            <h2 class="text-xl md:text-product font-medium">Часто задаваемые вопросы</h2>
+            <h2 class="text-product font-medium">Часто задаваемые вопросы</h2>
             <div class="w-full flex flex-col">
               <AccordionItem title="Что такое коэнзим Q10?">Антиоксидант, участвующий в выработке энергии…</AccordionItem>
               <AccordionItem title="Чем полезен Tamotsu?">Улучшает память и когнитивные функции…</AccordionItem>
@@ -278,8 +250,8 @@ async function submitSubscribe() {
           <!-- Понравилось? -->
           <section class="md:w-5/12 mt-12 py-5">
             <hr class="border-black/10 mb-6 w-5/6" />
-            <h2 class="text-xl md:text-cardhead font-medium !leading-tight">Понравилось исследование?</h2>
-            <p class="mt-2 text-sm text-lg">Поделитесь с друзьями в социальных сетях</p>
+            <h2 class="text-cardhead font-medium">Понравилось исследование?</h2>
+            <p class="mt-2 text-lg">Поделитесь с друзьями в социальных сетях</p>
             <div class="mt-4 flex items-center gap-4">
               <a :href="shareLinks.whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp"><img src="/icons/social/whatsapp.svg" class="w-7 h-7" /></a>
               <a :href="shareLinks.telegram" target="_blank" rel="noopener" aria-label="Telegram"><img src="/icons/social/telegram.svg" class="w-7 h-7" /></a>
@@ -308,72 +280,36 @@ async function submitSubscribe() {
             </div>
           </div> -->
           <div v-if="research?.recommended?.length" class="">
-            <h3 class="text-xl md:text-cardhead font-medium">Больше исследований</h3>
+            <h3 class="text-cardhead font-medium">Больше исследований</h3>
             <ul class="mt-4 space-y-4">
               <li v-for="it in research.recommended" :key="it.id" class="flex gap-4">
-                <div class="w-5/12"><img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" /></div>
+                <div class="w-5/12"><nuxt-img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" /></div>
                 <div class="w-7/12"><NuxtLink :to="`/articles/${it.slug}`" class="text-xl line-clamp-4">{{ it.title }}</NuxtLink></div>
               </li>
             </ul>
           </div>
         </aside>
       </div>
-<section
-  class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
->
-  <img src="/images/subscription-product.png" alt="" class="absolute z-0 right-0 hidden md:block" />
-  <img src="/images/subscription-left.png" alt="" class="absolute z-0 left-0 hidden md:block" />
-
-  <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
-    <h2 class="font-medium leading-tight text-3xl md:text-slider">
-      Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
-    </h2>
-
-    <p class="text-sm md:text-2xl leading-5 md:leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
-      Оставьте свою электронную почту и получайте дайджест полезных материалов раз в неделю, а также узнавайте первыми о новых акциях и предложениях.
-    </p>
-
-    <!-- успех -->
-    <transition name="fade">
-      <div v-if="success" class="mt-2 bg-white/20 rounded-lg px-4 py-3 backdrop-blur">
-        <p class="text-white text-base md:text-lg">🎉 Спасибо! Подписка успешно оформлена.</p>
-        <p class="text-white/80 text-sm">(сейчас это тестовый успех)</p>
-      </div>
-    </transition>
-
-    <!-- форма (без v-else, чтобы не было ошибки «v-else без v-if» ) -->
-    <form
-      v-if="!success"
-      class="mt-2 flex w-full max-w-xl gap-3 flex-col sm:flex-row"
-      @submit.prevent="submitSubscribe"
-      novalidate
-    >
-      <UiInput
-        v-model="email"
-        type="email"
-        placeholder="Ваш e-mail"
-        autocomplete="email"
-        background="!bg-white"
-        class="!text-black/70 placeholder:text-black/70 !border-0"
-        :error="emailErr"
-        @enter="submitSubscribe"
-      />
-      <Button
-        variant="solid"
-        class="!text-black text-lg bg-white hover:bg-gray-100 w-full sm:w-60"
-        type="submit"
-        :disabled="loading"
+      <section
+        class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-6 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
       >
-        {{ loading ? 'Отправка…' : 'Отправить' }}
-      </Button>
-    </form>
-
-    <p v-if="!success" class="text-xs md:text-sm text-white/80 mt-1">
-      Нажимая «Отправить», вы соглашаетесь с условиями обработки персональных данных.
-    </p>
-  </div>
-</section>
-
+        <img src="/images/subscription-product.png" alt="Banner" class="absolute  z-0 right-0" />
+        <img src="/images/subscription-left.png" alt="Banner" class="absolute z-0 left-0" />
+        <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
+          <h2 class="font-medium leading-tight text-slider">
+            Подпишитесь на <span class="ms-1 rounded-md px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
+          </h2>
+          <p class="text-lg md:text-2xl leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
+            Оставьте свою электронную почту и получайте дайджест полезных видео и статей раз в неделю, а также узнавайте  первыми о новых акциях и предложениях
+          </p>
+          <Button
+            variant="solid"
+            class="!text-black text-lg bg-white hover:bg-gray-100 w-60"
+          >
+            Отправить
+          </Button>
+        </div>
+      </section>
     </div>
   </BaseContainer>
 </template>

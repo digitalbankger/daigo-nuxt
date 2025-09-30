@@ -12,12 +12,6 @@ const adding = ref(false)
 const hasDiscount = computed(() => props.product.oldPrice && props.product.oldPrice > props.product.price)
 const productIdStr = computed(() => String(props.product.product_id))
 
-const truncatedTitle = computed(() => {
-  const t = props.product.title ?? ''
-  const w = t.trim().split(/\s+/u)
-  return w.length <= 4 ? t.trim() : w.slice(0, 4).join(' ') + '…'
-})
-
 const coverImageUrl = computed<string | null>(() => {
   const imgs = props.product.images || []
   if (!imgs.length) return null
@@ -139,7 +133,7 @@ onBeforeUnmount(() => {
       aria-live="polite"
     >
       <div class="shrink-0">
-        <img
+        <NuxtImg
           v-if="coverImageUrl"
           :src="coverImageUrl"
           :alt="product.title"
@@ -148,9 +142,9 @@ onBeforeUnmount(() => {
         />
         <div v-else class="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gray-100" />
       </div>
-      <div class="flex flex-col sm:flex-row items-start gap-2 sm:gap-4 w-full min-w-0">
+      <div class="flex flex-col sm:flex-row items-start gap-2 sm:gap-4">
       <div class="flex-1 min-w-0">
-        <h3 class="block w-full max-w-full line-clamp-2 break-words text-sm sm:text-lg font-normal">{{ truncatedTitle }}</h3>
+        <h3 class="text-sm sm:text-lg font-normal truncate w-10/12 sm:w-full">{{ product.title }}</h3>
         <div class="mt-1 md:mt-2 flex items-baseline gap-2">
           <span v-if="hasDiscount" class="text-black/40 line-through text-xs md:text-sm">
             {{ product.oldPrice?.toLocaleString() }} ₽
@@ -168,7 +162,7 @@ onBeforeUnmount(() => {
         :disabled="adding"
         @click="addToCartHandler"
         class="shrink-0 inline-flex items-center gap-2 px-4 md:px-5 h-10 md:h-12
-               rounded-lg sm:rounded-xl bg-[#5B8CFF] text-white text-sm md:text-base
+               rounded-xl bg-[#5B8CFF] text-white text-sm md:text-base
                hover:opacity-90 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5B8CFF] disabled:opacity-60"
       >
         <svg width="20" height="20" viewBox="0 0 32 32" class="fill-current"><path d="M0 5c0-.265.105-.52.293-.707C0.48 4.105.735 4 1 4h3c.223 0 .44.074.615.212.176.137.3.33.354.546L5.78 8H29c.152 0 .302.035.438.101.137.067.256.163.35.283.093.119.158.259.19.407.031.149.029.302-.007.45L26.97 21.242A1 1 0 0 1 26 22H8a1 1 0 0 1-.97-.758L3.22 6H1a1 1 0 0 1-1-1Zm6.28 5 2.5 10h16.44l2.5-10H6.28ZM10 26a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm14 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
@@ -176,19 +170,13 @@ onBeforeUnmount(() => {
       </button>
 
       <!-- Если есть — компактный + / − -->
-      <div class="flex flex-col gap-2"
+      <div
         v-else
+        class="flex items-center gap-2 bg-[#5B8CFF] text-white px-2 py-1 rounded-xl h-10 md:h-12"
       >
-        <nuxt-link to="/cart" class="text-black/70 mx-auto hidden sm:block">
-          В корзину
-        </nuxt-link>
-        <div
-          class="shrink-0 flex items-center gap-2 bg-[#5B8CFF] text-white px-2 py-1 rounded-lg sm:rounded-xl h-10 md:h-12"
-        >
-          <button type="button" :disabled="adding" @click="decrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
-          <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
-          <button type="button" :disabled="adding" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
-        </div>
+        <button type="button" :disabled="adding" @click="decrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
+        <span class="min-w-[2rem] text-center">{{ quantityInCart }}</span>
+        <button type="button" :disabled="adding" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
       </div>
       </div>
     </aside>

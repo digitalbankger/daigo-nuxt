@@ -18,28 +18,6 @@ await catalogStore.fetchCatalogBanner()
 
 const page = computed(() => Number(route.query.page || 1))
 
-const PIVOT = 15 
-
-const visibleProducts = computed(() => {
-  const products = catalogStore.products.filter(p => (p.price ?? 0) > 0)
-
-  return products.slice().sort((a, b) => {
-    const aSort = Number.isFinite(+a.sort) ? +a.sort : 0
-    const bSort = Number.isFinite(+b.sort) ? +b.sort : 0
-
-    const aKey = aSort === 0 ? PIVOT + 0.5 : aSort
-    const bKey = bSort === 0 ? PIVOT + 0.5 : bSort
-
-    if (aKey !== bKey) return aKey - bKey
-
-    // стабильный порядок внутри одинаковых ключей
-    // сначала по name (если есть), иначе по id
-    const aTie = String(a.title ?? a.product_id ?? '')
-    const bTie = String(b.title ?? b.product_id ?? '')
-    return aTie.localeCompare(bTie, 'ru')
-  })
-})
-
 watchEffect(async () => {
   catalogStore.setPage(page.value)
 
@@ -54,7 +32,7 @@ watchEffect(async () => {
 
   await catalogStore.fetchProducts(normalizedQuery)
 
-  if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
+  if (catalogStore.products.length === 0 && !('empty' in route.query)) {
     router.replace({ query: { ...route.query, empty: '1' } })
   }
 })
@@ -108,11 +86,11 @@ useHead(() => {
   }
 })
 
-const firstRowMobile = computed(() => visibleProducts.value.slice(0, 2))
-const firstRowDesktop = computed(() => visibleProducts.value.slice(0, 3))
+const firstRowMobile = computed(() => catalogStore.products.slice(0, 2))
+const firstRowDesktop = computed(() => catalogStore.products.slice(0, 3))
 
-const otherProductsMobile = computed(() => visibleProducts.value.slice(2))
-const otherProductsDesktop = computed(() => visibleProducts.value.slice(3))
+const otherProductsMobile = computed(() => catalogStore.products.slice(2))
+const otherProductsDesktop = computed(() => catalogStore.products.slice(3))
 
 const isFilterModalOpen = ref(false)
 
@@ -123,6 +101,7 @@ function openFilters() {
 function closeFilters() {
   isFilterModalOpen.value = false
 }
+
 </script>
 
 <template>
@@ -132,6 +111,7 @@ function closeFilters() {
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
       <div class="flex lg:hidden items-center gap-4 mb-6">
+        <!-- Кнопка фильтра -->
         <div
           class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
           @click="openFilters"
@@ -140,6 +120,7 @@ function closeFilters() {
           <img src="/icons/filter.svg" width="20" alt="Фильтр" />
         </div>
 
+        <!-- Теги со скроллом -->
         <div class="flex overflow-x-auto gap-4 no-scrollbar">
           <button
             v-for="tag in [
@@ -182,15 +163,19 @@ function closeFilters() {
         </div>
       </Transition>
 
-      <div class="flex flex-row gap-7">
+      <div 
+        class="flex flex-row gap-7"
+      >
         <aside class="hidden lg:block w-full lg:w-1/4">
           <FilterPanel :store="catalogStore" :with-shadow="true" />
         </aside>
         
         <div 
-          v-if="visibleProducts.length"
+          v-if="catalogStore.products.length"
           class="w-full lg:w-3/4"
         >
+          <!-- ПЕРВЫЙ РЯД -->
+          <!-- mobile: 2 товара -->
           <div class="grid grid-cols-2 gap-4 gap-y-6 lg:hidden">
             <ProductCard
               v-for="product in firstRowMobile"
@@ -199,6 +184,7 @@ function closeFilters() {
             />
           </div>
 
+          <!-- desktop/tablet: 3 товара -->
           <div class="hidden lg:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
               v-for="product in firstRowDesktop"
@@ -213,6 +199,8 @@ function closeFilters() {
             class="my-5 md:my-10"
           />
 
+          <!-- ОСТАЛЬНЫЕ ТОВАРЫ -->
+          <!-- mobile: всё, что после первых двух -->
           <div class="grid grid-cols-2 gap-4 md:gap-6 gap-y-6 md:gap-y-20 md:hidden">
             <ProductCard
               v-for="product in otherProductsMobile"
@@ -221,6 +209,7 @@ function closeFilters() {
             />
           </div>
 
+          <!-- desktop/tablet: всё, что после первых трёх -->
           <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
               v-for="product in otherProductsDesktop"
@@ -236,9 +225,9 @@ function closeFilters() {
               Широкий выбор биологически активных добавок на Daigo.ru
             </h2>
             <p class="mb-20 text-base md:text-lg text-white">
-              Онлайн магазин БАДов «Дайго» - это надёжное место для покупки качественных биологически активных добавок. 
-              <br>Забота о здоровье становится все более актуальной темой. Люди стремятся к жизни полной энергии и бодрости, и правильное питание играет здесь ключевую роль. 
-              <br>Магазин «Дайго» предлагает широкий ассортимент БАДов, которые помогут поддержать организм в тонусе, улучшить общее состояние и повысить иммунитет. <br><br>Один из ключевых принципов магазина «Дайго» - это качество и безопасность продукции. Представленные на сайте товары прошли строгий контроль качества, что позволяет быть уверенными в их эффективности и безопасности для здоровья. Приятным бонусом для наших клиентов является удобная система заказа и доставки. Вы можете оформить покупку в любое время, не выходя из дома, и получить заказ в кратчайшие сроки. Забота о собственном здоровье — это важный шаг на пути к полноценной и счастливой жизни. Поддерживайте организм с помощью качественных биологически активных добавок из магазина «Дайго» и наслаждайтесь активным образом жизни!
+              Онлайн магазин БАДов «Дайго» - это надёжное место для покупки качественных биологически активных добавок. 
+              <br>Забота о здоровье становится все более актуальной темой. Люди стремятся к жизни полной энергии и бодрости, и правильное питание играет здесь ключевую роль. 
+              <br>Магазин «Дайго» предлагает широкий ассортимент БАДов, которые помогут поддержать организм в тонусе, улучшить общее состояние и повысить иммунитет. <br><br>Один из ключевых принципов магазина «Дайго» - это качество и безопасность продукции. Представленные на сайте товары прошли строгий контроль качества, что позволяет быть уверенными в их эффективности и безопасности для здоровья. Приятным бонусом для наших клиентов является удобная система заказа и доставки. Вы можете оформить покупку в любое время, не выходя из дома, и получить заказ в кратчайшие сроки. Забота о собственном здоровье — это важный шаг на пути к полноценной и счастливой жизни. Поддерживайте организм с помощью качественных биологически активных добавок из магазина «Дайго» и наслаждайтесь активным образом жизни!
             </p>
           </div>
         </div>

@@ -15,7 +15,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   const perPage = 9
   const totalPages = ref(1)
 
-  // Кэш полного списка для facet-счётчиков и локального total
+  // кэш полного списка для facet-счётчиков
   const allProducts = ref<Product[]>([])
   const allLoaded   = ref(false)
   let allLoadingPromise: Promise<void> | null = null
@@ -32,16 +32,12 @@ export const useCatalogStore = defineStore('catalog', () => {
     catalogBanner.value = data.value
   }
 
-  /**
-   * Грузим карточки текущей страницы.
-   * totalPages считаем по ответу бэка, а если загружен allProducts —
-   * пересчитываем total локально теми же фильтрами и берём большее значение.
-   */
+  // карточки текущей страницы
   const fetchProducts = async (params: Record<string, string>) => {
     const query = {
       ...params,
       page:  String(page.value),
-      limit: String(perPage), // наш бэк ожидает 'limit'
+      limit: String(perPage),        // <— важно, чтобы бэк понимал пагинацию
     }
 
     const { data } = await useFetch<{ items: Product[]; total: number }>(
@@ -50,24 +46,11 @@ export const useCatalogStore = defineStore('catalog', () => {
     )
 
     products.value = data.value?.items || []
-
-    // 1) total из узкого запроса
-    let total = Number(data.value?.total || 0)
-
-    // 2) Если есть "все товары" — пересчитываем total локально по тем же фильтрам
-    await ensureAllLoaded()
-    const baseQuery = buildBaseQueryFromParams(params)
-    const totalLocal = allProducts.value.filter(p => matchesBaseFilters(p, baseQuery)).length
-
-    if (totalLocal > total) total = totalLocal
-
+    const total = data.value?.total || 0
     totalPages.value = Math.max(1, Math.ceil(total / perPage))
   }
 
-  /**
-   * Один раз грузим полный список для локального подсчёта counts/total.
-   * (limit 9999 — ок для наших объёмов, можно заменить на серверный endpoint /all)
-   */
+  // один раз грузим полный список (50 шт — ок)
   async function ensureAllLoaded() {
     if (allLoaded.value) return
     if (allLoadingPromise) return allLoadingPromise
@@ -85,29 +68,11 @@ export const useCatalogStore = defineStore('catalog', () => {
     return allLoadingPromise
   }
 
-  /**
-   * Собираем базовые фильтры из параметров запроса.
-   * Игнорируем служебные поля пагинации.
-   */
-  function buildBaseQueryFromParams(params: Record<string, string>): BaseQuery {
-    const base: BaseQuery = {}
-    for (const [k, v] of Object.entries(params)) {
-      if (['page', 'page_size', 'limit', 'empty'].includes(k)) continue
-      if (!v) continue
-      base[k] = String(v).split(',').filter(Boolean)
-    }
-    return base
-  }
-
-  /**
-   * Проверяем, что товар p соответствует набору базовых фильтров base.
-   * В логике — конъюнкция групп, внутри группы — дизъюнкция (любой из значений подходит).
-   * skipGroup — чтобы при расчёте counts игнорировать текущую группу.
-   */
+  // проверка соответствия базовым фильтрам (с дисъюнктивностью)
   function matchesBaseFilters(p: Product, base: BaseQuery, skipGroup?: string) {
     const props = (p as any).properties || {}
     for (const [k, values] of Object.entries(base)) {
-      if (k === skipGroup) continue
+      if (k === skipGroup) continue         // внутри своей группы игнорим её же фильтры
       if (!values?.length) continue
       const pv = String(props[k] ?? '')
       if (!values.includes(pv)) return false
@@ -115,10 +80,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     return true
   }
 
-  /**
-   * Локальный расчёт facet-счётчиков по allProducts.
-   * baseQuery — активные фильтры (без текущей группы).
-   */
+  // считаем counts локально
   const fetchCounts = async (baseQuery: BaseQuery = {}) => {
     await ensureAllLoaded()
     const flat: Record<string, number> = {}
@@ -140,11 +102,8 @@ export const useCatalogStore = defineStore('catalog', () => {
   }
 
   return {
-    // state
     products, filters, catalogBanner, counts,
     page, perPage, totalPages,
-
-    // actions
     setPage,
     fetchFilters, fetchProducts, fetchCatalogBanner,
     fetchCounts,

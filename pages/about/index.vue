@@ -7,7 +7,6 @@ import WideSelectionSection from '~/components/sections/WideSelectionSection.vue
 import CustomersSection from '~/components/sections/CustomersSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
 import RewardSection from '~/components/sections/RewardSection.vue'
-import type { link } from 'fs'
 
 useHead({
   title: 'О компании Daigo – Производитель продукции для здоровья',
@@ -151,8 +150,8 @@ definePageMeta({
               ],
               title: 'Результаты подкреплены исследованиями',
               list: [
-                { text: 'Производство Daigo', icon: '/icons/file.svg', link: '/researches/proizvodstvo-daigo' },
-                { text: 'Плазмалогены',       icon: '/icons/file.svg', link: '/researches' },
+                { text: 'Производство Daigo', icon: '/icons/file.svg' },
+                { text: 'Плазмалогены',       icon: '/icons/file.svg' },
               ],
               imageSrc: '/images/about/materialy.png',
               button: { text: 'Читать все исследования', link: '/researches' },
@@ -175,13 +174,14 @@ definePageMeta({
           </h2>
           <div class="flex flex-col lg:flex-row gap-4 lg:gap-10">
             <div class="lg:w-5/12">
-              <img
-                src="https://nuxt.daigo.ru/images/about/director.jpg"
+              <NuxtImg
+                src="http://localhost:3000/images/about/director.jpg"
                 alt="Генеральный директор Daigo"
                 format="webp"
                 loading="lazy"
                 width="528"
                 height="524"
+                placeholder
                 class="max-w-full h-auto w-full mx-auto"
               />
               <li class="flex flex-col gap-1 mt-4">
@@ -217,7 +217,7 @@ definePageMeta({
           </div>
         </section>
 
-        <!-- <section class="relative w-full pb-6 lg:pb-12">
+        <section class="relative w-full pb-6 lg:pb-12">
           <h2 class="text-slider sm:text-product lg:text-slider font-medium mb-3 lg:mb-5">Команда</h2>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 lg:gap-6">
             <article
@@ -225,6 +225,7 @@ definePageMeta({
               :key="p.id ?? p.name"
               class="relative overflow-hidden rounded-xl lg:rounded-3xl bg-gray-100"
             >
+              <!-- Изображение -->
               <div class="aspect-[3/4] lg:aspect-[1/1] w-full">
                 <img
                   :src="p.photo"
@@ -235,6 +236,7 @@ definePageMeta({
                 />
               </div>
 
+              <!-- Нижняя плашка (как в макете) -->
               <div
                 class="absolute left-0 right-0 bottom-0 rounded-xl lg:rounded-2xl bg-white/50 backdrop-blur shadow-sm px-2 py-3 lg:p-6"
               >
@@ -247,7 +249,7 @@ definePageMeta({
               </div>
             </article>
           </div>
-        </section> -->
+        </section>
       <section class="relative w-full pb-6 lg:pb-12">
         <h2 class="text-3xl lg:text-slider font-medium mb-5">Благотворительность</h2>
 

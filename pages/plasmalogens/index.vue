@@ -10,8 +10,8 @@ useHead({
     { name: 'description', content: 'Узнайте, что такое плазмалогены и как они поддерживают здоровье мозга. Tamotsu – единственный зарегистрированный в России источник натуральных плазмалогенов.' },
     { property: 'og:title', content: 'Принцип действия плазмалогенов – Tamotsu | daigo' },
     { property: 'og:description', content: 'Узнайте, как плазмалогены помогают мозгу. Tamotsu – источник здоровья из Японии.' },
-    { property: 'og:image', content: 'https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
-    { property: 'og:url', content: 'https://daigo.ru/articles/plasmalogens' },
+    { property: 'og:image', content: 'https://example.com/images/plasmalogen-hero.png' },
+    { property: 'og:url', content: 'https://example.com/articles/plasmalogens' },
     { property: 'og:type', content: 'article' },
   ],
   script: [
@@ -21,7 +21,7 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: 'Принцип действия плазмалогенов',
-        image: ['https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
+        image: ['https://example.com/images/plasmalogen-hero.png'],
         author: {
           '@type': 'Organization',
           name: 'daigo'
@@ -31,11 +31,11 @@ useHead({
           name: 'daigo',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://daigo.ru/logo.png'
+            url: 'https://example.com/logo.png'
           }
         },
         datePublished: '2025-07-16',
-        mainEntityOfPage: 'https://daigo.ru/articles/plasmalogens'
+        mainEntityOfPage: 'https://example.com/articles/plasmalogens'
       })
     }
   ]
@@ -44,30 +44,30 @@ useHead({
 const popularArticles = [
   {
     id: 1,
-    title: 'Что такое Метабиотики',
+    title: 'Принцип действия метаболитиков',
     image: '/images/articles/metabolity.jpg',
-    date: '08.05.2025',
+    date: '20.05.2025',
     views: 1023,
-    comments: 0,
-    slug: '/articles/chto-takoe-metabiotiki',
+    comments: 14,
+    slug: '/articles/metabolity',
   },
-  { 
+  {
     id: 2,
-    title: '1. По полочкам: принцип действия Daigo',
-    image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+    title: 'Как подготовить кожу к пляжному сезону?',
+    image: '/images/articles/kosmetika-plyazh.jpg',
     date: '18.05.2025',
     views: 988,
     comments: 8,
-    slug: '/articles/po-polochkam-printsip-deystviya-daigo',
+    slug: '/articles/kozha-plyazh',
   },
   {
     id: 3,
-    title: '2. На что влияет микрофлора кишечника?',
-    image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
-    date: '2025-06-30',
+    title: 'Синдром путешественника',
+    image: '/images/articles/perelety-stress.jpg',
+    date: '12.05.2025',
     views: 612,
     comments: 5,
-    slug: '/articles/na-chto-vliyaet-mikroflora-kishechnika',
+    slug: '/articles/perelety',
   }
 ]
 </script>
@@ -76,30 +76,30 @@ const popularArticles = [
   <BaseContainer>
     <div class="flex flex-col gap-10">
         <section class="relative w-full overflow-hidden">
-            <h1 class="text-3xl sm:text-head leading-tight font-medium mb-8">
+            <h1 class="text-head leading-tight font-medium mb-8">
             Принципы действия плазмалогенов
             </h1>
-            <img
-            src="https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg"
+            <nuxt-img
+            src="http://localhost:3000/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg"
             alt="Tamotsu упаковка"
             format="webp"
             quality="80"
             loading="lazy"
             width="1232"
             height="192"
-            class="rounded-xl sm:rounded-2xl w-full object-cover"
+            class="rounded-2xl w-full object-cover"
             />
         </section>
 
         <section class="flex flex-col gap-6">
-            <h2 class="text-2xl sm:text-[46px] font-medium">Что такое плазмалогены?</h2>
-            <p class="text-sm sm:text-lg font-normal">
+            <h2 class="text-[46px] font-medium">Что такое плазмалогены?</h2>
+            <p class="text-lg font-normal">
                 Плазмалогены для мозга представляют собой один из видов фосфолипидов, которые оказывают на организм антиоксидантное действие.<br>
                 Они в большом количестве содержатся в нервных клетках головного мозга. Плазмалогены являются основой нервных волокон,           которые связывают нервные клетки мозга – нейроны – между собой. 
                 Путем роста нервных связей между нейронами мозг развивается, поэтому плазмалоген является оптимальным средством против          деменции. 
                 К тому же, для активного развития мозга плазмалогены рекомендуют употреблять при нарушениях мозговой активности у детей.
             </p>
-            <p class="text-sm sm:text-lg font-normal">
+            <p class="text-lg font-normal">
                 Проведенные в США исследования доказывают, что плазмалоген уменьшает явления деменции у пациентов с болезнью Альцгеймера.
                 А в Университете Кюсю были проведены исследования, которые доказали благотворное влияние плазмалогена из морского гребешка 
                 на когнитивные функции головного мозга.
@@ -107,21 +107,21 @@ const popularArticles = [
         </section>
 
         <section class="flex flex-col gap-6">
-            <h2 class="text-2xl sm:text-[46px] font-medium">Что такое Tamotsu?</h2>
-            <div class="flex flex-col md:flex-row gap-6">
-                <div class="w-full md:w-3/5 flex flex-col gap-6">
+            <h2 class="text-[46px] font-medium">Что такое Tamotsu?</h2>
+            <div class="flex flex-row gap-6">
+                <div class="w-3/5 flex flex-col gap-6">
                     <div class="flex flex-col gap-6">
-                        <img
-                            src="https://nuxt.daigo.ru/images/principes/tamotsu-bad-plasmalogeny-dlya-pamyati.jpg"
+                        <nuxt-img
+                            src="http://localhost:3000/images/principes/tamotsu-bad-plasmalogeny-dlya-pamyati.jpg"
                             alt="Tamotsu капсулы"
                             format="webp"
                             quality="80"
                             loading="lazy"
                             width="700"
                             height="400"
-                            class="rounded-xl sm:rounded-2xl object-cover w-full lg:max-w-full"
+                            class="rounded-2xl object-cover w-full lg:max-w-full"
                         />
-                        <div class="flex flex-col gap-4 text-sm sm:text-lg font-normal">
+                        <div class="flex flex-col gap-4 text-lg font-normal">
                             <p>
                             Тамоцу (в переводе с японского – «защитник») — это БАД из Японии, единственный зарегистрированный в России источник плазмалогенов в комбинации с коэнзимом Q10. Высококачественные чистые плазмалогены из Тамоцу на 100% усваиваются человеческим организмом, так как добываются из японского глубоководного морского гребешка. Это современный препарат предназначен для защиты, комплексной терапии и профилактики заболеваний энергозатратных органов, а также возраст-ассоциированных и сердечно-сосудистых заболеваний, улучшает работу мозга.
                             </p>
@@ -134,16 +134,16 @@ const popularArticles = [
                         </div>
                     </div>
                 </div>
-                <div class="w-full md:w-2/6 ms-auto flex flex-col gap-4">
-                    <img
-                        src="https://nuxt.daigo.ru/images/principes/kapsuly-plasmalogenov-tamotsu-coenzyme-q10.jpg"
+                <div class="w-2/6 ms-auto flex flex-col gap-4">
+                    <nuxt-img
+                        src="http://localhost:3000/images/principes/kapsuly-plasmalogenov-tamotsu-coenzyme-q10.jpg"
                         alt="Капсула Tamotsu"
                         format="webp"
                         quality="80"
                         loading="lazy"
                         width="300"
                         height="300"
-                        class="rounded-xl sm:rounded-2xl object-contain w-full "
+                        class="rounded-2xl object-contain w-full "
                     />
                     <p class="text-base">
                         Коэнзим-Q10 это природный антиоксидант, принимающий участие в процессах клеточного дыхания. Поступление коэнзима Q10 с организм обеспечивает замедление процессов преждевременного старения, способствует улучшению работы сердечно-сосудистой системы 
@@ -155,24 +155,24 @@ const popularArticles = [
 
         <section class="flex flex-col lg:flex-row gap-6 items-start py-5">
             <div class="w-full lg:w-1/2">
-            <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-primenenie-upakovka-v-ruke.jpg"
+            <nuxt-img
+                src="http://localhost:3000/images/principes/tamotsu-primenenie-upakovka-v-ruke.jpg"
                 alt="Tamotsu в руке"
                 format="webp"
                 quality="80"
                 loading="lazy"
-                class="rounded-xl sm:rounded-2xl object-cover w-full"
+                class="rounded-2xl object-cover w-full"
             />
             </div>
             <div class="w-full lg:w-1/2 flex flex-col gap-4">
-            <h2 class="text-2xl sm:text-[46px] font-medium">Применение</h2>
-            <p class="text-sm sm:text-lg font-normal">
+            <h2 class="text-[46px] font-medium">Применение</h2>
+            <p class="text-lg font-normal">
                 Взрослым по 1 капсуле 2 раза в день во время приёма пищи. Продолжительность курса — 1 месяц / 1 коробка.
                 При необходимости курс можно продлить для достижения наилучших результатов.
             </p>
             <div class="">
                 <h3 class="text-xl font-medium my-4">Показания к применению:</h3>
-                <ul class="list-disc list-inside text-sm sm:text-lg font-normal space-y-3">
+                <ul class="list-disc list-inside text-lg font-normal space-y-3">
                 <li>Когнитивная усталость</li>
                 <li>Нарушения обмена веществ</li>
                 <li>Сосудистые заболевания</li>
@@ -186,71 +186,71 @@ const popularArticles = [
 
         <section class="flex flex-col lg:flex-row gap-6 items-start py-5">
             <div class="w-full lg:w-1/2 flex flex-col gap-4">
-            <h2 class="text-2xl sm:text-[46px] font-medium leading-tight">
+            <h2 class="text-[46px] font-medium leading-tight">
                 Какие компоненты Tamotsu<br />
                 могут поддержать работу мозга?
             </h2>
-            <p class="text-sm sm:text-lg font-normal">
+            <p class="text-lg font-normal">
                 Главный компонент состава Тамоцу — это высококачественные чистые плазмалогены, добытые из японского глубоководного морского гребешка, которые на 100% усваиваются человеческим организмом. Плазмалогены умеют встраиваться в мембраны повреждённых клеток энергозатратных органов, в том числе головного мозга, восстанавливая их работу. Также в состав Тамоцу входит коэнзим Q10, который омолаживает клетки и является антиоксидантом. Плазмалогены в комбинации с коэнзимом Q10 позитивно влияют на работу мозга.
             </p>
             </div>
             <div class="w-full lg:w-1/2">
-            <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-neskolko-upakovok.jpg"
+            <nuxt-img
+                src="http://localhost:3000/images/principes/tamotsu-neskolko-upakovok.jpg"
                 alt="Tamotsu упаковки"
                 format="webp"
                 quality="80"
                 loading="lazy"
-                class="rounded-xl sm:rounded-2xl object-cover w-full"
+                class="rounded-2xl object-cover w-full"
             />
             </div>
         </section>
 
         <section class="flex flex-col lg:flex-row gap-6 items-start">
             <div class="w-full lg:w-4/5 grid grid-cols-2 gap-4">
-            <img
-                src="https://nuxt.daigo.ru/images/principes/yaponiya-grebeshok-more.jpg"
+            <nuxt-img
+                src="http://localhost:3000/images/principes/yaponiya-grebeshok-more.jpg"
                 alt="Японское море – добыча плазмалогенов"
                 format="webp"
                 quality="80"
                 loading="lazy"
-                class="rounded-xl sm:rounded-2xl object-cover w-full"
+                class="rounded-2xl object-cover w-full"
             />
-            <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-korobka-i-blister.jpg"
+            <nuxt-img
+                src="http://localhost:3000/images/principes/tamotsu-korobka-i-blister.jpg"
                 alt="Tamotsu – блистер и упаковка"
                 format="webp"
                 quality="80"
                 loading="lazy"
-                class="rounded-xl sm:rounded-2xl object-cover w-full"
+                class="rounded-2xl object-cover w-full"
             />
             </div>
             <div class="w-full lg:w-1/2 flex flex-col gap-4">
-            <h2 class="text-2xl sm:text-[46px] font-medium">Производство</h2>
-            <p class="text-sm sm:text-lg font-normal">
+            <h2 class="text-[46px] font-medium">Производство</h2>
+            <p class="text-lg font-normal">
                 Тамоцу производится в Японии. Производство соответствует международному стандарту GMP. 
             </p>
-            <p class="text-sm sm:text-lg font-normal">
+            <p class="text-lg font-normal">
                 Страной производства биодоступного коэнзима Q10 и экстракта морского гребешка приморского, так же является Япония (Хоккайдо).
             </p>
             </div>
         </section>
 
         <section class="relative w-full overflow-hidden py-5">
-            <h2 class="text-2xl sm:text-[46px] leading-tight font-medium mb-8">
+            <h2 class="text-[46px] leading-tight font-medium mb-8">
                 В чем разница между БАД Тамоцу и другими похожими продуктами?
             </h2>
-            <img
-                src="https://nuxt.daigo.ru/images/principes/defferent.jpg"
+            <nuxt-img
+                src="http://localhost:3000/images/principes/defferent.jpg"
                 alt="Tamotsu упаковка"
                 format="webp"
                 quality="80"
                 loading="lazy"
                 width="1232"
                 height="192"
-                class="rounded-xl sm:rounded-2xl w-full object-cover"
+                class="rounded-2xl w-full object-cover"
             />
-            <p class="text-sm sm:text-lg font-normal mt-6">
+            <p class="text-lg font-normal mt-6">
                 Основная разница в качестве.<br>
                 Тамоцу — это единственный зарегистрированный в России источник плазмалогенов в комбинации с коэнзимом Q10. Уникальность обусловлена его составом: в составе Тамоцу уникальные высококачественные чистые плазмалогены, добытые по сложной инновационной технологии из японского глубоководного морского гребешка.<br><br>
 
@@ -263,17 +263,17 @@ const popularArticles = [
         </section>
 
         <section class="flex flex-col gap-6">
-            <h2 class="text-2xl sm:text-[46px] font-medium">Часто задаваемые вопросы</h2>
-            <div class="flex flex-col md:flex-row gap-6 items-start">
-            <img
-                src="https://nuxt.daigo.ru/images/principes/faq.jpg"
+            <h2 class="text-[46px] font-medium">Часто задаваемые вопросы</h2>
+            <div class="flex flex-row gap-6 items-start">
+            <nuxt-img
+                src="http://localhost:3000/images/principes/faq.jpg"
                 alt="Tamotsu на тарелке"
                 format="webp"
                 quality="80"
                 loading="lazy"
-                class="rounded-xl sm:rounded-2xl object-cover w-full md:w-2/6"
+                class="rounded-2xl object-cover w-2/6"
             />
-            <div class="w-full md:w-4/6 flex flex-col">
+            <div class="w-4/6 flex flex-col">
                 <AccordionItem title="Что такое коэнзим Q10?">
                     Это антиоксидант, участвующий в выработке энергии в клетках. Поддерживает сердечно-сосудистую систему.
                 </AccordionItem>

@@ -121,7 +121,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
     :type="selectedReview.type"
     :src="selectedReview.file_url || selectedReview.photo_urls?.[0] || ''"
     :onClose="() => {
-      isMediaModalOpen = false
+      isMediaModalOpen.value = false
       selectedReview.value = null
     }"
   />
