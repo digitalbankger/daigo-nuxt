@@ -28,7 +28,7 @@ const fullImage = computed(() => {
 </script>
 
 <template>
-  <div class="flex gap-4 md:gap-8 border-b pb-4 w-full lg:w-4/5">
+  <div class="flex gap-4 md:gap-8 border-b pb-4 w-full md:w-4/5">
     <!-- используем вычисленное свойство fullImage -->
     <img
       :src="fullImage"
@@ -36,7 +36,7 @@ const fullImage = computed(() => {
       class="w-4/12 md:w-[304px] h-[125px] md:h-[217px] object-contain bg-hoverbtn rounded-lg md:rounded-2xl"
     />
     <div class="flex-1 h-[120px] md:h-[210px] flex flex-col justify-between">
-      <h3 class="text-sm md:text-2xl leading-tight">{{ props.item.title }}</h3>
+      <h3 class="text-sm md:text-2xl">{{ props.item.title }}</h3>
       <div class="flex flex-col gap-4 mt-auto">
         <p class="mt-4 flex items-center gap-2">
           <span

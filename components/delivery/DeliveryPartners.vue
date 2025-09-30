@@ -9,12 +9,12 @@ const partners = [
 </script>
 
 <template>
-  <section class="w-full py-3 lg:py-8">
-    <p class="text-lg sm:text-2xl lg:text-3xl font-medium mb-6 text-left">
+  <section class="w-full py-8">
+    <p class="text-3xl font-medium mb-6 text-left">
       Вы можете выбрать несколько вариантов доставки
     </p>
     
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 justify-start items-center gap-4 md:gap-8">
+    <div class="flex flex-wrap justify-start items-center gap-6 md:gap-8">
       <div 
         v-for="partner in partners" 
         :key="partner.name"
@@ -23,7 +23,7 @@ const partners = [
         <img 
           :src="partner.logo" 
           :alt="partner.name"
-          class="w-auto object-contain"
+          class="w-auto max-w-[190px] object-contain"
           loading="lazy"
         />
       </div>

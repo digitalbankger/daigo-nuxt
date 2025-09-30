@@ -12,7 +12,7 @@
         class="overflow-hidden transition-all duration-500"
         :class="expanded ? 'max-h-[1000px]' : 'max-h-[100px]'"
       >
-        <img
+        <NuxtImg
           src="http://localhost:3000/images/partners/partners-all.webp"
           alt="Наши партнёры"
           format="webp"

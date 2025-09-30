@@ -88,33 +88,11 @@
           {{ card.title }}
         </h3>
         <ul v-if="card.list?.length" class="mt-2 space-y-4">
-          <li
-            v-for="(it, i) in card.list"
-            :key="i"
-            class="flex items-center md:items-start gap-1 md:gap-3"
-          >
-            <img
-              :src="it.icon || '/icons/checkbox-blue.svg'"
-              alt=""
-              class="w-5 h-5 mt-0 md:mt-0.5"
-            />
-
-            <!-- если есть ссылка -->
-            <template v-if="it.link">
-              <NuxtLink
-                :to="it.link"
-                class="text-sm md:text-2xl leading-snug"
-              >
-                {{ it.text }}
-              </NuxtLink>
-            </template>
-            <!-- если ссылки нет -->
-            <template v-else>
-              <span class="text-sm md:text-2xl leading-snug">{{ it.text }}</span>
-            </template>
+          <li v-for="(it, i) in card.list" :key="i" class="flex items-center md:items-start gap-1 md:gap-3">
+            <img :src="it.icon || '/icons/checkbox-blue.svg'" alt="" class="w-5 h-5 mt-0 md:mt-0.5" />
+            <span class="text-sm md:text-2xl leading-snug">{{ it.text }}</span>
           </li>
         </ul>
-
         <p v-if="card.subtitle" :class="card.styles?.subtitle">
           {{ card.subtitle }}
         </p>
@@ -174,7 +152,7 @@ defineProps<{
     showArrow?: boolean
     arrowSrc?: string
     tags?: { label: string; color: string }[]
-    list?: { text: string; icon?: string; link?: string }[]
+    list?: { text: string; icon?: string }[]
     styles?: {
       card?: string
       tags?: string

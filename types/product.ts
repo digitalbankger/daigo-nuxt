@@ -9,8 +9,6 @@ export interface ProductCard {
   price: number
   originalPrice?: number
   discount?: number
-  sort: number
-  sortOrder: number
   properties: Record<string, string>
 }
 
@@ -21,7 +19,6 @@ export interface ProductMini {
   price: number
   url: string
   badge?: string
-  sort?: number
 }
 
 export interface FaqItem { q: string; a: string }
@@ -43,14 +40,12 @@ export interface ProductActionPrinciple {
   title: string
   image: string
   text: string
-  imagePosition?: 'left' | 'right'
 }
 
 export interface ProductEffect {
   title: string
   image: string
   content: string
-  imagePosition?: 'left' | 'right'
 }
 
 export interface ProductComposition {
@@ -60,22 +55,12 @@ export interface ProductComposition {
 }
 
 export interface ProductUsageInstruction {
-  text?: string
-  comboTitle?: string
-  comboTitle2?: string                
+  text?: string                
   groups?: UsageGroup[]
-  groups2?: UsageGroup[]
-  combos?: UsageCombo[]
   image?: string 
   videoUrl?: string 
   videoPoster?: string
   footnote?: string
-}
-
-export interface UsageCombo {
-  title: string
-  text: string
-  image: string
 }
 
 export interface UsageGroup {
@@ -91,7 +76,6 @@ export interface UsageStep {
 export interface ProductDescriptionCard {
   title: string
   text: string
-  note?: string
   image?: string
 }
 
@@ -119,7 +103,6 @@ export interface ProductProductionSection {
 }
 
 export interface Product {
-  sort: number
   product_id: number
   slug: string
   title: string
@@ -132,29 +115,11 @@ export interface Product {
   actionMechanism?: string
   productionDetails?: string
   composition?: ProductComposition[]
-  compositionCombo?: ProductComposition[]
   videoUrl?: string
   videoPoster?: string
   isActive: boolean
-  nabor?: {
-    title: string
-    image: string
-    text: string
-  }
-  naborCombo?: {
-    title: string
-    image: string
-    text: string
-  }
-  combo?: {
-    title: string
-    image: string
-    text: string
-  }
-  usage?: ProductUsage
   actionPrinciple?: ProductActionPrinciple
   effect?: ProductEffect
-  effectCombo?: ProductEffect
   usageInstructions?: ProductUsageInstruction
   productionSection?: ProductProductionSection
   images?: ProductImage[]

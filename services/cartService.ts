@@ -5,153 +5,134 @@ import { useRuntimeConfig } from '#imports'
  * (uuid, сохраняется в localStorage), для авторизованного пользователя – daigo_id.
  */
 export const cartService = {
-  // --- helpers ---
-  _base(): string {
-    const { daigoApiBase } = useRuntimeConfig().public as any
-    return String(daigoApiBase || 'https://api.daigo.ru').replace(/\/+$/, '')
-  },
-
-  // ====== NEW 2+1 ======
-  /** Применить 2+1 для гостя: POST /v1/shop/guest-cart/{sessionId}/apply-2plus1  { product_id } */
-  apply2Plus1Guest(sessionId: string, body: { product_id: string }) {
-    return $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/apply-2plus1`, {
-      method: 'POST',
-      body,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  },
-
-  /** Применить 2+1 для пользователя: POST /v1/shop/cart/{daigoID}/apply-2plus1  { product_id } */
-  apply2Plus1User(userId: string | number, body: { product_id: string }) {
-    return $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/apply-2plus1`, {
-      method: 'POST',
-      body,
-      headers: { 'Content-Type': 'application/json' },
-    })
-  },
-
   /** Получить корзину пользователя */
   async getUserCart(userId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}`)
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}`)
   },
 
   /** Получить корзину гостя */
   async getGuestCart(sessionId: string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}`)
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}`)
   },
 
   /** Добавить товар в корзину пользователя */
   async addUserItem(userId: number | string, productId: number | string, quantity: number) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}`, {
       method: 'POST',
-      body: { product_id: String(productId), quantity },
-      headers: { 'Content-Type': 'application/json' },
+      body: { product_id: String(productId), quantity }
     })
   },
 
   /** Добавить товар в гостевую корзину */
   async addGuestItem(sessionId: string, productId: number | string, quantity: number) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}`, {
       method: 'POST',
-      body: { product_id: String(productId), quantity },
-      headers: { 'Content-Type': 'application/json' },
+      body: { product_id: String(productId), quantity }
     })
   },
 
   /** Изменить количество товара пользователя */
   async updateUserItem(userId: number | string, productId: number | string, quantity: number) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(productId))}`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/${productId}`, {
       method: 'PUT',
-      body: { quantity },
-      headers: { 'Content-Type': 'application/json' },
+      body: { quantity }
     })
   },
 
   /** Изменить количество товара гостя */
   async updateGuestItem(sessionId: string, productId: number | string, quantity: number) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/${encodeURIComponent(String(productId))}`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/${productId}`, {
       method: 'PUT',
-      body: { quantity },
-      headers: { 'Content-Type': 'application/json' },
+      body: { quantity }
     })
   },
 
   /** Удалить товар пользователя */
   async removeUserItem(userId: number | string, productId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(productId))}`, {
-      method: 'DELETE'
-    })
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/${productId}`, { method: 'DELETE' })
   },
 
   /** Удалить товар гостя */
   async removeGuestItem(sessionId: string, productId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/${encodeURIComponent(String(productId))}`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/${productId}`, {
       method: 'DELETE'
     })
   },
 
   /** Очистить корзину пользователя */
   async clearUserCart(userId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}`, { method: 'DELETE' })
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}`, { method: 'DELETE' })
   },
 
   /** Очистить корзину гостя */
   async clearGuestCart(sessionId: string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}`, { method: 'DELETE' })
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}`, { method: 'DELETE' })
   },
 
   /** Применить купон авторизованного пользователя */
   async applyUserCoupon(userId: number | string, code: string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/coupon/apply`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/coupon/apply`, {
       method: 'POST',
-      body: { coupon_code: code },
-      headers: { 'Content-Type': 'application/json' },
+      body: { coupon_code: code }
     })
   },
 
   /** Применить купон гостя */
   async applyGuestCoupon(sessionId: string, code: string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/coupon/apply`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/coupon/apply`, {
       method: 'POST',
-      body: { coupon_code: code },
-      headers: { 'Content-Type': 'application/json' },
+      body: { coupon_code: code }
     })
   },
 
   /** Отменить купон пользователя */
   async removeUserCoupon(userId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/coupon`, { method: 'DELETE' })
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/coupon`, { method: 'DELETE' })
   },
 
   /** Отменить купон гостя */
   async removeGuestCoupon(sessionId: string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/coupon`, { method: 'DELETE' })
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/coupon`, { method: 'DELETE' })
   },
 
   /** Предварительное оформление заказа для авторизованного */
   async preOrderUser(userId: number | string, fio: string, phone: string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/pre-order`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/cart/${userId}/pre-order`, {
       method: 'POST',
-      body: { fio, phone_number: phone },
-      headers: { 'Content-Type': 'application/json' },
+      body: { fio, phone_number: phone }
     })
   },
 
   /** Предварительное оформление заказа для гостя */
   async preOrderGuest(sessionId: string, fio: string, phone: string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    return await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/pre-order`, {
       method: 'POST',
-      body: { fio, phone_number: phone },
-      headers: { 'Content-Type': 'application/json' },
+      body: { fio, phone_number: phone }
     })
   },
 
-  /** Миграция гостевой корзины в пользовательскую */
   async migrateGuestToUser(sessionId: string, userId: number | string) {
-    await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/migrate`, {
+    const { daigoApiBase } = useRuntimeConfig().public
+    await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${sessionId}/migrate`, {
       method: 'POST',
-      body: { daigo_id: userId },
-      headers: { 'Content-Type': 'application/json' },
+      body: { user_id: userId }
     })
-  },
+  }
+
 }

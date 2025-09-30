@@ -37,7 +37,7 @@
         v-if="review.photo_urls[0]"
         :src="review.photo_urls[0]"
         alt="Фото автора"
-        class="md:w-auto h-[296px] md:h-auto lg:h-full mx-auto object-cover rounded-2xl md:rounded-3xl cursor-pointer"
+        class="md:w-auto h-[296px] md:h-auto lg:h-full mx-auto object-cover"
         format="webp"
         sizes="(max-width: 390px)"
         loading="lazy"

@@ -28,12 +28,11 @@ const fullName = computed(() =>
   profile.value ? `${profile.value.first_name} ${profile.value.last_name}` : ''
 )
 
-const cardImage = computed(() => {
-  if (!profile.value?.loyalty_status || profile.value.loyalty_status === 'none') {
-    return null
-  }
-  return `/images/profile/${profile.value.loyalty_status}.webp`
-})
+const cardImage = computed(() =>
+  profile.value?.loyalty_status
+    ? `/images/profile/${profile.value.loyalty_status}.webp`
+    : ''
+)
 
 function logout() {
   authStore.logout()
@@ -82,10 +81,7 @@ function deleteAddress(index: number) {
       </div>
 
       <!-- Loyalty Card -->
-      <div 
-        v-if="cardImage" 
-        class="w-full max-w-full md:max-w-[48%] rounded-xl overflow-hidden mb-4 md:mb-8"
-      >
+      <div class="w-full max-w-full md:max-w-[48%] rounded-xl overflow-hidden mb-4 md:mb-8">
         <img :src="cardImage" alt="Карта лояльности" class="w-full h-auto" />
       </div>
 

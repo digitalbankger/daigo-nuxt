@@ -11,15 +11,14 @@
     >
       <!-- изображение -->
       <div
-        class="w-full h-[130px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
+        class="w-full h-[130px] md:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
         :class="{ 'h-[462px]': globalIndex === 0 || isLast }"
       >
-        <img
+        <NuxtImg
           :src="product.image"
           :alt="product.name"
-          :size="500"
-          :width="500"
-          :height="500"
+          width="500"
+          height="500"
           class="object-contain"
           loading="lazy"
           decoding="async"
@@ -27,12 +26,12 @@
       </div>
 
       <!-- контент -->
-      <div class="p-2 md:p-4 flex flex-col flex-1"> 
-      
+      <div class="p-2 md:p-4 flex flex-col flex-1"> <!-- ВАЖНО -->
+        <!-- Заголовок: фиксируем высоту под 2 строки -->
         <h3
-          class="font-normal md:font-medium leading-tight mb-2 text-sm sm:text-base
-                 md:text-[1.4rem]
-                 line-clamp-3 sm:line-clamp-2 xs-max:min-h-[3.2rem] min-h-[3rem] md:min-h-[3.2rem]"
+          class="font-normal md:font-medium leading-tight mb-2
+                 text-[clamp(0.875rem,5vw,1.4rem)]
+                 line-clamp-2 min-h-[3.5rem] md:min-h-[3.2rem]"
           :class="{ 'text-[clamp(2rem,6vw,2.8rem)] min-h-0 line-clamp-none': globalIndex === 0 || isLast }"
         >
           {{ product.name }}
@@ -54,16 +53,15 @@
           </p>
 
           <!-- если товара нет в корзине – обычная кнопка -->
-<button
-  v-if="quantityInCart === 0"
-  type="button"
-  @click.stop="addToCartHandler"
-  class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
->
-  <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />
-  <span class="whitespace-nowrap">В корзину</span>
-</button>
-
+          <button
+            v-if="quantityInCart === 0"
+            type="button"
+            @click.stop="addToCartHandler"
+            class="w-full h-11 md:h-12 flex items-center justify-center bg-primary text-base text-white px-2 md:px-4 rounded-lg"
+          >
+            <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2" />
+            В корзину
+          </button>
 
           <!-- если товар уже есть – блок с плюс/минус (фиксируем высоту) -->
           <div
@@ -79,7 +77,7 @@
               <img src="/icons/decrement.svg" alt="Уменьшить количество" class="w-5 h-5" />
             </button>
             <span class="min-w-[2rem] text-center text-white">
-              {{ quantityInCart }} шт
+              {{ quantityInCart }}
             </span>
             <button
               type="button"
@@ -113,14 +111,14 @@ const cartStore = useCartStore()
 
 // вычисляем, сколько этого товара уже в корзине
 const quantityInCart = computed(() => {
-  const item = cartStore.items.find(i => i.id === product.product_id)
+  const item = cartStore.items.find(i => i.id === product.id)
   return item?.quantity ?? 0
 })
 
 // добавить товар (первое нажатие)
 function addToCartHandler() {
   cartStore.addToCart({
-    id: product.product_id,
+    id: product.id,
     title: product.name,
     subtitle: product.subtitle,
     price: product.price,
@@ -133,11 +131,11 @@ function addToCartHandler() {
 
 // увеличить количество
 function incrementHandler() {
-  cartStore.updateItem(product.product_id, quantityInCart.value + 1)
+  cartStore.updateItem(product.id, quantityInCart.value + 1)
 }
 
 // уменьшить количество (если станет 0 – товар будет удалён)
 function decrementHandler() {
-  cartStore.updateItem(product.product_id, quantityInCart.value - 1)
+  cartStore.updateItem(product.id, quantityInCart.value - 1)
 }
 </script>

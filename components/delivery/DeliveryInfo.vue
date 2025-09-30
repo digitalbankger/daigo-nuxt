@@ -4,7 +4,7 @@
 <template>
   <section class="w-full">
     <div class="flex flex-col gap-6">
-      <h3 class="text-2xl lg:text-3xl font-medium">Информация о доставке</h3>
+      <h3 class="text-3xl font-medium">Информация о доставке</h3>
       <div class="space-y-4">
         <p>
           <span class="font-medium">Курьерские службы по России и СНГ</span><br />

@@ -41,7 +41,7 @@ const bottomCard = {
   styles: {
     card: 'bg-hoverbtn rounded-xl h-[207px] sm:h-[294px] !p-4 sm:!p-6',
     title: 'text-base sm:text-2xl w-[80%] sm:w-[60%] lg:w-[70%] leading-tight',
-    image: 'w-auto xs-max:h-[80%] h-full object-cover absolute bottom-0 right-0',
+    image: 'w-auto h-full object-cover absolute bottom-0 right-0',
   },
 }
 </script>

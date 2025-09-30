@@ -2,32 +2,23 @@
   <nav class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 z-50">
     <ul class="flex justify-around py-3">
       <li v-for="item in normalizedMenu" :key="item.name">
-        <!-- Вариант с кнопкой (requiresAuth) -->
         <button
           v-if="item.requiresAuth"
           @click="handleClick(item)"
           class="flex flex-col items-center text-sm gap-2"
           :class="isActive(item.to) ? 'text-primary' : 'text-black'"
         >
-          <span class="relative inline-flex items-center justify-center">
-            <span v-html="item.icon" aria-hidden="true"></span>
-            <CartBadge v-if="item.isCart" class="absolute -top-1.5 -right-1.5" />
-          </span>
+          <span v-html="item.icon"></span>
           <span>{{ item.name }}</span>
         </button>
 
-        <!-- Обычный NuxtLink -->
         <NuxtLink
           v-else
           :to="item.to"
           class="flex flex-col items-center text-sm gap-2"
           :class="isActive(item.to) ? 'text-primary' : 'text-black'"
-          aria-label="Навигация"
         >
-          <span class="relative inline-flex items-center justify-center">
-            <span v-html="item.icon" aria-hidden="true"></span>
-            <CartBadge v-if="item.isCart" class="absolute -top-1.5 -right-1.5" />
-          </span>
+          <span v-html="item.icon"></span>
           <span>{{ item.name }}</span>
         </NuxtLink>
       </li>
@@ -38,7 +29,6 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
-import CartBadge from '@/components/ui/CartBadge.vue'
 
 const auth = useAuthStore()
 const { isAuthenticated } = storeToRefs(auth)
@@ -87,11 +77,7 @@ const menu = [
 const normalizeSvg = (svg: string) =>
   svg.replace(/fill="#303030"/g, 'fill="currentColor"')
 
-const normalizedMenu = menu.map(i => ({
-  ...i,
-  icon: normalizeSvg(i.icon),
-  isCart: i.to === '/cart' || i.name.toLowerCase().includes('корзин')
-}))
+const normalizedMenu = menu.map(i => ({ ...i, icon: normalizeSvg(i.icon) }))
 
 const isActive = (path: string) =>
   route.path === path || route.path.startsWith(path + '/')

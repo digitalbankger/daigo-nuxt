@@ -39,7 +39,7 @@ const paymentMethods = [
       Способы оплаты
     </h2>
     
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-6 lg:grid-cols-6 gap-6">
       <div 
         v-for="method in paymentMethods" 
         :key="method.name"

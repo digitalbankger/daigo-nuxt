@@ -2,22 +2,30 @@
 import type { Review } from '~/types/content'
 import type { Product } from '~/types/product'
 import ReviewStorySlide from './ReviewStorySlide.vue'
-import SmartImg from '../SmartImg.vue';
 
-// (опционально) мой лёгкий компонент карусели
-// import ProductCarousel from '~/components/ui/ProductCarousel.vue'
-const props = defineProps<{ isOpen: boolean; reviews: Review[] }>()
+const props = defineProps<{
+  isOpen: boolean
+  reviews: Review[]
+}>()
+
 const emit = defineEmits<{ (e: 'close'): void }>()
 
 const currentIndex = ref(0)
+const currentReview = computed(() => props.reviews[currentIndex.value])
 
 const showProducts = ref(false)
+const relatedProducts = ref<Product[]>([])
 
-/** ТОЛЬКО товары из объекта отзыва */
-const currentReview = computed(() => props.reviews[currentIndex.value])
-const { items: relatedProducts, loading: productsLoading, error: productsError } =
-  useProductsByIds(computed(() => currentReview.value?.productIds))
-
+watch(currentReview, async (review) => {
+  showProducts.value = false
+  relatedProducts.value = []
+  if (review?.productIds?.length) {
+    const { data } = await useFetch<{ items: Product[] }>('/api/shop/products', {
+      query: { ids: review.productIds.join(',') }
+    })
+    relatedProducts.value = data.value?.items || []
+  }
+})
 
 function close() {
   emit('close')
@@ -26,31 +34,33 @@ function close() {
 }
 
 function next() {
-  if (currentIndex.value < props.reviews.length - 1) currentIndex.value++
-  else close()
+  if (currentIndex.value < props.reviews.length - 1) {
+    currentIndex.value++
+  } else {
+    close()
+  }
 }
 </script>
 
 <template>
-  <div v-if="isOpen" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+  <div v-if="isOpen" class="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center">
     <button class="absolute top-4 right-4 text-white z-50" @click="close">✕</button>
-
     <div class="relative flex h-[90vh] w-full max-w-5xl overflow-visible">
+
       <!-- Кнопка показать товары -->
       <button
-        v-if="productsLoading || relatedProducts.length"
+        v-if="relatedProducts.length"
         @click="showProducts = !showProducts"
         class="absolute top-4 left-4 z-50 text-white bg-black/40 px-3 py-1 rounded text-xs"
       >
-        <span v-if="productsLoading">Загружаем…</span>
-        <span v-else>{{ showProducts ? 'Скрыть товары' : 'Показать товары' }}</span>
+        {{ showProducts ? 'Скрыть товары' : 'Показать товары' }}
       </button>
 
-      <!-- Слайдер сторис -->
+      <!-- Основной слайдер -->
       <div class="relative w-full flex items-center justify-center">
         <div
           v-for="(review, i) in props.reviews.slice(currentIndex, currentIndex + 3)"
-          :key="review.id + '-' + (i === 0 ? 'active' : i)"
+          :key="review.id"
           class="w-full sm:w-[30vw] absolute transition-all duration-500 ease-in-out"
           :class="[
             i === 0 ? 'z-30 scale-100 opacity-100' : '',
@@ -62,34 +72,28 @@ function next() {
         </div>
       </div>
 
-      <!-- Товары: КАРУСЕЛЬ В РЯД -->
+      <!-- Блок товаров -->
       <transition name="fade">
         <div
-          v-if="showProducts"
-          class="w-full absolute bottom-0 left-0 right-0 bg-white p-4 z-40 max-h-[40vh] rounded-t-lg shadow-xl"
+          v-if="showProducts && relatedProducts.length"
+          class="w-full absolute bottom-0 left-0 right-0 bg-white p-4 z-40 max-h-[36vh] rounded-t-lg shadow-xl"
         >
-          <div v-if="productsLoading" class="text-sm text-gray-500 px-1 py-2">Загружаем товары…</div>
-          <div v-else-if="productsError" class="text-sm text-red-600 px-1 py-2">Не удалось загрузить товары</div>
-
-          <div v-else class="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hidden">
+          <div class="flex flex-row flex-wrap gap-4 justify-start mx-auto">
             <div
-              v-for="p in relatedProducts"
-              :key="p.id"
-              class="snap-start flex-shrink-0 w-[min(70vw,240px)] bg-white rounded-xl p-3 shadow"
+              v-for="product in relatedProducts"
+              :key="product.id"
+              class="w-1/4 min-w-[200px] flex-shrink-0"
             >
-              <NuxtLink :to="p.slug ? `/catalog/${p.slug}` : `/product/${p.id}`">
-                <SmartImg
-                  :src="p.image"
-                  :alt="p.name"
-                  width="500"
-                  height="500"
-                  class="w-full h-36 object-contain mb-3 bg-hoverbtn rounded-lg"
-                  loading="lazy"
-                />
-                <div class="text-base font-medium line-clamp-2 mb-1">{{ p.name }}</div>
-                <div class="text-xs text-gray-600 mb-1 line-clamp-1">{{ p.subtitle }}</div>
-                <div class="text-sm font-semibold">{{ p.price }} ₽</div>
-              </NuxtLink>
+              <NuxtImg
+                :src="product.image"
+                :alt="product.name"
+                width="500"
+                height="500"
+                class="w-full h-36 object-contain mb-3 bg-hoverbtn rounded-lg"
+              />
+              <div class="text-lg font-medium mb-2">{{ product.name }}</div>
+              <div class="text-xs text-gray-600 mb-2">{{ product.subtitle }}</div>
+              <div class="text-sm font-medium text-black">{{ product.price }} ₽</div>
             </div>
           </div>
         </div>
@@ -97,8 +101,3 @@ function next() {
     </div>
   </div>
 </template>
-
-<style scoped>
-.scrollbar-hidden::-webkit-scrollbar { display: none; }
-.scrollbar-hidden { -ms-overflow-style: none; scrollbar-width: none; }
-</style>
