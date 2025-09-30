@@ -253,8 +253,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -572,8 +572,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -587,7 +587,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
-  // Example
+  // Объект исходник
   'na-chto-vliyaet-mikroflora-kishechnika': {
     id: 3,
     slug: 'na-chto-vliyaet-mikroflora-kishechnika',
@@ -731,8 +731,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -869,8 +869,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1170,8 +1170,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1349,8 +1349,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1526,8 +1526,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1687,8 +1687,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1909,8 +1909,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -1924,27 +1924,34 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
-  'na-chto-vliyaet-mikroflora-kishechnika': {
-    id: 3,
-    slug: 'na-chto-vliyaet-mikroflora-kishechnika',
-    title: '2. На что влияет микрофлора кишечника?',
-    preview: 'Главные функции микрофлоры кишечника',
-    image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
-    date: '2025-06-30',
-    time: 8,
-    views: 200,
-    comments: 10,
-    properties: { napravlennost: 'kishechnik-i-immunitet' },
-    description: 'Главные функции микрофлоры кишечника',
-    cover: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
+  // Закончить
+  'kak-daigo-pomogaet-pri-psoriaze-ot-kishechnika-k-kozhe': {
+    id: 10,
+    slug: 'kak-daigo-pomogaet-pri-psoriaze-ot-kishechnika-k-kozhe',
+    title: 'Как Daigo помогает при псориазе: от кишечника к коже',
+    preview: 'Нарушения в работе иммунной системы...',
+    image: 'https://s3.firstvds.ru/articles/csv9jncyacqbm49flvz0vvd0s7t5v1a4.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: {
+      napravlennost: 'kishechnik-i-immunitet'
+    },
+    description: 'Подробный разбор того, как состояние кишечной микрофлоры влияет на кожу и может быть связано с проявлениями псориаза. Рассматриваются механизмы иммунитета и роль Daigo в поддержке здоровья.',
+    cover: 'https://s3.firstvds.ru/articles/csv9jncyacqbm49flvz0vvd0s7t5v1a4.png',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Статьи', to: '/articles' },
-      { label: '2. На что влияет микрофлора кишечника?', to: '/articles/na-chto-vliyaet-mikroflora-kishechnika' }
+      {
+        label: 'Как Daigo помогает при псориазе: от кишечника к коже',
+        to: '/articles/kak-daigo-pomogaet-pri-psoriaze-ot-kishechnika-k-kozhe'
+      }
     ],
     tags: [
       { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
-      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+      { id: 3, slug: 'psoriaz', label: 'Псориаз' },
+      { id: 4, slug: 'zdorovaya-kozha', label: 'Здоровая кожа' }
     ],
     author: {
       id: 1,
@@ -1958,75 +1965,191 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       ]
     },
     contentTop: `
-      <h2 id="first" class="text-xl md:text-product font-medium mb-4 leading-tight">Главные функции микрофлоры кишечника</h2>
       <div class="wysiwyg js-wysiwyg-container">
-<div class="is-revealed">
- <span >Немногие задумываются о том, что ключевую роль в самочувствии и пищевых привычках играет микрофлора кишечника — триллионы микроорганизмов, обитающих в нашем пищеварительном тракте.&nbsp;<br>
- </span><span >Эти крошечные «жители» выполняют удивительное множество функций:</span>
-</div>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span >Усвоение полезных элементов</span></h3>
-<p class="is-revealed">
- <span >
-	Кишечник играет ключевую роль в усвоении полезных элементов, необходимых для поддержания здоровья и жизнедеятельности организма. Без здоровой микрофлоры процесс усвоения питательных веществ нарушается, что может привести к дефициту важных элементов даже при правильном питании. В процессе пищеварения питательные вещества, такие как белки, жиры, углеводы расщепляются на более простые соединения, которые затем всасываются через стенки кишечника в кровоток.</span>
+            <p style="text-align: center;" class="is-revealed">
+ <span style="color: #00a650;"> </span><span style="font-family: Tahoma, Geneva; font-size: 13pt;"><b><span style="font-size: 24pt; color: #00a650;">Нарушения в работе иммунной системы</span></b></span>
 </p>
 <p class="is-revealed">
- <span >Полезные бактерии помогают переваривать сложные углеводы, например клетчатку, которая служат источником энергии для клеток кишечника и всего организма. Кроме того, микрофлора способствует синтезу и усвоению витаминов группы B, витамина K, а также минералов, таких как кальций, магний и железо.</span>
+ <i><span style="font-family: Tahoma, Geneva; font-size: 13pt;">Всего семь букв, одно слово, и болезнь, которая основательно портит качество жизни человека - псориаз. Несмотря на то, что псориаз известен человечеству уже тысячи лет, он до сих пор остаётся не до конца разгаданной загадкой для науки. Почему иммунная система начинает «атаковать» собственные клетки кожи? Как стресс и окружающая среда влияют на течение болезни? И главное — можно ли найти способ не просто облегчить симптомы, но и победить болезнь? Точно известно, что заболевание имеет мультифакторную природу, включающую генетическую предрасположенность, нарушения иммунной системы и влияние внешних факторов. Однако в последние годы ученые все чаще обращают внимание на связь псориаза с состоянием микробиоты кишечника. В чем она заключается и как метабиотик Daigo может помочь при псориазе, расскажем в статье.</span></i>
 </p>
- <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Иммунная функция</h3>
- <span  class="is-revealed"> </span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
 <p class="is-revealed">
- <span >
-	В нашем кишечнике живет около 70% всех иммунных клеток организма. Этот факт делает его важнейшим элементом иммунной системы. Полезные бактерии микрофлоры кишечника стимулируют выработку антител, укрепляют слизистый барьер и предотвращают проникновение вредных микроорганизмов в кровоток. Кроме того, микрофлора взаимодействует с иммунными клетками, помогая им распознавать и нейтрализовать вирусы, бактерии и токсины. Кишечник также производит иммуноглобулины и другие защитные вещества, которые поддерживают местный и системный иммунитет.</span>
-</p>
- <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Развитие аллергии</h3>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span >
-	Иммунная функция кишечника находит свое логичное продолжение в регуляции процесса развития аллергии. Дело в том, что дисбиоз микрофлоры кишечника может привести к повышенной чувствительности иммунной системы и развитию аллергических реакций. Здоровая микрофлора кишечника помогает поддерживать баланс между иммунным ответом и толерантностью к внешним раздражителям. Полезные бактерии, такие как лакто- и бифидобактерии, способствуют выработке регуляторных Т-клеток, которые подавляют чрезмерную активность иммунной системы и предотвращают развитие аллергических реакций.</span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span><b><span style="font-family: Tahoma, Geneva; font-size: 13pt; color: #00a650;">Псориаз</span></b><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> — это хроническое воспалительное заболевание, при котором иммунная система ошибочно атакует здоровые клетки кожи, вызывая их ускоренное обновление. В норме клетки кожи обновляются за 28–30 дней, но при псориазе этот процесс сокращается до 3–5 дней. В результате на поверхности кожи образуются характерные бляшки, покрытые серебристыми чешуйками. Псориаз — одна из самых загадочных болезней. Единая причина появления пока не выявлена.</span>
 </p>
 <p class="is-revealed">
- <span >Исследования показывают, что у людей с аллергическими заболеваниями, такими как астма, экзема или поллиноз, часто наблюдается снижение разнообразия полезных бактерий в кишечнике. Доказано, что метабиотик Daigo способствует улучшению баланса Т-клеток, что помогает адекватному иммунному ответу на аллергены.</span>
+ <span style="font-family: Tahoma, Geneva;"><b><span style="font-size: 13pt; color: #00a650;">Существующие подтвержденные теории возникновения</span></b></span>
 </p>
- <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Аппетит и выбор продуктов</h3>
- <span  class="is-revealed"> </span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
 <p class="is-revealed">
- <span >
-	Кишечник играет ключевую роль в регуляции аппетита и формировании пищевых привычек, выступая как активный участник системы контроля голода и насыщения. Это происходит благодаря выработке гормонов, таких как грелин (гормон голода) и лептин (гормон насыщения), которые посылают сигналы в мозг, регулируя чувство голода и сытости. Кроме того, именно от состава микрофлоры кишечника зависят все наши нездоровые вкусовые привычки.</span>
 </p>
-<p class="is-revealed">
- <span >Дело в том, что сахар и быстрые углеводы – это главная пища для «плохих» бактерий в кишечнике, на такой пище они размножаются и «просят» ее все больше и больше. Полезные бактерии, наоборот, способствуют выбору более здоровой пищи, поэтому при правильном балансе микробиома преобладающая полезная микрофлора «требует» клетчатку и растительные углеводы, таким образом формируя здоровые вкусовые привычки. Исследования также показывают, что дисбаланс микрофлоры может приводить к нарушению регуляции аппетита, способствуя перееданию или, наоборот, отсутствию чувства голода.</span>
+<ul class="is-revealed">
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Нарушения в работе иммунной системы: организм начинает воспринимать собственную кожу в роли агрессора; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Генетическая мутация; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Проблемы с эндокринной системой; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Сильный стресс или эмоциональное потрясение; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Нарушение обменных процессов в организме.</span>
+	</p>
+ </li>
+</ul>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Псориаз не заразен, но может передаваться по наследству. Если бляшки есть у одного из родителей, то вероятность проявления болезни у ребенка — 20%, если псориаз у обоих родителей — 65%. </span>
 </p>
- <span  class="is-revealed"> </span>
-<h2 class="text-xl md:text-product font-medium mb-4 leading-tight">Неочевидное влияние микрофлоры</h2>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span >
-	На вышеперечисленных функциях роль кишечника организме не заканчивается. Помимо своих известных своих функций, кишечник выполняет множество неочевидных, но не менее важных задач, которые влияют на общее здоровье человека.</span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Болезнь имеет волнообразное течение, с периодами обострений и ремиссий, и её симптомы могут варьироваться в зависимости от формы и тяжести. Чаще всего она ассоциируется с кожными проявлениями, но ее влияние на организм может быть гораздо шире.</span>
 </p>
- <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Кожа и омоложение клеток</h3>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span >
-	Кишечник и кожа тесно связаны, что делает состояние микрофлоры кишечника ключевым фактором для здоровья и молодости кожи. Полезные бактерии кишечника помогают поддерживать баланс в организме, снижая уровень воспаления, которое часто является причиной акне, экземы и других кожных проблем. Они также способствуют выработке короткоцепочечных жирных кислот, которые укрепляют защитный барьер кожи и стимулируют её регенерацию.</span>
+<p style="text-align: center;">
+ <span style="font-family: Tahoma, Geneva; font-size: 24pt;"><b><span style="color: #f7941d;">Наиболее характерные признаки псориаза</span></b></span>
 </p>
-<p class="is-revealed">
- <span >Кроме того, микрофлора кишечника участвует в детоксикации организма, выводя вредные вещества, которые могут негативно влиять на состояние кожи. Здоровый кишечник также поддерживает синтез коллагена и эластина — белков, отвечающих за упругость и молодость кожи.</span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Кожа - главная «мишень» псориаза. Наиболее характерные признаки включают:</span>
 </p>
- <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Волосы и ногти</h3>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span >
-	Именно в кишечнике происходит усвоение питательных веществ, необходимых для роста и крепости волос и ногтей. Полезные бактерии микрофлоры кишечника помогают синтезировать и усваивать витамины группы B, такие как биотин (B7). Биотин способствует укреплению структуры волос, предотвращая их ломкость и выпадение, а также улучшает состояние ногтей, делая их более прочными и менее склонными к расслаиванию.</span>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
 </p>
-<p class="is-revealed">
- <span >Кроме того, микрофлора кишечника участвует в усвоении таких минералов как цинк, железо и селен, которые также необходимы для роста волос и ногтей. Дисбаланс микрофлоры, напротив, может привести к дефициту этих важных элементов, что негативно сказывается на их состоянии.</span>
+<ul>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><b><span style="color: #f7941d;">Бляшки: </span></b>приподнятые участки кожи, покрытые серебристо-белыми чешуйками. Они могут появляться на любых участках тела, но чаще всего локализуются на локтях, коленях, волосистой части головы и пояснице; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Зуд и жжение: </b></span>многие пациенты испытывают дискомфорт, который может быть как лёгким, так и интенсивным; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Сухость и трещины:</b></span> кожа становится сухой, может трескаться и кровоточить, особенно в местах трения; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Изменение цвета кожи:</b></span> после заживления бляшек могут оставаться тёмные или светлые пятна (поствоспалительная гипер- или гипопигментация).</span>
+	</p>
+ </li>
+</ul>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
 </p>
- <span  class="is-revealed"> </span>       </div>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Псориаз может затрагивать ногтевые пластины, вызывая точечные углубления, изменение цвета, утолщение и расслоение.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	У 10–30% пациентов с псориазом развивается псориатический артрит, который поражает суставы и окружающие ткани. Возникают боль, отёк и скованность в суставах, в тяжёлых случаях — деформация суставов и ограничение подвижности.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Существуют также особые формы псориаза:</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+</p>
+<ul>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Каплевидный псориаз: </b></span>мелкие красные пятна, похожие на капли, часто возникают после инфекций; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Пустулёзный псориаз:</b></span> появление гнойничков на коже, может сопровождаться лихорадкой и общим недомоганием; </span>
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #f7941d;"><b>Эритродермический псориаз:</b></span> тяжёлая форма, при которой поражается большая часть кожи, сопровождается покраснением, шелушением и нарушением терморегуляции.</span>
+	</p>
+ </li>
+</ul>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Псориаз — это системное заболевание, которое может влиять на весь организм. У людей часто наблюдаются повышенный риск сердечно-сосудистых заболеваний из-за хронического воспаления, ожирение, диабет, повышенный уровень холестерина, а также психологические проблемы.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h2 style="text-align: center;"><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <b><span style="font-size: 24pt; color: #0072bc;">Связь псориаза с кишечником и микробиотой</span></b></span></h2>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Долгое время псориаз рассматривался исключительно как проблема кожи. Однако современные исследования открывают новые грани этой болезни, указывая на её тесную связь с кишечником и микробиотой — огромным сообществом микроорганизмов, населяющих наш организм. Оказывается, состояние кишечника может играть ключевую роль в развитии и течении псориаза. Учёные всё чаще говорят о так называемой оси «кишечник-кожа», которая объясняет, как нарушения в микробиоме кишечника могут влиять на иммунные процессы и усугублять кожные проявления псориаза. Рассмотрим основные механизмы связи микробиоты и псориаза.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <span style="color: #0054a5;">Иммунная система и воспаление</span> </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Кишечная микробиота активно взаимодействует с иммунной системой через слизистую оболочку кишечника. Дисбиоз может привести к нарушению барьерной функции кишечника, что позволяет бактериальным токсинам и продуктам метаболизма проникать в кровоток. Это вызывает активацию иммунных клеток и выработку провоспалительных цитокинов, которые играют ключевую роль в развитии псориаза.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <span style="color: #0054a5;">Ось «кишечник-кожа»</span> </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Существует двусторонняя связь между кишечником и кожей. Дисбаланс микрофлоры способен провоцировать хроническое воспаление, которое не только нарушает работу кишечника, но и «отражается» на коже.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <span style="color: #0054a5;">Метаболиты микрофлоры</span> </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Микроорганизмы кишечника производят различные метаболиты, такие как короткоцепочечные жирные кислоты, которые обладают противовоспалительными свойствами. Снижение уровня этих кислот при дисбиозе может способствовать усилению воспаления и ухудшению течения псориаза.</span>
+</p>
+<h2><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p align="center" style="text-align: center;">
+ <span style="color: #00a99e;"> </span><span style="font-family: Tahoma, Geneva; font-size: 13pt;"><span style="color: #00a99e;"> </span><span style="font-size: 24pt; color: #00a99e;">Коррекция микробиоты - перспективный подход к лечению псориаза!</span></span>
+</p>
+ </h2>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Коррекция микробиоты кишечника способствует восстановлению баланса между полезными и вредными микроорганизмами, что приводит к снижению системного воспаления и улучшению иммунного ответа. Это, в свою очередь, может уменьшить выраженность кожных проявлений псориаза и улучшить качество жизни пациентов. Кроме того, здоровый кишечник способствует лучшему усвоению питательных веществ, что также важно для общего состояния организма. Сегодня даже применяется экспериментальный метод трансплантации фекальной микробиоты (ТФМ), в ходе которого микробиота здорового донора переносится в кишечник пациента. Хотя исследования в области псориаза еще ограничены, ТФМ показала эффективность при других воспалительных заболеваниях, связанных с дисбиозом. Учитывая эти факторы, коррекция микробиоты является важным элементом комплексного лечения псориаза.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt; color: #00a99e;"><b><span style="color: #00a99e;">Японский органический метабиотик Daigo</span></b></span>
+</p>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Органический метабиотик Daigo уже много лет становится выбором людей с псориазом. В его составе ценные ферменты от 16 видов полезных кишечных бактерий и их клеточный материал. Метабиотик способствует восстановлению баланса кишечной микрофлоры, увеличивая количество полезной флоры и подавляя патогенные микроорганизмы, что важно при псориазе, так как дисбиоз кишечника может усугублять воспалительные процессы и аутоиммунные реакции. Также Daigo помогает укреплению эпителиального барьера кишечника, предотвращая проникновение токсинов и патогенов в кровоток. Это снижает системное воспаление, которое может влиять на кожные проявления псориаза.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Daigo увеличивает количество полезных бактерий, которые влияют на иммунные клетки, такие как T-регуляторные лимфоциты, помогающие контролировать аутоиммунные реакции. Это может снижать гиперактивность иммунной системы, характерную для псориаза. Более того, некоторые метаболиты полезных бактерий обладают антиоксидантными свойствами, что помогает снижать окислительный стресс, который часто наблюдается у пациентов с псориазом.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Прием Daigo внутрь можно сочетать с местным использованием, обрабатывая пораженные участки кожи водным раствором метабиотика Daigo. Улучшения на коже у клиентов отмечаются поразительные: уходит шелушение, зуд, уменьшается пораженная область.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+    </div>
     `,
     materials: {
       title: 'Полезные материалы',
@@ -2051,24 +2174,22 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       downloadAllUrl: '/files/all.zip'
     },
     contentBottom: `
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Умственные способности и настроение</h3>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span >
-	Пожалуй, одна из самых важных функций нашего кишечника заключается в том, что он оказывает значительное влияние на когнитивные способности и настроение.&nbsp; Сложная двусторонняя система связи между кишечником и центральной нервной системой, в ходе которой органы взаимодействуют через нервные пути, гормоны и иммунные сигналы, причем значительную роль в этом процессе играет микрофлора кишечника. Полезные бактерии микрофлоры кишечника производят гормон радости (серотонин) и ГАМК, которые регулируют настроение, снижают тревожность и улучшают эмоциональное состояние.</span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"><b><span style="color: #00a99e;">Сбалансированная диета</span></b></span>
 </p>
-<p class="is-revealed">
- <span >Интересно, что около </span><b><span >90% серотонина </span></b><span >вырабатывается именно в кишечнике! Кроме того, микрофлора участвует в производстве короткоцепочечных жирных кислот, которые поддерживают здоровье нейронов, уменьшают воспаление и улучшают когнитивные функции, такие как память, концентрация и способность к обучению. Дисбаланс микрофлоры напротив может приводить к воспалительным процессам, которые негативно влияют на мозг, вызывая усталость, снижение умственной активности и даже депрессию.</span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">Также при лечении псориаза очень важна сбалансированная диета, богатая клетчаткой, фруктами, овощами и ферментированными продуктами, — это способствует поддержанию здоровой микробиоты. Следует избегать продуктов, которые могут провоцировать воспаление, таких как красное мясо, колбасы, копчености, фастфуд, сладости, белый хлеб и продукты с высоким содержанием сахара. Ограничение потребления алкоголя и кофеина также важно, так как они могут усугублять симптомы псориаза.</span>
 </p>
- <span  class="is-revealed"> </span>
-<p class="is-revealed">
- <span > </span><span >Кишечник и его микрофлора — это ключевые игроки в поддержании здоровья всего организма. Они влияют на иммунитет, кожу, волосы, настроение, умственные способности и даже уровень энергии. Поддержание баланса микрофлоры с помощью правильного питания, здорового образа жизни и метабиотика </span><span >Daigo</span><span > — это важный шаг к улучшению качества жизни и долголетию!</span>
-</p> 
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Псориаз — это сложное заболевание, которое требует комплексного подхода к лечению. Связь между псориазом и микробиотой кишечника открывает новые перспективы для терапии, направленной на восстановление баланса микроорганизмов. Коррекция микробиоты с помощью метабиотика Daigo, диеты и других методов может стать важным инструментом в борьбе с этим заболеванием, улучшая не только состояние кожи, но и общее здоровье пациентов. Вылечить псориаз за один день невозможно, но можно достичь стадии глубокой ремиссии болезни!</span>
+</p>
     `,
     // Топ-5 для SSR тут тоже положим
     recommended: [
-      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
-      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
     ],
     popular: [
       { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
@@ -2082,8 +2203,1598 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
+  'pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove': {
+    id: 11,
+    slug: 'pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove',
+    title: 'Почему важен длительный прием Daigo: рассказываем поэтапно, как улучшается здоровье.',
+    preview: 'В современном мире, где фармацевтические препараты часто предлагают быстрое, но кратковременное решение проблем со здоровьем, все больше людей обращают внимание на натуральные добавки, которые работают на клеточном уровне...',
+    image: 'https://s3.firstvds.ru/articles/gi781102k9961wkctzpjsxkhk94atoa6.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Почему длительный курс Daigo важен для устойчивого эффекта: как поэтапно улучшаются пищеварение, иммунитет и общее самочувствие за счёт метабиотического действия.',
+    cover: 'https://s3.firstvds.ru/articles/gi781102k9961wkctzpjsxkhk94atoa6.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'Почему важен длительный прием Daigo: рассказываем поэтапно, как улучшается здоровье.',
+        to: '/articles/pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+	 В современном мире, где фармацевтические препараты часто предлагают быстрое, но кратковременное решение проблем со здоровьем, все больше людей обращают внимание на натуральные добавки, которые работают на клеточном уровне. Одной из таких добавок является метабиотик Daigo, который зарекомендовал себя как эффективное средство для восстановления микрофлоры кишечника и улучшения общего состояния организма. Однако, в отличие от синтетических препаратов, Дайго требует курсового приема для достижения максимального эффекта. В этой статье мы расскажем, какие изменения происходят в организме на каждом этапе приема Daigo, и почему длительный прием так важен.
+</p>
+<p class="is-revealed">
+	 Дайго — это органический метабиотик из Японии, который содержит ферменты и клеточный материал 16 видов полезных кишечных лактобактерий. Эти компоненты работают синергетически, чтобы восстановить баланс микрофлоры кишечника, улучшить пищеварение и укрепить иммунитет, тем самым положительно влияя на все важнейшие процессы в организме. В отличие от пробиотиков, которые содержат живые бактерии, метабиотики содержат продукты их метаболизма, что делает их более устойчивыми к воздействию желудочного сока, позволяет им эффективно достигать кишечника и восстанавливать родную микрофлору, а не пытаться заселить чужеродную.
+</p>
+<p class="is-revealed">
+	 Органический состав Daigo делает продукт уникальным и безопасным, при этом сохраняя высокую эффективность. Однако натуральность всегда работает на принципе накопительного эффекта. Это означает, что работать метабиотик начинает сразу, но его действие проявляется постепенно, по мере того как организм адаптируется к изменениям. Кратковременный прием может дать временное улучшение, но только длительный курс позволяет достичь устойчивых результатов. Это связано с тем, что восстановление микрофлоры кишечника — это сложный процесс, который требует времени.
+</p>
+<p class="is-revealed">
+	 Процесс коррекции и восстановления микрофлоры кишечника — это сложный и многоэтапный процесс, который требует времени и зависит от множества факторов, включая исходное состояние микрофлоры, образ жизни, питание и индивидуальные особенности организма. С научной точки зрения, восстановление микрофлоры кишечника занимает от нескольких недель до нескольких месяцев, а в некоторых случаях — до года и более. Это связано с жизненным циклом бактерий, скоростью обновления клеток кишечника и необходимостью создания устойчивого баланса между полезными и патогенными микроорганизмами.
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <span style="font-size: 20pt;">Научный факт: чужеродные бактерии не способны колонизировать кишечник. Организм от них избавляется в течение 4-5 дней!</span>
+</p>
+<p class="is-revealed">
+	 Для восстановления здорового баланса микрофлоры кишечника нужно работать с родной микрофлорой. Это требует времени и терпения.
+</p>
+<p class="is-revealed">
+</p>
+<h3 class="is-revealed">1. Жизненный цикл бактерий</h3>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Полезные бактерии, такие как лактобактерии и бифидобактерии, имеют относительно короткий жизненный цикл — от нескольких часов до нескольких дней. Однако для того, чтобы они колонизировали кишечник и начали доминировать над патогенными микроорганизмами, требуется время. Патогенные бактерии, такие как Helicobacter pylori или Clostridium difficile, могут быть более устойчивыми и медленнее вытесняться. Этот процесс занимает не менее 2-3 месяцев.
+</p>
+<h3 class="is-revealed">2. Обновление клеток кишечника</h3>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Слизистая оболочка кишечника постоянно обновляется. Эпителиальные клетки кишечника имеют один из самых коротких циклов обновления в организме — около 3-5 дней. Однако для полного восстановления функциональности слизистой оболочки, особенно после повреждения (например, из-за дисбактериоза, воспаления или приема антибиотиков), требуется больше времени. Полное восстановление структуры и функций слизистой может занимать от нескольких недель до нескольких месяцев.
+</p>
+<h3 class="is-revealed">
+3. Накопительный эффект метаболитов </h3>
+<p class="is-revealed">
+	 Метабиотик Daigo работает не за счет самих бактерий, а благодаря их метаболитам — веществам, которые они производят. Они оказались гораздо полезнее для здоровья. Эти метаболиты для создают в кишечнике среду, благоприятную для роста полезных бактерий и подавляющую патогены. Однако для достижения устойчивого эффекта необходимо, чтобы количество родной полезной микрофлоры занимало большую площадь в кишечнике. Обычно этот процесс занимает от 1 до 3 месяцев.
+</p>
+<h3 class="is-revealed">
+4. Восстановление иммунной функции </h3>
+<p class="is-revealed">
+	 Кишечник играет ключевую роль в иммунной системе, так как около 80% иммунных клеток находятся в кишечнике. Восстановление микрофлоры напрямую влияет на иммунитет, но для того, чтобы иммунная система восстановилась и стала работать четко и слаженно, требуется время. Также с возрастом иммунитет кишечника ослабевает из-за естественного снижения активности полезных бактерий, уменьшения выработки защитных веществ и замедления процессов регенерации слизистой оболочки. Например, в кишечнике «живут» определенные иммунные ткани - Пейеровы бляшки. Их еще называют лимфоидные ткани или лимфоидные узелки. У детей и подростков иммунитет сильный, поскольку работают все 240 пейеровых бляшек, а у взрослых и пожилых людей иммунитет ослабевает, поскольку часть пейровых бляшек «засыпает» и остаются активно работающими до 40, поэтому при вирусных инфекциях , именно взрослые люди попадают в группу риска. Ценность метабиотика Daigo в том, что он способен мягко пробуждать пейеровы бляшки и включать их в работу по защите нашего организма. Таким образом, прием Daigo способствует восстановлению защитных сил. Исследования показывают, что значительное улучшение иммунной функции наблюдается через 3-6 месяцев регулярного приема.
+</p>
+<h3 class="is-revealed">
+5. Долгосрочные изменения </h3>
+<p class="is-revealed">
+	 Для достижения устойчивого баланса микрофлоры и полного восстановления функций кишечника необходим длительный курс приема — от 6 до 12 месяцев. Это связано с тем, что некоторые клетки и ткани организма обновляются медленно. Например, клетки печени, которые играют важную роль в детоксикации организма, полностью обновляются раз в 300 дней. Поэтому для достижения максимального эффекта, включая омоложение организма, повышения работоспособности и улучшения общего состояния, рекомендуется годовой курс приема.
+</p>
+<p class="is-revealed">
+	 С учетом жизненного цикла бактерий, скорости обновления клеток кишечника и необходимости создания устойчивого численного превосходства полезных бактерий кишечника над патогенными, процесс коррекции и восстановления занимает:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Минимум 2-3 месяца приема для улучшения состояния микрофлоры и слизистой оболочки кишечника, восстановления иммунитета;
+	</p>
+ </li>
+	<li>
+	<p>
+		 6 месяцев для достижения устойчивого баланса и значительного улучшения функций ЖКТ, состояния кожи, обмена веществ, увеличения уровня энергии и работоспособности, укрепления иммунитета;
+	</p>
+ </li>
+	<li>
+	<p>
+		 12 месяцев для полного восстановления, омоложения организма, закрепления долгосрочных результатов и активного долголетия.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Таким образом, восстановление микрофлоры кишечника — это процесс, который требует терпения и системного подхода. Курсовой прием Daigo позволяет не только устранить дисбаланс, но и создать прочный фундамент для долгосрочного здоровья.
+</p>
+<p class="is-revealed">
+	 Сколько нужно принимать Daigo для нужного результата? Состояние кишечной микрофлоры на момент начала приема у всех разное, следовательно и ощутимые изменения наступают у каждого человека (даже в одной семье) по-разному. На основе научных данных, исследований, историй успеха многочисленных клиентов мы смогли собрать воедино информацию о том, какие изменения и когда чаще всего происходят по мере приема метабиотика.
+</p>
+<h2 class="is-revealed">
+3 месяца приема: начало восстановления. </h2>
+<p class="is-revealed">
+	 На начальном этапе приема Daigo (10-15 мл в день) происходят следующие изменения:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Улучшение состояния кожи. Метаболиты полезных бактерий способствуют снижению воспалительных процессов в организме, что положительно сказывается на коже. Уменьшается количество акне, кожа становится более увлажненной и упругой.
+	</p>
+ </li>
+	<li>
+	<p>
+		 Улучшение микрофлоры кишечника. Полезные бактерии начинают вытеснять патогенные микроорганизмы, что приводит к снижению симптомов дисбактериоза.
+	</p>
+ </li>
+	<li>
+	<p>
+		 Укрепление иммунитета. Кишечник является важной частью иммунной системы. Восстановление его микрофлоры способствует повышению защитных сил организма.
+	</p>
+ </li>
+	<li>
+	<p>
+		 Изменение вкусовых привычек. Здоровая микрофлора влияет на выработку нейромедиаторов, которые регулируют аппетит и пищевые предпочтения.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<h2 class="is-revealed">
+6 месяцев приема: закрепление результатов. </h2>
+<p class="is-revealed">
+	 После 6 месяцев приема Daigo наблюдаются более глубокие изменения:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Устранение дерматологических проблем. Благодаря нормализации микрофлоры и снижению уровня токсинов в организме улучшается состояние кожи при акне, дерматитах и даже псориазе.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Полное восстановление баланса микрофлоры. Кишечник начинает работать идеально, что положительно сказывается на всем желудочно-кишечном тракте.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Устранение Helicobacter pylori. Эта бактерия, которая часто вызывает гастриты и язвы, постепенно исчезает благодаря созданию неблагоприятной среды для её размножения.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Закрепление результатов. Улучшения, достигнутые за первые три месяца, становятся более устойчивыми.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<h2 class="is-revealed">
+12 месяцев приема: изменение состояния всего организма </h2>
+<p class="is-revealed">
+	 Годовой курс приема Daigo оказывает влияние на все процессы в организме:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Омоложение на клеточном уровне. Здоровая микрофлора способствует лучшему усвоению питательных веществ, что положительно сказывается на регенерации клеток. Особенно заметно это на примере печени, клетки которой обновляются раз в 300 дней.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Повышение уровня энергии. Организм начинает работать более эффективно, что приводит к увеличению жизненных сил.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Снижение стресса. Кишечник вырабатывает до 90% серотонина — гормона радости. При здоровой микрофлоре его уровень повышается, что способствует улучшению настроения и устойчивости к стрессу.<br>
+	</p>
+ </li>
+	<li>
+	<p>
+		 Долгосрочные результаты. Все положительные изменения, достигнутые за предыдущие периоды, закрепляются и усиливаются.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Курсовой прием органического метабиотика Daigo — это не просто временная мера для улучшения самочувствия, а стратегический подход к долгосрочному здоровью. Микрофлора кишечника, клетки слизистой оболочки и связанные с ними системы организма требуют времени для восстановления. Краткосрочный прием может дать временное облегчение, но только курсовое применение позволяет создать прочный фундамент для крепкого здоровья.
+</p>
+<p class="is-revealed">
+	 Долгосрочный прием Daigo обоснован не только с точки зрения науки, но и с позиции практической пользы. Он позволяет:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Достичь накопительного эффекта, который невозможен при кратковременном использовании;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Закрепить результаты и избежать "откатов" к прежнему состоянию;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Обеспечить глубокое восстановление организма, включая омоложение на клеточном уровне и улучшение работы всех систем.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Таким образом, курсовой прием Daigo — это хорошая инвестиция в свое здоровье, которая окупается улучшением качества жизни, повышением энергии и устойчивости к стрессам. Помните, что забота о здоровье — это марафон, а не спринт, где натуральные препараты становятся вашими надежными союзниками на этом пути. Доверяйте природе, дайте организму время, и он ответит вам долголетием, бодростью и отличным самочувствием!
+</p>        </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
 
-
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'psoriaz-pravda-i-mify-o-lechenii': {
+    id: 12,
+    slug: 'psoriaz-pravda-i-mify-o-lechenii',
+    title: 'Псориаз: правда и мифы о лечении',
+    preview: 'В этой статье, опираясь на экспертное мнение врача-дерматолога Юлии Галлямовой, мы детально разберем основные аспекты псориаза:...',
+    image: 'https://s3.firstvds.ru/articles/sqlhvxe5rhl5wn9g8hpgqi14c5rs0tb0.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Экспертный разбор от дерматолога Юлии Галлямовой: правда и мифы о лечении псориаза, современные подходы, влияние кишечника и иммунитета на течение заболевания.',
+    cover: 'https://s3.firstvds.ru/articles/sqlhvxe5rhl5wn9g8hpgqi14c5rs0tb0.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'Псориаз: правда и мифы о лечении',
+        to: '/articles/psoriaz-pravda-i-mify-o-lechenii'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 3, slug: 'psoriaz', label: 'Псориаз' },
+      { id: 4, slug: 'zdorovaya-kozha', label: 'Здоровая кожа' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p style="text-align: center;" class="is-revealed">
+ <img width="834" alt="1.png" src="https://s3.firstvds.ru/articles/77gqs2qddsr568z7xhyplror3hu3agzk.png" height="468" title="1.png"><br>
+</p>
+<p style="text-align: left;" class="is-revealed">
+	 В этой статье, опираясь на экспертное мнение врача-дерматолога Юлии Галлямовой, мы детально разберем основные аспекты псориаза: от симптомов и причин до современных терапевтических стратегий, и поможем Вам получить полное и научно обоснованное понимание этого распространенного недуга.
+</p>
+<p class="is-revealed">
+	 Псориаз — это генетически обусловленное заболевание, поражающее кожные покровы. Важно отметить, что по наследству передается не сам псориаз, а лишь предрасположенность к нему. Специалисты даже выделяют так называемые «псор-гены», однако последовательность этих генов до сих пор не определена, что делает невозможным прогнозирование вероятности развития заболевания у конкретного человека. Статистика говорит о том, что каждый 13-й житель планеты страдает псориазом. При этом вероятность развития этого заболевания достаточно велика в любом возрасте. В практике Юлии Галлямовы были клиенты, у которых первичный псориаз появлялся и в 80 лет. Удивителен тот факт, что коренные жители Аляски (американские индейцы) практически не болеют псориазом, а наибольший процент заболеваемости наблюдается среди европейской расы, особенно в Арктике, Норвегии и Италии.
+</p>
+<h2 class="is-revealed">
+Первые симптомы псориаза </h2>
+<p class="is-revealed">
+	 Псориаз может проявиться на любом участке кожи, но чаще всего первые симптомы пациенты замечают на волосистой части головы. На ранних стадиях псориаз легко спутать с себореей, так как оба заболевания сопровождаются обильным шелушением и крупной перхотью. Через время помимо шелушения появляются уплотнения на коже головы и зуд. Диагностика псориаза на ранних стадиях может быть затруднена, особенно когда поражение кожи ограничено несколькими бляшками. В таких случаях помогает дерматоскопия. Этот метод позволяет увидеть характерные микроизменения структуры кожи и дифференцировать псориаз от других кожных заболеваний.
+</p>
+<h3 class="is-revealed">
+Традиционно выделяют три стадии течения псориаза: </h3>
+<p class="is-revealed">
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+		 Прогрессирующая&nbsp;(острый процесс);
+	</p>
+ </li>
+	<li>
+	<p>
+		 Стационарная&nbsp;(процесс приостановлен);
+	</p>
+ </li>
+	<li>
+	<p>
+		 Регрессирующая&nbsp;(воспаленные бляшки исчезают).
+	</p>
+ </li>
+</ol>
+<p class="is-revealed">
+</p>
+<h2 class="is-revealed">
+Катализаторы болезни </h2>
+<p class="is-revealed">
+	 Помимо генетической предрасположенности и образа жизни, существуют и другие факторы, провоцирующие псориаз или утяжеляющие его течение:
+</p>
+<p class="is-revealed">
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+		 Стресс —&nbsp;согласно статистике, у 60% пациентов псориаз начинается после сильного стресса;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Переохлаждение;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Вирусные инфекции.
+	</p>
+ </li>
+</ol>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Все эти факторы влияют на Т-клеточный иммунитет, дефект которого лежит в основе развития псориаза.
+</p>
+<h2 class="is-revealed">
+Осложнения псориаза: </h2>
+<p class="is-revealed">
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+		 Псориатическая эритродермия — это наиболее тяжелая и обширная форма псориаза, при этом состоянии воспаление кожи становится генерализованным, с обильным покраснением и образованием чешуек, которые могут покрывать большую часть, а иногда и все тело;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Псориатический артрит — это хроническое воспаление суставов, развивающееся у людей с псориазом, оно может затронуть как крупные, так и мелкие суставы, но чаще всего страдают кисти, стопы и позвоночник.
+	</p>
+ </li>
+	<li>
+	<p>
+		 Связь иных заболеваний с псориазом
+	</p>
+ </li>
+</ol>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 Современная медицина все больше внимания уделяет коморбидности, то есть связи сопутствующих заболеваний с псориазом. К ним относятся сердечно-сосудистые патологии, такие как артериальная гипертензия, ишемическая болезнь сердца, инсульт, а также неалкогольная жировая болезнь печени (ранее известная как жировой гепатоз). Несмотря на то, что связь между этими состояниями и псориазом до конца не изучена, их наличие требует повышенного внимания и комплексного подхода к ведению пациентов.
+</p>
+<p class="is-revealed">
+	 Псориаз у мужчин, женщин и детей: есть ли отличия?
+</p>
+<p class="is-revealed">
+	 Гендерных различий в заболеваемости псориазом нет. Однако, по статистке, мужчины чаще страдают псориатическим артритом. По мнению исследователей, это связано с более высоким уровнем физических нагрузок и наличием вредных привычек.
+</p>
+<p class="is-revealed">
+	 Ранний возраст &shy;является предиктом тяжелого течения псориаза, то есть у детей заболевание часто протекает сложнее, чем у взрослых. Это связано с несколькими факторами, включая незрелость иммунной системы ребенка и трудности в проведении клинических испытаний новых лекарственных препаратов в педиатрической практике. Ограниченный арсенал средств приводит к тому, что врачи вынуждены делать выбор в пользу проверенных, но зачастую менее эффективных препаратов, что может удлинять период лечения юных пациентов.
+</p>
+</div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<h2 class="is-revealed">
+Мифы о псориазе </h2>
+<h3 class="is-revealed">
+Миф №1. «Стационарные бляшки не нужно лечить»&nbsp; </h3>
+<p class="is-revealed">
+	 На самом деле, стационарные бляшки — это очаги воспаления, которые в любой момент могут стать причиной обострения псориаза.
+</p>
+<h3 class="is-revealed">
+Миф №2. «Лекарства от псориаза вызывают привыкание и толерантность к другим препаратам» </h3>
+<p class="is-revealed">
+	 Это неправда. Предписанные лекарства от псориаза являются эффективным средством его лечения. Главное — правильная дозировка и контроль со стороны врача.
+</p>
+<h3 class="is-revealed">
+Миф №3. «Помогло подруге - поможет и мне»&nbsp; </h3>
+<p class="is-revealed">
+	 Каждый организм уникален, поэтому лечение должно быть персонализированным и подбираться индивидуально.
+</p>
+<h2 class="is-revealed">
+Актуальные методы лечения </h2>
+<p class="is-revealed">
+	 Современная медицина имеет в своём арсенале множество эффективных методов лечения псориаза. Лечение всегда должно быть индивидуальным и основываться на тщательном обследовании пациента и изучении его образа жизни, характера и готовности следовать рекомендациям врача.
+</p>
+<p class="is-revealed">
+	 Современные методы лечения подразделяются на:
+</p>
+<p class="is-revealed">
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+		 Наружную терапию, она применяется при ограниченных формах псориаза. Включает средства для нанесения на кожу, направленные на уменьшение воспаления, зуда и шелушения;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Цитостатические гормоны, они подавляют реакции т-лимфоцитов и цитокинов, уменьшая воспаление. С другой стороны, воздействуют на всю иммунную систему, что может привести к снижению иммунитета;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Биологическая терапия действует более таргетно, воздействуя на те лимфоциты, которые вызывают воспаление, не затрагивая другие клетки иммунной системы. Это уменьшает количество побочных эффектов и позволяет достичь более длительной ремиссии;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Ингибиторы Янус-киназ — это новое поколение препаратов, влияющих на передачу сигналов внутрь клеток, задействованных в воспалительном процессе. Действуя на эти сигнальные пути, они помогают контролировать воспаление.
+	</p>
+ </li>
+</ol>
+<p class="is-revealed">
+</p>
+<h3 class="is-revealed">
+Роль питания </h3>
+<p class="is-revealed">
+	 Помимо генетической предрасположенности, на появление псориаза значительное влияние оказывает образ жизни, он не только может спровоцировать начало болезни, но и утяжелить её течение. Если при наличии «псор-генов» вероятность появления псориаза равна 13%, то при нездоровом образе жизни эта цифра увеличивается до 32%.
+</p>
+<h3 class="is-revealed">
+Как Daigo помогает при псориазе&nbsp;</h3>
+<h4 class="is-revealed"> <b>Иммунитет</b> </h4>
+<p class="is-revealed">
+	 В некоторых случаях псориаз развивается, потому что иммунная система не может справиться с влиянием различных факторов окружающей среды. Около 80% иммунных клеток формируется именно в кишечнике. Продукция Daigo включает в себя экстракт брожения 16-ти штаммов лактобактерий. Его применение способствует созданию благоприятной среды для полезных бактерий, что помогает иммунной системе лучше регулировать воспалительные процессы, связанные с псориазом.
+</p>
+<h4 class="is-revealed"> <b>Витамин К2</b> </h4>
+<p class="is-revealed">
+	 В метабиотике Daigo содержится витамин К2, он выполняет ряд важных функций:
+</p>
+<p class="is-revealed">
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+		 Уменьшает воспалительные реакции в организме, что полезно при псориазе, относящемся к воспалительным заболеваниям;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Способствует накоплению кальция в костной ткани и обеспечивает его баланс в организме;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Способствует выработке энергии из пищи, что поддерживает функции клеток, страдающих от недостатка энергии при псориазе.
+	</p>
+ </li>
+</ol>
+<p class="is-revealed">
+</p>
+<h2 class="is-revealed">
+Контроль псориаза: путь к качественной жизни </h2>
+<p class="is-revealed">
+	 Несмотря на то, что псориаз и является хроническим заболеванием, он поддается контролю и может не ограничивать полноценную жизнь пациента. Современная медицина предоставляет широкий спектр терапевтических возможностей, позволяющих эффективно управлять симптомами и предотвращать осложнения. Однако, ключевым фактором успеха является ответственность самого пациента: от своевременного обращения за медицинской помощью до соблюдения правильного образа жизни. Мы стремимся к тому, чтобы в будущем методы лечения псориаза стали еще более результативными и комфортными. Забота о себе и следование научным рекомендациям — это путь к здоровью и качественной жизни.
+</p>
+<p class="is-revealed">
+</p>        
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti': {
+    id: 13,
+    slug: 'peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti',
+    title: 'Пептид хлореллы: природный источник здоровья и молодости',
+    preview: 'Современная наука активно изучает натуральные компоненты, которые могут поддерживать здоровье и замедлять процессы старения...',
+    image: 'https://s3.firstvds.ru/articles/s2pwieg5lf32magymdozkpzr76599sr7.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Подробный обзор пептида хлореллы: его уникальные свойства, влияние на здоровье кишечника и иммунитет, а также роль в замедлении процессов старения и поддержке молодости.',
+    cover: 'https://s3.firstvds.ru/articles/s2pwieg5lf32magymdozkpzr76599sr7.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'Пептид хлореллы: природный источник здоровья и молодости',
+        to: '/articles/peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 5, slug: 'superfudy', label: 'Суперфуды' },
+      { id: 6, slug: 'anti-age', label: 'Anti-age' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+	 Современная наука активно изучает натуральные компоненты, которые могут поддерживать здоровье и замедлять процессы старения. Одним из таких перспективных веществ является пептид хлореллы — пептид, получаемый из микроводоросли Chlorella. Благодаря своей уникальной структуре и высокой биологической активности, пептид хлореллы обладает множеством полезных свойств для человеческого организма. Рассмотрим, что представляет собой пептид хлореллы, какие полезные свойства он оказывает на организм и почему он пользуется всё большей популярностью в сфере нутрициологии и косметологии.
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 &nbsp;
+</p>
+<p class="is-revealed">
+ <b><u>Хлорелла </u></b><b><u>(Chlorella) </u></b>— это одноклеточная зелёная водоросль, которая растёт в пресной воде и существует на Земле миллионы лет. Её название происходит от греческих слов "chloros" (зелёный) и "ella" (маленькая), что подчёркивает её микроскопический размер и насыщенный зелёный цвет. Благодаря уникальному составу и полезным свойствам, хлорелла признана одним из самых ценных продуктов для здоровья человека. Ее часто называют "суперфудом", ведь она помогает очищать организм, укреплять иммунитет и насыщать клетки полезными веществами. Хлорелла содержит огромное количество питательных веществ:
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Белки — до 60% от массы водоросли;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Все 10 незаменимых аминокислот, которые организм не может вырабатывать самостоятельно: изолейцин, лейцин, аргинин, ланин, валин, лизин, глютаминовая кислота, триптофан, пролин, гистидин;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Витамины: A, C, E, K, витамины группы B, в том числе редкий витамин B12;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Минералы: железо, магний, кальций, цинк, калий и фосфор;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Омега-3 жирные кислоты, необходимые для здоровья сердца и мозга;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Хлорофилл — пигмент, придающий хлорелле зелёный цвет и обладающий мощным очищающим действием;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Антиоксиданты — вещества, защищающие клетки от повреждений и старения.
+	</p>
+ </li>
+</ul>
+<p style="text-align: center;" class="is-revealed">
+	<img width="717" alt="Про хлореллу 2.jpg" src="https://s3.firstvds.ru/articles/rxpbx1dtk0avya02arnnqzn6jz7sdgpu.jpg" height="403" title="Про хлореллу 2.jpg"><br>
+	 &nbsp; Благодаря своему богатому составу, Хлорелла оказывает на организм человека комплексное положительное воздействие.
+</p>
+<p class="is-revealed">
+ <b>Очищение организма (детоксикация):</b>
+</p>
+<p class="is-revealed">
+	 Одно из самых известных свойств хлореллы — её способность выводить токсины и тяжёлые металлы из организма. Благодаря высокому содержанию хлорофилла и клетчатки, хлорелла связывает вредные вещества и способствует их выведению через кишечник. По этой причине ее прием особенно полезен людям, которые подвергаются воздействию загрязнённой окружающей среды, живут в мегаполисах, контактируют с химическими веществами.
+</p>
+<p class="is-revealed">
+ <b>Укрепление иммунной системы:</b>
+</p>
+<p class="is-revealed">
+	 Хлорелла стимулирует работу иммунной системы за счёт содержания антиоксидантов и бета-глюканов, которые активизируют иммунные клетки. Регулярное употребление хлореллы помогает организму лучше сопротивляться вирусным и бактериальным инфекциям.
+</p>
+<p class="is-revealed">
+ <b>Поддержка здоровья кожи:</b>
+</p>
+<p class="is-revealed">
+	 Одним из ключевых компонентов хлореллы является хлорофилл, который обладает мощным антиоксидантным действием. Он нейтрализует свободные радикалы — основные виновники преждевременного старения кожи. Антиоксиданты защищают клетки от повреждений, предотвращают появление морщин и снижают воспалительные процессы, которые могут вызывать покраснения и раздражения. Еще одним важным свойством хлореллы является стимуляция выработки коллагена — белка, который отвечает за упругость и эластичность кожи.
+</p>
+<p class="is-revealed">
+ <b>Снижение уровня холестерина и поддержка сердечно-сосудистой системы:</b>
+</p>
+<p class="is-revealed">
+	 Исследования показывают, что регулярное употребление хлореллы способствует снижению уровня липопротеинов низкой плотности, которые откладываются на стенках сосудов и образуют атеросклеротические бляшки. Эти бляшки могут приводить к сужению сосудов, ухудшению кровообращения и повышению риска инфарктов и инсультов. Высокое содержание антиоксидантов в хлорелле защищает клетки сосудистой системы от окислительного стресса. Еще одно важное свойство хлореллы — снижение артериального давления. Она содержит калий и магний, которые способствуют расслаблению стенок сосудов, улучшая кровообращение и снижая нагрузку на сердце.
+</p>
+<p class="is-revealed">
+ <b>Улучшение пищеварения</b>
+</p>
+<p class="is-revealed">
+	 Хлорелла содержит клетчатку, которая способствует нормализации работы кишечника. Она улучшает переваривание пищи, предотвращает запоры и поддерживает здоровье микрофлоры кишечника. Кроме того, хлорелла способствует выведению токсинов и предотвращает развитие воспалительных процессов в желудочно-кишечном тракте.
+</p>
+<p class="is-revealed">
+ <b>Борьба со стрессом и улучшение настроения</b>
+</p>
+<p class="is-revealed">
+	 Хлорелла богата витаминами группы B, которые необходимы для нормальной работы нервной системы. Они помогают справляться со стрессом, улучшают настроение и повышают уровень энергии.
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 &nbsp;<img width="717" alt="Про хлореллу 3.jpg" src="https://s3.firstvds.ru/articles/a0pqkddztx8jj1u1ij01s1bk5p41tm3e.jpg" height="403" title="Про хлореллу 3.jpg">
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 Что такое пептид хлореллы?
+</p>
+<p class="is-revealed">
+	 &nbsp;
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы представляет собой цепочку аминокислот, что делает его особенно полезным для организма. Он относится к коротким пептидам. В отличие от более длинных белковых молекул, короткие пептиды обладают повышенной способностью проникать в клетки и быстро включаться в обменные процессы. Этот пептид производится путем ферментативного гидролиза белков хлореллы, что позволяет выделить наиболее активные аминокислотные цепочки. Его молекулярная структура делает пептид особенно эффективным в поддержке здоровья.
+</p>
+<p class="is-revealed">
+	 &nbsp;
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы — это мощный природный компонент, который помогает организму<i>:</i>
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Защищать клетки от повреждений и старения;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Укреплять иммунную систему;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Очищать организм от токсинов;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Стимулировать выработку коллагена для упругости кожи.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 По сути, пептид хлореллы — это концентрат полезных веществ хлореллы в наиболее активной форме. Главное его преимущество заключается в его короткой молекулярной структуре, что обеспечивает быстрое проникновение в клетки и высокую биодоступность. Это означает, что организм получает максимум пользы от минимальных дозировок.
+</p>
+<p class="is-revealed">
+	 &nbsp;
+</p>
+</div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<p class="is-revealed">
+ <u>Последовательность действия коротких пептидов в организме после приема внутрь примерно такова:</u>
+</p>
+<p class="is-revealed">
+	 &nbsp;
+</p>
+<p class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Участие в метаболизме тканей кишечника (энтероциты), поскольку именно энтероциты забирают очень значительную долю пептидов и аминокислот из пищи для обеспечения собственных потребностей;
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="background: white;">Участие </span>в пристеночном пищеварении;
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="background: white;">Сигнальные </span>функции – воздействие на рецепторы кишечника и активация осей «кишечник – мышцы» «кишечник-кожа», «кишечник – мозг»;
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="background: white;">Использование </span>микробиомом толстого кишечника для его собственной деятельности и выработки ряда незаменимых нутриентов, витаминов и других БАВ;
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="background: white;">Транспортировка </span>к органам и тканям в частично неизмененном виде для дальнейшего метаболизма и даже проникновение через ГЭБ в мозг (нейромодуляторные и нейрометаболические эффекты);
+	</p>
+ </li>
+	<li>
+	<p>
+ <span style="background: white;">Воздействие </span>пептидов на рецепторные вне- и внутриклеточные и метаболические процессы самых разных органов и тканей. Целый ряд коротких пептидов оказывает антиоксидантное и противовоспалительное действие, препятствуя действию агрессивных кислородных радикалов и образованию провоспалительных цитокинов.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+	 Благодаря комплексному воздействию на организм: от очищения и укрепления иммунитета до защиты клеток и омоложения кожи, пептид Хлореллы пользуется большим спросом в составе добавок. Его натуральное происхождение и высокая эффективность делают его одним из ключевых компонентов современных БАДов.
+</p>
+<p class="is-revealed">
+	 Сейчас на рынке пищевых добавок появились уникальные продукты - аминопептидобиотики или аминобиотики Daigo Brainy, Daigo Jointic и Daigo Dermic. Это уникальный класс нутрицевтиков, способных оказывать оздоравливающее воздействие на организм. Благодаря инновационному составу, они обладают высочайшей биодоступностью, а органический состав обеспечивает высокий профиль безопасности. Все три аминобиотика имеют под собой единую основу: пептид Хлореллы + 4 универсальные аминокислоты.
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 &nbsp;<img width="717" alt="Про хлореллу 5 (1).jpg" src="https://s3.firstvds.ru/articles/p7n26dt1sv9sctwc0zchtuxmgmriuuqf.jpg" height="403" title="Про хлореллу 5 (1).jpg">
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Аминобиотик Daigo Brainy создан для здоровья головного мозга.</b>
+</p>
+<p class="is-revealed">
+ <b>&nbsp;</b>
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы оказывает положительное воздействие на здоровье мозга благодаря своим антиоксидантным, противовоспалительным и нейропротекторным свойствам. Он помогает защищать клетки мозга от повреждений, вызванных окислительным стрессом и свободными радикалами, которые играют ключевую роль в развитии нейродегенеративных заболеваний, таких как болезнь Альцгеймера и Паркинсона. Один из важных эффектов пептида хлореллы — улучшение кровообращения и питания мозга. Он помогает расширять сосуды и улучшает микроциркуляцию, что обеспечивает более эффективную доставку кислорода и питательных веществ к клеткам мозга. Это способствует поддержанию когнитивных функций, таких как память, внимание и способность к обучению.
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы также оказывает противовоспалительное действие, снижая уровень хронического воспаления в мозге. Это важно для профилактики нейродегенерации, поскольку воспалительные процессы могут ускорять разрушение нейронов и ухудшать работу мозга. Кроме того, пептид хлореллы способствует выведению токсинов и тяжёлых металлов, которые могут негативно влиять на нервную систему и когнитивные функции. Он помогает очищать клетки мозга и защищать их от накопления вредных веществ, что особенно важно в условиях неблагоприятной экологической обстановки и стрессов. Благодаря этим свойствам, пептид хлореллы способствует поддержанию ясности ума, улучшению концентрации и памяти, а также снижает риск возрастных изменений в работе мозга.
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 &nbsp;<img width="717" alt="Про хлореллу 4 (1).jpg" src="https://s3.firstvds.ru/articles/ngi8vqh4wd1rc4sy2xwc35bl6znuk5fe.jpg" height="403" title="Про хлореллу 4 (1).jpg">
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Аминобиотик </b><b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Daigo Jointic</b><b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));"> - это комплексная поддержка всей опорно-двигательной системы.</b>
+</p>
+<p class="is-revealed">
+	 &nbsp;
+</p>
+<p class="is-revealed">
+	 Одной из ключевых причин боли и проблем с суставами является хроническое воспаление и разрушение хрящевой ткани. Пептид хлореллы помогает снижать уровень воспаления в организме, предотвращая повреждение суставов и замедляя развитие таких заболеваний, как артрит и остеоартрит. Благодаря своей способности стимулировать выработку коллагена, пептид хлореллы способствует укреплению хрящевой ткани, которая обеспечивает гибкость и амортизацию суставов. Коллаген — основной белок, поддерживающий структуру суставов и предотвращающий их истончение. Увеличение синтеза коллагена помогает улучшить подвижность суставов, снизить боль и предотвратить развитие дегенеративных процессов.
+</p>
+<p class="is-revealed">
+	 Кроме того, пептид хлореллы содержит аминокислоты и минералы, которые необходимы для поддержания крепости костей. Он способствует улучшению усвоения кальция, который является основным строительным материалом костной ткани. Это особенно важно для профилактики остеопороза и снижения риска переломов в пожилом возрасте. Пептид хлореллы также обладает антиоксидантными свойствами, защищая клетки суставов и костей от повреждений свободными радикалами. Это помогает замедлить возрастные изменения в опорно-двигательном аппарате и сохранить его здоровье на долгие годы.
+</p>
+<p style="text-align: center;" class="is-revealed">
+	 &nbsp; &nbsp;<img width="717" alt="Про хлореллу 6 (1).jpg" src="https://s3.firstvds.ru/articles/jlt0mm3dy53nhdf2ht9izwg5z6agr4cg.jpg" height="403" title="Про хлореллу 6 (1).jpg">
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Аминобиотик </b><b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Daigo Dermic</b><b style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">
+	помогает сохранить молодость и красоту кожи, предотвращая преждевременное старение.</b>
+</p>
+<p class="is-revealed">
+	 Одно из главных его свойств — стимуляция выработки коллагена, который является основным белком, отвечающим за упругость и эластичность кожи. С возрастом уровень коллагена в организме снижается, что приводит к появлению морщин и потере тонуса кожи. Пептид хлореллы помогает активизировать синтез коллагена, укрепляя структуру кожи и замедляя возрастные изменения.
+</p>
+<p class="is-revealed">
+	 Кроме того, пептид хлореллы богат антиоксидантами, которые защищают клетки кожи от повреждений свободными радикалами. Эти вредные молекулы образуются под воздействием ультрафиолетового излучения, загрязнённой окружающей среды и стресса, вызывая преждевременное старение кожи. Антиоксиданты в составе пептида нейтрализуют свободные радикалы, предотвращают окислительный стресс и уменьшают риск воспалений и повреждений клеток кожи.
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы также обладает противовоспалительными свойствами, которые помогают успокаивать раздражённую кожу и снижать проявления акне, покраснений и других воспалительных процессов. Он способствует более быстрому заживлению повреждений и восстанавливает барьерные функции кожи, защищая её от внешних агрессоров. Дополнительно пептид хлореллы улучшает гидратацию кожи, удерживая влагу в её слоях и предотвращая сухость и шелушение. Это делает кожу более гладкой, мягкой и сияющей.
+</p>
+<p class="is-revealed">
+	 Пептид хлореллы — это уникальный природный компонент с мощными оздоровительными и защитными свойствами. Его способность укреплять иммунитет, стимулировать выработку коллагена, защищать организм от токсинов и свободных радикалов делает его ценным ингредиентом в составе современных БАДов, передовыми из которых являются аминобиотики Daigo Brainy, Daigo Jointic и Daigo Dermic.
+</p>
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'nuzhno-li-davat-probiotik-novorozhdennomu': {
+    id: 14,
+    slug: 'nuzhno-li-davat-probiotik-novorozhdennomu',
+    title: 'С первых дней и на всю жизнь: важность микрофлоры для здоровья детей',
+    preview: 'Поддержание здоровой микрофлоры кишечника — один из ключевых факторов, влияющих на здоровье ребенка с первых дней жизни и до зрелого возраста...',
+    image: 'https://s3.firstvds.ru/articles/37wu3heurw5qhtnzwjfka5uts35cc9c7.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Почему формирование микрофлоры в раннем возрасте критично для иммунитета, пищеварения и здоровья ребёнка на всю жизнь. Советы по поддержке кишечника новорождённых.',
+    cover: 'https://s3.firstvds.ru/articles/37wu3heurw5qhtnzwjfka5uts35cc9c7.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'С первых дней и на всю жизнь: важность микрофлоры для здоровья детей',
+        to: '/articles/nuzhno-li-davat-probiotik-novorozhdennomu'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 7, slug: 'deti', label: 'Дети' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <h2 id="first" class="text-xl md:text-product font-medium mb-4 leading-tight">С первых дней и на всю жизнь: важность микрофлоры для здоровья детей</h2>
+      <div class="wysiwyg js-wysiwyg-container">
+<p class="is-revealed">
+ <b>Поддержание здоровой микрофлоры кишечника — один из ключевых факторов, влияющих на здоровье ребенка с первых дней жизни и до зрелого возраста.</b> От состояния микрофлоры зависят процессы пищеварения, иммунитет и даже психическое здоровье. Для детей, чья иммунная система и пищеварение еще только формируются, правильный баланс микрофлоры критически важен. Почему поддержание здоровой микрофлоры имеет значение на каждом этапе взросления ребенка и как в этом помогают метабиотики?<br>
+</p>
+<p class="is-revealed">
+ <span style="font-family: var(--ui-font-family-primary, var(--ui-font-family-helvetica));">Прежде всего следует напомнить, что метабиотики — это «продукты жизнедеятельности» полезной микрофлоры, необходимые для нормальной работы систем организма. В отличие от пробиотиков они не содержат живых бактерий. Они не разрушаются под воздействием желудочного сока, приема антибиотиков и пищеварительных ферментов, а также не вступают в конфликт с микробиотой организма — то есть не являются и пребиотиками. <br>
+ </span>
+</p>
+<p class="is-revealed">
+ <br>
+</p>
+<p class="is-revealed">
+</p>
+<h2 class="is-revealed">
+Главная задача метабиотиков - способствовать росту собственной полезной микрофлоры и блокировать патогенную. </h2>
+ Кишечная микрофлора играет важную роль в поддержании здоровья, и ее правильный баланс необходим для нормального функционирования пищеварительной системы. Это колония уникальных микроорганизмов, преимущественно бактерий, которые населяют наш кишечник. Среди этих бактерий есть как дружественные, так и зловредные (или патогенные). Соотношение их количества определяет состояние микрофлоры и всего организма. Если полезных бактерий больше патогенных — это здоровый баланс кишечной микрофлоры. Однако, если количество патогенных бактерий в большинстве — это повод бить тревогу и искать способы восстановления здорового баланса.<br class="is-revealed">
+<p class="is-revealed">
+	 Соотношение количества полезных бактерий и патогенных может меняться в зависимости от внешних факторов: питания, образа жизни, привычек, состояния других органов. Этот баланс может значительно или незначительно меняться даже в течение суток, например, если сегодня вы испытали сильный стресс, патогенная микрофлора может преобладать.&nbsp;
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <img width="841" alt="баннеры к статьям1.png" src="https://s3.firstvds.ru/articles/o45qg2ibc94zg11vbj5y8qiabsxlp3kb.png" height="473" title="баннеры к статьям1.png"><br>
+</p>
+<h2 class="is-revealed">Микрофлора — это сообщество бактерий и микроорганизмов, живущих в кишечнике.<br>
+ </h2>
+<p class="is-revealed">
+	 Важно понимать, что баланс между полезными и патогенными бактериями влияет на многие системы организма.&nbsp;
+</p>
+<p class="is-revealed">
+ <b>В кишечнике содержится до 70% клеток иммунной системы, и именно здесь происходит «обучение» иммунитета, что особенно важно для растущего организма. Здоровая микрофлора выполняет множество функций:</b>
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Защищает организм от патогенов;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Участвует в усвоении питательных веществ и выработке витаминов;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Регулирует воспалительные процессы;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Влияет на психоэмоциональное состояние и когнитивные функции.
+	</p>
+ </li>
+</ul>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+	 В первые месяцы жизни ребенок получает бактерии от матери: сначала — в период беременности, затем — при прохождении через родовые пути, и в дальнейшем — через грудное молоко. Однако, микрофлора не статична, и ее баланс может нарушаться под воздействием стресса, лекарств, питания и окружающей среды. Чтобы обеспечить здоровое развитие ребенка, важно уделять внимание микрофлоре на каждом этапе его взросления.
+</p>
+<p class="is-revealed">
+ <br>
+</p>
+<h2 class="is-revealed">
+Микрофлора у младенцев: первые шаги к здоровью<br>
+ </h2>
+<p class="is-revealed">
+	 Для новорожденных здоровье кишечника и правильный баланс микрофлоры особенно важны. В первый год жизни малыш может сталкиваться с коликами, запорами и прочими проблемами пищеварения. Поддержка микрофлоры в этом возрасте помогает минимизировать такие неприятные симптомы и закладывает основу для иммунной системы ребенка.
+</p>
+<ol class="is-revealed">
+	<li>
+	<p>
+ <b>Грудное вскармливание</b>. Грудное молоко является естественным источником полезных бактерий и биоактивных компонентов, которые способствуют развитию микрофлоры и укрепляют иммунитет младенца. Оно легко усваивается и помогает снизить риск колик и вздутия, создавая идеальные условия для роста «хороших» бактерий.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>Прикорм.</b> Введение прикорма с пятимесячного возраста позволяет обогатить рацион ребенка овощами, фруктами и продуктами, богатыми клетчаткой, что способствует формированию здоровой микрофлоры. Следует избегать продуктов с высоким содержанием сахара, так как они могут нарушить баланс микрофлоры.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>Метабиотики.</b> Органический метабиотик Дайго поддерживает микрофлору мягко и естественно, создавая среду, благоприятную для роста полезных бактерий. Это помогает избежать колик, укрепляет иммунитет и поддерживает работу пищеварительной системы.
+	</p>
+ </li>
+</ol>
+<p style="text-align: center;" class="is-revealed">
+ <img width="841" alt="баннеры к статьям3.png" src="https://s3.firstvds.ru/articles/sax9bbskbqhd1oycrd08uish4e9ifkta.png" height="473" title="баннеры к статьям3.png">
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <br>
+</p>
+<h2 class="is-revealed">
+Почему поддержка микрофлоры важна для детей школьного возраста?</h2>
+<p class="is-revealed">
+</p>
+ С поступлением в школу ребенок сталкивается с новыми нагрузками — физическими и умственными, а также с эмоциональными стрессами и повышенным контактом с другими детьми. Все эти факторы могут негативно сказываться на балансе микрофлоры и вызывать сбои в работе кишечника. <br class="is-revealed">
+ <br class="is-revealed">
+ <b>Для детей школьного возраста важна здоровая микрофлора, так как она помогает:</b> <br class="is-revealed">
+<ul class="is-revealed">
+	<li>
+	Укрепить иммунитет. Дети, у которых в кишечнике преобладают полезные бактерии, реже болеют и легче справляются с инфекциями. </li>
+	<li>
+	Поддерживать стабильное пищеварение. Вздутие, запоры или диарея могут значительно ухудшать качество жизни ребенка, мешая учебе и активностям. </li>
+	<li>
+	Поддерживать психическое и эмоциональное здоровье. Научные исследования подтверждают, что микрофлора влияет на психоэмоциональное состояние, снижает тревожность и улучшает когнитивные функции, что особенно важно для детей в период учебы. </li>
+	<li>
+	Улучшить концентрацию и внимание. Доказано, что баланс микрофлоры влияет на уровень внимания и способности к обучению, помогая ребенку справляться с нагрузками в школе. </li>
+</ul>
+</div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<h2 class="is-revealed">Основные факторы, поддерживающие здоровую микрофлору у детей:</h2>
+<ul class="is-revealed">
+	<li><b>Сбалансированное питание.</b></li>
+</ul>
+ Рацион ребенка должен содержать разнообразные продукты: овощи, фрукты, белок, здоровые жиры и клетчатку. Клетчатка особенно важна для роста полезных бактерий. <br class="is-revealed">
+ Сахар и высокообработанные продукты лучше ограничить, так как они нарушают баланс микрофлоры.<br class="is-revealed">
+<ul class="is-revealed">
+	<li><b>Режим сна и физическая активность</b>. Физическая активность помогает поддерживать метаболизм, который влияет на микрофлору, а достаточный сон позволяет организму восстанавливаться. Недостаток сна и пассивный образ жизни ослабляют иммунитет и негативно отражаются на микробиоте кишечника.</li>
+</ul>
+<ul class="is-revealed">
+	<li><b>Метабиотики. </b>Метабиотики, такие как Дайго, поддерживают здоровье микрофлоры мягко и эффективно, создавая условия для роста полезных бактерий. Они особенно полезны для детей, которые проходят лечение антибиотиками, подвергаются стрессу или часто болеют.</li>
+</ul>
+ <i>Органический метабиотик Дайго, например, успешно применяется для поддержания микробиоты у детей всех возрастов. Он способствует восстановлению баланса в кишечнике, не вызывая побочных эффектов, и безопасен даже для самых маленьких детей. Таким образом, органический метабиотик Daigo успешно применяется в Японии людьми всех возрастов, в том числе беременными женщинами и малышами с первых дней жизни.</i>
+<iframe src="https://vk.com/video_ext.php?oid=-10462818&amp;id=456240415&amp;hd=2&amp;autoplay=1" width="365" height="714" allow="autoplay; encrypted-media;" frameborder="0" class="is-revealed"></iframe>
+<h2 class="is-revealed">Почему именно Daigo?</h2>
+<ul class="is-revealed">
+	<li>
+	<p>
+ <b>Высокое качество и безопасность</b>. Daigo производится в соответствии с строгими стандартами качества, что гарантирует его эффективность и безопасность для применения у новорожденных.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>Органическое происхождение.</b> Этот метабиотик основан на органических компонентах, что делает его более подходящим для чувствительного организма малыша.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>Поддержка микробиоты.</b> Daigo способствует созданию благоприятной среды для роста и развития полезных микроорганизмов в кишечнике, что помогает нормализовать пищеварение.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>Многочисленные исследования.</b> Продукт имеет многолетнюю историю успешного применения, что подтверждает его эффективность и безопасность.
+	</p>
+ </li>
+</ul>
+<p style="text-align: center;" class="is-revealed">
+ <img width="841" alt="баннеры к статьям2.png" src="https://s3.firstvds.ru/articles/7vihm7tcmewyoycu0h2ltuekq1b4wgns.png" height="473" title="баннеры к статьям2.png">
+</p>
+<h2 class="is-revealed">
+<p style="text-align: center;">
+</p>
+<p>
+	 Как правильно применять Daigo детям?
+</p>
+ </h2>
+<p class="is-revealed">
+	 Вот подробная инструкция по применению Daigo Lux и Daigo для разных возрастных групп:
+</p>
+<h3 class="is-revealed">
+Daigo Lux: </h3>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 От 1 до 2 лет: 1 капля в смесь для кормления.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 2 до 3 лет: 2 капли, разведенные в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 3 до 6 лет: 4 капли, разведенные в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 6 до 10 лет: 8 капель, разведенных в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 10 лет и старше: 25 капель, разведенных в воде.
+	</p>
+ </li>
+</ul>
+<h3 class="is-revealed">
+Daigo: </h3>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 До 3 лет: 1/5 саше (1 мл), разведенное в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 3 до 6 лет: 1/2 саше (2,5 мл), разведенное в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 6 до 10 лет: 1 саше (5 мл), разведенное в воде.
+	</p>
+ </li>
+	<li>
+	<p>
+		 От 10 лет и старше: 2-5 саше (10-25 мл), разведенные в воде.
+	</p>
+ </li>
+</ul>
+<h3 class="is-revealed">
+Для младенцев: </h3>
+<p style="text-align: center;" class="is-revealed">
+</p>
+<ul class="is-revealed">
+	<li>
+	<p>
+ <b>На грудном вскармливании:</b> Кормящей матери рекомендуется принимать 1 саше в сутки.
+	</p>
+ </li>
+	<li>
+	<p>
+ <b>На искусственном вскармливании:</b> Несколько капель продукта можно добавить в молочную смесь.
+	</p>
+ </li>
+</ul>        
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'mozhno-li-pit-probiotiki-vmeste-s-antibiotikami': {
+    id: 15,
+    slug: 'mozhno-li-pit-probiotiki-vmeste-s-antibiotikami',
+    title: 'Можно ли пить метабиотики вместе с антибиотиками?',
+    preview: 'Вокруг приема антибиотиков существует множество разных теорий и правил, который зачастую противоречат друг другу...',
+    image: 'https://s3.firstvds.ru/articles/vu8vdnu2xmaf0qlrvxrmucoodjh6xttm.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Развенчание мифов о совместном приёме антибиотиков и метабиотиков. Как правильно поддерживать микрофлору во время курса антибактериальной терапии.',
+    cover: 'https://s3.firstvds.ru/articles/vu8vdnu2xmaf0qlrvxrmucoodjh6xttm.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'Можно ли пить метабиотики вместе с антибиотиками?',
+        to: '/articles/mozhno-li-pit-probiotiki-vmeste-s-antibiotikami'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 8, slug: 'antibiotiki', label: 'Антибиотики' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+	 Вокруг приема антибиотиков существует множество разных теорий и правил, который зачастую противоречат друг другу. Однако, сегодня мы знаем наверняка, что даже обоснованный и необходимый прием данных лекарств, очень пагубно влияет на работу всего желудочно-кишечного тракта и, в частности, на микрофлору кишечника. Благо, медицина активно движется вперед, поэтому современные протоколы лечения, включающие антибиотикотерапию, рекомендуют пробиотик принимать вместе с антибиотиком. Расскажем подробнее, какую пользу несет этот совместный прием и чем метабиотики окажутся полезнее пробиотиков.
+</p>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+ <br>
+</p>
+<h2 class="is-revealed">Как антибиотики вредят нашему кишечнику<br>
+ </h2>
+<p class="is-revealed">
+	 Несмотря на свою важную роль в лечении бактериальных инфекций, антибиотики имеют ряд побочных эффектов. Чтобы их не усугубить и минимизировать, важно использовать антибиотики строго по назначению врача и следовать его рекомендациям по дозировке и длительности лечения. Одно из самых сильных негативных влияний оказывают антибиотики на органы желудочно-кишечного тракта. Они уничтожают микрофлору кишечника через механизмы, которые направлены на подавление роста бактерий. Поскольку антибиотики не действуют избирательно только на патогенные бактерии, они уничтожают широкий спектр микрофлоры, включая полезные бактерии кишечника.
+</p>
+<p class="is-revealed">
+	 Отсутствие полезной флоры или ее минимальное присутствие является катастрофической ситуацией для всего организма. Дело в том, что кишечник со своей микрофлорой осуществляет <b>целых 7 функций:</b> пищеварительную, синтез ферментов, витаминов и гормонов, всасывание, очищение крови, детоксикацию, выделительную и иммунную. Значительный вклад в их исполнение вносит полезная микрофлора кишечника. Соответственно, если ее нет или превалирует патогенная флора, то нарушаются все эти процессы.
+</p>
+<h3 class="is-revealed">Среди распространенных побочных эффектов со стороны ЖКТ выделяются:</h3>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Развитие резистентности бактерий: частое и необоснованное использование антибиотиков может привести к развитию устойчивых к антибиотикам штаммов бактерий. Это делает лечение инфекций более сложным и опасным;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Нарушение микрофлоры кишечника;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Нарушения в работе ЖКТ;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Развитие грибковых инфекций: уничтожение нормальной микрофлоры может привести к чрезмерному росту грибков, таких как Candida, что вызывает грибковые инфекции, например, кандидоз.
+	</p>
+ </li>
+</ul>
+<h3 class="is-revealed"> Как кишечник подает сигналы о помощи</h3>
+<p class="is-revealed">
+ <b>Обращайте внимание на характерные симптомы:</b> частый, жидкий стул или запор, вздутие и метеоризм, спазмы и дискомфорт в области живота, чувство тошноты, иногда сопровождающееся рвотой, горечь или кислый привкус. Также могут появиться симптомы, которые не связаны с кишечником напрямую: ощущение слабости, снижение энергии, потеря аппетита, различные высыпания, зуд, сухость и раздражение кожи, изменение настроения, повышенная раздражительность, депрессивные состояния.
+</p>
+<p class="is-revealed">
+	 Чтобы минимизировать негативное влияние антибиотиков на микрофлору кишечника и максимально использовать пользу пробиотиков, нужно правильно принимать пробиотик вместе с антибиотиком!
+</p>
+<p class="is-revealed">
+ <br>
+</p>
+<h2 class="is-revealed">Правила приема пробиотиков с антибиотиками<br>
+ </h2>
+<ul class="is-revealed">
+	<li>
+	<p>
+		 Принимайте пробиотики и антибиотики с разницей в несколько часов. Например, если вы принимаете антибиотики утром и вечером, пробиотики можно принимать в середине дня или перед сном;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Начинайте прием пробиотиков одновременно с антибиотиками и продолжайте курс пробиотиков еще 1-2 недели после завершения антибиотикотерапии;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Выбирайте пробиотики, содержащие штаммы бактерий, доказавшие свою эффективность в поддержке кишечной микрофлоры при приеме антибиотиков, такие как Lactobacillus rhamnosus GG, Saccharomyces boulardii и Bifidobacterium;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Соблюдайте условия хранения;
+	</p>
+ </li>
+	<li>
+	<p>
+		 Поддерживайте здоровую диету, богатую клетчаткой, которая способствует росту полезных бактерий.
+	</p>
+ </li>
+</ul>
+<h2 class="is-revealed"><br>
+ </h2>
+ <br class="is-revealed">        </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<h2 class="is-revealed">Более современный и эффективный способ&nbsp;</h2>
+<ul class="is-revealed">
+</ul>
+<p class="is-revealed">
+	 Более современным и эффективным способом восстановления правильного баланса кишечной микрофлоры является применение метабиотиков. Они работают по кардинально другой схеме: если пробиотики содержат живые бактерии и подселяют их в кишечник, то в составе метабиотиков только ценные ферменты от полезных бактерий. Они создают среду для роста и развития собственных полезных бактерий. <a href="https://daigo.ru/catalog/metabiotik-daigo/" class="link link--underlined">Метабиотик Дайго</a> из Японии начинает работать сразу после приема, увеличивая число здоровых бактерий, одновременно уменьшая количество патогенных микроорганизмов, помогая восстановить правильный баланс кишечного микробиома. Дайго рекомендуется принимать на протяжении всего курса антибиотиков и после него, так как здоровая микрофлора восстанавливается только в течение полугода.
+</p>
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy': {
+    id: 16,
+    slug: 'dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy',
+    title: 'Два слона помощи мозгу: Tamotsu или аминобиотик Daigo Brainy?',
+    preview: 'Головной мозг — это главный центр управления нашим телом, эмоциями, мышлением и памятью. Он работает без перерывов и выходных, обрабатывая огромные объемы информации каждый день...',
+    image: 'https://s3.firstvds.ru/articles/kkel6mwduiuc0lf8k1qitr234suylbhp.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Сравнение продуктов Tamotsu и Daigo Brainy: особенности состава, влияние на работу головного мозга, концентрацию и эмоциональное состояние.',
+    cover: 'https://s3.firstvds.ru/articles/kkel6mwduiuc0lf8k1qitr234suylbhp.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      {
+        label: 'Два слона помощи мозгу: Tamotsu или аминобиотик Daigo Brainy?',
+        to: '/articles/dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy'
+      }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 9, slug: 'mozgovaya-aktivnost', label: 'Мозговая активность' },
+      { id: 10, slug: 'nootropy', label: 'Ноотропы' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <h2 style="text-align: center;" class="is-revealed"> <span style="font-family: Tahoma, Geneva; font-size: 24pt; color: #00a650;">Что необходимо для поддержания активности мозга?</span></h2>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva; font-size: 13pt;">Головной мозг — это главный центр управления нашим телом, эмоциями, мышлением и памятью. Он работает без перерывов и выходных, обрабатывая огромные объемы информации каждый день. Но, как и любой другой орган, мозг нуждается в заботе и поддержке. Современная наука доказала, что для его оптимальной работы необходимы определенные питательные вещества, такие как фосфолипиды, аминокислоты и пептиды. Благодаря инновационным препаратам забота о мозге стала легче и эффективнее. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Мозг — это сложный орган, который потребляет около 20% всей энергии, вырабатываемой организмом. Он состоит из миллиардов нейронов, которые постоянно взаимодействуют друг с другом, передавая сигналы. Для поддержания этой активности мозгу необходимы: </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<ol class="is-revealed">
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <span style="color: #00a650;"><b>Фосфолипиды (плазмалогены)</b>&nbsp;</span>— основные компоненты клеточных мембран. Они обеспечивают гибкость и проницаемость мембран, что важно для передачи нервных импульсов. Фосфолипиды также способствуют восстановлению нейронов и защищают их от повреждений. </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <b><span style="color: #00a650;">Аминокислоты</span></b> — строительные блоки для белков и нейротрансмиттеров, таких как серотонин, дофамин и ГАМК. Эти вещества регулируют настроение, память, внимание и когнитивные функции. </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <b><span style="color: #00a650;">Пептиды</span></b> — короткие цепочки аминокислот, которые играют важную роль в регуляции работы мозга. Они способствуют улучшению нейропластичности, защищают нейроны от стресса и поддерживают когнитивные функции. </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+</ol>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Недостаток этих трех компонентов может существенно повлиять на работу мозга. Дефицит фосфолипидов приводит к ухудшению когнитивных функций, снижению памяти и концентрации. Недостаток аминокислот может вызывать нарушения эмоционального состояния, повышенную утомляемость и снижение умственной активности. Дефицит пептидов ухудшает способность мозга адаптироваться к новым условиям и повышает риск нейродегенеративных процессов. Таким образом, недостаток этих важных веществ может привести к серьезным нарушениям в работе мозга, включая ухудшение памяти, снижение когнитивных способностей и повышение риска развития неврологических заболеваний. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Правильное питание, богатое Омега-3 жирными кислотами, антиоксидантами, витаминами группы B и минералами, — это основа для здоровья мозга. Однако в условиях современного ритма жизни не всегда удается получать все необходимые вещества из пищи. Здесь на помощь приходят специальные добавки, такие как Tamotsu и Daigo Brainy. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h2 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #00a650;">Инновации для здоровья мозга</span></h2>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Бренд Daigo предлагает два уникальных продукта, которые помогают поддерживать здоровье мозга и улучшать его функции: Tamotsu и аминобиотик Daigo Brainy. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h3 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 13pt; color: #00a650;">БАД Tamotsu</span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Это единственный зарегистрированный в России источник плазмалогенов в комбинации с коэнзимом Q10. Уникальность Tamotsu обусловлена его составом - он содержит уникальные высококачественные чистые плазмалогены, добытые по сложной инновационной технологии из японского глубоководного морского гребешка. Плазмалогены абсолютно безопасны и на 100% усваиваются человеческим организмом. Это натуральный ингредиент, который содержится почти во всех тканях организма. На его долю приходится около 18% фосфолипидов в теле человека. Плазмалогенов особенно много в нервных клетках головного мозга, миокарде и лимфоцитах. Функция этого элемента - предотвращать повреждение клеток мозга.С возрастом уровень содержания плазмалогенов снижается в результате чего энергозатратные органы человека «изнашиваются» и их клетки нуждаются в «ремонте». </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	В мире чаще всего источниками плазмалогенов выступают сердечная мышца и головной мозг крупного рогатого скота, кожа кур и жировая фракция морских беспозвоночных. Эти пищевые продукты достаточно специфичны и не всегда могут приниматься в пищу, а их качество довольно низкое, поскольку в рацион этих животных и птиц на промышленном производстве входят и антибиотики, и гормоны. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Также в состав Тамоцу входит коэнзим Q10 высокого качества и биодоступности. Это природный антиоксидант, известный как anti-age-добавка. Он принимает участие в процессах клеточного дыхания, обеспечивает замедление процессов клеточного старения, улучшает работу сердечно-сосудистой системы и активизирует защитные функции организма. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Tamotsu способствует улучшению состояния при проблемах с памятью, забывчивости, возрастном ухудшение памяти, снижении концентрации внимания, рассеянности, болезни Альцгеймера, деменции, повышенных психоэмоциональных нагрузках, последствиях астенического синдрома, проявляющихся функциональными расстройствами, занятии тяжелым физическим трудом и спортом. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h3 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 13pt; color: #00a650;">БАД Аминобиотик Daigo Brainy</span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Daigo Brainy - это инновационный продукт, созданный для того, чтобы сохранять и поддерживать здоровье головного мозга, в том числе через кишечник. Основа его состава — это уникальный ингредиент аминобиотик IPH D, который включает сочетание чистейшего натурального пептида хлореллы и четырех важнейших аминокислот (L-изолейцин, L-лейцин, L-глутамин и L-аргинин). </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Одним из ключевых эффектов пептида хлореллы и аминокислот на мозг является снижение воспалительных процессов и нейтрализация свободных радикалов, которые вызывают старение и повреждение нейронов. Благодаря этому замедляются возрастные изменения мозга и снижается риск нейродегенеративных заболеваний, таких как болезнь Альцгеймера. Пептид хлореллы ускоряет процессы детоксикации или очищения клеток от «мусора», улучшает кровообращение в мозге, обеспечивая нейроны кислородом и питательными веществами, что положительно влияет на память, концентрацию и общее умственное состояние. Кроме того, он стимулирует выработку факторов роста нервов, способствуя нейропластичности — способности мозга восстанавливаться и адаптироваться. Аминокислоты L-глутаминовая кислота, L-изолейцин, L-лейцин и L-аргинин имеют ключевое значение для здоровья мышц, нервной системы, сердечно-сосудистой системы и общего состояния организма. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Таким образом Daigo Brainy: </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<ul class="is-revealed">
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Улучшает работу нервной системы и мозга; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Защищает во время информационной и\или психоэмоциональной нагрузки; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Способствует профилактике тревожности и более быстрому засыпанию; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Снижает метеочувствительность; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Курсовой прием препарата помогает предотвратить когнитивные нарушения, вызванные соматической дисфункцией, менопаузой, а также доброкачественную возрастную забывчивость. </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+</ul>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h2 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #00a650;">Почему важна профилактика заболеваний головного мозга?</span></h2>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Забота о мозге — это не просто вопрос хорошей памяти или высокой продуктивности. Это инвестиция в качество жизни. Здоровый мозг позволяет нам оставаться активными, принимать взвешенные решения, наслаждаться эмоциональной стабильностью и сохранять ясность ума даже в зрелом возрасте. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Забота о здоровье головного мозга начинается с устранения воспалительных процессов в организме, включая скрытые формы. Воспаление вызывает окислительный стресс и повреждение клеток, что нарушает работу нейронов и ухудшает когнитивные функции. Кроме того, воспалительные процессы могут нарушать гематоэнцефалический барьер, делая мозг более уязвимым для токсинов и патогенов. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Хроническое низкоинтенсивное воспаление, даже если оно протекает бессимптомно, может негативно влиять на мозг, способствуя развитию нейродегенеративных заболеваний, таких как болезнь Альцгеймера или Паркинсона. Поэтому первый шаг в поддержке мозга — это снижение уровня воспаления через сбалансированное питание, богатое антиоксидантами, восстановление здорового баланса микрофлоры, повышение функциональности полезных бактерий, контроль хронических заболеваний, регулярную физическую активность и управление стрессом. Только после этого можно эффективно поддерживать мозг с помощью других методов, направленных на улучшение его функций. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Аминобиотик Daigo Brainy свое воздействие прежде всего начинает с устранения воспалительных процессов в организме. Пептид хлореллы, который обладает мощными противовоспалительными свойствами, помогает снизить уровень хронического воспаления, даже скрытого, что особенно важно для защиты мозга от повреждений. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Уменьшая воспаление, Daigo Brainy создает благоприятные условия для восстановления полезной микрофлоры, повышения функциональности полезных бактерий и нормального функционирования клеток мозга, улучшая когнитивные функции, память и концентрацию. Что делает последующий прием Tamotsu более эффективным, так как если воспаление присутствует, добавки могут не дать ожидаемого эффекта, ведь их действие будет «перекрываться» негативными процессами. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Мозг — это наш самый ценный ресурс, и забота о нем должна быть приоритетом. Сбалансированное питание, здоровый образ жизни и современные препараты, такие как Tamotsu и Daigo Brainy помогут вам сохранить ясность ума, улучшить память и поддерживать высокий уровень энергии на протяжении всей жизни!</span>
+</p>        </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 3, slug: 'chto-takoe-metabiotiki', title: 'Что такое Метабиотики', preview: '', image: 'https://nuxt.daigo.ru/images/articles/first.jpg', date: '2024-03-22', time: 8, views: 13040, comments: 0, properties: {} as any },
+      { id: 1, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: '2. На что влияет микрофлора кишечника?', preview: '', image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg', date: '2023-06-24', time: 8, views: 22300, comments: 0, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
 }
 
 export default cachedEventHandler(async (event) => {

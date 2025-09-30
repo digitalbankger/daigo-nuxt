@@ -121,8 +121,8 @@ const ALL: ArticleListItem[] = [
     image: '/images/articles/first.jpg',
     date: '2025-08-05',
     time: 8,
-    views: 200,
-    comments: 10,
+    views: 13040,
+    comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
   {
@@ -145,7 +145,7 @@ const ALL: ArticleListItem[] = [
     image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
     date: '2025-06-30',
     time: 8,
-    views: 200,
+    views: 22300,
     comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   }, 
@@ -162,7 +162,7 @@ const ALL: ArticleListItem[] = [
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
 
-  // Новые статьи без контента внутри
+  // Новые статьи без контента внутри(готовы)
   {
     id: 5,
     slug: 'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat',
