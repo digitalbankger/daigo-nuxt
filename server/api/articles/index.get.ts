@@ -161,14 +161,155 @@ const ALL: ArticleListItem[] = [
     comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
-  
-  
-  
-  
-  
-  
-  
-  
+
+  // Новые статьи без контента внутри
+  {
+    id: 5,
+    slug: 'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat',
+    title: 'Дисбактериоз: как понять, что баланс бактерий нарушен, и что с этим делать?',
+    preview: 'Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении...',
+    image: 'https://s3.firstvds.ru/articles/2i7ox270udqou8r4jvp5u49nfgps644p.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 6,
+    slug: 'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey',
+    title: 'Daigo Lux: эволюция метабиотика с вековой историей!',
+    preview: 'В последние годы всё больше внимания уделяется метабиотикам — инновационным средствам, способствующим поддержанию здорового микробиома и укреплению иммунитета...',
+    image: 'https://s3.firstvds.ru/articles/t35k43amzb9avugchueoo43uyvw04n9u.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 7,
+    slug: 'allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi',
+    title: 'Аллергия и астма: экспертное мнение о причинах заболеваний и способах борьбы с ними',
+    preview: 'Аллергические заболевания затрагивают миллионы людей во всем мире, существенно влияя на качество их жизни...',
+    image: 'https://s3.firstvds.ru/articles/n3th53jag532vuxtt1pcruvaewa9yem8.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 8,
+    slug: 'glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat',
+    title: 'Глютен и лактоза: кому действительно нужно их избегать?',
+    preview: 'Глютен: что это и почему он стал проблемой для многих?...',
+    image: 'https://s3.firstvds.ru/articles/aoqi29vjazsdjfjsa8oc6icexlg5h3ym.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 9,
+    slug: 'daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke',
+    title: 'Daigo как вино: ферментация продолжается в упаковке!',
+    preview: 'Польза ферментированных продуктов...',
+    image: 'https://s3.firstvds.ru/articles/3ulgpuh4xxg22okan0688kq296mntm0s.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 10,
+    slug: 'kak-daigo-pomogaet-pri-psoriaze-ot-kishechnika-k-kozhe',
+    title: 'Как Daigo помогает при псориазе: от кишечника к коже',
+    preview: 'Нарушения в работе иммунной системы...',
+    image: 'https://s3.firstvds.ru/articles/csv9jncyacqbm49flvz0vvd0s7t5v1a4.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 11,
+    slug: 'pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove',
+    title: 'Почему важен длительный прием Daigo: рассказываем поэтапно, как улучшается здоровье.',
+    preview: 'В современном мире, где фармацевтические препараты часто предлагают быстрое, но кратковременное решение проблем со здоровьем, все больше людей обращают внимание на натуральные добавки, которые работают на клеточном уровне...',
+    image: 'https://s3.firstvds.ru/articles/gi781102k9961wkctzpjsxkhk94atoa6.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 12,
+    slug: 'psoriaz-pravda-i-mify-o-lechenii',
+    title: 'Псориаз: правда и мифы о лечении',
+    preview: 'В этой статье, опираясь на экспертное мнение врача-дерматолога Юлии Галлямовой, мы детально разберем основные аспекты псориаза:...',
+    image: 'https://s3.firstvds.ru/articles/sqlhvxe5rhl5wn9g8hpgqi14c5rs0tb0.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 13,
+    slug: 'peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti',
+    title: 'Пептид хлореллы: природный источник здоровья и молодости',
+    preview: 'Современная наука активно изучает натуральные компоненты, которые могут поддерживать здоровье и замедлять процессы старения...',
+    image: 'https://s3.firstvds.ru/articles/s2pwieg5lf32magymdozkpzr76599sr7.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 14,
+    slug: 'nuzhno-li-davat-probiotik-novorozhdennomu',
+    title: 'С первых дней и на всю жизнь: важность микрофлоры для здоровья детей',
+    preview: 'Поддержание здоровой микрофлоры кишечника — один из ключевых факторов, влияющих на здоровье ребенка с первых дней жизни и до зрелого возраста...',
+    image: 'https://s3.firstvds.ru/articles/37wu3heurw5qhtnzwjfka5uts35cc9c7.jpg',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 15,
+    slug: 'mozhno-li-pit-probiotiki-vmeste-s-antibiotikami',
+    title: 'Можно ли пить метабиотики вместе с антибиотиками?',
+    preview: 'Вокруг приема антибиотиков существует множество разных теорий и правил, который зачастую противоречат друг другу...',
+    image: 'https://s3.firstvds.ru/articles/vu8vdnu2xmaf0qlrvxrmucoodjh6xttm.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+  {
+    id: 16,
+    slug: 'dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy',
+    title: 'Два слона помощи мозгу: Tamotsu или аминобиотик Daigo Brainy?',
+    preview: 'Головной мозг — это главный центр управления нашим телом, эмоциями, мышлением и памятью. Он работает без перерывов и выходных, обрабатывая огромные объемы информации каждый день...',
+    image: 'https://s3.firstvds.ru/articles/kkel6mwduiuc0lf8k1qitr234suylbhp.png',
+    date: '2025-05-27',
+    time: 5,
+    views: 780,
+    comments: 0,
+    properties: { napravlennost: 'kishechnik-i-immunitet' }
+  },
+
+
+
   // {
   //   id: 2,
   //   slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu',

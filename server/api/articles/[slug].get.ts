@@ -587,6 +587,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
+  // Example
   'na-chto-vliyaet-mikroflora-kishechnika': {
     id: 3,
     slug: 'na-chto-vliyaet-mikroflora-kishechnika',
@@ -883,6 +884,1206 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
+  'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat': {
+    id: 4,
+    slug: 'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat',
+    title: 'Дисбактериоз: как понять, что баланс бактерий нарушен, и что с этим делать?',
+    preview: 'Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении',
+    image: 'https://s3.firstvds.ru/articles/2i7ox270udqou8r4jvp5u49nfgps644p.png',
+    date: '2025-05-27',
+    time: 8,
+    views: 2030,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении',
+    cover: 'https://s3.firstvds.ru/articles/2i7ox270udqou8r4jvp5u49nfgps644p.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: 'Дисбактериоз: как понять...', to: '/articles/disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;">Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении, иммунитете и даже психическом здоровье. Однако под влиянием различных факторов он может нарушаться, тогда развивается дисбактериоз. Это состояние не является самостоятельным диагнозом, но оно может проявляться множеством неприятных симптомов: от вздутия и дискомфорта в животе до кожных высыпаний и постоянной усталости. Как распознать дисбактериоз? Какие анализы помогут подтвердить нарушение микрофлоры? И главное — как восстановить баланс полезных бактерий?</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p style="text-align: center;" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><b><span style="font-size: 18pt;  font-family: Tahoma, Geneva;">Что такое дисбактериоз?</span></b></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Дисбактериоз (дисбиоз)</span></b><span style="font-family: Tahoma, Geneva;"> — это нарушение баланса микрофлоры, при котором снижается количество полезных бактерий и увеличивается число патогенных или вредных микроорганизмов. В норме кишечник населён симбиотическими бактериями, которые помогают переваривать пищу, синтезируют витамины, поддерживают иммунитет и защищают от инфекций. Когда этот баланс нарушается, возникают расстройства пищеварения, воспалительные процессы и другие негативные последствия для здоровья.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;">
+	Первые научные работы, посвящённые роли кишечных бактерий в здоровье человека, появились в конце XIX века. Нобелевский лауреат </span><b><span style="font-family: Tahoma, Geneva;">Илья Мечников </span></b><span style="font-family: Tahoma, Geneva;">в начале XX века предположил, что дисбаланс микрофлоры может </span><b><span style="font-family: Tahoma, Geneva;">ускорять старение и способствовать развитию болезней</span></b><span style="font-family: Tahoma, Geneva;">. Термин «дисбактериоз» начал активно использоваться в медицине в России с середины XX века, хотя в международной классификации болезней (МКБ) его нет как отдельного диагноза. Тем не менее, современные исследования подтверждают, что нарушения микробиоты связаны с множеством заболеваний — от синдрома раздражённого кишечника до депрессии.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Точных данных о частоте дисбактериоза нет, поскольку это состояние не всегда диагностируется. Однако известно, что: </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; 90% людей, принимавших антибиотики, сталкиваются с временным дисбалансом микрофлоры; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Около 20–25% населения развитых стран имеют хронические нарушения пищеварения, которые могут быть связаны с дисбиозом; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; У 70–80% людей с хроническими заболеваниями ЖКТ (гастрит, колит, СРК) выявляют изменения в составе микробиоты.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p align="center" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-size: 18pt; font-family: Tahoma, Geneva;">Симптомы дисбактериоза: как распознать проблему?</span></b></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Симптомы дисбактериоза разнообразны и могут затрагивать не только пищеварение, но и кожу, иммунитет, нервную систему. В зависимости от степени нарушения и локализации, он может проявляться по-разному.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Кишечные симптомы</span></b><span style="font-family: Tahoma, Geneva;"> </span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Наиболее часто дисбактериоз затрагивает желудочно-кишечный тракт, вызывая: </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Вздутие и метеоризм из-за усиленного брожения и газообразования; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Нарушения стула (диарея или запоры, иногда их чередование); </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Дискомфорт и боли в животе (чаще всего в области кишечника, ноющие или в виде спазмов); </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Неприятный привкус во рту, отрыжка, изжога из-за нарушения пищеварения; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+        </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: ` 
+<h2 id="first" class="text-xl md:text-product font-medium mb-4 leading-tight">Непереваренная пища в стуле (свидетельствует о плохом усвоении питательных веществ)</h2><br><br>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Кожные проявления</span></b><span style="font-family: Tahoma, Geneva;"> </span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Дисбаланс микрофлоры кишечника может отражаться на состоянии кожи через: </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Акне, высыпания, воспаления из-за накопления токсинов; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Сухость, шелушение или, наоборот, повышенную жирность; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Аллергические реакции (дерматиты, зуд, покраснения).</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Урогенитальные нарушения</span></b><span style="font-family: Tahoma, Geneva;"> </span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	У женщин дисбактериоз влагалища (бактериальный вагиноз) проявляется: </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Выделениями (белыми, сероватыми, с резким запахом); </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Зудом и жжением; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Дискомфортом при мочеиспускании и половом акте.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	У мужчин возможны кандидоз (молочница), зуд, воспаление мочеполовых путей.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Аллергические и аутоиммунные реакции</span></b><span style="font-family: Tahoma, Geneva;"> </span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	При дисбактериозе повышается проницаемость кишечника, что может провоцировать: </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Пищевую непереносимость; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Обострение экземы, крапивницы, астмы; </span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	•&nbsp;&nbsp; Аутоиммунные процессы (в очень тяжелых случаях).</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Дисбактериоз может вызывать и общие симптомы, связанные с нарушением всасывания питательных веществ и интоксикацией организма. Человек часто ощущает слабость, повышенную утомляемость и раздражительность без видимых причин. Могут появляться головные боли и проблемы со сном (как бессонница, так и повышенная сонливость). Из-за дисбаланса микрофлоры ослабляется иммунитет, что проявляется частыми простудами и обострениями хронических заболеваний. Характерным признаком становится дефицит витаминов и минералов, который выражается в ухудшении состояния кожи, ломкости ногтей и усиленном выпадении волос. Эти симптомы часто развиваются постепенно, и многие люди не сразу связывают их с нарушением микрофлоры кишечника.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p align="center" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-size: 18pt; font-family: Tahoma, Geneva;">Что убивает наши полезные бактерии?</span></b></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;">
+	Дисбактериоз не возникает просто так — это всегда следствие агрессивного воздействия на хрупкий баланс нашего микробиома. Одной из главных причин является бесконтрольный или частый</span><b><span style="font-family: Tahoma, Geneva;"> прием антибиотиков</span></b><span style="font-family: Tahoma, Geneva;">. Эти лекарства, созданные для борьбы с инфекциями, действуют без разбора — вместе с вредными бактериями они уничтожают и полезные микроорганизмы, оставляя кишечник практически беззащитным. Не менее опасны </span><b><span style="font-family: Tahoma, Geneva;">гормональные препараты</span></b><span style="font-family: Tahoma, Geneva;">, включая оральные контрацептивы, и </span><b><span style="font-family: Tahoma, Geneva;">лекарства для химиотерапии</span></b><span style="font-family: Tahoma, Geneva;">, которые радикально меняют внутреннюю среду организма.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;">
+	Но виноваты не только лекарства. </span><b><span style="font-family: Tahoma, Geneva;">Современный ритм жизни </span></b><span style="font-family: Tahoma, Geneva;">с его вечными стрессами также пагубно воздействует на нашу микрофлору. Гормон кортизол нарушает работу кишечника и подавляет рост полезных бактерий. Добавьте к этому типичное питание среднестатистического человека: обилие сахара, рафинированных продуктов, фастфуда и искусственных добавок создает идеальные условия для патогенных микробов, тогда как полезные бактерии голодают без клетчатки и ферментированных продуктов.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Экология тоже вносит свой вклад</span></b><span style="font-family: Tahoma, Geneva;">: хлорированная вода, пестициды в еде, тяжелые металлы и другие токсины постепенно отравляют микрофлору. А если человек злоупотребляет алкоголем или курит, ситуация ухудшается еще больше — эти привычки разрушают слизистые оболочки и меняют кислотность, делая среду непригодной для полезных бактерий.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Хронические болезни </span></b><span style="font-family: Tahoma, Geneva;">— еще один скрытый враг микрофлоры. Гастриты, панкреатиты, синдром раздраженного кишечника, аутоиммунные заболевания и даже невылеченные зубы становятся постоянными источниками воспаления, которое подрывает баланс микробиома. Особенно опасны кишечные инфекции — после них микрофлора может восстанавливаться месяцами.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">
+	Даже такие, казалось бы, безобидные вещи, как диеты или, наоборот, переедание, могут спровоцировать дисбактериоз. Резкие изменения в питании, голодание, избыток белков или углеводов — все это дезориентирует микрофлору, которая просто не успевает адаптироваться. А если добавить к этому малоподвижный образ жизни, замедляющий обмен веществ и перистальтику кишечника, картина становится совсем печальной. Дисбактериоз — это не просто случайный сбой, а результат воздействия целого комплекса факторов. И чтобы восстановить микрофлору, недостаточно просто пропить какие-то препараты, — нужно менять образ жизни, питание и внимательнее относиться к своему здоровью.</span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p style="text-align: center;" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-size: 18pt; font-family: Tahoma, Geneva;"> </span><b><span style="font-size: 18pt; font-family: Tahoma, Geneva;">Как восстановить необходимый баланс микрофлоры и избавиться от дисбактериоза?</span></b></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Начинать нужно с питания</span></b><span style="font-family: Tahoma, Geneva;"> — именно оно становится основой для восстановления здоровой микрофлоры. Включите в рацион больше ферментированных продуктов: натуральный йогурт без добавок, кефир, квашеную капусту, мисо-суп и комбучу. Овощи, фрукты, злаки, семена льна и чиа создают благоприятную среду для роста здоровой микрофлоры. Одновременно стоит сократить продукты, которые провоцируют дисбаланс: сахар, рафинированные углеводы, фастфуд и искусственные добавки. Они становятся питательной средой для вредных бактерий и грибков, мешая восстановлению. Важно пить достаточное количество воды — обезвоживание ухудшает пищеварение и замедляет обновление слизистой кишечника.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Снижение уровня стресса</span></b><span style="font-family: Tahoma, Geneva;">. Хроническое напряжение меняет кислотность кишечника и подавляет рост полезных бактерий. Техники релаксации, качественный сон, физическая активность и прогулки на свежем воздухе помогают снизить уровень кортизола и создать условия для восстановления баланса.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Движение</span></b><span style="font-family: Tahoma, Geneva;"> — естественный стимулятор работы кишечника. Регулярная физическая активность, будь то йога, плавание или обычная ходьба, улучшает перистальтику и способствует выведению токсинов. Даже простые упражнения на скручивание и массаж живота по часовой стрелке могут значительно улучшить пищеварение.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Прием метабиотиков</span></b><span style="font-family: Tahoma, Geneva;">&nbsp;</span></span><span style="font-family: Tahoma, Geneva;">—&nbsp;эффективный и быстрый способ вернуть микрофлоре необходимый баланс. Почему именно они? Пробиотики содержат живые бактерии и большая их часть отторгается организмом, а пребиотики служат питательной средой для любых бактерий (как для вредных, так и полезных бактерий). В составе метабиотика Daigo ценные ферменты от 16 видов полезных бактерий и их клеточный материал. Это делает их принципиально иным, более эффективным средством коррекции дисбиотических нарушений. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Главное преимущество</span></b><span style="font-family: Tahoma, Geneva;"> — биодоступность и немедленное действие. В то время как пробиотические бактерии могут погибать в агрессивной среде желудка или не приживаться в кишечнике, метабиотики начинают работать сразу после приема. Daigo создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору. Он способствует восстановлению здорового баланса кишечной микрофлоры, восстановлению и укреплению иммунитета. Активные метаболиты в его составе сразу начинают работать в организме, восстанавливая баланс микрофлоры без необходимости заселения живых бактерий, они стимулируют регенерацию слизистой кишечника и нормализуют пищеварительные процессы. Это особенно важно после антибиотикотерапии, при хронических заболеваниях ЖКТ или неправильном питании — состояниях, когда микрофлора особенно уязвима.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;">
+	Клинические наблюдения показывают, что регулярный прием метабиотика Daigo уже в первую неделю дает </span><b><span style="font-family: Tahoma, Geneva;">комплексный эффект</span></b><span style="font-family: Tahoma, Geneva;">: уменьшается вздутие и дискомфорт, нормализуется стул, улучшается усвоение питательных веществ. Поскольку кишечник тесно связан с иммунной системой, восстановление микробного баланса приводит к усилению защитных сил организма — уменьшается частота простудных заболеваний, снижается проявление аллергических реакций. Кроме того, метаболиты в составе Daigo способствуют детоксикации и уменьшению воспалительных процессов, что положительно сказывается на состоянии кожи и общем самочувствии.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"><span style="font-family: Tahoma, Geneva;">
+	Важно и то, что </span><b><span style="font-family: Tahoma, Geneva;">Daigo удобен в применении</span></b><span style="font-family: Tahoma, Geneva;">: он не требуют специальных условий хранения, устойчив к действию желудочного сока и может использоваться даже людьми с лактозной непереносимостью. В отличие от пробиотиков, эффективность которых сильно зависит от состояния ЖКТ конкретного человека, метабиотики действуют стабильно, что делает их надежным средством для коррекции дисбактериоза.</span></span><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;"> </span><i><span style="font-family: Tahoma, Geneva;">Постепенное введение полезных привычек, отказ от вредных продуктов, прием Daigo и забота о психическом равновесии создают прочный фундамент для здоровья кишечника и сохранения долгосрочного результата!</span></i>
+</p>
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey': {
+    id: 3,
+    slug: 'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey',
+    title: 'Daigo Lux: эволюция метабиотика с вековой историей!',
+    preview: 'Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении',
+    image: 'https://s3.firstvds.ru/articles/t35k43amzb9avugchueoo43uyvw04n9u.jpg',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Микрофлора кишечника — это сложная экосистема, в которой сосуществуют триллионы бактерий, грибов и других микроорганизмов. Их баланс играет ключевую роль в пищеварении',
+    cover: 'https://s3.firstvds.ru/articles/t35k43amzb9avugchueoo43uyvw04n9u.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: 'Daigo Lux: эволюция метабиотика с вековой историей!', to: '/articles/daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;">В последние годы всё больше внимания уделяется метабиотикам — инновационным средствам, способствующим поддержанию здорового микробиома и укреплению иммунитета. Среди них особое место занимает <b>японский метабиотик Daigo</b>, завоевавший доверие потребителей благодаря своей эффективности. Его премиальная версия — Daigo Lux — представляет собой усовершенствованную формулу. Чем отличается <b>Daigo Lux </b>от классического Daigo? В чём заключаются его преимущества и в каких случаях стоит выбрать именно эту версию? Рассмотрим ключевые особенности продукта.</span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Более века назад японские ученые, вдохновленные работами русского микробиолога&nbsp;Ильи Мечникова о пользе молочнокислых бактерий для здоровья, создали уникальный метабиотик Daigo. Мечников, лауреат Нобелевской премии, доказал, что лактобактерии способствуют долголетию, укрепляя иммунитет и поддерживая баланс микрофлоры. На основе этих открытий японские специалисты разработали формулу продукта, которая сочетает в себе не сами бактерии, а ценные ферменты, которые образуются в ходе их жизнедеятельности, и их клеточные тела.</span><span style="font-family: Tahoma, Geneva;">&nbsp;</span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Принцип действия метабиотика Daigo основан на <b>естественной регуляции микробиома</b>: активные компоненты стимулируют рост собственной полезной микрофлоры, подавляют патогенные бактерии и укрепляют защитные функции организма. В отличие от пробиотиков, которые содержат живые культуры, эффективность Daigo не зависит от выживаемости бактерий, поскольку он действует за счет их метаболитов. Это делает его более стабильным и универсальным средством для поддержания здоровья кишечника и иммунной системы.</span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	С момента создания Daigo японские ученые продолжали совершенствовать его формулу, стремясь к максимальной эффективности. Результатом деятельности стал Daigo Lux — премиальная версия легендарного метабиотика, в которой воплотились передовые технологии и многовековые традиции ферментации. Главное отличие Daigo Lux — <b>дополнительная ступень ферментации</b>, которая усиливает активность экстракта и повышает концентрацию полезных компонентов. Если Daigo производится в течение 2 лет, половину из которых занимает процесс брожения, то создание Daigo Lux требует еще больше времени. Это делает его формулу еще более мощной и сбалансированной. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Благодаря усовершенствованной технологии, Daigo Lux обладает усиленным действием. Это выбор для тех, кто ценит премиальное качество и стремится к максимальной заботе о своем организме. В чем основные отличия от Daigo?</span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Скорость работы продукта</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Из-за того, что Daigo Lux проходит дополнительную ступень ферментации при производстве, концентрация ценных ферментов от 16 видов полезных бактерий в нем очень высокая. Благодаря этому, организм быстрее реагирует на прием продукта, соответственно, быстрее наступает результат! При этом, Daigo Lux работает плавно и мягко. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Дневная дозировка</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Необходимая минимальная дозировка Daigo для взрослого человека - 15 мл. В Daigo Luх это всего 1,5 - 2 мл. Этого будет достаточно, чтобы обеспечить полноценную дневную дозировку взрослому человеку. В комплекте с продуктом идет удобная мерная пипетка, которой не только можно отмерить нужное количество метабиотика, но набрать его с собой в поездку - содержимого пипетки хватит на 3-5 дней. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;">Бутылочка </span></b><b><span style="font-family: Tahoma, Geneva;">Daigo</span></b><b><span style="font-family: Tahoma, Geneva;"> </span></b><b><span style="font-family: Tahoma, Geneva;">Lux</span></b><b><span style="font-family: Tahoma, Geneva;">
+	= полноценный курс</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Daigo упакован в саше по 5 мл. На курс необходимо 9 коробочек. При этом, всего одной бутылочки Daigo Lux достаточно для полноценного курса приема. Благодаря высокой концентрации активных компонентов взрослому человеку хватает упаковки на <b>2–4 месяца</b> — в зависимости от выбранной дозировки. Продукт можно принимать как курсами для восстановления баланса микрофлоры и укрепления иммунитета, так и на постоянной основе для поддержания здоровья и энергии в организме. Удобный формат и пролонгированное действие делают Daigo Lux экономичным и эффективным решением для тех, кто заботится о своем здоровье системно.⠀ </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Повторный курс также рекомендуется после длительного перерыва или в периоды, когда организм особенно нуждается в дополнительной поддержке: при повышенных нагрузках, сезонных ослаблениях иммунитета или после приема антибиотиков. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p align="center" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> <b><span style="font-size: 18pt;">Научно доказано: Daigo Lux влияет на долголетие!</span></b> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Эффективность Daigo Lux подтверждена не только многолетним опытом применения, японскими и российскими исследованиями. Премиальный метабиотик прошел испытания в авторитетной биотехнологической организации Life Length (Испания), специализирующейся на изучении старения и клеточного здоровья. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Результаты исследований показали, что <b>Daigo Lux оказывает влияние на длину теломер</b> — защитных участков хромосом, которые играют ключевую роль в процессах старения клеток. Сохранение длины теломер связано с продлением жизненного цикла клеток и поддержанием&nbsp;молодости. Поэтому прием Daigo Lux может стать важной частью стратегии для тех, кто стремится сохранить здоровье и активность на долгие годы. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Для исследования на протяжении 8 недель основные клетки соединительной ткани человека питали Daigo Lux. Уже через<b> 6 часов</b>, наблюдалось значительное увеличение активности теломеразы в клетках, обработанных Daigo Lux по сравнению с контрольной группой. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Морфологический анализ с помощью 20-кратного увеличения не показал ни одного вредного эффекта при любой концентрации Daigo Lux! </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+       </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<p align="center" class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; font-size: 18pt;">После 8 недель было установлено, что продукт, как минимум в 1,5 раза, замедляет укорачивание теломер!</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #000000;">Важно</span></b><span style="font-family: Tahoma, Geneva;"><span style="color: #000000;">:</span> после прекращения приема продукта эффект сохранялся. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;">
+	Это открытие подтверждает, что Daigo Lux не только способствует укреплению иммунитета и балансу микрофлоры, но и может влиять на фундаментальные механизмы долголетия. Своим исследованием ученые испанской организации Life Lenght совершили настоящий прорыв, доказав, что можно повлиять на свое старение безопасным способом. </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><i><span style="font-family: Tahoma, Geneva;">Daigo </span></i><i><span style="font-family: Tahoma, Geneva;">– по-настоящему уникальный метабиотик, проверенный временем и тысячами отзывов благодарных людей. Однако если вы ищете ещё более мощный эффект в сжатые сроки без компромиссов в качестве, то </span></i><i><span style="font-family: Tahoma, Geneva;">Daigo Lux </span></i><i><span style="font-family: Tahoma, Geneva;">– ваш идеальный выбор. Благодаря дополнительной ферментации и повышенной концентрации активных компонентов</span></i><i><span style="font-family: Tahoma, Geneva;">, Daigo Lux </span></i><i><span style="font-family: Tahoma, Geneva;">обеспечивает ускоренный результат при сохранении всех преимуществ оригинальной формулы. Это решение для тех, кто ценит своё время и стремится к максимальной эффективности в заботе о здоровье. </span></i><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+<span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva;"> </span><i><span style="font-family: Tahoma, Geneva;">Выбирая </span></i><i><span style="font-family: Tahoma, Geneva;">Daigo Lux</span></i><i><span style="font-family: Tahoma, Geneva;">, вы получаете премиальную версию легендарного метабиотика – усовершенствованную, научно подтверждённую и созданную для тех, кто предпочитает только лучшее.</span></i>
+</p> 
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi': {
+    id: 7,
+    slug: 'allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi',
+    title: 'Аллергия и астма: экспертное мнение о причинах заболеваний и способах борьбы с ними',
+    preview: 'Аллергические заболевания затрагивают миллионы людей во всем мире, существенно влияя на качество их жизни',
+    image: 'https://s3.firstvds.ru/articles/n3th53jag532vuxtt1pcruvaewa9yem8.png',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Аллергические заболевания затрагивают миллионы людей во всем мире, существенно влияя на качество их жизни',
+    cover: 'https://s3.firstvds.ru/articles/n3th53jag532vuxtt1pcruvaewa9yem8.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: 'Аллергия и астма: экспертное мнение...', to: '/articles/allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;">Аллергические заболевания затрагивают миллионы людей во всем мире, существенно влияя на качество их жизни. В последние десятилетия отмечается </span><span style="font-family: Tahoma, Geneva;">рост заболеваемости аллергией и астмой</span><span style="font-family: Tahoma, Geneva;">.&nbsp;</span><span style="font-family: Tahoma, Geneva;">Аллергия возникает вследствие </span><span style="font-family: Tahoma, Geneva;">чрезмерного иммунного ответа</span><span style="font-family: Tahoma, Geneva;">
+	на вещества, которые в норме не представляют опасности для организма. Иммунная система ошибочно воспринимает их как угрозу и запускает каскад реакций, ведущих к воспалению и различным клиническим проявлениям — от насморка и кожных высыпаний до тяжелых приступов удушья. Бронхиальная астма, в свою очередь, является хроническим воспалительным заболеванием дыхательных путей, часто имеющим аллергическую природу. Так, например, согласно исследованиям, около 50% пациентов с аллергией на амброзию становятся астматиками.</span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p align="center" class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #ee1d24;">П</span><strong><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #ee1d24;">ричины развития аллергии и бронхиальной астмы</span></strong></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;">
+	Возникновение аллергии и бронхиальной астмы имеет<span style="color: #ee1d24;"> </span></span><strong><span style="font-family: Tahoma, Geneva; color: #ee1d24;">многофакторную природу</span></strong><span style="font-family: Tahoma, Geneva;">, включающую как генетическую предрасположенность, так и влияние факторов окружающей среды. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #ee1d24;">Генетическая предрасположенность</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Исследования показывают, что, если у одного из родителей есть аллергическое заболевание, то вероятность развития аллергии у ребенка составляет<span style="color: #ee1d24;"> </span></span><strong><span style="font-family: Tahoma, Geneva; color: #ee1d24;">до 40%</span></strong><span style="font-family: Tahoma, Geneva;">. В случае, если оба родителя страдают аллергией, риск возрастает до </span><strong><span style="font-family: Tahoma, Geneva; color: #ee1d24;">80%</span></strong><span style="font-family: Tahoma, Geneva;">. Однако, несмотря на выраженное влияние наследственных факторов, аллергия не обязательно проявляется у всех носителей предрасполагающих генов. Значительное влияние оказывают </span><strong><span style="font-family: Tahoma, Geneva; color: #ee1d24;">внешние факторы</span></strong><span style="font-family: Tahoma, Geneva;">, такие как: </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;"><span style="color: #ee1d24;">Загрязнение воздуха</span></span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Выхлопные газы, промышленные выбросы и мелкодисперсные частицы проникают глубоко в легкие, вызывая хроническое раздражение слизистой. Исследования подтверждают, что проживание в районах с высоким уровнем загрязнения воздуха увеличивает риск развития аллергии и астмы. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #ee1d24;">Высокая концентрация озона</span></b><span style="font-family: Tahoma, Geneva;">.</span><span style="font-family: Tahoma, Geneva;"> При появлении озоновых дыр, концентрация озона в воздухе увеличивается, что усиливает действие аллергенов. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #ee1d24;">Активное и пассивное курение</span></b><span style="font-family: Tahoma, Geneva;">.</span><span style="font-family: Tahoma, Geneva;"> Вдыхание табачного дыма не только увеличивает риск развития аллергии у детей, но и ухудшает течение уже имеющихся аллергических заболеваний ребенка. Кроме того, табачные соединения, раздражая слизистые, могут вызвать частые насморки и сложности с дыханием. Пары электронных сигарет содержат никотин и химические ароматизаторы, которые могут вызывать повреждение легочных тканей. Зарегистрированы случаи, когда злоупотребление никотиновыми парами приводило к развитию тяжелых осложнений, включая легочные кровотечения. Наибольшему риску подвержены подростки и молодые люди — именно они составляют основную группу пользователей электронных сигарет. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #ee1d24;">Изменение культуры питания</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Современный рацион, включающий продукты глубокой переработки, консерванты и искусственные добавки, изменяет микрофлору кишечника и влияет на иммунные процессы. Недостаток антиоксидантов и омега-3 кислот повышает риск появления воспаления и аллергии. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #ee1d24;">Контакт с аллергенами</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Аллергены могут быть </span><span style="font-family: Tahoma, Geneva;">сезонными</span><span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">(цветение деревьев, злаковых, сорных растений) и </span><span style="font-family: Tahoma, Geneva;">круглогодичными</span><span style="font-family: Tahoma, Geneva;">
+	(шерсть животных, аллергены домашней пыли, плесневые грибы). Контакт с аллергеном вызывает иммунный ответ, приводящий к воспалению и развитию симптомов. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p align="center" class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #f16522; font-size: 18pt;">Как узнать свой аллерген?</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #f16522;">Кожные пробы. </span></b><span style="font-family: Tahoma, Geneva;">Кожные тесты — один из наиболее информативных методов диагностики аллергии. Они проводятся путем нанесения небольшого количества предполагаемого аллергена на кожу и оценки кожной реакции. Кожные пробы позволяют </span><span style="font-family: Tahoma, Geneva;">быстро и точно</span><span style="font-family: Tahoma, Geneva;"> определить аллерген, но не проводятся при острой фазе течения аллергии у пациентов. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;"><span style="color: #f16522;">Анализ крови.</span> </span></b><span style="font-family: Tahoma, Geneva;">Иммуноглобулин E (IgE) — антитело, участвующее в аллергических реакциях. Определение его уровня в крови помогает выявить наличие аллергии и определить степень сенсибилизации к конкретному аллергену.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Точная диагностика аллергии играет ключевую роль в определении причинных факторов и выборе эффективного лечения. Современные методы диагностики позволяют выявить индивидуальную чувствительность к аллергенам и скорректировать образ жизни, исключая контакт с раздражителями. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><strong><span style="font-family: Tahoma, Geneva; color: #f16522;">Астма и COVID-19</span></strong><span style="font-family: Tahoma, Geneva;">.</span><strong><span style="font-family: Tahoma, Geneva;"> </span></strong><span style="font-family: Tahoma, Geneva;">Исследования, проведенные во время пандемии, показали, что наличие бронхиальной астмы </span><strong><span style="font-family: Tahoma, Geneva; color: #f16522;">не увеличивает риск тяжелого течения COVID-19</span></strong><span style="font-family: Tahoma, Geneva;">&ZeroWidthSpace;. Более того, у таких пациентов, течение заболевания иногда проходило даже </span><span style="font-family: Tahoma, Geneva;">л</span><span style="font-family: Tahoma, Geneva;">егче.</span><strong><span style="font-family: Tahoma, Geneva;"> </span></strong><span style="font-family: Tahoma, Geneva;">Это связано с&nbsp;точкой приложения гормональных препаратов, которые получают и&nbsp;астматики, и&nbsp;пациенты, находящиеся на&nbsp;лечении коронавирусной инфекции. Астматики фактически заранее получают препараты, которые применяются при лечении коронавирусной инфекции.</span>
+</p>
+<p class="is-revealed">
+</p>
+<p style="text-align: center;" class="is-revealed">
+ <b><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #0076a4;">С</span></b><strong><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #0076a4;"><span style="color: #0076a4;">оврем</span>енные методы лечения аллергии и астмы</span></strong>
+</p>
+<p class="is-revealed">
+</p>
+<p class="is-revealed">
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #0076a4;">Антигистаминные препараты</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Блокируют действие гистамина на Н1-рецепторы, что позволяет уменьшить выраженность симптомов аллергии (зуд, насморк, слезотечение). Подбор препарата зависит от формы аллергии и индивидуальных особенностей организма, рекомендуем проконсультироваться с врачом. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #0076a4;">Топические стероиды</span></b><span style="font-family: Tahoma, Geneva;">. </span><span style="font-family: Tahoma, Geneva;">Эти препараты воздействуют </span><span style="font-family: Tahoma, Geneva;">локально (чаще всего представлены в виде спрея)</span><span style="font-family: Tahoma, Geneva;">. Снижая активность иммунных клеток в слизистых оболочках, они оказывают мощное противовоспалительное действие. </span><span style="font-family: Tahoma, Geneva;">Топические стероиды считаются основным средством</span><span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">для длительного контроля аллергического ринита. </span><span style="font-family: Tahoma, Geneva;">Применяются строго по назначению врача</span><span style="font-family: Tahoma, Geneva;">, поскольку требуют правильного подбора дозировки и режима использования. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;"><span style="color: #0076a4;">Аллерген-специфическая иммунотерапия (АСИТ)</span></span></b><span style="font-family: Tahoma, Geneva;">.</span><span style="font-family: Tahoma, Geneva;"> </span><span style="font-family: Tahoma, Geneva;">Единственный метод лечения аллергии</span><span style="font-family: Tahoma, Geneva;">, который не просто подавляет симптомы, а </span><span style="font-family: Tahoma, Geneva;">изменяет иммунный ответ организма</span><span style="font-family: Tahoma, Geneva;">. Он основан на </span><span style="font-family: Tahoma, Geneva;">длительном введении постепенно возрастающих доз конкретного аллергена</span><span style="font-family: Tahoma, Geneva;">, что способствует развитию толерантности и снижению чувствительности к раздражителю. Это позволяет уменьшить выраженность аллергических реакций и предотвратить переход заболевания в более тяжелые формы, включая бронхиальную астму. Назначение и проведение АСИТ требует индивидуального подхода и осуществляется </span><span style="font-family: Tahoma, Geneva;">только врачом</span><span style="font-family: Tahoma, Geneva;">. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+      </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<p align="center" class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #588528;">Профилактика аллергии</span></b><span style="font-family: Tahoma, Geneva;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><strong><span style="font-family: Tahoma, Geneva; color: #588528;">Минимизация контакта с аллергенами</span></strong><b><span style="font-family: Tahoma, Geneva;">. </span></b><span style="font-family: Tahoma, Geneva;">Аллергикам рекомендуется </span><span style="font-family: Tahoma, Geneva;">избегать прямого воздействия аллергенов</span><span style="font-family: Tahoma, Geneva;">, например, закрывать окна в сезон цветения, не контактировать с животными, чья шерсть вызывает реакцию. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva;"><span style="color: #588528;">Использование очистителей воздуха</span>. </span></b><span style="font-family: Tahoma, Geneva;">Очистители воздуха с помогают снизить концентрацию пыльцы, шерсти животных, пылевых клещей и плесневых спор в помещении. Однако их использование должно сочетаться с регулярной уборкой и контролем влажности. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #588528;">Контроль влажности</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Оптимальная влажность воздуха </span><span style="font-family: Tahoma, Geneva;">в пределах 40-60%</span><span style="font-family: Tahoma, Geneva;"> снижает риск развития плесени и размножения пылевых клещей. Чрезмерная влажность способствует росту грибков, а сухой воздух раздражает дыхательные пути, повышая чувствительность к аллергенам. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><b><span style="font-family: Tahoma, Geneva; color: #588528;">Физическая активность</span></b><span style="font-family: Tahoma, Geneva;">.</span><b><span style="font-family: Tahoma, Geneva;"> </span></b><span style="font-family: Tahoma, Geneva;">Доказано, что умеренна физическая активность приводит к&nbsp;снижению уровня интерлейкинов — воспалительных клеток, которые провоцируют аллергические реакции. Однако, для выбора физической нагрузки, подходящей конкретно Вам, следует проконсультироваться со специалистом. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;"> </span><strong><span style="font-family: Tahoma, Geneva; color: #588528;">Укрепление микрофлоры кишечника</span></strong><span style="font-family: Tahoma, Geneva;">.</span><strong><span style="font-family: Tahoma, Geneva;"> </span></strong><span style="font-family: Tahoma, Geneva;">Здоровая микрофлора кишечника играет важную роль в регуляции иммунного ответа. Daigo помогает поддерживать баланс полезных бактерий и уменьшает количество патогенной флоры, что снижает риск появления аллергических реакций. В Японии было проведено исследование об эффективности применения Daigo при поллинозе — классическом аллергическом заболевании сезонного характера, вызываемом пыльцой кедра. В Японии кедровые леса занимают 18% лесных площадей страны и, по оценкам, являются причиной около 70% случаев аллергии на пыльцу. Распространенность поллиноза среди японцев превысила 38%. Ознакомиться с результатами исследования можно по <a href="https://daigo.ru/researches/kombinirovannoe-vozdeystvie-sublingvalnoy-immunoterapii-i-daigo-na-simptomy-pollinoza-vyzyvaemogo-py/" class="link link--underlined">ссылке</a>.</span>
+</p>  
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat': {
+    id: 8,
+    slug: 'glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat',
+    title: 'Глютен и лактоза: кому действительно нужно их избегать?',
+    preview: 'Глютен: что это и почему он стал проблемой для многих?',
+    image: 'https://s3.firstvds.ru/articles/aoqi29vjazsdjfjsa8oc6icexlg5h3ym.jpg',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Глютен: что это и почему он стал проблемой для многих?',
+    cover: 'https://s3.firstvds.ru/articles/aoqi29vjazsdjfjsa8oc6icexlg5h3ym.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: 'Глютен и лактоза', to: '/articles/glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <span style="font-family: Tahoma, Geneva; font-size: 18pt;" class="is-revealed"><b></b>
+<p style="text-align: center;">
+	<b><span style="color: #827a00;">Г</span></b><b><span style="color: #827a00;">лютен: что это и почему он стал проблемой для многих?</span></b>
+</p>
+</span> <span style="font-family: Tahoma, Geneva;" class="is-revealed">В последние годы безглютеновые и безлактозные диеты стали настоящим трендом: полки магазинов заполнены продуктами с пометками «gluten-free» и «lactose-free», а кафе предлагают альтернативы традиционным блюдам. Многие отказываются от глютена и лактозы, считая их вредными, даже не имея диагноза. Но действительно ли эти вещества так опасны для всех? </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><br>
+ </span><span style="font-family: Tahoma, Geneva;" class="is-revealed"><b><span style="color: #827a00;">Глютен</span></b> (от лат. gluten — «клей») – это сложный растительный белок, состоящий из двух компонентов: глиадина и глютенина, который содержится в злаковых культурах, преимущественно в пшенице, ржи и ячмене. Сегодня глютен содержится не только в традиционных хлебобулочных изделиях, но и во множестве других продуктов – от соусов и колбас до мороженого и даже некоторых косметических средств, где он выступает в качестве загустителя.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><br>
+ </span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Однако в последние десятилетия глютен стал объектом пристального внимания медиков и диетологов, так как у определённой части населения он может вызывать серьёзные проблемы со здоровьем. Наиболее опасным заболеванием, связанным с глютеном, является<b><span style="color: #827a00;"> целиакия</span></b> – аутоиммунное заболевание, при котором употребление этого белка приводит к повреждению ворсинок тонкого кишечника. По статистике, целиакией страдает около 1% населения, но многие случаи остаются недиагностированными.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">Кроме целиакии, существуют и другие формы непереносимости глютена. <span style="color: #827a00;"><b>Аллергия на пшеницу</b></span> (которая может быть вызвана не только глютеном) проявляется классическими аллергическими реакциями. А <b><span style="color: #827a00;">нецелиакийная чувствительность</span></b> к глютену, которая встречается гораздо чаще, вызывает такие симптомы как вздутие живота, диарею, головные боли и хроническую усталость, хотя при этом не приводит к повреждению кишечника. Современные сорта пшеницы содержат значительно больше глютена, чем их древние предшественники. Это результат селекции, направленной на улучшение хлебопекарных качеств муки. Некоторые исследователи полагают, что именно этот фактор, наряду с увеличением потребления обработанных пищевых продуктов, может объяснить рост случаев непереносимости глютена в последние годы.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> <b><span style="color: #827a00;">Для диагностики проблем с глютеном используются различные методы:</span></b> анализы крови на специфические антитела, генетические тесты, эндоскопия с биопсией кишечника. Если непереносимость подтверждена, единственным эффективным методом лечения является строгая безглютеновая диета. Однако важно понимать, что здоровым людям, не имеющим проблем с усвоением глютена, такая диета не только не нужна, но может даже навредить, лишая организм важных питательных веществ, содержащихся в цельнозерновых продуктах.</span><br class="is-revealed">
+<span style="font-family: Tahoma, Geneva; font-size: 18pt;" class="is-revealed"><b><span style="color: #005b7e;">
+<p style="text-align: center;">
+	Лактоза: от пользы для детей до непереносимости у взрослых
+</p>
+</span></b></span><span style="font-family: Tahoma, Geneva;" class="is-revealed"><b><span style="color: #005b7e;">Лактоза </span></b>– это природный дисахарид (молочный сахар), состоящий из двух простых сахаров – глюкозы и галактозы, который содержится исключительно в молоке млекопитающих и молочных продуктах. Этот углевод был создан природой как важнейший источник энергии для новорождённых: в женском грудном молоке его содержание достигает 6-7%, а в коровьем – около 4-5%. Химическая формула лактозы отражает её сложную структуру, для расщепления которой требуется специальный фермент лактаза, вырабатывающийся в тонком кишечнике человека.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">Физиологическая роль лактозы многогранна: она не только обеспечивает организм энергией, но и способствует усвоению кальция, магния и марганца, поддерживает рост полезной микрофлоры кишечника (особенно бифидобактерий), а также участвует в формировании нервной системы у младенцев. В пищевой промышленности лактоза ценится за свои технологические свойства – она улучшает текстуру продуктов, усиливает вкус, способствует появлению аппетитной корочки при выпечке и используется как наполнитель в фармацевтике.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">Однако способность организма усваивать лактозу существенно меняется с возрастом. <b><span style="color: #005b7e;">Современная медицина выделяет несколько форм непереносимости лактозы:</span></b> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Врождённая (крайне редкое генетическое заболевание); </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Первичная (возрастное снижение активности лактазы); </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Вторичная (временное нарушение вследствие заболеваний кишечника).</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><b><span style="color: #005b7e;">Симптомы непереносимости </span></b>– вздутие, диарея, спазмы – появляются обычно через 30-120 минут после употребления молочных продуктов и связаны с тем, что нерасщеплённая лактоза становится питательной средой для кишечных бактерий, вызывающих брожение.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+Парадоксально, но именно в эпоху массового потребления молочных продуктов проблема лактозной непереносимости стала особенно актуальной. Современные исследования показывают, что около 68% мирового населения в той или иной степени страдают от недостаточности лактазы, при этом распространённость варьируется от 5-10% в Северной Европе до 90-100% в странах Азии и Африки. В России, по разным данным, лактазная недостаточность встречается у 16-30% населения.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> <b><span style="color: #005b7e;"><span style="color: #005b7e;">Для диагностики используются различные методы:</span> </span></b>водородный дыхательный тест, анализ кислотности стула, генетическое тестирование, элиминационная диета.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+Современная пищевая промышленность предлагает множество решений для людей с непереносимостью лактозы: безлактозное молоко (где лактоза уже расщеплена на глюкозу и галактозу), растительные аналоги молока, ферментные препараты лактазы. Интересно, что многие традиционные молочные продукты (твёрдые сыры, сливочное масло, йогурты) содержат минимальное количество лактозы и часто хорошо переносятся даже при недостаточности фермента.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+С биологической точки зрения лактоза представляет собой удивительный пример эволюционного компромисса – от универсального источника питания для младенцев до потенциального источника проблем для взрослых. Её изучение продолжает преподносить научные сюрпризы: последние исследования показывают, что даже при лактазной недостаточности многие люди могут употреблять небольшие порции молочных продуктов без последствий, а микробиота кишечника способна частично адаптироваться к переработке лактозы.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> <span style="font-size: 18pt;"><b><span style="color: #045f20;">
+</div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<p style="text-align: center;">
+	Роль микробиоты кишечника и механизмы непереносимости
+</p>
+</span></b></span></span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Микробиота кишечника – это сложная экосистема из триллионов бактерий, грибов, вирусов и архей, играющая ключевую роль в пищеварении, иммунной регуляции и защите от патогенов. Её состав и баланс напрямую влияют на способность организма переваривать глютен и лактозу, а также на развитие их непереносимости.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><b><span style="color: #045f20;">
+Как здоровый микробиом помогает усваивать глютен?</span></b></span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+У людей без целиакии и чувствительности к глютену кишечные бактерии участвуют в его частичном расщеплении, снижая иммуногенность:</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Протеолитические бактерии (например, Lactobacillus и Bifidobacterium) способны ферментировать глиадин, уменьшая его воспалительный потенциал;</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Некоторые штаммы бактерий (Pseudomonas aeruginosa, Bacillus subtilis) вырабатывают ферменты, похожие на человеческие трансглутаминазы, которые модифицируют глютеновые пептиды;</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Короткоцепочечные жирные кислоты (КЦЖК), производимые полезной микрофлорой (бутират, ацетат), укрепляют кишечный барьер, предотвращая проникновение непереваренных глютеновых фрагментов в кровоток.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+При нарушении баланса микробиоты снижается защита кишечника – уменьшается выработка бутирата, что повышает проницаемость кишечника («синдром дырявого кишечника»). Это позволяет глиадину проникать в подслизистый слой и провоцировать иммунный ответ. Также активируются провоспалительные бактерии (Proteobacteria, Staphylococcus), которые усиливают воспаление в ответ на глютен. Нарушается ферментация глютена – при недостатке Lactobacillus и Bifidobacterium в кишечнике накапливаются непереваренные пептиды, способные запускать аутоиммунные реакции (при целиакии). Например, у детей с целиакией часто обнаруживают сниженное количество Bifidobacterium и повышенный уровень Bacteroides, что коррелирует с тяжестью заболевания. </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><span style="color: #045f20;"> </span><b><span style="color: #045f20;">Микробиота и переваривание лактозы</span></b></span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+Даже при недостатке фермента лактазы некоторые кишечные бактерии могут помогать перерабатывать лактозу: </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Молочнокислые бактерии (Lactobacillus, Streptococcus thermophilus) вырабатывают собственную лактазу, частично расщепляя лактозу в толстом кишечнике;</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• Бифидобактерии используют лактозу как пребиотик, стимулируя свой рост и производя КЦЖК;</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+• При регулярном употреблении молочных продуктов микробиота адаптируется, увеличивая популяции лактозоферментирующих бактерий. </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+При дисбалансе микрофлоры неусвоенная лактоза достигает толстого кишечника, где становится пищей для газообразующих бактерий (E. coli, Klebsiella). Это вызывает вздутие, метеоризм и диарею. Снижение уровня Lactobacillus усугубляет симптомы, так как эти бактерии помогают компенсировать нехватку лактазы. Избыток патогенов (Clostridium, Proteobacteria) усиливает воспаление, дополнительно повреждая энтероциты (клетки, вырабатывающие лактазу).&nbsp;</span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Люди с синдромом избыточного бактериального роста часто страдают от тяжелой непереносимости лактозы, даже если их собственный уровень лактазы в норме. </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><b><span style="color: #045f20;">
+Общие механизмы микробного влияния на непереносимость глютена или лактозы можно коротко представить как цепочку:</span></b> дисбиоз \u2192 снижение выработки бутирата \u2192 повышение проницаемости кишечника \u2192 проникновение непереваренных белков (глютен) и сахаров (лактоза) в кровь \u2192 иммунные реакции (воспаление, аллергия). </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+При этом полезные бактерии (Faecalibacterium prausnitzii) подавляют провоспалительные цитокины (IL-6, TNF-α), снижая риск непереносимости. При их дефиците иммунная система становится гиперчувствительной к пищевым компонентам.&nbsp;</span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Также бактерии влияют на экспрессию генов, отвечающих за выработку лактазы и ферментов, расщепляющих глютен. Некоторые штаммы могут детоксифицировать вредные метаболиты, образующиеся при непереносимости.&nbsp;</span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Получается, что для людей с подтвержденной непереносимостью лактозы или глютена особенно важно поддерживать здоровый баланс кишечной микробиоты, поскольку именно от состояния микрофлоры во многом зависит тяжесть проявления симптомов. Полезные бактерии кишечника помогают частично компенсировать недостаток пищеварительных ферментов: при лактозной непереносимости они берут на себя часть работы по расщеплению молочного сахара, а при чувствительности к глютену - способствуют восстановлению кишечного барьера и снижению воспалительных реакций. При этом дисбиоз может значительно усугублять проявления пищевой непереносимости, усиливая такие симптомы как вздутие, диарея и дискомфорт в животе.</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed">
+Поддерживать здоровый баланс кишечной микрофлоры эффективно и безопасно можно с помощью метабиотиков — инновационных препаратов, содержащих готовые метаболиты полезных бактерий. Таковым является<b><span style="color: #045f20;"> метабиотик Daigo</span></b>.&nbsp;</span><span style="font-family: Tahoma, Geneva;" class="is-revealed">Главный активный компонент продукта - экстракт 16 штаммов лактобактерий и их клеточный материал. Эти ферменты обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных. Таким образом восстанавливается здоровый бактериальный баланс: "полезных" становится гораздо больше, чем "вредных".&nbsp;</span><span style="font-family: Tahoma, Geneva;" class="is-revealed">В отличие от пробиотиков, которые доставляют живые микроорганизмы, Daigo не содержит живых бактерий, а метаболиты действуют сразу после приема и не вызывают побочных эффектов, характерных для живых культур. Таким образом Daigo помогает восстановить индивидуальную и неповторимую для каждого человека кишечную микрофлору и весь микробиом!</span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"> </span><br class="is-revealed">
+ <span style="font-family: Tahoma, Geneva;" class="is-revealed"><i>
+Микробиота кишечника – ключевой игрок в переваривании глютена и лактозы. Её дисбаланс может превратить эти вещества из обычных нутриентов в источники воспаления. Поддержание здорового состава микрофлоры через питание и прием метабиотиков часто помогает уменьшить симптомы непереносимости и улучшить пищеварение.</i></span>
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke': {
+    id: 9,
+    slug: 'daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke',
+    title: 'Daigo как вино: ферментация продолжается в упаковке!',
+    preview: 'Польза ферментированных продуктов',
+    image: 'https://s3.firstvds.ru/articles/3ulgpuh4xxg22okan0688kq296mntm0s.png',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Польза ферментированных продуктов...',
+    cover: 'https://s3.firstvds.ru/articles/3ulgpuh4xxg22okan0688kq296mntm0s.png',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: 'Daigo как вино', to: '/articles/daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <div class="wysiwyg js-wysiwyg-container">
+            <h2 style="text-align: center;" class="is-revealed"> <span style="font-family: Tahoma, Geneva; font-size: 24pt; color: #00a650;">Польза ферментированных продуктов</span></h2>
+<p class="is-revealed">
+	<span style="font-family: Tahoma, Geneva; font-size: 13pt;">С древних времен люди интуитивно понимали, что некоторые продукты обладают особой силой, способной укреплять здоровье и продлевать жизнь. Одним из таких открытий стала ферментация. Сегодня, в эпоху научных открытий, мы можем не только подтвердить пользу ферментированных продуктов, но и понять, как именно они воздействуют на наш организм. В мире здоровья и wellness все больше внимания уделяется продуктам, которые не только поддерживают организм, но и обладают уникальными свойствами, улучшающимися со временем. Одним из таких продуктов является метабиотик Daigo, в основе создания которого тоже лежит процесс ферментации. В этой статье мы расскажем, как ферментация стала важной частью человеческой истории, почему она так полезна для здоровья и как метабиотик Daigo продолжает эту древнюю традицию, предлагая новые возможности для укрепления здоровья. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Еще тысячи лет назад наши предки заметили, что ферментированная пища не только дольше хранится, но и становится более полезной. Квашеная капуста, кимчи, мисо, йогурт, вино, сыр — все эти продукты стали неотъемлемой частью культурных традиций и повседневного рациона в разных уголках мира. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span><b><span style="font-family: Tahoma, Geneva; font-size: 13pt; color: #00a650;">Ферментация</span></b><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> — это естественный процесс, при котором микроорганизмы (например, бактерии или дрожжи) преобразуют органические питательные вещества в более простые и легкоусваиваемые соединения. При этом продукты не только сохраняются, но и обогащаются полезными веществами, такими как витамины, аминокислоты и антиоксиданты. Ферментированные продукты — это настоящий кладезь полезных веществ, которые оказывают многогранное положительное воздействие на организм. </span>
+</p>
+<p style="text-align: center;" class="is-revealed">
+	<span style="font-size: 18pt;"><b><span style="color: #00a650;">Воздействие ферментированных продуктов на организм</span></b></span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h3 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 13pt;">1. Улучшают пищеварение: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Ферментированные продукты помогают поддерживать здоровый баланс микрофлоры кишечника, что улучшает усвоение питательных веществ, восстанавливает слизистую оболочку кишечника, снижает симптомы вздутия, газообразования и проблем со стулом. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<h3 class="is-revealed"><span style="font-family: Tahoma, Geneva; font-size: 13pt;">2. Укрепляют иммунитет: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;" class="is-revealed"> </span>
+<p class="is-revealed">
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Около 70% иммунных клеток находится в кишечнике, поэтому здоровье микрофлоры напрямую влияет на защитные функции организма. Ферментированные продукты стимулируют выработку иммуноглобулинов, уменьшают воспалительные процессы, помогают организму бороться с патогенными микроорганизмами. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;">3. Обогащают витаминами и минералами: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	В процессе ферментации увеличивается содержание витаминов группы B, витамина K, а также таких минералов, как магний, кальций и железо. Например, квашеная капуста богата витамином C, который укрепляет иммунитет. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;">4. Очищают организм: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Ферментированные продукты способствуют выведению токсинов и тяжелых металлов из организма. Полезные бактерии нейтрализуют вредные вещества и улучшают работу печени. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;">5. Поддерживают психическое здоровье: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Кишечник и мозг тесно связаны через ось «кишечник-мозг». Ферментированные продукты способствуют улучшению настроения за счет выработки серотонина, снижению уровеня стресса и тревожности. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;">6. Снижают риск хронических заболеваний: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Регулярное употребление ферментированных продуктов помогает снизить уровень "плохого" холестерина и нормализовать уровень сахара в крови. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<h3><span style="font-family: Tahoma, Geneva; font-size: 13pt;">7. Улучшают состояние кожи: </span></h3>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Здоровый кишечник — залог красивой кожи. Ферментированные продукты помогают уменьшить воспаления, такие как акне и экзема, способствуют выработке коллагена, улучшая эластичность кожи, помогают бороться с признаками старения. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<h2 style="text-align: center;"><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> <span style="font-size: 18pt;"><b><span style="color: #f7941d;">Метабиотик Daigo и ферментация</span></b></span></span></h2>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Ферментация — это мощный инструмент для создания БАДов, которые сочетают в себе натуральность, эффективность и безопасность. Метод позволяет получать продукты с высокой концентрацией полезных веществ. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Органический метабиотик Daigo содержит полезные метаболиты и клеточный материал от 16 видов полезных бактерий.Эти вещества поддерживают и восстанавливают микрофлору кишечника, укрепляют иммунитет и способствуют общему оздоровлению организма. История создания Daigo насчитывает более 100 лет! За это время была создана уникальная технология производства, которая и на сегодняшний день является эксклюзивной. </span>
+</p>
+<p>
+	<span style="font-family: Tahoma, Geneva; font-size: 18pt; color: #f7941d;"><b><span style="font-size: 13pt;">Эксклюзивная технология производства метабиотика</span></b></span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<ol>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Первый год производства занимает подготовка земли к выращиванию урожая сои, затем ее собирают и отбирают вручную, чтобы отобрать только определенный урожай; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Далее здоровые соевые бобы вымачиваются в очищенной родниковой воде. Из них получается будущая питательная среда для лактобактерий-соевое молоко; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		Затем наступает первичный и вторичный процессы брожения; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		После 2-х этапов брожения, жидкость, полная лактобактерий и продуктов их секреции, выдерживается еще 1 год; </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+	<li><span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+	<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+		После этого полученную субстанцию нагревают, чтобы не осталось живых бактерий, и извлекают 2 главных компонента: ценные секреторные выделения этих лактобактерий и клеточный материал этих лактобактерий. </span>
+	</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span></li>
+</ol>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Полный цикл производства Daigo занимает 2 года, а Daigo Lux проходит дополнительную ступень ферментации, поэтому на его производство требуется еще больше времени! </span>
+</p>
+<p>
+	<span style="font-family: Tahoma, Geneva; font-size: 13pt;"><b><span style="color: #f7941d;">Уникальность метабиотика Daigo</span></b></span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Уникальность Daigo заключается в том, что процесс ферментации продолжается даже после того, как продукт разлит в упаковку. Это означает, что со временем его свойства не только сохраняются, но и улучшаются! Его можно сравнить с хорошим вином: чем дольше он хранится, тем лучше становится. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Одним из ключевых преимуществ Daigo является его безопасность. В составе продукта отсутствуют искусственные добавки, консерванты и другие вредные вещества. Это подтверждается лабораторными анализами, которые показывают, что Daigo соответствует самым строгим стандартам качества. Более того, отдельные исследования проходил Daigo с истекшим сроком годности. Согласно результатам испытаний, общая бактериальная обсеменённость, указывающая на качество пищевого продукта и его безопасность для потребителя, в пределах нормы, а бактерии группы кишечной палочки, золотистый стафилококк, патогенны, в т.ч. сальмонеллы, а также антибиотическая активность - не обнаружены. </span>
+</p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;"> </span>
+<p>
+ <span style="font-family: Tahoma, Geneva; font-size: 13pt;">
+	Это еще раз доказывает, что Daigo не только обладает всеми преимуществами ферментации, но при этом его свойства продолжают улучшаться с каждым днем. Он становится только лучше, но при этом абсолютно безопасен и полезен для здоровья. Если вы ищете натуральный способ поддержать свой организм, Daigo — это отличный выбор, подтвержденный наукой и временем.</span>
+</p>        
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+  'na-chto-vliyaet-mikroflora-kishechnika': {
+    id: 3,
+    slug: 'na-chto-vliyaet-mikroflora-kishechnika',
+    title: '2. На что влияет микрофлора кишечника?',
+    preview: 'Главные функции микрофлоры кишечника',
+    image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
+    date: '2025-06-30',
+    time: 8,
+    views: 200,
+    comments: 10,
+    properties: { napravlennost: 'kishechnik-i-immunitet' },
+    description: 'Главные функции микрофлоры кишечника',
+    cover: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
+    breadcrumbs: [
+      { label: 'Главная', to: '/' },
+      { label: 'Статьи', to: '/articles' },
+      { label: '2. На что влияет микрофлора кишечника?', to: '/articles/na-chto-vliyaet-mikroflora-kishechnika' }
+    ],
+    tags: [
+      { id: 1, slug: 'kishechnik-i-immunitet', label: 'Кишечник и иммунитет' },
+      { id: 2, slug: 'metabiotiki', label: 'Метабиотики' }
+    ],
+    author: {
+      id: 1,
+      name: 'Анна Иванова',
+      position: 'Главный врач',
+      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+      social: [
+        { type: 'tg', url: 'https://t.me/daigo' },
+        { type: 'vk', url: 'https://vk.com/daigo' }
+      ]
+    },
+    contentTop: `
+      <h2 id="first" class="text-xl md:text-product font-medium mb-4 leading-tight">Главные функции микрофлоры кишечника</h2>
+      <div class="wysiwyg js-wysiwyg-container">
+<div class="is-revealed">
+ <span >Немногие задумываются о том, что ключевую роль в самочувствии и пищевых привычках играет микрофлора кишечника — триллионы микроорганизмов, обитающих в нашем пищеварительном тракте.&nbsp;<br>
+ </span><span >Эти крошечные «жители» выполняют удивительное множество функций:</span>
+</div>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span >Усвоение полезных элементов</span></h3>
+<p class="is-revealed">
+ <span >
+	Кишечник играет ключевую роль в усвоении полезных элементов, необходимых для поддержания здоровья и жизнедеятельности организма. Без здоровой микрофлоры процесс усвоения питательных веществ нарушается, что может привести к дефициту важных элементов даже при правильном питании. В процессе пищеварения питательные вещества, такие как белки, жиры, углеводы расщепляются на более простые соединения, которые затем всасываются через стенки кишечника в кровоток.</span>
+</p>
+<p class="is-revealed">
+ <span >Полезные бактерии помогают переваривать сложные углеводы, например клетчатку, которая служат источником энергии для клеток кишечника и всего организма. Кроме того, микрофлора способствует синтезу и усвоению витаминов группы B, витамина K, а также минералов, таких как кальций, магний и железо.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Иммунная функция</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	В нашем кишечнике живет около 70% всех иммунных клеток организма. Этот факт делает его важнейшим элементом иммунной системы. Полезные бактерии микрофлоры кишечника стимулируют выработку антител, укрепляют слизистый барьер и предотвращают проникновение вредных микроорганизмов в кровоток. Кроме того, микрофлора взаимодействует с иммунными клетками, помогая им распознавать и нейтрализовать вирусы, бактерии и токсины. Кишечник также производит иммуноглобулины и другие защитные вещества, которые поддерживают местный и системный иммунитет.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Развитие аллергии</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	Иммунная функция кишечника находит свое логичное продолжение в регуляции процесса развития аллергии. Дело в том, что дисбиоз микрофлоры кишечника может привести к повышенной чувствительности иммунной системы и развитию аллергических реакций. Здоровая микрофлора кишечника помогает поддерживать баланс между иммунным ответом и толерантностью к внешним раздражителям. Полезные бактерии, такие как лакто- и бифидобактерии, способствуют выработке регуляторных Т-клеток, которые подавляют чрезмерную активность иммунной системы и предотвращают развитие аллергических реакций.</span>
+</p>
+<p class="is-revealed">
+ <span >Исследования показывают, что у людей с аллергическими заболеваниями, такими как астма, экзема или поллиноз, часто наблюдается снижение разнообразия полезных бактерий в кишечнике. Доказано, что метабиотик Daigo способствует улучшению баланса Т-клеток, что помогает адекватному иммунному ответу на аллергены.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Аппетит и выбор продуктов</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	Кишечник играет ключевую роль в регуляции аппетита и формировании пищевых привычек, выступая как активный участник системы контроля голода и насыщения. Это происходит благодаря выработке гормонов, таких как грелин (гормон голода) и лептин (гормон насыщения), которые посылают сигналы в мозг, регулируя чувство голода и сытости. Кроме того, именно от состава микрофлоры кишечника зависят все наши нездоровые вкусовые привычки.</span>
+</p>
+<p class="is-revealed">
+ <span >Дело в том, что сахар и быстрые углеводы – это главная пища для «плохих» бактерий в кишечнике, на такой пище они размножаются и «просят» ее все больше и больше. Полезные бактерии, наоборот, способствуют выбору более здоровой пищи, поэтому при правильном балансе микробиома преобладающая полезная микрофлора «требует» клетчатку и растительные углеводы, таким образом формируя здоровые вкусовые привычки. Исследования также показывают, что дисбаланс микрофлоры может приводить к нарушению регуляции аппетита, способствуя перееданию или, наоборот, отсутствию чувства голода.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h2 class="text-xl md:text-product font-medium mb-4 leading-tight">Неочевидное влияние микрофлоры</h2>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	На вышеперечисленных функциях роль кишечника организме не заканчивается. Помимо своих известных своих функций, кишечник выполняет множество неочевидных, но не менее важных задач, которые влияют на общее здоровье человека.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Кожа и омоложение клеток</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	Кишечник и кожа тесно связаны, что делает состояние микрофлоры кишечника ключевым фактором для здоровья и молодости кожи. Полезные бактерии кишечника помогают поддерживать баланс в организме, снижая уровень воспаления, которое часто является причиной акне, экземы и других кожных проблем. Они также способствуют выработке короткоцепочечных жирных кислот, которые укрепляют защитный барьер кожи и стимулируют её регенерацию.</span>
+</p>
+<p class="is-revealed">
+ <span >Кроме того, микрофлора кишечника участвует в детоксикации организма, выводя вредные вещества, которые могут негативно влиять на состояние кожи. Здоровый кишечник также поддерживает синтез коллагена и эластина — белков, отвечающих за упругость и молодость кожи.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Волосы и ногти</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	Именно в кишечнике происходит усвоение питательных веществ, необходимых для роста и крепости волос и ногтей. Полезные бактерии микрофлоры кишечника помогают синтезировать и усваивать витамины группы B, такие как биотин (B7). Биотин способствует укреплению структуры волос, предотвращая их ломкость и выпадение, а также улучшает состояние ногтей, делая их более прочными и менее склонными к расслаиванию.</span>
+</p>
+<p class="is-revealed">
+ <span >Кроме того, микрофлора кишечника участвует в усвоении таких минералов как цинк, железо и селен, которые также необходимы для роста волос и ногтей. Дисбаланс микрофлоры, напротив, может привести к дефициту этих важных элементов, что негативно сказывается на их состоянии.</span>
+</p>
+ <span  class="is-revealed"> </span>       </div>
+    `,
+    materials: {
+      title: 'Полезные материалы',
+      text: '<p class="mb-2">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>',
+      files: [
+        { id: 1, title: 'Восстановление организма', url: '/files/guide.pdf', size: '1.2 MB', mime: 'application/pdf' },
+        { id: 2, title: 'Долголетие', url: '/files/research.pdf', size: '980 KB', mime: 'application/pdf' },
+        { id: 3, title: 'Энергия', url: '/files/energy.pdf', size: '1.5 MB', mime: 'application/pdf' }
+      ],
+      specialist: {
+        name: 'Анна Иванова',
+        position: 'Главный врач',
+        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
+        social: 
+        [
+          { type: 'tg', url: 'https://t.me/daigo' },
+          { type: 'vk', url: 'https://vk.com/daigo' },
+          { type: 'dzen', url: 'https://dzen.ru/daigo' }
+        ]
+      },
+      downloadAllUrl: '/files/all.zip'
+    },
+    contentBottom: `
+<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Умственные способности и настроение</h3>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span >
+	Пожалуй, одна из самых важных функций нашего кишечника заключается в том, что он оказывает значительное влияние на когнитивные способности и настроение.&nbsp; Сложная двусторонняя система связи между кишечником и центральной нервной системой, в ходе которой органы взаимодействуют через нервные пути, гормоны и иммунные сигналы, причем значительную роль в этом процессе играет микрофлора кишечника. Полезные бактерии микрофлоры кишечника производят гормон радости (серотонин) и ГАМК, которые регулируют настроение, снижают тревожность и улучшают эмоциональное состояние.</span>
+</p>
+<p class="is-revealed">
+ <span >Интересно, что около </span><b><span >90% серотонина </span></b><span >вырабатывается именно в кишечнике! Кроме того, микрофлора участвует в производстве короткоцепочечных жирных кислот, которые поддерживают здоровье нейронов, уменьшают воспаление и улучшают когнитивные функции, такие как память, концентрация и способность к обучению. Дисбаланс микрофлоры напротив может приводить к воспалительным процессам, которые негативно влияют на мозг, вызывая усталость, снижение умственной активности и даже депрессию.</span>
+</p>
+ <span  class="is-revealed"> </span>
+<p class="is-revealed">
+ <span > </span><span >Кишечник и его микрофлора — это ключевые игроки в поддержании здоровья всего организма. Они влияют на иммунитет, кожу, волосы, настроение, умственные способности и даже уровень энергии. Поддержание баланса микрофлоры с помощью правильного питания, здорового образа жизни и метабиотика </span><span >Daigo</span><span > — это важный шаг к улучшению качества жизни и долголетию!</span>
+</p> 
+    `,
+    // Топ-5 для SSR тут тоже положим
+    recommended: [
+      { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any },
+      { id: 1, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu2', title: 'Как подготовить кожу к пляжному сезону?', preview: '', image: 'http://localhost:3000/images/articles/first.jpg', date: '2025-06-24', time: 10, views: 150, comments: 4, properties: {} as any }
+    ],
+    popular: [
+      { id: 1, slug: 'printsip-dejstviya-metabiotikov', title: 'Принцип действия метабиотиков', preview: '', image: '/images/articles/first.jpg', date: '2025-06-30', time: 8, views: 200, comments: 10, properties: {} as any }
+    ],
+    faq: [
+      { q: 'Что такое коэнзим Q10?', a: 'Антиоксидант, участвующий в выработке энергии...' },
+      { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
+    ],
+    products: [
+      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ]
+  },
+
+
 }
 
 export default cachedEventHandler(async (event) => {

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
-import CitySuggest from '@/components/checkout/CitySuggest.vue' // ⬅️ автодополнение города
+import CitySuggest from '@/components/checkout/CitySuggest.vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 
 const store = useCheckoutStore()
@@ -14,17 +14,17 @@ onMounted(async () => {
 })
 
 /** ФИО в одну строку (first_name + last_name) */
-const fullName = computed({
-  get: () => {
-    const { first_name, last_name } = store.state.recipient
-    return [first_name, last_name].filter(Boolean).join(' ').trim()
-  },
-  set: (val: string) => {
-    const parts = val.trim().split(/\s+/)
-    store.state.recipient.first_name = parts.shift() || ''
-    store.state.recipient.last_name = parts.join(' ') || ''
-  }
-})
+// const fullName = computed({
+//   get: () => {
+//     const { first_name, last_name } = store.state.recipient
+//     return [first_name, last_name].filter(Boolean).join(' ').trim()
+//   },
+//   set: (val: string) => {
+//     const parts = val.trim().split(/\s+/)
+//     store.state.recipient.first_name = parts.shift() || ''
+//     store.state.recipient.last_name = parts.join(' ') || ''
+//   }
+// })
 
 /** Прокси-поля получателя */
 const phone = computed({
@@ -81,6 +81,54 @@ const otherEmail = computed({
   get: () => store.state.otherRecipientEmail,
   set: (v: string) => (store.state.otherRecipientEmail = v)
 })
+
+
+
+// === как и было ===
+const NAME_RE = /[^\p{L}\p{M}\-'\s]/gu
+function sanitizeTwoWords(input: string): string {
+  const cleaned = (input ?? '').replace(NAME_RE, '').replace(/\s+/g, ' ').trim()
+  return cleaned ? cleaned.split(' ').slice(0, 2).join(' ') : ''
+}
+const fullName = computed<string>({
+  get: () => {
+    const { first_name, last_name } = store.state.recipient
+    return sanitizeTwoWords([first_name, last_name].filter(Boolean).join(' '))
+  },
+  set: (val: string) => {
+    const s = sanitizeTwoWords(val)
+    const [first = '', last = ''] = s.split(' ')
+    store.state.recipient.first_name = first
+    store.state.recipient.last_name = last
+  }
+})
+
+// Показываем ошибку только если поле тронуто ИЛИ непустое
+const fullNameError = computed(() => {
+  const raw = fullName.value?.trim() ?? ''
+  const words = raw ? raw.split(' ').filter(Boolean) : []
+
+  // до первого взаимодействия и при пустом поле — без ошибки
+  if (!fullNameTouched.value && words.length === 0) return ''
+
+  if (words.length < 2) return 'Укажите имя и фамилию'
+  return store.errors.recipient.first_name || store.errors.recipient.last_name || ''
+})
+
+const fullNameTouched = ref(false)
+
+// помечаем поле «троганным» на блюре
+function onFullNameBlur() {
+  fullNameTouched.value = true
+}
+
+// если пользователь начал печатать — тоже считаем тронутым
+watch(() => fullName.value, (v) => {
+  if (!fullNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
+    fullNameTouched.value = true
+  }
+})
+
 </script>
 
 <template>
@@ -88,12 +136,21 @@ const otherEmail = computed({
     <h3 class="text-slider font-medium">Получатель</h3>
 
     <!-- Основные данные получателя -->
-    <UiInput
+    <!-- <UiInput
       v-model="fullName"
       placeholder="ФИО"
       :error="store.errors.recipient.first_name || store.errors.recipient.last_name"
       background="bg-white"
       autocomplete="name"
+    /> -->
+
+    <UiInput
+      v-model="fullName"
+      placeholder="Имя Фамилия"
+      :error="fullNameError"
+      background="bg-white"
+      autocomplete="name"
+      @blur="onFullNameBlur"
     />
 
     <UiInput
