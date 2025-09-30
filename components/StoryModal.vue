@@ -62,7 +62,9 @@ async function loadRelatedProducts() {
   const { data } = await useFetch<{ items: Product[] }>('/api/shop/products', {
     query: { product_ids: ids.join(',') }
   })
-  relatedProducts.value = data.value?.items || []
+
+  relatedProducts.value = (data.value?.items || [])
+    .filter(p => (p?.price ?? 0) > 0) // ← строго исключаем 0
 }
 
 /** при смене сториса — дотянуть детали и (если есть) товары */
@@ -82,10 +84,11 @@ async function toggleProducts() {
   showProducts.value = !showProducts.value
   if (showProducts.value) await loadRelatedProducts()
 }
+
 </script>
 
 <template>
-  <div v-if="isOpen" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center">
+  <div v-if="isOpen" class="fixed inset-0 z-[990] bg-black/90 flex items-center justify-center">
     <div class="relative flex h-full md:h-[90vh] w-full max-w-5xl overflow-visible">
       <button class="absolute top-3 md:top-4 right-4 md:right-4 text-white z-50" @click="close">✕</button>
 
@@ -93,7 +96,7 @@ async function toggleProducts() {
         <div
           v-for="(story, i) in visibleStories"
           :key="story.id"
-          class="w-full md:w-[40vw] absolute transition-all duration-500 ease-in-out"
+          class="w-full md:w-[400px] absolute transition-all duration-500 ease-in-out"
           :class="[
             i === 0 ? 'z-30 scale-100 opacity-100' : '',
             i === 1 ? 'z-20 scale-75 opacity-50 translate-x-[70%]' : '',
@@ -129,9 +132,11 @@ async function toggleProducts() {
 
             <div
               ref="rail"
-              class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 pr-1"
+              class="flex gap-4 overflow-x-auto no-scrollbar snap-x snap-mandatory pb-2 pr-1
+                    select-none cursor-grab active:cursor-grabbing"
               aria-roledescription="карусель"
             >
+
               <NuxtLink
                 v-for="p in relatedProducts"
                 :key="p.id"
@@ -139,7 +144,7 @@ async function toggleProducts() {
                 class="snap-start shrink-0 w-[220px] bg-white border border-gray-100 rounded-xl p-3 hover:shadow-md transition focus:outline-none focus:ring-2 focus:ring-primary"
                 @click.stop
               >
-                <NuxtImg
+                <SmartImg
                   :src="p.image"
                   :alt="p.name"
                   width="400"

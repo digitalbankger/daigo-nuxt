@@ -55,18 +55,7 @@ useHead({
   <BaseContainer>
     <div class="flex flex-col gap-6 md:gap-10">
       <h1 class="text-cardhead md:text-head leading-tight font-medium mb-4 md:mb-8">Контакты</h1>
-      <div class="flex md:hidden flex-row gap-2 items-start">
-        <img
-          src="/images/daigo-office.jpg"
-          class="rounded mb-1 md:mb-3 w-1/2"
-          alt="Офис Daigo"
-        />
-        <div class="w-1/2 flex flex-col gap-1 items-start">
-          <img src="/logo.svg" alt="daigo logo" class="h-5 md:h-6" />
-          <div class="font-medium">Москва</div>
-          <div class="text-sm mb-1 md:mb-3 text-black/60">Головной офис компании Да́йго</div>
-        </div>
-      </div>
+
       <a
         href="https://yandex.ru/maps/?rtext=~55.770816,37.631017"
         target="_blank"
@@ -133,30 +122,13 @@ useHead({
           </div>
         </div>
 
-        <div class="flex flex-col gap-4 md:gap-5">
-          <div class="text-xl sm:text-2xl lg:text-3xl font-medium mb-0 md:mb-2">Санкт-Петербург</div>
-          <div class="text-sm sm:text-base lg:text-xl font-normal md:font-medium">Гражданский проспект 26</div>
-
-          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
-            <img src="/icons/phone.svg" class="w-5 md:w-6" />
-            <span>Телефон: +7 (905) 200-40-09</span>
-          </div>
-          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
-            <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6" /> 
-            <span>Email: info@daigo.ru</span>
-          </div>
-          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
-            <img src="/icons/clock.svg" class="w-5 md:w-6" /> 
-            <span>Часы работы: пн-пт 9:00 – 18:00</span>
-          </div>
-        </div>
       </div>
 
       <div class="flex flex-col lg:flex-col gap-6 items-start mt-6">
         <h2 class="text-xl sm:text-product lg:text-slider font-medium mb-0 md:mb-4">Головной офис в Москве</h2>
         <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
             <div class="w-full lg:w-4/6 rounded-xl overflow-hidden">
-              <video
+              <!-- <video
                 controls
                 preload="none"
                 poster="/images/video-cover.jpg"
@@ -164,17 +136,18 @@ useHead({
               >
                 <source :src="videoUrl" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
-              </video>
+              </video> -->
+              <img src="/images/office.jpg" alt="Офис Да́йго" class="w-full h-auto rounded-xl md:rounded-4xl"/> 
               <div>
                 <p class="text-lg font-medium mb-2 mt-4">Мы в социальных сетях</p>
                 <div class="flex gap-4 md:gap-6">
-                  <a href="https://ya.ru" target="_blank" rel="noopener">
+                  <a href="https://dzen.ru/daigoru" target="_blank" rel="noopener">
                     <img src="/icons/social/dzen.svg" alt="Дзен" class="w-6 md:w-8" loading="lazy" />
                   </a>
-                  <a href="https://vk.com" target="_blank" rel="noopener">
+                  <a href="https://vk.com/daigoru?roistat_visit=429655" target="_blank" rel="noopener">
                     <img src="/icons/social/vk.svg" alt="VK" class="w-6 md:w-8" loading="lazy" />
                   </a>
-                  <a href="https://t.me" target="_blank" rel="noopener">
+                  <a href="https://t.me/daigoru" target="_blank" rel="noopener">
                     <img src="/icons/social/telegram.svg" alt="Telegram" class="w-6 md:w-8" loading="lazy" />
                   </a>
                   <a href="https://youtube.com" target="_blank" rel="noopener">
@@ -200,8 +173,8 @@ useHead({
               </form>
 
               <div class="flex flex-col gap-4 mt-4">
-                <a href="/files/presentation.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>
-                <a href="/files/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Да́йго</span></a>
+                <a href="https://s3.firstvds.ru/materials/preza.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>
+                <a href="https://s3.firstvds.ru/materials/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Да́йго</span></a>
               </div>
             </div>
         </div>

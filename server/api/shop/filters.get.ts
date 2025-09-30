@@ -1,14 +1,14 @@
 export default defineEventHandler(() => {
   return [
     {
-      label: 'Направленность',
+      label: 'Направленния',
       slug: 'napravlennost',
       options: [
         { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
         { label: 'Мозг и нервная система', value: 'mozg-i-nervnaya-sistema' },
         { label: 'Кожа и волосы', value: 'kozha-i-volosy' },
         { label: 'Кости и мышцы', value: 'kosti-i-myshtsy' },
-        { label: 'Зубы и десна', value: 'zuby-i-desna' },
+        { label: 'Зубы и десны', value: 'zuby-i-desna' },
       ]
     },
     {
@@ -67,18 +67,19 @@ export default defineEventHandler(() => {
         { label: 'Daigo Jointic', value: 'daigo-jointic' },
         { label: 'Daigo Lactis Zoo', value: 'daigo-lactis-zoo' },
         { label: 'Омега 3', value: 'omega-3' },
+        { label: 'Сертификаты', value: 'sertificate' },
       ],
     },
-    {
-      label: 'Для кого',
-      slug: 'dlya-kogo',
-      options: [
-        { label: 'Для детей и мам', value: 'dlya-detej-i-mam' },
-        { label: 'Для активного долголетия', value: 'dlya-aktivnogo-dolgoletiya' },
-        { label: 'Для повышение продуктивноти', value: 'dlya-produkтивnosti' },
-        { label: 'Для животных', value: 'dlya-zhivotnyh' },
-      ],
-    },
+    // {
+    //   label: 'Для кого',
+    //   slug: 'dlya-kogo',
+    //   options: [
+    //     { label: 'Для детей и мам', value: 'dlya-detej-i-mam' },
+    //     { label: 'Для активного долголетия', value: 'dlya-aktivnogo-dolgoletiya' },
+    //     { label: 'Для повышение продуктивноти', value: 'dlya-produkтивnosti' },
+    //     { label: 'Для животных', value: 'dlya-zhivotnyh' },
+    //   ],
+    // },
     {
       label: 'Состав',
       slug: 'sostav',
@@ -112,23 +113,23 @@ export default defineEventHandler(() => {
         { label: 'Экстракт морского гребешка', value: 'ekstrakt-grebeshek' },
       ],
     },
-    {
-      label: 'Форма выпуска',
-      slug: 'forma-vypuska',
-      options: [
-        { label: 'Жидкость', value: 'zhidkost' },
-        { label: 'Капсулы', value: 'kapsuly' },
-        { label: 'Гель-капсулы', value: 'gel-kapsuly' },
-        { label: 'Паста', value: 'pasta' },
-      ]
-    },
-    {
-      label: 'Страна производитель',
-      slug: 'strana-proizvoditel',
-      options: [
-        { label: 'Япония', value: 'yaponiya' },
-        { label: 'Италия', value: 'italiya' },
-      ],
-    }
+    // {
+    //   label: 'Форма выпуска',
+    //   slug: 'forma-vypuska',
+    //   options: [
+    //     { label: 'Жидкость', value: 'zhidkost' },
+    //     { label: 'Капсулы', value: 'kapsuly' },
+    //     { label: 'Гель-капсулы', value: 'gel-kapsuly' },
+    //     { label: 'Паста', value: 'pasta' },
+    //   ]
+    // },
+    // {
+    //   label: 'Страна производитель',
+    //   slug: 'strana-proizvoditel',
+    //   options: [
+    //     { label: 'Япония', value: 'yaponiya' },
+    //     { label: 'Италия', value: 'italiya' },
+    //   ],
+    // }
   ]
 })

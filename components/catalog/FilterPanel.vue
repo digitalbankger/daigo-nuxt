@@ -70,75 +70,86 @@ const props = defineProps<{
 }>()
 
 const filters = computed(() => props.store.filters)
-const counts = computed(() => props.store.counts)
+const counts  = computed(() => props.store.counts)
 
 const router = useRouter()
-const route = useRoute()
+const route  = useRoute()
 const selected = reactive<Record<string, string[]>>({})
-const opened = ref<string[]>([])
+const opened   = ref<string[]>([])
+
+/** Только слаги реальных групп фильтров (для отбраковки page/empty и пр.) */
+const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
 
 function toggle(slug: string) {
   opened.value.includes(slug)
     ? (opened.value = opened.value.filter(s => s !== slug))
     : opened.value.push(slug)
 }
-
-function isOpen(slug: string) {
-  return opened.value.includes(slug)
-}
+function isOpen(slug: string) { return opened.value.includes(slug) }
 
 function toggleOption(groupSlug: string, value: string) {
-  if (!Array.isArray(selected[groupSlug])) {
-    selected[groupSlug] = []
-  }
-
+  if (!Array.isArray(selected[groupSlug])) selected[groupSlug] = []
   const index = selected[groupSlug].indexOf(value)
-  if (index === -1) {
-    selected[groupSlug].push(value)
-  } else {
-    selected[groupSlug].splice(index, 1)
-  }
+  if (index === -1) selected[groupSlug].push(value)
+  else selected[groupSlug].splice(index, 1)
 }
 
 function clearFilters() {
-  for (const key in selected) {
-    selected[key] = []
-  }
-
+  for (const key in selected) selected[key] = []
   router.push({ path: route.path, query: { page: '1' } })
   props.store.fetchCounts({})
 }
 
-// Заполняем `selected` из URL при загрузке
-onMounted(() => {
-  for (const key in route.query) {
-    const raw = route.query[key]
-    const values = typeof raw === 'string'
-      ? raw.split(',')
-      : Array.isArray(raw)
-        ? raw.flatMap(v => typeof v === 'string' ? v.split(',') : [])
-        : []
-
-    if (values.length) {
-      selected[key] = values
-    }
+/** Очищенная копия selected: только разрешённые ключи и непустые массивы */
+function cleanedSelected(): Record<string, string[]> {
+  const clean: Record<string, string[]> = {}
+  const allow = allowedSlugs.value
+  for (const [k, v] of Object.entries(selected)) {
+    if (!allow.has(k)) continue
+    if (Array.isArray(v) && v.length) clean[k] = [...v]
   }
+  return clean
+}
 
-  props.store.fetchCounts(selected)
+/** Заполняем selected из URL только по разрешённым слагам */
+function hydrateFromRoute() {
+  const allow = allowedSlugs.value
+  for (const [key, raw] of Object.entries(route.query)) {
+    if (!allow.has(key)) continue
+    const values =
+      typeof raw === 'string'
+        ? raw.split(',').filter(Boolean)
+        : Array.isArray(raw)
+          ? raw.flatMap(v => typeof v === 'string' ? v.split(',') : []).filter(Boolean)
+          : []
+    if (values.length) selected[key] = values
+  }
+}
+
+onMounted(() => {
+  hydrateFromRoute()
+  props.store.fetchCounts(cleanedSelected())
 })
 
-// Обновляем количество при выборе фильтров
-watch(selected, () => {
-  props.store.fetchCounts(selected)
+/** Если фильтры загрузились позже — повторно инициализируем из URL и пересчитаем */
+watch(() => filters.value, () => {
+  // не затираем уже выбранное — только добавим недостающие из URL
+  hydrateFromRoute()
+  props.store.fetchCounts(cleanedSelected())
 }, { deep: true })
 
-// Обновляем URL при изменении выбранных фильтров
+// Обновляем количество при выборе фильтров (с очищением ключей)
+watch(selected, () => {
+  props.store.fetchCounts(cleanedSelected())
+}, { deep: true })
+
+// Обновляем URL при изменении выбранных фильтров (только фильтровые ключи)
 watch(selected, () => {
   const query: Record<string, string> = {}
-  for (const key in selected) {
-    if (selected[key]?.length) {
-      query[key] = selected[key].join(',')
-    }
+  const allow = allowedSlugs.value
+  for (const [k, arr] of Object.entries(selected)) {
+    if (!allow.has(k)) continue
+    if (arr?.length) query[k] = arr.join(',')
   }
   query.page = '1'
   router.push({ path: route.path, query })

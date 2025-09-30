@@ -7,31 +7,31 @@
       class="flex flex-col md:flex-row items-center justify-between px-5 md:px-8 py-12 md:py-20 rounded-2xl bg-[#4E8BFF] text-white"
       style="height: 500px;"
     >
-      <div class="w-full md:max-w-[50%] lg:max-w-[60%]">
-        <div class="flex flex-wrap gap-3 mb-6 w-7/12">
+      <div class="w-full sm:max-w-2/3 lg:max-w-[60%] relative z-20">
+        <div class="flex flex-wrap gap-3 mb-6 w-full sm:w-7/12">
           <span class="text-lg px-3 py-1 rounded bg-yellow-300 text-black">Накопительная скидка</span>
           <span class="text-lg px-3 py-1 rounded bg-green-300 text-black">Бонусы</span>
           <span class="text-lg px-3 py-1 rounded bg-pink-300 text-black">Карты Daigo</span>
         </div>
-        <h1 class="font-medium leading-tight mb-4 text-[clamp(2rem,6vw,5rem)]">
+        <h1 class="font-medium leading-tight mb-4 text-[clamp(2rem,6vw,5rem)] sm:text-5xl lg:text-[clamp(2rem,6vw,5rem)]">
           Программа лояльности
         </h1>
-        <p class="mb-6 text-[clamp(1rem,4vw,1.5rem)] font-normal max-w-[90%] sm:max-w-[80%] lg:max-w-[560px]">
+        <p class="mb-6 text-[clamp(0.875rem,4vw,1.5rem)] sm:text-lg lg:text-[clamp(0.875rem,4vw,1.5rem)] font-normal max-w-[82%] sm:max-w-[80%] lg:max-w-[560px] !leading-tight">
           Узнавайте условия программы лояльности и получайте бонусы и скидки за покупки в интернет магазине
         </p>
       </div>
 
-      <div class="hidden md:block">
+      <div class="block w-1/3 lg:w-[40%]">
         <img
           src="/images/loyalty/loyalty.png"
           alt="Daigo & Tamotsu продукты"
-          class="max-w-[300px] lg:max-w-[560px] me-10 relative z-10"
+          class="max-w-[400px] w-[260px] sm:w-[400px] lg:max-w-[560px] -ms-6 -mt-10 sm:mt-0 sm:-ms-16 lg:ms-0 lg:me-10 relative z-10"
           loading="lazy"
         />
         <img
           src="/images/loyalty/flower.png"
           alt="Daigo & Tamotsu продукты"
-          class="max-w-[100px] lg:max-w-[160px] me-10 absolute lg:-top-14 right-[24%] z-0 rotate-[210deg]"
+          class="max-w-[100px] lg:max-w-[160px] me-10 absolute -top-14 right-[24%] z-0 rotate-[210deg]"
           loading="lazy"
         />
         <img

@@ -11,16 +11,16 @@
         </div>
 
         <div class="flex gap-5">
-          <a href="https://ya.ru" target="_blank" rel="noopener">
+          <a href="https://dzen.ru/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/dzen.svg" alt="Дзен" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://vk.com" target="_blank" rel="noopener">
+          <a href="https://vk.com/daigoru?roistat_visit=429655" target="_blank" rel="noopener">
             <img src="/icons/social/vk.svg" alt="VK" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://t.me" target="_blank" rel="noopener">
+          <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener">
+          <a href="https://www.youtube.com/@daigojp_ru" target="_blank" rel="noopener">
             <img src="/icons/social/youtube.svg" alt="YouTube" class="w-6 h-6" loading="lazy" />
           </a>
           <a href="https://daigo.store" target="_blank" rel="noopener">
@@ -35,11 +35,11 @@
             <div>
               <p class="font-medium text-xl mb-2 order-2 lg:order-1">О нас</p>
               <ul class="space-y-2 w-5/6 text-base">
-                <li><NuxtLink to="/promotions">Акции</NuxtLink></li>
+                <li><NuxtLink to="/akcii">Акции</NuxtLink></li>
                 <li><NuxtLink to="/about">О нас</NuxtLink></li>
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
-                <li><NuxtLink to="/research">Исследования</NuxtLink></li>
-                <li><NuxtLink to="/reviews">Отзывы</NuxtLink></li>
+                <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
+                <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
               </ul>
             </div>
@@ -50,26 +50,26 @@
                 <li><NuxtLink to="/oplata">Оплата</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
-                <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li>
-                <li><NuxtLink to="/loyalty">Партнерская программа</NuxtLink></li>
+                <!-- <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li> -->
+                <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li>
               </ul>
             </div>
 
             <div>
               <p class="font-medium text-xl mb-2">Юридическая информация</p>
-              <ul class="space-y-2 w-5/6 text-base">
-                <li><NuxtLink to="/legal/consent">Согласие на обработку персональных данных</NuxtLink></li>
-                <li><NuxtLink to="/legal/personal-data">Политика обработки персональных данных</NuxtLink></li>
-                <li><NuxtLink to="/legal/privacy">Политика конфиденциальности</NuxtLink></li>
-              </ul>
+              <div class="pb-2 mb-4 md:text-sm">
+                <p class="w-5/6 leading-[1.5]">
+                  ООО «МЕТАБИОТИК» <br>107051, г. Москва, Большой Сухаревский переулок, дом.21, стр. 2  
+                  <br>ИНН 9718234724 <br>КПП 771801001 <br>ОГРН 1237700627988
+                </p>
+              </div>
             </div>
           </div>
-          <div class="pb-4 md:text-sm text-black/50">
-            <p class="w-5/6 leading-[1.5]">
-              ООО «МЕТАБИОТИК» 107051, г. Москва, Большой Сухаревский переулок, дом.21, стр. 2  
-              ИНН 9718234724 КПП 771801001 ОГРН 1237700627988
-            </p>
-          </div>
+          <ul class="space-y-2 w-5/6 text-base">
+            <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
+            <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
+            <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
+          </ul>
 
         </div>
 
@@ -77,10 +77,9 @@
           <img src="/icons/social/qr.svg" alt="QR-код приложения" class="w-4/6 md:w-full lg:w-4/6 ms-auto" loading="lazy" />
           <p class="w-4/6 md:w-full lg:w-4/6 my-2 ms-auto text-base md:text-sm lg:text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
           <div class="w-4/6 md:w-full lg:w-4/6 ms-auto flex justify-center gap-4 mt-2">
-            <img src="/icons/social/huawei.svg" alt="Huawei" class="w-8" loading="lazy" />
-            <img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" />
+            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
             <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
-            <img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" />
+            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
           </div>
         </div>
       </div>
@@ -98,13 +97,13 @@
         </div>
 
         <div class="flex gap-3 md:gap-5 mt-1">
-          <a href="https://ya.ru" target="_blank" rel="noopener">
+          <a href="https://dzen.ru/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/dzen.svg" alt="Дзен" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://vk.com" target="_blank" rel="noopener">
+          <a href="https://vk.com/daigoru?roistat_visit=429655" target="_blank" rel="noopener">
             <img src="/icons/social/vk.svg" alt="VK" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://t.me" target="_blank" rel="noopener">
+          <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
           <a href="https://youtube.com" target="_blank" rel="noopener">
@@ -125,19 +124,19 @@
                 <li><NuxtLink to="/oplata">Оплата</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
-                <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li>
-                <li><NuxtLink to="/loyalty">Партнерская программа</NuxtLink></li>
+                <!-- <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li> -->
+                <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li>
               </ul>
             </div>
 
             <div>
               <p class="font-medium text-lg: md:text-xl mb-2">О нас</p>
               <ul class="space-y-2 w-5/6 text-base">
-                <li><NuxtLink to="/promotions">Акции</NuxtLink></li>
+                <li><NuxtLink to="/akcii">Акции</NuxtLink></li>
                 <li><NuxtLink to="/about">О нас</NuxtLink></li>
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
-                <li><NuxtLink to="/research">Исследования</NuxtLink></li>
-                <li><NuxtLink to="/reviews">Отзывы</NuxtLink></li>
+                <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
+                <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
               </ul>
             </div>
@@ -175,17 +174,17 @@
             <transition name="accordion" @enter="onEnter" @after-enter="onAfterEnter" @leave="onLeave">
               <div v-show="open" class="overflow-hidden">
                 <div class="pt-2">
-                  <ul class="space-y-2 w-5/6 text-base">
-                    <li><NuxtLink to="/legal/consent">Согласие на обработку персональных данных</NuxtLink></li>
-                    <li><NuxtLink to="/legal/personal-data">Политика обработки персональных данных</NuxtLink></li>
-                    <li><NuxtLink to="/legal/privacy">Политика конфиденциальности</NuxtLink></li>
-                  </ul>
-                  <div class="pb-2 mt-4 md:text-sm text-black/50">
+                  <div class="pb-2 mb-4 md:text-sm">
                     <p class="w-5/6 leading-[1.5]">
-                      ООО «МЕТАБИОТИК» 107051, г. Москва, Большой Сухаревский переулок, дом.21, стр. 2  
-                      ИНН 9718234724 КПП 771801001 ОГРН 1237700627988
+                      ООО «МЕТАБИОТИК» <br>107051, г. Москва, Большой Сухаревский переулок, дом.21, стр. 2  
+                  <br>ИНН 9718234724 <br>КПП 771801001 <br>ОГРН 1237700627988
                     </p>
                   </div>
+                  <ul class="space-y-2 w-5/6 text-base">
+                    <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
+                    <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Политика обработки персональных данных</NuxtLink></li>
+                    <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
+                  </ul>
                 </div>
               </div>
             </transition>
@@ -198,10 +197,9 @@
           <p class="block md:hidden w-full my-2 ms-0 md:ms-auto text-sm md:text-base leading-tight">Скачать мобильное приложение Дайго</p>
           <p class="hidden md:block w-4/6 my-2 ms-0 md:ms-auto text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
           <div class="w-full ms-0 md:ms-auto flex justify-start gap-4 mt-4">
-            <img src="/icons/social/huawei.svg" alt="Huawei" class="w-8" loading="lazy" />
-            <img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" />
+            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
             <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
-            <img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" />
+            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
           </div>
         </div>
       </div>

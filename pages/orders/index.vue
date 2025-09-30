@@ -15,6 +15,20 @@ const orders = computed(() => store.orders)
 const isLoading = computed(() => store.isLoading)
 const hasData = computed(() => !isLoading.value && orders.value.length > 0)
 
+// универсальный таймстемп из объекта заказа
+const toTs = (o: any): number => {
+  if (o?.createdAt)  return +new Date(o.createdAt)
+  if (o?.created_at) return +new Date(o.created_at)
+  if (o?.date)       return +new Date(o.date)
+  if (typeof o?.id === 'number') return o.id
+  return 0
+}
+
+// обратная сортировка (новые сверху)
+const sortedOrders = computed(() =>
+  [...orders.value].sort((a, b) => toTs(b) - toTs(a))
+)
+
 function fmtPrice(n: number) {
   return new Intl.NumberFormat('ru-RU').format(n) + ' ₽'
 }
@@ -46,16 +60,14 @@ async function cancelOrder(o: any) {
 
       <div v-else class="space-y-6">
         <article
-          v-for="o in orders"
+          v-for="o in sortedOrders"
           :key="o.id"
           class="flex flex-col gap-4 bg-white py-10 border-b border-gray-200"
         >
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="text-xl font-medium">Заказ от {{ o.date }}</div>
             <div class="text-primary px-4 py-2 border border-primary rounded-lg capitalize">
-              <span>
-                Статус: {{ statusLabel(o.status) }}
-              </span>
+              <span>Статус: {{ statusLabel(o.status) }}</span>
             </div>
           </div>
 
@@ -92,9 +104,6 @@ async function cancelOrder(o: any) {
             >
               {{ busyId===o.id ? 'Отменяем…' : 'Отменить заказ' }}
             </button>
-
-            <!-- Повторить заказ — можно внедрить позже (формируем корзину из o.items) -->
-            <!-- <button class="px-4 py-2 rounded-lg bg-primary text-white hover:bg-primary/90">Повторить заказ</button> -->
           </div>
         </article>
       </div>

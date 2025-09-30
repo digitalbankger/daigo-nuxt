@@ -1,59 +1,26 @@
-import type { H3Event } from 'h3'
+import { defineEventHandler, getQuery, createError } from 'h3'
+import { dadataFetch, simplify } from './_utils'
 
-interface DadataSuggestion<T = any> {
-  value: string
-  unrestricted_value: string
-  data: T
-}
-interface DadataResponse<T = any> {
-  suggestions: DadataSuggestion<T>[]
-}
+export default defineEventHandler(async (event) => {
+  const { q = '', fias = '', limit = '10' } = getQuery(event)
+  const token = useRuntimeConfig(event).dadataToken
+  if (!token) throw createError({ statusCode: 500, statusMessage: 'DaData token not configured' })
+  if (!q) return []
 
-export default defineEventHandler(async (event: H3Event) => {
-  const query = getQuery(event)
-  const q = String(query.q || '').trim()
-  // Можно передавать fias_id города, чтобы жёстко ограничить поиск
-  const fias = String(query.fias || '').trim()
+  // Если знаем FIAS города — сузим выдачу
+  const locations = fias
+    ? [{ city_fias_id: String(fias) }, { settlement_fias_id: String(fias) }, { fias_id: String(fias) }]
+    : undefined
 
-  if (!q) return { suggestions: [] }
-
-  const { dadataToken } = useRuntimeConfig()
-
-  const body: any = {
-    query: q,
-    from_bound: { value: 'street' },
-    to_bound: { value: 'house' },
-    restrict_value: false
+  const body = {
+    query: String(q),
+    count: Math.min(Number(limit) || 10, 20),
+    from_bound: { value: 'street' },   // начиная с улицы
+    to_bound:   { value: 'house' },    // до дома
+    restrict_value: false,
+    locations
   }
 
-  if (fias) {
-    body.locations = [{ city_fias_id: fias }]
-  }
-
-  const res = await $fetch<DadataResponse>(
-    'https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address',
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Token ${dadataToken}`,
-      },
-      body
-    }
-  )
-
-  return {
-    suggestions: res.suggestions.map(s => ({
-      value: s.value, // улица и дом
-      data: {
-        street: s.data.street,
-        house: s.data.house,
-        block: s.data.block,
-        geo_lat: s.data.geo_lat,
-        geo_lon: s.data.geo_lon,
-        postal_code: s.data.postal_code,
-      }
-    }))
-  }
+  const resp = await dadataFetch<any>('suggest/address', body, token)
+  return simplify(resp)
 })
