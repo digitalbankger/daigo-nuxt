@@ -30,7 +30,7 @@ function nextSlide() {
   }
 }
 
-function startProgress(duration = 5000) {
+function startProgress(duration = 10000) { // ← было 5000
   if (!props.active) return
   progress.value = 0
   clearTimer()
@@ -44,7 +44,7 @@ function startProgress(duration = 5000) {
 function onVideoReady() {
   if (!props.active || !videoRef.value) return
   const durationMs = Math.max(500, videoRef.value.duration * 1000 || 5000)
-  startProgress(durationMs)
+  startProgress(durationMs * 2) // ← в 2 раза дольше, чем длина видео
 }
 
 watch(() => props.active, (val) => {
@@ -101,7 +101,7 @@ onBeforeUnmount(clearTimer)
           :src="currentSlide"
           class="w-full h-full object-cover"
           alt="story"
-          @load="() => props.active && startProgress(5000)"
+          @load="() => props.active && startProgress(10000)"
         />
       </template>
 
@@ -110,7 +110,7 @@ onBeforeUnmount(clearTimer)
     </div>
 
     <div class="absolute bottom-0 left-0 right-0 z-20">
-      <div class="bg-gradient-to-t from-black/60 to-transparent px-4 py-4">
+      <div class="bg-gradient-to-t from-black/40 to-transparent px-4 py-10">
         <p class="text-white text-lg">{{ (props.story as any)?.title || '' }}</p>
       </div>
     </div>

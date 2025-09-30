@@ -84,7 +84,8 @@ export interface ArticleDetail extends ArticleListItem {
   topFive?: ArticleListItem[]
   recommended?: ArticleListItem[]
   popular?: ArticleListItem[]
-  products?: ArticleProductMini[] // "Покупают вместе"
+  products?: ArticleProductMini[]
+  productsIds?: string[]
 }
 
 export interface ArticleComment {

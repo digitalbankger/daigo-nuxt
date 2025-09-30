@@ -10,7 +10,7 @@ import AccordionItem from '~/components/ui/AccordionItem.vue'
 import RecommendedCarousel from '~/components/articles/RecommendedCarousel.vue'
 import PopularArticles from '~/components/articles/PopularArticles.vue'
 
-definePageMeta({ layout: 'main' })
+definePageMeta({ layout: 'main' }) 
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))

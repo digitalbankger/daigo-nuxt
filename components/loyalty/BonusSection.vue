@@ -12,7 +12,7 @@ function formatDate(date: string) {
 <template>
   <section class="relative w-full pb-5 pt-3 md:pt-3 md:pb-5">
     <div class="container mx-auto">
-      <h2 class="text-slider font-medium mb-8">Ваши бонусы</h2>
+      <h2 class="text-slider sm:text-product lg:text-slider font-medium mb-8">Ваши бонусы</h2>
 
       <div class="flex flex-col gap-6 items-start w-full">
         <div v-if="bonusStore.isLoading" class="text-sm text-blue-500">Загрузка бонусов...</div>
@@ -21,11 +21,11 @@ function formatDate(date: string) {
           <div
             v-for="(bonus, index) in bonusStore.history"
             :key="index"
-            class="flex items-center gap-6"
+            class="flex items-center gap-4 lg:gap-6"
           >
             <!-- Левая карточка с бонусами -->
             <div
-              class="relative w-[190px] h-[130px] rounded-xl flex items-center justify-center text-white font-medium text-[46px] overflow-hidden"
+              class="relative w-[140px] lg:w-[190px] h-[130px] rounded-xl flex items-center justify-center text-white font-medium text-2xl lg:text-4xl overflow-hidden"
               style="background-color: #4F8EFF;"
             >
               <img src="/images/loyalty/left-ball.png" alt="" class="absolute top-0 left-0 w-20" />
@@ -35,13 +35,13 @@ function formatDate(date: string) {
 
             <!-- Правая текстовая часть -->
             <div class="flex flex-col mb-auto">
-              <div class="!text-cardhead font-medium mb-2">
+              <div class="text-xl lg:!text-cardhead font-medium mb-2">
                 {{ bonus.operation_type === 'credit' ? 'Начисление бонусов' : 'Списание бонусов' }}
               </div>
-              <div class="text-lg text-black/70 mb-1">
+              <div class="text-base sm:text-lg text-black/70 mb-1">
                 Заказ № {{ bonus.order_id || '—' }}, {{ formatDate(bonus.date) }}
               </div>
-              <div class="text-lg text-black">
+              <div class="text-base sm:text-lg text-black">
                 {{ bonus.order_price ? `Сумма заказа: ${bonus.order_price} ₽` : 'Без заказа' }}
               </div>
             </div>

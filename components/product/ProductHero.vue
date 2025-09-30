@@ -50,7 +50,7 @@ async function addToCartHandler() {
   try {
     await ensureCartLoadedOnce()
     await cartStore.addToCart({
-      id: productIdStr.value as unknown as any, // строковый UUID
+      id: productIdStr.value as unknown as any,
       title: product.title,
       subtitle: product.subtitle,
       price: product.price,
@@ -115,7 +115,7 @@ onMounted(ensureCartLoadedOnce)
 
       <!-- Инфо -->
       <div class="w-full sm:w-1/2 flex flex-col gap-4">
-        <h1 class="text-2xl sm:text-3xl xl:text-product font-medium !leading-tight mb-2">
+        <h1 class="text-2xl sm:text-3xl xl:text-product font-medium !leading-tight mt-4 sm:mt-0 mb-2">
           {{ product.title }}
         </h1>
 
@@ -123,9 +123,17 @@ onMounted(ensureCartLoadedOnce)
           {{ product.subtitle }}
         </h2>
 
-        <p class="text-sm sm:text-base xl:text-lg">
+        <p class="text-sm sm:text-base xl:text-lg whitespace-pre-line">
           {{ product.shortDescription }}
         </p>
+
+        <div class="flex gap-1 flex-row">
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+        </div>
 
         <div class="flex gap-3 sm:gap-4 mt-4">
           <NuxtLink
@@ -158,7 +166,10 @@ onMounted(ensureCartLoadedOnce)
           <span v-if="hasDiscount" class="text-black/40 line-through text-base sm:text-2xl xl:text-cardhead font-normal">
             {{ product.oldPrice?.toLocaleString() }} ₽
           </span>
-          <span class="text-cgreen text-2xl sm:text-4xl xl:text-product font-medium">
+          <span 
+            :class="hasDiscount ? 'text-cgreen' : 'text-black'" 
+            class="text-2xl sm:text-4xl xl:text-product font-medium"
+          >
             {{ product.price.toLocaleString() }} ₽
           </span>
         </div>
@@ -190,7 +201,7 @@ onMounted(ensureCartLoadedOnce)
             class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
             <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
-            <span class="min-w-[2rem] text-center">{{ quantityInCart }}</span>
+            <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
             <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
           </div>
 

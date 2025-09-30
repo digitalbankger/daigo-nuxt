@@ -44,7 +44,7 @@ export interface Review {
   feedback_preview?: string
   author: string
   author_role?: string
-  productIds?: number[]
+  productIds?: Array<string | number>
   related_products?: { name: string; link: string }[]
 }
 

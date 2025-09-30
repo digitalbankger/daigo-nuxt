@@ -3,24 +3,17 @@ import type { Review } from '~/types/content'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import WaveSurfer from 'wavesurfer.js'
 import { playExclusive } from '~/utils/audioController'
-import { useCatalogStore } from '~/stores/catalogStore'
+import { useProductsByIds } from '~/composables/useProductsByIds'
 
 const props = defineProps<{ review: Review }>()
-const emit = defineEmits(['open-story'])
+const emit = defineEmits(['open-story', 'open-text'])
 
 const mediaSource = computed(() =>
   props.review.mediaUrl || props.review.video_url || props.review.file_url
 )
 
-const catalogStore = useCatalogStore()
-const relatedProducts = computed(() => {
-  const ids = Array.isArray(props.review.productIds)
-    ? props.review.productIds
-    : props.review.productId
-    ? [props.review.productId]
-    : []
-  return catalogStore.products.filter(p => ids.includes(p.id))
-})
+const ids = computed<(string|number)[]>(() => props.review.productIds ?? [])
+const { items: relatedProducts } = useProductsByIds(ids)
 
 // Аудио
 const waveformRef = ref<HTMLDivElement | null>(null)
@@ -132,14 +125,14 @@ onUnmounted(() => {
           >
             <NuxtLink
               v-for="product in relatedProducts"
-              :key="product.id"
+              :key="product.product_id"
               :to="productLink(product)"
               prefetch
               @click.stop
               class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
               :aria-label="`Перейти к товару ${product.name}`"
             >
-              <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
+              <SmartImg :src="product.image" class="w-6 h-6 object-contain" />
               <span class="text-sm">{{ product.name }}</span>
             </NuxtLink>
           </div>
@@ -158,9 +151,9 @@ onUnmounted(() => {
 
     <!-- Аудио -->
     <template v-if="review.type === 'audio'">
-      <div class="h-[545px] relative rounded-xl overflow-hidden bg-white shadow-md transition hover:-translate-y-1">
+      <div class="h-[560px] relative rounded-xl overflow-hidden bg-white shadow-md transition hover:-translate-y-1">
         <div class="relative">
-          <NuxtImg v-if="review.photo_urls" :src="review.preview || review.photo_urls[0]" format="webp" class="w-full h-[335px] object-cover" />
+          <SmartImg v-if="review.photo_urls" :src="review.preview || review.photo_urls[0]" format="webp" class="w-full h-[335px] object-cover" />
           <div class="absolute top-3 left-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">Аудио</div>
 
           <div
@@ -175,7 +168,7 @@ onUnmounted(() => {
               @click.stop
               class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
             >
-              <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
+              <SmartImg :src="product.image" class="w-6 h-6 object-contain" />
               <span class="text-sm">{{ product.name }}</span>
             </NuxtLink>
           </div>
@@ -229,22 +222,23 @@ onUnmounted(() => {
             prefetch
             class="flex items-center gap-2 bg-[#EEF4FF] hover:bg-[#e5efff] text-primary rounded px-2 py-1 transition"
           >
-            <NuxtImg :src="product.image" class="w-6 h-6 object-contain" />
+            <SmartImg :src="product.image" class="w-6 h-6 object-contain" />
             <span class="text-sm">{{ product.name }}</span>
           </NuxtLink>
         </div>
 
-        <NuxtLink
-          :to="review.file_url"
+        <button
+          type="button"
           class="inline-flex items-center gap-2 py-3 text-base text-primary font-normal transition duration-300 group"
+          @click="$emit('open-text', review)"
         >
-          Читать полностью 
+          Читать полностью
           <img
             src="/icons/arrow-primary.svg"
             alt="→"
             class="w-4 h-4 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
           />
-        </NuxtLink>
+        </button>
       </article>
     </template>
   </div>

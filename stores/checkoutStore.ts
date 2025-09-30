@@ -1,103 +1,439 @@
+// stores/checkoutStore.ts
 import { defineStore } from 'pinia'
-import type {
-  CheckoutState,
-  CheckoutSummary,
-  DeliveryOption,
-  PaymentMethod,
-  Address,
-  Recipient,
-} from '~/types/checkout'
+import { reactive, ref } from 'vue'
+import { useAuthStore } from '~/stores/authStore'
+import { useUserStore } from '~/stores/userStore'
+import { useCartStore } from '~/stores/cartStore'
+import { createOrder } from '~/services/orderService'
+import { navigateTo } from '#imports'
+
+// Типы способов (используются в UI и для PaymentSelector)
+export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
+export type PaymentMethod =
+  | 'sbp'
+  | 'tbank'
+  | 'dolyame'
+  | 'bank_card'
+  | 'courier_card'
+  | 'cash'
+
+// Опция доставки для UI
+export interface DeliveryOption {
+  id: string
+  kind: DeliveryKind
+  title: string
+  subtitle?: string
+  eta?: string
+  // для курьера: провайдер
+  provider?: 'daigo' | 'major'
+}
+
+interface StateShape {
+  recipient: {
+    first_name: string
+    last_name: string
+    phone_number: string
+    email: string
+  }
+  // другой получатель
+  otherRecipientEnabled: boolean
+  otherRecipientName: string
+  otherRecipientPhone: string
+  otherRecipientEmail: string
+
+  address: {
+    city?: string
+    street?: string
+    apartment?: string
+    entrance?: string
+    floor?: string
+    intercom?: string
+    private_house?: boolean
+    // для ПВЗ/самовывоза — строка/идентификатор
+    pvzAddress?: string
+    pvzId?: string
+    pickupAddress?: string
+    pickupSchedule?: string
+  }
+
+  orderForAnotherPerson: boolean // оставляю для обратной совместимости с текущим UI (чекбокс)
+  deliveryId: string | null
+  paymentMethod: PaymentMethod
+
+  comment?: string
+}
 
 export const useCheckoutStore = defineStore('checkout', () => {
-  const state = ref<CheckoutState>({
+  const auth = useAuthStore()
+  const user = useUserStore()
+  const cart = useCartStore()
+
+  // ---- UI-опции доставки ----
+  const deliveryOptions = ref<DeliveryOption[]>([
+    {
+      id: 'courier_daigo',
+      kind: 'courier',
+      title: 'Курьером Daigo',
+      subtitle: 'Бесплатная доставка по городу',
+      provider: 'daigo'
+    },
+    {
+      id: 'courier_major',
+      kind: 'courier',
+      title: 'Курьером Major',
+      subtitle: 'Доставка партнёром',
+      provider: 'major'
+    },
+    {
+      id: 'pvz_cdek',
+      kind: 'pvz',
+      title: 'ПВЗ СДЭК',
+      subtitle: 'Выбрать пункт выдачи на карте'
+    },
+    {
+      id: 'pickup_office',
+      kind: 'pickup',
+      title: 'Самовывоз',
+      subtitle: 'г. Москва, Большой Сухаревский пер., д. 21, стр. 2',
+      eta: 'пн–пт, с 9:00 до 18:00'
+    }
+  ])
+
+  // ---- Состояние checkout ----
+  const state = reactive<StateShape>({
     recipient: {
       first_name: '',
       last_name: '',
       phone_number: '',
-      email: '',
+      email: ''
     },
-    address: { city: '', street: '', private_house: false },
-    deliveryId: null,
-    payment: null,
-    comment: '',
-    orderForAnotherPerson: false,
+
+    otherRecipientEnabled: false,
+    otherRecipientName: '',
+    otherRecipientPhone: '',
+    otherRecipientEmail: '',
+
+    address: {
+      city: '',
+      street: '',
+      apartment: '',
+      entrance: '',
+      floor: '',
+      intercom: '',
+      private_house: false,
+      pvzAddress: '',
+      pvzId: '',
+      pickupAddress: 'г. Москва, Большой Сухаревский пер., д. 21, стр. 2',
+      pickupSchedule: 'пн–пт, с 9:00 до 18:00'
+    },
+
+    orderForAnotherPerson: false, // синхронизирован с otherRecipientEnabled (см. ниже)
+    deliveryId: deliveryOptions.value[0]?.id || null,
+    paymentMethod: 'sbp',
+
+    comment: ''
   })
 
-  const deliveryOptions = ref<DeliveryOption[]>([])
-  const summary = ref<CheckoutSummary>({
-    itemsCount: 0,
-    productsTotal: 0,
-    deliveryPrice: 0,
-    discountPercent: 0,
-    bonusesAccrue: 0,
-    total: 0,
-  })
+  // Синхронизируем старый флаг (из UI) с новым
+  watchFlagSync()
+  function watchFlagSync() {
+    // При изменении старого флага — меняем новый
+    Object.defineProperty(state, 'orderForAnotherPerson', {
+      get: () => state.otherRecipientEnabled,
+      set: (v: boolean) => {
+        state.otherRecipientEnabled = v
+        if (!v) {
+          state.otherRecipientName = ''
+          state.otherRecipientPhone = ''
+          state.otherRecipientEmail = ''
+        }
+      }
+    })
+  }
 
+  // Доп. указатели (используются в DeliverySelector)
+  const pvzAddress = ref<string>('') // историческое поле — оставляю для совместимости
+  const pickupAddress = ref<string>(state.address.pickupAddress || '')
+  const pickupSchedule = ref<string>(state.address.pickupSchedule || '')
+
+  // ---- Ошибки формы + баннер ----
+  const errors = reactive({
+    recipient: {
+      first_name: '' as string,
+      last_name: '' as string,
+      phone_number: '' as string,
+      email: '' as string,
+      city: '' as string, // город сейчас задаётся как часть address, но ошибка удобнее тут
+    },
+    other: {
+      name: '' as string,
+      phone: '' as string,
+      email: '' as string,
+    },
+    address: {
+      city: '' as string,
+      street: '' as string,
+      pvzAddress: '' as string,
+      pickupAddress: '' as string,
+    },
+    payment: '' as string,
+  })
+  const lastError = ref<string>('')
+
+  function clearErrors() {
+    errors.recipient.first_name = ''
+    errors.recipient.last_name = ''
+    errors.recipient.phone_number = ''
+    errors.recipient.email = ''
+    errors.recipient.city = ''
+    errors.other.name = ''
+    errors.other.phone = ''
+    errors.other.email = ''
+    errors.address.city = ''
+    errors.address.street = ''
+    errors.address.pvzAddress = ''
+    errors.address.pickupAddress = ''
+    errors.payment = ''
+    lastError.value = ''
+  }
+
+  function isEmail(s: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s)
+  }
+  function normalizePhoneDigits(s: string) {
+    return (s || '').replace(/\D/g, '')
+  }
+
+  // ---- Mutations ----
+  function setAddress(partial: Partial<StateShape['address']>) {
+    Object.assign(state.address, partial)
+  }
+  function setDelivery(optionId: string) {
+    state.deliveryId = optionId
+  }
+
+  // ---- Prefill из профиля/корзины ----
   async function loadOptions() {
-    const data = await $fetch<{ delivery: DeliveryOption[]; summary: CheckoutSummary }>(
-      '/api/checkout/options'
-    )
-    deliveryOptions.value = data.delivery
-    summary.value = data.summary
-    if (!state.value.deliveryId && deliveryOptions.value.length) {
-      state.value.deliveryId = deliveryOptions.value[0].id
+    try {
+      if (auth.isAuthenticated && !user.profile) {
+        await user.loadProfile()
+      }
+      const p = user.profile
+      if (p) {
+        if (!state.recipient.first_name && (p.first_name || p.last_name)) {
+          state.recipient.first_name = p.first_name || ''
+          state.recipient.last_name = p.last_name || ''
+        }
+        if (!state.recipient.phone_number && p.phone_number) {
+          state.recipient.phone_number = p.phone_number
+        }
+        if (!state.recipient.email && p.email) {
+          state.recipient.email = p.email
+        }
+        if (!state.address.city && (p as any).city) {
+          state.address.city = (p as any).city
+        }
+      }
+
+      // Фоллбек из формы корзины (если пользователь вводил до авторизации)
+      if (!state.recipient.first_name && cart.userForm.fullName) {
+        const parts = cart.userForm.fullName.trim().split(/\s+/)
+        state.recipient.first_name = parts.shift() || ''
+        state.recipient.last_name = parts.join(' ')
+      }
+      if (!state.recipient.phone_number && cart.userForm.phone) {
+        state.recipient.phone_number = cart.userForm.phone
+      }
+    } catch (e) {
+      console.warn('[checkout] loadOptions failed', e)
     }
   }
 
-  function setRecipient(payload: Partial<Recipient>) {
-    state.value.recipient = { ...state.value.recipient, ...payload }
+  // ---- Вспомогательное: построить delivery payload из выбранной опции ----
+  function buildDeliveryPayload() {
+    const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
+    if (!opt) return { type: 'courier', provider: 'daigo' }
+
+    if (opt.kind === 'courier') {
+      return {
+        type: 'courier',
+        provider: opt.provider || 'daigo',
+        is_private: !!state.address.private_house,
+        street: state.address.street || '',
+        apartment: state.address.private_house ? '' : (state.address.apartment || ''),
+        entrance: state.address.private_house ? '' : (state.address.entrance || ''),
+        floor: state.address.private_house ? '' : (state.address.floor || ''),
+        intercom: state.address.private_house ? '' : (state.address.intercom || '')
+      }
+    }
+
+    if (opt.kind === 'pvz') {
+      return {
+        type: 'pvz',
+        provider: 'cdek',
+        address: state.address.pvzAddress || pvzAddress.value || [state.address.city, state.address.street].filter(Boolean).join(', '),
+        pickup_point_id: state.address.pvzId || undefined
+      }
+    }
+
+    // pickup
+    return {
+      type: 'pickup',
+      address: state.address.pickupAddress || pickupAddress.value,
+      schedule: state.address.pickupSchedule || pickupSchedule.value
+    }
   }
 
-  function setAddress(payload: Partial<Address>) {
-    state.value.address = { ...state.value.address, ...payload }
+  // ---- Валидация ----
+  function validate(): boolean {
+    clearErrors()
+
+    const fn = (state.recipient.first_name || '').trim()
+    const ln = (state.recipient.last_name || '').trim()
+    const ph = normalizePhoneDigits(state.recipient.phone_number || '')
+    const em = (state.recipient.email || '').trim()
+    const city = (state.address.city || '').trim()
+
+    if (!fn) errors.recipient.first_name = 'Укажите имя'
+    if (!ln) errors.recipient.last_name = 'Укажите фамилию'
+    if (!ph || ph.length < 10) errors.recipient.phone_number = 'Укажите телефон'
+    if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
+    if (!city) errors.recipient.city = 'Укажите город'
+
+    if (state.otherRecipientEnabled) {
+      const on = (state.otherRecipientName || '').trim()
+      const op = normalizePhoneDigits(state.otherRecipientPhone || '')
+      const oe = (state.otherRecipientEmail || '').trim()
+      if (!on) errors.other.name = 'Укажите ФИО другого получателя'
+      if (!op || op.length < 10) errors.other.phone = 'Укажите телефон другого получателя'
+      if (oe && !isEmail(oe)) errors.other.email = 'Email другого получателя некорректен'
+    }
+
+    const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
+    if (opt?.kind === 'courier') {
+      if (!state.address.street?.trim()) {
+        errors.address.street = 'Укажите улицу и дом'
+      }
+    } else if (opt?.kind === 'pvz') {
+      if (!(state.address.pvzAddress || pvzAddress.value)?.trim()) {
+        errors.address.pvzAddress = 'Выберите адрес пункта выдачи'
+      }
+    } else if (opt?.kind === 'pickup') {
+      if (!(state.address.pickupAddress || pickupAddress.value)?.trim()) {
+        errors.address.pickupAddress = 'Укажите адрес самовывоза'
+      }
+    }
+
+    if (!state.paymentMethod) {
+      errors.payment = 'Выберите способ оплаты'
+    }
+
+    const hasErrors =
+      !!errors.recipient.first_name ||
+      !!errors.recipient.last_name ||
+      !!errors.recipient.phone_number ||
+      !!errors.recipient.email ||
+      !!errors.recipient.city ||
+      !!errors.other.name ||
+      !!errors.other.phone ||
+      !!errors.other.email ||
+      !!errors.address.street ||
+      !!errors.address.pvzAddress ||
+      !!errors.address.pickupAddress ||
+      !!errors.payment
+
+    if (hasErrors) {
+      lastError.value = 'Проверьте форму — есть ошибки.'
+      return false
+    }
+    return true
   }
 
-  function setDelivery(id: string) {
-    state.value.deliveryId = id
-    const opt = deliveryOptions.value.find(o => o.id === id)
-    summary.value.deliveryPrice = opt ? opt.price : 0
-    recalc()
-  }
-
-  function setPayment(method: PaymentMethod) {
-    state.value.payment = method
-  }
-
-  function setComment(comment: string) {
-    state.value.comment = comment
-  }
-
-  function toggleOrderForAnotherPerson(val: boolean) {
-    state.value.orderForAnotherPerson = val
-  }
-
-  function recalc() {
-    const productsMinusDiscount = Math.round(
-      summary.value.productsTotal * (1 - summary.value.discountPercent / 100)
-    )
-    summary.value.total = productsMinusDiscount + summary.value.deliveryPrice
-  }
-
+  // ---- Отправка заказа ----
   async function submit() {
-    const res = await $fetch<{ order_id: string }>(
-      '/api/checkout/submit',
-      { method: 'POST', body: state.value }
-    )
-    return res
+    try {
+      lastError.value = ''
+
+      if (!auth.userId) {
+        lastError.value = 'Необходима авторизация'
+        throw new Error('AUTH_REQUIRED')
+      }
+
+      if (!validate()) {
+        return
+      }
+
+      // Формируем список товаров из cartStore (без подарков и пустых id)
+      const items = (cart.items || [])
+        .filter(i => i?.id)
+        .map(i => ({
+          product_id: String(i.id),
+          name: i.title,
+          quantity: i.quantity,
+          price: i.price,
+          amo_id: (i as any).amo_id ?? null
+        }))
+
+      if (!items.length) {
+        lastError.value = 'В корзине нет товаров'
+        throw new Error('EMPTY_CART')
+      }
+
+      const payload = {
+        daigo_id: auth.userId,
+        recipient: {
+          name: [state.recipient.first_name, state.recipient.last_name].filter(Boolean).join(' ').trim(),
+          phone: state.recipient.phone_number.replace(/\D/g, ''),
+          email: state.recipient.email,
+          city: state.address.city
+        },
+        other_recipient: state.otherRecipientEnabled ? {
+          enabled: true,
+          name: state.otherRecipientName || undefined,
+          phone: state.otherRecipientPhone.replace(/\D/g, '') || undefined,
+          email: state.otherRecipientEmail || undefined
+        } : { enabled: false },
+        delivery: buildDeliveryPayload(),
+        payment_method: state.paymentMethod, // как ждёт бэкенд в текущем API
+        comment: state.comment || undefined,
+        // скидки/промо/бонусы — уже учтены на бэке
+        items
+      }
+
+      const res = await createOrder(payload as any)
+
+      // Если пришла ссылка на оплату — уводим туда
+      const url = (res as any)?.confirmation?.confirmation_url
+      if (url) {
+        await navigateTo(url, { external: true })
+        // запасной переход — если провайдер не вернет обратно
+        setTimeout(() => navigateTo('/profile'), 2000)
+        return res
+      }
+
+      return res
+    } catch (e: any) {
+      console.warn('ORDER_SUBMIT_FAIL', e)
+      if (!lastError.value) lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'
+    }
   }
 
   return {
+    // state
     state,
     deliveryOptions,
-    summary,
-    loadOptions,
-    setRecipient,
+    pvzAddress,
+    pickupAddress,
+    pickupSchedule,
+
+    // ошибки
+    errors,
+    lastError,
+
+    // methods
     setAddress,
     setDelivery,
-    setPayment,
-    setComment,
-    toggleOrderForAnotherPerson,
-    recalc,
-    submit,
+    loadOptions,
+    submit
   }
 })

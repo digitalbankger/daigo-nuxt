@@ -1,32 +1,150 @@
 // services/orderService.ts
+import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
 
+/** Товар в заказе */
+export interface OrderItemPayload {
+  product_id: string            // UUID товара (или строковый ID)
+  name: string                  // Название (для логов/админки)
+  quantity: number              // Кол-во
+  price: number                 // Цена за единицу (руб)
+  amo_id?: number | null        // опционально
+}
+
+/** Получатель */
+export interface OrderRecipient {
+  name: string
+  phone: string                 // уже очищенный номер (только цифры) — см. checkoutStore
+  email?: string
+  city?: string
+}
+
+/** Другой получатель */
+export interface OtherRecipient {
+  enabled: boolean
+  name?: string
+  phone?: string
+  email?: string
+}
+
+/** Адрес (для курьера / ПВЗ / самовывоза) */
+export interface OrderAddress {
+  street?: string
+  house?: string
+  apartment?: string
+  apt?: string
+  entrance?: string
+  floor?: string
+  intercom?: string
+  [k: string]: any              // допускаем доп. поля
+}
+
+/**
+ * Payload создания заказа.
+ *
+ * ВАЖНО: у вас в разных местах встречались разные ключи:
+ * - delivery / payment_method (рекомендовано)
+ * - deliveryMethod / address / paymentMethod (исторически)
+ *
+ * Чтобы не ломать совместимость, тип содержит ОБА варианта.
+ * Бэку отправляем как есть — без насильной трансформации.
+ */
 export interface OrderCreatePayload {
-  daigo_id: number
-  // ... остальные поля, которые требует ваш бэкенд (адрес, товары, оплата и т.д.)
+  daigo_id: number | string
+  recipient: OrderRecipient
+  items: OrderItemPayload[]
+
+  // Рекомендованные ключи:
+  delivery?: any                // { type: 'courier' | 'pvz' | 'pickup', ... }
+  payment_method?: string       // 'sbp' | 'bank_card' | ...
+
+  // Исторические ключи (если где-то ещё используются):
+  deliveryMethod?: string
+  address?: OrderAddress
+  paymentMethod?: string
+
+  // Другой получатель (новое поле — поддержка фронта)
+  other_recipient?: OtherRecipient
+
+  // Прочее
+  comment?: string
+  currency?: 'RUB'
+  coupon_code?: string
+  bonuses_discount?: number
   [k: string]: any
 }
 
-export async function createOrder(orderData: OrderCreatePayload) {
-  const auth = useAuthStore()
-  return await $fetch('/api/orders', {
-    method: 'POST',
-    body: orderData,
-    headers: auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined
-  })
+export interface CreateOrderResponse {
+  order_id?: string | number
+  confirmation?: { confirmation_url?: string }
+  [k: string]: any
 }
 
-export async function fetchOrderHistory(daigoId: number) {
+/* ----------------------- internal helpers ----------------------- */
+
+function authHeaders() {
   const auth = useAuthStore()
-  return await $fetch(`/api/orders/history/${daigoId}`, {
-    headers: auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined
-  })
+  return auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined
 }
 
+function toReadableError(e: any): Error & { status?: number } {
+  const status = e?.status || e?.response?.status
+  const backendMsg =
+    e?.data?.message ||
+    e?.response?._data?.message ||
+    e?.message
+
+  const err = new Error(
+    status === 501
+      ? 'ORDER_API_NOT_IMPLEMENTED'
+      : backendMsg || 'ORDER_CREATE_FAILED'
+  ) as Error & { status?: number }
+
+  err.status = status
+  return err
+}
+
+/* ---------------------------- API ------------------------------- */
+
+/** Создание заказа */
+export async function createOrder(orderData: OrderCreatePayload): Promise<CreateOrderResponse> {
+  const { public: { daigoApiBase } } = useRuntimeConfig()
+
+  try {
+    return await $fetch<CreateOrderResponse>(`${daigoApiBase}/v1/shop/order`, {
+      method: 'POST',
+      body: orderData,
+      headers: authHeaders(),
+    })
+  } catch (e: any) {
+    throw toReadableError(e)
+  }
+}
+
+/** История заказов пользователя */
+export async function fetchOrderHistory(daigoId: number | string) {
+  const { public: { daigoApiBase } } = useRuntimeConfig()
+
+  try {
+    return await $fetch(`${daigoApiBase}/v1/shop/order/history/${daigoId}`, {
+      headers: authHeaders(),
+    })
+  } catch (e: any) {
+    throw toReadableError(e)
+  }
+}
+
+/** Отмена заказа */
 export async function cancelOrder(orderId: number | string) {
-  const auth = useAuthStore()
-  return await $fetch(`/api/orders/${orderId}/cancel`, {
-    method: 'POST',
-    headers: auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined
-  })
+  const { public: { daigoApiBase } } = useRuntimeConfig()
+
+  try {
+    // В примере из приложения был слэш на конце — оставляем так.
+    return await $fetch(`${daigoApiBase}/v1/shop/order/${orderId}/cancel/`, {
+      method: 'POST',
+      headers: authHeaders(),
+    })
+  } catch (e: any) {
+    throw toReadableError(e)
+  }
 }

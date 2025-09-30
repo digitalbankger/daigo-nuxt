@@ -25,14 +25,13 @@
       </div>
 
       <div class="w-full lg:w-1/2 flex order-1 lg:order-2">
-        <NuxtImg
+        <img
           src="http://localhost:3000/images/wide-selection.webp"
           alt="Продукты Daigo"
           format="webp"
           loading="lazy"
           width="528"
           height="524"
-          placeholder
           class="max-w-full h-auto w-full mx-auto aspect-[1/1] aspect-[12/9] object-cover rounded-3xl"
         />
       </div>

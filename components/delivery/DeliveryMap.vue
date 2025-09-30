@@ -3,9 +3,9 @@
 
 <template>
   <section class="w-full py-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-8 items-start">
       <div class="relative">
-        <div class="bg-gray-100 rounded-2xl h-[500px] relative overflow-hidden">
+        <div class="bg-gray-100 rounded-2xl h-[300px] lg:h-[500px] relative overflow-hidden">
           <img 
             src="/images/delivery/map.jpg?height=500&width=640"
             alt="Карта доставки по Москве"
@@ -15,25 +15,25 @@
         </div>
       </div>
 
-      <div class="flex flex-col gap-6">
+      <div class="flex flex-col gap-4 lg:gap-6">
         <div>
-          <h2 class="text-3xl font-medium mb-4">Москва</h2>
+          <h2 class="text-2xl lg:text-3xl font-medium mb-2 lg:mb-4">Москва</h2>
           <div class="space-y-4">
             <div class="flex items-start gap-3">
               <div>
-                <p class="text-2xl my-2 font-normal">Большой московский регион, включая 21, столица 2</p>
+                <p class="text-lg lg:text-2xl my-2 font-normal">Большой московский регион, включая 21, столица 2</p>
               </div>
             </div>
 
-            <div class="text-lg flex flex-row items-center gap-2">
+            <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/phone.svg" />
               <span>Телефон: +7 (905) 200-40-09</span>
             </div>
-            <div class="text-lg flex flex-row items-center gap-2">
+            <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/bi_mailbox.svg" /> 
               <span>Email: info@daigo.ru</span>
             </div>
-            <div class="text-lg flex flex-row items-center gap-2">
+            <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/clock.svg" /> 
               <span>Часы работы: пн-пт 9:00 – 18:00</span>
             </div>

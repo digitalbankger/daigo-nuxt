@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-6">
       <h3 class="text-3xl font-medium">Условия оплаты</h3>
       <div class="space-y-4">
-        <p class="text-lg">
+        <p class="text-sm lg:text-lg">
           <span class="font-medium">Сайт Daigo.ru является единственным официальным ресурсом бренда Daigo.</span><br /><br />
 
           Оплата наличными (только Москва). При оплате наличными, вы дожидаетесь приезда курьера и оплачиваете заказ курьеру. После оплаты вы получаете товар, товарный чек, и материалы по продукту.<br /><br />
