@@ -127,6 +127,14 @@ onMounted(ensureCartLoadedOnce)
           {{ product.shortDescription }}
         </p>
 
+        <div class="flex gap-1 flex-row">
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+          <img src="/icons/rating.svg" class="w-5"/> 
+        </div>
+
         <div class="flex gap-3 sm:gap-4 mt-4">
           <NuxtLink
             to="#description"
