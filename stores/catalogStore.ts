@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia'
-import type { Product } from '~/types/product'
+//import type { Product } from '~/types/product'
+import type { ProductCard } from '~/types/product'
 import type { FilterGroup } from '~/types/filter'
 import type { CatalogBanner } from '~/types/catalog'
 
 type BaseQuery = Record<string, string[]>
 
 export const useCatalogStore = defineStore('catalog', () => {
-  const products = ref<Product[]>([])
+  //const products = ref<Product[]>([])
+  const products = ref<ProductCard[]>([])
   const filters  = ref<FilterGroup[]>([])
   const catalogBanner = ref<CatalogBanner | null>(null)
   const counts   = ref<Record<string, number>>({})
@@ -16,7 +18,8 @@ export const useCatalogStore = defineStore('catalog', () => {
   const totalPages = ref(1)
 
   // Кэш полного списка для facet-счётчиков и локального total
-  const allProducts = ref<Product[]>([])
+  //const allProducts = ref<Product[]>([])
+  const allProducts = ref<ProductCard[]>([])
   const allLoaded   = ref(false)
   let allLoadingPromise: Promise<void> | null = null
 
@@ -104,16 +107,27 @@ export const useCatalogStore = defineStore('catalog', () => {
    * В логике — конъюнкция групп, внутри группы — дизъюнкция (любой из значений подходит).
    * skipGroup — чтобы при расчёте counts игнорировать текущую группу.
    */
-  function matchesBaseFilters(p: Product, base: BaseQuery, skipGroup?: string) {
-    const props = (p as any).properties || {}
+
+  function propValues(p: ProductCard, slug: string): string[] {
+    const raw = (p as any)?.properties?.[slug]
+    if (Array.isArray(raw)) return raw.map(String)
+    if (raw == null) return []
+    // на случай, если придёт CSV-строка
+    return String(raw).split(',').map(s => s.trim()).filter(Boolean)
+  }
+
+  function matchesBaseFilters(p: ProductCard, base: BaseQuery, skipGroup?: string) {
     for (const [k, values] of Object.entries(base)) {
       if (k === skipGroup) continue
       if (!values?.length) continue
-      const pv = String(props[k] ?? '')
-      if (!values.includes(pv)) return false
+      const pv = propValues(p, k)                // ← массив значений свойства
+      if (!values.some(v => pv.includes(v))) {   // ← есть ли пересечение
+        return false
+      }
     }
     return true
   }
+
 
   /**
    * Локальный расчёт facet-счётчиков по allProducts.
@@ -129,8 +143,8 @@ export const useCatalogStore = defineStore('catalog', () => {
         const val = option.value
         const cnt = allProducts.value.filter(p => {
           if (!matchesBaseFilters(p, baseQuery, slug)) return false
-          const pv = String(((p as any).properties || {})[slug] ?? '')
-          return pv === val
+          const pv = propValues(p, slug)
+          return pv.includes(val)
         }).length
         flat[`${slug}__${val}`] = cnt
       }

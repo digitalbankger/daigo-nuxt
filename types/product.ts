@@ -11,7 +11,7 @@ export interface ProductCard {
   discount?: number
   sort: number
   sortOrder: number
-  properties: Record<string, string>
+  properties: Record<string, string | string[]>
 }
 
 export interface ProductMini {
