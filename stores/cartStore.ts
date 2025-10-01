@@ -1,9 +1,9 @@
-// stores/cartStore.ts
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import { cartService } from '~/services/cartService'
+import { useAnalytics } from '~/composables/useAnalytics'
 
 export interface CartItem {
   id: string | number
@@ -46,6 +46,7 @@ export interface CouponInfo {
 }
 
 export const useCartStore = defineStore('cart', () => {
+  const analytics = useAnalytics()
   const auth = useAuthStore()
   const userStore = useUserStore()
 
@@ -180,6 +181,8 @@ export const useCartStore = defineStore('cart', () => {
     const existing = items.value.find(i => String(i.id) === String(item.id))
     if (existing) existing.quantity += item.quantity
     else items.value.push({ ...item })
+    
+    let ok = false
 
     try {
       if (isAuthenticated.value && userId.value) {
@@ -188,8 +191,23 @@ export const useCartStore = defineStore('cart', () => {
         const sid = ensureGuestSession()
         await cartService.addGuestItem(sid, item.id, item.quantity)
       }
+      ok = true
     } finally {
       await loadCart()
+    }
+
+    if (ok && process.client) {
+      try {
+        analytics.addToCart({
+          id: String(item.id),
+          name: item.title,
+          price: Number(item.price) || 0,
+          quantity: Number(item.quantity) || 1,
+        })
+        // reachGoal('add_to_cart') внутри composable тоже норм — останется для Метрических «Целей»
+      } catch {
+        // no-op
+      }
     }
   }
 

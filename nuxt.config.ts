@@ -8,7 +8,8 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE || '/api',
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
-      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://nuxt.daigo.ru'
+      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://nuxt.daigo.ru',
+      ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751'
     }
   },
 
@@ -69,7 +70,7 @@ export default defineNuxtConfig({
 
   css: ['@/assets/styles/fonts.css', '@/assets/styles/main.css'],
 
-  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts'],
+  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/ym.client.ts'],
 
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/device', '@nuxt/image', '@vueuse/nuxt'],
 

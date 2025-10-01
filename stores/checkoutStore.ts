@@ -1,4 +1,3 @@
-// stores/checkoutStore.ts
 import { defineStore } from 'pinia'
 import { reactive, ref } from 'vue'
 import { useAuthStore } from '~/stores/authStore'
@@ -6,6 +5,7 @@ import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
 import { createOrder } from '~/services/orderService'
 import { navigateTo } from '#imports'
+import { useAnalytics } from '~/composables/useAnalytics'
 
 // Типы способов (используются в UI и для PaymentSelector)
 export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
@@ -401,6 +401,36 @@ export const useCheckoutStore = defineStore('checkout', () => {
       }
 
       const res = await createOrder(payload as any)
+
+      // === YM: ecommerce purchase ===
+      const analytics = useAnalytics()
+      try {
+        if (process.client && (res as any)?.order_id) {
+          const orderId = String((res as any).order_id)
+          const sentKey = `purchase_sent_${orderId}`
+          if (!localStorage.getItem(sentKey)) {
+            const products = (cart.items || [])
+              .filter((i: any) => i?.id)
+              .map((i: any) => ({
+                id: String(i.id),
+                name: i.title || i.name,
+                price: Number(i.price ?? 0),
+                quantity: Number(i.quantity ?? 1)
+              }))
+            const revenue = Number.isFinite(Number(cart.total)) ? Number(cart.total) : 0
+
+            analytics.purchase({
+              id: orderId,
+              revenue,
+              currency: 'RUB',
+              products
+            })
+
+            localStorage.setItem(sentKey, '1')
+          }
+        }
+      } catch { /* no-op */ }
+
 
       // Если пришла ссылка на оплату — уводим туда
       const url = (res as any)?.confirmation?.confirmation_url

@@ -205,7 +205,8 @@ onMounted(ensureCartLoadedOnce)
             <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
           </div>
 
-          <Button variant="outline" class="w-full sm:w-[50%]">
+          <a href="tel:88005552043" data-ym="header-phone" class="flex w-full sm:w-[50%]">
+          <Button variant="outline" class="w-full">
             <template #icon>
               <svg class="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -216,6 +217,7 @@ onMounted(ensureCartLoadedOnce)
             </template>
             Консультация
           </Button>
+          </a>
         </div>
       </div>
     </div>

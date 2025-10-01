@@ -14,12 +14,12 @@ definePageMeta({ layout: 'main' })
         <img src="/icons/back.svg" class="w-5 md:w-6" alt="" /> Вернуться назад
       </NuxtLink>
 
-      <h1 class="text-[clamp(2rem,6vw,4rem)] font-medium mb-8 flex items-end gap-4 md:gap-8">
+      <h1 class="text-2xl sm:text-[clamp(2rem,6vw,4rem)] font-medium my-8 flex items-end gap-4 md:gap-8">
         <span>СОГЛАСИЕ НА ПОЛУЧЕНИЕ ИНФОРМАЦИОННЫХ И РЕКЛАМНЫХ РАССЫЛОК</span>
       </h1>
 
       <div class="flex flex-col lg:flex-row gap-4">
-        <p class="text-base">Настоящим Я (субъект персональных данных) во исполнение требований:
+        <p class="text-sm sm:text-base">Настоящим Я (субъект персональных данных) во исполнение требований:
 
 <br><br>части 1 статьи 18 Федерального закона от 13.03.2006 №38-ФЗ «О рекламе» (далее – 38-ФЗ),
 
