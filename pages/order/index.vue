@@ -60,7 +60,8 @@ async function submit() {
           <SummaryCard mode="checkout" @cta="submit" class="lg:sticky top-8"/>
           <!-- баннер ошибки, если что-то пошло не так -->
           <div v-if="store.lastError" class="mt-4 rounded-lg text-center border border-red-200 bg-red-50 text-red-700 px-4 py-3">
-            {{ store.lastError }}
+            <!-- {{ store.lastError }} -->
+              Что-то пошло не так, свяжитесь с менеджером магазина
           </div>
         </div>
       </div>
