@@ -7,14 +7,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'proizvodstvo-daigo',
     title: 'Производство Даиго',
     preview: 'Как работают метабиотики и почему важен курсовой приём.',
-    image: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'https://daigo.ru/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
     comments: 2,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Исследуем действие метабиотиков и накопительный эффект.',
-    cover: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    cover: 'https://daigo.ru/images/mock/article/gen.jpg',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Исследования', to: '/researches' },
@@ -29,7 +29,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -175,7 +175,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -191,7 +191,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -203,7 +203,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,
@@ -222,14 +222,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'kombinirovannoe-vozdeystvie-sublingvalnoy-immunoterapii-i-daigo-na-simptomy-pollinoza-vyzyvaemogo-py',
     title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo на симптомы поллиноза, вызываемого пыльцой кедра',
     preview: 'Участники исследования и методы: пятнадцать пациентов, страдающих поллинозом, вызываемым пыльцой кедра, были разделены на три группы',
-    image: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'https://daigo.ru/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
     comments: 2,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Исследуем действие метабиотиков и накопительный эффект.',
-    cover: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    cover: 'https://daigo.ru/images/mock/article/gen.jpg',
     breadcrumbs: [
       { label: 'Главная', to: '/' },
       { label: 'Исследования', to: '/researches' },
@@ -244,7 +244,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -278,7 +278,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -294,7 +294,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -306,7 +306,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,
@@ -325,7 +325,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'daygo-sposobstvuet-umensheniyu-pronitsaemost-kishechnoy-stenki',
     title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
     preview: 'Исследования Daigo от Института повышения квалификации Федерального медико-биологического агентства',
-    image: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'https://daigo.ru/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
@@ -347,7 +347,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -396,7 +396,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -412,7 +412,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -424,7 +424,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,
@@ -443,7 +443,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     slug: 'daygo-sposobstvuet-umensheniyu-pronitsaemost-kishechnoy-stenki',
     title: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
     preview: 'Исследование о влиянии Дайго на микробиоту кишечника спортсменов и повышение их выносливости',
-    image: 'https://nuxt.daigo.ru/images/mock/article/gen.jpg',
+    image: 'https://daigo.ru/images/mock/article/gen.jpg',
     date: '2025-06-30',
     time: 8,
     views: 200,
@@ -465,7 +465,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -505,7 +505,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -521,7 +521,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -533,7 +533,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,
@@ -574,7 +574,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -619,7 +619,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -635,7 +635,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -647,7 +647,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,
@@ -688,7 +688,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Нобору Фурукава',
       position: 'Профессор',
-      avatarUrl: 'https://nuxt.daigo.ru/images/mock/researches/author.png',
+      avatarUrl: 'https://daigo.ru/images/mock/researches/author.png',
       about: 'Профессор Нобору Фурукава (Noboru Furukawa) Лаборатория по использованию продуктов животноводства.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -762,7 +762,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     //   specialist: {
     //     name: 'Нобору Фурукава',
     //     position: 'Профессор',
-    //     avatarUrl: 'https://nuxt.daigo.ru/images/mock/research/author.jpg',
+    //     avatarUrl: 'https://daigo.ru/images/mock/research/author.jpg',
     //     description: 'Исследует микробиоту и влияние метабиотиков.',
     //     social: [
     //       { type: 'dzen', url: 'https://dzen.ru/daigo' }
@@ -778,7 +778,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'kishechnaya-stenka',
         title: 'Комбинированное воздействие сублингвальной иммунотерапии и Daigo...',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-2.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-2.png',
         date: '2025-02-18',
         time: 6,
         views: 150,
@@ -790,7 +790,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
         slug: 'snizhenie-pronicaemosti',
         title: 'Дайго способствует уменьшению проницаемость кишечной стенки',
         preview: '',
-        image: 'https://nuxt.daigo.ru/images/mock/researches/subcat-3.png',
+        image: 'https://daigo.ru/images/mock/researches/subcat-3.png',
         date: '2025-02-18',
         time: 5,
         views: 120,

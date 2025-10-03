@@ -10,7 +10,7 @@ useHead({
     { name: 'description', content: 'Узнайте, что такое аминобиотики и как они поддерживают здоровье мозга. Daigo Brainy, Jointic, Dermic, уникальные продукты на рынке пищевых добавок' },
     { property: 'og:title', content: 'Принцип действия аминобиотиков | daigo' },
     { property: 'og:description', content: 'Узнайте, как аминобиотики помогают твоему  организму. Линейка аминобиотиков Brainy, Jointic, Dermic – источник здоровья из Японии.' },
-    { property: 'og:image', content: 'https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
+    { property: 'og:image', content: 'https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
     { property: 'og:url', content: 'https://daigo.ru/articles/plasmalogens' },
     { property: 'og:type', content: 'article' },
   ],
@@ -21,7 +21,7 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: 'Принцип действия аминобиотиков',
-        image: ['https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
+        image: ['https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
         author: {
           '@type': 'Organization',
           name: 'daigo'
@@ -51,7 +51,7 @@ useHead({
             Принципы действия аминобиотиков
             </h1>
             <img
-            src="https://nuxt.daigo.ru/images/principes-amino/aminobiotiki.jpg"
+            src="https://daigo.ru/images/principes-amino/aminobiotiki.jpg"
             alt="Линейка аминобиотиков Brainy, Jointic, Dermic"
             format="webp"
             quality="80"
@@ -84,7 +84,7 @@ useHead({
                 <div class="w-full md:w-3/5 flex flex-col gap-6">
                     <div class="flex flex-col gap-6">
                         <img
-                            src="https://nuxt.daigo.ru/images/principes-amino/chto-takoe-hlorella.jpg"
+                            src="https://daigo.ru/images/principes-amino/chto-takoe-hlorella.jpg"
                             alt="Что такое хлорелла?"
                             format="webp"
                             quality="80"
@@ -102,7 +102,7 @@ useHead({
                 </div>
                 <div class="w-full md:w-2/6 ms-auto flex flex-col gap-4">
                     <img
-                        src="https://nuxt.daigo.ru/images/principes-amino/hlorella.jpg"
+                        src="https://daigo.ru/images/principes-amino/hlorella.jpg"
                         alt="Хлорелла"
                         format="webp"
                         quality="80"
@@ -123,7 +123,7 @@ useHead({
                 Аминокислоты: основа жизненно важных процессов в организме
             </h2>
             <img
-                src="https://nuxt.daigo.ru/images/principes-amino/amino1.jpg"
+                src="https://daigo.ru/images/principes-amino/amino1.jpg"
                 alt="Tamotsu упаковка"
                 format="webp"
                 quality="80"
@@ -142,7 +142,7 @@ useHead({
         <section class="flex flex-col lg:flex-row gap-6 items-start py-5">
             <div class="w-full lg:w-1/2">
             <img
-                src="https://nuxt.daigo.ru/images/principes-amino/amino2.jpg"
+                src="https://daigo.ru/images/principes-amino/amino2.jpg"
                 alt="Daigo Brainy курс"
                 format="webp"
                 quality="80"
@@ -173,7 +173,7 @@ useHead({
             </div>
             <div class="w-full lg:w-1/2">
             <img
-                src="https://nuxt.daigo.ru/images/principes-amino/amino4.jpg"
+                src="https://daigo.ru/images/principes-amino/amino4.jpg"
                 alt="Daigo Dermic курс"
                 format="webp"
                 quality="80"
@@ -186,7 +186,7 @@ useHead({
         <section class="flex flex-col lg:flex-row gap-6 items-start">
             <div class="w-full lg:w-1/2">
             <img
-                src="https://nuxt.daigo.ru/images/principes-amino/amino3.jpg"
+                src="https://daigo.ru/images/principes-amino/amino3.jpg"
                 alt="Daigo Jointic курс"
                 format="webp"
                 quality="80"
@@ -210,7 +210,7 @@ useHead({
             <h2 class="text-2xl sm:text-[46px] font-medium">Часто задаваемые вопросы</h2>
             <div class="flex flex-col md:flex-row gap-6 items-start">
             <img
-                src="https://nuxt.daigo.ru/images/principes/faq.jpg"
+                src="https://daigo.ru/images/principes/faq.jpg"
                 alt="Tamotsu на тарелке"
                 format="webp"
                 quality="80"

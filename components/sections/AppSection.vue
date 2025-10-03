@@ -18,7 +18,7 @@
       </div>
 
       <img
-        src="https://nuxt.daigo.ru/images/app/app-preview.png"
+        src="https://daigo.ru/images/app/app-preview.png"
         alt="Скриншоты приложения DAIGO"
         :size="400"           
         :width="400"         

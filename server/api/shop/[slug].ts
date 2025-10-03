@@ -190,28 +190,28 @@ export default defineEventHandler((event) => {
       },
       images: [
             {
-                image_url: "https://nuxt.daigo.ru/images/mock/product/lux/lux1.png",
+                image_url: "https://daigo.ru/images/mock/product/lux/lux1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://nuxt.daigo.ru/images/mock/product/lux/lux2.png",
+                image_url: "https://daigo.ru/images/mock/product/lux/lux2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://nuxt.daigo.ru/images/mock/product/lux/lux3.png",
+                image_url: "https://daigo.ru/images/mock/product/lux/lux3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://nuxt.daigo.ru/images/mock/product/lux/lux4.png",
+                image_url: "https://daigo.ru/images/mock/product/lux/lux4.png",
                 is_primary: false,
                 display_order: 0
             }
       ],
       faq: {
-        image: 'https://nuxt.daigo.ru/images/mock/product/lux/lux-faq.jpg',
+        image: 'https://daigo.ru/images/mock/product/lux/lux-faq.jpg',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },

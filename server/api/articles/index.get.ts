@@ -308,6 +308,35 @@ const ALL: ArticleListItem[] = [
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
 
+  // Parsing
+
+  {
+    id: 3,
+    slug: "sekrety-100-letnikh-kak-yapontsy-sokhranyayut-molodost-i-zdorove-do-glubokoy-starosti",
+    title: "Секреты 100-летних: как японцы сохраняют молодость и здоровье до глубокой старости",
+    preview: "В Японии долголетие – не редкость, а почти норма. Эта страна десятилетиями возглавляет мировые рейтинги по продолжительности жизни, а количество столетних жителей здесь превышае...",
+    image: "https://s3.firstvds.ru/articles/3grcezfpk04ysd0oqsnmq9e70plh3jt1.jpg",
+    date: "2025-08-21",
+    time: 6,
+    views: 0,
+    comments: 0,
+    properties: {}
+  },
+  {
+    id: 4,
+    slug: "nevidimye-pomoshchniki-nashego-zdorovya-zachem-nuzhna-mikrobiota-kishechnika-",
+    title: "Невидимые помощники нашего здоровья: зачем нужна микробиота кишечника?",
+    preview: "Представьте, что внутри вас живет целая вселенная — около 100 триллионов микроорганизмов, которые влияют на ваше здоровье, настроение и даже пищевые предпочтения. Это микробиота...",
+    image: "https://s3.firstvds.ru/articles/08wwykmue5teiuvf86smebj1art2gnrj.png",
+    date: "2025-08-15",
+    time: 7,
+    views: 0,
+    comments: 0,
+    properties: {
+      napravlennost: "kishechnik-i-immunitet"
+    }
+  },
+
 
 
   // {

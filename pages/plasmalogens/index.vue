@@ -10,7 +10,7 @@ useHead({
     { name: 'description', content: 'Узнайте, что такое плазмалогены и как они поддерживают здоровье мозга. Tamotsu – единственный зарегистрированный в России источник натуральных плазмалогенов.' },
     { property: 'og:title', content: 'Принцип действия плазмалогенов – Tamotsu | daigo' },
     { property: 'og:description', content: 'Узнайте, как плазмалогены помогают мозгу. Tamotsu – источник здоровья из Японии.' },
-    { property: 'og:image', content: 'https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
+    { property: 'og:image', content: 'https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
     { property: 'og:url', content: 'https://daigo.ru/articles/plasmalogens' },
     { property: 'og:type', content: 'article' },
   ],
@@ -21,7 +21,7 @@ useHead({
         '@context': 'https://schema.org',
         '@type': 'Article',
         headline: 'Принцип действия плазмалогенов',
-        image: ['https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
+        image: ['https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
         author: {
           '@type': 'Organization',
           name: 'daigo'
@@ -80,7 +80,7 @@ const popularArticles = [
             Принципы действия плазмалогенов
             </h1>
             <img
-            src="https://nuxt.daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg"
+            src="https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg"
             alt="Tamotsu упаковка"
             format="webp"
             quality="80"
@@ -112,7 +112,7 @@ const popularArticles = [
                 <div class="w-full md:w-3/5 flex flex-col gap-6">
                     <div class="flex flex-col gap-6">
                         <img
-                            src="https://nuxt.daigo.ru/images/principes/tamotsu-bad-plasmalogeny-dlya-pamyati.jpg"
+                            src="https://daigo.ru/images/principes/tamotsu-bad-plasmalogeny-dlya-pamyati.jpg"
                             alt="Tamotsu капсулы"
                             format="webp"
                             quality="80"
@@ -136,7 +136,7 @@ const popularArticles = [
                 </div>
                 <div class="w-full md:w-2/6 ms-auto flex flex-col gap-4">
                     <img
-                        src="https://nuxt.daigo.ru/images/principes/kapsuly-plasmalogenov-tamotsu-coenzyme-q10.jpg"
+                        src="https://daigo.ru/images/principes/kapsuly-plasmalogenov-tamotsu-coenzyme-q10.jpg"
                         alt="Капсула Tamotsu"
                         format="webp"
                         quality="80"
@@ -156,7 +156,7 @@ const popularArticles = [
         <section class="flex flex-col lg:flex-row gap-6 items-start py-5">
             <div class="w-full lg:w-1/2">
             <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-primenenie-upakovka-v-ruke.jpg"
+                src="https://daigo.ru/images/principes/tamotsu-primenenie-upakovka-v-ruke.jpg"
                 alt="Tamotsu в руке"
                 format="webp"
                 quality="80"
@@ -196,7 +196,7 @@ const popularArticles = [
             </div>
             <div class="w-full lg:w-1/2">
             <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-neskolko-upakovok.jpg"
+                src="https://daigo.ru/images/principes/tamotsu-neskolko-upakovok.jpg"
                 alt="Tamotsu упаковки"
                 format="webp"
                 quality="80"
@@ -209,7 +209,7 @@ const popularArticles = [
         <section class="flex flex-col lg:flex-row gap-6 items-start">
             <div class="w-full lg:w-4/5 grid grid-cols-2 gap-4">
             <img
-                src="https://nuxt.daigo.ru/images/principes/yaponiya-grebeshok-more.jpg"
+                src="https://daigo.ru/images/principes/yaponiya-grebeshok-more.jpg"
                 alt="Японское море – добыча плазмалогенов"
                 format="webp"
                 quality="80"
@@ -217,7 +217,7 @@ const popularArticles = [
                 class="rounded-xl sm:rounded-2xl object-cover w-full"
             />
             <img
-                src="https://nuxt.daigo.ru/images/principes/tamotsu-korobka-i-blister.jpg"
+                src="https://daigo.ru/images/principes/tamotsu-korobka-i-blister.jpg"
                 alt="Tamotsu – блистер и упаковка"
                 format="webp"
                 quality="80"
@@ -241,7 +241,7 @@ const popularArticles = [
                 В чем разница между БАД Тамоцу и другими похожими продуктами?
             </h2>
             <img
-                src="https://nuxt.daigo.ru/images/principes/defferent.jpg"
+                src="https://daigo.ru/images/principes/defferent.jpg"
                 alt="Tamotsu упаковка"
                 format="webp"
                 quality="80"
@@ -266,7 +266,7 @@ const popularArticles = [
             <h2 class="text-2xl sm:text-[46px] font-medium">Часто задаваемые вопросы</h2>
             <div class="flex flex-col md:flex-row gap-6 items-start">
             <img
-                src="https://nuxt.daigo.ru/images/principes/faq.jpg"
+                src="https://daigo.ru/images/principes/faq.jpg"
                 alt="Tamotsu на тарелке"
                 format="webp"
                 quality="80"

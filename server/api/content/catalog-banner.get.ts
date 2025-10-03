@@ -8,8 +8,8 @@ export default defineEventHandler((): CatalogBanner => {
     text: 'Чтобы подробнее узнать о товарах от Дайго, рекомендуем ознакомиться со статьями на нашем сайте',
     buttonText: 'Перейти к статьям',
     buttonLink: '/articles',
-    imageDesktop: 'https://nuxt.daigo.ru/images/mock/catalog/catalog-banner-new.png',
-    imageTablet: 'https://nuxt.daigo.ru/images/mock/catalog/catalog-banner-new.png',
-    imageMobile: 'https://nuxt.daigo.ru/images/mock/catalog/catalog-banner-mobile.webp'
+    imageDesktop: 'https://daigo.ru/images/mock/catalog/catalog-banner-new.png',
+    imageTablet: 'https://daigo.ru/images/mock/catalog/catalog-banner-new.png',
+    imageMobile: 'https://daigo.ru/images/mock/catalog/catalog-banner-mobile.webp'
   }
 })

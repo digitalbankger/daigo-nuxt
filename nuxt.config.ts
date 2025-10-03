@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     public: {
       apiBase: process.env.API_BASE || '/api',
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
-      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://nuxt.daigo.ru',
+      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
       ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751'
     }
   },
@@ -77,7 +77,7 @@ export default defineNuxtConfig({
   image: {
     provider: 'ipx',
     // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
-    domains: ['nuxt.daigo.ru', 'products.s3.firstvds.ru', 'api.daigo.ru', 'daigo.ru'],
+    domains: ['daigo.ru', 'products.s3.firstvds.ru', 'api.daigo.ru', 'daigo.ru'],
     ipx: {
       // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
     },

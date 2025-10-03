@@ -193,7 +193,7 @@ const downloadAllFiles = () => {
 
           <!-- cover -->
           <div class="">
-            <nuxt-img
+            <img
               :src="article?.cover || article?.image"
               :alt="article?.title || ''"
               format="webp"
@@ -293,7 +293,7 @@ const downloadAllFiles = () => {
               <!-- ПРАВАЯ КОЛОНКА: специалист -->
               <div v-if="article!.materials!.specialist" class="w-full md:w-4/12 flex md:justify-end">
                 <div class="w-full md:w-auto flex flex-row md:flex-col items-start gap-3 md:gap-5">
-                  <nuxt-img
+                  <img
                     :src="article!.materials!.specialist!.avatarUrl"
                     alt=""
                     width="96"
@@ -496,7 +496,7 @@ const downloadAllFiles = () => {
             <ul class="mt-3 space-y-4">
               <li v-for="it in article.recommended" :key="it.id" class="flex gap-4">
                 <div class="w-5/12">
-                  <nuxt-img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" />
+                  <img :src="it.image" :alt="it.title" class="w-full rounded-xl object-cover" loading="lazy" decoding="async" />
                 </div>
                 <div class="w-7/12">
                   <NuxtLink :to="`/articles/${it.slug}`" class="text-xl">{{ it.title }}</NuxtLink>
@@ -510,7 +510,7 @@ const downloadAllFiles = () => {
             <h3 class="font-semibold">Покупают вместе</h3>
             <ul class="mt-3 space-y-4">
               <li v-for="p in bundled" :key="p.id" class="flex gap-3 items-center">
-                <nuxt-img :src="p.image" :alt="p.title" class="h-16 w-16 rounded-lg object-cover" loading="lazy" decoding="async" />
+                <img :src="p.image" :alt="p.title" class="h-16 w-16 rounded-lg object-cover" loading="lazy" decoding="async" />
                 <div class="min-w-0 flex-1">
                   <NuxtLink :to="p.url" class="font-medium hover:underline truncate block">{{ p.title }}</NuxtLink>
                   <p class="text-sm text-gray-500">{{ (p.price / 100).toLocaleString('ru-RU', { style:'currency', currency:'RUB' }) }}</p>
