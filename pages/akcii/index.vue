@@ -20,7 +20,7 @@ await useAsyncData('promotions:list', () => promoStore.loadPromotions())
     <div class="flex flex-col gap-4 md:gap-10">
       <PromoBanner />
       <PromoCardsSections />
-      <LoyaltySection />
+      <!-- <LoyaltySection /> -->
       <SertificatesSection />
     </div>
   </BaseContainer>

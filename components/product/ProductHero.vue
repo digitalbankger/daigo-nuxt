@@ -98,6 +98,20 @@ async function decrementHandler() {
   }
 }
 
+const hasDescription = computed(() => {
+  const sections: any[] | undefined = (product as any)?.descriptionSections
+  if (!Array.isArray(sections) || sections.length === 0) return false
+  // проверяем, что есть осмысленный контент в карточках
+  return sections.some(s =>
+    Array.isArray(s?.cards) &&
+    s.cards.some((c: any) =>
+      (c?.title && String(c.title).trim()) ||
+      (c?.text && String(c.text).replace(/<[^>]+>/g, '').trim()) ||
+      (c?.image && String(c.image).trim())
+    )
+  )
+})
+
 // Подтягиваем корзину на клиенте, чтобы после перезагрузки было актуальное количество
 onMounted(ensureCartLoadedOnce)
 </script>
@@ -137,6 +151,7 @@ onMounted(ensureCartLoadedOnce)
 
         <div class="flex gap-3 sm:gap-4 mt-4">
           <NuxtLink
+            v-if="hasDescription"
             to="#description"
             class="text-sm xl:text-base bg-[#EEF4FF] rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-1 sm:gap-2"
           >
@@ -153,7 +168,7 @@ onMounted(ensureCartLoadedOnce)
           </NuxtLink>
 
           <NuxtLink
-            to="#reviews"
+            to="/otzyvy"
             class="text-sm xl:text-base text-primary border border-primary rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 sm:gap-2"
           >
             <img src="/icons/star.svg" alt="fire" />
