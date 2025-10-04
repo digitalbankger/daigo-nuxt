@@ -47,7 +47,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     image: 'https://s3.firstvds.ru/articles/4ylu4eclwytrl0u4unxbv9xljsfk7bc2.png',
     date: '2025-06-30',
     time: 8,
-    views: 200,
+    views: 67232,
     comments: 10,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Разбираем этапы восстановления микрофлоры и накопительный эффект.',
@@ -264,8 +264,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'po-polochkam-printsip-deystviya-daigo': {
@@ -274,9 +274,9 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     title: '1. По полочкам: принцип действия Daigo',
     preview: 'Причины нарушения баланса микрофлоры',
     image: 'https://s3.firstvds.ru/articles/webpl55x9sjwkrzth57e4q2wkni9prxa.jpg',
-    date: '2025-06-30',
+    date: '2024-06-30',
     time: 8,
-    views: 200,
+    views: 91287,
     comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Причины нарушения баланса микрофлоры',
@@ -322,7 +322,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 style="text-align: left;" class="is-revealed"><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;"><span style="color: #111111;">Прием антиб</span><span style="color: #111111;">иоти</span><span style="color: #111111;">ков</span></span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Прием антибиоти</h3>
  
 <p class="is-revealed">
  Когда антибиотики&nbsp;попадают в организм, они уничтожают и "хорошие" и "плохие" бактерии. Это приводит к нарушению баланса микрофлоры, известному как дисбиоз. Проявляется он в виде таких симптомов, как диарея, вздутие, запоры, снижение иммунитета и даже ухудшение общего самочувствия. Полезные бактерии могут быть настолько ослаблены, что им требуется время и внешняя поддержка, чтобы вернуться к нормальному уровню. Вредные же бактерии, напротив, могут продолжать доминировать, что усугубляет дисбиоз.<br>
@@ -333,14 +333,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">Питание</span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Питание</h3>
  
 <p class="is-revealed">
  <span>Чрезмерное употребление сахара, рафинированных углеводов, насыщенных жиров и обработанных продуктов способствует росту патогенных бактерий и грибов, таких как Candida. Недостаток клетчатки в рационе также негативно сказывается на микрофлоре, так как полезные бактерии лишаются необходимой пищи. Кроме того, избыток алкоголя и фастфуда может повреждать слизистую оболочку кишечника и угнетать рост полезных микроорганизмов.</span><br>
  
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span > </span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">Стресс</span><span > </span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Стресс</h3>
  
 <p class="is-revealed">
  <span>Когда человек испытывает стресс, будь то острый или хронический, в организме активируется симпатическая нервная система и выделяются гормоны стресса, такие как кортизол и адреналин. Эти гормоны могут напрямую влиять на кишечник, изменяя его моторику, кровоснабжение и проницаемость слизистой оболочки. В результате создаются неблагоприятные условия для полезных бактерий, что приводит к снижению их количества и активности.</span>
@@ -349,7 +349,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span > </span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">Экология</span><span > </span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Экология</h3>
  
 <p class="is-revealed">
  <span>С загрязнённым воздухом в организм через дыхательные пути или пищеварительную систему могут попадать токсичные вещества, (тяжелые металлы и промышленные химикаты). Эти вещества способны повреждать слизистую оболочку кишечника, снижать количество полезных бактерий и стимулировать рост патогенных микроорганизмов, что приводит к дисбиозу.</span>
@@ -359,7 +359,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span > </span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">Почему со временем баланс не восстанавливается самостоятельно?</span><span > </span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Почему со временем баланс не восстанавливается самостоятельно?</h3>
  
 <p class="is-revealed">
  
@@ -384,7 +384,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span>Многие люди пытаются восстановить микрофлору с помощью пробиотиков и пребиотиков, но часто эти средства не дают ожидаемого эффекта. Почему так происходит?</span>
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Пробиотики</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Пробиотики</h3>
  
 <p class="is-revealed">
  <span>Пробиотики — это живые микроорганизмы, которые призваны заселить кишечник извне. Но дело в том, что микрофлора кишечника у каждого человека уникальна, как отпечаток пальца. Пробиотики содержат определенные штаммы бактерий, которые могут не соответствовать потребностям конкретного организма. В таком случае бактерии просто не приживаются и выводятся организмом в течение нескольких дней.</span>
@@ -394,7 +394,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span > </span><span >Пребиотики</span><span > </span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Пребиотики</h3>
  
 <p class="is-revealed">
  <span>Пребиотики — это вещества, которые стимулируют рост полезных бактерий. Простыми словами, это пища для бактерий. Самый главных их недостаток заключается в том, что они "кормят" как полезные, так и вредные бактерии.</span>
@@ -414,7 +414,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span>Изучая влияние пробиотиков и преобиотиков, научное сообщество пришло к выводу их несовершенства. Спустя некоторое время появились данные, что ценны не столько сами бактерии, сколько их метаболиты - продукты жизнедеятельности полезных бактерий. Так появились метабиотики.</span>
 </p>
  
-<h3><span > </span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">Что такое метабиотики?</span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Что такое метабиотики?</h3>
  
 <p>
  <span>Метабиотики&nbsp;содержат метаболиты, которые помогают подавить рост вредных бактерий и создать благоприятные условия для размножения родных полезных микроорганизмов. </span>
@@ -556,7 +556,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3><span > </span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">К</span><span style="font-size: 18pt; color: #111111; font-family: Tahoma, Geneva;">огда ждать первый эффект?</span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Когда ждать первый эффект?</h3>
  
 <p>
  Эффект от приема Daigo может проявляться в разные сроки, что связано с уникальностью каждого организма и состоянием его микрофлоры кишечника. Состояние кишечной микрофлоры на момент начала приема Daigo у всех разное, поэтому ощутимые изменения наступают по-разному (даже в одной семье). У некоторых людей, чья микрофлора изначально находится в относительно хорошем состоянии, улучшения могут наблюдаться уже через несколько дней.
@@ -583,9 +583,10 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
-    ]
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+    ],
+    productsIds: ['71700acb-3584-490b-a5f7-62e8cb57b3c9', '6dd5b27c-65fa-4de2-ada7-472f233cf60a', '34572cff-889e-4baa-b269-9c4a976dd381']
   },
   // Объект исходник
   'na-chto-vliyaet-mikroflora-kishechnika': {
@@ -594,10 +595,10 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
     title: '2. На что влияет микрофлора кишечника?',
     preview: 'Главные функции микрофлоры кишечника',
     image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
-    date: '2025-06-30',
+    date: '2024-08-21',
     time: 8,
-    views: 200,
-    comments: 10,
+    views: 87234,
+    comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' },
     description: 'Главные функции микрофлоры кишечника',
     cover: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
@@ -628,7 +629,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span >Немногие задумываются о том, что ключевую роль в самочувствии и пищевых привычках играет микрофлора кишечника — триллионы микроорганизмов, обитающих в нашем пищеварительном тракте.&nbsp;<br>
  </span><span >Эти крошечные «жители» выполняют удивительное множество функций:</span>
 </div>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight"><span >Усвоение полезных элементов</span></h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Усвоение полезных элементов</span></h3>
 <p class="is-revealed">
  <span >
 	Кишечник играет ключевую роль в усвоении полезных элементов, необходимых для поддержания здоровья и жизнедеятельности организма. Без здоровой микрофлоры процесс усвоения питательных веществ нарушается, что может привести к дефициту важных элементов даже при правильном питании. В процессе пищеварения питательные вещества, такие как белки, жиры, углеводы расщепляются на более простые соединения, которые затем всасываются через стенки кишечника в кровоток.</span>
@@ -637,14 +638,14 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span >Полезные бактерии помогают переваривать сложные углеводы, например клетчатку, которая служат источником энергии для клеток кишечника и всего организма. Кроме того, микрофлора способствует синтезу и усвоению витаминов группы B, витамина K, а также минералов, таких как кальций, магний и железо.</span>
 </p>
  <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Иммунная функция</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Иммунная функция</h3>
  <span  class="is-revealed"> </span>
 <p class="is-revealed">
  <span >
 	В нашем кишечнике живет около 70% всех иммунных клеток организма. Этот факт делает его важнейшим элементом иммунной системы. Полезные бактерии микрофлоры кишечника стимулируют выработку антител, укрепляют слизистый барьер и предотвращают проникновение вредных микроорганизмов в кровоток. Кроме того, микрофлора взаимодействует с иммунными клетками, помогая им распознавать и нейтрализовать вирусы, бактерии и токсины. Кишечник также производит иммуноглобулины и другие защитные вещества, которые поддерживают местный и системный иммунитет.</span>
 </p>
  <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Развитие аллергии</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Развитие аллергии</h3>
  <span  class="is-revealed"> </span>
 <p class="is-revealed">
  <span >
@@ -654,7 +655,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span >Исследования показывают, что у людей с аллергическими заболеваниями, такими как астма, экзема или поллиноз, часто наблюдается снижение разнообразия полезных бактерий в кишечнике. Доказано, что метабиотик Daigo способствует улучшению баланса Т-клеток, что помогает адекватному иммунному ответу на аллергены.</span>
 </p>
  <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Аппетит и выбор продуктов</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Аппетит и выбор продуктов</h3>
  <span  class="is-revealed"> </span>
 <p class="is-revealed">
  <span >
@@ -671,7 +672,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
 	На вышеперечисленных функциях роль кишечника организме не заканчивается. Помимо своих известных своих функций, кишечник выполняет множество неочевидных, но не менее важных задач, которые влияют на общее здоровье человека.</span>
 </p>
  <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Кожа и омоложение клеток</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Кожа и омоложение клеток</h3>
  <span  class="is-revealed"> </span>
 <p class="is-revealed">
  <span >
@@ -681,7 +682,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  <span >Кроме того, микрофлора кишечника участвует в детоксикации организма, выводя вредные вещества, которые могут негативно влиять на состояние кожи. Здоровый кишечник также поддерживает синтез коллагена и эластина — белков, отвечающих за упругость и молодость кожи.</span>
 </p>
  <span  class="is-revealed"> </span>
-<h3 class="text-xl md:text-product font-medium mb-4 leading-tight">Волосы и ногти</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Волосы и ногти</h3>
  <span  class="is-revealed"> </span>
 <p class="is-revealed">
  <span >
@@ -742,8 +743,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'antibiotiki-i-mikroflora-kak-vosstanovit-kishechnik-posle-lecheniya': {
@@ -880,8 +881,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat': {
@@ -1181,8 +1182,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey': {
@@ -1360,8 +1361,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi': {
@@ -1537,8 +1538,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat': {
@@ -1698,8 +1699,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke': {
@@ -1920,8 +1921,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   // Закончить
@@ -2199,8 +2200,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove': {
@@ -2480,8 +2481,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'psoriaz-pravda-i-mify-o-lechenii': {
@@ -2757,8 +2758,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti': {
@@ -3072,8 +3073,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'nuzhno-li-davat-probiotik-novorozhdennomu': {
@@ -3378,8 +3379,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'mozhno-li-pit-probiotiki-vmeste-s-antibiotikami': {
@@ -3546,8 +3547,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy': {
@@ -3791,8 +3792,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { id: 1, title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { id: 5, title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
 

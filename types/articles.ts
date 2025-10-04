@@ -41,7 +41,7 @@ export interface ArticleSpecialist {
 }
 
 export interface ArticleProductMini {
-  id: number
+  product_id: string
   title: string
   image: string
   price: number

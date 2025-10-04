@@ -12,7 +12,6 @@
       <!-- изображение -->
       <div
         class="w-full h-[130px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
-        :class="{ 'h-[462px]': globalIndex === 0 || isLast }"
       >
         <img
           :src="product.image"
@@ -33,7 +32,6 @@
           class="font-normal md:font-medium leading-tight mb-2 text-sm sm:text-base
                  md:text-[1.4rem]
                  line-clamp-3 sm:line-clamp-2 xs-max:min-h-[3.2rem] min-h-[3rem] md:min-h-[3.2rem]"
-          :class="{ 'text-[clamp(2rem,6vw,2.8rem)] min-h-0 line-clamp-none': globalIndex === 0 || isLast }"
         >
           {{ product.name }}
         </h3>
@@ -42,7 +40,6 @@
         <p
           class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70
                  line-clamp-2 min-h-[3rem]"
-          :class="{ 'text-[clamp(1rem,6vw,1.25rem)] min-h-0 line-clamp-none': globalIndex === 0 || isLast }"
         >
           {{ product.subtitle }}
         </p>
@@ -78,7 +75,7 @@
             >
               <img src="/icons/decrement.svg" alt="Уменьшить количество" class="w-5 h-5" />
             </button>
-            <span class="min-w-[2rem] text-center text-white">
+            <span class="min-w-[2rem] text-center text-white xs-max:text-xs">
               {{ quantityInCart }} шт
             </span>
             <button

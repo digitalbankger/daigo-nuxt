@@ -51,7 +51,7 @@
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
                 <!-- <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li> -->
-                <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li>
+                <!-- <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li> -->
               </ul>
             </div>
 
@@ -59,7 +59,7 @@
               <p class="font-medium text-xl mb-2">Юридическая информация</p>
               <div class="pb-2 mb-4 md:text-sm">
                 <p class="w-5/6 leading-[1.5]">
-                  ООО «МЕТАБИОТИК» <br>107051, г. Москва, Большой Сухаревский переулок, дом.21, стр. 2  
+                  ООО «МЕТАБИОТИК» <br>107051, г. Москва, Большой Сухаревский переулок, дом.21, <br>стр. 2  
                   <br>ИНН 9718234724 <br>КПП 771801001 <br>ОГРН 1237700627988
                 </p>
               </div>
@@ -125,7 +125,7 @@
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
                 <!-- <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li> -->
-                <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li>
+                <!-- <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li> -->
               </ul>
             </div>
 

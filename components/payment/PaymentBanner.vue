@@ -28,7 +28,7 @@
           <img
             src="/images/oplata/olata-v-daigo.png?width=500"
             alt="Способы оплаты"
-            class="max-w-[300px] w-[220px] lg:max-w-[480px] mx-auto"
+            class="max-w-[300px] w-[220px] lg:w-[480px] lg:max-w-[480px] mx-auto"
             loading="lazy"
           />
         </div>

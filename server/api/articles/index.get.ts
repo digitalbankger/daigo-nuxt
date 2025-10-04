@@ -131,9 +131,9 @@ const ALL: ArticleListItem[] = [
     title: '1. По полочкам: принцип действия Daigo',
     preview: 'Причины нарушения баланса микрофлоры...',
     image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
-    date: '2025-06-30',
+    date: '2024-06-30',
     time: 8,
-    views: 200,
+    views: 91287,
     comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   },
@@ -143,9 +143,9 @@ const ALL: ArticleListItem[] = [
     title: '2. На что влияет микрофлора кишечника?',
     preview: 'Главные функции микрофлоры кишечника...',
     image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
-    date: '2025-06-30',
+    date: '2024-08-21',
     time: 8,
-    views: 22300,
+    views: 87234,
     comments: 0,
     properties: { napravlennost: 'kishechnik-i-immunitet' }
   }, 

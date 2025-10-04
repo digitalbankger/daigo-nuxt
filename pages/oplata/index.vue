@@ -19,7 +19,7 @@ definePageMeta({ layout: 'main' })
       <PaymentMethods />
       <PaymentRequisites />
       <PaymentInfo />
-      <ProductCarousel />
+      <!-- <ProductCarousel /> -->
     </div>
   </BaseContainer>
 </template>

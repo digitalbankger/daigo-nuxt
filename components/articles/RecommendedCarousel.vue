@@ -78,7 +78,7 @@ function fmtDate(d?: string) {
       >
         <!-- картинка, как на общей карточке -->
         <div class="w-full h-[285px] overflow-hidden rounded-[15px] mb-4">
-          <nuxt-img
+          <img
             :src="it.image"
             :alt="it.title"
             width="416"
