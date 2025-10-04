@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'main' })
+definePageMeta({ layout: 'main' }) 
 
 import { computed, ref, onMounted, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter, useSeoMeta } from '#imports'

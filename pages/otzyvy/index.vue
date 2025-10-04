@@ -116,7 +116,7 @@ useHead(() => {
           </div>
         </div>
 
-        <!-- Видео отзывы -->
+        <!-- Видео отзывы --> 
         <div class="flex justify-between items-center mb-6">
           <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
             Видео отзывы
