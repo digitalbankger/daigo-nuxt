@@ -1,7 +1,13 @@
 import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
 
-// Карта редиректов: ключ может быть просто path или path+query
-const redirects: Record<string, string> = {
+/** ВЫБОР НАПРАВЛЕНИЯ:
+ * 'oldToNew' — слева→направо (как в списке ниже)
+ * 'newToOld' — справа→налево (как ты сейчас хочешь)
+ */
+const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
+
+// --- 1) БАЗОВАЯ КАРТА (СТАРЫЕ → НОВЫЕ) ---
+const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/outlet/': '/',
   '/catalog/metabiotik-daigo-lux/': '/catalog/metabiotik/metabiotik-daigo-lux/',
   '/catalog/daigo-dermic/': '/catalog/aminobiotiki/daigo-dermic/',
@@ -22,44 +28,87 @@ const redirects: Record<string, string> = {
   '/catalog/usilennyy-kurs-kishechnik-mozg/': '/catalog/nabory/usilennyy-kurs-kishechnik-mozg/',
   '/catalog/vosstanovlenie-kognitivnykh-funktsiy/': '/catalog/nabory/vosstanovlenie-kognitivnykh-funktsiy/',
   '/catalog/polnyy-nabor-zdorovya-ot-daygo/': '/catalog/nabory/polnyy-nabor-zdorovya-ot-daygo/',
-  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-ot-daygo/',
+  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-от-daygo/',
   '/catalog/12-mesyatsev-priema-daigo/': '/catalog/metabiotik/12-mesyatsev-priema-daigo/',
   '/catalog/podarochnyy-nabor-daigo-samurai/': '/catalog/nabory/podarochnyy-nabor-daigo-samurai/',
   '/catalog/business-box/': '/catalog/nabory/business-box/',
   '/catalog/sport-box/': '/catalog/nabory/sport-box/',
-
+  // доп. короткие урлы
   '/otzyvy/': '/reviews/',
   '/profile/': '/personal/',
+}
 
-  // редирект по query
+// --- 2) ПРАВИЛА С QUERY (СТАРЫЕ → НОВЫЕ) ---
+// формат ключа: '/path?key1=val1&key2=val2'
+const RAW_QUERY_REDIRECTS: Record<string, string> = {
   '/catalog?napravlennost=kishechnik-i-immunitet': '/catalog/kishechnik-i-immunitet/',
 }
 
-function withTrailingSlash(p: string) {
-  if (p === '/') return '/'
-  return p.endsWith('/') ? p : `${p}/`
+// ===== УТИЛИТЫ =====
+const withSlash = (p: string) => (p === '/' ? '/' : p.endsWith('/') ? p : `${p}/`)
+const invert = (obj: Record<string, string>): Record<string, string> =>
+  Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]))
+
+// нормализация ключей (чтобы '/catalog' и '/catalog/' считались одним и тем же)
+const normalizePathMap = (map: Record<string, string>) => {
+  const out: Record<string, string> = {}
+  for (const [from, to] of Object.entries(map)) {
+    out[withSlash(from)] = withSlash(to)
+    // также учтём вариант без завершающего слэша
+    out[from.replace(/\/$/, '')] = withSlash(to)
+  }
+  return out
 }
 
+// парсинг строки правила с query
+function parseRuleKey(ruleKey: string): { path: string; params: URLSearchParams } {
+  const [rawPath, rawQuery = ''] = ruleKey.split('?', 2)
+  return { path: rawPath, params: new URLSearchParams(rawQuery) }
+}
+
+// проверка: все требуемые параметры совпадают
+function matchesParams(actual: URLSearchParams, required: URLSearchParams) {
+  for (const [k, v] of required.entries()) {
+    if (actual.get(k) !== v) return false
+  }
+  return true
+}
+
+// ===== ПОДГОТОВКА КАРТ С УЧЁТОМ MODE =====
+const PATH_REDIRECTS = normalizePathMap(MODE === 'oldToNew' ? RAW_PATH_REDIRECTS : invert(RAW_PATH_REDIRECTS))
+const QUERY_REDIRECTS = MODE === 'oldToNew' ? RAW_QUERY_REDIRECTS : invert(RAW_QUERY_REDIRECTS)
+
+// ===== MIDDLEWARE =====
 export default defineEventHandler((event) => {
   const url = getRequestURL(event)
-  const { pathname, searchParams } = url
+  const pathname = decodeURI(url.pathname)
 
-  // проверяем обычные пути
-  const normalized = withTrailingSlash(decodeURI(pathname))
-  if (redirects[normalized]) {
-    return sendRedirect(event, redirects[normalized], 301)
+  // 1) Простые пути
+  const targetPath = PATH_REDIRECTS[pathname] || PATH_REDIRECTS[withSlash(pathname)]
+  if (targetPath) {
+    // сохраняем все исходные query (utm и т.п.)
+    const location = `${targetPath}${url.search || ''}`
+    return sendRedirect(event, location, 301)
   }
 
-  // проверяем правила с query
-  for (const [from, to] of Object.entries(redirects)) {
-    if (from.includes('?')) {
-      const [path, query] = from.split('?')
-      if (path === pathname) {
-        const [key, value] = query.split('=')
-        if (searchParams.get(key) === value) {
-          return sendRedirect(event, to, 301)
-        }
-      }
-    }
+  // 2) Правила с query
+  for (const [ruleKey, to] of Object.entries(QUERY_REDIRECTS)) {
+    const { path: rulePath, params: required } = parseRuleKey(ruleKey)
+
+    // путь должен совпасть (с учётом и без слэша)
+    const pathOk = rulePath === pathname || withSlash(rulePath) === withSlash(pathname)
+    if (!pathOk) continue
+
+    if (!matchesParams(url.searchParams, required)) continue
+
+    // сохраняем прочие query (например utm_*), но удаляем совпавшие из правила
+    const kept = new URLSearchParams(url.searchParams)
+    for (const k of required.keys()) kept.delete(k)
+
+    const qs = kept.toString()
+    const location = qs ? `${withSlash(to)}?${qs}` : withSlash(to)
+    return sendRedirect(event, location, 301)
   }
+
+  // иначе пропускаем дальше
 })
