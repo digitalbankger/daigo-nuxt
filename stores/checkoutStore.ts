@@ -54,6 +54,12 @@ interface StateShape {
     pvzId?: string
     pickupAddress?: string
     pickupSchedule?: string
+
+    // ⬇️ Дополнительно: базовая строка адреса (единая для всех видов)
+    address_line?: string // ⬅️ CHANGED: пояснение, поле используется как общий текст адреса
+    house?: string        // ⬅️ CHANGED: для единообразия с курьером
+    block?: string        // ⬅️ CHANGED
+    postal_code?: string  // ⬅️ CHANGED
   }
 
   orderForAnotherPerson: boolean // оставляю для обратной совместимости с текущим UI (чекбокс)
@@ -124,7 +130,13 @@ export const useCheckoutStore = defineStore('checkout', () => {
       pvzAddress: '',
       pvzId: '',
       pickupAddress: 'г. Москва, Большой Сухаревский пер., д. 21, стр. 2',
-      pickupSchedule: 'пн–пт, с 9:00 до 18:00'
+      pickupSchedule: 'пн–пт, с 9:00 до 18:00',
+
+      // ⬇️ Единый адрес для всех видов
+      address_line: '',   // ⬅️ CHANGED: используется и курьером, и ПВЗ
+      house: '',          // ⬅️ CHANGED
+      block: '',          // ⬅️ CHANGED
+      postal_code: ''     // ⬅️ CHANGED
     },
 
     orderForAnotherPerson: false, // синхронизирован с otherRecipientEnabled (см. ниже)
@@ -254,25 +266,37 @@ export const useCheckoutStore = defineStore('checkout', () => {
     const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
     if (!opt) return { type: 'courier', provider: 'daigo' }
 
+    // ЕДИНЫЙ адресной объект для courier и pvz  ⬇️⬇️⬇️
+    const baseAddress = {
+      address_line: state.address.address_line || [state.address.city, state.address.street].filter(Boolean).join(', '), // ⬅️ CHANGED
+      city: state.address.city || '',
+      street: state.address.street || '',
+      house: state.address.house || '',           // ⬅️ CHANGED
+      block: state.address.block || '',           // ⬅️ CHANGED
+      postal_code: state.address.postal_code || '', // ⬅️ CHANGED
+      apartment: state.address.private_house ? '' : (state.address.apartment || ''),
+      entrance: state.address.private_house ? '' : (state.address.entrance || ''),
+      floor: state.address.private_house ? '' : (state.address.floor || ''),
+      intercom: state.address.private_house ? '' : (state.address.intercom || ''),
+      is_private: !!state.address.private_house && opt.kind !== 'pvz' // для ПВЗ принудительно false валидацией UI ⬅️ CHANGED
+    }
+
     if (opt.kind === 'courier') {
       return {
         type: 'courier',
         provider: opt.provider || 'daigo',
-        is_private: !!state.address.private_house,
-        street: state.address.street || '',
-        apartment: state.address.private_house ? '' : (state.address.apartment || ''),
-        entrance: state.address.private_house ? '' : (state.address.entrance || ''),
-        floor: state.address.private_house ? '' : (state.address.floor || ''),
-        intercom: state.address.private_house ? '' : (state.address.intercom || '')
+        ...baseAddress
       }
     }
 
     if (opt.kind === 'pvz') {
+      // ⬅️ CHANGED: отправляем ТО ЖЕ, что и для курьера (без pvz/pvzAddress/pickup_point_id)
       return {
         type: 'pvz',
         provider: 'cdek',
-        address: state.address.pvzAddress || pvzAddress.value || [state.address.city, state.address.street].filter(Boolean).join(', '),
-        pickup_point_id: state.address.pvzId || undefined
+        // private_house игнорится для ПВЗ на уровне UI, но объект адреса — тот же
+        ...baseAddress,
+        is_private: false // ⬅️ CHANGED: на всякий случай фиксируем
       }
     }
 
@@ -310,14 +334,15 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
 
     const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
-    if (opt?.kind === 'courier') {
-      if (!state.address.street?.trim()) {
-        errors.address.street = 'Укажите улицу и дом'
+    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ CHANGED: единые правила для курьера и ПВЗ
+      // Требуем хотя бы улицу/дом или address_line
+      const line = (state.address.address_line || '').trim()
+      const street = (state.address.street || '').trim()
+      if (!line && !street) {
+        errors.address.street = 'Укажите адрес (улица и дом)'
       }
-    } else if (opt?.kind === 'pvz') {
-      if (!(state.address.pvzAddress || pvzAddress.value)?.trim()) {
-        errors.address.pvzAddress = 'Выберите адрес пункта выдачи'
-      }
+      // ПВЗ-специфичную проверку pvzAddress убираем
+      errors.address.pvzAddress = '' // ⬅️ CHANGED: явное обнуление
     } else if (opt?.kind === 'pickup') {
       if (!(state.address.pickupAddress || pickupAddress.value)?.trim()) {
         errors.address.pickupAddress = 'Укажите адрес самовывоза'
@@ -338,7 +363,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       !!errors.other.phone ||
       !!errors.other.email ||
       !!errors.address.street ||
-      !!errors.address.pvzAddress ||
+      !!errors.address.pvzAddress || // остаётся для совместимости, но теперь не должен заполняться
       !!errors.address.pickupAddress ||
       !!errors.payment
 
