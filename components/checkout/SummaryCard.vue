@@ -6,6 +6,8 @@ import { useUserStore } from '~/stores/userStore'
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
 
+import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
+
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const userStore = useUserStore()
@@ -83,6 +85,17 @@ async function handleCta() {
     } finally { preOrderLoading.value = false }
     return
   }
+
+  try {
+    const sessionId = ensureGuestSessionId()
+    sendGuestPreorderFireAndForget({
+      sessionId,
+      fullName: form.fullName,
+      phone: form.phone
+    })
+  } catch { /* ошибки игнорим специально */ }
+
+  // далее — как и было: авторизация → редирект
   try {
     authLoading.value = true
     await authStore.loginOrRegister({
@@ -92,6 +105,7 @@ async function handleCta() {
       redirectTo: '/order'
     })
   } finally { authLoading.value = false }
+
 }
 
 async function applyCoupon() {

@@ -47,6 +47,8 @@ export default defineNuxtPlugin(() => {
     trackLinks: true,
     accurateTrackBounce: true,
     defer: true,
+    trackHash: true,
+    webvisor: true,
     ecommerce: 'dataLayer',
   })
 

@@ -16,6 +16,7 @@ export const startAuth = async (phone_number: string, first_name?: string) => {
 }
 
 export const refreshAuthToken = async (refresh_token: string) => {
-  const { data } = await api.post<TokensResponse>('/v1/auth/refresh-token', { refresh_token })
+  const { data } = await api.post<TokensResponse>('/v1/auth/refresh', { refresh_token })
   return data
 }
+

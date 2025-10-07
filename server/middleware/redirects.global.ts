@@ -1,8 +1,9 @@
+// server/middleware/redirects.global.ts
 import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
 
-/** ВЫБОР НАПРАВЛЕНИЯ:
+/** РЕЖИМ КАРТ:
  * 'oldToNew' — слева→направо (как в списке ниже)
- * 'newToOld' — справа→налево (как ты сейчас хочешь)
+ * 'newToOld' — справа→налево
  */
 const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
 
@@ -29,17 +30,17 @@ const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/catalog/usilennyy-kurs-kishechnik-mozg/': '/catalog/nabory/usilennyy-kurs-kishechnik-mozg/',
   '/catalog/vosstanovlenie-kognitivnykh-funktsiy/': '/catalog/nabory/vosstanovlenie-kognitivnykh-funktsiy/',
   '/catalog/polnyy-nabor-zdorovya-ot-daygo/': '/catalog/nabory/polnyy-nabor-zdorovya-ot-daygo/',
-  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-от-daygo/',
+  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-ot-daygo/', // <-- fixed "ot"
   '/catalog/12-mesyatsev-priema-daigo/': '/catalog/metabiotik/12-mesyatsev-priema-daigo/',
   '/catalog/podarochnyy-nabor-daigo-samurai/': '/catalog/nabory/podarochnyy-nabor-daigo-samurai/',
   '/catalog/business-box/': '/catalog/nabory/business-box/',
   '/catalog/sport-box/': '/catalog/nabory/sport-box/',
-  // доп. короткие урлы
+  // короткие урлы
   '/otzyvy/': '/reviews/',
   '/profile/': '/personal/',
 }
 
-// --- 2) ПРАВИЛА С QUERY (СТАРЫЕ → НОВЫЕ) ---
+// --- 2) ПРАВИЛА С QUERY (СТАРЫЕ → НОВЫЕ)
 // формат ключа: '/path?key1=val1&key2=val2'
 const RAW_QUERY_REDIRECTS: Record<string, string> = {
   '/catalog?napravlennost=kishechnik-i-immunitet': '/catalog/kishechnik-i-immunitet/',
@@ -84,15 +85,55 @@ export default defineEventHandler((event) => {
   const url = getRequestURL(event)
   const pathname = decodeURI(url.pathname)
 
-  // 1) Простые пути
+  // 0) Нормализация битых query вида:
+  //    /catalog?napravlennost=.../?ysclid=XXX&page=1
+  // Идея: если значение ЛЮБОГО параметра содержит подстроку "/?...", то:
+  //  - отрезаем хвост после "/?" из значения;
+  //  - парсим хвост как дополнительные query-параметры и добавляем их в строку запроса;
+  //  - убираем лишние косые черты в конце значения (../value/ -> ../value).
+  let changed = false
+  const params = new URLSearchParams(url.searchParams) // копия
+
+  for (const [key, valRaw] of [...params.entries()]) {
+    if (!valRaw) continue
+    // ловим "/?..." внутри значения
+    const idx = valRaw.indexOf('/?')
+    if (idx !== -1) {
+      const cleanVal = valRaw.slice(0, idx).replace(/\/+$/, '') // убираем хвост и завершающие слэши
+      const tail = valRaw.slice(idx + 2) // всё, что после "/?"
+      params.set(key, cleanVal)
+
+      // распарсим хвост как query-строку и вольём в params
+      const tailParams = new URLSearchParams(tail)
+      for (const [tk, tv] of tailParams.entries()) {
+        // не перетираем уже существующие ключи (на случай дубликатов)
+        if (!params.has(tk)) params.set(tk, tv)
+      }
+      changed = true
+    } else {
+      // если значение закончилось слэшем — уберём (редкий кейс)
+      if (/\/$/.test(valRaw)) {
+        params.set(key, valRaw.replace(/\/+$/, ''))
+        changed = true
+      }
+    }
+  }
+
+  if (changed) {
+    const qs = params.toString()
+    const fixed = qs ? `${pathname}?${qs}` : pathname
+    return sendRedirect(event, fixed, 301)
+  }
+
+  // 1) Простые пути (карта PATH_REDIRECTS)
   const targetPath = PATH_REDIRECTS[pathname] || PATH_REDIRECTS[withSlash(pathname)]
   if (targetPath) {
-    // сохраняем все исходные query (utm и т.п.)
+    // сохраняем все исходные query (utm и пр.)
     const location = `${targetPath}${url.search || ''}`
     return sendRedirect(event, location, 301)
   }
 
-  // 2) Правила с query
+  // 2) Правила с query (карта QUERY_REDIRECTS)
   for (const [ruleKey, to] of Object.entries(QUERY_REDIRECTS)) {
     const { path: rulePath, params: required } = parseRuleKey(ruleKey)
 
