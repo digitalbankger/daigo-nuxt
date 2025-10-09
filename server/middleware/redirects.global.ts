@@ -9,8 +9,8 @@ const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
 
 // --- 1) БАЗОВАЯ КАРТА (СТАРЫЕ → НОВЫЕ) ---
 const RAW_PATH_REDIRECTS: Record<string, string> = {
+  '/catalog/': '/novinki/',
   '/about/': '/history/',
-  '/catalog/': '/outlet/',
   '/catalog/metabiotik-daigo-lux/': '/catalog/metabiotik/metabiotik-daigo-lux/',
   '/catalog/daigo-dermic/': '/catalog/aminobiotiki/daigo-dermic/',
   '/catalog/daigo-brain/': '/catalog/aminobiotiki/daigo-brain/',

@@ -65,7 +65,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -205,7 +205,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -264,8 +264,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'po-polochkam-printsip-deystviya-daigo': {
@@ -294,7 +294,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -322,7 +322,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
  
 </p>
  
-<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Прием антибиоти</h3>
+<h3 style="text-align: left; font-size: 18pt; padding-top:20px; padding-bottom:20px;" class="is-revealed">Прием антибиотиков</h3>
  
 <p class="is-revealed">
  Когда антибиотики&nbsp;попадают в организм, они уничтожают и "хорошие" и "плохие" бактерии. Это приводит к нарушению баланса микрофлоры, известному как дисбиоз. Проявляется он в виде таких симптомов, как диарея, вздутие, запоры, снижение иммунитета и даже ухудшение общего самочувствия. Полезные бактерии могут быть настолько ослаблены, что им требуется время и внешняя поддержка, чтобы вернуться к нормальному уровню. Вредные же бактерии, напротив, могут продолжать доминировать, что усугубляет дисбиоз.<br>
@@ -534,7 +534,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -583,8 +583,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ],
     productsIds: ['71700acb-3584-490b-a5f7-62e8cb57b3c9', '6dd5b27c-65fa-4de2-ada7-472f233cf60a', '34572cff-889e-4baa-b269-9c4a976dd381']
   },
@@ -615,7 +615,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -704,7 +704,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -743,8 +743,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'antibiotiki-i-mikroflora-kak-vosstanovit-kishechnik-posle-lecheniya': {
@@ -773,7 +773,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -825,7 +825,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -881,8 +881,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'disbakterioz-kak-ponyat-chto-balans-bakteriy-narushen-i-chto-s-etim-delat': {
@@ -911,7 +911,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -1008,7 +1008,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -1182,8 +1182,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey': {
@@ -1212,7 +1212,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -1315,7 +1315,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -1361,8 +1361,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'allergiya-i-astma-ekspertnoe-mnenie-o-prichinakh-zabolevaniy-i-sposobakh-borby-s-nimi': {
@@ -1391,7 +1391,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -1489,7 +1489,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -1538,8 +1538,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'glyuten-i-laktoza-komu-deystvitelno-nuzhno-ikh-izbegat': {
@@ -1568,7 +1568,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -1629,7 +1629,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -1699,8 +1699,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'daigo-kak-vino-fermentatsiya-prodolzhaetsya-v-upakovke': {
@@ -1729,7 +1729,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -1817,7 +1817,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -1921,8 +1921,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   // Закончить
@@ -1958,7 +1958,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -2163,7 +2163,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -2200,8 +2200,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'pochemu-vazhen-dlitelnyy-priem-daigo-rasskazyvaem-poetapno-kak-uluchshaetsya-zdorove': {
@@ -2233,7 +2233,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -2454,7 +2454,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -2481,8 +2481,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'psoriaz-pravda-i-mify-o-lechenii': {
@@ -2515,7 +2515,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -2638,7 +2638,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -2758,8 +2758,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'peptid-khlorelly-prirodnyy-istochnik-zdorovya-i-molodosti': {
@@ -2792,7 +2792,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -2952,7 +2952,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -3073,8 +3073,8 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'nuzhno-li-davat-probiotik-novorozhdennomu': {
@@ -3106,7 +3106,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -3234,7 +3234,7 @@ const DETAIL_BY_SLUG: Record<string, ArticleDetail> = {
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -3379,8 +3379,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'mozhno-li-pit-probiotiki-vmeste-s-antibiotikami': {
@@ -3413,7 +3413,7 @@ Daigo: </h3>
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -3515,7 +3515,7 @@ Daigo: </h3>
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -3547,8 +3547,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
   'dva-slona-pomoshchi-mozgu-tamotsu-ili-aminobiotik-daigo-brainy': {
@@ -3581,7 +3581,7 @@ Daigo: </h3>
       id: 1,
       name: 'Анна Иванова',
       position: 'Главный врач',
-      avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+      avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
       about: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
       social: [
         { type: 'tg', url: 'https://t.me/daigo' },
@@ -3766,7 +3766,7 @@ Daigo: </h3>
       specialist: {
         name: 'Анна Иванова',
         position: 'Главный врач',
-        avatarUrl: 'http://localhost:3000/images/mock/article/spec.jpg',
+        avatarUrl: 'https://daigo.ru/images/mock/article/spec.jpg',
         description: 'Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.',
         social: 
         [
@@ -3792,8 +3792,8 @@ Daigo: </h3>
       { q: 'Чем полезен Tamotsu?', a: 'Улучшает память, когнитивные функции...' }
     ],
     products: [
-      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
-      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'http://localhost:3000/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
+      { product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9', title: 'Daigo Lux', image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png', price: 95700, url: '/catalog/daigo-lux', badge: 'Хит' },
+      { product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a', title: 'Tamotsu', image: 'https://daigo.ru/images/mock/catalog/tamotsu.png', price: 67500, url: '/catalog/tamotsu' }
     ]
   },
 
@@ -3869,7 +3869,7 @@ Daigo: </h3>
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "https://daigo.ru/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3943,7 +3943,7 @@ Daigo: </h3>
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "https://daigo.ru/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3951,7 +3951,7 @@ Daigo: </h3>
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "https://daigo.ru/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4032,7 +4032,7 @@ Daigo: </h3>
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "https://daigo.ru/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4106,7 +4106,7 @@ Daigo: </h3>
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "https://daigo.ru/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4114,7 +4114,7 @@ Daigo: </h3>
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "https://daigo.ru/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }

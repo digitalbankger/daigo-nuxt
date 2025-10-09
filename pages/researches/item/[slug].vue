@@ -207,7 +207,7 @@ async function submitSubscribe() {
 
           <!-- top content -->
           <section v-if="research?.contentTop" id="research-top" class="prose max-w-none prose-img:rounded-xl">
-            <div v-html="research?.contentTop" />
+            <div class="flex flex-col gap-10" v-html="research?.contentTop" />
           </section>
 
           <!-- Полезные материалы -->
@@ -384,4 +384,15 @@ async function submitSubscribe() {
 .btn-outline { @apply border border-gray-300 hover:bg-gray-100; }
 .btn-sm { @apply px-3 py-1.5 text-xs; }
 .prose :where(img) { @apply my-4; }
+</style>
+
+<style>
+.wysiwyg {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+h3, h2 {
+  font-size: 28px;
+}
 </style>

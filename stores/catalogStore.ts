@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { ref, computed } from 'vue'
 //import type { Product } from '~/types/product'
 import type { ProductCard } from '~/types/product'
 import type { FilterGroup } from '~/types/filter'
@@ -47,14 +48,14 @@ export const useCatalogStore = defineStore('catalog', () => {
       limit: String(perPage), // наш бэк ожидает 'limit'
     }
 
-    const { data } = await useFetch<{ items: Product[]; total: number }>(
+    const { data } = await useFetch<{ items: ProductCard[]; total: number }>(
       '/api/shop/products',
       { query }
     )
 
     products.value = data.value?.items || []
 
-    // 1) total из узкого запроса
+    // 1) total из узкого запроса (может быть занижен — равен размеру страницы)
     let total = Number(data.value?.total || 0)
 
     // 2) Если есть "все товары" — пересчитываем total локально по тем же фильтрам
@@ -69,18 +70,32 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   /**
    * Один раз грузим полный список для локального подсчёта counts/total.
-   * (limit 9999 — ок для наших объёмов, можно заменить на серверный endpoint /all)
+   * ВАЖНО: не используем limit=9999, потому что бэк режет до ~20.
+   * Вместо этого идём постранично батчами, пока не закончится выдача.
    */
   async function ensureAllLoaded() {
     if (allLoaded.value) return
     if (allLoadingPromise) return allLoadingPromise
 
     allLoadingPromise = (async () => {
-      const res = await $fetch<{ items: Product[] }>(
-        '/api/shop/products',
-        { query: { page: '1', limit: '9999' } }
-      )
-      allProducts.value = res.items || []
+      const acc: ProductCard[] = []
+      const batchSize = 50 // разумный батч, не перегружаем апи/сеть
+
+      // Хард-стоп на 200 страниц, чтобы не уйти в бесконечность
+      for (let p = 1; p <= 200; p++) {
+        const res = await $fetch<{ items: ProductCard[] }>(
+          '/api/shop/products',
+          { query: { page: String(p), limit: String(batchSize) } }
+        )
+
+        const batch = Array.isArray(res?.items) ? res.items : []
+        acc.push(...batch)
+
+        // Если вернулось меньше, чем запросили — дальше пусто
+        if (batch.length < batchSize) break
+      }
+
+      allProducts.value = acc
       allLoaded.value = true
       allLoadingPromise = null
     })()
@@ -107,7 +122,6 @@ export const useCatalogStore = defineStore('catalog', () => {
    * В логике — конъюнкция групп, внутри группы — дизъюнкция (любой из значений подходит).
    * skipGroup — чтобы при расчёте counts игнорировать текущую группу.
    */
-
   function propValues(p: ProductCard, slug: string): string[] {
     const raw = (p as any)?.properties?.[slug]
     if (Array.isArray(raw)) return raw.map(String)
@@ -127,7 +141,6 @@ export const useCatalogStore = defineStore('catalog', () => {
     }
     return true
   }
-
 
   /**
    * Локальный расчёт facet-счётчиков по allProducts.

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
       apiBase: process.env.API_BASE || '/api',
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
-      ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751'
+      ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751',
     }
   },
 

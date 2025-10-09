@@ -121,7 +121,7 @@ useHead(() => {
           <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
             Видео отзывы
           </h2>
-          <NuxtLink to="/otzyvy/daigo-video" class="flex items-center gap-3 text-lg md:text-2xl">
+          <NuxtLink to="/otzyvy/type/daigo-video" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
@@ -140,7 +140,7 @@ useHead(() => {
           <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
             Аудио отзывы
           </h2>
-          <NuxtLink to="/otzyvy/daigo-audio" class="flex items-center gap-3 text-lg md:text-2xl">
+          <NuxtLink to="/otzyvy/type/daigo-audio" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
@@ -159,7 +159,7 @@ useHead(() => {
           <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
             Текстовые отзывы
           </h2>
-          <NuxtLink to="/otzyvy/daigo-text" class="flex items-center gap-3 text-lg md:text-2xl">
+          <NuxtLink to="/otzyvy/type/daigo-text" class="flex items-center gap-3 text-lg md:text-2xl">
             Все <img src="/icons/arrow-right-b.svg" alt="arrow" class="w-4 md:w-5" />
           </NuxtLink>
         </div>
@@ -190,8 +190,8 @@ useHead(() => {
         <MediaModal
           v-if="selectedStory"
           :show="!!selectedStory"
-          :type="selectedStory.video_url ? 'video' : selectedStory.file_url ? 'audio' : 'image'"
-          :src="selectedStory.video_url || selectedStory.file_url || selectedStory.preview"
+          :type="selectedStory.file_url ? 'video' : selectedStory.file_url ? 'audio' : 'image'"
+          :src="selectedStory.file_url || selectedStory.file_url || selectedStory.preview"
           :onClose="() => (selectedStory = null)"
         />
       </ClientOnly>

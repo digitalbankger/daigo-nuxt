@@ -16,7 +16,7 @@ export default defineEventHandler((): Review[] => {
       type: 'video',
       author: 'Елена Летучая',
       author_role: 'Ведущая программы "Ревизорро" на телеканале Пятница!',
-      feedback_preview: 'Утром пью свою самую любимую добавочку, которая когда либо появлялась в моем доме! Укрепляет иммунитет, оздаравливает мой организм на клеточном уровне...',
+      feedback_preview: 'Утром пью свою самую любимую добавочку, которая когда-либо появлялась в моем доме! Укрепляет иммунитет, оздаравливает мой организм на клеточном уровне...',
       photo_urls: ['https://feedbacks.s3.firstvds.ru/stars/elena.jpg'],
       file_url: 'https://feedbacks.s3.firstvds.ru/stars/letuchaya.mp4',
     },

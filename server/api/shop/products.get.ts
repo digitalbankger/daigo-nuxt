@@ -1,4 +1,3 @@
-// server/api/shop/products.get.ts
 export default defineEventHandler(async (event) => {
   const q = getQuery(event)
 
