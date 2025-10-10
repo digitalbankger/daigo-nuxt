@@ -387,7 +387,7 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 3700,
+      price: 14000,
       oldPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
