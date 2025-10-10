@@ -641,7 +641,7 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 6200,
+      price: 7500,
       oldPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
