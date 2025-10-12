@@ -21,7 +21,7 @@ const activeIndex = ref(0)
 <template>
   <section class="">
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
-      <div class="relative flex-1 aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
+      <div class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
         <img
           :src="sortedImages[activeIndex]?.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
@@ -29,7 +29,7 @@ const activeIndex = ref(0)
           height="480"
           format="webp"
           loading="eager"
-          class="max-w-full max-h-full object-contain transition-all duration-300"
+          class="max-w-full max-h-full object-contain aspect-[1/1] transition-all duration-300"
         />
         <div
           v-if="hasDiscount"
