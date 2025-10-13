@@ -18,7 +18,7 @@ export function sendGuestPreorderFireAndForget (params: {
       await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
         method: 'POST',
         body: {
-          name: (fullName || '').trim(),
+          fio: (fullName || '').trim(),
           phone: String(phone || '').replace(/\D/g, ''),
         }
       })
