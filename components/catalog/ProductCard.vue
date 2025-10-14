@@ -1,8 +1,7 @@
 <template>
   <NuxtLink :to="`/catalog/${product.slug}`" custom v-slot="{ navigate }">
     <article
-      class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer
-             h-full flex flex-col" 
+      class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer h-full flex flex-col"
       role="link"
       tabindex="0"
       @click="navigate"
@@ -10,9 +9,7 @@
       aria-label="Открыть страницу товара"
     >
       <!-- изображение -->
-      <div
-        class="w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl"
-      >
+      <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl">
         <img
           :src="product.image"
           :alt="product.name"
@@ -26,7 +23,7 @@
       </div>
 
       <!-- контент -->
-      <div class="p-2 md:p-4 flex flex-col flex-1"> 
+      <div class="p-2 md:p-4 flex flex-col flex-1">
         <h3
           class="font-normal md:font-medium leading-tight mb-2 text-sm sm:text-base
                  md:text-[1.4rem]
@@ -35,41 +32,29 @@
           {{ product.name }}
         </h3>
 
-        <p
-          class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70
-                 line-clamp-2 min-h-[3rem]"
-        >
+        <p class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem]">
           {{ product.subtitle }}
         </p>
 
+        <!-- низ -->
         <div class="mt-auto flex flex-col items-start gap-4">
           <p class="font-medium leading-tight text-[clamp(1rem,5vw,1.4rem)]">
             {{ product.price.toLocaleString() }} ₽
           </p>
 
-          <!-- КНОПКА ПРЕДЗАКАЗА ДЛЯ КОНКРЕТНОГО ТОВАРА -->
+          <!-- кнопка -->
           <button
-            v-if="isPreorder"
-            type="button"
-            @click.stop="preorderHandler"
-            class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
-          >
-            <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />
-            <span class="whitespace-nowrap">Предзаказ</span>
-          </button>
-
-          <!-- если товара нет в корзине – обычная кнопка -->
-          <button
-            v-else-if="quantityInCart === 0"
+            v-if="quantityInCart === 0"
             type="button"
             @click.stop="addToCartHandler"
             class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
+            :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
           >
             <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />
-            <span class="whitespace-nowrap">В корзину</span>
+            <span class="whitespace-nowrap">{{ isPreorder ? 'Предзаказ' : 'В корзину' }}</span>
           </button>
 
-          <!-- если товар уже есть – блок с плюс/минус -->
+          <!-- плюс/минус -->
           <div
             v-else
             class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full justify-between h-11 md:h-12"
@@ -104,7 +89,6 @@
 import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import { computed } from 'vue'
-import { navigateTo } from '#imports'
 
 const { product, index, globalIndex, isLast } = defineProps<{
   product: ProductCard
@@ -113,19 +97,16 @@ const { product, index, globalIndex, isLast } = defineProps<{
   isLast?: boolean
 }>()
 
-const PREORDER_ID = '02417fb2-3a7d-40fd-a2fd-02446eef174f'
-const isPreorder = computed(() => String(product.product_id) === PREORDER_ID)
-
 const cartStore = useCartStore()
+
+/** список предзаказных ID */
+const PREORDER_IDS = new Set<string>(['02417fb2-3a7d-40fd-a2fd-02446eef174f'])
+const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
 const quantityInCart = computed(() => {
   const item = cartStore.items.find(i => String(i.id) === String(product.product_id))
   return item?.quantity ?? 0
 })
-
-function preorderHandler() {
-  navigateTo({ path: '/preorder', query: { product: String(product.product_id) } })
-}
 
 function addToCartHandler() {
   cartStore.addToCart({
@@ -137,13 +118,12 @@ function addToCartHandler() {
     quantity: 1,
     image: product.image,
     tag: product.tag,
+    // meta: { preorder: isPreorder.value } // если нужно
   })
 }
-
 function incrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value + 1)
 }
-
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }

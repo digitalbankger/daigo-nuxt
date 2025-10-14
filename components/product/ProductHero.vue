@@ -3,23 +3,22 @@ import type { Product } from '~/types/product'
 import Button from '~/components/ui/Button.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
-import { navigateTo } from '#imports'
 
 const { product } = defineProps<{ product: Product }>()
 const cartStore = useCartStore()
 
-const PREORDER_ID = '02417fb2-3a7d-40fd-a2fd-02446eef174f'
-
 const hasDiscount = computed(() => product.oldPrice && product.oldPrice > product.price)
 
-// ✅ используем строковый ID (UUID). На всякий случай делаем fallback на другие поля.
+// ✅ строковый ID (UUID)
 const productIdStr = computed(() => {
   const p: any = product
   const id = p?.product_id ?? p?.id ?? p?.uuid ?? p?.productId
   return id ? String(id) : ''
 })
 
-const isPreorder = computed(() => productIdStr.value === PREORDER_ID)
+/** список товаров с предзаказом (можно расширять) */
+const PREORDER_IDS = new Set<string>(['02417fb2-3a7d-40fd-a2fd-02446eef174f'])
+const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
 
 const adding = ref(false)
 
@@ -35,7 +34,7 @@ const coverImageUrl = computed<string | undefined>(() => {
   return sorted[0]?.image_url || undefined
 })
 
-/** Кол-во в корзине: суммируем все позиции с тем же строковым ID */
+/** Кол-во в корзине */
 const quantityInCart = computed(() =>
   cartStore.items
     .filter(i => String(i.id) === productIdStr.value)
@@ -60,7 +59,9 @@ async function addToCartHandler() {
       price: product.price,
       oldPrice: product.oldPrice,
       quantity: 1,
-      image: coverImageUrl.value ?? ''
+      image: coverImageUrl.value ?? '',
+      // можно передать маркер в корзину, если нужно:
+      // meta: { preorder: isPreorder.value }
     })
   } catch (e) {
     console.warn('addToCart failed, syncing cart...', e)
@@ -102,15 +103,9 @@ async function decrementHandler() {
   }
 }
 
-function preorderHandler() {
-  // сюда можно повесить открытие модалки вместо navigateTo
-  navigateTo({ path: '/preorder', query: { product: productIdStr.value } })
-}
-
 const hasDescription = computed(() => {
   const sections: any[] | undefined = (product as any)?.descriptionSections
   if (!Array.isArray(sections) || sections.length === 0) return false
-  // проверяем, что есть осмысленный контент в карточках
   return sections.some(s =>
     Array.isArray(s?.cards) &&
     s.cards.some((c: any) =>
@@ -121,7 +116,6 @@ const hasDescription = computed(() => {
   )
 })
 
-// Подтягиваем корзину на клиенте, чтобы после перезагрузки было актуальное количество
 onMounted(ensureCartLoadedOnce)
 </script>
 
@@ -165,7 +159,8 @@ onMounted(ensureCartLoadedOnce)
             class="text-sm xl:text-base bg-[#EEF4FF] rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:text-white hover:bg-primary transition flex flex-row items-center gap-1 sm:gap-2"
           >
             <span>Описание товара</span>
-                        <svg
+            <!-- стрелка -->
+            <svg
               width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg"
               class="w-3 sm:w-4 h-3 sm:h-4 transition-colors pt-0.5 sm:pt-0"
             >
@@ -190,25 +185,23 @@ onMounted(ensureCartLoadedOnce)
           <span v-if="hasDiscount" class="text-black/40 line-through text-base sm:text-2xl xl:text-cardhead font-normal">
             {{ product.oldPrice?.toLocaleString() }} ₽
           </span>
-          <span
-            :class="hasDiscount ? 'text-cgreen' : 'text-black'"
-            class="text-2xl sm:text-4xl xl:text-product font-medium"
-          >
+          <span :class="hasDiscount ? 'text-cgreen' : 'text-black'" class="text-2xl sm:text-4xl xl:text-product font-medium">
             {{ product.price.toLocaleString() }} ₽
           </span>
         </div>
 
         <!-- CTA -->
         <div id="product-cta" class="flex flex-col sm:flex-row justify-between gap-4 sm:gap-6 mt-3 sm:mt-6">
-          <!-- Предзаказ для конкретного товара -->
+          <!-- Если товара нет — большая кнопка -->
           <Button
-            v-if="isPreorder"
-            :disabled="!productIdStr"
+            v-if="quantityInCart === 0"
+            :disabled="adding || !productIdStr"
             variant="solid"
-            class="w-full sm:w-[50%]"
-            @click="preorderHandler"
+            class="w-full sm:w-[50%] disabled:opacity-60"
+            @click="addToCartHandler"
+            :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
           >
-                       <template #icon>
+            <template #icon>
                 <svg class="w-5 h-5 fill-current transition-colors" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fill="currentColor"
@@ -216,44 +209,22 @@ onMounted(ensureCartLoadedOnce)
                   />
                 </svg>
               </template>
-            Предзаказ
+            {{ isPreorder ? 'Предзаказ' : 'В корзину' }}
           </Button>
 
-          <!-- Обычная корзина (если это не предзаказ) -->
-          <template v-else>
-            <!-- Если товара нет — большая кнопка -->
-            <Button
-              v-if="quantityInCart === 0"
-              :disabled="adding || !productIdStr"
-              variant="solid"
-              class="w-full sm:w-[50%] disabled:opacity-60"
-              @click="addToCartHandler"
-            >
-              <template #icon>
-                <svg class="w-5 h-5 fill-current transition-colors" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    fill="currentColor"
-                    d="M0 5C0 4.73478 0.105357 4.48043 0.292893 4.29289C0.48043 4.10536 0.734784 4 1 4H4C4.22306 4.00006 4.4397 4.0747 4.61546 4.21205C4.79122 4.3494 4.91602 4.54157 4.97 4.758L5.78 8H29C29.1519 8.00004 29.3018 8.03469 29.4383 8.10131C29.5748 8.16792 29.6943 8.26477 29.7878 8.38448C29.8813 8.50419 29.9463 8.64363 29.9779 8.79222C30.0095 8.9408 30.0068 9.09462 29.97 9.242L26.97 21.242C26.916 21.4584 26.7912 21.6506 26.6155 21.788C26.4397 21.9253 26.2231 21.9999 26 22H8C7.77694 21.9999 7.5603 21.9253 7.38454 21.788C7.20878 21.6506 7.08398 21.4584 7.03 21.242L3.22 6H1C0.734784 6 0.48043 5.89464 0.292893 5.70711C0.105357 5.51957 0 5.26522 0 5ZM6.28 10L8.78 20H25.22L27.72 10H6.28ZM10 26C9.46957 26 8.96086 26.2107 8.58579 26.5858C8.21071 26.9609 8 27.4696 8 28C8 28.5304 8.21071 29.0391 8.58579 29.4142C8.96086 29.7893 9.46957 30 10 30C10.5304 30 11.0391 29.7893 11.4142 29.4142C11.7893 29.0391 12 28.5304 12 28C12 27.4696 11.7893 26.9609 11.4142 26.5858C11.0391 26.2107 10.5304 26 10 26ZM6 28C6 26.9391 6.42143 25.9217 7.17157 25.1716C7.92172 24.4214 8.93913 24 10 24C11.0609 24 12.0783 24.4214 12.8284 25.1716C13.5786 25.9217 14 26.9391 14 28C14 29.0609 13.5786 30.0783 12.8284 30.8284C12.0783 31.5786 11.0609 32 10 32C8.93913 32 7.92172 31.5786 7.17157 30.8284C6.42143 30.0783 6 29.0609 6 28ZM24 26C23.4696 26 22.9609 26.2107 22.5858 26.5858C22.2107 26.9609 22 27.4696 22 28C22 28.5304 22.2107 29.0391 22.5858 29.4142C22.9609 29.7893 23.4696 30 24 30C24.5304 30 25.0391 29.7893 25.4142 29.4142C25.7893 29.0391 26 28.5304 26 28C26 27.4696 25.7893 26.9609 25.4142 26.5858C25.0391 26.2107 24.5304 26 24 26ZM20 28C20 26.9391 20.4214 25.9217 21.1716 25.1716C21.9217 24.4214 22.9391 24 24 24C25.0609 24 26.0783 24.4214 26.8284 25.1716C27.5786 25.9217 28 26.9391 28 28C28 29.0609 27.5786 30.0783 26.8284 30.8284C26.0783 31.5786 25.0609 32 24 32C22.9391 32 21.9217 31.5786 21.1716 30.8284C20.4214 30.0783 20 29.0609 20 28Z"
-                  />
-                </svg>
-              </template>
-              В корзину
-            </Button>
-
-            <!-- Если есть — контрол + / − -->
-            <div
-              v-else
-              class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
-            >
-              <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
-              <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
-              <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
-            </div>
-          </template>
+          <!-- Если есть в корзине — контрол + / − -->
+          <div
+            v-else
+            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+          >
+            <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
+            <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
+            <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+          </div>
 
           <a href="tel:88005552043" data-ym="header-phone" class="flex w-full sm:w-[50%]">
             <Button variant="outline" class="w-full">
-              <template #icon>
+                            <template #icon>
                 <svg class="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path
                     fill="currentColor"
@@ -269,3 +240,4 @@ onMounted(ensureCartLoadedOnce)
     </div>
   </section>
 </template>
+
