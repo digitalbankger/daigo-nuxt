@@ -5,9 +5,11 @@ import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
+import { useAnalytics } from '~/composables/useAnalytics'
 
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 
+const analytics = useAnalytics()
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const userStore = useUserStore()
@@ -69,6 +71,9 @@ function validateFields() {
 
 async function handleCta() {
   if (props.mode === 'checkout') { emit('cta'); return }
+  
+  analytics?.reach?.('lead_cart')
+
   const ok = validateFields()
   if (!ok) {
     await nextTick()
