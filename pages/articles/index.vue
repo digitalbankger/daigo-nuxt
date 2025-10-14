@@ -167,7 +167,9 @@ useHead(() => {
         Статьи не найдены.
       </div>
 
-      <Pagination class="mt-10" :current="page" :total="articlesStore.totalPages" />
+      <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+
+      <Pagination class="mt-1" :current="page" :total="articlesStore.totalPages" />
     </section>
   </BaseContainer>
 </template>

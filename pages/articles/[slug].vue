@@ -235,6 +235,8 @@ function formatPriceRUB(val: number | string | undefined) {
             />
           </div>
 
+          <p class="xs-max:text-base text-base sm:text-lg font-medium mt-10 sm:mt-16 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+
           <!-- actions -->
           <div class="mt-4 flex gap-8">
             <div class="text-sm md:text-2xl flex flex-row items-center gap-2 cursor-pointer" @click="goToComments">

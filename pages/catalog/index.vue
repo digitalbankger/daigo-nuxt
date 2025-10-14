@@ -207,6 +207,8 @@ function closeFilters() {
             />
           </div>
 
+          <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+
           <CatalogBanner
             v-if="catalogStore.catalogBanner"
             :banner="catalogStore.catalogBanner"

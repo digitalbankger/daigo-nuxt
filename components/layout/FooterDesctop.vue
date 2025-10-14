@@ -83,6 +83,8 @@
           </div>
         </div>
       </div>
+
+      <p class="text-lg font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
     </div>
   </footer>
   <footer class="block md:hidden bg-white mt-10 pb-12">
@@ -189,6 +191,8 @@
               </div>
             </transition>
           </div>
+
+          <p class="text-lg font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
         </div>
 

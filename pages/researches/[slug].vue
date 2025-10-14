@@ -88,7 +88,7 @@ async function submitSubscribe() {
       </div>
       <!-- Верхний блок “Основные исследования” -->
       <div v-if="featured.length" class="mb-12 flex flex-col gap-6">
-        <h2 class="text-xl md:text-slider font-medium mb-0 lg:mb-4">Основные исследования</h2>
+        <h2 class="text-xl md:text-slider font-medium mb-2 lg:mb-6">Основные исследования</h2>
 
         <div class="flex gap-4 lg:gap-8 flex-col lg:flex-row">
           <!-- слева — первый, большой -->
@@ -144,7 +144,7 @@ async function submitSubscribe() {
       </div>
 
       <!-- Все исследования -->
-      <h2 class="text-xl lg:text-slider font-medium mb-8">Все исследования</h2>
+      <h2 class="text-xl lg:text-slider font-medium mb-10">Все исследования</h2>
       <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
         <NuxtLink
           v-for="it in others"
@@ -169,6 +169,8 @@ async function submitSubscribe() {
         </NuxtLink>
       </div>
     </section>
+
+    <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
     <!-- Подписка -->
     <section

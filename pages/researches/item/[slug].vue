@@ -184,6 +184,8 @@ async function submitSubscribe() {
             </div>
           </div>
 
+          <p class="xs-max:text-base text-base sm:text-lg font-medium mt-10 sm:mt-16 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+
           <div class="flex gap-8 ms-auto">
             <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="goToComments">
               <img src="/icons/publications/comment.svg" class="w-5"/><span>Комментарии</span>
