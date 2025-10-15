@@ -203,9 +203,9 @@ async function removeCoupon() {
         </span>
       </div>
 
-      <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
+      <!-- <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
         <span>Бонусов к начислению</span><span class="text-base md:text-lg font-medium">0</span>
-      </div>
+      </div> -->
 
       <div class="flex justify-between font-medium text-xl">
         <span>Итого</span><span>{{ grandTotal.toLocaleString() }} ₽</span>

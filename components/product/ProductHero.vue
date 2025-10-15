@@ -144,6 +144,8 @@ onMounted(ensureCartLoadedOnce)
           {{ product.shortDescription }}
         </p>
 
+        <p class="xs-max:text-base text-base sm:text-lg font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+
         <div class="flex gap-1 flex-row">
           <img src="/icons/rating.svg" class="w-5"/>
           <img src="/icons/rating.svg" class="w-5"/>

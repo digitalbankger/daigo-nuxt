@@ -4,7 +4,7 @@ definePageMeta({ layout: 'main', ssr: false })
 import { onMounted, computed, ref } from 'vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useOrderStore } from '@/stores/orderStore'
-import { statusLabel, statusPillClass } from '@/composables/useOrderStatus'
+import { statusLabel } from '@/composables/useOrderStatus'
 
 const store = useOrderStore()
 const busyId = ref<number | string | null>(null)
@@ -15,19 +15,37 @@ const orders = computed(() => store.orders)
 const isLoading = computed(() => store.isLoading)
 const hasData = computed(() => !isLoading.value && orders.value.length > 0)
 
-// универсальный таймстемп из объекта заказа
+/** Берём utc-строку даты заказа. Приоритет: order_date → change_timestamp → createdAt → created_at → date */
+const getDateStr = (o: any): string | undefined =>
+  o?.order_date ||
+  o?.change_timestamp ||
+  o?.createdAt ||
+  o?.created_at ||
+  o?.date ||
+  undefined
+
+/** Универсальный таймстемп для сортировки (по убыванию). Если даты нет — резервно по order_id/id. */
 const toTs = (o: any): number => {
-  if (o?.createdAt)  return +new Date(o.createdAt)
-  if (o?.created_at) return +new Date(o.created_at)
-  if (o?.date)       return +new Date(o.date)
+  const s = getDateStr(o)
+  const t = s ? Date.parse(s) : NaN
+  if (!Number.isNaN(t)) return t
+
+  if (typeof o?.order_id === 'number') return o.order_id
   if (typeof o?.id === 'number') return o.id
   return 0
 }
 
-// обратная сортировка (новые сверху)
+/** Сортировка: новые сверху */
 const sortedOrders = computed(() =>
   [...orders.value].sort((a, b) => toTs(b) - toTs(a))
 )
+
+/** Красивый формат даты/времени для RU */
+const fmtDateTime = (s?: string) =>
+  s ? new Date(s).toLocaleString('ru-RU', { hour12: false }) : ''
+
+/** Строка «дата заказа» с резервами */
+const displayDate = (o: any) => fmtDateTime(getDateStr(o))
 
 function fmtPrice(n: number) {
   return new Intl.NumberFormat('ru-RU').format(n) + ' ₽'
@@ -65,7 +83,7 @@ async function cancelOrder(o: any) {
           class="flex flex-col gap-4 bg-white py-10 border-b border-gray-200"
         >
           <div class="flex flex-wrap items-center justify-between gap-3">
-            <div class="text-xl font-medium">Заказ от {{ o.date }}</div>
+            <div class="text-xl font-medium">Заказ от {{ displayDate(o) }}</div>
             <div class="text-primary px-4 py-2 border border-primary rounded-lg capitalize">
               <span>Статус: {{ statusLabel(o.status) }}</span>
             </div>
