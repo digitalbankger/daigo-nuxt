@@ -184,8 +184,6 @@ async function submitSubscribe() {
             </div>
           </div>
 
-          <p class="xs-max:text-base text-base sm:text-lg font-medium mt-10 sm:mt-16 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
-
           <div class="flex gap-8 ms-auto">
             <button type="button" class="text-sm md:text-2xl flex items-center gap-2" @click="goToComments">
               <img src="/icons/publications/comment.svg" class="w-5"/><span>Комментарии</span>
@@ -203,6 +201,8 @@ async function submitSubscribe() {
           <!-- cover -->
           <img :src="research?.cover || research?.image" :alt="research?.title || ''" format="webp" quality="80"
             loading="lazy" decoding="async" class="w-full rounded-2xl object-cover h-[200px] sm:h-[460px]" />
+
+          <p class="xs-max:text-base text-base sm:text-lg font-medium mt-10 sm:mt-16 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
           <!-- Вы узнаете -->
           <YouWillLearn :key="slug" :container-ids="['research-top','research-bottom']" />

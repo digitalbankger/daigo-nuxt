@@ -1,0 +1,168 @@
+{
+  "id": 650,
+  "slug": "novoe-v-meditsine-psikhobiogenezis",
+  "title": "Новое в медицине: психобиогенезис",
+  "preview": "",
+  "image": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/94a/840_1119_1/saxodr43yt1by1j41vte8u91g42yzvny.webp",
+  "date": "2023-06-08",
+  "time": 1,
+  "views": 15815,
+  "comments": 0,
+  "properties": {},
+  "description": "",
+  "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/94a/840_1119_1/saxodr43yt1by1j41vte8u91g42yzvny.webp",
+  "breadcrumbs": [
+    {
+      "label": "Главная",
+      "to": "/"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles"
+    },
+    {
+      "label": "Новое в медицине: психобиогенезис",
+      "to": "/articles/novoe-v-meditsine-psikhobiogenezis"
+    }
+  ],
+  "tags": [],
+  "author": {
+    "id": 1,
+    "name": "Daigo",
+    "social": [
+      {
+        "type": "tg",
+        "url": "https://t.me/daigo"
+      },
+      {
+        "type": "vk",
+        "url": "https://vk.com/daigo"
+      }
+    ],
+    "position": "Главный врач",
+    "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+    "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
+  },
+  "contentTop": "\n            <h2>Прощаев Кирилл Иванович </h2>\n<h3>д.м.н., врач-терапевт, профессор кафедры терапии, гериатрии и антивозрастной медицины ФГБОУ ДПО «Академия повышения квалификации Федерального медико-биологического агентства России», директор Автономной некоммерческой организации «Научно-исследовательский медицинский центр «Геронтология» </h3>\n Человек – существо биопсихосоциальное. Ранее считалось, что это три довольно самостоятельные части, которые в идеале находятся в согласии друг с другом, делая в целом человека здоровой и гармоничной личностью, но являются четко разделенными. Но исследования показали, что не все так однозначно.<br>\n \n Оказалось, что эти три части могут влиять друг на друга, стимулируя развитие, или, в случае воздействия неблагоприятных факторов, наоборот уменьшение резервных возможностей этих составляющих. Например, оказалось, что деятельность микробиоты кишечника во многом определяет наши поведенческие реакции. А определенные факторы окружающей среды, которые получили название эпигенетические, могут активировать отдельные гены. В итоге появился термин – психобиогенезис, которые рассматривает функционирование человека именно с позиций единства биологической, психологической и социальной составляющих. Построение же профилактических программ на основе теории психобиогенезиса происходит не с точки зрения профилактики конкретных заболеваний, а с точки зрения повышения индивидуальной жизнеспособности (неуязвимости). В итоге с помощью одной такой профилактической программы мы можем защитить сразу несколько органов.\n \n В рамках нового вебинара мы рассмотрим основные домены индивидуальной жизнеспособности (молекулярный, физический, психологический, когнитивный) и увидим как, воздействуя всего лишь на какое-то одно ключевое звено, можно повысить неуязвимость человека в разных направлениях. И в качестве такого ключевого элемента для данного вебинара мы выберем микробиоту, сопоставим известные факты с новыми, и вместе разработаем конкретную программу развития индивидуальной жизнеспособности для каждого участника вебинара.\n \n <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/oUuYgNoRCu4?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"Новое в медицине: психобиогенезис\">\n</iframe> <br>\n         ",
+  "materials": {
+    "title": "Полезные материалы",
+    "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",
+    "files": [
+      {
+        "id": 1,
+        "title": "Восстановление организма",
+        "url": "/files/guide.pdf",
+        "size": "1.2 MB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 2,
+        "title": "Долголетие",
+        "url": "/files/research.pdf",
+        "size": "980 KB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 3,
+        "title": "Энергия",
+        "url": "/files/energy.pdf",
+        "size": "1.5 MB",
+        "mime": "application/pdf"
+      }
+    ],
+    "specialist": {
+      "name": "Анна Иванова",
+      "position": "Главный врач",
+      "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+      "description": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
+      "social": [
+        {
+          "type": "tg",
+          "url": "https://t.me/daigo"
+        },
+        {
+          "type": "vk",
+          "url": "https://vk.com/daigo"
+        },
+        {
+          "type": "dzen",
+          "url": "https://dzen.ru/daigo"
+        }
+      ]
+    },
+    "downloadAllUrl": "/files/all.zip"
+  },
+  "contentBottom": "",
+  "recommended": [
+    {
+      "id": 3,
+      "slug": "chto-takoe-metabiotiki",
+      "title": "Что такое Метабиотики",
+      "preview": "",
+      "image": "https://nuxt.daigo.ru/images/articles/first.jpg",
+      "date": "2024-03-22",
+      "time": 8,
+      "views": 13040,
+      "comments": 0,
+      "properties": {}
+    },
+    {
+      "id": 1,
+      "slug": "na-chto-vliyaet-mikroflora-kishechnika",
+      "title": "2. На что влияет микрофлора кишечника?",
+      "preview": "",
+      "image": "https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg",
+      "date": "2023-06-24",
+      "time": 8,
+      "views": 22300,
+      "comments": 0,
+      "properties": {}
+    }
+  ],
+  "popular": [
+    {
+      "id": 1,
+      "slug": "printsip-dejstviya-metabiotikov",
+      "title": "Принцип действия метабиотиков",
+      "preview": "",
+      "image": "/images/articles/first.jpg",
+      "date": "2025-06-30",
+      "time": 8,
+      "views": 200,
+      "comments": 10,
+      "properties": {}
+    }
+  ],
+  "faq": [
+    {
+      "q": "Что такое коэнзим Q10?",
+      "a": "Антиоксидант, участвующий в выработке энергии..."
+    },
+    {
+      "q": "Чем полезен Tamotsu?",
+      "a": "Улучшает память, когнитивные функции..."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+      "title": "Daigo Lux",
+      "image": "https://daigo.ru/images/mock/catalog/daigo-lux.png",
+      "price": 95700,
+      "url": "/catalog/daigo-lux",
+      "badge": "Хит"
+    },
+    {
+      "product_id": "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+      "title": "Tamotsu",
+      "image": "https://daigo.ru/images/mock/catalog/tamotsu.png",
+      "price": 67500,
+      "url": "/catalog/tamotsu"
+    }
+  ],
+  "productsIds": [
+    "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+    "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+    "34572cff-889e-4baa-b269-9c4a976dd381"
+  ]
+}

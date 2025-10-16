@@ -19,7 +19,7 @@ export function sendGuestPreorderFireAndForget (params: {
         method: 'POST',
         body: {
           fio: (fullName || '').trim(),
-          phone: String(phone || '').replace(/\D/g, ''),
+          phone_number: String(phone || '').replace(/\D/g, ''),
         }
       })
     } catch (e) {

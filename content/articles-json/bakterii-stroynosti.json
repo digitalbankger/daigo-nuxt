@@ -1,0 +1,168 @@
+{
+  "id": 28,
+  "slug": "bakterii-stroynosti",
+  "title": "Бактерии стройности",
+  "preview": "",
+  "image": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/01c/840_599_1/mwjhl9gw0qmyk3px66tmat9uromec3ji.webp",
+  "date": "2023-08-12",
+  "time": 1,
+  "views": 40713,
+  "comments": 0,
+  "properties": {},
+  "description": "",
+  "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/01c/840_599_1/mwjhl9gw0qmyk3px66tmat9uromec3ji.webp",
+  "breadcrumbs": [
+    {
+      "label": "Главная",
+      "to": "/"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles"
+    },
+    {
+      "label": "Бактерии стройности",
+      "to": "/articles/bakterii-stroynosti"
+    }
+  ],
+  "tags": [],
+  "author": {
+    "id": 1,
+    "name": "Daigo",
+    "social": [
+      {
+        "type": "tg",
+        "url": "https://t.me/daigo"
+      },
+      {
+        "type": "vk",
+        "url": "https://vk.com/daigo"
+      }
+    ],
+    "position": "Главный врач",
+    "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+    "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
+  },
+  "contentTop": "\n            Диеты, тренировки, ограничения…<br>\n \n Стремление к красивому стройному телу, оказывается, связано с качественным составом вашей микрофлоры!😱 \n \n Знакомьтесь, Аккермансия и Кристенсенэлла – бактерии, которые помогают человеку оставаться стройными.\n \n Аккермансия и Кристенсенэлла&nbsp;– бактерии, которые были открыты недавно, но сразу же приобрели большую популярность.&nbsp;\n Ученые обнаружили, что в кишечнике стройных людей таких бактерий больше, чем у полных. Чтобы подтвердить эту гипотезу, ученые провели опыт: толстым мышам давали этих бактерий с едой, и мыши худели.\n \n Аккермансия&nbsp;живет на стенках толстого кишечника, закопавшись в слизь, которую обожает. Кишечнику она не вредит, наоборот, ремонтирует его стенки, удаляя участки со старой слизью и заставляя кишечник производить новую. Благодаря работе аккермансии стенки кишечника приобретают лучшую проницаемость – пропускают питательные вещества и воду, но при этом задерживают бактерий. Кроме того, аккермансия защищает от диабета и улучшает обмен веществ.&nbsp;\n \n Кристенсенэлла&nbsp;так же, как и аккермансия, помогает сохранять стройность, но живет не на стенках кишечника, а между ними, что называется, “в просвете”.&nbsp;\n \n Ученые обнаружили, что кристенсенэлла передается по наследству, то есть количество этих бактерий зависит от того, сколько их было у ваших родителей. Чем больше в кишечнике кристенсенэлл, тем лучше, потому что они не дают человеку полнеть.\n \n Есть и другие бактерии, которые помогают сохранять стройность. Например, розебурия, некоторые клостридии и прочие. Они естественным образом обитают в кишечнике и способствуют обмену веществ.&nbsp;\n \n Что любят такие бактерии? Как и все полезные бактерии – здоровую еду.&nbsp;Поэтому старайтесь питаться правильно и&nbsp;поддерживайте правильный баланс своей кишечной микрофлоры с помощью органического метабиотика Дайго🙏&nbsp;– это надежный способ оставаться стройным.        ",
+  "materials": {
+    "title": "Полезные материалы",
+    "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",
+    "files": [
+      {
+        "id": 1,
+        "title": "Восстановление организма",
+        "url": "/files/guide.pdf",
+        "size": "1.2 MB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 2,
+        "title": "Долголетие",
+        "url": "/files/research.pdf",
+        "size": "980 KB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 3,
+        "title": "Энергия",
+        "url": "/files/energy.pdf",
+        "size": "1.5 MB",
+        "mime": "application/pdf"
+      }
+    ],
+    "specialist": {
+      "name": "Анна Иванова",
+      "position": "Главный врач",
+      "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+      "description": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
+      "social": [
+        {
+          "type": "tg",
+          "url": "https://t.me/daigo"
+        },
+        {
+          "type": "vk",
+          "url": "https://vk.com/daigo"
+        },
+        {
+          "type": "dzen",
+          "url": "https://dzen.ru/daigo"
+        }
+      ]
+    },
+    "downloadAllUrl": "/files/all.zip"
+  },
+  "contentBottom": "",
+  "recommended": [
+    {
+      "id": 3,
+      "slug": "chto-takoe-metabiotiki",
+      "title": "Что такое Метабиотики",
+      "preview": "",
+      "image": "https://nuxt.daigo.ru/images/articles/first.jpg",
+      "date": "2024-03-22",
+      "time": 8,
+      "views": 13040,
+      "comments": 0,
+      "properties": {}
+    },
+    {
+      "id": 1,
+      "slug": "na-chto-vliyaet-mikroflora-kishechnika",
+      "title": "2. На что влияет микрофлора кишечника?",
+      "preview": "",
+      "image": "https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg",
+      "date": "2023-06-24",
+      "time": 8,
+      "views": 22300,
+      "comments": 0,
+      "properties": {}
+    }
+  ],
+  "popular": [
+    {
+      "id": 1,
+      "slug": "printsip-dejstviya-metabiotikov",
+      "title": "Принцип действия метабиотиков",
+      "preview": "",
+      "image": "/images/articles/first.jpg",
+      "date": "2025-06-30",
+      "time": 8,
+      "views": 200,
+      "comments": 10,
+      "properties": {}
+    }
+  ],
+  "faq": [
+    {
+      "q": "Что такое коэнзим Q10?",
+      "a": "Антиоксидант, участвующий в выработке энергии..."
+    },
+    {
+      "q": "Чем полезен Tamotsu?",
+      "a": "Улучшает память, когнитивные функции..."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+      "title": "Daigo Lux",
+      "image": "https://daigo.ru/images/mock/catalog/daigo-lux.png",
+      "price": 95700,
+      "url": "/catalog/daigo-lux",
+      "badge": "Хит"
+    },
+    {
+      "product_id": "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+      "title": "Tamotsu",
+      "image": "https://daigo.ru/images/mock/catalog/tamotsu.png",
+      "price": 67500,
+      "url": "/catalog/tamotsu"
+    }
+  ],
+  "productsIds": [
+    "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+    "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+    "34572cff-889e-4baa-b269-9c4a976dd381"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "id": 752,
+  "slug": "pro-laktobakterii-slyshali-vse-no-ne-vse-znayut-zachem-oni-nam-nuzhny",
+  "title": "Про лактобактерии слышали все. Но не все знают, зачем они нам нужны",
+  "preview": "",
+  "image": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/229/840_560_1/uwc0psayb5b4teh44h9zlq411hk8l38b.webp",
+  "date": "2023-07-26",
+  "time": 1,
+  "views": 75442,
+  "comments": 0,
+  "properties": {},
+  "description": "",
+  "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/229/840_560_1/uwc0psayb5b4teh44h9zlq411hk8l38b.webp",
+  "breadcrumbs": [
+    {
+      "label": "Главная",
+      "to": "/"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles"
+    },
+    {
+      "label": "Про лактобактерии слышали все. Но не все знают, зачем они нам нужны",
+      "to": "/articles/pro-laktobakterii-slyshali-vse-no-ne-vse-znayut-zachem-oni-nam-nuzhny"
+    }
+  ],
+  "tags": [],
+  "author": {
+    "id": 1,
+    "name": "Daigo",
+    "social": [
+      {
+        "type": "tg",
+        "url": "https://t.me/daigo"
+      },
+      {
+        "type": "vk",
+        "url": "https://vk.com/daigo"
+      }
+    ],
+    "position": "Главный врач",
+    "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+    "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
+  },
+  "contentTop": "\n            \n<h2>Это дружелюбные нашему организму бактерии. Им не нужен наш кислород, и, к тому же, они питаются клетчаткой, которую наш организм не способен использовать. Получается, что лактобактерии не забирают у нас ничего \"ценного\".</h2>\n Зато много чего нам дают👇!<br>\n \n Основная часть лактобактерий живет в слизи, которая выстилает стенки толстого кишечника. Именно здесь происходит битва \"добра\" и \"зла\": наша дружественная микрофлора борется с патогенами.\n \n 👉Чем больше в кишечнике живет лактобактерий разных видов, тем неуютнее там находиться \"плохой\" микрофлоре. В идеале, бифидо- и лактобактерии должны составлять от 80 до 100% \"населения\" кишечника.\n \n ❗Однако просто \"поселить\" лактобактерии в кишечник с помощью йогурта или пробиотиков нельзя, это доказано. Такие бактерии не приживаются.\n \n Состав микробиоты начинает формироваться еще внутриутробно и во многом зависит от питания, уровня стресса и состояния здоровья мамы. Во время естественных родов мать передает ребенку здоровую микрофлору. Затем еще больше — через грудное вскармливание.\n \n ✅Окончательно микробиота формируется к 2-4 годам и остается примерно такой же на протяжение всей жизни.\n \n Существует множество факторов, мешающих формированию здоровой микрофлоры.\n \n Появление на свет путем кесарева, искусственное вскармливание, антибиотики, плохая экология, химия в еде и многое другое. К тому же, с возрастом мы теряем разнообразие хороших бактерий. Зато растет число патогенов… На протяжении всей жизни важно заботиться о своих помощниках и защитниках — лактобактериях!\n \n Препарат&nbsp;<a href=\"https://daigo.ru/catalog/metabiotik-daigo/\">daigo</a>&nbsp;представляет собой смесь пептидов, полученных в результате брожения 16 штаммов лактобактерий, типичных для кишечника здорового человека.<br>\n \n Когда мы принимаем&nbsp;<a href=\"https://daigo.ru/catalog/metabiotik-daigo/\">daigo</a>, наши собственные лактобактерии активно размножаются и вытесняют патогенную микрофлору из организма.<br>        ",
+  "materials": {
+    "title": "Полезные материалы",
+    "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",
+    "files": [
+      {
+        "id": 1,
+        "title": "Восстановление организма",
+        "url": "/files/guide.pdf",
+        "size": "1.2 MB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 2,
+        "title": "Долголетие",
+        "url": "/files/research.pdf",
+        "size": "980 KB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 3,
+        "title": "Энергия",
+        "url": "/files/energy.pdf",
+        "size": "1.5 MB",
+        "mime": "application/pdf"
+      }
+    ],
+    "specialist": {
+      "name": "Анна Иванова",
+      "position": "Главный врач",
+      "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+      "description": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
+      "social": [
+        {
+          "type": "tg",
+          "url": "https://t.me/daigo"
+        },
+        {
+          "type": "vk",
+          "url": "https://vk.com/daigo"
+        },
+        {
+          "type": "dzen",
+          "url": "https://dzen.ru/daigo"
+        }
+      ]
+    },
+    "downloadAllUrl": "/files/all.zip"
+  },
+  "contentBottom": "",
+  "recommended": [
+    {
+      "id": 3,
+      "slug": "chto-takoe-metabiotiki",
+      "title": "Что такое Метабиотики",
+      "preview": "",
+      "image": "https://nuxt.daigo.ru/images/articles/first.jpg",
+      "date": "2024-03-22",
+      "time": 8,
+      "views": 13040,
+      "comments": 0,
+      "properties": {}
+    },
+    {
+      "id": 1,
+      "slug": "na-chto-vliyaet-mikroflora-kishechnika",
+      "title": "2. На что влияет микрофлора кишечника?",
+      "preview": "",
+      "image": "https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg",
+      "date": "2023-06-24",
+      "time": 8,
+      "views": 22300,
+      "comments": 0,
+      "properties": {}
+    }
+  ],
+  "popular": [
+    {
+      "id": 1,
+      "slug": "printsip-dejstviya-metabiotikov",
+      "title": "Принцип действия метабиотиков",
+      "preview": "",
+      "image": "/images/articles/first.jpg",
+      "date": "2025-06-30",
+      "time": 8,
+      "views": 200,
+      "comments": 10,
+      "properties": {}
+    }
+  ],
+  "faq": [
+    {
+      "q": "Что такое коэнзим Q10?",
+      "a": "Антиоксидант, участвующий в выработке энергии..."
+    },
+    {
+      "q": "Чем полезен Tamotsu?",
+      "a": "Улучшает память, когнитивные функции..."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+      "title": "Daigo Lux",
+      "image": "https://daigo.ru/images/mock/catalog/daigo-lux.png",
+      "price": 95700,
+      "url": "/catalog/daigo-lux",
+      "badge": "Хит"
+    },
+    {
+      "product_id": "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+      "title": "Tamotsu",
+      "image": "https://daigo.ru/images/mock/catalog/tamotsu.png",
+      "price": 67500,
+      "url": "/catalog/tamotsu"
+    }
+  ],
+  "productsIds": [
+    "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+    "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+    "34572cff-889e-4baa-b269-9c4a976dd381"
+  ]
+}

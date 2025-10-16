@@ -57,12 +57,13 @@ const baseId = computed(() => props.id || 'addr-input')
 const listboxId = computed(() => `${baseId.value}-listbox`)
 
 // ----- Значение + DaData -----
-const input = ref<string>((props.modelValue ?? '') as string)
+const normalize = (s: string) => s.replace(/\s+/g, ' ').trim()
+const input = ref<string>(normalize((props.modelValue ?? '') as string))
 const open = ref(false)
 const loading = ref(false)
 const items = ref<AddrItem[]>([])
 const hovered = ref(-1)
-const lastSelected = ref<string>('')
+const lastSelected = ref<string>('')   // последняя строка, которая была выбрана через select()
 
 const { address, cancel } = useDadata()
 
@@ -71,28 +72,28 @@ onMounted(() => {
 })
 
 watch(() => props.modelValue, v => {
-  const val = (v ?? '') as string
+  const val = normalize((v ?? '') as string)
   if (val !== input.value) input.value = val
 })
 
 // --- дебаунс 200ms + отмена предыдущего запроса ---
 let t: number | undefined
 watch([input, () => props.cityFiasId], ([q, fias]) => {
-  emit('update:modelValue', (q as string) ?? '')
-  const trimmed = String(q || '').trim()
+  const val = normalize(String(q || ''))
+  emit('update:modelValue', val)
 
   if (t) { clearTimeout(t); t = undefined }
-  if (!trimmed) {
+  if (!val) {
     items.value = []; open.value = false; return
   }
-  if (lastSelected.value && trimmed === lastSelected.value) {
+  if (lastSelected.value && val === lastSelected.value) {
     open.value = false; items.value = []; return
   }
 
   t = window.setTimeout(async () => {
     loading.value = true
     try {
-      const data = await address(trimmed, (fias as string | null) || undefined)
+      const data = await address(val, (fias as string | null) || undefined)
       items.value = data
       open.value = data.length > 0
       hovered.value = data.length ? 0 : -1
@@ -102,14 +103,33 @@ watch([input, () => props.cityFiasId], ([q, fias]) => {
   }, 200)
 })
 
+// ---- распарсить улицу/дом из ручного ввода (на случай без выбора подсказки)
+function parseManual(v: string): AddrItem {
+  const s = normalize(v)
+  // эвристика: "ул. Пушкина, 10к2" / "Пушкина 10" / "Пушкина, 10"
+  const m = s.match(/(.+?)[,\s]+(\d+[а-яА-Яa-zA-Z\-\/0-9]*)$/)
+  const street = m ? normalize(m[1]) : (s || null)
+  const house  = m ? normalize(m[2]) : null
+  return {
+    value: s,
+    full: s,
+    fias_id: null,
+    postal_code: null,
+    street,
+    house,
+    block: null,
+    flat: null
+  }
+}
+
 function select(i: number) {
   const it = items.value[i]
   if (!it) return
   cancel()
-  lastSelected.value = String(it.value).trim()
-  input.value = it.value
-  emit('update:modelValue', it.value)
-  emit('select', it)
+  lastSelected.value = normalize(String(it.value))
+  input.value = lastSelected.value
+  emit('update:modelValue', lastSelected.value)
+  emit('select', it) // родитель подтянет street/house/etc
   open.value = false
   items.value = []
 }
@@ -130,12 +150,29 @@ function onFocus() {
   emit('focus')
   if (items.value.length && input.value.trim() !== lastSelected.value) open.value = true
 }
+
 function onBlur() {
   isFocused.value = false
   emit('blur')
   // даём выбрать мышкой
-  setTimeout(() => { open.value = false }, 120)
+  setTimeout(() => {
+    // если открыт список и есть ровно один вариант — выберем его
+    if (open.value && items.value.length === 1) {
+      select(0)
+    } else {
+      // если пользователь ничего не выбрал, но что-то ввёл — сгенерируем ручной select
+      const val = normalize(input.value)
+      if (val && val !== lastSelected.value) {
+        const manual = parseManual(val)
+        lastSelected.value = val
+        emit('update:modelValue', val)
+        emit('select', manual) // родитель обработает как обычный select
+      }
+    }
+    open.value = false
+  }, 120)
 }
+
 function clear() {
   if (props.readonly || props.disabled) return
   input.value = ''
@@ -197,7 +234,7 @@ function handleFocus(e: FocusEvent) {
         :class="bgClass"
         :placeholder="placeholder || 'Улица и дом'"
         :value="input"
-        @input="(e:any)=> input = e.target.value"
+        @input="(e:any)=> input = normalize(e.target.value)"
         :readonly="readonly || antiReadonly"
         :disabled="disabled"
         :autocomplete="safeAutocomplete"
@@ -213,11 +250,11 @@ function handleFocus(e: FocusEvent) {
         spellcheck="false"
         autocapitalize="off"
         enterkeyhint="done"
-        :data-lpignore="suppress ? 'true' : null"        
-        :data-1p-ignore="suppress ? 'true' : null"        
-        :data-bwignore="suppress ? 'true' : null"         
+        :data-lpignore="suppress ? 'true' : null"
+        :data-1p-ignore="suppress ? 'true' : null"
+        :data-bwignore="suppress ? 'true' : null"
         :data-bitwarden-watching="suppress ? 'false' : null"
-        data-form-type="other"                            
+        data-form-type="other"
         @focus="handleFocus"
         @blur="onBlur"
         @keydown="onKeydown"

@@ -1,0 +1,168 @@
+{
+  "id": 58,
+  "slug": "chto-takoe-peyerovy-blyashki",
+  "title": "Что такое Пейеровы бляшки?",
+  "preview": "",
+  "image": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/e60/840_630_1/9197h5jhwn8908a1ty7soeei4uz5f28b.webp",
+  "date": "2023-07-21",
+  "time": 1,
+  "views": 59788,
+  "comments": 0,
+  "properties": {},
+  "description": "",
+  "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/e60/840_630_1/9197h5jhwn8908a1ty7soeei4uz5f28b.webp",
+  "breadcrumbs": [
+    {
+      "label": "Главная",
+      "to": "/"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles"
+    },
+    {
+      "label": "Что такое Пейеровы бляшки?",
+      "to": "/articles/chto-takoe-peyerovy-blyashki"
+    }
+  ],
+  "tags": [],
+  "author": {
+    "id": 1,
+    "name": "Daigo",
+    "social": [
+      {
+        "type": "tg",
+        "url": "https://t.me/daigo"
+      },
+      {
+        "type": "vk",
+        "url": "https://vk.com/daigo"
+      }
+    ],
+    "position": "Главный врач",
+    "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+    "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
+  },
+  "contentTop": "\n            Телохранители нашего здоровья. Знаете кто это? Пейеровы бляшки!<br>\n 70% иммунных клеток располагается в нашем кишечнике. Источником иммунной реакции и являются Пейеровы бляшки!\n \n Пейеровы бляшки - это иммунные ткани, которые располагаются в нижнем отделе тонкого кишечника, а еще - в аппендиксе. Внешне - это скопления лимфоидных узелков, которые находятся между ворсинками тонкого кишечника.\n \n Сверху они покрыты тонкой слизистой оболочкой, которая поглощает патогены целиком. На внешнем слое Пейеровых бляшек располагаются М-клетки. Они то и захватывают и поглощают патогенные бактерии! И знаете, кто их лучший друг? Кишечные бактерии! Более 100 миллионов кишечных бактерий 200 видов соединяются в пары с иммунными клетками для защиты организма от внешних врагов.\n \n У еще нерожденного ребенка в третьем триместре беременности в среднем 59 таких бляшек, у подростка - 239, после 30 лет их количество естественным образом сокращается до 30-40 шт.\n \n Поэтому от поддержания их работоспособности напрямую зависит, как часто мы будем болеть в зрелом и старшем возрасте.\n \n Как укрепить иммунитет?\n \n Увеличить видовое разнообразие и количество кишечных бактерий. С этим отлично справляется спорт (пост про взаимосвязь опубликовали сегодня утром) и правильное питание!\n<ul>\n\t<li>Давайте организму физ.нагрузки</li>\n\t<li>Кушайте крупы, овощи, бобовые и фрукты</li>\n\t<li>Ферментированные продукты</li>\n\t<li>Принимайте экстракт брожения молочнокислых бактерий Дайго</li>\n</ul>\n Он воздействует на эти самые Пейеровы бляшки. Если говорить просто, то клеточный материал, который содержится в продукте, попадая на Пейеровые бляшки активирует их работу, повышая нашу стойкость против различных грибков, вирусов и бактерий.<br>\n \n Функции кишечника поддерживаются через взаимоконтроль иммунной системы и кишечных бактерий! Вот почему мы всегда говорим об их прямой связи.        ",
+  "materials": {
+    "title": "Полезные материалы",
+    "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",
+    "files": [
+      {
+        "id": 1,
+        "title": "Восстановление организма",
+        "url": "/files/guide.pdf",
+        "size": "1.2 MB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 2,
+        "title": "Долголетие",
+        "url": "/files/research.pdf",
+        "size": "980 KB",
+        "mime": "application/pdf"
+      },
+      {
+        "id": 3,
+        "title": "Энергия",
+        "url": "/files/energy.pdf",
+        "size": "1.5 MB",
+        "mime": "application/pdf"
+      }
+    ],
+    "specialist": {
+      "name": "Анна Иванова",
+      "position": "Главный врач",
+      "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+      "description": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
+      "social": [
+        {
+          "type": "tg",
+          "url": "https://t.me/daigo"
+        },
+        {
+          "type": "vk",
+          "url": "https://vk.com/daigo"
+        },
+        {
+          "type": "dzen",
+          "url": "https://dzen.ru/daigo"
+        }
+      ]
+    },
+    "downloadAllUrl": "/files/all.zip"
+  },
+  "contentBottom": "",
+  "recommended": [
+    {
+      "id": 3,
+      "slug": "chto-takoe-metabiotiki",
+      "title": "Что такое Метабиотики",
+      "preview": "",
+      "image": "https://nuxt.daigo.ru/images/articles/first.jpg",
+      "date": "2024-03-22",
+      "time": 8,
+      "views": 13040,
+      "comments": 0,
+      "properties": {}
+    },
+    {
+      "id": 1,
+      "slug": "na-chto-vliyaet-mikroflora-kishechnika",
+      "title": "2. На что влияет микрофлора кишечника?",
+      "preview": "",
+      "image": "https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg",
+      "date": "2023-06-24",
+      "time": 8,
+      "views": 22300,
+      "comments": 0,
+      "properties": {}
+    }
+  ],
+  "popular": [
+    {
+      "id": 1,
+      "slug": "printsip-dejstviya-metabiotikov",
+      "title": "Принцип действия метабиотиков",
+      "preview": "",
+      "image": "/images/articles/first.jpg",
+      "date": "2025-06-30",
+      "time": 8,
+      "views": 200,
+      "comments": 10,
+      "properties": {}
+    }
+  ],
+  "faq": [
+    {
+      "q": "Что такое коэнзим Q10?",
+      "a": "Антиоксидант, участвующий в выработке энергии..."
+    },
+    {
+      "q": "Чем полезен Tamotsu?",
+      "a": "Улучшает память, когнитивные функции..."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+      "title": "Daigo Lux",
+      "image": "https://daigo.ru/images/mock/catalog/daigo-lux.png",
+      "price": 95700,
+      "url": "/catalog/daigo-lux",
+      "badge": "Хит"
+    },
+    {
+      "product_id": "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+      "title": "Tamotsu",
+      "image": "https://daigo.ru/images/mock/catalog/tamotsu.png",
+      "price": 67500,
+      "url": "/catalog/tamotsu"
+    }
+  ],
+  "productsIds": [
+    "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+    "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+    "34572cff-889e-4baa-b269-9c4a976dd381"
+  ]
+}
