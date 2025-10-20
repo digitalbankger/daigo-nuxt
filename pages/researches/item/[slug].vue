@@ -8,6 +8,7 @@ import AccordionItem from '~/components/ui/AccordionItem.vue'
 import { useResearchStore } from '~/stores/researchStore'
 import type { ArticleDetail } from '~/types/articles'
 import UiInput from '~/components/ui/UiInput.vue'
+import { useNewsletter } from '~/composables/useNewsletter'
 
 definePageMeta({ layout: 'main' })
 
@@ -18,11 +19,12 @@ const store = useResearchStore()
 const { currentResearch } = storeToRefs(store)
 
 // SSR fetch (берём по slug)
-const { data: research, error } = await useAsyncData<ArticleDetail>(`research:${slug.value}`, () =>
-  store.fetchResearchById(slug.value).then(() => store.currentResearch as ArticleDetail)
+const { data: research, error: researchError } = await useAsyncData<ArticleDetail>(
+  `research:${slug.value}`,
+  () => store.fetchResearchById(slug.value).then(() => store.currentResearch as ArticleDetail)
 )
 
-if (error.value) {
+if (researchError.value) {
   throw createError({ statusCode: 404, statusMessage: 'Исследование не найдено' })
 }
 
@@ -112,29 +114,35 @@ const ClientComments = defineAsyncComponent(() => import('~/components/Comments/
 
 
 const email = ref('')
-const loading = ref(false)
 const success = ref(false)
 const emailErr = ref<string | boolean>('')
+
+const { loading, error: subscribeError, subscribe } = useNewsletter()
 
 const emailValid = computed(() =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
 )
+
 function validateEmail() {
   if (!email.value.trim()) { emailErr.value = 'Введите e-mail'; return false }
   if (!emailValid.value)   { emailErr.value = 'Некорректный e-mail'; return false }
   emailErr.value = ''
   return true
 }
-const sleep = (ms:number) => new Promise(r => setTimeout(r, ms))
+
 async function submitSubscribe() {
   if (loading.value) return
   if (!validateEmail()) return
-  loading.value = true
-  try {
-    await sleep(900)
+
+  // (опционально) нормализуем
+  const normalized = email.value.trim().toLowerCase()
+
+  const ok = await subscribe(normalized)
+  if (ok) {
     success.value = true
-  } finally {
-    loading.value = false
+  } else {
+    // текст ошибки с сервера/прокси попадёт сюда
+    emailErr.value = subscribeError.value || 'Не удалось оформить подписку'
   }
 }
 </script>

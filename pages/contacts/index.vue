@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useHead } from '@unhead/vue'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
+import { useFeedback } from '~/composables/useFeedback'
 
 definePageMeta({ layout: 'main' })
 
@@ -49,6 +50,59 @@ useHead({
     }
   ]
 })
+
+
+const fio = ref('')
+const phone = ref('')          // вводим как есть: +7 (___) ___-__-__
+const message = ref('')
+const agree = ref(false)
+
+const errors = ref<{ fio?: string; phone?: string; message?: string; agree?: string }>({})
+const success = ref<{ shown: boolean; leadId?: number }>({ shown: false })
+
+const { loading, error: sendError, send } = useFeedback()
+
+// простая нормализация телефона в E.164 для RU
+function normalizePhone(input: string) {
+  const digits = input.replace(/\D/g, '')
+  if (digits.startsWith('8')) return `+7${digits.slice(1)}`
+  if (digits.startsWith('7')) return `+7${digits.slice(1)}`
+  if (digits.startsWith('9') && digits.length === 10) return `+7${digits}`
+  return input.startsWith('+') ? input : `+${digits}`
+}
+
+const validPhone = (p: string) => /^\+7\d{10}$/.test(normalizePhone(p))
+
+function validate() {
+  errors.value = {}
+  if (!fio.value.trim() || fio.value.trim().length < 5) errors.value.fio = 'Укажите ФИО полностью'
+  if (!phone.value.trim() || !validPhone(phone.value))  errors.value.phone = 'Телефон в формате +7XXXXXXXXXX'
+  if (!message.value.trim() || message.value.trim().length < 5) errors.value.message = 'Напишите сообщение'
+  if (!agree.value) errors.value.agree = 'Необходимо согласие'
+  return Object.keys(errors.value).length === 0
+}
+
+async function submitCallback() {
+  if (loading.value) return
+  if (!validate()) return
+  const payload = {
+    fio: fio.value.trim(),
+    phone_number: normalizePhone(phone.value),
+    message: message.value.trim()
+  }
+  const res = await send(payload)
+  if (res.success) {
+    success.value = { shown: true, leadId: res.lead_id }
+    // очистим форму
+    fio.value = ''
+    phone.value = ''
+    message.value = ''
+    agree.value = false
+  } else {
+    // покажем общую ошибку сверху формы (можно и toast)
+    errors.value = { ...errors.value, message: sendError.value || 'Не удалось отправить' }
+  }
+}
 </script>
 
 <template>
@@ -161,16 +215,71 @@ useHead({
             </div>
 
             <div class="w-full lg:w-2/6 flex flex-col gap-4">
-              <form class="flex flex-col gap-4">
+              <form class="flex flex-col gap-3 md:gap-4" @submit.prevent="submitCallback" novalidate>
                 <h2 class="text-xl md:text-3xl font-medium mt-2 md:mt-0">Напишите нам</h2>
-                <input type="text" placeholder="ФИО" class="border rounded-lg p-2" />
-                <input type="tel" placeholder="+7 (___) ___-__-__" class="border rounded-lg p-2" />
-                <textarea placeholder="Сообщение" rows="5" class="border rounded-lg p-2"></textarea>
+
+                <!-- общая ошибка -->
+                <p v-if="sendError" class="text-red-600 text-sm -mb-1">{{ sendError }}</p>
+
+                <div>
+                  <input
+                    v-model="fio"
+                    type="text"
+                    placeholder="ФИО"
+                    class="border rounded-lg p-2 w-full"
+                    autocomplete="name"
+                    aria-label="ФИО"
+                  />
+                  <p v-if="errors.fio" class="text-red-600 text-sm mt-1">{{ errors.fio }}</p>
+                </div>
+
+                <div>
+                  <input
+                    v-model="phone"
+                    type="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    class="border rounded-lg p-2 w-full"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    aria-label="Телефон"
+                  />
+                  <p v-if="errors.phone" class="text-red-600 text-sm mt-1">{{ errors.phone }}</p>
+                </div>
+
+                <div>
+                  <textarea
+                    v-model="message"
+                    placeholder="Сообщение"
+                    rows="5"
+                    class="border rounded-lg p-2 w-full"
+                    aria-label="Сообщение"
+                  />
+                  <p v-if="errors.message" class="text-red-600 text-sm mt-1">{{ errors.message }}</p>
+                </div>
+
+                <!-- honeypot (анти-бот, невидимое поле) -->
+                <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+
                 <label class="flex items-center gap-2 text-sm">
-                  <input type="checkbox" /> Принимаю политику конфиденциальности
+                  <input type="checkbox" v-model="agree" />
+                  <span>Принимаю политику конфиденциальности</span>
                 </label>
-                <button type="submit" class="bg-primary hover:bg-primary text-white tracking-wide py-3 rounded-lg">Отправить</button>
+                <p v-if="errors.agree" class="text-red-600 text-sm -mt-2">{{ errors.agree }}</p>
+
+                <button
+                  type="submit"
+                  class="bg-primary hover:bg-primary text-white tracking-wide py-3 rounded-lg disabled:opacity-60"
+                  :disabled="loading"
+                >
+                  {{ loading ? 'Отправка…' : 'Отправить' }}
+                </button>
+
+                <!-- успешная отправка -->
+                <div v-if="success.shown" class="bg-green-50 border border-green-200 text-green-800 rounded-lg p-3">
+                  Заявка отправлена! {{ success.leadId ? `ID обращения: ${success.leadId}` : '' }}
+                </div>
               </form>
+
 
               <div class="flex flex-col gap-4 mt-4">
                 <a href="https://s3.firstvds.ru/materials/preza.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>

@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import Button from '~/components/ui/Button.vue'
-import UiInput from '~/components/ui/UiInput.vue' // ⬅️ добавили
+import UiInput from '~/components/ui/UiInput.vue'
+import { useNewsletter } from '~/composables/useNewsletter'
 
 definePageMeta({ layout: 'main' })
 
@@ -47,11 +48,11 @@ function fmt(d: string) {
   return date.toLocaleDateString('ru-RU')
 }
 
-/* ---------- Подписка (фейковый успех) ---------- */
 const email = ref('')
-const loading = ref(false)
 const success = ref(false)
 const emailErr = ref<string | boolean>('')
+
+const { loading, error, subscribe } = useNewsletter()
 
 const emailValid = computed(() =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
@@ -64,18 +65,16 @@ function validateEmail() {
   return true
 }
 
-const sleep = (ms:number) => new Promise(r => setTimeout(r, ms))
-
 async function submitSubscribe() {
   if (loading.value) return
   if (!validateEmail()) return
-  loading.value = true
-  try {
-    // имитация запроса
-    await sleep(900)
+
+  const ok = await subscribe(email.value.trim())
+  if (ok) {
     success.value = true
-  } finally {
-    loading.value = false
+  } else {
+    // пробрасываем текст ошибки под инпут
+    emailErr.value = error.value || 'Не удалось оформить подписку'
   }
 }
 </script>
