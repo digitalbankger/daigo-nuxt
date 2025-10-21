@@ -1,30 +1,37 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-//import type { Product } from '~/types/product'
 import type { ProductCard } from '~/types/product'
 import type { FilterGroup } from '~/types/filter'
 import type { CatalogBanner } from '~/types/catalog'
+import { useDeviceStore } from '@/stores/deviceStore' // ваш стор для определения устройства
 
 type BaseQuery = Record<string, string[]>
 
 export const useCatalogStore = defineStore('catalog', () => {
-  //const products = ref<Product[]>([])
+  const device = useDeviceStore()
+
   const products = ref<ProductCard[]>([])
-  const filters  = ref<FilterGroup[]>([])
+  const filters = ref<FilterGroup[]>([])
   const catalogBanner = ref<CatalogBanner | null>(null)
-  const counts   = ref<Record<string, number>>({})
+  const counts = ref<Record<string, number>>({})
 
   const page = ref(1)
-  const perPage = 9
+
+  // вычисляемое количество товаров на странице в зависимости от устройства
+  const perPageDisplayed = computed(() => (device.isMobile ? 10 : 9))
+  // фактический лимит для запроса (чтобы не делать повторный запрос)
+  const perPageRequest = 10
+
   const totalPages = ref(1)
 
   // Кэш полного списка для facet-счётчиков и локального total
-  //const allProducts = ref<Product[]>([])
   const allProducts = ref<ProductCard[]>([])
-  const allLoaded   = ref(false)
+  const allLoaded = ref(false)
   let allLoadingPromise: Promise<void> | null = null
 
-  const setPage = (value: number) => { page.value = value }
+  const setPage = (value: number) => {
+    page.value = value
+  }
 
   const fetchFilters = async () => {
     const result = await $fetch<FilterGroup[]>('/api/shop/filters')
@@ -44,8 +51,8 @@ export const useCatalogStore = defineStore('catalog', () => {
   const fetchProducts = async (params: Record<string, string>) => {
     const query = {
       ...params,
-      page:  String(page.value),
-      limit: String(perPage), // наш бэк ожидает 'limit'
+      page: String(page.value),
+      limit: String(perPageRequest), // всегда 10 — даже на десктопе
     }
 
     const { data } = await useFetch<{ items: ProductCard[]; total: number }>(
@@ -53,19 +60,25 @@ export const useCatalogStore = defineStore('catalog', () => {
       { query }
     )
 
-    products.value = data.value?.items || []
+    const fetched = data.value?.items || []
 
-    // 1) total из узкого запроса (может быть занижен — равен размеру страницы)
+    // если не мобилка — обрезаем до 9
+    products.value = device.isMobile ? fetched : fetched.slice(0, 9)
+
+    // 1) total из запроса
     let total = Number(data.value?.total || 0)
 
-    // 2) Если есть "все товары" — пересчитываем total локально по тем же фильтрам
+    // 2) пересчёт total локально по allProducts
     await ensureAllLoaded()
     const baseQuery = buildBaseQueryFromParams(params)
-    const totalLocal = allProducts.value.filter(p => matchesBaseFilters(p, baseQuery)).length
+    const totalLocal = allProducts.value.filter((p) =>
+      matchesBaseFilters(p, baseQuery)
+    ).length
 
     if (totalLocal > total) total = totalLocal
 
-    totalPages.value = Math.max(1, Math.ceil(total / perPage))
+    // считаем пагинацию по реальному perPageDisplayed
+    totalPages.value = Math.max(1, Math.ceil(total / perPageDisplayed.value))
   }
 
   /**
@@ -79,9 +92,9 @@ export const useCatalogStore = defineStore('catalog', () => {
 
     allLoadingPromise = (async () => {
       const acc: ProductCard[] = []
-      const batchSize = 50 // разумный батч, не перегружаем апи/сеть
+      const batchSize = 50 // не перегружаем сеть
 
-      // Хард-стоп на 200 страниц, чтобы не уйти в бесконечность
+      // ограничение на 200 страниц
       for (let p = 1; p <= 200; p++) {
         const res = await $fetch<{ items: ProductCard[] }>(
           '/api/shop/products',
@@ -91,7 +104,6 @@ export const useCatalogStore = defineStore('catalog', () => {
         const batch = Array.isArray(res?.items) ? res.items : []
         acc.push(...batch)
 
-        // Если вернулось меньше, чем запросили — дальше пусто
         if (batch.length < batchSize) break
       }
 
@@ -126,16 +138,23 @@ export const useCatalogStore = defineStore('catalog', () => {
     const raw = (p as any)?.properties?.[slug]
     if (Array.isArray(raw)) return raw.map(String)
     if (raw == null) return []
-    // на случай, если придёт CSV-строка
-    return String(raw).split(',').map(s => s.trim()).filter(Boolean)
+    // если CSV-строка
+    return String(raw)
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
   }
 
-  function matchesBaseFilters(p: ProductCard, base: BaseQuery, skipGroup?: string) {
+  function matchesBaseFilters(
+    p: ProductCard,
+    base: BaseQuery,
+    skipGroup?: string
+  ) {
     for (const [k, values] of Object.entries(base)) {
       if (k === skipGroup) continue
       if (!values?.length) continue
-      const pv = propValues(p, k)                // ← массив значений свойства
-      if (!values.some(v => pv.includes(v))) {   // ← есть ли пересечение
+      const pv = propValues(p, k) // значения свойства
+      if (!values.some((v) => pv.includes(v))) {
         return false
       }
     }
@@ -150,11 +169,11 @@ export const useCatalogStore = defineStore('catalog', () => {
     await ensureAllLoaded()
     const flat: Record<string, number> = {}
 
-    for (const group of (filters.value || [])) {
+    for (const group of filters.value || []) {
       const slug = group.slug
       for (const option of group.options) {
         const val = option.value
-        const cnt = allProducts.value.filter(p => {
+        const cnt = allProducts.value.filter((p) => {
           if (!matchesBaseFilters(p, baseQuery, slug)) return false
           const pv = propValues(p, slug)
           return pv.includes(val)
@@ -168,12 +187,19 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   return {
     // state
-    products, filters, catalogBanner, counts,
-    page, perPage, totalPages,
+    products,
+    filters,
+    catalogBanner,
+    counts,
+    page,
+    perPageDisplayed,
+    totalPages,
 
     // actions
     setPage,
-    fetchFilters, fetchProducts, fetchCatalogBanner,
+    fetchFilters,
+    fetchProducts,
+    fetchCatalogBanner,
     fetchCounts,
   }
 })
@@ -185,24 +211,36 @@ export const useCatalogStore = defineStore('catalog', () => {
 
 
 
+
+
+
 // import { defineStore } from 'pinia'
-// import type { Product } from '~/types/product'
+// import { ref, computed } from 'vue'
+// //import type { Product } from '~/types/product'
+// import type { ProductCard } from '~/types/product'
 // import type { FilterGroup } from '~/types/filter'
 // import type { CatalogBanner } from '~/types/catalog'
 
+// type BaseQuery = Record<string, string[]>
+
 // export const useCatalogStore = defineStore('catalog', () => {
-//   const products = ref<Product[]>([])
-//   const filters = ref<FilterGroup[]>([])
+//   //const products = ref<Product[]>([])
+//   const products = ref<ProductCard[]>([])
+//   const filters  = ref<FilterGroup[]>([])
 //   const catalogBanner = ref<CatalogBanner | null>(null)
-//   const counts = ref<Record<string, number>>({})
+//   const counts   = ref<Record<string, number>>({})
 
 //   const page = ref(1)
 //   const perPage = 9
 //   const totalPages = ref(1)
 
-//   const setPage = (value: number) => {
-//     page.value = value
-//   }
+//   // Кэш полного списка для facet-счётчиков и локального total
+//   //const allProducts = ref<Product[]>([])
+//   const allProducts = ref<ProductCard[]>([])
+//   const allLoaded   = ref(false)
+//   let allLoadingPromise: Promise<void> | null = null
+
+//   const setPage = (value: number) => { page.value = value }
 
 //   const fetchFilters = async () => {
 //     const result = await $fetch<FilterGroup[]>('/api/shop/filters')
@@ -214,77 +252,144 @@ export const useCatalogStore = defineStore('catalog', () => {
 //     catalogBanner.value = data.value
 //   }
 
+//   /**
+//    * Грузим карточки текущей страницы.
+//    * totalPages считаем по ответу бэка, а если загружен allProducts —
+//    * пересчитываем total локально теми же фильтрами и берём большее значение.
+//    */
 //   const fetchProducts = async (params: Record<string, string>) => {
 //     const query = {
 //       ...params,
 //       page:  String(page.value),
-//       limit: String(perPage)
+//       limit: String(perPage), // наш бэк ожидает 'limit'
 //     }
 
-//     const { data } = await useFetch<{ items: Product[]; total: number }>(
+//     const { data } = await useFetch<{ items: ProductCard[]; total: number }>(
 //       '/api/shop/products',
 //       { query }
 //     )
 
 //     products.value = data.value?.items || []
-//     const total = data.value?.total || 0
+
+//     // 1) total из узкого запроса (может быть занижен — равен размеру страницы)
+//     let total = Number(data.value?.total || 0)
+
+//     // 2) Если есть "все товары" — пересчитываем total локально по тем же фильтрам
+//     await ensureAllLoaded()
+//     const baseQuery = buildBaseQueryFromParams(params)
+//     const totalLocal = allProducts.value.filter(p => matchesBaseFilters(p, baseQuery)).length
+
+//     if (totalLocal > total) total = totalLocal
+
 //     totalPages.value = Math.max(1, Math.ceil(total / perPage))
 //   }
 
-//   // const fetchProducts = async (params: Record<string, string>) => {
-//   //   const { data } = await useFetch<{ items: Product[]; total: number }>(
-//   //     '/api/shop/products',
-//   //     { query: params }
-//   //   )
+//   /**
+//    * Один раз грузим полный список для локального подсчёта counts/total.
+//    * ВАЖНО: не используем limit=9999, потому что бэк режет до ~20.
+//    * Вместо этого идём постранично батчами, пока не закончится выдача.
+//    */
+//   async function ensureAllLoaded() {
+//     if (allLoaded.value) return
+//     if (allLoadingPromise) return allLoadingPromise
 
-//   //   products.value = data.value?.items || []
-//   //   const total = data.value?.total || 0
-//   //   totalPages.value = Math.ceil(total / perPage)
-//   // }
+//     allLoadingPromise = (async () => {
+//       const acc: ProductCard[] = []
+//       const batchSize = 50 // разумный батч, не перегружаем апи/сеть
 
-//   const fetchCounts = async (baseQuery: Record<string, string[]> = {}) => {
-//     const flatOptions: { key: string, value: string }[] = []
+//       // Хард-стоп на 200 страниц, чтобы не уйти в бесконечность
+//       for (let p = 1; p <= 200; p++) {
+//         const res = await $fetch<{ items: ProductCard[] }>(
+//           '/api/shop/products',
+//           { query: { page: String(p), limit: String(batchSize) } }
+//         )
 
-//     filters.value.forEach(group => {
-//       group.options.forEach(option => {
-//         flatOptions.push({ key: group.slug, value: option.value })
-//       })
-//     })
+//         const batch = Array.isArray(res?.items) ? res.items : []
+//         acc.push(...batch)
 
-//     const results = await Promise.all(flatOptions.map(async ({ key, value }) => {
-//       const query: Record<string, string> = {}
-
-//       for (const baseKey in baseQuery) {
-//         if (baseKey !== key) {
-//           query[baseKey] = baseQuery[baseKey].join(',')
-//         }
+//         // Если вернулось меньше, чем запросили — дальше пусто
+//         if (batch.length < batchSize) break
 //       }
 
-//       query[key] = value
+//       allProducts.value = acc
+//       allLoaded.value = true
+//       allLoadingPromise = null
+//     })()
 
-//       const { count } = await $fetch<{ count: number }>(
-//         '/api/shop/products/count',
-//         { query }
-//       )
-//       return { id: `${key}__${value}`, count }
-//     }))
-
-//     counts.value = Object.fromEntries(results.map(r => [r.id, r.count]))
+//     return allLoadingPromise
 //   }
 
+//   /**
+//    * Собираем базовые фильтры из параметров запроса.
+//    * Игнорируем служебные поля пагинации.
+//    */
+//   function buildBaseQueryFromParams(params: Record<string, string>): BaseQuery {
+//     const base: BaseQuery = {}
+//     for (const [k, v] of Object.entries(params)) {
+//       if (['page', 'page_size', 'limit', 'empty'].includes(k)) continue
+//       if (!v) continue
+//       base[k] = String(v).split(',').filter(Boolean)
+//     }
+//     return base
+//   }
+
+//   /**
+//    * Проверяем, что товар p соответствует набору базовых фильтров base.
+//    * В логике — конъюнкция групп, внутри группы — дизъюнкция (любой из значений подходит).
+//    * skipGroup — чтобы при расчёте counts игнорировать текущую группу.
+//    */
+//   function propValues(p: ProductCard, slug: string): string[] {
+//     const raw = (p as any)?.properties?.[slug]
+//     if (Array.isArray(raw)) return raw.map(String)
+//     if (raw == null) return []
+//     // на случай, если придёт CSV-строка
+//     return String(raw).split(',').map(s => s.trim()).filter(Boolean)
+//   }
+
+//   function matchesBaseFilters(p: ProductCard, base: BaseQuery, skipGroup?: string) {
+//     for (const [k, values] of Object.entries(base)) {
+//       if (k === skipGroup) continue
+//       if (!values?.length) continue
+//       const pv = propValues(p, k)                // ← массив значений свойства
+//       if (!values.some(v => pv.includes(v))) {   // ← есть ли пересечение
+//         return false
+//       }
+//     }
+//     return true
+//   }
+
+//   /**
+//    * Локальный расчёт facet-счётчиков по allProducts.
+//    * baseQuery — активные фильтры (без текущей группы).
+//    */
+//   const fetchCounts = async (baseQuery: BaseQuery = {}) => {
+//     await ensureAllLoaded()
+//     const flat: Record<string, number> = {}
+
+//     for (const group of (filters.value || [])) {
+//       const slug = group.slug
+//       for (const option of group.options) {
+//         const val = option.value
+//         const cnt = allProducts.value.filter(p => {
+//           if (!matchesBaseFilters(p, baseQuery, slug)) return false
+//           const pv = propValues(p, slug)
+//           return pv.includes(val)
+//         }).length
+//         flat[`${slug}__${val}`] = cnt
+//       }
+//     }
+
+//     counts.value = flat
+//   }
 
 //   return {
-//     products,
-//     filters,
-//     catalogBanner,
-//     counts,
-//     page,
-//     perPage,
-//     totalPages,
+//     // state
+//     products, filters, catalogBanner, counts,
+//     page, perPage, totalPages,
+
+//     // actions
 //     setPage,
-//     fetchFilters,
-//     fetchProducts,
-//     fetchCatalogBanner,
-//     fetchCounts
+//     fetchFilters, fetchProducts, fetchCatalogBanner,
+//     fetchCounts,
 //   }
 // })

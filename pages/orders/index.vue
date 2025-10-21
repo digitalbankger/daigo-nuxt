@@ -39,8 +39,10 @@ function fmtPrice(n: number) {
 async function cancelOrder(o: any) {
   if (!confirm('Отменить заказ?')) return
   try {
-    busyId.value = o.id ?? o.order_id ?? o.number
-    await store.cancel(o.number)
+    const idForBusy = o.id ?? o.order_id ?? o.number
+    const idForApi = o.order_id ?? o.id ?? o.number
+    busyId.value = idForBusy
+    await store.cancel(idForApi)
   } catch (e) {
     alert((e as Error).message || 'Не удалось отменить заказ')
   } finally {
@@ -102,7 +104,7 @@ async function cancelOrder(o: any) {
 
             <button
               class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-50"
-              :disabled="['received','paid'].includes(o.status) || busyId===(o.id ?? o.order_id ?? o.number)"
+              :disabled="['delivered','canceled','failed','payment_received'].includes(o.status) || busyId===(o.id ?? o.order_id ?? o.number)"
               @click="cancelOrder(o)"
             >
               {{ busyId===(o.id ?? o.order_id ?? o.number) ? 'Отменяем…' : 'Отменить заказ' }}

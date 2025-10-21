@@ -67,8 +67,12 @@ export const useOrderStore = defineStore('orderStore', () => {
         ((entry as any).items ? ((entry as any).items as any[]).map(i => i.product_id ?? i.id).filter(Boolean) : []) ??
         []
 
-      const mapped = itemIds.map((id) => {
-        const p = catalog?.products?.find((x: any) => (x.product_id ?? x.id) === id)
+        const mapped = itemIds.map((id) => {
+        const p = catalog?.products?.find((x: any) => {
+          const a = String(x.product_id ?? x.id)
+          const b = String(id)
+          return a === b
+        })
         const firstImage =
           p?.images?.[0]?.image_url ||
           p?.image ||
@@ -88,6 +92,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
       return {
         id: (entry as any).history_id ?? (entry as any).id ?? Number(entry.order_id) ?? Math.random(),
+        order_id: Number(entry.order_id ?? (entry as any).order_id ?? 0) || undefined,
         number,
         date,
         status: (entry as any).status || 'processing',

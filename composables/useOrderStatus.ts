@@ -1,55 +1,41 @@
 export type OrderStatusKey =
   | 'created'
-  | 'processing'
-  | 'awaiting_payment'
-  | 'paid'
-  | 'in_way'
+  | 'pending'            // новое из бэка
+  | 'waiting_payment'    // новое из бэка
+  | 'payment_received'   // новое из бэка
   | 'delivered'
-  | 'received'
   | 'canceled'
   | 'failed'
-  | 'refunded'
   | 'unknown'
 
 const MAP: Record<OrderStatusKey, { label: string; color: 'blue'|'orange'|'green'|'red'|'gray'|'purple' }> = {
-  created:          { label: 'Создан',             color: 'blue'   },
-  processing:       { label: 'Обрабатывается',     color: 'purple' },
-  awaiting_payment: { label: 'Ожидает оплаты',     color: 'orange' },
-  paid:             { label: 'Оплачен',            color: 'green'  },
-  in_way:           { label: 'В пути',             color: 'blue'   },
-  delivered:        { label: 'Доставлен',          color: 'blue'   },
-  received:         { label: 'Получен',            color: 'green'  },
-  canceled:         { label: 'Отменён',            color: 'red'    },
-  failed:           { label: 'Ошибка',             color: 'red'    },
-  refunded:         { label: 'Возврат',            color: 'gray'   },
-  unknown:          { label: 'Неизвестно',         color: 'gray'   },
+  created:           { label: 'Создан',             color: 'blue'   },
+  pending:           { label: 'В обработке',        color: 'purple' },
+  waiting_payment:   { label: 'Ожидает оплаты',     color: 'orange' },
+  payment_received:  { label: 'Оплачен',            color: 'green'  },
+  delivered:         { label: 'Доставлен',          color: 'green'  },
+  canceled:          { label: 'Отменён',            color: 'gray'   },
+  failed:            { label: 'Не выполнен',        color: 'red'    },
+  unknown:           { label: 'Неизвестен',         color: 'gray'   },
 }
 
-const ALIASES: Record<string, OrderStatusKey> = {
-  // нормализация синонимов с бэка
-  created: 'created', new: 'created',
-  processing: 'processing', in_progress: 'processing', preparing: 'processing',
-  awaiting_payment: 'awaiting_payment', waiting_for_payment: 'awaiting_payment', pending: 'awaiting_payment',
-  paid: 'paid', payed: 'paid',
-  in_way: 'in_way', shipped: 'in_way', on_the_way: 'in_way', delivery: 'in_way',
-  delivered: 'delivered',
-  received: 'received', completed: 'received',
-  canceled: 'canceled', cancelled: 'canceled',
-  failed: 'failed', error: 'failed',
-  refunded: 'refunded',
-}
-
+/** Приводим старые/альтернативные названия к актуальным */
 export function normalizeStatus(raw?: string): OrderStatusKey {
-  const key = (raw || '')
-    .toLowerCase()
-    .replace(/\s+/g, '_')
-    .replace(/-/g, '_')
-  return (ALIASES[key] ?? (MAP[key as OrderStatusKey] ? (key as OrderStatusKey) : 'unknown'))
+  const s = String(raw || '').toLowerCase().trim()
+
+  // legacy-синонимы из старого фронта/апи
+  if (s === 'processing') return 'pending'
+  if (s === 'awaiting_payment' || s === 'wait_payment') return 'waiting_payment'
+  if (s === 'paid' || s === 'payment_done' || s === 'payment_success') return 'payment_received'
+  if (s === 'in_way' || s === 'shipped') return 'pending' // или оставь как есть, если будет отдельный статус
+  if (s === 'received') return 'delivered'
+
+  if (s in MAP) return s as OrderStatusKey
+  return 'unknown'
 }
 
 export function statusLabel(raw?: string): string {
-  const k = normalizeStatus(raw)
-  return MAP[k].label
+  return MAP[normalizeStatus(raw)].label
 }
 
 export function statusPillClass(raw?: string): string {
