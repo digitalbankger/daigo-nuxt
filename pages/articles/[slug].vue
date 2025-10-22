@@ -362,6 +362,9 @@ function formatPriceRUB(val: number | string | undefined) {
             <div v-html="article?.contentBottom" />
           </section>
 
+          <p class="xs-max:text-base text-base sm:text-lg font-medium mt-10 sm:mt-16 border-y py-4 w-full">Данная публикация носит информационный характер. Указанные эффекты основаны на данных исследований, но не являются утверждением о лечении заболеваний.
+Биологически активные добавки не являются лекарственными средствами.</p>
+
           <!-- Топ 5 -->
           <section class="mt-12 py-0 md:py-6">
             <h2 class="text-xl md:text-product font-medium">Топ 5 популярных статей</h2>
