@@ -10,6 +10,7 @@ interface Promotion {
   image: string
   coupon?: string | null
   promo_type: PromoType
+  link?: string | null   
 }
 
 const props = withDefaults(defineProps<{
@@ -56,11 +57,10 @@ function onImgError(e: Event) {
       <img
         :src="promotion.image"
         :alt="promotion.title"
-        class="w-full h-auto object-contain cursor-pointer"
+        class="w-full h-auto object-contain cursor-pointer rounded-xl sm:rounded-2xl"
         loading="lazy"
         decoding="async"
         @click="onPrimaryClick"
-        @error="onImgError"
       />
       <div v-if="isApplied" class="absolute top-3 left-3 rounded-lg bg-cgreen text-white text-base sm:text-lg px-2 py-1">
         Активна

@@ -1,4 +1,3 @@
-// stores/promoStore.ts
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { useRuntimeConfig, navigateTo } from '#imports'
@@ -12,6 +11,7 @@ type PromotionEx = Promotion & {
   product_id?: string | null
   product_slug?: string | null
   related_products?: Array<{ product_id: string; url_cpu: string }>
+  link?: string | null
 }
 
 export const usePromoStore = defineStore('promoStore', () => {
@@ -64,6 +64,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       product_slug: first?.url_cpu ?? null,
       is_applied: (item as any).is_applied === true,
       is_active: (item as any).is_active === true,
+      link: (item as any).link ?? null,
     }
   }
   function identityQuery(): { key: 'daigo_id' | 'session_id'; value: string } | null {
@@ -105,34 +106,50 @@ export const usePromoStore = defineStore('promoStore', () => {
   }
 
   async function apply(promo: PromotionEx) {
-    if (pendingId.value) return
-    pendingId.value = promo.id
-    isApplying.value = true
-    try {
-      if (promo.promo_type === 'code') {
-        await cart.ensureLoaded()
-        const hasItems = cart.items.length > 0 || (cart.subtotal ?? 0) > 0
-        if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
-        await cart.applyCoupon(promo.coupon || '')
-        await loadPromotions()
-        return true
+  if (pendingId.value) return
+  pendingId.value = promo.id
+  isApplying.value = true
+  try {
+    // 1) Если задан явный линк — идём по нему и выходим
+    if (promo.link) {
+      const url = String(promo.link)
+      if (/^https?:\/\//i.test(url)) {
+        navigateTo(url, { external: true })
+      } else {
+        navigateTo(url)
       }
-      if (promo.promo_type === '2plus1') {
-        if (!promo.product_id) throw new Error('Не передан product_id для 2+1')
-        await cart.apply2plus1(promo.product_id)
-        await loadPromotions()
-        return true
-      }
-      if (promo.promo_type === 'discount' && promo.product_slug) {
-        navigateTo(`/catalog/${promo.product_slug}`)
-        return
-      }
-      navigateTo('/catalog')
-    } finally {
-      isApplying.value = false
-      pendingId.value = null
+      return
     }
+
+    // 2) Дальше — старая логика
+    if (promo.promo_type === 'code') {
+      await cart.ensureLoaded()
+      const hasItems = cart.items.length > 0 || (cart.subtotal ?? 0) > 0
+      if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
+      await cart.applyCoupon(promo.coupon || '')
+      await loadPromotions()
+      return true
+    }
+
+    if (promo.promo_type === '2plus1') {
+      if (!promo.product_id) throw new Error('Не передан product_id для 2+1')
+      await cart.apply2plus1(promo.product_id)
+      await loadPromotions()
+      return true
+    }
+
+    if (promo.promo_type === 'discount' && promo.product_slug) {
+      navigateTo(`/catalog/${promo.product_slug}`)
+      return
+    }
+
+    navigateTo('/catalog')
+  } finally {
+    isApplying.value = false
+    pendingId.value = null
   }
+}
+
 
   /**
    * Отмена акции: новый единый ендпойнт
