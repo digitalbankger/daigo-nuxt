@@ -17,11 +17,8 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   const page = ref(1)
 
-  // вычисляемое количество товаров на странице в зависимости от устройства
+  // Сколько показываем на странице: 10 на мобиле, 9 на десктопе
   const perPageDisplayed = computed(() => (device.isMobile ? 10 : 9))
-  // фактический лимит для запроса (чтобы не делать повторный запрос)
-  const perPageRequest = 10
-
   const totalPages = ref(1)
 
   // Кэш полного списка для facet-счётчиков и локального total
@@ -49,10 +46,12 @@ export const useCatalogStore = defineStore('catalog', () => {
    * пересчитываем total локально теми же фильтрами и берём большее значение.
    */
   const fetchProducts = async (params: Record<string, string>) => {
+    const limit = perPageDisplayed.value // ВАЖНО: limit == реальному показу
+
     const query = {
       ...params,
       page: String(page.value),
-      limit: String(perPageRequest), // всегда 10 — даже на десктопе
+      limit: String(limit),
     }
 
     const { data } = await useFetch<{ items: ProductCard[]; total: number }>(
@@ -60,31 +59,26 @@ export const useCatalogStore = defineStore('catalog', () => {
       { query }
     )
 
-    const fetched = data.value?.items || []
+    // Без обрезаний: показываем ровно то, что запросили
+    products.value = data.value?.items || []
 
-    // если не мобилка — обрезаем до 9
-    products.value = device.isMobile ? fetched : fetched.slice(0, 9)
-
-    // 1) total из запроса
+    // 1) total из ответа бэка
     let total = Number(data.value?.total || 0)
 
-    // 2) пересчёт total локально по allProducts
+    // 2) Локальный total по allProducts теми же фильтрами
     await ensureAllLoaded()
     const baseQuery = buildBaseQueryFromParams(params)
     const totalLocal = allProducts.value.filter((p) =>
       matchesBaseFilters(p, baseQuery)
     ).length
-
     if (totalLocal > total) total = totalLocal
 
-    // считаем пагинацию по реальному perPageDisplayed
-    totalPages.value = Math.max(1, Math.ceil(total / perPageDisplayed.value))
+    totalPages.value = Math.max(1, Math.ceil(total / limit))
   }
 
   /**
    * Один раз грузим полный список для локального подсчёта counts/total.
-   * ВАЖНО: не используем limit=9999, потому что бэк режет до ~20.
-   * Вместо этого идём постранично батчами, пока не закончится выдача.
+   * Не используем limit=9999 — идём батчами, пока не закончится выдача.
    */
   async function ensureAllLoaded() {
     if (allLoaded.value) return
@@ -131,18 +125,13 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   /**
    * Проверяем, что товар p соответствует набору базовых фильтров base.
-   * В логике — конъюнкция групп, внутри группы — дизъюнкция (любой из значений подходит).
-   * skipGroup — чтобы при расчёте counts игнорировать текущую группу.
+   * Конъюнкция групп, внутри группы — дизъюнкция.
    */
   function propValues(p: ProductCard, slug: string): string[] {
     const raw = (p as any)?.properties?.[slug]
     if (Array.isArray(raw)) return raw.map(String)
     if (raw == null) return []
-    // если CSV-строка
-    return String(raw)
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean)
+    return String(raw).split(',').map((s) => s.trim()).filter(Boolean)
   }
 
   function matchesBaseFilters(
@@ -153,10 +142,8 @@ export const useCatalogStore = defineStore('catalog', () => {
     for (const [k, values] of Object.entries(base)) {
       if (k === skipGroup) continue
       if (!values?.length) continue
-      const pv = propValues(p, k) // значения свойства
-      if (!values.some((v) => pv.includes(v))) {
-        return false
-      }
+      const pv = propValues(p, k)
+      if (!values.some((v) => pv.includes(v))) return false
     }
     return true
   }
@@ -203,6 +190,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     fetchCounts,
   }
 })
+
 
 
 
