@@ -64,6 +64,11 @@ import MobileNav from '~/components/MobileNav.vue'
 import { defineAsyncComponent, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
+// import { onMounted } from 'vue'
+// import { useUiStore } from '@/stores/ui'
+
+// const ui = useUiStore()
+// onMounted(() => ui.initUi())
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
 

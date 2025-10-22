@@ -419,9 +419,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
           email: state.otherRecipientEmail || undefined
         } : { enabled: false },
         delivery: buildDeliveryPayload(),
-        payment_method: state.paymentMethod, // как ждёт бэкенд в текущем API
+        payment_method: state.paymentMethod,
         comment: state.comment || undefined,
-        // скидки/промо/бонусы — уже учтены на бэке
         items
       }
 
