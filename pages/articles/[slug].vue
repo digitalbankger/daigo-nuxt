@@ -272,9 +272,8 @@ function formatPriceRUB(val: number | string | undefined) {
           </section>
 
           <!-- Полезные материалы -->
-          <section v-if="article?.materials" class="mt-12 border-y border-black/10 py-6 md:py-8">
+          <!-- <section v-if="article?.materials" class="mt-12 border-y border-black/10 py-6 md:py-8">
             <div class="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-              <!-- ЛЕВАЯ КОЛОНКА: материалы -->
               <div class="w-full md:w-8/12">
                 <h2 class="text-xl md:text-product leading-tight font-medium">
                   {{ article!.materials!.title }}
@@ -306,7 +305,6 @@ function formatPriceRUB(val: number | string | undefined) {
                 </Button>
               </div>
 
-              <!-- ПРАВАЯ КОЛОНКА: специалист -->
               <div v-if="article!.materials!.specialist" class="w-full md:w-4/12 flex md:justify-end">
                 <div class="w-full md:w-auto flex flex-row md:flex-col items-start gap-3 md:gap-5">
                   <img
@@ -355,7 +353,7 @@ function formatPriceRUB(val: number | string | undefined) {
                 Скачать все материалы
               </Button>
             </div>
-          </section>
+          </section> -->
 
           <!-- content bottom -->
           <section v-if="article?.contentBottom" class="prose max-w-none mt-12 prose-img:rounded-xl" id="article-bottom">
