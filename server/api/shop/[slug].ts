@@ -56,7 +56,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 109700,
-      oldPrice: 110900,
+      oldPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
