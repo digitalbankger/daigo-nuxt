@@ -1029,16 +1029,12 @@ export default defineEventHandler((event) => {
       composition: {
         title: 'Состав',
         content: `
-          <p class="font-medium">Жидкость в саше-пакетиках по 10 мл, 30 саше в упаковке.</p>
-          <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
-          <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
-            L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
-            L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
-            L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
-            L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016);
-          </p>
-          <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
+          <ul class="list-disc list-inside ml-5 space-y-1">
+            <li>Экстракт из морского гребешка,</li>
+            <li>Коэнзим Q10,</li>
+            <li>Жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси),</li>
+            <li>Соли кальция (агент антислеживающий)</li>
+          </ul>
         `,
         image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
       },

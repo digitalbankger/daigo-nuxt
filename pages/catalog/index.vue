@@ -69,7 +69,7 @@ useHead(() => {
   const isEmpty = 'empty' in query
   const title = isEmpty
     ? 'Товары не найдены — Daigo'
-    : `Подборка: ${filters} — Daigo`
+    : `Каталог: ${filters} — Daigo`
 
   const description = isEmpty
     ? 'По вашему запросу товары не найдены.'
