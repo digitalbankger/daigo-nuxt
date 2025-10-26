@@ -13,6 +13,7 @@ import PromoHero from '~/components/catalog/PromoHero.vue'
 const route = useRoute()
 const router = useRouter()
 const catalogStore = useCatalogStore()
+const { reach } = useAnalytics()
 
 await catalogStore.fetchFilters()
 await catalogStore.fetchCatalogBanner()
@@ -131,10 +132,12 @@ function openChat() {
     if (cq && typeof cq.open === 'function') cq.open()
     else if (cq && typeof cq.toggle === 'function') cq.toggle()
     else console.warn('Carrot quest не найден или не инициализировался')
+    reach('promo_action')
   }
 }
 
 function onContact() {
+  reach('promo_action')
   openChat()
 }
 </script>
@@ -149,7 +152,7 @@ function onContact() {
         primary="Получить предложение"
         secondary="Связаться с менеджером"
         :deadline="'2025-11-02T23:59:59+03:00'"
-        sideNote="Предложение ограничено по времени, до завершения акции осталось:"
+        sideNote="Предложение ограничено по времени, до завершения акции осталось:"
         @primary="openChat"
         @secondary="onContact"
       />

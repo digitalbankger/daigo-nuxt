@@ -1,4 +1,3 @@
-<!-- components/promo/PromoHero.vue -->
 <template>
   <section class="relative overflow-hidden">
     <div class="grid gap-6 md:grid-cols-12 items-start">
