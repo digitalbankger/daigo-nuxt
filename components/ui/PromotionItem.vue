@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { navigateTo } from '#imports'
 import Button from './Button.vue'
 
 type PromoType = 'code' | 'discount' | '2plus1' | 'notice' | 'gift' | string
@@ -27,14 +28,31 @@ const emit = defineEmits<{
 }>()
 
 const ctaText = computed(() => {
+  // Для навигационных акций — логичный CTA
+  if (props.promotion.link) return 'Перейти'
   if (props.isApplied) return 'Отменить акцию'
   if (props.promotion.promo_type === 'code') return 'Применить промокод'
   if (props.promotion.promo_type === 'gift') return 'Получить подарок'
   return 'Смотреть предложение'
 })
 
-function onPrimaryClick() {
+async function goLinkIfNeed(): Promise<boolean> {
+  const link = props.promotion.link?.trim?.()
+  if (!link) return false
+  if (props.busy) return true // игнорируем клик, если идёт действие
+  if (/^https?:\/\//i.test(link)) {
+    await navigateTo(link, { external: true })
+  } else {
+    await navigateTo(link)
+  }
+  return true
+}
+
+async function onPrimaryClick() {
+  // Если это навигационная акция — просто переходим и выходим
+  if (await goLinkIfNeed()) return
   if (props.busy) return
+  // Иначе обычная логика apply/cancel
   props.isApplied ? emit('cancel', props.promotion) : emit('apply', props.promotion)
 }
 
@@ -90,7 +108,7 @@ function onImgError(e: Event) {
           :disabled="busy"
           @click="onPrimaryClick"
         >
-          {{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : ctaText }}
+          {{ busy ? (promotion.link ? 'Переход…' : (isApplied ? 'Отмена…' : 'Применение…')) : ctaText }}
         </Button>
       </div>
     </div>

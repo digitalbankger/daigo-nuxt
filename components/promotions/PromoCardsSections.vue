@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
-import { usePromoStore } from '~/stores/promotionStore'   // ← ваш стор
+import { navigateTo } from '#imports'
+import { usePromoStore } from '~/stores/promotionStore'
 import { useModalStore } from '~/stores/modalStore'
 import PromotionItem from '~/components/ui/PromotionItem.vue'
 
@@ -30,6 +31,17 @@ onMounted(() => {
 
 async function handleApply(promotion: Promotion) {
   try {
+    // 0) Если у акции есть явная ссылка — просто переходим и ничего не показываем
+    const link = (promotion as any)?.link?.trim?.()
+    if (link) {
+      if (/^https?:\/\//i.test(link)) {
+        await navigateTo(link, { external: true })
+      } else {
+        await navigateTo(link)
+      }
+      return // ← НЕТ модалок
+    }
+
     const res: any = await promoStore.apply(promotion as any)
 
     // Для 'discount' стор делает navigateTo — модалка не нужна

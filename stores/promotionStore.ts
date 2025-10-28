@@ -118,7 +118,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       } else {
         navigateTo(url)
       }
-      return
+      return true
     }
 
     // 2) Дальше — старая логика
