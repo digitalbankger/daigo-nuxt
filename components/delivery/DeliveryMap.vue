@@ -37,7 +37,6 @@
               <img src="/icons/clock.svg" /> 
               <span>Часы работы: пн-пт 9:00 – 18:00</span>
             </div>
-
           </div>
 
           <div class="mt-8 w-full">
