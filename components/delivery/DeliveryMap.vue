@@ -21,7 +21,7 @@
           <div class="space-y-4">
             <div class="flex items-start gap-3">
               <div>
-                <p class="text-lg lg:text-2xl my-2 font-normal">Большой московский регион, включая 21, столица 2</p>
+                <p class="text-lg lg:text-2xl my-2 font-normal">г.Москва Большой Сухаревский переулок 21 стр.2</p>
               </div>
             </div>
 
