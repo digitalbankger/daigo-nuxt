@@ -10,6 +10,7 @@ const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
 // --- 1) БАЗОВАЯ КАРТА (СТАРЫЕ → НОВЫЕ) ---
 const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/catalog/': '/novinki/',
+  '/catalog/': '/shop/',
   '/about/': '/history/',
   '/catalog/metabiotik-daigo-lux/': '/catalog/metabiotik/metabiotik-daigo-lux/',
   '/catalog/daigo-dermic/': '/catalog/aminobiotiki/daigo-dermic/',
@@ -76,8 +77,24 @@ function matchesParams(actual: URLSearchParams, required: URLSearchParams) {
   return true
 }
 
+
+
 // ===== ПОДГОТОВКА КАРТ С УЧЁТОМ MODE =====
-const PATH_REDIRECTS = normalizePathMap(MODE === 'oldToNew' ? RAW_PATH_REDIRECTS : invert(RAW_PATH_REDIRECTS))
+const BASE_PATH_REDIRECTS = normalizePathMap(
+  MODE === 'oldToNew' ? RAW_PATH_REDIRECTS : invert(RAW_PATH_REDIRECTS)
+)
+
+// ДОП. АЛИАС: shop → catalog (без дубля ключа в RAW)
+const EXTRA_ALIAS =
+  MODE === 'oldToNew'
+    ? { '/catalog/': '/shop/' }   // чтобы после invert получилось /shop/ → /catalog/
+    : { '/shop/': '/catalog/' }   // при текущем MODE='newToOld' нужно финально /shop/ → /catalog/
+
+const PATH_REDIRECTS = {
+  ...BASE_PATH_REDIRECTS,
+  ...normalizePathMap(EXTRA_ALIAS),
+}
+
 const QUERY_REDIRECTS = MODE === 'oldToNew' ? RAW_QUERY_REDIRECTS : invert(RAW_QUERY_REDIRECTS)
 
 // ===== MIDDLEWARE =====
