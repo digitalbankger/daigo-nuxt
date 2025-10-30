@@ -9,6 +9,7 @@ import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import PromoHero from '~/components/catalog/PromoHero.vue'
+import PromoLeadModal from '~/components/catalog/PromoLeadModal.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -140,6 +141,17 @@ function onContact() {
   reach('promo_action')
   openChat()
 }
+
+const isLeadOpen = ref(false)
+
+function openGiftModal() {
+  isLeadOpen.value = true
+}
+
+function onLeadDone() {
+  isLeadOpen.value = false
+  reach('promo_lead_sent')
+}
 </script>
 
 <template>
@@ -147,14 +159,20 @@ function onContact() {
     <section class="relative w-full">
       <PromoHero
         class="mt-0 sm:mt-8 mb-8 sm:mb-12"
-        title="Ваш персональный бонус уже активен - получить уже сейчас!"
-        subtitle="Дарим подарки до 2.11"
-        primary="Получить предложение"
+        title="Ваш подарок ждет вас - запросить у менеджера!"
+        subtitle="Дарим подарки до 4 ноября"
+        primary="Получить подарок"
         secondary="Связаться с менеджером"
-        :deadline="'2025-11-02T23:59:59+03:00'"
+        :deadline="'2025-11-04T23:59:59+03:00'"
         sideNote="Предложение ограничено по времени, до завершения акции осталось:"
-        @primary="openChat"
+        @primary="openGiftModal"
         @secondary="onContact"
+      />
+      <PromoLeadModal
+        v-model:open="isLeadOpen"
+        title="Получите свой подарок"
+        subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
+        @done="onLeadDone"
       />
       <div class="flex flex-row items-centr justify-between absolute z-0 bottom-0 left-0 text-white">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>

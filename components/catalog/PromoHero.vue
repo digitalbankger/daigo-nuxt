@@ -1,22 +1,44 @@
 <template>
-  <section class="relative overflow-hidden">
+  <section class="relative overflow-hidden bg-gradient-to-r from-[#ffeae5] sm:from-[#ffeae5] to-[#FFF3F8] sm:to-[#FFF3F8] rounded-xl p-6 sm:p-10 lg:p-10">
     <div class="grid gap-6 md:grid-cols-12 items-start">
-      <!-- ЛЕВАЯ ЧАСТЬ -->
       <div class="md:col-span-8 space-y-3 sm:space-y-5">
-        <h1 class="text-2xl sm:text-5xl font-medium !leading-[1.2]">
+        <h1 class="w-full sm:w-8/12 text-[1.4rem] sm:text-4xl text-black font-medium !leading-[1.2]">
           {{ title }}
         </h1>
-        <p v-if="subtitle" class="text-gray-600 max-w-2xl">
+        <p v-if="subtitle" class="text-black/80 text-xl max-w-2xl">
           {{ subtitle }}
         </p>
+          <ClientOnly>
+            <div class="mt-3 grid grid-cols-4 gap-2 text-center w-full sm:w-8/12" aria-live="polite">
+              <div class="rounded-lg bg-gradient-to-r from-[#e29e75] to-[#e5b586] p-1">
+                <div class="text-2xl text-white font-medium tabular-nums">{{ dd }}</div>
+                <div class="text-[11px] text-white">дней</div>
+              </div>
+              <div class="rounded-lg bg-gradient-to-r from-[#e29e75] to-[#e5b586] p-1">
+                <div class="text-2xl text-white font-medium tabular-nums">{{ hh }}</div>
+                <div class="text-[11px] text-white">часов</div>
+              </div>
+              <div class="rounded-lg bg-gradient-to-r from-[#e29e75] to-[#e5b586] p-1">
+                <div class="text-2xl text-white font-medium tabular-nums">{{ mm }}</div>
+                <div class="text-[11px] text-white">мин</div>
+              </div>
+              <div class="rounded-lg bg-gradient-to-r from-[#e29e75] to-[#e5b586] p-1">
+                <div class="text-2xl text-white font-medium tabular-nums">{{ ss }}</div>
+                <div class="text-[11px] text-white">сек</div>
+              </div>
+            </div>
+            <template #fallback>
+              <div class="mt-3 h-[76px] rounded-lg bg-gray-100 animate-pulse" />
+            </template>
+          </ClientOnly>
 
-        <div class="flex flex-wrap gap-3">
+        <div class="hidden sm:flex flex-wrap gap-3">
           <Button
             v-if="primary"
             variant="solid"
             :disabled="busy"
             @click="$emit('primary')"
-            class="w-full sm:w-auto !bg-[#9AFF9F] hover:!bg-hoverbtn !text-black px-5 py-3"
+            class="w-full sm:w-auto !bg-gradient-to-r from-[#75ff7c] to-[#9aff9f] hover:!bg-hoverbtn !text-black px-5 py-3"
           >
             {{ primary }}
           </Button>
@@ -25,58 +47,39 @@
             v-if="secondary"
             :disabled="busy"
             @click="$emit('secondary')"
-            class="w-full sm:w-auto px-5 py-3"
+            class="w-full sm:w-auto px-5 py-3 hover:!bg-gray-100"
           >
             {{ secondary }}
           </Button>
         </div>
       </div>
 
-      <!-- ПРАВАЯ ЧАСТЬ -->
       <aside class="md:col-span-4 md:pl-6">
         <div class="ms-auto w-full sm:w-10/12">
-          <p v-if="sideNote" class="text-center sm:text-left text-sm sm:text-lg mb-3">
-            {{ sideNote }}
-          </p>
 
-          <!-- Таймер -->
-          <ClientOnly>
-            <div
-              class="w-full mt-3 flex flex-row items-center justify-center sm:justify-start gap-2 sm:gap-2"
-              aria-live="polite"
-            >
-              <!-- DAYS -->
-              <div class="flex items-center gap-1">
-                <span
-                  v-for="(d,i) in dDigits"
-                  :key="'d'+i"
-                  class="digit-box"
-                  aria-label="дни"
-                >{{ d }}</span>
-              </div>
-
-              <span class="colon">:</span>
-
-              <!-- HOURS -->
-              <div class="flex items-center gap-1">
-                <span v-for="(h,i) in hDigits" :key="'h'+i" class="digit-box" aria-label="часы">{{ h }}</span>
-              </div>
-
-              <span class="colon">:</span>
-
-              <!-- MINUTES -->
-              <div class="flex items-center gap-1">
-                <span v-for="(m,i) in mDigits" :key="'m'+i" class="digit-box" aria-label="минуты">{{ m }}</span>
-              </div>
-
-            </div>
-
-            <template #fallback>
-              <div class="mt-3 h-[76px] rounded-lg bg-gray-100 animate-pulse" />
-            </template>
-          </ClientOnly>
         </div>
+        <img src="/images/promo-neakciya.png" />
       </aside>
+      <div class="flex flex-wrap gap-3 sm:hidden">
+          <Button
+            v-if="primary"
+            variant="solid"
+            :disabled="busy"
+            @click="$emit('primary')"
+            class="w-full sm:w-auto !bg-gradient-to-r from-[#75ff7c] to-[#9aff9f] hover:!bg-hoverbtn !text-black px-5 py-3"
+          >
+            {{ primary }}
+          </Button>
+
+          <Button
+            v-if="secondary"
+            :disabled="busy"
+            @click="$emit('secondary')"
+            class="w-full sm:w-auto px-5 py-3 hover:!bg-gray-100"
+          >
+            {{ secondary }}
+          </Button>
+        </div>
     </div>
   </section>
 </template>
@@ -159,6 +162,7 @@ onBeforeUnmount(() => {
   @apply text-[#EBEBEB] text-3xl sm:text-4xl select-none px-1;
 }
 </style>
+
 
 
 
