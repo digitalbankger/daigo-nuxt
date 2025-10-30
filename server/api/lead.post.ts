@@ -19,7 +19,9 @@ export default defineEventHandler(async (event) => {
   // @ts-ignore
   globalThis.__leadRate.set(ip, Date.now())
 
-  const base = process.env.B24_WEBHOOK_BASE // например: https://your.bitrix24.ru/rest/ID/TOKEN/
+const { B24_WEBHOOK_BASE } = useRuntimeConfig()
+const base = B24_WEBHOOK_BASE
+ // например: https://your.bitrix24.ru/rest/ID/TOKEN/
   if (!base) throw createError({ statusCode: 500, statusMessage: 'Webhook not configured' })
 
   const url = `${base.replace(/\/+$/, '')}/crm.lead.add.json`
