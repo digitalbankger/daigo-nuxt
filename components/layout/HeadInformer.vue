@@ -16,12 +16,12 @@
           class="w-8 h-8 p-0.5 bg-[#9AFF9F] rounded-lg"
           loading="lazy"
         />
-        <span class="text-sm sm:text-lg font-normal">Даиго дарит подарки - получить уже сейчас!</span>
+        <span class="text-sm sm:text-lg font-normal">Daigo дарит подарки - получить уже сейчас!</span>
       </NuxtLink>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-sm sm:text-lg font-normal">Даиго дарит подарки</span>
+        <span class="text-sm sm:text-lg font-normal">Daigo дарит подарки</span>
         <NuxtLink
           to="/catalog"
           class="sm:hidden inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E]"

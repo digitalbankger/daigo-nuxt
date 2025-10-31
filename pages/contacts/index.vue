@@ -291,7 +291,7 @@ async function submitCallback() {
 
       <div class="text-xl md:text-3xl font-medium mb-0 md:mt-4 md:-mb-6">Реквизиты</div>
       <ul class="text-sm md:text-xl flex flex-col gap-3 md:gap-2">
-        <li class=""> Федоров Дмитрий Вячеславович;</li>
+        <li class="">ООО «МЕТАБИОТИК»;</li>
         <li class="">127051, г. Москва, вн. тер. г. муниципальный округ Мещанский, пер. Большой Сухаревский,  д. 21, стр. 2;</li>
         <li class="">ИНН: 9718234724;</li>
         <li class="">ОГРН: 1237700627988 от 21.09.2023;</li>
