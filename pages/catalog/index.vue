@@ -146,6 +146,7 @@ const isLeadOpen = ref(false)
 
 function openGiftModal() {
   isLeadOpen.value = true
+  reach('promo_action')
 }
 
 function onLeadDone() {
