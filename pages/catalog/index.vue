@@ -8,8 +8,8 @@ import ProductCard from '~/components/catalog/ProductCard.vue'
 import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import PromoHero from '~/components/catalog/PromoHero.vue'
-import PromoLeadModal from '~/components/catalog/PromoLeadModal.vue'
+//import PromoHero from '~/components/catalog/PromoHero.vue'
+//import PromoLeadModal from '~/components/catalog/PromoLeadModal.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -127,38 +127,38 @@ function closeFilters() {
   isFilterModalOpen.value = false
 }
 
-function openChat() {
-  if (typeof window !== 'undefined') {
-    const cq = (window as any).carrotquest
-    if (cq && typeof cq.open === 'function') cq.open()
-    else if (cq && typeof cq.toggle === 'function') cq.toggle()
-    else console.warn('Carrot quest не найден или не инициализировался')
-    reach('promo_action')
-  }
-}
+// function openChat() {
+//   if (typeof window !== 'undefined') {
+//     const cq = (window as any).carrotquest
+//     if (cq && typeof cq.open === 'function') cq.open()
+//     else if (cq && typeof cq.toggle === 'function') cq.toggle()
+//     else console.warn('Carrot quest не найден или не инициализировался')
+//     reach('promo_action')
+//   }
+// }
 
-function onContact() {
-  reach('promo_action')
-  openChat()
-}
+// function onContact() {
+//   reach('promo_action')
+//   openChat()
+// }
 
-const isLeadOpen = ref(false)
+// const isLeadOpen = ref(false)
 
-function openGiftModal() {
-  isLeadOpen.value = true
-  reach('promo_action')
-}
+// function openGiftModal() {
+//   isLeadOpen.value = true
+//   reach('promo_action')
+// }
 
-function onLeadDone() {
-  isLeadOpen.value = false
-  reach('promo_lead_sent')
-}
+// function onLeadDone() {
+//   isLeadOpen.value = false
+//   reach('promo_lead_sent')
+// }
 </script>
 
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <PromoHero
+      <!--<PromoHero
         class="mt-0 sm:mt-8 mb-8 sm:mb-12"
         title="Ваш подарок ждет вас - запросить у менеджера!"
         subtitle="Дарим подарки до 4 ноября"
@@ -174,7 +174,7 @@ function onLeadDone() {
         title="Получите свой подарок"
         subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
         @done="onLeadDone"
-      />
+      />-->
       <div class="flex flex-row items-centr justify-between absolute z-0 bottom-0 left-0 text-white">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>

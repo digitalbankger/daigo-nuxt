@@ -1,7 +1,9 @@
 <template>
-  <HeadInformer />
+  <!-- <HeadInformer /> -->
   <StickyHeader />
-  <nav :class="['py-6', ui.isHeadInformerVisible ? 'mt-14 sm:mt-10' : 'mt-0']">  <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
+  <!-- <nav :class="['py-6', ui.isHeadInformerVisible ? 'mt-14 sm:mt-10' : 'mt-0']">  <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2"> -->
+  <nav class="py-6 mt-0">  
+    <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
     <div class="flex items-center gap-7 shrink-0">
       <NuxtLink to="/" aria-label="Главная">
         <img src="/logo.svg" alt="daigo logo" class="md:h-12 xl:h-16" />
@@ -109,10 +111,10 @@ import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import StickyHeader from '@/components/layout/StickyHeader.vue'
-import HeadInformer from '@/components/layout/HeadInformer.vue'
-import { useUiStore } from '@/stores/ui'
+// import HeadInformer from '@/components/layout/HeadInformer.vue'
+// import { useUiStore } from '@/stores/ui'
 
-const ui = useUiStore()
+// const ui = useUiStore()
 const auth = useAuthStore()
 const { isAuthenticated } = storeToRefs(auth)
 
