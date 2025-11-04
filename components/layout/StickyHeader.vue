@@ -1,7 +1,7 @@
 <template>
   <div
     class="hidden md:block fixed top-0 left-0 right-0 z-[60] transition-transform duration-300 will-change-transform"
-    :class="scrolled ? offsetClass : '-translate-y-full'"
+    :class="scrolled ? 'translate-y-0' : '-translate-y-full'"
     aria-hidden="false"
   >
     <nav class="backdrop-blur bg-white/85 border-b border-gray-200">
@@ -107,11 +107,11 @@ import { useScrolled } from '@/composables/useScrolled'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
-import { useUiStore } from '@/stores/ui'
+//import { useUiStore } from '@/stores/ui'
 
-const ui = useUiStore()
+//const ui = useUiStore()
 
-const offsetClass = computed(() => (ui.isHeadInformerVisible ? 'translate-y-14' : 'translate-y-0'))
+//const offsetClass = computed(() => (ui.isHeadInformerVisible ? 'translate-y-14' : 'translate-y-0'))
 
 const { scrolled } = useScrolled(120)
 
