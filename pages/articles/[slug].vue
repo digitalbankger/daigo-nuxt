@@ -146,11 +146,11 @@ const shareNative = async () => {
 }
 
 const topFive = [
+  { id: 1, slug: 'po-polochkam-printsip-deystviya-daigo', title: 'Принцип действия Daigo', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8 },
+  { id: 4, slug: 'na-chto-vliyaet-mikroflora-kishechnika', title: 'На что влияет микрофлора кищечника', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8  },
+  { id: 5, slug: 'daigo-lux-evolyutsiya-metabiotika-s-vekovoy-istoriey', title: 'Daigo Lux: Эволюция метабиотика с вековой историей', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8 },
   { id: 3, slug: 'sindrom-puteshestvennika', title: 'Синдром путешественника', image: '/images/articles/th.jpg', date: '2025-05-31', time: 6 },
-  { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', image: '/images/articles/sec.jpg', date: '2025-06-24', time: 10 },
-  { id: 1, slug: 'vse-o-koronavirusah', title: 'Все о коронавирусах', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8 },
-  { id: 4, slug: 'vse-o-koronavirusah', title: 'Все о коронавирусах', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8  },
-  { id: 5, slug: 'vse-o-koronavirusah', title: 'Все о коронавирусах', image: '/images/articles/one.jpg', date: '2025-07-15', time: 8 }
+  { id: 2, slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu', title: 'Как подготовить кожу к пляжному сезону?', image: '/images/articles/sec.jpg', date: '2025-06-24', time: 10 }
 ]
 function toUrl(a: { slug: string }) { return `/articles/${a.slug}` }
 const list = topFive.map(i => ({ id: i.id, slug: i.slug, title: i.title, date: i.date, time: i.time }))

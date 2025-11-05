@@ -1,4 +1,3 @@
-// server/middleware/redirects.global.ts
 import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
 
 /** РЕЖИМ КАРТ:
@@ -10,7 +9,6 @@ const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
 // --- 1) БАЗОВАЯ КАРТА (СТАРЫЕ → НОВЫЕ) ---
 const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/catalog/': '/novinki/',
-  '/catalog/': '/shop/',
   '/about/': '/history/',
   '/catalog/metabiotik-daigo-lux/': '/catalog/metabiotik/metabiotik-daigo-lux/',
   '/catalog/daigo-dermic/': '/catalog/aminobiotiki/daigo-dermic/',
