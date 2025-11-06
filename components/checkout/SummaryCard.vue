@@ -6,7 +6,6 @@ import { useUserStore } from '~/stores/userStore'
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
-
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 
 const analytics = useAnalytics()
@@ -40,8 +39,79 @@ const enableCta = computed(() =>
   props.mode === 'checkout' ? true : Boolean(form.fullName.trim() && form.phone.trim())
 )
 
-const authLoading = ref(false)
+// === авторизация: новый инлайн-этап кода в корзине ===
+const authLoading = ref(false)          // оставляем для совместимости, но не используем «пуш-ожидание»
 const preOrderLoading = ref(false)
+const isCodeStep = ref(false)           // показывать ли блок ввода кода в корзине
+
+// 4 квадрата кода
+const codeDigits = ref<string[]>(['', '', '', ''])
+const codeInputs = ref<HTMLInputElement[]>([])
+function setCodeRef(el: HTMLInputElement | null, i: number) { if (el) codeInputs.value[i] = el }
+function focusCode(i: number) { const el = codeInputs.value[i]; if (el) el.focus() }
+const codeValue = computed(() => codeDigits.value.join(''))
+const canSubmitCode = computed(() => codeValue.value.length === 4)
+const digits = (s: string) => s.replace(/\D/g, '')
+
+function onCodeInput(e: Event, i: number) {
+  const el = e.target as HTMLInputElement
+  const v = digits(el.value)
+  if (!v) { codeDigits.value[i] = ''; return }
+  // поддержка вставки сразу "1234"
+  if (v.length > 1) {
+    const arr = v.slice(0, 4).split('')
+    for (let k = 0; k < 4; k++) codeDigits.value[k] = arr[k] ?? ''
+    focusCode(Math.min(3, arr.length - 1))
+    return
+  }
+  codeDigits.value[i] = v
+  if (i < 3) focusCode(i + 1)
+}
+function onCodeKeydown(e: KeyboardEvent, i: number) {
+  const el = e.target as HTMLInputElement
+  if (e.key === 'Backspace' && !el.value && i > 0) {
+    codeDigits.value[i - 1] = ''
+    focusCode(i - 1)
+    e.preventDefault()
+  }
+  if (e.key === 'ArrowLeft' && i > 0) { focusCode(i - 1); e.preventDefault() }
+  if (e.key === 'ArrowRight' && i < 3) { focusCode(i + 1); e.preventDefault() }
+}
+
+function resetCode() {
+  codeDigits.value = ['', '', '', '']
+  authStore.isCodeSent = false
+  isCodeStep.value = false
+}
+
+// отправка кода и верификация
+async function startCodeFlowIfNeeded() {
+  // запускаем отправку кода только если ещё не стартовали
+  if (!authStore.isCodeSent) {
+    await authStore.requestCode({ phone: form.phone, name: form.fullName, isRegister: false })
+  }
+  isCodeStep.value = true
+  setTimeout(() => focusCode(0), 0)
+}
+
+async function verifyAndContinue() {
+  if (!canSubmitCode.value) return
+  await authStore.confirmCode(codeValue.value)
+  // после успешной верификации продолжаем прежний флоу: preOrder -> /order
+  await proceedPreOrderAndGo()
+}
+
+// ===== старый флоу под капотом: preOrder → navigate ====
+async function proceedPreOrderAndGo() {
+  if (preOrderLoading.value) return
+  try {
+    preOrderLoading.value = true
+    await cartStore.preOrder()
+    navigateTo('/order')
+  } finally {
+    preOrderLoading.value = false
+  }
+}
 
 async function prefillFromProfile() {
   if (!authStore.isAuthenticated) return
@@ -71,7 +141,7 @@ function validateFields() {
 
 async function handleCta() {
   if (props.mode === 'checkout') { emit('cta'); return }
-  
+
   analytics?.reach?.('lead_cart')
 
   const ok = validateFields()
@@ -81,16 +151,13 @@ async function handleCta() {
     if (errors.phone) return inputRefs.phone.value?.focus()
     return
   }
+
   if (authStore.isAuthenticated) {
-    if (preOrderLoading.value) return
-    try {
-      preOrderLoading.value = true
-      await cartStore.preOrder()
-      navigateTo('/order')
-    } finally { preOrderLoading.value = false }
+    await proceedPreOrderAndGo()
     return
   }
 
+  // Гостевой лид — как раньше (fire and forget)
   try {
     const sessionId = ensureGuestSessionId()
     sendGuestPreorderFireAndForget({
@@ -98,19 +165,10 @@ async function handleCta() {
       fullName: form.fullName,
       phone: form.phone
     })
-  } catch { /* ошибки игнорим специально */ }
+  } catch { /* игнорим */ }
 
-  // далее — как и было: авторизация → редирект
-  try {
-    authLoading.value = true
-    await authStore.loginOrRegister({
-      phone: form.phone,
-      name: form.fullName,
-      isRegister: false,
-      redirectTo: '/order'
-    })
-  } finally { authLoading.value = false }
-
+  // Теперь вместо "пуш-ожидания" показываем инлайн код и подтверждаем
+  await startCodeFlowIfNeeded()
 }
 
 async function applyCoupon() {
@@ -167,17 +225,62 @@ async function removeCoupon() {
         />
       </div>
 
-      <img v-if="authLoading" src="/public/images/steps.png" class="transition"/>
-      <p v-if="authLoading" class="text-sm text-black/50">Пуш уведомление может идти до 2 минут.</p>
+      <!-- БЫЛО: "ждём подтверждения пуша" — УБРАНО. -->
+      <!-- НОВОЕ: инлайн-ввод кода авторизации -->
+      <div v-if="isCodeStep && !authStore.isAuthenticated" class="space-y-3">
+        <div class="text-sm text-black/60">
+          Мы отправили код на указанный номер.
+        </div>
+        <div class="flex items-center gap-3">
+          <input
+            v-for="(_, i) in 4"
+            :key="i"
+            :ref="el => setCodeRef(el, i)"
+            :value="codeDigits[i]"
+            @input="e => onCodeInput(e, i)"
+            @keydown="e => onCodeKeydown(e as KeyboardEvent, i)"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="1"
+            class="w-14 h-14 text-center text-xl rounded-xl border border-gray-300
+                   focus:outline-none focus:ring-0 focus:border-black"
+          />
+        </div>
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>
+            <button type="button" class="underline" @click="resetCode">Изменить номер</button>
+          </div>
+          <div>
+            <button
+              type="button"
+              class="underline disabled:opacity-50"
+              :disabled="authStore.resendLeft > 0"
+              @click="authStore.resendCode"
+            >
+              Отправить код повторно<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
+            </button>
+          </div>
+        </div>
+        <Button
+          variant="solid"
+          class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
+          :disabled="!canSubmitCode || preOrderLoading"
+          @click="verifyAndContinue"
+        >
+          <span v-if="preOrderLoading">Готовим заказ…</span>
+          <span v-else>Подтвердить</span>
+        </Button>
+      </div>
 
+      <!-- CTA как раньше -->
       <Button
+        v-else
         variant="solid"
         class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
-        :disabled="!enableCta || authLoading || preOrderLoading"
+        :disabled="!enableCta || preOrderLoading"
         @click="handleCta"
       >
-        <span v-if="authLoading">Ждём подтверждения…</span>
-        <span v-else-if="preOrderLoading">Готовим заказ…</span>
+        <span v-if="preOrderLoading">Готовим заказ…</span>
         <span v-else>Перейти к оформлению</span>
       </Button>
     </div>
@@ -202,10 +305,6 @@ async function removeCoupon() {
           <template v-else>0 ₽</template>
         </span>
       </div>
-
-      <!-- <div class="flex justify-between border-t pt-4 text-[#2B77FF]">
-        <span>Бонусов к начислению</span><span class="text-base md:text-lg font-medium">0</span>
-      </div> -->
 
       <div class="flex justify-between font-medium text-xl">
         <span>Итого</span><span>{{ grandTotal.toLocaleString() }} ₽</span>
@@ -234,7 +333,6 @@ async function removeCoupon() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-
           <!--
           <button
             v-if="couponInfo?.applied"
@@ -269,3 +367,8 @@ async function removeCoupon() {
     </div>
   </div>
 </template>
+
+<style scoped>
+/* страховочный сброс аутлайна для некоторых браузеров */
+input:focus { outline: none !important; box-shadow: none !important; }
+</style>

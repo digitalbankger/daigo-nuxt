@@ -2,6 +2,7 @@
 import { ref, computed, reactive } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import UiInput from '@/components/ui/UiInput.vue'
+import Button from '@/components/ui/Button.vue'
 
 const auth = useAuthStore()
 
@@ -12,41 +13,106 @@ const phone = ref('')
 const name = ref('')
 
 const isLoading = ref(false)
-const errors = reactive<{ name: string; phone: string }>({
+const errors = reactive<{ name: string; phone: string; code: string }>({
   name: '',
   phone: '',
+  code: ''
 })
 
 const digits = (v: string) => v.replace(/\D/g, '')
-
 const isPhoneValid = computed(() => digits(phone.value).length >= 11)
 const isNameValid = computed(() => mode.value === 'login' || name.value.trim().length >= 2)
-const canSubmit = computed(() => isPhoneValid.value && isNameValid.value && !isLoading.value)
+const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && !isLoading.value)
 
-function validateName() {
-  errors.name = mode.value === 'register' && !name.value.trim() ? 'Введите имя' : ''
-}
-function validatePhone() {
-  errors.phone = isPhoneValid.value ? '' : 'Введите телефон полностью'
+// ======= ШАГ 2: 4 квадрата кода =======
+const codeDigits = ref<string[]>(['', '', '', ''])
+const inputs = ref<HTMLInputElement[]>([])
+
+function setInputRef(el: HTMLInputElement | null, idx: number) {
+  if (el) inputs.value[idx] = el
 }
 
-const submit = async () => {
+function focusIndex(i: number) {
+  const el = inputs.value[i]
+  if (el) el.focus()
+}
+
+function handleInput(e: Event, idx: number) {
+  const el = e.target as HTMLInputElement
+  const v = el.value.replace(/\D/g, '')
+  if (!v) {
+    codeDigits.value[idx] = ''
+    return
+  }
+  // поддержка вставки сразу 4 цифр
+  if (v.length > 1) {
+    const arr = v.slice(0, 4).split('')
+    for (let i = 0; i < 4; i++) codeDigits.value[i] = arr[i] ?? ''
+    focusIndex(Math.min(3, arr.length - 1))
+    return
+  }
+  codeDigits.value[idx] = v
+  if (idx < 3 && v) focusIndex(idx + 1)
+}
+
+function handleKeydown(e: KeyboardEvent, idx: number) {
+  const el = e.target as HTMLInputElement
+  if (e.key === 'Backspace' && !el.value && idx > 0) {
+    codeDigits.value[idx - 1] = ''
+    focusIndex(idx - 1)
+    e.preventDefault()
+  }
+  if (e.key === 'ArrowLeft' && idx > 0) { focusIndex(idx - 1); e.preventDefault() }
+  if (e.key === 'ArrowRight' && idx < 3) { focusIndex(idx + 1); e.preventDefault() }
+}
+
+const codeValue = computed(() => codeDigits.value.join(''))
+const canSubmitCode = computed(() => codeValue.value.length === 4 && !isLoading.value)
+
+function validateName() { errors.name = isNameValid.value ? '' : 'Минимум 2 символа' }
+function validatePhone() { errors.phone = isPhoneValid.value ? '' : 'Введите телефон полностью' }
+function validateCode() { errors.code = canSubmitCode.value ? '' : 'Введите 4 цифры' }
+
+async function submitPhone() {
   validateName()
   validatePhone()
-  if (!canSubmit.value) return
-
+  if (!canSubmitPhone.value) return
   isLoading.value = true
   try {
-    await auth.loginOrRegister({
-      phone: phone.value,     // в сторе уже чистим до цифр
-      name: name.value.trim(),
-      isRegister: mode.value === 'register'
-    })
+    await auth.requestCode({ phone: phone.value, name: name.value.trim(), isRegister: mode.value === 'register' })
+    // при переходе на шаг кода сразу фокус на 1-й инпут
+    setTimeout(() => focusIndex(0), 0)
   } catch (e) {
     console.error(e)
   } finally {
     isLoading.value = false
   }
+}
+
+async function submitCode() {
+  validateCode()
+  if (!canSubmitCode.value) return
+  isLoading.value = true
+  try {
+    await auth.confirmCode(codeValue.value /*, опц. redirectTo */)
+  } catch (e) {
+    console.error(e)
+  } finally {
+    isLoading.value = false
+  }
+}
+
+function changePhone() {
+  auth.isCodeSent = false
+  codeDigits.value = ['', '', '', '']
+  setTimeout(() => {
+    const tel = document.querySelector<HTMLInputElement>('input[name="phone"]')
+    tel?.focus()
+  }, 0)
+}
+
+async function resend() {
+  await auth.resendCode()
 }
 </script>
 
@@ -54,29 +120,24 @@ const submit = async () => {
   <div class="space-y-6">
     <h1 class="text-3xl lg:text-4xl font-medium">Войти или создать профиль</h1>
     <p class="text-base lg:text-xl">
-      После входа вы сможете заказывать товары с бесплатной доставкой и отслеживать историю заказов.
+      После входа вы сможете заказывать товары и отслеживать историю заказов.
     </p>
 
-    <!-- tabs -->
-    <div class="inline-flex rounded-xl bg-gray-100 p-1">
-      <button
-        class="px-4 py-2 rounded-lg transition"
-        :class="mode==='login' ? 'bg-white shadow font-medium' : 'text-gray-600'"
-        @click="mode='login'"
-      >
-        Вход
-      </button>
-      <button
-        class="px-4 py-2 rounded-lg transition"
-        :class="mode==='register' ? 'bg-white shadow font-medium' : 'text-gray-600'"
-        @click="mode='register'"
-      >
-        Регистрация
-      </button>
-    </div>
+    <!-- Шаг 1: телефон/имя -->
+    <form v-if="!auth.isCodeSent" class="space-y-4" @submit.prevent="submitPhone">
+      <div class="inline-flex rounded-xl bg-gray-100 p-1">
+        <button
+          class="px-4 py-2 rounded-lg transition"
+          :class="mode==='login' ? 'bg-white shadow font-medium' : 'text-gray-600'"
+          @click.prevent="mode='login'"
+        >Вход</button>
+        <button
+          class="px-4 py-2 rounded-lg transition"
+          :class="mode==='register' ? 'bg-white shadow font-medium' : 'text-gray-600'"
+          @click.prevent="mode='register'"
+        >Регистрация</button>
+      </div>
 
-    <form class="space-y-4" @submit.prevent="submit">
-      <!-- Имя — только для регистрации -->
       <UiInput
         v-if="mode==='register'"
         v-model="name"
@@ -87,10 +148,9 @@ const submit = async () => {
         :error="errors.name"
         background="bg-white"
         @blur="validateName"
-        @enter="submit"
+        @enter="submitPhone"
       />
 
-      <!-- Телефон -->
       <UiInput
         v-model="phone"
         name="phone"
@@ -102,30 +162,74 @@ const submit = async () => {
         :error="errors.phone"
         background="bg-white"
         @blur="validatePhone"
-        @enter="submit"
+        @enter="submitPhone"
       />
 
-      <img v-if="isLoading" src="/public/images/steps.png" class="transition"/>
-      <p v-if="isLoading" class="text-sm text-black/50">Пуш уведомление может идти до 2 минут.</p>
-
-      <button
-        class="w-full inline-flex items-center justify-center rounded-xl px-4 py-3 text-lg font-medium bg-primary text-white hover:bg-primary/90 transition disabled:opacity-60 disabled:cursor-not-allowed"
-        :disabled="!canSubmit"
-        @click.prevent="submit"
-      >
-        <span v-if="!isLoading">{{ mode === 'login' ? 'Войти' : 'Зарегистрироваться' }}</span>
+      <Button :variant="'solid'" class="w-full" :disabled="!canSubmitPhone || isLoading" @click="submitPhone">
+        <span v-if="!isLoading">{{ mode === 'login' ? 'Получить код' : 'Зарегистрироваться и получить код' }}</span>
         <span v-else class="inline-flex items-center gap-2">
           <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="4" opacity=".25"/>
             <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" fill="none"/>
           </svg>
-          Ждём подтверждения…
+          Отправляем код…
         </span>
-      </button>
+      </Button>
 
       <p class="text-xs text-gray-500">
-        Нажимая кнопку, вы даёте согласие на сбор, обработку и хранение персональных данных.
+        Нажимая кнопку, вы даёте согласие на обработку персональных данных.
       </p>
+    </form>
+
+    <!-- Шаг 2: ввод кода (4 квадрата) -->
+    <form v-else class="space-y-4" @submit.prevent="submitCode">
+      <p class="text-base">Мы отправили код на указанный номер.</p>
+
+      <div class="flex items-center gap-3">
+        <input
+          v-for="(_, i) in 4" :key="i"
+          :ref="el => setInputRef(el as HTMLInputElement, i)"
+          :value="codeDigits[i]"
+          @input="e => handleInput(e as InputEvent, i)"
+          @keydown="e => handleKeydown(e as KeyboardEvent, i)"
+          inputmode="numeric"
+          autocomplete="one-time-code"
+          maxlength="1"
+          class="w-14 h-14 text-center text-xl rounded-xl border border-gray-300 focus:outline-none focus:ring-0 focus:border-black"
+        />
+      </div>
+      <p v-if="errors.code" class="text-sm text-red-600">{{ errors.code }}</p>
+
+      <div class="flex gap-2">
+        <Button :variant="'solid'" class="flex-1" type="submit" :disabled="!canSubmitCode || isLoading">
+          <span v-if="!isLoading">Подтвердить</span>
+          <span v-else class="inline-flex items-center gap-2">
+            <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="4" opacity=".25"/>
+              <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" fill="none"/>
+            </svg>
+            Проверяем…
+          </span>
+        </Button>
+      </div>
+
+      <div class="text-sm text-gray-600 space-y-1">
+        <div>
+          <button type="button" class="underline" @click="changePhone">
+            Изменить номер
+          </button>
+        </div>
+        <div>
+          <button
+            type="button"
+            class="underline disabled:opacity-50"
+            :disabled="auth.resendLeft > 0"
+            @click="resend"
+          >
+            Отправить код повторно<span v-if="auth.resendLeft > 0"> ({{ auth.resendLeft }})</span>
+          </button>
+        </div>
+      </div>
     </form>
   </div>
 </template>
