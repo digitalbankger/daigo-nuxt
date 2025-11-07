@@ -167,6 +167,14 @@ async function submitCallback() {
             <span>Телефон: 8 800 555 20 43</span>
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/phone.svg" class="w-5 md:w-6"/>
+            <span>Телефон PR службы: 8 906 051 55 60</span>
+          </div>
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
+            <img src="/icons/phone.svg" class="w-5 md:w-6"/>
+            <span>Телефон HR службы: 8 903 599 20 63</span>
+          </div>
+          <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6"/> 
             <span>Email: info@daigo.ru</span>
           </div>
