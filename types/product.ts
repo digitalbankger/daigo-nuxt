@@ -34,6 +34,7 @@ export interface ProductUsage {
 }
 
 export interface ProductImage {
+  src: any
   image_url: string
   is_primary: boolean
   display_order: number
