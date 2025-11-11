@@ -1,4 +1,3 @@
-// plugins/ym.client.ts
 import { defineNuxtPlugin, useRuntimeConfig, useRouter } from '#imports'
 
 // ВАЖНО: не дублируем глобальные типы, если они уже есть в types/analytics.d.ts.
