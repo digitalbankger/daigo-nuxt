@@ -4,8 +4,8 @@
       class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer h-full flex flex-col"
       role="link"
       tabindex="0"
-      @click="navigate"
-      @keydown.enter.space="navigate"
+      @click="onOpen(navigate)"
+      @keydown.enter.space="onOpen(navigate)"
       aria-label="Открыть страницу товара"
     >
       <!-- изображение -->
@@ -89,6 +89,8 @@
 import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import { computed } from 'vue'
+import { useYtm } from '@/composables/useYtm'
+const ytm = useYtm()
 
 const { product, index, globalIndex, isLast } = defineProps<{
   product: ProductCard
@@ -121,6 +123,17 @@ function addToCartHandler() {
     // meta: { preorder: isPreorder.value } // если нужно
   })
 }
+
+function onOpen(navigate: () => void) {
+  ytm.productClick({
+    id: product.product_id ?? product.product_id,
+    name: product.name,
+    price: Number(product.price) || 0,
+    category: product.tag
+  }, 'catalog')
+  navigate()
+}
+
 function incrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value + 1)
 }

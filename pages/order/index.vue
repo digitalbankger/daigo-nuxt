@@ -4,11 +4,43 @@ import { defineAsyncComponent } from 'vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import { useCartOrderStore } from '~/stores/cartOrderStore'
 import OrderItemsStrip from '@/components/checkout/OrderItemsStrip.vue'
+import { onMounted, watch } from 'vue'
+import { useYtm } from '@/composables/useYtm'
+const ytm = useYtm()
 
 const cart = useCartOrderStore()
 if (!cart.state.items.length) {
   await cart.loadCart()
 }
+
+onMounted(() => {
+  ytm.beginCheckout({
+    step: 1,
+    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty, category: i.tag })),
+    value: cart.total,
+    currency: 'RUB'
+  })
+})
+
+// отслеживаем выбор доставки/оплаты
+watch(() => store.state.deliveryId, (v) => {
+  ytm.checkoutProgress({
+    step: 2,
+    option: `delivery:${String(v)}`,
+    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
+    value: cart.total, currency: 'RUB'
+  })
+})
+
+watch(() => store.state.paymentMethod, (v) => {
+  ytm.checkoutProgress({
+    step: 3,
+    option: `payment:${String(v)}`,
+    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
+    value: cart.total, currency: 'RUB'
+  })
+})
+
 
 definePageMeta({ layout: 'main' })
 

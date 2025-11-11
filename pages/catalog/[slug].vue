@@ -245,6 +245,8 @@ import ProductProductionSection from '~/components/product/ProductProductionSect
 import ProductStickyCartPopup from '~/components/product/ProductStickyCartPopup.vue'
 import CertificateProductPage from '~/components/product/certificate/CertificateProductPage.vue'
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
+import { useYtm } from '@/composables/useYtm'
+const ytm = useYtm()
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -258,6 +260,19 @@ const isCertificate = computed(() =>
   product.value?.type === 'certificate' ||
   product.value?.category === 'certificate'
 )
+
+onMounted(() => {
+  const p = product.value as any
+  if (!p) return
+  ytm.viewDetail({
+    product: {
+      id: p.id ?? p.product_id,
+      name: p.title ?? p.name,
+      price: Number(p.price) || 0,
+      category: p.tag
+    }
+  })
+})
 
 // хлебные крошки / JSON-LD
 const { breadcrumbs, jsonLd } = useBreadcrumbs(product, '/catalog')

@@ -4,6 +4,7 @@ import { useRuntimeConfig, navigateTo } from '#imports'
 import { useCartStore } from '@/stores/cartStore'
 import { useAuthStore } from '@/stores/authStore'
 import type { ApiPromotionItem, Promotion } from '~/types/promo'
+import { useYtm } from '@/composables/useYtm'
 
 type PromotionEx = Promotion & {
   is_applied?: boolean
@@ -17,6 +18,7 @@ type PromotionEx = Promotion & {
 export const usePromoStore = defineStore('promoStore', () => {
   const auth = useAuthStore()
   const cart = useCartStore()
+  const ytm = useYtm()
 
   // state
   const promotions = ref<PromotionEx[]>([])
@@ -112,6 +114,7 @@ export const usePromoStore = defineStore('promoStore', () => {
   try {
     // 1) Если задан явный линк — идём по нему и выходим
     if (promo.link) {
+      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
       const url = String(promo.link)
       if (/^https?:\/\//i.test(url)) {
         navigateTo(url, { external: true })
@@ -128,6 +131,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
       await cart.applyCoupon(promo.coupon || '')
       await loadPromotions()
+      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
       return true
     }
 
@@ -135,6 +139,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       if (!promo.product_id) throw new Error('Не передан product_id для 2+1')
       await cart.apply2plus1(promo.product_id)
       await loadPromotions()
+      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
       return true
     }
 
@@ -170,6 +175,10 @@ export const usePromoStore = defineStore('promoStore', () => {
     isApplying.value = true
 
     try {
+      const prev =
+        (typeof promo === 'object' ? promo : promotions.value.find(p => p.id === id)) ||
+        appliedPromotion.value ||
+        null
       await $fetch(`${apiOrigin()}/v1/shop/promotion/cancel?${ident.key}=${encodeURIComponent(ident.value)}`, {
         method: 'DELETE',
         body: { promo_id: id },            // <— новый формат
@@ -179,6 +188,10 @@ export const usePromoStore = defineStore('promoStore', () => {
       // синхронизируем корзину и список акций
       try { await cart.loadCart() } catch {}
       await loadPromotions()
+       try {
+        const label = String(prev?.coupon || prev?.title || id)
+        ytm.promoRemove(label)
+      } catch {}
     } catch (e) {
       console.error('[promo] cancel error', e)
     } finally {
@@ -203,120 +216,3 @@ export const usePromoStore = defineStore('promoStore', () => {
   }
 })
 
-
-
-
-
-// import { defineStore } from 'pinia'
-// import { useRuntimeConfig, navigateTo } from '#imports'
-// import { useCartStore } from '@/stores/cartStore'
-// import type { ApiPromotionItem, Promotion } from '~/types/promo'
-
-// export const usePromoStore = defineStore('promoStore', {
-  
-//   state: () => ({
-//     promotions: [] as Promotion[],
-//     appliedPromotion: null as Promotion | null,
-//     isLoading: false as boolean,
-//     error: null as string | null,
-//     isApplying: false as boolean,
-//   }),
-
-//   actions: {
-//     apiOrigin(): string {
-//       const cfg = useRuntimeConfig()
-//       const envOrigin = (cfg.public as any)?.externalApiOrigin as string | undefined
-//       return envOrigin && /^https?:\/\//i.test(envOrigin)
-//         ? envOrigin.replace(/\/+$/, '')
-//         : 'https://api.daigo.ru'
-//     },
-
-//     normalizeImage(path?: string | null): string {
-//       if (!path) return ''
-//       if (/^https?:\/\//i.test(path)) return path
-//       return `${this.apiOrigin()}${path.startsWith('/') ? '' : '/'}${path}`
-//     },
-
-//     mapApi(item: ApiPromotionItem): Promotion {
-//       const first = item.related_products?.[0]
-//       return {
-//         id: item.id,
-//         title: item.name,
-//         description: item.description,
-//         image: this.normalizeImage(item.banner_url),
-//         coupon: item.coupon,
-//         discount: item.discount ?? null,
-//         label: item.lable ?? null,
-//         promo_type: item.promo_type,
-//         related_products: item.related_products ?? [],
-//         product_id: first?.product_id ?? null,
-//         product_slug: first?.url_cpu ?? null,
-//       }
-//     },
-
-//     async loadPromotions() {
-//       if (this.isLoading) return
-//       this.isLoading = true
-//       this.error = null
-//       try {
-//         const url = `${this.apiOrigin()}/v1/shop/promotion`
-//         const { data, error } = await useFetch<ApiPromotionItem[]>(url, { method: 'GET' })
-//         if (error.value) throw error.value
-//         this.promotions = (data.value ?? []).map(this.mapApi)
-//       } catch (e: any) {
-//         console.error('Ошибка загрузки акций:', e)
-//         this.error = e?.message || 'Не удалось загрузить акции'
-//         this.promotions = []
-//       } finally {
-//         this.isLoading = false
-//       }
-//     },
-
-//     async apply(promo: Promotion) {
-//       const cart = useCartStore()
-
-//       // Промокод
-//       if (promo.promo_type === 'code') {
-//         await cart.ensureLoaded()
-//         const hasItems = cart.items.length > 0 || (cart.subtotal ?? 0) > 0
-//         if (!hasItems) {
-//           throw new Error('Сначала добавьте товар в корзину')
-//         }
-//         this.isApplying = true
-//         try {
-//           const res = await cart.applyCoupon(promo.coupon || '')
-//           this.appliedPromotion = promo
-//           return res
-//         } finally {
-//           this.isApplying = false
-//         }
-//       }
-
-//       // 2+1
-//       if (promo.promo_type === '2plus1') {
-//         const productId = promo.product_id
-//         if (!productId) throw new Error('Не передан product_id для 2+1')
-//         this.isApplying = true
-//         try {
-//           const res = await cart.apply2plus1(productId, Number(promo.id))
-//           this.appliedPromotion = promo
-//           return res
-//         } finally {
-//           this.isApplying = false
-//         }
-//       }
-
-//       // discount → если есть связанный товар — ведём на него
-//       if (promo.promo_type === 'discount' && promo.product_slug) {
-//         navigateTo(`/catalog/${promo.product_slug}`)
-//         return
-//       }
-
-//       // notice/прочее → каталог
-//       navigateTo('/catalog')
-//     },
-
-//     setApplied(p: Promotion | null) { this.appliedPromotion = p },
-//     clearPromotion() { this.appliedPromotion = null },
-//   },
-// })

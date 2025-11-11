@@ -8,6 +8,8 @@ import ProductCard from '~/components/catalog/ProductCard.vue'
 import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import { useYtm } from '@/composables/useYtm'
+const ytm = useYtm()
 //import PromoHero from '~/components/catalog/PromoHero.vue'
 //import PromoLeadModal from '~/components/catalog/PromoLeadModal.vue'
 
@@ -61,6 +63,22 @@ watchEffect(async () => {
     router.replace({ query: { ...route.query, empty: '1' } })
   }
 })
+
+// Yandex TagManager
+watchEffect(() => {
+  const list = visibleProducts.value
+  if (!list?.length) return
+  ytm.viewListing({
+    list_id: route.path,
+    products: list.map(p => ({
+      id: p.product_id,
+      name: p.name,
+      price: Number(p.price) || 0,
+      category: p.tag
+    }))
+  })
+})
+// Yandex TagManager end
 
 useHead(() => {
   const query = route.query

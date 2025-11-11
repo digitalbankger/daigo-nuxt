@@ -5,6 +5,10 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 
 import { useCartStore } from '~/stores/cartStore'
 import { useCartOrderStore, type CartItem as OrderItem } from '~/stores/cartOrderStore'
+import { onMounted } from 'vue'
+import { useYtm } from '@/composables/useYtm'
+const ytm = useYtm()
+
 
 definePageMeta({
   layout: 'main',
@@ -22,6 +26,18 @@ const orderStore = useCartOrderStore()
 /* Мгновенно триггерим запрос корзины на клиенте, без ожидания mounted */
 if (import.meta.client) {
   void cartStore.loadCart()
+
+  onMounted(async () => {
+  await cartStore.ensureLoaded?.()
+    ytm.viewCart({
+      products: cartStore.items.map(i => ({
+        id: i.id, name: i.title, price: i.price, quantity: i.quantity, category: i.tag
+      })),
+      value: cartStore.total ?? cartStore.subtotal ?? 0,
+      currency: 'RUB'
+    })
+  })
+
 }
 
 /* Синхронизация с cartOrderStore */

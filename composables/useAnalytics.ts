@@ -1,4 +1,6 @@
+// composables/useAnalytics.ts
 import { useRuntimeConfig } from '#imports'
+import { useYtm } from '@/composables/useYtm'
 
 export interface AnalyticsProduct {
   id: string | number
@@ -18,6 +20,7 @@ export interface AnalyticsOrder {
 export function useAnalytics() {
   const { public: { ymCounterId } } = useRuntimeConfig()
   const counterId = Number(ymCounterId)
+  const ytm = useYtm()
 
   const ymCall = (...args: any[]) => {
     if (process.client && typeof window !== 'undefined' && typeof (window as any).ym === 'function') {
@@ -25,6 +28,7 @@ export function useAnalytics() {
     }
   }
 
+  // --- НЕ eCom: оставляем как было ---
   function hit(path?: string, title?: string) {
     if (!counterId) return
     const p = path ?? (process.client ? location.pathname + location.search : '')
@@ -36,54 +40,42 @@ export function useAnalytics() {
     ymCall(counterId, 'reachGoal', goal, params || {})
   }
 
-  function ecommercePush(payload: any) {
-    if (!process.client) return
-    ;(window as any).dataLayer = (window as any).dataLayer || []
-    ;(window as any).dataLayer.push({ ecommerce: payload })
+  // ─────────────────────────────────────────────────────────────
+  // Удалено: ecommercePush(...) — больше не пушим eCom вручную.
+  // Весь eCom идёт ТОЛЬКО через useYtm() → dataLayer.
+  // ─────────────────────────────────────────────────────────────
+
+  // --- eCom события → ТОЛЬКО в Tag Manager через useYtm() ---
+  function addToCart(p: AnalyticsProduct) {
+    ytm.addToCart({
+      id: String(p.id),
+      name: p.name,
+      price: Number(p.price),
+      quantity: Number(p.quantity),
+      ...(p.category ? { category: p.category } : {})
+    })
+    // Если вдруг захочешь параллельно цель в Метрику — раскомментируй:
+    // reach('add_to_cart', { product_id: String(p.id), price: Number(p.price), quantity: Number(p.quantity) })
   }
 
-  function addToCart(p: AnalyticsProduct) {
-    ecommercePush({
-      add: { products: [{
+  function purchase(o: AnalyticsOrder) {
+    ytm.purchase({
+      id: String(o.id),
+      value: Number(o.revenue),
+      currency: o.currency || 'RUB',
+      products: o.products.map(p => ({
         id: String(p.id),
         name: p.name,
         price: Number(p.price),
         quantity: Number(p.quantity),
         ...(p.category ? { category: p.category } : {})
-      }]}
+      }))
     })
-    // параллельно шлём явную цель для наглядной конверсии
-    reach('add_to_cart', {
-      product_id: String(p.id),
-      price: Number(p.price),
-      quantity: Number(p.quantity)
-    })
+    // Если понадобятся цели в Метрике — раскомментируй:
+    // reach('purchase', { order_id: String(o.id), revenue: Number(o.revenue), currency: o.currency || 'RUB' })
   }
 
-  function purchase(o: AnalyticsOrder) {
-    ecommercePush({
-      purchase: {
-        actionField: {
-          id: String(o.id),
-          revenue: Number(o.revenue),
-          currency: o.currency || 'RUB'
-        },
-        products: o.products.map(p => ({
-          id: String(p.id),
-          name: p.name,
-          price: Number(p.price),
-          quantity: Number(p.quantity),
-          ...(p.category ? { category: p.category } : {})
-        }))
-      }
-    })
-    reach('purchase', {
-      order_id: String(o.id),
-      revenue: Number(o.revenue),
-      currency: o.currency || 'RUB'
-    })
-  }
-
+  // --- не eCom, оставляем как было ---
   function phoneClick(source: 'header' | 'other' = 'other') {
     reach(source === 'header' ? 'header_phone_click' : 'call_click')
   }
@@ -92,5 +84,6 @@ export function useAnalytics() {
     reach('form_submit', { form: formName || 'unknown' })
   }
 
-  return { hit, reach, ecommercePush, addToCart, purchase, phoneClick, formSubmit }
+  // ВОЗВРАЩАЕМ БЕЗ ecommercePush
+  return { hit, reach, addToCart, purchase, phoneClick, formSubmit }
 }
