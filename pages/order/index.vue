@@ -16,7 +16,8 @@ if (!cart.state.items.length) {
 onMounted(() => {
   ytm.beginCheckout({
     step: 1,
-    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty, category: i.tag })),
+    option: 'begin',
+    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
     value: cart.total,
     currency: 'RUB'
   })

@@ -3,7 +3,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 
 const title = 'Пользовательское соглашение'
 const description = 'Официальная редакция Пользовательского соглашения сайта daigo.ru.'
-const canonical = 'https://daigo.ru/legal/user-agreement'
+const canonical = 'https://daigo.ru/user-agreement'
 definePageMeta({ layout: 'main' })
 
 useHead({

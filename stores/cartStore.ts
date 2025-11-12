@@ -205,8 +205,8 @@ export const useCartStore = defineStore('cart', () => {
           name: item.title,
           price: Number(item.price) || 0,
           quantity: Number(item.quantity) || 1,
-          category: item.tag
-        })
+          ...(item.tag ? { variant: [item.tag] } : {})
+        }, 'cart')
         // цели Метрики через useAnalytics оставляем как было (если используются)
       } catch {
         // no-op
@@ -248,20 +248,20 @@ export const useCartStore = defineStore('cart', () => {
         try {
           if (delta > 0) {
             ytm.addToCart({
-              id: String(id),
-              name: after.title || '',
+              id: String(after.id),
+              name: after.title,
               price: Number(after.price) || 0,
-              quantity: delta,
-              category: after.tag
-            })
+              quantity: Number(after.quantity) || 1,
+              ...(after.tag ? { variant: [after.tag] } : {})
+            }, 'cart')
           } else if (delta < 0) {
             ytm.removeFromCart({
-              id: String(id),
-              name: after.title || '',
+              id: String(after.id),
+              name: after.title,
               price: Number(after.price) || 0,
-              quantity: Math.abs(delta),
-              category: after.tag
-            })
+              quantity: Number(after.quantity) || 1,
+              ...(after.tag ? { variant: [after.tag] } : {})
+            }, 'cart')
           }
         } catch {
           // no-op
@@ -285,13 +285,13 @@ export const useCartStore = defineStore('cart', () => {
     } finally {
       if (removed && process.client) {
         try {
-          ytm.removeFromCart({
+           ytm.removeFromCart({
             id: String(removed.id),
-            name: removed.title,
-            price: Number(removed.price) || 0,
-            quantity: Number(removed.quantity) || 1,
-            category: removed.tag
-          })
+              name: removed.title,
+              price: Number(removed.price) || 0,
+              quantity: Number(removed.quantity) || 1,
+              ...(removed.tag ? { variant: [removed.tag] } : {})
+            }, 'cart')
         } catch {
           // no-op
         }

@@ -7,7 +7,6 @@ import { createOrder } from '~/services/orderService'
 import { navigateTo } from '#imports'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
-const ytm = useYtm()
 
 // Типы способов (используются в UI и для PaymentSelector)
 export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
@@ -445,12 +444,21 @@ export const useCheckoutStore = defineStore('checkout', () => {
               }))
             const revenue = Number.isFinite(Number(cart.total)) ? Number(cart.total) : 0
 
-            ytm.purchase({
-              id: String(orderId),
-              value: revenue,
+            analytics.purchase({
+              id: orderId,
+              revenue,
               currency: 'RUB',
-              coupon: (cart as any)?.couponInfo?.code || undefined,
               products
+            })
+
+           const ytm = useYtm()
+            ytm.purchase({
+              currency: 'RUB',
+              id: orderId,
+              revenue,
+              shipping: 0,
+              items: products,
+              payment_type: state.paymentMethod
             })
 
             localStorage.setItem(sentKey, '1')

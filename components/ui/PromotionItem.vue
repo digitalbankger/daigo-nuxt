@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { navigateTo } from '#imports'
 import Button from './Button.vue'
+import { useYtm } from '@/composables/useYtm'
 
 type PromoType = 'code' | 'discount' | '2plus1' | 'notice' | 'gift' | string
 interface Promotion {
@@ -11,24 +12,25 @@ interface Promotion {
   image: string
   coupon?: string | null
   promo_type: PromoType
-  link?: string | null   
+  link?: string | null
 }
 
 const props = withDefaults(defineProps<{
   promotion: Promotion
-  /** активна ли акция у пользователя (с бэка is_applied) */
   isApplied?: boolean
-  /** идёт применение/отмена именно этой карточки */
   busy?: boolean
-}>(), { isApplied: false, busy: false })
+  /** позиция карточки в общем списке (с 0), чтобы отправлять position */
+  index?: number
+}>(), { isApplied: false, busy: false, index: 0 })
 
 const emit = defineEmits<{
   (e: 'apply', promotion: Promotion): void
   (e: 'cancel', promotion: Promotion): void
 }>()
 
+const ytm = useYtm()
+
 const ctaText = computed(() => {
-  // Для навигационных акций — логичный CTA
   if (props.promotion.link) return 'Перейти'
   if (props.isApplied) return 'Отменить акцию'
   if (props.promotion.promo_type === 'code') return 'Применить промокод'
@@ -36,23 +38,37 @@ const ctaText = computed(() => {
   return 'Смотреть предложение'
 })
 
+function toYtmPromo() {
+  return {
+    id: String(props.promotion.id),
+    name: props.promotion.title,
+    creative: 'grid',                   // тот же тип носителя, что и на странице
+    position: String((props.index ?? 0) + 1),
+  }
+}
+
 async function goLinkIfNeed(): Promise<boolean> {
   const link = props.promotion.link?.trim?.()
   if (!link) return false
-  if (props.busy) return true // игнорируем клик, если идёт действие
-  if (/^https?:\/\//i.test(link)) {
-    await navigateTo(link, { external: true })
-  } else {
-    await navigateTo(link)
-  }
+  if (props.busy) return true
+
+  // --- YTM: promo_click перед переходом ---
+  ytm.promoClick([toYtmPromo()])
+
+  if (/^https?:\/\//i.test(link)) await navigateTo(link, { external: true })
+  else await navigateTo(link)
   return true
 }
 
 async function onPrimaryClick() {
-  // Если это навигационная акция — просто переходим и выходим
+  // Навигационная акция
   if (await goLinkIfNeed()) return
   if (props.busy) return
-  // Иначе обычная логика apply/cancel
+
+  // --- YTM: promo_click при CTA не-навигационной акции ---
+  ytm.promoClick([toYtmPromo()])
+
+  // Обычная логика apply/cancel
   props.isApplied ? emit('cancel', props.promotion) : emit('apply', props.promotion)
 }
 
@@ -64,7 +80,7 @@ async function copyCoupon() {
 
 function onImgError(e: Event) {
   const img = e.target as HTMLImageElement
-  img.onerror = null // предотвратить бесконечные запросы
+  img.onerror = null
   img.src = '/images/placeholder-promo.jpg'
 }
 </script>

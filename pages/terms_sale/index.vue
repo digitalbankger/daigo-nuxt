@@ -3,7 +3,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 
 const title = 'Условия продажи товаров'
 const description = 'Полный текст Условий продажи товаров сайта daigo.ru.'
-const canonical = 'https://daigo.ru/legal/sale-terms'
+const canonical = 'https://daigo.ru/sale-terms'
 definePageMeta({ layout: 'main' })
 
 useHead({

@@ -114,7 +114,6 @@ export const usePromoStore = defineStore('promoStore', () => {
   try {
     // 1) Если задан явный линк — идём по нему и выходим
     if (promo.link) {
-      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
       const url = String(promo.link)
       if (/^https?:\/\//i.test(url)) {
         navigateTo(url, { external: true })
@@ -131,7 +130,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
       await cart.applyCoupon(promo.coupon || '')
       await loadPromotions()
-      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
+      try { ytm.promoApply(String(promo.coupon)) } catch {}
       return true
     }
 
@@ -139,7 +138,7 @@ export const usePromoStore = defineStore('promoStore', () => {
       if (!promo.product_id) throw new Error('Не передан product_id для 2+1')
       await cart.apply2plus1(promo.product_id)
       await loadPromotions()
-      try { ytm.promoApply(String(promo.coupon || promo.title || promo.id)) } catch {}
+      try { ytm.promoApply(String(promo.promo_type)) } catch {}
       return true
     }
 

@@ -5,14 +5,35 @@ import PromoCardsSections from '~/components/promotions/PromoCardsSections.vue'
 import LoyaltySection from '~/components/promotions/LoyaltySection.vue'
 import SertificatesSection from '~/components/promotions/SertificatesSection.vue'
 import { usePromoStore } from '~/stores/promotionStore'
+import { useYtm } from '@/composables/useYtm'
+import { onMounted, computed } from 'vue'
 
 definePageMeta({ layout: 'main' })
 
-// загружаем акции на уровне страницы (SSR/CSR)
 const promoStore = usePromoStore()
 await useAsyncData('promotions:list', () => promoStore.loadPromotions())
-// если хотите не блокировать рендер — можно так:
-// await useAsyncData('promotions:list', () => promoStore.loadPromotions(), { lazy: true })
+
+// --- YTM: promo_view ---
+const ytm = useYtm()
+const promotions = computed(() => promoStore.promotions || [])
+let promoViewSent = false
+
+function mapToYtmPromos(list: Array<{ id: string|number; title: string }>) {
+  return list.map((p, i) => ({
+    id: String(p.id),
+    name: p.title,
+    creative: 'grid',           // тип носителя (список карточек)
+    position: String(i + 1),    // позиция в списке
+  }))
+}
+
+onMounted(() => {
+  if (process.server) return
+  if (!promoViewSent && promotions.value.length) {
+    ytm.promoView(mapToYtmPromos(promotions.value))
+    promoViewSent = true
+  }
+})
 </script>
 
 <template>

@@ -264,14 +264,22 @@ const isCertificate = computed(() =>
 onMounted(() => {
   const p = product.value as any
   if (!p) return
-  ytm.viewDetail({
-    product: {
-      id: p.id ?? p.product_id,
-      name: p.title ?? p.name,
-      price: Number(p.price) || 0,
-      category: p.tag
-    }
+  // pages/catalog/[slug].vue (после получения товара)
+const ytm = useYtm()
+onMounted(() => {
+  if (!product.value) return
+    ytm.viewDetail({
+      currency: 'RUB',
+      brand: 'Daigo',             
+      items: [{
+        id: product.value.product_id,
+        name: product.value.title,
+        price: Number(product.value.price) || 0,
+        image_url: product.value.images?.[0]?.image_url
+      }]
+    })
   })
+
 })
 
 // хлебные крошки / JSON-LD
