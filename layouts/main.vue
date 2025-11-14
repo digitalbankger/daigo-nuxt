@@ -6,6 +6,15 @@
         <!-- <component :is="isMobile ? NavbarMobile : NavbarDesctop" /> -->
         <NavbarDesctop />
       </BaseContainer>
+      <PromoTicker
+        :items="[
+          'ЧЕРНАЯ ПЯТНИЦА',
+          '21–30 НОЯБРЯ',
+          'ЧЕРНАЯ ПЯТНИЦА',
+          '21–30 НОЯБРЯ'
+        ]"
+        class="mb-6 sm:mb-8"
+      />
     </header>
     <main>
       <NuxtPage />
@@ -61,6 +70,7 @@ import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
 import MobileNav from '~/components/MobileNav.vue'
+import PromoTicker from '~/components/ui/PromoTicker.vue'
 import { defineAsyncComponent, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
