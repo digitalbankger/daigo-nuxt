@@ -5,7 +5,7 @@
       <div class="flex flex-row justify-between">
         <div>
           <NuxtLink to="/" class="block mb-2">
-            <img src="/logo-bf.svg" alt="Daigo" class="w-32" loading="lazy" />
+            <img src="/logo.svg" alt="Daigo" class="w-32" loading="lazy" />
           </NuxtLink>
           <p class="text-xs">С 1905 г. заботимся о вашем здоровье</p>
         </div>

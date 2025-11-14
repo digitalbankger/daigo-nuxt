@@ -2,17 +2,17 @@
   <!-- <HeadInformer /> -->
   <StickyHeader />
   <!-- <nav :class="['py-6', ui.isHeadInformerVisible ? 'mt-14 sm:mt-10' : 'mt-0']">  <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2"> -->
-  <nav class="py-2 sm:py-6 mt-0">  
+  <nav class="py-6 mt-0">  
     <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
     <div class="flex items-center gap-7 shrink-0">
       <NuxtLink to="/" aria-label="Главная">
-        <img src="/logo-bf.svg" alt="daigo logo" class="h-10 md:h-12 xl:h-16" />
-        <!-- <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">С 1905 г. заботимся о вашем здоровье</p> -->
+        <img src="/logo.svg" alt="daigo logo" class="md:h-12 xl:h-16" />
+        <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">С 1905 г. заботимся о вашем здоровье</p>
       </NuxtLink>
 
       <NuxtLink
         to="/catalog"
-        class="hidden w-44 lg:inline-flex justify-center items-center bg-[#242325] text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-[#242325]/80"
+        class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-primary/80"
       >
         <img
           src="/icons/catalog.svg"
@@ -103,7 +103,6 @@
     </div>
   </div>
   </nav>
-
 </template>
 
 <script setup lang="ts">

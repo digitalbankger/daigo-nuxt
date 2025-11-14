@@ -2,8 +2,7 @@
 import { definePageMeta, defineAsyncComponent, storeToRefs } from '#imports'
 import { useContentStore } from '~/stores/contentStore'
 
-// import BannerSection from '~/components/sections/BannerSection.vue'
-import BannerBf from '~/components/sections/BannerBf.vue'
+import BannerSection from '~/components/sections/BannerSection.vue'
 import CategorySection from '~/components/sections/CategorySection.vue'
 import InfoSection from '~/components/sections/InfoSection.vue'
 import CustomersSection from '~/components/sections/CustomersSection.vue'
@@ -72,11 +71,10 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <!-- <BannerSection :banners="banners" /> -->
-      <BannerBf />
+      <BannerSection :banners="banners" />
 
       <ClientOnly>
-        <StoriesList v-model:stories="stories" @open="openStory" class="-my-6 sm:my-0"/>
+        <StoriesList v-model:stories="stories" @open="openStory" />
       </ClientOnly>
 
       <!-- Модалка сторис — вне ClientOnly, показываем по v-if -->

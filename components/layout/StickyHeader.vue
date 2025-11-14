@@ -8,12 +8,12 @@
       <div class="mx-auto max-w-[1400px] px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between gap-3">
         <div class="flex items-center gap-7 shrink-0">
             <NuxtLink to="/" aria-label="Главная">
-                <img src="/logo-bf.svg" alt="daigo logo" class="h-10 md:h-8 xl:h-12" />
+                <img src="/logo.svg" alt="daigo logo" class="md:h-8 xl:h-10" />
             </NuxtLink>
 
             <NuxtLink
                 to="/catalog"
-                class="hidden w-44 lg:inline-flex justify-center items-center bg-[#242325] text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-[#242325]/80"
+                class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-primary/80"
             >
                 <img
                 src="/icons/catalog.svg"

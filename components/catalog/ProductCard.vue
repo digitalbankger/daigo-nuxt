@@ -9,7 +9,7 @@
       aria-label="Открыть страницу товара"
     >
       <!-- изображение -->
-      <div class="relative w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl">
+      <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl">
         <img
           :src="product.image"
           :alt="product.name"
@@ -20,7 +20,6 @@
           loading="lazy"
           decoding="async"
         />
-        <div class="absolute left-2 bottom-4 rounded-md px-2 py-1 text-white bg-[#FB0C2A] flex flex-row gap-1 items-center"><img src="/icons/fire.svg" />Пятница</div>
       </div>
 
       <!-- контент -->
@@ -48,7 +47,7 @@
             v-if="quantityInCart === 0"
             type="button"
             @click.stop="addToCartHandler"
-            class="w-full h-10 sm:h-12 flex items-center justify-center bg-[#242325] hover:bg-[#242325]/80 transition xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
+            class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
             :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
           >
             <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />

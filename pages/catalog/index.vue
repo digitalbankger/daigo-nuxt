@@ -8,7 +8,6 @@ import ProductCard from '~/components/catalog/ProductCard.vue'
 import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import BannerBfCat from '~/components/catalog/BannerBfCat.vue'
 import { useYtm } from '@/composables/useYtm'
 const ytm = useYtm()
 //import PromoHero from '~/components/catalog/PromoHero.vue'
@@ -176,8 +175,6 @@ function closeFilters() {
 
 <template>
   <BaseContainer>
-    <BannerBfCat />
-
     <section class="relative w-full">
       <!--<PromoHero
         class="mt-0 sm:mt-8 mb-8 sm:mb-12"
@@ -196,8 +193,8 @@ function closeFilters() {
         subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
         @done="onLeadDone"
       />-->
-      <div class="flex flex-row items-centr justify-between">
-        <h1 class="text-slider font-medium mb-4 md:mb-6">Каталог</h1>
+      <div class="flex flex-row items-centr justify-between absolute z-0 bottom-0 left-0 text-white">
+        <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
       <div class="flex lg:hidden items-center gap-4 mb-6 relative z-10">
         <div

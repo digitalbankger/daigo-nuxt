@@ -8,13 +8,13 @@ interface Category {
 }
 
 const categories: Category[] = [
-  { id: 6, image: '/images/promo-bf.jpg', isPromo: true },
   { id: 0, title: 'Посмотреть весь каталог', image: '/images/categories/all.png', slug: 'catalog' },
   { id: 1, title: 'Кишечник и иммунитет', image: '/images/categories/kishechnik.png', slug: 'kishechnik-i-immunitet' },
   { id: 2, title: 'Кожа и волосы', image: '/images/categories/hair.png', slug: 'kozha-i-volosy' },
   { id: 3, title: 'Зубы и десны', image: '/images/categories/zuby.png', slug: 'zuby-i-desna' },
   { id: 4, title: 'Кости и мышцы', image: '/images/categories/kosti.png', slug: 'kosti-i-myshtsy' },
   { id: 5, title: 'Нервная система и мозг', image: '/images/categories/brain.png', slug: 'mozg-i-nervnaya-sistema' },
+  { id: 6, image: '/images/categories/akcii.png', isPromo: true },
 ]
 
 const linkFor = (c: Category) => {
@@ -33,44 +33,39 @@ const linkFor = (c: Category) => {
       <template v-for="category in categories" :key="category.id">
         <div
           v-if="category.isPromo"
-          class="promo-card col-span-2 sm:col-span-2 lg:col-span-1 xl:col-span-2 
-                bg-cover bg-top-left rounded-2.5xl px-5 sm:px-10 py-8 sm:py-12 lg:py-7 
-                flex flex-row gap-3 relative overflow-hidden"
+          class="col-span-2 sm:col-span-2 lg:col-span-1 xl:col-span-2 
+             bg-cover bg-bottom rounded-2.5xl px-6 sm:px-10 py-7 sm:py-12 lg:py-7 flex flex-row gap-3 relative overflow-hidden bg-cpinklight"
         >
-
-          <!-- <img src="/icons/deal.svg" class="w-[90px] sm:w-[140px] absolute top-0 left-2 z-0"/> -->
+          <img src="/icons/deal.svg" class="w-[90px] sm:w-[140px] absolute top-0 left-2 z-0"/>
 
           <div class="relative z-10 flex flex-col gap-3 w-[80%] sm:w-[55%] justify-center">
-            <h3 class="xs-max:text-2xl text-[28px] sm:text-5xl font-normal !leading-[1.3em] text-white mb-1 sm:mb-6">
-              Все скидки <br>в каталоге
+            <h3 class="xs-max:text-2xl text-[32px] sm:text-product font-medium text-black">
+              Акции <span class="text-[#FA458A]">Daigo</span>
             </h3>
-            <!-- <p class="text-sm sm:text-2xl text-gray-800 my-0 sm:mb-4 lg:my-4 leading-snug">
+            <p class="text-sm sm:text-2xl text-gray-800 my-0 sm:mb-4 lg:my-4 leading-snug">
               Актуальная информация<br></br>о скидках и акциях
-            </p> -->
+            </p>
             <NuxtLink
               to="/akcii"
-              class="text-white inline-flex items-center gap-2 text-[12px] sm:text-2xl font-normal tracking-wide transition duration-300 group"
+              class="text-[#FA458A] inline-flex items-center gap-2 text-sm sm:text-2xl font-normal transition duration-300 group"
             >
               Перейти к акциям
               <img
-                src="/icons/arrow-white.svg"
+                src="/icons/arrow-pink.svg"
                 alt="→"
-                class="w-3 sm:w-6 h-3 sm:h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
+                class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
               />
             </NuxtLink>
           </div>
 
-          <div class="absolute lg:relative right-0 bottom-0 z-10 sm:h-[220px] lg:h-auto w-[40%] sm:w-[45%]">
-            <img src="/images/promo-single.png" class="w-9/12 sm:w-9/12 lg:w-[6/12] absolute bottom-2 lg:-bottom-2 right-3 lg:right-0 lg:block"/>
+          <div class="absolute lg:relative right-0 bottom-0 z-10 sm:h-[258px] lg:h-auto w-[40%] sm:w-[45%]">
+            <img src="/images/categories/akcii.png" class="w-full sm:w-10/12 lg:w-full absolute bottom-4 lg:bottom-0 lg:block"/>
           </div>
         </div>
 
         <NuxtLink
           v-else
           :to="linkFor(category)"
-            :class="{
-              'bg-primary': category.slug === 'catalog',
-            }"
           class="relative overflow-hidden group bg-hoverbtn border border-hoverbtn rounded-xl sm:rounded-2.5xl px-2.5 sm:px-6 py-3 sm:py-7 flex flex-col justify-between items-start min-h-[190px] sm:min-h-[280px] transition-transform duration-300  hover:shadow-productcard hover:no-underline"
         >
           <img
@@ -82,7 +77,7 @@ const linkFor = (c: Category) => {
           <h3 
             class="text-base sm:text-2xl mb-4 w-[74%] leading-tight font-light sm:font-normal"
             :class="{
-              'w-[86%] text-white': category.slug === 'catalog',
+              'w-[86%]': category.slug === 'catalog',
               '!w-[90%] sm:!w-[70%]': category.slug === 'mozg-i-nervnaya-sistema'
             }"
 
@@ -102,18 +97,3 @@ const linkFor = (c: Category) => {
     </div>
   </section>
 </template>
-
-
-<style scoped>
-.promo-card {
-  background-image: url('/images/promo-bf-mobile.png'); /* Мобильная картинка */
-  background-size: cover;
-  background-position: top left;
-}
-
-@media (min-width: 640px) { /* sm: */
-  .promo-card {
-    background-image: url('/images/promo-bf.jpg'); /* Десктопная картинка */
-  }
-}
-</style>

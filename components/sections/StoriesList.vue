@@ -50,6 +50,6 @@ useIntersectionObserver(
 
 <style scoped>
 .gradient-border {
-  background: conic-gradient(#E10D11, #1c1c1c, #E10D11);
+  background: conic-gradient(#3bc041, #ffe158, #e14283, #e14283, #4f8eff);
 }
 </style>
