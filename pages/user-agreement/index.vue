@@ -1,25 +1,11 @@
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+definePageMeta({ layout: 'main' })
 
 const title = 'Пользовательское соглашение'
 const description = 'Официальная редакция Пользовательского соглашения сайта daigo.ru.'
 const canonical = 'https://daigo.ru/user-agreement'
-definePageMeta({ layout: 'main' })
 
-useHead({
-  title,
-  meta: [
-    { name: 'description', content: description },
-    { property: 'og:type', content: 'article' },
-    { property: 'og:title', content: title },
-    { property: 'og:description', content: description },
-    { property: 'og:url', content: canonical },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: title },
-    { name: 'twitter:description', content: description }
-  ],
-  link: [{ rel: 'canonical', href: canonical }]
-})
 </script>
 
 <template>

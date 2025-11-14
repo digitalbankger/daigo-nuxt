@@ -69,8 +69,8 @@
             <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
             <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
             <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
-            <li><NuxtLink to="/user-agreement ">Пользовательское соглашение</NuxtLink></li>
-            <li><NuxtLink to="/terms_sale">Условия продажи товаров</NuxtLink></li>
+            <li><NuxtLink to="/user-agreement">Пользовательское соглашение</NuxtLink></li>
+            <li><NuxtLink to="/terms-sale">Условия продажи товаров</NuxtLink></li>
           </ul>
 
         </div>
@@ -189,8 +189,8 @@
                     <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
                     <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Политика обработки персональных данных</NuxtLink></li>
                     <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
-                    <li><NuxtLink to="/user-agreement ">Пользовательское соглашение</NuxtLink></li>
-                    <li><NuxtLink to="/terms_sale">Условия продажи товаров</NuxtLink></li>
+                    <li><NuxtLink to="/user-agreement">Пользовательское соглашение</NuxtLink></li>
+                    <li><NuxtLink to="/terms-sale">Условия продажи товаров</NuxtLink></li>
                   </ul>
                 </div>
               </div>
