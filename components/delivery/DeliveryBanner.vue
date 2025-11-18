@@ -1,4 +1,14 @@
 <script setup lang="ts">
+function scrollToDelivery() {
+  const el = document.getElementById('delivery-info')
+  if (!el) return
+
+  el.scrollIntoView({
+    behavior: 'smooth',
+    block: 'start'
+  })
+}
+
 </script>
 
 <template>
@@ -18,7 +28,15 @@
         <p class="mb-6 text-[clamp(0.875rem,4vw,1.5rem)] sm:text-lg lg:text-[clamp(0.875rem,4vw,1.5rem)] font-normal max-w-[82%] sm:max-w-[80%] lg:max-w-[560px] !leading-tight">
           Бесплатная доставка по всей России и странам СНГ при покупке от 10 000 руб.
         </p>
-        
+        <button
+            class="w-content border-none bg-white hover:bg-gray-100 text-black sm:w-72
+                   justify-center rounded-md sm:rounded-lg inline-flex items-center gap-2
+                   px-5 py-2 sm:py-3 text-sm sm:text-base lg:text-xl font-normal
+                   transition duration-300 group"
+                   @click="scrollToDelivery"
+          >
+            Узнать подробнее
+      </button>
       </div>
 
       <div class="block relative w-1/3 lg:w-[40%]">
