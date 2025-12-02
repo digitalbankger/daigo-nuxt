@@ -1,4 +1,3 @@
-// middleware/vip.global.ts
 export default defineNuxtRouteMiddleware((to) => {
   const source = to.query.utm_source
   const medium = to.query.utm_medium
@@ -6,10 +5,9 @@ export default defineNuxtRouteMiddleware((to) => {
   const content = to.query.utm_content
   const term = to.query.utm_term
 
-  // Твоя ссылка:
   // ?utm_source=vip+card&utm_medium=offline&utm_campaign=art+catalogue+card&utm_content=vip&utm_term=vip
   const isVipLanding =
-    source === 'vip card' &&
+    source === 'vip card' &&           // 'vip+card' в URL → 'vip card' после декодинга
     medium === 'offline' &&
     campaign === 'art catalogue card' &&
     content === 'vip' &&
@@ -25,8 +23,11 @@ export default defineNuxtRouteMiddleware((to) => {
 
   vipCookie.value = '1'
 
-  // всегда ведём в личный кабинет
+  // всегда ведём в личный кабинет, НО сохраняем query (UTM)
   if (to.path !== '/profile') {
-    return navigateTo('/profile')
+    return navigateTo({
+      path: '/profile',
+      query: to.query, // <-- UTM остаются в адресе
+    })
   }
 })
