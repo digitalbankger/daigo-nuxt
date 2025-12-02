@@ -2,11 +2,14 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProfileField from '~/components/profile/ProfileField.vue'
 import AddressDropdown from '~/components/profile/AddressDropdown.vue'
+import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
+
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
 import { computed, onMounted } from 'vue'
 import { navigateTo } from '#imports'
+import { useCookie } from '#app'
 
 definePageMeta({
   layout: 'main',
@@ -16,13 +19,34 @@ definePageMeta({
 const userStore = useUserStore()
 const authStore = useAuthStore()
 
+// реактивные ссылки из стора
+const { profile } = storeToRefs(userStore)
+const { isAuthenticated } = storeToRefs(authStore)
+
+// кука, которую ставит middleware/vip.global.ts
+const vipFromCard = useCookie<string | null>('vip_from_card', {
+  path: '/',
+})
+
+// показывать ли блок ввода VIP-кода
+const showVipBlock = computed(() => vipFromCard.value === '1' && isAuthenticated.value)
+
+function handleVipActivated() {
+  // после успешной активации больше не показываем блок
+  vipFromCard.value = '0'
+}
+
 onMounted(async () => {
+  // грузим профиль, если авторизован, но профиль ещё не загружен
   if (authStore.token && authStore.userId && !userStore.isLoaded) {
     await userStore.load()
   }
-})
 
-const { profile } = storeToRefs(userStore)
+  // если пришли по VIP-ссылке и не авторизованы — сразу открываем модалку авторизации
+  if (vipFromCard.value === '1' && !isAuthenticated.value) {
+    authStore.openAuth()
+  }
+})
 
 const fullName = computed(() =>
   profile.value ? `${profile.value.first_name} ${profile.value.last_name}` : ''
@@ -103,6 +127,13 @@ function deleteAddress(index: number) {
           <img src="/icons/arrow-primary.svg" class="w-4" />
         </div>
       </div>
+
+      <!-- 🔹 VIP блок — только для тех, кто пришёл по VIP-ссылке и уже авторизован -->
+      <VipActivationBlock
+        v-if="showVipBlock"
+        class="max-w-full md:max-w-[70%]"
+        @activated="handleVipActivated"
+      />
 
       <!-- Bank Cards -->
       <div class="bg-gray-100 rounded-xl p-4 mb-6 max-w-full md:max-w-[70%]">
