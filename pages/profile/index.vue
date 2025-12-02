@@ -253,7 +253,7 @@ function deleteAddress(index: number) {
     </section>
 
     <!-- Неавторизованный пользователь: ждём авторизации в модалке -->
-    <section v-else class="py-10 text-center text-sm md:text-base text-gray-600">
+    <section v-else class="py-10 text-sm md:text-base">
       <p>Для просмотра личного кабинета авторизуйтесь в открывшемся окне.</p>
     </section>
   </BaseContainer>
