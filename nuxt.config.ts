@@ -71,7 +71,7 @@ export default defineNuxtConfig({
 
   css: ['@/assets/styles/fonts.css', '@/assets/styles/main.css'],
 
-  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/ym.client.ts', '~/plugins/bitrix-tracker.client.ts', '~/plugins/ytm-route.client.ts', '~/plugins/mango.client.ts'],
+  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/ym.client.ts', '~/plugins/bitrix-tracker.client.ts', '~/plugins/ytm-route.client.ts', '~/plugins/mango.client.ts', '~/plugins/utm-tracker.client.ts'],
 
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/device', '@nuxt/image', '@vueuse/nuxt'],
 
