@@ -12,6 +12,7 @@ export interface CartItem {
   subtitle?: string
   price: number
   oldPrice?: number
+  originalPrice?: number
   quantity: number
   image: string
   tag?: string
@@ -62,6 +63,8 @@ export const useCartStore = defineStore('cart', () => {
   const subtotal = ref<number>(0)        // сумма без скидки
   const total = ref<number>(0)           // итог со скидкой
   const discountAmount = ref<number>(0)  // абсолютная скидка в рублях
+  const remarketingDiscountAmount = ref<number>(0)
+  const exhibitionDiscountAmount = ref<number>(0)
   const couponInfo = ref<CouponInfo | null>(null)
 
   // sessionID гостя (храним только на клиенте)
@@ -128,6 +131,9 @@ export const useCartStore = defineStore('cart', () => {
     // если на бэке прислали discount_amount — используем, иначе 0
     discountAmount.value = Number(data?.discount_amount ?? 0)
 
+    remarketingDiscountAmount.value = Number(data?.remarketing_discount_amount ?? 0)
+    exhibitionDiscountAmount.value = Number(data?.exhibition_discount_amount ?? 0)
+
     // total: либо из бэка, либо subtotal - discountAmount (не ниже нуля)
     const srvTotal = data?.total
     total.value =
@@ -151,6 +157,8 @@ export const useCartStore = defineStore('cart', () => {
           subtotal.value = 0
           total.value = 0
           discountAmount.value = 0
+          remarketingDiscountAmount.value = 0
+          exhibitionDiscountAmount.value = 0
           couponInfo.value = null
           return
         }
@@ -167,6 +175,8 @@ export const useCartStore = defineStore('cart', () => {
         subtotal.value = 0
         total.value = 0
         discountAmount.value = 0
+        remarketingDiscountAmount.value = 0
+        exhibitionDiscountAmount.value = 0
         couponInfo.value = null
         if (process.client) localStorage.removeItem('guest_session_id')
         guestSessionId.value = null
@@ -199,18 +209,23 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     if (ok && process.client) {
-      try {
-        ytm.addToCart({
-          id: String(item.id),
-          name: item.title,
-          price: Number(item.price) || 0,
-          quantity: Number(item.quantity) || 1,
-          ...(item.tag ? { variant: [item.tag] } : {})
-        }, 'cart')
-        // цели Метрики через useAnalytics оставляем как было (если используются)
-      } catch {
-        // no-op
-      }
+  try {
+    ytm.addToCart({
+      id: String(item.id),
+      name: item.title,
+      price: Number(item.price) || 0,
+      quantity: Number(item.quantity) || 1,
+      ...(item.tag ? { variant: [item.tag] } : {})
+    }, 'cart')
+
+    analytics.addToCart({
+      id: item.id,
+      name: item.title,
+      price: item.price,
+      quantity: item.quantity,
+      category: item.tag
+    })
+  } catch {}
     }
   }
 
@@ -316,6 +331,8 @@ export const useCartStore = defineStore('cart', () => {
     subtotal.value = 0
     total.value = 0
     discountAmount.value = 0
+    remarketingDiscountAmount.value = 0
+    exhibitionDiscountAmount.value = 0
     couponInfo.value = null
   }
 
@@ -428,7 +445,7 @@ export const useCartStore = defineStore('cart', () => {
     items, gifts, promoNotice, userForm, daysLeft,
     isAuthenticated, isLoaded, 
     // новые суммы/купоны из бэка
-    subtotal, total, discountAmount, couponInfo,
+    subtotal, total, discountAmount, remarketingDiscountAmount, exhibitionDiscountAmount, couponInfo,
     
     itemsCount,
     itemsUniqueCount,

@@ -4,12 +4,10 @@ import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
 import { createOrder } from '~/services/orderService'
-import { navigateTo } from '#imports'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
 
-// Типы способов (используются в UI и для PaymentSelector)
-export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
+export type DeliveryKind = 'courier' | 'pvz' | 'pickup' | 'todoor'
 export type PaymentMethod =
   | 'sbp'
   | 'tbank'
@@ -26,7 +24,9 @@ export interface DeliveryOption {
   subtitle?: string
   eta?: string
   // для курьера: провайдер
-  provider?: 'daigo' | 'major'
+  provider?: 'daigo' | 'major' | 'cdek'
+  // метод для бэкенда (например, sdek_todoor)
+  method?: string
 }
 
 interface StateShape {
@@ -90,6 +90,13 @@ export const useCheckoutStore = defineStore('checkout', () => {
       title: 'Курьером Major',
       subtitle: 'Доставка партнёром',
       provider: 'major'
+    },
+    {
+      id: 'todoor_cdek',
+      kind: 'todoor',
+      title: 'СДЭК до двери',
+      subtitle: 'Курьерская доставка до вашей двери',
+      provider: 'cdek'
     },
     {
       id: 'pvz_cdek',
@@ -290,14 +297,20 @@ export const useCheckoutStore = defineStore('checkout', () => {
       }
     }
 
+    if (opt.kind === 'todoor') {
+      return {
+        type: 'todoor',
+        provider: opt.provider || 'cdek',
+        ...baseAddress
+      }
+    }
+
     if (opt.kind === 'pvz') {
-      // ⬅️ CHANGED: отправляем ТО ЖЕ, что и для курьера (без pvz/pvzAddress/pickup_point_id)
       return {
         type: 'pvz',
         provider: 'cdek',
-        // private_house игнорится для ПВЗ на уровне UI, но объект адреса — тот же
         ...baseAddress,
-        is_private: false // ⬅️ CHANGED: на всякий случай фиксируем
+        is_private: false 
       }
     }
 
@@ -433,6 +446,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
         if (process.client && (res as any)?.order_id) {
           const orderId = String((res as any).order_id)
           const sentKey = `purchase_sent_${orderId}`
+
           if (!localStorage.getItem(sentKey)) {
             const products = (cart.items || [])
               .filter((i: any) => i?.id)
@@ -440,43 +454,43 @@ export const useCheckoutStore = defineStore('checkout', () => {
                 id: String(i.id),
                 name: i.title || i.name,
                 price: Number(i.price ?? 0),
-                quantity: Number(i.quantity ?? 1)
+                quantity: Number(i.quantity ?? 1),
               }))
+
             const revenue = Number.isFinite(Number(cart.total)) ? Number(cart.total) : 0
 
             analytics.purchase({
               id: orderId,
               revenue,
               currency: 'RUB',
-              products
+              products,
             })
 
-           const ytm = useYtm()
+            const ytm = useYtm()
             ytm.purchase({
               currency: 'RUB',
               id: orderId,
               revenue,
               shipping: 0,
               items: products,
-              payment_type: state.paymentMethod
+              payment_type: state.paymentMethod,
             })
 
             localStorage.setItem(sentKey, '1')
           }
         }
-      } catch { /* no-op */ }
-
-
-      // Если пришла ссылка на оплату — уводим туда
-      const url = (res as any)?.confirmation?.confirmation_url
-      if (url) {
-        await navigateTo(url, { external: true })
-        // запасной переход — если провайдер не вернет обратно
-        setTimeout(() => navigateTo('/profile'), 2000)
-        return res
+      } catch {
+        // no-op
       }
 
-      return res
+      // 👉 Никаких редиректов здесь больше нет
+      const url = (res as any)?.confirmation?.confirmation_url || null
+
+      // Возвращаем ответ + доп. поле confirmationUrl
+      return {
+        ...(res as any),
+        confirmationUrl: url,
+      }
     } catch (e: any) {
       console.warn('ORDER_SUBMIT_FAIL', e)
       if (!lastError.value) lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'

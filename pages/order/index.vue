@@ -1,70 +1,172 @@
 <script setup lang="ts">
+import { defineAsyncComponent, onMounted, watch, ref, onUnmounted } from 'vue'
+import { navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import { defineAsyncComponent } from 'vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import { useCartOrderStore } from '~/stores/cartOrderStore'
 import OrderItemsStrip from '@/components/checkout/OrderItemsStrip.vue'
-import { onMounted, watch } from 'vue'
 import { useYtm } from '@/composables/useYtm'
-const ytm = useYtm()
 
+definePageMeta({ layout: 'main' })
+
+// --- сторы и аналитика ---
+const ytm = useYtm()
 const cart = useCartOrderStore()
+const store = useCheckoutStore()
+
+// грузим данные корзины и опционы чекаута
 if (!cart.state.items.length) {
   await cart.loadCart()
 }
+await store.loadOptions()
 
+// begin_checkout — при заходе на страницу
 onMounted(() => {
   ytm.beginCheckout({
     step: 1,
     option: 'begin',
-    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
+    products: cart.state.items.map(i => ({
+      id: i.id,
+      name: i.title,
+      price: i.price,
+      quantity: i.qty
+    })),
     value: cart.total,
     currency: 'RUB'
   })
 })
 
-// отслеживаем выбор доставки/оплаты
-watch(() => store.state.deliveryId, (v) => {
-  ytm.checkoutProgress({
-    step: 2,
-    option: `delivery:${String(v)}`,
-    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
-    value: cart.total, currency: 'RUB'
-  })
-})
+// шаг 2 — выбор доставки
+watch(
+  () => store.state.deliveryId,
+  (v) => {
+    if (!v) return
 
-watch(() => store.state.paymentMethod, (v) => {
-  ytm.checkoutProgress({
-    step: 3,
-    option: `payment:${String(v)}`,
-    products: cart.state.items.map(i => ({ id: i.id, name: i.title, price: i.price, quantity: i.qty })),
-    value: cart.total, currency: 'RUB'
-  })
-})
+    ytm.checkoutProgress({
+      step: 2,
+      option: `delivery:${String(v)}`,
+      products: cart.state.items.map(i => ({
+        id: i.id,
+        name: i.title,
+        price: i.price,
+        quantity: i.qty
+      })),
+      value: cart.total,
+      currency: 'RUB'
+    })
+  }
+)
 
+// шаг 3 — выбор оплаты
+watch(
+  () => store.state.paymentMethod,
+  (v) => {
+    if (!v) return
 
-definePageMeta({ layout: 'main' })
+    ytm.checkoutProgress({
+      step: 3,
+      option: `payment:${String(v)}`,
+      products: cart.state.items.map(i => ({
+        id: i.id,
+        name: i.title,
+        price: i.price,
+        quantity: i.qty
+      })),
+      value: cart.total,
+      currency: 'RUB'
+    })
+  }
+)
 
+// --- компоненты ---
 const RecipientForm = defineAsyncComponent(() => import('@/components/checkout/RecipientForm.vue'))
 const DeliverySelector = defineAsyncComponent(() => import('@/components/checkout/DeliverySelector.vue'))
 const PaymentSelector = defineAsyncComponent(() => import('@/components/checkout/PaymentSelector.vue'))
 const SummaryCard = defineAsyncComponent(() => import('@/components/checkout/SummaryCard.vue'))
 
-const store = useCheckoutStore()
-await store.loadOptions()
+// 🔹 модалка оплаты (ленивая)
+const PaymentModal = defineAsyncComponent(
+  () => import('@/components/checkout/PaymentModal.vue')
+)
 
+// --- состояние модалки оплаты ---
+const showPaymentModal = ref(false)
+const paymentUrl = ref<string | null>(null)
+const paySecondsLeft = ref(5)
+let payTimer: ReturnType<typeof setInterval> | null = null
+
+function startPaymentTimer() {
+  paySecondsLeft.value = 5
+
+  if (payTimer) {
+    clearInterval(payTimer)
+    payTimer = null
+  }
+
+  payTimer = setInterval(() => {
+    if (paySecondsLeft.value <= 1) {
+      if (payTimer) {
+        clearInterval(payTimer)
+        payTimer = null
+      }
+
+      // авто-редирект (может быть заблокирован Safari — на это есть кнопка)
+      if (paymentUrl.value && process.client) {
+        window.location.href = paymentUrl.value
+      }
+    } else {
+      paySecondsLeft.value -= 1
+    }
+  }, 1000)
+}
+
+function closePaymentModal() {
+  showPaymentModal.value = false
+  if (payTimer) {
+    clearInterval(payTimer)
+    payTimer = null
+  }
+}
+
+function goToPayment() {
+  if (!paymentUrl.value) return
+  if (payTimer) {
+    clearInterval(payTimer)
+    payTimer = null
+  }
+  if (process.client) {
+    window.location.href = paymentUrl.value
+  }
+}
+
+onUnmounted(() => {
+  if (payTimer) {
+    clearInterval(payTimer)
+  }
+})
+
+// --- отправка заказа ---
 async function submit() {
   const res = await store.submit()
-  if (!res) {
-    // ошибка уже в store.lastError — просто остаёмся на странице
+  if (!res) return
+
+  // ожидаем, что checkoutStore.submit() вернёт confirmationUrl
+  const confirmationUrl =
+    (res as any).confirmationUrl ||
+    (res as any)?.confirmation?.confirmation_url ||
+    null
+
+  if (confirmationUrl) {
+    paymentUrl.value = confirmationUrl
+    showPaymentModal.value = true
+    startPaymentTimer()
     return
   }
-  // если пришёл order_id — ведём на спасибо
+
   if ((res as any).order_id) {
-    // return navigateTo(`/thanks?order=${(res as any).order_id}`)
-    return navigateTo(`/orders`)
+    return navigateTo('/orders')
   }
-  // иначе на профиль, если без оплаты
+
   return navigateTo('/profile')
 }
 </script>
@@ -86,20 +188,28 @@ async function submit() {
           <OrderItemsStrip :items="cart.state.items" />
           <RecipientForm />
           <DeliverySelector />
-          <PaymentSelector class="block lg:hidden"/>
+          <PaymentSelector class="block lg:hidden" />
         </div>
 
         <div class="lg:col-span-1">
-          <SummaryCard mode="checkout" @cta="submit" class="lg:sticky top-8"/>
-          <!-- баннер ошибки, если что-то пошло не так -->
-          <div v-if="store.lastError" class="mt-4 rounded-lg text-center border border-red-200 bg-red-50 text-red-700 px-4 py-3">
-            <!-- {{ store.lastError }} -->
-              Что-то пошло не так, свяжитесь с менеджером магазина
+          <SummaryCard mode="checkout" @cta="submit" class="lg:sticky top-8" />
+          <div
+            v-if="store.lastError"
+            class="mt-4 rounded-lg text-center border border-red-200 bg-red-50 text-red-700 px-4 py-3"
+          >
+            Что-то пошло не так, свяжитесь с менеджером магазина
           </div>
         </div>
       </div>
-      <PaymentSelector class="hidden lg:block"/>
 
+      <PaymentSelector class="hidden lg:block" />
+
+      <PaymentModal
+        :show="showPaymentModal"
+        :seconds-left="paySecondsLeft"
+        @close="closePaymentModal"
+        @pay="goToPayment"
+      />
     </section>
   </BaseContainer>
 </template>

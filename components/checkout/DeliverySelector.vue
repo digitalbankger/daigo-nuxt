@@ -12,23 +12,40 @@ const store = useCheckoutStore()
 const courierOptions = computed(() => store.deliveryOptions.filter(o => o.kind === 'courier'))
 const pvzOptions     = computed(() => store.deliveryOptions.filter(o => o.kind === 'pvz'))
 const pickupOptions  = computed(() => store.deliveryOptions.filter(o => o.kind === 'pickup'))
+const toDoorOptions = computed(() => store.deliveryOptions.filter(o => o.kind === 'todoor'))
 
 /** Активный вид доставки и переключение между видами */
 const selectedKind = computed<'courier' | 'pvz' | 'pickup'>({
   get() {
     const current = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-    return current?.kind || (store.deliveryOptions[0]?.kind ?? 'courier')
+    if (!current) return store.deliveryOptions[0]?.kind === 'pvz' ? 'pvz' : 'courier'
+
+    // todoor показываем под вкладкой "Курьером"
+    return current.kind === 'todoor' ? 'courier' : current.kind
   },
   set(value) {
     let list
-    if (value === 'courier') list = courierOptions.value
+    if (value === 'courier') list = [...courierOptions.value, ...toDoorOptions.value]
     else if (value === 'pvz') list = pvzOptions.value
     else if (value === 'pickup') list = pickupOptions.value
-    if (list && list.length) store.setDelivery(list[0].id)
 
-    // ПВЗ всегда без private_house
+    if (list && list.length) {
+      // при переключении вкладки выбираем первый вариант в этом типе
+      store.setDelivery(list[0].id)
+    }
+
     if (value === 'pvz') store.setAddress({ private_house: false })
   },
+})
+
+const isCourierSelected = computed(() => {
+  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
+  return opt?.kind === 'courier' || opt?.kind === 'todoor'
+})
+
+const isPvzSelected = computed(() => {
+  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
+  return opt?.kind === 'pvz'
 })
 
 /** Поля адреса — ЕДИНЫЕ для всех способов */
@@ -51,16 +68,6 @@ const floor = computed<string>({
 const intercom = computed<string>({
   get: () => store.state.address.intercom ?? '',
   set: v => store.setAddress({ intercom: v || undefined }),
-})
-
-/** Активен ли конкретный вид */
-const isCourierSelected = computed(() => {
-  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-  return opt?.kind === 'courier'
-})
-const isPvzSelected = computed(() => {
-  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-  return opt?.kind === 'pvz'
 })
 
 /** FIAS выбранного города — приходит из шага с CitySuggest */
@@ -163,6 +170,16 @@ function saveAddress() {
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
+
+        <label
+          v-for="opt in toDoorOptions"
+          :key="opt.id"
+          class="flex items-center gap-2 cursor-pointer"
+        >
+          <input type="radio" class="form-radio" :value="opt.id" v-model="store.state.deliveryId" />
+          <span class="font-medium">{{ opt.title }}</span>
+          <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
+        </label>
       </div>
 
       <!-- Адресные поля -->
@@ -215,6 +232,7 @@ function saveAddress() {
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
+        
       </div>
 
       <div v-if="isPvzSelected" class="space-y-4">

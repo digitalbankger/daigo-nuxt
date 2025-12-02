@@ -31,6 +31,8 @@ const inputRefs = { fullName: ref<Focusable>(null), phone: ref<Focusable>(null) 
 const subtotal = computed(() => cartStore.subtotal)
 const grandTotal = computed(() => cartStore.total)
 const discountAmount = computed(() => cartStore.discountAmount)
+const remarketingDiscountAmount = computed(() => cartStore.remarketingDiscountAmount)
+const exhibitionDiscountAmount = computed(() => cartStore.exhibitionDiscountAmount)
 const couponInfo = computed(() => cartStore.couponInfo)
 
 const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
@@ -305,6 +307,24 @@ async function removeCoupon() {
           <template v-else>0 ₽</template>
         </span>
       </div>
+
+      <!-- 🆕 детализация скидок -->
+      <div
+        v-if="remarketingDiscountAmount > 0"
+        class="flex justify-between font-medium text-cgreen"
+      >
+        <span>Персональная скидка</span>
+        <span>−{{ remarketingDiscountAmount.toLocaleString() }} ₽</span>
+      </div>
+
+      <div
+        v-if="exhibitionDiscountAmount > 0"
+        class="flex justify-between font-medium text-cgreen"
+      >
+        <span>Скидка участника выставки</span>
+        <span>−{{ exhibitionDiscountAmount.toLocaleString() }} ₽</span>
+      </div>
+      <!-- конец новых строк -->
 
       <div class="flex justify-between font-medium text-xl">
         <span>Итого</span><span>{{ grandTotal.toLocaleString() }} ₽</span>
