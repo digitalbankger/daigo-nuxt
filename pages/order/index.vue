@@ -103,19 +103,18 @@ function startPaymentTimer() {
     payTimer = null
   }
 
-  payTimer = setInterval(() => {
-    if (paySecondsLeft.value <= 1) {
-      if (payTimer) {
-        clearInterval(payTimer)
-        payTimer = null
-      }
+  // 🔥 моментальная попытка авто-редиректа
+  if (paymentUrl.value && process.client) {
+    window.location.href = paymentUrl.value
+  }
 
-      // авто-редирект (может быть заблокирован Safari — на это есть кнопка)
-      if (paymentUrl.value && process.client) {
-        window.location.href = paymentUrl.value
-      }
-    } else {
-      paySecondsLeft.value -= 1
+  // таймер только для отображения секунд
+  payTimer = setInterval(() => {
+    paySecondsLeft.value -= 1
+
+    if (paySecondsLeft.value <= 0) {
+      clearInterval(payTimer!)
+      payTimer = null
     }
   }, 1000)
 }
