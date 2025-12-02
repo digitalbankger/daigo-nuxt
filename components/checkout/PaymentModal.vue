@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { navigateTo } from '#imports'
 import UiModal from '@/components/ui/UiModal.vue'
 import Button from '@/components/ui/Button.vue'
 
 const props = defineProps<{
   show: boolean
   secondsLeft: number
+  /** Можно ли закрывать по клику на оверлей (по умолчанию true) */
+  overlayClosable?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -18,10 +22,19 @@ const progress = computed(() => {
   return Math.max(0, Math.min(1, ratio))
 })
 
+function goToOrders() {
+  emit('close') // чтобы убрать модалку, если останемся на этой же странице
+  navigateTo('/orders')
+}
 </script>
 
 <template>
-  <UiModal :show="show" :closable="true" @close="$emit('close')">
+  <UiModal
+    :show="show"
+    :closable="true"
+    :close-on-overlay="overlayClosable !== false"
+    @close="$emit('close')"
+  >
     <div class="w-full max-w-md text-center space-y-4">
       <h2 class="text-xl md:text-2xl font-medium">
         Перенаправляем на оплату
@@ -38,27 +51,30 @@ const progress = computed(() => {
 
       <div class="flex items-center justify-center">
         <div class="relative w-16 h-16 flex items-center justify-center">
-            <svg class="absolute inset-0 transform -rotate-90" viewBox="0 0 36 36">
-                <circle
-                cx="18" cy="18" r="16"
-                fill="none"
-                stroke="#FFFFFF"        
-                stroke-width="4"
-                />
-                <circle
-                cx="18" cy="18" r="16"
-                fill="none"
-                stroke="#3B82F6"       
-                stroke-width="2"
-                stroke-linecap="round"
-                :stroke-dasharray="100"
-                :stroke-dashoffset="100 - progress * 100"
-                class="transition-all duration-300 ease-linear !border-none"
-                />
-            </svg>
+          <svg class="absolute inset-0 transform -rotate-90" viewBox="0 0 36 36">
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              stroke="#FFFFFF"
+              stroke-width="4"
+            />
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              stroke="#3B82F6"
+              stroke-width="2"
+              stroke-linecap="round"
+              :stroke-dasharray="100"
+              :stroke-dashoffset="100 - progress * 100"
+              class="transition-all duration-300 ease-linear !border-none"
+            />
+          </svg>
 
-            <!-- Число внутри -->
-            <span class="text-lg font-medium">{{ secondsLeft }}</span>
+          <span class="text-lg font-medium">{{ secondsLeft }}</span>
         </div>
         <span class="px-2">сек.</span>
       </div>
@@ -68,13 +84,13 @@ const progress = computed(() => {
           Оплатить
         </Button>
 
-        <!-- <button
+        <button
           type="button"
-          class="text-sm text-gray-500 underline"
-          @click="$emit('close')"
+          class="text-sm mt-2 text-gray-500"
+          @click="goToOrders"
         >
-          Вернуться в профиль
-        </button> -->
+          Перейти к заказам
+        </button>
       </div>
     </div>
   </UiModal>

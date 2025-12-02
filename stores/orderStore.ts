@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { fetchOrderHistory, cancelOrder } from '~/services/orderService'
-import type { OrderHistoryApiItem, OrderListItem } from '~/types/orders'
+import type { OrderHistoryApiItem, OrderListItem, OrderCancelReason } from '~/types/orders'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCatalogStore } from '@/stores/catalogStore'
@@ -115,12 +115,16 @@ export const useOrderStore = defineStore('orderStore', () => {
     return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: '2-digit' })
   }
 
-  async function cancel(orderNumberOrId: number | string) {
+  async function cancel(
+    orderNumberOrId: number | string,
+    reason: OrderCancelReason,
+    comment?: string
+  ) {
     const numericId = typeof orderNumberOrId === 'string'
       ? Number(orderNumberOrId.replace(/^0+/, ''))
       : orderNumberOrId
 
-    await cancelOrder(numericId)
+    await cancelOrder(numericId, reason, comment)
     await loadOrderHistory()
   }
 

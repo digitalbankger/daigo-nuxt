@@ -1,6 +1,7 @@
 // services/orderService.ts
 import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
+import type { OrderCancelReason } from '~/types/orders'
 
 /** Товар в заказе */
 export interface OrderItemPayload {
@@ -135,14 +136,21 @@ export async function fetchOrderHistory(daigoId: number | string) {
 }
 
 /** Отмена заказа */
-export async function cancelOrder(orderId: number | string) {
+export async function cancelOrder(
+  orderId: number | string,
+  reason: OrderCancelReason,
+  comment?: string
+) {
   const { public: { daigoApiBase } } = useRuntimeConfig()
 
   try {
-    // В примере из приложения был слэш на конце — оставляем так.
     return await $fetch(`${daigoApiBase}/v1/shop/order/${orderId}/cancel/`, {
       method: 'POST',
       headers: authHeaders(),
+      body: {
+        reason, 
+        comment,  
+      },
     })
   } catch (e: any) {
     throw toReadableError(e)

@@ -1,10 +1,14 @@
 <script setup lang="ts">
-defineProps<{
+const props = defineProps<{
   show: boolean
   closable?: boolean
+  /** Разрешать ли закрытие по клику по оверлею (по умолчанию true) */
+  closeOnOverlay?: boolean
 }>()
 
-defineEmits(['close'])
+const emit = defineEmits<{
+  (e: 'close'): void
+}>()
 </script>
 
 <template>
@@ -12,13 +16,13 @@ defineEmits(['close'])
     <div
       v-if="show"
       class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4"
-      @click.self="$emit('close')"
+      @click.self="props.closeOnOverlay !== false && emit('close')"
     >
       <div class="bg-white rounded-xl p-6 max-w-[90vw] w-full sm:max-w-md shadow-lg relative">
         <slot />
         <button
           v-if="closable !== false"
-          @click="$emit('close')"
+          @click="emit('close')"
           class="absolute top-3 right-3 text-gray-400 hover:text-gray-700 text-2xl leading-none"
         >
           &times;

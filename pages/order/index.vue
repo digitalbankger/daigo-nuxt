@@ -206,9 +206,11 @@ async function submit() {
       <PaymentModal
         :show="showPaymentModal"
         :seconds-left="paySecondsLeft"
+        :overlay-closable="false"
         @close="closePaymentModal"
         @pay="goToPayment"
       />
+
     </section>
   </BaseContainer>
 </template>
