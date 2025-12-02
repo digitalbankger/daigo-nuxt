@@ -21,7 +21,9 @@ const authStore = useAuthStore()
 
 // реактивные ссылки из стора
 const { profile } = storeToRefs(userStore)
-const { isAuthenticated } = storeToRefs(authStore)
+
+// если в authStore нет isAuthenticated – можно не использовать storeToRefs, а ниже сделать свой computed
+const isAuthenticated = computed(() => !!authStore.token || !!authStore.userId)
 
 // кука, которую ставит middleware/vip.global.ts
 const vipFromCard = useCookie<string | null>('vip_from_card', {
@@ -37,14 +39,14 @@ function handleVipActivated() {
 }
 
 onMounted(async () => {
-  // грузим профиль, если авторизован, но профиль ещё не загружен
+  // грузим профиль, если уже авторизованы, но профиль ещё не загружен
   if (authStore.token && authStore.userId && !userStore.isLoaded) {
     await userStore.load()
   }
 
-  // если пришли по VIP-ссылке и не авторизованы — сразу открываем модалку авторизации
+  // если пришли по VIP-ссылке и не авторизованы — сразу показываем модалку авторизации
   if (vipFromCard.value === '1' && !isAuthenticated.value) {
-    authStore.openAuth()
+    authStore.openAuth() // эта функция уже есть и управляет модалкой в layout
   }
 })
 
