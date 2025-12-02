@@ -97,7 +97,7 @@ async function onSubmit() {
 </script>
 
 <template>
-  <section class="mt-8 p-4 sm:p-6 rounded-2xl bg-hoverbtn">
+  <section class="mt-8 p-4 sm:p-6 rounded-2xl bg-primary/10 border border-primary">
     <h2 class="text-lg sm:text-xl font-medium mb-3">
       Активация VIP-статуса
     </h2>
@@ -113,7 +113,7 @@ async function onSubmit() {
           type="text"
           inputmode="numeric"
           maxlength="1"
-          class="w-10 h-12 sm:w-11 sm:h-14 text-center text-lg sm:text-xl font-medium border rounded-xl outline-none focus:ring-2 focus:ring-black/10"
+          class="w-12 h-12 sm:w-14 sm:h-14 text-center text-lg sm:text-xl font-medium border rounded-xl outline-none focus:ring-2 focus:ring-black/10"
           v-model="codeDigits[index]"
           :ref="el => setInputRef(el as HTMLInputElement | null, index)"
           @input="onInput(index)"

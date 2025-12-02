@@ -175,7 +175,7 @@ function deleteAddress(index: number) {
       <!-- 🔹 VIP блок — только для тех, кто пришёл по VIP-ссылке и уже авторизован -->
       <VipActivationBlock
         v-if="showVipBlock"
-        class="max-w-full md:max-w-[70%]"
+        class="max-w-full md:max-w-[70%] mb-4 md:mb-6"
         @activated="handleVipActivated"
       />
 
