@@ -1,6 +1,8 @@
+// plugins/auth-init.client.ts
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
 import { log, time, timeEnd } from '@/utils/debug'
+import { watch } from 'vue'
 
 // защита от повторного запуска плагина (HMR/повторные инициализации)
 let started = false
@@ -11,28 +13,53 @@ export default defineNuxtPlugin(() => {
 
   log('[plugin:auth-init] token?', Boolean(auth.token), 'userId=', auth.userId)
 
-  // не блокируем рендер страницы
+  async function loadUserProfileOnce() {
+    if (!auth.token || !auth.userId) {
+      log('[plugin:auth-init] skip load: no token or userId')
+      return
+    }
+    if (user.isLoaded) {
+      log('[plugin:auth-init] skip load: already loaded')
+      return
+    }
+
+    time('loadProfile@plugin')
+    try {
+      if (typeof (user as any).loadProfile === 'function') {
+        await (user as any).loadProfile()
+      } else if (typeof (user as any).load === 'function') {
+        await (user as any).load()
+      }
+      log('[plugin:auth-init] profile loaded:', Boolean(user.profile))
+    } catch (e) {
+      log('[plugin:auth-init] load error', e)
+    } finally {
+      timeEnd('loadProfile@plugin')
+    }
+  }
+
   if (!started) {
     started = true
 
-    if (auth.token && auth.userId && !user.isLoaded) {
-      ;(async () => {
-        time('loadProfile@plugin')
-        try {
-          // поддержка обоих имён метода: loadProfile или load (как в store)
-          if (typeof (user as any).loadProfile === 'function') {
-            await (user as any).loadProfile()
-          } else if (typeof (user as any).load === 'function') {
-            await (user as any).load()
+    // 1) При старте, если токен уже есть (возврат на сайт)
+    loadUserProfileOnce()
+
+    // 2) Следим за изменением авторизации
+    watch(
+      () => auth.isAuthenticated,
+      (authed) => {
+        if (authed) {
+          // только что залогинились → подгружаем профиль
+          loadUserProfileOnce()
+        } else {
+          // разлогинились → очищаем профиль
+          if (user.isLoaded || user.profile) {
+            user.clear()
           }
-          log('[plugin:auth-init] profile loaded:', Boolean(user.profile))
-        } catch (e) {
-          log('[plugin:auth-init] load error', e)
-        } finally {
-          timeEnd('loadProfile@plugin')
         }
-      })()
-    }
+      },
+      { immediate: false }
+    )
   }
 
   if (process.client) {

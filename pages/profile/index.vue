@@ -7,9 +7,10 @@ import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, watch } from 'vue'
 import { navigateTo } from '#imports'
 import { useCookie } from '#app'
+import { getFirstUtm, getLastUtm, type StoredUtmSet } from '@/composables/useUtmTracker'
 
 definePageMeta({
   layout: 'main',
@@ -19,36 +20,77 @@ definePageMeta({
 const userStore = useUserStore()
 const authStore = useAuthStore()
 
-// реактивные ссылки из стора
-const { profile } = storeToRefs(userStore)
+// реактивные поля из стора
+const { profile, isLoaded } = storeToRefs(userStore)
+const { isAuthenticated } = storeToRefs(authStore)   // ВАЖНО: именно поле из authStore
 
-// если в authStore нет isAuthenticated – можно не использовать storeToRefs, а ниже сделать свой computed
-const isAuthenticated = computed(() => !!authStore.token || !!authStore.userId)
+// ---------- VIP по UTM (только для показа блока, НЕ для открытия модалки) ----------
 
-// кука, которую ставит middleware/vip.global.ts
-const vipFromCard = useCookie<string | null>('vip_from_card', {
-  path: '/',
+function isVipUtm(utm?: StoredUtmSet | null): boolean {
+  if (!utm) return false
+
+  const src = (utm.source ?? '').toLowerCase().trim()
+  const med = (utm.medium ?? '').toLowerCase().trim()
+  const camp = (utm.campaign ?? '').toLowerCase().trim()
+  const cont = (utm.content ?? '').toLowerCase().trim()
+  const term = (utm.term ?? '').toLowerCase().trim()
+
+  // utm_source=vip card&utm_medium=offline&utm_campaign=art catalogue card&utm_content=vip&utm_term=vip
+  return (
+    src === 'vip card' &&
+    med === 'offline' &&
+    camp === 'art catalogue card' &&
+    cont === 'vip' &&
+    term === 'vip'
+  )
+}
+
+const hasVipUtm = computed(() => {
+  if (!process.client) return false
+  const first = getFirstUtm()
+  const last = getLastUtm()
+  return isVipUtm(first) || isVipUtm(last)
 })
 
+// если есть ещё кука из middleware — учитываем и её как доп. флаг
+const vipFromCard = useCookie<string | null>('vip_from_card', { path: '/' })
+
+// общий флаг «этот пользователь когда-то пришёл по VIP-ссылке»
+const hasVipFlag = computed(() => hasVipUtm.value || vipFromCard.value === '1')
+
 // показывать ли блок ввода VIP-кода
-const showVipBlock = computed(() => vipFromCard.value === '1' && isAuthenticated.value)
+const showVipBlock = computed(() => hasVipFlag.value && isAuthenticated.value)
 
 function handleVipActivated() {
-  // после успешной активации больше не показываем блок
+  // после успешной активации можно скрыть блок (сбрасываем куку)
   vipFromCard.value = '0'
 }
 
-onMounted(async () => {
-  // грузим профиль, если уже авторизованы, но профиль ещё не загружен
-  if (authStore.token && authStore.userId && !userStore.isLoaded) {
-    await userStore.load()
-  }
+// ---------- Загрузка профиля при авторизации ----------
 
-  // если пришли по VIP-ссылке и не авторизованы — сразу показываем модалку авторизации
-  if (vipFromCard.value === '1' && !isAuthenticated.value) {
-    authStore.openAuth() // эта функция уже есть и управляет модалкой в layout
+// Гарантируем, что после появления авторизации профиль подтянется и скелетон исчезнет
+watch(
+  isAuthenticated,
+  async (authed) => {
+    if (authed && !isLoaded.value) {
+      await userStore.load()   // или loadProfile — используй метод, который есть в userStore
+    }
+  },
+  { immediate: true }
+)
+
+// ---------- Автоматическое открытие модалки авторизации ----------
+
+onMounted(() => {
+  // КЛЮЧЕВАЯ правка:
+  // если пользователь не авторизован и зашёл в /profile — ВСЕГДА открываем окно входа,
+  // НЕ только для VIP
+  if (!isAuthenticated.value) {
+    authStore.openAuth('/profile')
   }
 })
+
+// ---------- Остальная логика профиля ----------
 
 const fullName = computed(() =>
   profile.value ? `${profile.value.first_name} ${profile.value.last_name}` : ''
@@ -201,12 +243,18 @@ function deleteAddress(index: number) {
       </div>
     </section>
 
-    <section v-else class="py-10">
+    <!-- Скелетон только когда авторизован, но профиль ещё грузится -->
+    <section v-else-if="isAuthenticated && !userStore.isLoaded" class="py-10">
       <div class="animate-pulse space-y-4">
         <div class="h-8 w-48 bg-gray-200 rounded" />
         <div class="h-40 w-full bg-gray-200 rounded" />
         <div class="h-6 w-2/3 bg-gray-200 rounded" />
       </div>
+    </section>
+
+    <!-- Неавторизованный пользователь: ждём авторизации в модалке -->
+    <section v-else class="py-10 text-center text-sm md:text-base text-gray-600">
+      <p>Для просмотра личного кабинета авторизуйтесь в открывшемся окне.</p>
     </section>
   </BaseContainer>
 </template>
