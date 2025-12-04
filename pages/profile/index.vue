@@ -7,7 +7,7 @@ import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, watch } from 'vue'
+import { computed, onMounted, watch, ref } from 'vue'
 import { navigateTo } from '#imports'
 import { useCookie } from '#app'
 import { getFirstUtm, getLastUtm, type StoredUtmSet } from '@/composables/useUtmTracker'
@@ -22,9 +22,9 @@ const authStore = useAuthStore()
 
 // реактивные поля из стора
 const { profile, isLoaded } = storeToRefs(userStore)
-const { isAuthenticated } = storeToRefs(authStore)   // ВАЖНО: именно поле из authStore
+const { isAuthenticated } = storeToRefs(authStore)
 
-// ---------- VIP по UTM (только для показа блока, НЕ для открытия модалки) ----------
+// ---------- VIP по UTM (для показа блока) ----------
 
 function isVipUtm(utm?: StoredUtmSet | null): boolean {
   if (!utm) return false
@@ -35,7 +35,6 @@ function isVipUtm(utm?: StoredUtmSet | null): boolean {
   const cont = (utm.content ?? '').toLowerCase().trim()
   const term = (utm.term ?? '').toLowerCase().trim()
 
-  // utm_source=vip card&utm_medium=offline&utm_campaign=art catalogue card&utm_content=vip&utm_term=vip
   return (
     src === 'vip card' &&
     med === 'offline' &&
@@ -52,28 +51,39 @@ const hasVipUtm = computed(() => {
   return isVipUtm(first) || isVipUtm(last)
 })
 
-// если есть ещё кука из middleware — учитываем и её как доп. флаг
+// кука, которую ставит vip.global.ts
 const vipFromCard = useCookie<string | null>('vip_from_card', { path: '/' })
 
 // общий флаг «этот пользователь когда-то пришёл по VIP-ссылке»
 const hasVipFlag = computed(() => hasVipUtm.value || vipFromCard.value === '1')
 
-// показывать ли блок ввода VIP-кода
-const showVipBlock = computed(() => hasVipFlag.value && isAuthenticated.value)
+// показывать ли блок ввода VIP-кода/сканера
+const showVipBlock = computed(() => isAuthenticated.value)
 
+// после успешной активации можно убрать флаг из куки
 function handleVipActivated() {
-  // после успешной активации можно скрыть блок (сбрасываем куку)
   vipFromCard.value = '0'
 }
 
+// ---------- Проверка токена в localStorage ----------
+
+const hasValidStoredToken = computed(() => {
+  if (!process.client) return false
+  const token = localStorage.getItem('token')
+  const expires = Number(localStorage.getItem('auth_expires_at') || 0)
+  const now = Date.now()
+  return Boolean(token && expires && now < expires)
+})
+
+const authRequested = ref(false)
+
 // ---------- Загрузка профиля при авторизации ----------
 
-// Гарантируем, что после появления авторизации профиль подтянется и скелетон исчезнет
 watch(
   isAuthenticated,
   async (authed) => {
     if (authed && !isLoaded.value) {
-      await userStore.load()   // или loadProfile — используй метод, который есть в userStore
+      await userStore.loadProfile()
     }
   },
   { immediate: true }
@@ -82,11 +92,16 @@ watch(
 // ---------- Автоматическое открытие модалки авторизации ----------
 
 onMounted(() => {
-  // КЛЮЧЕВАЯ правка:
-  // если пользователь не авторизован и зашёл в /profile — ВСЕГДА открываем окно входа,
-  // НЕ только для VIP
-  if (!isAuthenticated.value) {
+  // если стор уже считает, что пользователь авторизован — ничего не делаем
+  if (isAuthenticated.value) return
+
+  // если в localStorage есть ещё валидный токен — ждём, пока стор подтянется (без модалки)
+  if (hasValidStoredToken.value) return
+
+  // токена нет вообще — реально гость, открываем авторизацию
+  if (!authRequested.value) {
     authStore.openAuth('/profile')
+    authRequested.value = true
   }
 })
 
@@ -174,13 +189,14 @@ function deleteAddress(index: number) {
 
       <!-- 🔹 VIP блок — только для тех, кто пришёл по VIP-ссылке и уже авторизован -->
       <VipActivationBlock
-        v-if="showVipBlock"
-        class="max-w-full md:max-w-[70%] mb-4 md:mb-6"
+        v-if="isAuthenticated"
+        class="max-w-full md:max-w-[70%] mb-6"
+        :has-vip-flag="hasVipFlag"
         @activated="handleVipActivated"
       />
 
       <!-- Bank Cards -->
-      <div class="bg-gray-100 rounded-xl p-4 mb-6 max-w-full md:max-w-[70%]">
+      <!-- <div class="bg-gray-100 rounded-xl p-4 mb-6 max-w-full md:max-w-[70%]">
         <div class="text-base font-medium mb-4">Банковские карты</div>
         <div class="flex flex-row items-center w-full max-w-[70%] mb-6">
           <div class="relative w-[82%] md:w-[60%] h-[90px]">
@@ -209,7 +225,7 @@ function deleteAddress(index: number) {
             </template>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Editable Fields -->
       <div class="flex flex-col gap-4 text-sm max-w-full md:max-w-[70%]">
