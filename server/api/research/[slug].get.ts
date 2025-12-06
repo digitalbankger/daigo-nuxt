@@ -64,6 +64,28 @@ export default defineEventHandler((event) => {
       date: '2025-06-30',
       category: slug
     },
+
+    //Новые
+    {
+      id: 7,
+      slug: 'vliyanie-daygo-na-umenshenie-faktorov-vliyayushchikh-na-progressirovanie-pochechnoy-nedostatochnosti',
+      title: 'Влияние Дайго на уменьшение факторов, влияющих на прогрессирование почечной недостаточности',
+      image: 'https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/c8b/840_560_1/ywdjd5omxsdms5ju6jhfisz0thqkggl1.webp',
+      date: '2025-06-30',
+      time: 8,
+      views: 32240,
+      category: slug
+    },
+    {
+      id: 8,
+      slug: 'issledovanie-effektivnost-peroralnogo-priyema-plazmalogena-tamotsu-tamotsu-',
+      title: 'Исследование: эффективность перорального приёма плазмалогена Tamotsu (Тамоцу)',
+      image: 'https://mail.daigo.ru/upload/resize_webp/iblock/3d8/1la6nvowxft073uth6hoy1w3ejprniff.webp',
+      date: '2025-04-13',
+      time: 8,
+      views: 37140,
+      category: slug
+    }
   ]
 
   return { category, items }
