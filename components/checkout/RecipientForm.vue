@@ -83,21 +83,22 @@ const otherEmail = computed({
 })
 
 
-
-// === как и было ===
+// === как и было, но теперь допускаем одно слово ===
 const NAME_RE = /[^\p{L}\p{M}\-'\s]/gu
-function sanitizeTwoWords(input: string): string {
+function sanitizeName(input: string): string {
   const cleaned = (input ?? '').replace(NAME_RE, '').replace(/\s+/g, ' ').trim()
-  return cleaned ? cleaned.split(' ').slice(0, 2).join(' ') : ''
+  return cleaned
 }
 const fullName = computed<string>({
   get: () => {
     const { first_name, last_name } = store.state.recipient
-    return sanitizeTwoWords([first_name, last_name].filter(Boolean).join(' '))
+    return sanitizeName([first_name, last_name].filter(Boolean).join(' '))
   },
   set: (val: string) => {
-    const s = sanitizeTwoWords(val)
-    const [first = '', last = ''] = s.split(' ')
+    const s = sanitizeName(val)
+    const parts = s.split(' ')
+    const first = parts.shift() || ''
+    const last = parts.join(' ')
     store.state.recipient.first_name = first
     store.state.recipient.last_name = last
   }
@@ -106,12 +107,11 @@ const fullName = computed<string>({
 // Показываем ошибку только если поле тронуто ИЛИ непустое
 const fullNameError = computed(() => {
   const raw = fullName.value?.trim() ?? ''
-  const words = raw ? raw.split(' ').filter(Boolean) : []
 
   // до первого взаимодействия и при пустом поле — без ошибки
-  if (!fullNameTouched.value && words.length === 0) return ''
+  if (!fullNameTouched.value && !raw) return ''
 
-  if (words.length < 2) return 'Укажите имя и фамилию'
+  if (!raw) return 'Укажите имя'
   return store.errors.recipient.first_name || store.errors.recipient.last_name || ''
 })
 
@@ -146,7 +146,7 @@ watch(() => fullName.value, (v) => {
 
     <UiInput
       v-model="fullName"
-      placeholder="Имя Фамилия"
+      placeholder="Имя Фамилия*"
       :error="fullNameError"
       background="bg-white"
       autocomplete="name"
@@ -158,7 +158,7 @@ watch(() => fullName.value, (v) => {
       type="tel"
       inputmode="tel"
       mask="ru-phone"
-      placeholder="Телефон"
+      placeholder="Телефон*"
       :error="store.errors.recipient.phone_number"
       background="bg-white"
       autocomplete="tel"
@@ -167,7 +167,7 @@ watch(() => fullName.value, (v) => {
     <UiInput
       v-model="email"
       type="email"
-      placeholder="Email"
+      placeholder="Email*"
       :error="store.errors.recipient.email"
       background="bg-white"
       autocomplete="email"
@@ -180,7 +180,7 @@ watch(() => fullName.value, (v) => {
         v-model="city"
         @select="onCitySelect"
         background="bg-white"
-        placeholder="Город"
+        placeholder="Город*"
       />
       <!-- вывод ошибки из вашего стора (оставил прежний путь) -->
       <p v-if="store.errors.recipient.city" class="mt-1 text-xs text-red-600">

@@ -39,17 +39,21 @@ if (import.meta.client) {
 
     // потом — отправка события просмотра корзины в YTM
     ytm.viewCart({
-      products: cartStore.items.map(i => ({
-        id: i.id,
-        name: i.title,
-        price: i.price,
-        quantity: i.quantity,
-        category: i.tag
-      })),
-      value: cartStore.total ?? cartStore.subtotal ?? 0,
-      currency: 'RUB'
+      currency: 'RUB',
+      total: cartStore.total ?? cartStore.subtotal ?? 0,
+      count: cartStore.items.length,
+      items: cartStore.items.length
+        ? cartStore.items.map(i => ({
+            id: i.id,
+            name: i.title,
+            price: i.price,
+            quantity: i.quantity,
+            category: i.tag ? [i.tag] : undefined
+          }))
+        : null
     })
   })
+
 }
 
 function getRemarketingPercentFromContent(content?: string): RemarketingPercent | null {

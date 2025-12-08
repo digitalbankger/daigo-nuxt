@@ -246,15 +246,14 @@ import ProductStickyCartPopup from '~/components/product/ProductStickyCartPopup.
 import CertificateProductPage from '~/components/product/certificate/CertificateProductPage.vue'
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
 import { useYtm } from '@/composables/useYtm'
-const ytm = useYtm()
 
+const ytm = useYtm()
 const route = useRoute()
 const productStore = useProductStore()
 await productStore.loadProduct(route.params.slug as string)
 
 const product = computed(() => productStore.product)
 
-// признак «это сертификат?» — выберите свой источник правды
 const isCertificate = computed(() =>
   product.value?.template === 'certificate' ||
   product.value?.type === 'certificate' ||
@@ -262,27 +261,27 @@ const isCertificate = computed(() =>
 )
 
 onMounted(() => {
-  const p = product.value as any
+  if (!import.meta.client) return
+  const p = product.value
   if (!p) return
-  // pages/catalog/[slug].vue (после получения товара)
-const ytm = useYtm()
-onMounted(() => {
-  if (!product.value) return
-    ytm.viewDetail({
-      currency: 'RUB',
-      brand: 'Daigo',             
-      items: [{
-        id: product.value.product_id,
-        name: product.value.title,
-        price: Number(product.value.price) || 0,
-        image_url: product.value.images?.[0]?.image_url
-      }]
-    })
-  })
 
+  const item = {
+    id: p.product_id,
+    name: p.title,
+    price: Number(p.price) || 0,
+    category: p.category ? [p.category] : undefined,
+    url: `/catalog/${p.slug}`,
+    image_url: p.images?.[0]?.image_url
+  }
+
+  ytm.viewDetail({
+    currency: 'RUB',
+    category: p.category ? [p.category] : undefined,
+    items: [item]
+  })
 })
 
-// хлебные крошки / JSON-LD
+
 const { breadcrumbs, jsonLd } = useBreadcrumbs(product, '/catalog')
 
 const faqJsonLd = computed(() => {

@@ -48,28 +48,31 @@ function toYtmPromo() {
 }
 
 async function goLinkIfNeed(): Promise<boolean> {
+  if (!import.meta.client) return false
+
   const link = props.promotion.link?.trim?.()
   if (!link) return false
   if (props.busy) return true
 
-  // --- YTM: promo_click перед переходом ---
   ytm.promoClick([toYtmPromo()])
 
   if (/^https?:\/\//i.test(link)) await navigateTo(link, { external: true })
   else await navigateTo(link)
+
   return true
 }
 
 async function onPrimaryClick() {
-  // Навигационная акция
+  if (!import.meta.client) return
+
   if (await goLinkIfNeed()) return
   if (props.busy) return
 
-  // --- YTM: promo_click при CTA не-навигационной акции ---
   ytm.promoClick([toYtmPromo()])
 
-  // Обычная логика apply/cancel
-  props.isApplied ? emit('cancel', props.promotion) : emit('apply', props.promotion)
+  props.isApplied
+    ? emit('cancel', props.promotion)
+    : emit('apply', props.promotion)
 }
 
 async function copyCoupon() {

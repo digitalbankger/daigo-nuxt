@@ -22,61 +22,43 @@ await store.loadOptions()
 
 // begin_checkout — при заходе на страницу
 onMounted(() => {
+  const products = cart.state.items.map(i => ({
+    id: i.id,
+    name: i.title,
+    price: i.price,
+    quantity: i.qty,
+    category: i.tag ? [i.tag] : undefined,
+    url: `/catalog/${i.id}`,
+    image_url: i.img || undefined
+  }))
+
   ytm.beginCheckout({
     step: 1,
-    option: 'begin',
-    products: cart.state.items.map(i => ({
-      id: i.id,
-      name: i.title,
-      price: i.price,
-      quantity: i.qty
-    })),
+    option: 'checkout_phone_validate',
+    products,
     value: cart.total,
     currency: 'RUB'
   })
 })
 
-// шаг 2 — выбор доставки
-watch(
-  () => store.state.deliveryId,
-  (v) => {
-    if (!v) return
 
-    ytm.checkoutProgress({
-      step: 2,
-      option: `delivery:${String(v)}`,
-      products: cart.state.items.map(i => ({
-        id: i.id,
-        name: i.title,
-        price: i.price,
-        quantity: i.qty
-      })),
-      value: cart.total,
-      currency: 'RUB'
-    })
-  }
-)
+// шаг 2 — выбор доставки
+watch(() => store.state.deliveryId, (v) => {
+  if (!v) return
+  ytm.checkoutProgress({
+    step: 2,
+    option: `delivery:${String(v)}`
+  })
+})
 
 // шаг 3 — выбор оплаты
-watch(
-  () => store.state.paymentMethod,
-  (v) => {
-    if (!v) return
-
-    ytm.checkoutProgress({
-      step: 3,
-      option: `payment:${String(v)}`,
-      products: cart.state.items.map(i => ({
-        id: i.id,
-        name: i.title,
-        price: i.price,
-        quantity: i.qty
-      })),
-      value: cart.total,
-      currency: 'RUB'
-    })
-  }
-)
+watch(() => store.state.paymentMethod, (v) => {
+  if (!v) return
+  ytm.checkoutProgress({
+    step: 3,
+    option: `payment:${String(v)}`
+  })
+})
 
 // --- компоненты ---
 const RecipientForm = defineAsyncComponent(() => import('@/components/checkout/RecipientForm.vue'))

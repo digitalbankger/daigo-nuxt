@@ -45,6 +45,7 @@ interface StateShape {
   address: {
     city?: string
     street?: string
+    house?: string
     apartment?: string
     entrance?: string
     floor?: string
@@ -58,7 +59,6 @@ interface StateShape {
 
     // ⬇️ Дополнительно: базовая строка адреса (единая для всех видов)
     address_line?: string // ⬅️ CHANGED: пояснение, поле используется как общий текст адреса
-    house?: string        // ⬅️ CHANGED: для единообразия с курьером
     block?: string        // ⬅️ CHANGED
     postal_code?: string  // ⬅️ CHANGED
   }
@@ -130,6 +130,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     address: {
       city: '',
       street: '',
+      house: '',
       apartment: '',
       entrance: '',
       floor: '',
@@ -142,7 +143,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
 
       // ⬇️ Единый адрес для всех видов
       address_line: '',   // ⬅️ CHANGED: используется и курьером, и ПВЗ
-      house: '',          // ⬅️ CHANGED
       block: '',          // ⬅️ CHANGED
       postal_code: ''     // ⬅️ CHANGED
     },
@@ -193,6 +193,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     address: {
       city: '' as string,
       street: '' as string,
+      house: '' as string,
       pvzAddress: '' as string,
       pickupAddress: '' as string,
     },
@@ -211,6 +212,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     errors.other.email = ''
     errors.address.city = ''
     errors.address.street = ''
+    errors.address.house = ''
     errors.address.pvzAddress = ''
     errors.address.pickupAddress = ''
     errors.payment = ''
@@ -332,8 +334,10 @@ export const useCheckoutStore = defineStore('checkout', () => {
     const em = (state.recipient.email || '').trim()
     const city = (state.address.city || '').trim()
 
-    if (!fn) errors.recipient.first_name = 'Укажите имя'
-    if (!ln) errors.recipient.last_name = 'Укажите фамилию'
+    if (!fn && !ln) {
+      errors.recipient.first_name = 'Укажите имя'
+      errors.recipient.last_name = ''
+    }
     if (!ph || ph.length < 10) errors.recipient.phone_number = 'Укажите телефон'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
     if (!city) errors.recipient.city = 'Укажите город'
@@ -348,20 +352,26 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
 
     const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
-    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ CHANGED: единые правила для курьера и ПВЗ
-      // Требуем хотя бы улицу/дом или address_line
+    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ единые правила для курьера и ПВЗ
+      // Требуем хотя бы улицу или address_line
       const line = (state.address.address_line || '').trim()
       const street = (state.address.street || '').trim()
       if (!line && !street) {
-        errors.address.street = 'Укажите адрес (улица и дом)'
+        errors.address.street = 'Укажите улицу'
+      }
+      // Отдельно требуем дом (из отдельного поля)
+      const house = (state.address.house || '').trim()
+      if (!house) {
+        errors.address.house = 'Укажите дом'
       }
       // ПВЗ-специфичную проверку pvzAddress убираем
-      errors.address.pvzAddress = '' // ⬅️ CHANGED: явное обнуление
+      errors.address.pvzAddress = ''
     } else if (opt?.kind === 'pickup') {
       if (!(state.address.pickupAddress || pickupAddress.value)?.trim()) {
         errors.address.pickupAddress = 'Укажите адрес самовывоза'
       }
     }
+
 
     if (!state.paymentMethod) {
       errors.payment = 'Выберите способ оплаты'
@@ -377,6 +387,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       !!errors.other.phone ||
       !!errors.other.email ||
       !!errors.address.street ||
+      !!errors.address.house ||
       !!errors.address.pvzAddress || // остаётся для совместимости, но теперь не должен заполняться
       !!errors.address.pickupAddress ||
       !!errors.payment
@@ -473,6 +484,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
               revenue,
               shipping: 0,
               items: products,
+              shipping_type: state.deliveryId || undefined,
+              coupon: cart.couponInfo?.code || undefined,
+              tax: 0,
               payment_type: state.paymentMethod,
             })
 

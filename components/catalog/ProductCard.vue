@@ -90,6 +90,9 @@ import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import { computed } from 'vue'
 import { useYtm } from '@/composables/useYtm'
+import { useRoute } from '#imports'
+
+const route = useRoute()
 const ytm = useYtm()
 
 const { product, index, globalIndex, isLast } = defineProps<{
@@ -125,12 +128,18 @@ function addToCartHandler() {
 }
 
 function onOpen(navigate: () => void) {
-  ytm.productClick({
-    id: product.product_id ?? product.product_id,
+  const productObj = {
+    id: product.product_id,
     name: product.name,
     price: Number(product.price) || 0,
-    category: product.tag
-  }, 'catalog')
+    position: (globalIndex ?? index ?? 0) + 1,
+    category: product.tag ? [product.tag] : undefined,
+    url: `/catalog/${product.slug}`,
+    image_url: product.image
+  }
+
+  // в list_id передаём текущий путь, в list_name — название списка
+  ytm.productClick(productObj, route.path, 'Каталог')
   navigate()
 }
 

@@ -53,6 +53,12 @@ const addressLine = computed<string>({
   get: () => store.state.address.address_line ?? '',
   set: v => store.setAddress({ address_line: v || undefined }),
 })
+
+const house = computed<string>({
+  get: () => store.state.address.house ?? '',
+  set: v => store.setAddress({ house: v || undefined }),
+})
+
 const apartment = computed<string>({
   get: () => store.state.address.apartment ?? '',
   set: v => store.setAddress({ apartment: v || undefined }),
@@ -90,7 +96,8 @@ function applyAddressFromSuggest(it: AddrItem) {
   store.setAddress?.({
     address_line: it.value,                 // полная строка в инпуте
     street: it.street || it.value,          // «улица»
-    house: it.house || undefined,
+    // если DaData не дала дом — не трогаем уже введённый вручную дом
+    house: it.house || store.state.address.house || undefined,
     block: it.block || undefined,
     postal_code: it.postal_code ?? undefined,
   })
@@ -185,13 +192,13 @@ function saveAddress() {
       <!-- Адресные поля -->
       <div v-if="isCourierSelected" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <!-- Улица + дом с DaData (зависит от выбранного города) -->
+          <!-- Улица (подсказки DaData) -->
           <div class="md:col-span-2">
             <AddressSuggest
               v-model="addressLine"
               :cityFiasId="cityFiasId"
               @select="onAddressSelectCourier"
-              placeholder="Улица и дом"
+              placeholder="Улица"
               background="bg-white"
             />
             <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
@@ -202,12 +209,34 @@ function saveAddress() {
             </p>
           </div>
 
+          <!-- Дом отдельно, чтобы нельзя было оставить только улицу -->
+          <UiInput v-model="house" placeholder="Дом" background="bg-white" />
+          <p v-if="store.errors.address.house" class="md:col-span-2 mt-1 text-xs text-red-600">
+            {{ store.errors.address.house }}
+          </p>
+
           <UiInput v-model="apartment" placeholder="Квартира/Офис" background="bg-white" />
 
-          <UiInput v-if="!store.state.address.private_house" v-model="entrance" placeholder="Подъезд" background="bg-white" />
-          <UiInput v-if="!store.state.address.private_house" v-model="floor" placeholder="Этаж" background="bg-white" />
-          <UiInput v-if="!store.state.address.private_house" v-model="intercom" placeholder="Домофон" background="bg-white" />
+          <UiInput
+            v-if="!store.state.address.private_house"
+            v-model="entrance"
+            placeholder="Подъезд"
+            background="bg-white"
+          />
+          <UiInput
+            v-if="!store.state.address.private_house"
+            v-model="floor"
+            placeholder="Этаж"
+            background="bg-white"
+          />
+          <UiInput
+            v-if="!store.state.address.private_house"
+            v-model="intercom"
+            placeholder="Домофон"
+            background="bg-white"
+          />
         </div>
+
 
         <div>
           <BaseCheckbox v-model="store.state.address.private_house">Частный дом</BaseCheckbox>
@@ -244,7 +273,7 @@ function saveAddress() {
               :cityFiasId="cityFiasId"
               @select="onAddressSelectPvz"
               background="bg-white"
-              placeholder="Адрес пункта выдачи (улица, дом)"
+              placeholder="Адрес пункта выдачи (улица)"
             />
             <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
               Сначала выберите город — подсказки адреса будут точнее.
@@ -254,12 +283,19 @@ function saveAddress() {
             </p>
           </div>
 
+          <!-- Дом для ПВЗ -->
+          <UiInput v-model="house" placeholder="Дом" background="bg-white" />
+          <p v-if="store.errors.address.house" class="md:col-span-2 mt-1 text-xs text-red-600">
+            {{ store.errors.address.house }}
+          </p>
+
           <!-- Доп. поля — опционально -->
           <UiInput v-model="apartment" placeholder="Квартира/Офис (необязательно)" background="bg-white" />
           <UiInput v-model="entrance"  placeholder="Подъезд (необязательно)"     background="bg-white" />
           <UiInput v-model="floor"     placeholder="Этаж (необязательно)"        background="bg-white" />
           <UiInput v-model="intercom"  placeholder="Домофон (необязательно)"     background="bg-white" />
         </div>
+
 
         <div class="flex justify-start">
           <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>

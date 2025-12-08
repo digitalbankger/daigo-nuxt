@@ -112,6 +112,19 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
+  /** Приведение CartItem → ProductObject для YTM */
+  function toYtmProduct(it: CartItem) {
+    return {
+      id: String(it.id),
+      name: it.title,
+      price: Number(it.price) || 0,
+      quantity: Number(it.quantity) || 1,
+      category: it.tag ? [it.tag] : undefined,
+      url: `/catalog/${it.id}`,
+      image_url: it.image || undefined
+    }
+  }
+
   const itemsCount = computed(() =>
     items.value.reduce((sum, it) => sum + (it.quantity ?? 0), 0)
   )
@@ -209,23 +222,17 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     if (ok && process.client) {
-  try {
-    ytm.addToCart({
-      id: String(item.id),
-      name: item.title,
-      price: Number(item.price) || 0,
-      quantity: Number(item.quantity) || 1,
-      ...(item.tag ? { variant: [item.tag] } : {})
-    }, 'cart')
+      try {
+        ytm.addToCart(toYtmProduct(item), 'cart')
 
-    analytics.addToCart({
-      id: item.id,
-      name: item.title,
-      price: item.price,
-      quantity: item.quantity,
-      category: item.tag
-    })
-  } catch {}
+        analytics.addToCart({
+          id: item.id,
+          name: item.title,
+          price: item.price,
+          quantity: item.quantity,
+          category: item.tag
+        })
+      } catch {}
     }
   }
 
@@ -262,21 +269,9 @@ export const useCartStore = defineStore('cart', () => {
         // по ТЗ: увеличение = add_to_cart, уменьшение = remove_from_cart (на дельту)
         try {
           if (delta > 0) {
-            ytm.addToCart({
-              id: String(after.id),
-              name: after.title,
-              price: Number(after.price) || 0,
-              quantity: Number(after.quantity) || 1,
-              ...(after.tag ? { variant: [after.tag] } : {})
-            }, 'cart')
+            ytm.addToCart(toYtmProduct(after), 'cart')
           } else if (delta < 0) {
-            ytm.removeFromCart({
-              id: String(after.id),
-              name: after.title,
-              price: Number(after.price) || 0,
-              quantity: Number(after.quantity) || 1,
-              ...(after.tag ? { variant: [after.tag] } : {})
-            }, 'cart')
+            ytm.removeFromCart(toYtmProduct(after), 'cart')
           }
         } catch {
           // no-op
@@ -300,13 +295,8 @@ export const useCartStore = defineStore('cart', () => {
     } finally {
       if (removed && process.client) {
         try {
-           ytm.removeFromCart({
-            id: String(removed.id),
-              name: removed.title,
-              price: Number(removed.price) || 0,
-              quantity: Number(removed.quantity) || 1,
-              ...(removed.tag ? { variant: [removed.tag] } : {})
-            }, 'cart')
+           ytm.removeFromCart(toYtmProduct(removed), 'cart')
+
         } catch {
           // no-op
         }

@@ -65,17 +65,24 @@ watchEffect(async () => {
 })
 
 // Yandex TagManager
+// Yandex TagManager
 watchEffect(() => {
   const list = visibleProducts.value
   if (!list?.length) return
+
   ytm.viewListing({
-    list_id: route.path,
-    products: list.map(p => ({
+    currency: 'RUB',
+    items: list.map((p, idx) => ({
       id: p.product_id,
       name: p.name,
       price: Number(p.price) || 0,
-      category: p.tag
-    }))
+      position: idx + 1,
+      category: p.tag ? [p.tag] : undefined,
+      url: `/catalog/${p.slug}`,
+      image_url: p.image
+    })),
+    page_count: catalogStore.totalPages,
+    current_page: page.value
   })
 })
 // Yandex TagManager end
