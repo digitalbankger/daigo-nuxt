@@ -19,7 +19,6 @@ export default defineNuxtPlugin(() => {
   const api = $fetch.create({
     // ВАЖНО: НЕ указываем baseURL здесь, чтобы не ломать
     // внутренние nuxt-запросы типа /_nuxt/builds/meta/dev.json
-    credentials: 'include',
     onRequest({ options }) {
       const token = auth.token
       if (!token) return
