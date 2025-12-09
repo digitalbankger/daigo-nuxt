@@ -400,8 +400,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 35325,
-      originalPrice: 47100,
+      price: 47100,
+      originalPrice: null,
       category: 'metabiotic',
       isActive: true,
       combo: {
