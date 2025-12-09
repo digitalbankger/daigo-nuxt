@@ -23,7 +23,7 @@ const activeIndex = ref(0)
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
       <div class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
         <img
-          :src="sortedImages[activeIndex]?.image_url"
+          :src="sortedImages[activeIndex]?.src.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
           width="640"
           height="480"
@@ -49,7 +49,7 @@ const activeIndex = ref(0)
           @click="activeIndex = index"
         >
           <img
-            :src="img.image_url"
+            :src="img.src.image_url"
             width="80"
             height="80"
             format="webp"
