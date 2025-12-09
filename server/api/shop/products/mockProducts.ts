@@ -399,7 +399,7 @@ export const mockProducts = [
       descriptionSections: [
 
       ],
-      price: 35325,
+      price: 47100,
       originalPrice: 47100,
       category: 'metabiotic',
       isActive: true,
