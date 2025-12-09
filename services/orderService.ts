@@ -99,9 +99,12 @@ function toReadableError(e: any): Error & { status?: number } {
     status === 501
       ? 'ORDER_API_NOT_IMPLEMENTED'
       : backendMsg || 'ORDER_CREATE_FAILED'
-  ) as Error & { status?: number }
+  ) as Error & { status?: number } & { stage?: string }
 
   err.status = status
+  // прокинем stage из ответа бэка, если есть
+  const stage = e?.data?.stage ?? e?.response?._data?.stage ?? e?.stage
+  if (stage) (err as any).stage = stage
   return err
 }
 

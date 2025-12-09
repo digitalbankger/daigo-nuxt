@@ -41,6 +41,17 @@
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
+                <!-- Ссылки для партнёров -->
+                <li>
+                  <a href="https://lp.daigo.ru/daigob2b" target="_blank" rel="noopener">
+                    Корпоративным клиентам
+                  </a>
+                </li>
+                <li>
+                  <a href="https://lp.daigo.ru/vns-welcome-daigo" target="_blank" rel="noopener">
+                    Партнерская программа
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -143,6 +154,16 @@
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
+                <li>
+                  <a href="https://lp.daigo.ru/daigob2b" target="_blank" rel="noopener">
+                    Корпоративным клиентам
+                  </a>
+                </li>
+                <li>
+                  <a href="https://lp.daigo.ru/vns-welcome-daigo" target="_blank" rel="noopener">
+                    Партнерская программа
+                  </a>
+                </li>
               </ul>
             </div>
 
@@ -197,7 +218,7 @@
             </transition>
           </div>
 
-          <p class="text-lg font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ, ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ. НЕОБХОДИМО ПРОКОНСУЛЬТИРОВАТЬСЯ СО СПЕЦИАЛИСТОМ</p>
+          <p class="text-base font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ, ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ. НЕОБХОДИМО ПРОКОНСУЛЬТИРОВАТЬСЯ СО СПЕЦИАЛИСТОМ</p>
 
         </div>
 

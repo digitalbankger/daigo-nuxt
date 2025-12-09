@@ -41,6 +41,46 @@
               <li class="transition duration-300 hover:text-primary"><NuxtLink to="/researches">Исследования</NuxtLink></li>
               <li class="transition duration-300 hover:text-primary"><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
               <li class="transition duration-300 hover:text-primary"><NuxtLink to="/contacts">Контакты</NuxtLink></li>
+
+              <li class="block sm:hidden relative group transition duration-300 hover:text-primary">
+                <!-- parent label -->
+                <span class="inline-flex items-center gap-1 cursor-pointer">
+                  Партнёрам
+                  <svg
+                    class="w-3 h-3 transform group-hover:-rotate-180 transition-transform"
+                    viewBox="0 0 10 6"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M9 1L5 5L1 1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+                <!-- dropdown -->
+                <ul
+                  class="absolute left-0 mt-2 z-50 hidden group-hover:block bg-white border border-gray-200 rounded-lg shadow-lg text-sm whitespace-nowrap"
+                >
+                  <li>
+                    <a
+                      href="https://lp.daigo.ru/daigob2b"
+                      target="_blank"
+                      rel="noopener"
+                      class="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Корпоративным клиентам
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://lp.daigo.ru/vns-welcome-daigo"
+                      target="_blank"
+                      rel="noopener"
+                      class="block px-4 py-2 hover:bg-gray-100"
+                    >
+                      Партнерская программа
+                    </a>
+                  </li>
+                </ul>
+              </li>
             </ul>
           </div>
         </div>

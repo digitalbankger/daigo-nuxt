@@ -507,7 +507,19 @@ export const useCheckoutStore = defineStore('checkout', () => {
       }
     } catch (e: any) {
       console.warn('ORDER_SUBMIT_FAIL', e)
-      if (!lastError.value) lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'
+      // определяем stage ошибки для пользовательского сообщения
+      if (!lastError.value) {
+        const stage = (e as any)?.stage
+        if (stage === 'order_placement') {
+          // заказ создан, но не удалось оплатить
+          lastError.value = 'Проблема с оплатой. Заказ создан, мы свяжемся с вами.'
+        } else if (stage === 'order_creation') {
+          // заказ не был создан
+          lastError.value = 'Не удалось создать заказ, свяжитесь с менеджером.'
+        } else {
+          lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'
+        }
+      }
     }
   }
 
