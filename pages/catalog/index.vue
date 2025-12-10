@@ -50,7 +50,13 @@ watchEffect(async () => {
 
   const normalizedQuery = Object.fromEntries(
     Object.entries(route.query)
-      .filter(([key]) => key !== 'empty')
+      .filter(([key]) => {
+        // служебные/трекинговые параметры, которые НЕ являются фильтрами каталога
+        if (key === 'empty' || key === 'page') return false
+        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
+        if (key.startsWith('utm_')) return false
+        return true
+      })
       .map(([key, value]) => [
         key,
         Array.isArray(value) ? value[0] ?? '' : value ?? ''
@@ -200,7 +206,7 @@ function closeFilters() {
         subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
         @done="onLeadDone"
       />-->
-      <div class="flex flex-row items-centr justify-between">
+      <div class="flex flex-row items-centr justify-between absolute z-0 bottom-0 left-0 text-white">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
       <div class="flex lg:hidden items-center gap-4 mb-6 relative z-10">

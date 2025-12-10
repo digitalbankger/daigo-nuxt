@@ -123,14 +123,23 @@ export const usePromoStore = defineStore('promoStore', () => {
       return true
     }
 
-    // 2) Дальше — старая логика
+    // 2) Логика применения промокода
     if (promo.promo_type === 'code') {
+      // Промоакции с типом "code" должны всегда дергать applyCoupon на корзине.
+      // Берём сам код из поля coupon и валидируем, чтобы не было "тихого успеха"
+      // без реального запроса к серверу.
+      const code = (promo.coupon || '').trim()
+      if (!code) {
+        throw new Error('Для данной акции не задан промокод')
+      }
+
       await cart.ensureLoaded()
       const hasItems = cart.items.length > 0 || (cart.subtotal ?? 0) > 0
       if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
-      await cart.applyCoupon(promo.coupon || '')
+
+      await cart.applyCoupon(code)
       await loadPromotions()
-      try { ytm.promoApply(String(promo.coupon)) } catch {}
+      try { ytm.promoApply(String(code)) } catch {}
       return true
     }
 

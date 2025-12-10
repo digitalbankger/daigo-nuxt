@@ -35,10 +35,6 @@ const remarketingDiscountAmount = computed(() => cartStore.remarketingDiscountAm
 const exhibitionDiscountAmount = computed(() => cartStore.exhibitionDiscountAmount)
 const couponInfo = computed(() => cartStore.couponInfo)
 
-// vip скидка
-const vipDiscountAmount = computed(() => cartStore.vipDiscountAmount)
-const vipDiscountPercent = computed(() => cartStore.vipDiscountPercent)
-
 const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
 
 const enableCta = computed(() =>
@@ -313,19 +309,6 @@ async function removeCoupon() {
       </div>
 
       <!-- 🆕 детализация скидок -->
-      <div
-        v-if="vipDiscountAmount > 0"
-        class="flex justify-between font-medium text-cgreen"
-      >
-        <span>VIP-скидка</span>
-        <span>
-          −{{ vipDiscountAmount.toLocaleString() }} ₽
-          <template v-if="vipDiscountPercent != null">
-            ({{ vipDiscountPercent }}%)
-          </template>
-        </span>
-      </div>
-
       <div
         v-if="remarketingDiscountAmount > 0"
         class="flex justify-between font-medium text-cgreen"

@@ -80,9 +80,26 @@ export default defineEventHandler(async (event) => {
   }
 
   // прокинем остальные фильтры «как есть» (кроме служебных)
-  for (const [k, vAny] of Object.entries(q)) {
-    if (['page', 'page_size', 'limit', 'napravlennost', 'produkty', 'empty'].includes(k)) continue
-    if (vAny == null || vAny === '') continue
+for (const [k, vAny] of Object.entries(q)) {
+  if ([
+    'page',
+    'page_size',
+    'limit',
+    'napravlennost',
+    'produkty',
+    'empty',
+  ].includes(k)) continue
+
+  // трекинговые / рекламные параметры не должны уходить на бэкенд каталога
+  if (
+    k === 'ysclid' ||
+    k === 'yclid' ||
+    k === 'gclid' ||
+    k === 'fbclid' ||
+    k.startsWith('utm_')
+  ) continue
+
+  if (vAny == null || vAny === '') continue
     const csv = Array.isArray(vAny)
       ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
       : String(vAny)
