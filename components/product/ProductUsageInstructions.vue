@@ -22,29 +22,31 @@ interface ProductUsageInstruction {
   footnote?: string
 }
 
-const props = defineProps<{ data: ProductUsageInstruction }>()
+// 👇 делаем data необязательным и допускаем null
+const props = defineProps<{
+  data?: ProductUsageInstruction | null
+}>()
+
 const showVideo = ref(false)
 
 /** Кол-во колонок с учётом наличия картинки */
 const gridCols = (len = 0, hasImage = false) => {
   if (len <= 1) return 'sm:grid-cols-1 lg:grid-cols-1'
   if (len === 2) return 'sm:grid-cols-2 lg:grid-cols-2'
-  // len > 2
   return hasImage ? 'sm:grid-cols-2 lg:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3'
 }
 </script>
 
-
 <template>
-  <section class="space-y-8">
+  <!-- 👇 защита от undefined/null -->
+  <section v-if="data" class="space-y-8">
     <!-- Заголовок -->
     <h2 class="text-product leading-tight font-medium">
       Инструкция <br class="block sm:hidden" /> по применению
     </h2>
 
-    <!-- Содержимое (картинка + текст) -->
     <div class="flex flex-col sm:flex-row gap-6 items-start">
-      <!-- Картинка (если есть) -->
+      <!-- Картинка -->
       <div
         v-if="data.image"
         class="w-full sm:w-[40%] bg-hoverbtn rounded-3xl overflow-hidden"
@@ -58,10 +60,9 @@ const gridCols = (len = 0, hasImage = false) => {
         />
       </div>
 
-      <!-- Правая часть -->
       <div class="w-full" :class="{ 'sm:w-[60%]': data.image }">
-        <!-- ========== Блок 1: comboTitle / groups ========== -->
-        <div v-if="data.comboTitle || (data.groups && data.groups.length)">
+        <!-- Блок 1 -->
+        <div v-if="data.comboTitle || data.groups?.length">
           <h3
             v-if="data.comboTitle"
             class="text-2xl sm:text-4xl font-medium leading-tight mb-8 mt-4"
@@ -70,10 +71,10 @@ const gridCols = (len = 0, hasImage = false) => {
           </h3>
 
           <div
-  v-if="data.groups?.length"
-  class="grid grid-cols-1 gap-8"
-  :class="gridCols(data.groups.length, !!data.image)"
->
+            v-if="data.groups?.length"
+            class="grid grid-cols-1 gap-8"
+            :class="gridCols(data.groups.length, !!data.image)"
+          >
             <div
               v-for="group in data.groups"
               :key="group.title"
@@ -103,14 +104,14 @@ const gridCols = (len = 0, hasImage = false) => {
           </div>
         </div>
 
-        <!-- Отступ между блоками -->
+        <!-- Отступ -->
         <div
           v-if="(data.comboTitle && data.comboTitle2) || (data.groups?.length && data.groups2?.length)"
           class="h-6 sm:h-8"
         />
 
-        <!-- ========== Блок 2: comboTitle2 / groups2 ========== -->
-        <div v-if="data.comboTitle2 || (data.groups2 && data.groups2.length)">
+        <!-- Блок 2 -->
+        <div v-if="data.comboTitle2 || data.groups2?.length">
           <h3
             v-if="data.comboTitle2"
             class="text-2xl sm:text-4xl font-medium leading-tight mb-8 mt-4"
@@ -119,10 +120,10 @@ const gridCols = (len = 0, hasImage = false) => {
           </h3>
 
           <div
-  v-if="data.groups2?.length"
-  class="grid grid-cols-1 gap-8"
-  :class="gridCols(data.groups2.length, !!data.image)"
->
+            v-if="data.groups2?.length"
+            class="grid grid-cols-1 gap-8"
+            :class="gridCols(data.groups2.length, !!data.image)"
+          >
             <div
               v-for="group in data.groups2"
               :key="group.title"
@@ -152,7 +153,7 @@ const gridCols = (len = 0, hasImage = false) => {
           </div>
         </div>
 
-        <!-- ========== ДОП. ТОВАРЫ: combos[] (не ломая старый формат) ========== -->
+        <!-- combos -->
         <div v-if="data.combos?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           <div
             v-for="(combo, cIdx) in data.combos"
@@ -164,13 +165,18 @@ const gridCols = (len = 0, hasImage = false) => {
               {{ combo.title }}
             </h3>
 
-            <!-- Внутри карточки — сетка её групп -->
             <div
               class="grid grid-cols-1 gap-8"
               :class="gridCols(combo.groups?.length || 0)"
             >
-              <div v-for="group in combo.groups" :key="group.title" class="space-y-2">
-                <h4 class="font-medium text-xl xl:text-cardhead mb-5">{{ group.title }}</h4>
+              <div
+                v-for="group in combo.groups"
+                :key="group.title"
+                class="space-y-2"
+              >
+                <h4 class="font-medium text-xl xl:text-cardhead mb-5">
+                  {{ group.title }}
+                </h4>
                 <ul class="space-y-3">
                   <li
                     v-for="(step, i) in group.steps"
@@ -193,7 +199,7 @@ const gridCols = (len = 0, hasImage = false) => {
           </div>
         </div>
 
-        <!-- Текстовый формат (если нет групп вообще) -->
+        <!-- Чисто текстовый формат -->
         <div
           v-if="!data.groups?.length && !data.groups2?.length && !data.combos?.length && data.text"
           class="prose max-w-none text-lg leading-tight mt-6"

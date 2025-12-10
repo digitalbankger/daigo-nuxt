@@ -247,41 +247,43 @@ import CertificateProductPage from '~/components/product/certificate/Certificate
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
 import { useYtm } from '@/composables/useYtm'
 
-const ytm = useYtm()
 const route = useRoute()
 const productStore = useProductStore()
 await productStore.loadProduct(route.params.slug as string)
 
 const product = computed(() => productStore.product)
 
+// признак «это сертификат?» — выберите свой источник правды
 const isCertificate = computed(() =>
   product.value?.template === 'certificate' ||
   product.value?.type === 'certificate' ||
   product.value?.category === 'certificate'
 )
 
-onMounted(() => {
-  if (!import.meta.client) return
-  const p = product.value
-  if (!p) return
 
-  const item = {
-    id: p.product_id,
-    name: p.title,
-    price: Number(p.price) || 0,
-    category: p.category ? [p.category] : undefined,
-    url: `/catalog/${p.slug}`,
-    image_url: p.images?.[0]?.image_url
-  }
+
+// ✅ ОДИН onMounted, внутри – проверка на client и вызов useYtm
+onMounted(() => {
+  if (!import.meta.client) return        // защита от SSR
+  if (!product.value) return
+
+  const ytm = useYtm()
 
   ytm.viewDetail({
     currency: 'RUB',
-    category: p.category ? [p.category] : undefined,
-    items: [item]
+    brand: 'Daigo',
+    items: [
+      {
+        id: product.value.product_id,
+        name: product.value.title,
+        price: Number(product.value.price) || 0,
+        image_url: product.value.images?.[0]?.image_url
+      }
+    ]
   })
 })
 
-
+// хлебные крошки / JSON-LD
 const { breadcrumbs, jsonLd } = useBreadcrumbs(product, '/catalog')
 
 const faqJsonLd = computed(() => {
@@ -453,8 +455,10 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <ProductUsageInstructions :data="product.usageInstructions" class="mt-6 md:mt-12" />
-
+        <ProductUsageInstructions
+          v-if="product?.usageInstructions"
+          :data="product.usageInstructions"
+        />
         <ProductProductionSection
           v-if="product.productionSection"
           v-bind="product.productionSection"
