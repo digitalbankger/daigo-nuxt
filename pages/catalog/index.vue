@@ -51,7 +51,7 @@ watchEffect(async () => {
   const normalizedQuery = Object.fromEntries(
     Object.entries(route.query)
       .filter(([key]) => {
-        // служебные/трекинговые параметры, которые НЕ являются фильтрами каталога
+        // трекинговые/служебные параметры, которые не являются фильтрами
         if (key === 'empty' || key === 'page') return false
         if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
         if (key.startsWith('utm_')) return false
@@ -96,7 +96,12 @@ watchEffect(() => {
 useHead(() => {
   const query = route.query
   const filters = Object.entries(query)
-    .filter(([k]) => !['page', 'empty'].includes(k))
+    .filter(([k]) => {
+      if (['page', 'empty'].includes(k)) return false
+      if (k === 'ysclid' || k === 'yclid' || k === 'gclid' || k === 'fbclid') return false
+      if (k.startsWith('utm_')) return false
+      return true
+    })
     .map(([k, v]) => `${k}: ${v}`)
     .join(', ')
 
@@ -206,7 +211,7 @@ function closeFilters() {
         subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
         @done="onLeadDone"
       />-->
-      <div class="flex flex-row items-centr justify-between absolute z-0 bottom-0 left-0 text-white">
+      <div class="flex flex-row items-centr justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
       <div class="flex lg:hidden items-center gap-4 mb-6 relative z-10">

@@ -67,6 +67,10 @@ export const useCartStore = defineStore('cart', () => {
   const exhibitionDiscountAmount = ref<number>(0)
   const couponInfo = ref<CouponInfo | null>(null)
 
+  // 🆕 VIP-скидка
+  const vipDiscountAmount = ref<number>(0)
+  const vipDiscountPercent = ref<number | null>(null)
+
   // sessionID гостя (храним только на клиенте)
   const guestSessionId = ref<string | null>(
     process.client ? localStorage.getItem('guest_session_id') : null
@@ -154,6 +158,23 @@ export const useCartStore = defineStore('cart', () => {
 
     // Купон (если есть)
     couponInfo.value = data?.coupon_info || null
+
+    // 🆕 VIP discount: ищем среди coupons
+    vipDiscountAmount.value = 0
+    vipDiscountPercent.value = null
+    if (Array.isArray(data?.coupons)) {
+      for (const c of data.coupons) {
+        if (!c?.applied) continue
+        const t = String(c.type || '').toLowerCase()
+        // vip type
+        if (t === 'vip') {
+          vipDiscountAmount.value += Number(c.discount_amount || 0)
+          if (c.discount_percent != null && vipDiscountPercent.value == null) {
+            vipDiscountPercent.value = Number(c.discount_percent)
+          }
+        }
+      }
+    }
   }
 
   /** Загрузка корзины */
@@ -436,6 +457,8 @@ export const useCartStore = defineStore('cart', () => {
     isAuthenticated, isLoaded, 
     // новые суммы/купоны из бэка
     subtotal, total, discountAmount, remarketingDiscountAmount, exhibitionDiscountAmount, couponInfo,
+    // VIP
+    vipDiscountAmount, vipDiscountPercent,
     
     itemsCount,
     itemsUniqueCount,

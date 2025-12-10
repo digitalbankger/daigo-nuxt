@@ -13,18 +13,22 @@ onMounted(async () => {
   }
 })
 
-/** ФИО в одну строку (first_name + last_name) */
-// const fullName = computed({
-//   get: () => {
-//     const { first_name, last_name } = store.state.recipient
-//     return [first_name, last_name].filter(Boolean).join(' ').trim()
-//   },
-//   set: (val: string) => {
-//     const parts = val.trim().split(/\s+/)
-//     store.state.recipient.first_name = parts.shift() || ''
-//     store.state.recipient.last_name = parts.join(' ') || ''
-//   }
-// })
+/** Имя и фамилия по отдельности */
+const firstName = computed<string>({
+  get: () => store.state.recipient.first_name,
+  set: (val: string) => {
+    const s = sanitizeName(val)
+    store.state.recipient.first_name = s
+  }
+})
+
+const lastName = computed<string>({
+  get: () => store.state.recipient.last_name,
+  set: (val: string) => {
+    const s = sanitizeName(val)
+    store.state.recipient.last_name = s
+  }
+})
 
 /** Прокси-поля получателя */
 const phone = computed({
@@ -83,49 +87,45 @@ const otherEmail = computed({
 })
 
 
-// === как и было, но теперь допускаем одно слово ===
+// === как и было: регулярка для имени ===
 const NAME_RE = /[^\p{L}\p{M}\-'\s]/gu
 function sanitizeName(input: string): string {
   const cleaned = (input ?? '').replace(NAME_RE, '').replace(/\s+/g, ' ').trim()
   return cleaned
 }
-const fullName = computed<string>({
-  get: () => {
-    const { first_name, last_name } = store.state.recipient
-    return sanitizeName([first_name, last_name].filter(Boolean).join(' '))
-  },
-  set: (val: string) => {
-    const s = sanitizeName(val)
-    const parts = s.split(' ')
-    const first = parts.shift() || ''
-    const last = parts.join(' ')
-    store.state.recipient.first_name = first
-    store.state.recipient.last_name = last
+
+// Отдельный стейт для touched флагов
+const firstNameTouched = ref(false)
+const lastNameTouched  = ref(false)
+
+const firstNameError = computed(() => {
+  const raw = (firstName.value || '').trim()
+  if (!firstNameTouched.value && !raw) return ''
+  if (!raw) return 'Укажите имя'
+  return store.errors.recipient.first_name || ''
+})
+
+const lastNameError = computed(() => {
+  const raw = (lastName.value || '').trim()
+  // фамилия может быть необязательной; отображаем только серверную ошибку
+  if (!lastNameTouched.value && !raw) return ''
+  return store.errors.recipient.last_name || ''
+})
+
+function onFirstNameBlur() {
+  firstNameTouched.value = true
+}
+function onLastNameBlur() {
+  lastNameTouched.value = true
+}
+watch(() => firstName.value, (v) => {
+  if (!firstNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
+    firstNameTouched.value = true
   }
 })
-
-// Показываем ошибку только если поле тронуто ИЛИ непустое
-const fullNameError = computed(() => {
-  const raw = fullName.value?.trim() ?? ''
-
-  // до первого взаимодействия и при пустом поле — без ошибки
-  if (!fullNameTouched.value && !raw) return ''
-
-  if (!raw) return 'Укажите имя'
-  return store.errors.recipient.first_name || store.errors.recipient.last_name || ''
-})
-
-const fullNameTouched = ref(false)
-
-// помечаем поле «троганным» на блюре
-function onFullNameBlur() {
-  fullNameTouched.value = true
-}
-
-// если пользователь начал печатать — тоже считаем тронутым
-watch(() => fullName.value, (v) => {
-  if (!fullNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
-    fullNameTouched.value = true
+watch(() => lastName.value, (v) => {
+  if (!lastNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
+    lastNameTouched.value = true
   }
 })
 
@@ -144,13 +144,22 @@ watch(() => fullName.value, (v) => {
       autocomplete="name"
     /> -->
 
+    <!-- Имя и фамилия раздельно -->
     <UiInput
-      v-model="fullName"
-      placeholder="Имя Фамилия*"
-      :error="fullNameError"
+      v-model="firstName"
+      placeholder="Имя*"
+      :error="firstNameError"
       background="bg-white"
-      autocomplete="name"
-      @blur="onFullNameBlur"
+      autocomplete="given-name"
+      @blur="onFirstNameBlur"
+    />
+    <UiInput
+      v-model="lastName"
+      placeholder="Фамилия*"
+      :error="lastNameError"
+      background="bg-white"
+      autocomplete="family-name"
+      @blur="onLastNameBlur"
     />
 
     <UiInput

@@ -3,6 +3,7 @@ import { ref, computed, onBeforeUnmount } from 'vue'
 import UiModal from '@/components/ui/UiModal.vue'
 import Button from '@/components/ui/Button.vue'
 import { activateVip } from '~/services/vipService'
+import { useUserStore } from '@/stores/userStore'
 
 const props = defineProps<{
   hasVipFlag: boolean // true — есть UTM/кука, false — показываем QR
@@ -11,6 +12,10 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'activated'): void
 }>()
+
+// Получаем статус лояльности из профиля
+const userStore = useUserStore()
+const loyaltyStatus = computed(() => userStore.profile?.loyalty_status || 'none')
 
 /* ====================== РЕЖИМ 1: ВВОД 6-ЗНАЧНОГО КОДА ====================== */
 
@@ -167,8 +172,18 @@ onBeforeUnmount(() => {
       VIP-программа
     </h2>
 
-    <!-- ===== ЕСТЬ VIP-МЕТКИ → ВВОД КОДА ===== -->
-    <template v-if="hasVipFlag">
+    <!-- Если у пользователя уже VIP-статус, отображаем информацию -->
+    <template v-if="loyaltyStatus === 'vip'">
+      <p class="text-sm sm:text-base text-gray-700 mb-2">
+        Вы VIP&nbsp;клиент
+      </p>
+      <p class="text-sm sm:text-base text-gray-700 mb-4">
+        У вас автоматически применяется 10% скидка
+      </p>
+    </template>
+
+    <!-- Есть VIP-метки → вводим код -->
+    <template v-else-if="hasVipFlag">
       <p class="text-sm sm:text-base text-gray-700 mb-4">
         Введите 6-значный VIP-код, указанный на вашей карте.
       </p>
@@ -196,7 +211,7 @@ onBeforeUnmount(() => {
       </form>
     </template>
 
-    <!-- ===== НЕТ VIP-МЕТОК → QR-СКАНЕР ===== -->
+    <!-- Нет VIP-меток → QR-сканер -->
     <template v-else>
       <p class="text-sm sm:text-base text-gray-700 mb-4">
         Отсканируйте QR-код с вашей VIP-карты, чтобы активировать статус.

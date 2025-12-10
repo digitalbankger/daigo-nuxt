@@ -41,6 +41,17 @@
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
+                <!-- Ссылки для партнёров -->
+                <li>
+                  <a href="https://lp.daigo.ru/daigob2b" target="_blank" rel="noopener">
+                    Корпоративным клиентам
+                  </a>
+                </li>
+                <li>
+                  <a href="https://lp.daigo.ru/vns-welcome-daigo" target="_blank" rel="noopener">
+                    Партнерская программа
+                  </a>
+                </li>
               </ul>
             </div>
 

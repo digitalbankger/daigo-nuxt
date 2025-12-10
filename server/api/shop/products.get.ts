@@ -1,16 +1,21 @@
+import { defineEventHandler, getQuery, createError } from 'h3'
+
 export default defineEventHandler(async (event) => {
   const q = getQuery(event)
 
   // 0) ветка для product_ids=... (используется сторисом)
   // если у бэка нет фильтра по id — тянем все и фильтруем на ноде (50 шт ок).
   if (q.product_ids) {
-    const ids = (Array.isArray(q.product_ids)
+    const ids = (
+      Array.isArray(q.product_ids)
         ? q.product_ids.flatMap(v => String(v).split(','))
         : String(q.product_ids).split(',')
-      ).map(s => s.trim()).filter(Boolean)
+    )
+      .map(s => s.trim())
+      .filter(Boolean)
 
     const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-    const url  = `${base}/v1/shop/products?page=1&page_size=9999`
+    const url = `${base}/v1/shop/products?page=1&page_size=9999`
     const res: any = await $fetch(url).catch(() => ({ products: [] }))
 
     const items = (Array.isArray(res?.products) ? res.products : []).map((p: any) => ({
@@ -46,7 +51,7 @@ export default defineEventHandler(async (event) => {
   // ------------------------------------------------------
 
   // пагинация: бэку нужен page + page_size
-  const page     = Number(q.page ?? 1) || 1
+  const page = Number(q.page ?? 1) || 1
   const pageSize = Number(q.page_size ?? q.limit ?? 9) || 9
 
   // собираем параметры; не шлём служебные/пустые
@@ -79,27 +84,20 @@ export default defineEventHandler(async (event) => {
     params.set('name', csv)
   }
 
-  // прокинем остальные фильтры «как есть» (кроме служебных)
-for (const [k, vAny] of Object.entries(q)) {
-  if ([
-    'page',
-    'page_size',
-    'limit',
-    'napravlennost',
-    'produkty',
-    'empty',
-  ].includes(k)) continue
+  // прокинем остальные фильтры «как есть» (кроме служебных и трекинговых)
+  for (const [k, vAny] of Object.entries(q)) {
+    if (['page', 'page_size', 'limit', 'napravlennost', 'produkty', 'empty'].includes(k)) continue
 
-  // трекинговые / рекламные параметры не должны уходить на бэкенд каталога
-  if (
-    k === 'ysclid' ||
-    k === 'yclid' ||
-    k === 'gclid' ||
-    k === 'fbclid' ||
-    k.startsWith('utm_')
-  ) continue
+    // трекинговые / рекламные параметры игнорируем — они не являются фильтрами каталога
+    if (
+      k === 'ysclid' ||
+      k === 'yclid' ||
+      k === 'gclid' ||
+      k === 'fbclid' ||
+      k.startsWith('utm_')
+    ) continue
 
-  if (vAny == null || vAny === '') continue
+    if (vAny == null || vAny === '') continue
     const csv = Array.isArray(vAny)
       ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
       : String(vAny)
@@ -107,9 +105,9 @@ for (const [k, vAny] of Object.entries(q)) {
   }
 
   // некоторым бэкам нужна «сырая» запятая в CSV — уберём %2C
-  const qs   = params.toString().replaceAll('%2C', ',')
+  const qs = params.toString().replaceAll('%2C', ',')
   const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-  const url  = `${base}/v1/shop/products?${qs}`
+  const url = `${base}/v1/shop/products?${qs}`
 
   if (import.meta.dev) console.log('[catalog] →', url)
 
@@ -124,10 +122,10 @@ for (const [k, vAny] of Object.entries(q)) {
       slug:       p.slug,
       name:       p.name_ru || p.name,
       subtitle:   p.subtitle || '',
-      image:      normalizeImg(p.image),      // ← делаем абсолютный URL
+      image:      normalizeImg(p.image), // ← делаем абсолютный URL
       price:      Number(p.price) || 0,
       sort:       p.sort_order === 0 ? 16 : p.sort_order,
-      properties: p.properties || {}
+      properties: p.properties || {},
     }))
 
     // total — из тела или X-Total-Count; если нет — мягкий фолбэк
@@ -143,12 +141,10 @@ for (const [k, vAny] of Object.entries(q)) {
   } catch (e: any) {
     throw createError({
       statusCode: e?.response?.status || 502,
-      statusMessage: 'Catalog upstream error'
+      statusMessage: 'Catalog upstream error',
     })
   }
 })
-
-
 
 
 
