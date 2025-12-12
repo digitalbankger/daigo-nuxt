@@ -172,6 +172,10 @@
               </div>
             </div> -->
 
+            <!-- <ClientOnly>
+              <DjRating />
+            </ClientOnly> -->
+
             <button
               type="button"
               @click="toggle"

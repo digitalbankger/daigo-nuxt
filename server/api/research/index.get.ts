@@ -5,15 +5,15 @@ export default defineEventHandler(() => {
       slug: 'metabiotiki',
       title: 'Метабиотики',
       image: 'https://daigo.ru/images/mock/researches/cat-1.png',
-      researchCount: 10
+      researchCount: 6,
     },
     {
       id: 2,
       slug: 'plazmogeny',
       title: 'Плазмогены',
       image: 'https://daigo.ru/images/mock/researches/cat-2.png',
-      researchCount: 10
+      researchCount: 2,
     },
-    // ...
+    // можно добавить другие категории по мере необходимости
   ]
 })
