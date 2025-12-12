@@ -56,7 +56,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 109700,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -259,7 +259,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 3700,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/dent/video-cover.png',
@@ -358,142 +358,6 @@ export default defineEventHandler((event) => {
       }
     },
     {
-      product_id: "1e2585ab-8523-4638-bff5-d15fa3be21cb",
-      slug: 'zhir-pecheni-treski-omega-3',
-      title: 'Жир печени трески Omega-3',
-      subtitle: '',
-      shortDescription: 'Жир печени трески (Омега-3) / COD LIVER OIL производится из тщательно отобранной, высококачественной трески. Треска вылавливается строго с декабря по февраль, когда рыба идет на нерест, и ее печень наиболее богата питательными веществами. Добывается вручную традиционным способом, благодаря чему сохраняются все ценные свойства печени, а сам продукт не требует дополнительной очистки от примесей.',
-      descriptionSections: [
-        {
-          type: 'cards',
-          layout: '2',
-          cards: [
-            {
-              title: 'Жирные кислоты',
-              text: `Жир печени трески с идеальным соотношением полезных веществ. Жир печени трески с идеальным соотношением полезных веществ: жирных кислот EPA и DHA, витаминов A и D <br><br>Сбор происходит в период наибольшего накопления полезных веществ - нереста трески. <br><br>Не содержит синтетических добавок и лишних примесей.
-              <p class="mt-2 text-primary font-medium">60 капсул в одной упаковке</p>
-              `,
-              image: 'https://products.s3.firstvds.ru/omega/desc-1.png'
-            },
-            {
-              title: 'Омега-3',
-              text: `<p>Омега - 3 жирные кислоты являются <span class="mt-2 text-primary font-medium">важнейшей для здоровья добавкой к пище</span>. 
-Это строительный материал для мембран клеток всех органов и систем человеческого организма. 
-Однако сам организм их не производит, они поступают только извне.</p>
-<p>Омега - 3 жирные кислоты необходимы для полноценного роста и развития, а также для функционирования нервной, иммунной и сердечно-сосудистой систем, улучшают вязкость крови, поддерживают активность лейкоцитов, снижают уровень холестерина.</p>
-              `,
-              image: 'https://products.s3.firstvds.ru/omega/desc-2.png'
-            },
-          ]
-        }
-      ],
-      price: 14000,
-      oldPrice: null,
-      category: 'metabiotic',
-      //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
-      isActive: true,
-      actionPrinciple: {
-        title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/omega/principles.png',
-        text: `
-          <p>Благодаря натуральному, преимущественно ручному, способу производства удаётся сохранить все питательные вещества и витамины без разрушения, в их естественном состоянии.
-
-<br><br>Именно это является главным преимуществом Омега-3/ COD LIVER OIL от бренда Daigo, так как высокое качество, а не количественное составляющее витаминов А
-и D, EPA и DHА жирных кислот в составе продукта способствует максимальному их усвоению и, следовательно, пользе для организма.
-
-<br><br>Эти ценные вещества встраиваются в клеточные мембраны, делая их более эластичными и улучшая проницаемость для питательных веществ. Жирные кислоты DPA и EPA составляют основу нервных клеток, укрепляет связи между нейронами и защищают от возрастных изменений</p>
-        `
-      },
-      effect: {
-        title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/omega/effect.png',
-        content: `
-          <ul class="list-disc list-inside ml-5 space-y-1">
-            <li>Снижает уровень плохого холестерина и артериальное давление;</li>
-            <li>Способствует снижению и нормализации артериального давления;</li>
-            <li>Улучшает работу нервной и иммунной систем;</li>
-            <li>Содержит витамины A и D;</li>
-            <li>Витамин А способствует укреплению иммунитета, синтезу коллагена, защите зрения, способствует заживлению ран;</li>
-            <li>Витамин D способствует укреплению костной ткани, снижению риска развития остеопороза, повышению устойчивости организма к инфекциям, повышению в организме уровня серотонина – «гормона радости»;</li>
-            <li>Жир печени трески (Омега-3) / COD LIVER OIL рекомендован для профилактики мозговой активности, для людей с заболеваниями сердечно-сосудистой системы, для улучшения зрения.</li>
-          </ul>
-          
-        `
-      },
-      composition: {
-        title: 'Состав',
-        content: `
-          <ul class="list-disc list-inside ml-5 space-y-1">
-            <li>Очищенный рыбий жир 500 мг (в 1 капсуле);</li>
-            <li>Омега-3 жирные кислоты 140 мг (в 1 капсуле)</li>
-            <li>Витамин А;</li>
-            <li>Витамин D;</li>
-            <li>Эмульгатор -глицерин растительный;</li>
-            <li>Эйкозапентаеновая кислота 70 мг (в 1 капсуле);</li>
-            <li>Докозагексаеновая кислота 60 мг (в 1 капсуле);</li>
-          </ul>
-          <p>О
-Оболочка капсулы - желатин (из рыбьего жира).</p>
-        `,
-        image: 'https://products.s3.firstvds.ru/omega/sostav.png',
-      },
-      usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/omega/instructions.png',
-        groups: [
-          {
-            title: 'Взрослым',
-            steps: [
-              { icon: '/icons/drop.svg', text: '2 капсулы в день во время еды' },
-              { icon: '/icons/bottle.svg', text: 'Запивать водой' },
-              { icon: '/icons/calendar.svg', text: 'Продолжительность приема 1 месяц' },
-            ]
-          },
-        ],
-        footnote: 'При необходимости курс можно повторить. Перед применением рекомендуется проконсультироваться с врачом.',
-      },
-      productionSection: {
-        type: 'production',
-        title: 'Производство COD Liver Oil',
-        subtitle: 'Жир печени трески COD Liver Oil — важная часть продуктовой линейки бренда Daigo, созданная с тем же вниманием к качеству, что и легендарный метабиотик Daigo. Этот ценный продукт производится на том же заводе компании B&S Corporation, расположенном в уникальном месте — заповедной зоне у подножия горы Фудзи, где чистота природы и современные технологии создают идеальные условия для производства. Каждая партия COD Liver Oil проходит строгий контроль и соответствует всем требованиям международных стандартов GMP, что гарантирует сохранение всех полезных свойств и высочайшее качество продукта. Выбирая COD Liver Oil от Daigo, вы получаете не просто добавку, а натуральный продукт, созданный с японской тщательностью и заботой о вашем здоровье.',
-        images: {
-        type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
-        bottomImages: [
-          'https://products.s3.firstvds.ru/omega/prod-1.png',
-          'https://products.s3.firstvds.ru/omega/prod-2.png',
-        ]
-        },
-      },
-      images: [
-            {
-                image_url: "https://products.s3.firstvds.ru/omega/product-1.png",
-                is_primary: true,
-                display_order: 0
-            },
-            {
-                image_url: "https://products.s3.firstvds.ru/omega/product-2.png",
-                is_primary: false,
-                display_order: 0
-            },
-            {
-                image_url: "https://products.s3.firstvds.ru/omega/product-3.png",
-                is_primary: false,
-                display_order: 0
-            },
-      ],
-      faq: {
-        image: 'https://products.s3.firstvds.ru/omega/faq-omega.png',
-        items: [
-          { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
-          { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
-          { q: 'Как долго принимать?', a: 'Рекомендуем курс 4–8 недель, далее по самочувствию.' },
-          { q: 'Совместим с антибиотиками?', a: 'Да, часто применяют после курса антибиотиков для восстановления микрофлоры.' },
-          { q: 'Есть ли противопоказания?', a: 'Индивидуальная непереносимость компонентов. При хронических заболеваниях — консультация врача.' }
-        ]
-      }
-    },
-    {
       product_id: "f5d348fc-bc07-4936-9f1e-0521dd6fc712",
       slug: 'daigo-shampoo',
       title: 'Daigo Shampoo Lux для восстановления микрофлоры кожи головы',
@@ -537,7 +401,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 18600,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -642,7 +506,7 @@ export default defineEventHandler((event) => {
 
       ],
       price: 7500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -802,7 +666,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 27900,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -992,7 +856,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 67500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/tamotsu/video-cover.png',
@@ -1139,7 +1003,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 22500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -1324,7 +1188,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 22500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -1498,7 +1362,7 @@ export default defineEventHandler((event) => {
         }
       ],
       price: 22500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -1643,14 +1507,14 @@ export default defineEventHandler((event) => {
 
       ],
       price: 227500,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/principles.png',
+        image: 'https://daigo.ru/images/mock/product/lux/lux-faq.jpg',
         text: `
           <p class="font-medium">Daigo Lux</p>
           <p>Daigo Lux создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
@@ -1660,7 +1524,7 @@ export default defineEventHandler((event) => {
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/principles.png',
+        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -1806,8 +1670,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 145100,
-      oldPrice: null,
+      price: 143600,
+      originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -2010,19 +1874,19 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       slug: 'business-box',
       title: 'Набор Business Box',
       subtitle: '',
-      shortDescription: 'Business Box — это набор для людей, которые всегда в движении, решают сложные задачи и стремятся быть на пике своей продуктивности. В составе:\n\n• Daigo Brainy - первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Создан для поддержки когнитивного здоровья. \n• БАД Daigo Lux - премиальный метабиотик для поддержки правильного баланса кишечной микробиоты и корректной работы оси «Кишечник—мозг». \n• БАД Tamotsu - уникальная комбинация плазмалогенов из глуюоководного морского гребешка и коэнзима Q10 высокого качества. Поддерживает здоровье всех энергозатратных органов организма. \n• COD Liver Oil (2 упаковки) - жир печени черной трески, наиболее богатый Омега-3 кислотами. Важнейший элемент здоровья мозга и сосудов.',
+      shortDescription: 'Business Box — это набор для людей, которые всегда в движении, решают сложные задачи и стремятся быть на пике своей продуктивности. В составе:\n\nDaigo Brainy — первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Создан для поддержки когнитивного здоровья.\n\nБАД Daigo Lux — премиальный метабиотик для поддержки правильного баланса кишечной микробиоты и работы оси «Кишечник—мозг».\n\nБАД Tamotsu — уникальная комбинация плазмалогенов из глубоководного морского гребешка и коэнзима Q10 высокого качества.\n\nDaigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.',
       descriptionSections: [
 
       ],
-      price: 213300,
-      oldPrice: null,
+      price: 192150,
+      originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
       isActive: true,
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/business-box/principles.png',
+        image: 'https://daigo.ru/images/mock/product/lux/lux-effect.jpg',
         text: `
           <p class="font-medium">Daigo Brainy</p>
           <p>Короткий натуральный пептид хлореллы блокирует провоспалительные сигнальные пути, снижая уровень скрытого воспаления в нервной ткани. Это помогает защитить нейроны от повреждений и улучшить их функциональность. Незаменимые аминокислоты служат строительным материалом для нейромедиаторов и участвуют в энергетическом обмене, поддерживая стабильную работу мозга.</p>
@@ -2032,13 +1896,14 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/business-box/principles-2.png',
+        image: 'https://products.s3.firstvds.ru/dent/prod-2.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p>Плазмалогены являются важнейшими структурными компонентами мембран нейронов, обеспечивая их гибкость и стабильность, что улучшает передачу нервных импульсов и когнитивные функции. Коэнзим Q10 усиливает энергетический обмен в клетках, защищая нейроны от окислительного стресса и повышая их выносливость.</p>
-          <p class="font-medium">COD Liver Oil / Жир печени трески</p>
-          <p class="">Жир печени трески богат омега-3 (DHA и EPA), которые укрепляют клеточные мембраны мозга, улучшая когнитивные функции, память и концентрацию. Также он поддерживает сердечно-сосудистую систему, снижает воспаление и укрепляет иммунитет, обеспечивая организм ценными витаминами A и D.</p>
+          <p class="font-medium">Daigo dent</p>
+          <p class="">Это первая зубная паста, которая не просто очищает полость рта, устраняя воспаление дёсен, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.\n\nВ составе пасты ферменты 16 видов лактобактерий, которые помогают восстанавливать правильный баланс микрофлоры во рту: увеличивают число полезных бактерий и уменьшают число патогенных. Морская соль укрепляет десны, корень солодки подавляет вредные бактерии и защищает от кариеса.
+          </p>
         `
       },
       effect: {
@@ -2056,13 +1921,13 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/business-box/effect-2.png',
+        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Tamotsu</p>
           <p>Tamotsu помогает избавиться от «тумана» в голове, усилить концентрацию, позволяя легче фокусироваться на задачах и дольше сохранять внимание. Возрастает скорость обработки информации, снижаются головокружения или эпизоды «заторможенности», наблюдается значительное уменьшение умственной усталости даже после интенсивной работы.</p>
-          <p class="font-medium">COD Liver Oil / Жир печени трески </p>
-          <p class="">Жир печени трески и содержащаяся в нём DHA является основным структурным компонентом нейронов, напрямую улучшая память, скорость обработки информации и обучаемость. EPA снижает хроническое воспаление в нервной ткани, защищая от возрастных изменений. Помимо поддержки мозга, жир печени трески укрепляет сердечно-сосудистую систему, нормализует иммунитет благодаря витаминам A и D.</p>
+          <p class="font-medium">Daigo dent</p>
+          <p class="">Паста помогает увеличить количество полезных бактерий в полости рта, создавая здоровый микробиом. Он способствует подавлению роста болезнетворных бактерий, снижая риск развития кариеса, пародонтита и кровоточивости десен. Благодаря бережному воздействию уменьшается чувствительность зубов и образование зубного налета, обеспечивая комплексную защиту и свежесть дыхания на весь день.</p>
         `
       },
       composition: {
@@ -2075,7 +1940,7 @@ L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэт�
           <p class="">Жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий), коэнзим Q10, экстракт
 из морского гребешка.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/business-box/sostav.png',
+        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
       },
       compositionCombo: {
         title: '',
@@ -2090,8 +1955,8 @@ L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),
 L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
 <br><br>
 Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
-<p class="font-medium">Жир печени трески</p>
-<p class="">Очищенный рыбий жир, Омега-3 жирные кислоты (эйкозапентаеновая кислота, докозагексаеновой кислота), витамин А, витамин D, эмульгатор — глицерин растительный, оболочка капсулы — желатин (из рыбьего жира).</p>
+<p class="font-medium">Daigo dent</p>
+<p class="">Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         `
       },
       usageInstructions: {
@@ -2168,13 +2033,13 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             ]
           },
           {
-            title: 'Omega-3',
+            title: 'Daigo Dent',
             groups: [
               {
                 title: 'Взрослым и детям',
                 steps: [
-                  { icon: '/icons/calendar.svg', text: '2 капсулы в день во время еды' },
-                  { icon: '/icons/bottle.svg', text: 'Запивая водой' },
+                  { icon: '/icons/calendar.svg', text: 'Нанести на зубы или поражённые места (например, дёсны).' },
+                  { icon: '/icons/bottle.svg', text: 'Ополоснуть ротовую полость водой.' },
                 ]
               }
             ]
@@ -2189,7 +2054,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/business-box/prod-1.png',
+          'https://products.s3.firstvds.ru/business-box/sostav-2.png',
           'https://products.s3.firstvds.ru/business-box/prod-2.png',
         ]
         },
@@ -2213,214 +2078,6 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         ]
       }
     },
-    // Спорт бокс
-    {
-      product_id: "7bea74a1-0172-4ce9-8d4d-037e1070ca1e",
-      slug: 'sport-box',
-      title: 'Набор Antistress Box',
-      subtitle: '',
-      shortDescription: 'Antistress Box разработан специально для тех, кто хочет чувствовать себя полным энергии и поддерживать своё тело в отличной форме. В составе:\n\n• Daigo Jointic - первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Оказывает поддержку суставов и укрепляет костно-мышечную систему.\n\n• Daigo Brainy - первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Создан для поддержки когнитивного здоровья.\n\n• БАД Daigo Lux - премиальный метабиотик для поддержки правильного баланса кишечной микробиоты и корректной работы оси «Кишечник—мозг».\n\n• COD Liver Oil (2 упаковки) - жир печени черной трески, наиболее богатый Омега-3 кислотами. Важнейший элемент здоровья мозга и сосудов.',
-      descriptionSections: [
-
-      ],
-      price: 173050,
-      oldPrice: null,
-      category: 'metabiotic',
-      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
-      isActive: true,
-      combo: {
-        title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/sport-box/principles.png',
-        text: `
-          <p class="font-medium">Daigo Brainy</p>
-          <p>Короткий натуральный пептид хлореллы блокирует провоспалительные сигнальные пути, снижая уровень скрытого воспаления в нервной ткани. Это помогает защитить нейроны от повреждений и улучшить их функциональность. Незаменимые аминокислоты служат строительным материалом для нейромедиаторов и участвуют в энергетическом обмене, поддерживая стабильную работу мозга.</p>
-          <p class="font-medium">Daigo Lux</p>
-          <p class="">Дайго Люкс создаёт идеальную среду для роста ваших родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
-        `
-      },
-      actionPrinciple: {
-        title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/principles-2.png',
-        imagePosition: 'left',
-        text: `
-          <p class="font-medium">Daigo Jointic</p>
-          <p>Короткий натуральный пептид хлореллы эффективно снижает уровень скрытого воспаления в организме, в том числе в нервных структурах, связанных с функцией суставов. В сочетании с комплексом незаменимых аминокислот добавка способствует нормализации нейротрофических процессов и улучшению передачи нервных импульсов в периферической нервной системе. Такой механизм действия помогает уменьшить болевую чувствительность, улучшить нейромышечную координацию и обеспечить комплексную поддержку не только суставам, но и связанным с ними нервным окончаниям.</p>
-          <p class="font-medium">COD Liver Oil / Жир печени трески</p>
-          <p class="">Жир печени трески богат омега-3 (DHA и EPA), которые укрепляют клеточные мембраны мозга, улучшая когнитивные функции, память и концентрацию. Также он поддерживает сердечно-сосудистую систему, снижает воспаление и укрепляет иммунитет, обеспечивая организм ценными витаминами A и D.</p>
-        `
-      },
-      effect: {
-        title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/sport-box/effect.png',
-        imagePosition: 'right',
-        content: `
-          <p class="font-medium">Daigo Brainy</p>
-          <p>Daigo Brainy улучшает работу нервной системы и мозга 
-при информационных и психоэмоциональных перегрузках, способствует профилактике тревожности и депрессии и помогает более быстрому засыпанию, снижает метеочувствительность.
-</p>
-          <p class="font-medium">Daigo Lux</p>
-          <p class="">Daigo Lux нормализует микрофлору кишечника, усиливая выработку нейромедиаторов и снижая воспаление — это напрямую улучшает связь по оси «кишечник-мозг». Становится крепче иммунитет, повышается стрессоустойчивость, мышление становится яснее и закрепляется устойчивая энергия в течение дня.</p>
-        `
-      },
-      effectCombo: {
-        title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/effect-2.png',
-        imagePosition: 'left',
-        content: `
-          <p class="font-medium">Daigo Jointic</p>
-          <p>Daigo Jointic улучшает работу суставов, укрепляет хрящевую, костную и мышечную ткани, восстанавливает суставы и связки после травм. Он также повышает физическую выносливость и эффективность тренировок. Также эффективен при седалищной, тазовой и других невропатических болях. Подходит в качестве дополнительного средства при реабилитации в части патологии суставов, для укрепления суставов у людей с избыточной массой тела. Его также можно использовать после периода вынужденной гиподинамии (например, вследствие травм, после инфекционных заболеваний и т.д.).</p>
-          <p class="font-medium">COD Liver Oil / Жир печени трески </p>
-          <p class="">Жир печени трески и содержащаяся в нём DHA является основным структурным компонентом нейронов, напрямую улучшая память, скорость обработки информации и обучаемость. EPA снижает хроническое воспаление в нервной ткани, защищая от возрастных изменений. Помимо поддержки мозга, жир печени трески укрепляет сердечно-сосудистую систему, нормализует иммунитет благодаря витаминам A и D.</p>
-        `
-      },
-      composition: {
-        title: 'Состав',
-        content: `
-          <p class="font-medium">Daigo Brainy</p>
-          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг;  
-L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг;  Хром 50 нг.</p>
-          <p class="font-medium">Daigo Jointic</p>
-          <p class="">Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.</p>
-        `,
-        image: 'https://products.s3.firstvds.ru/sport-box/sostav.png',
-      },
-      compositionCombo: {
-        title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/sostav-2.png',
-        imagePosition: 'left',
-        content: `
-          <p class="font-medium">Daigo Lux</p>
-          <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
-L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
-L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
-L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
-<br><br>
-Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
-<p class="font-medium">Жир печени трески</p>
-<p class="">Очищенный рыбий жир, Омега-3 жирные кислоты (эйкозапентаеновая кислота, докозагексаеновой кислота), витамин А, витамин D, эмульгатор — глицерин растительный, оболочка капсулы — желатин (из рыбьего жира).</p>
-        `
-      },
-      usageInstructions: {
-        combos: [
-          {
-            title: 'Daigo Lux',
-            groups: [
-              {
-                title: 'Взрослым',
-                steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
-                  { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-                ]
-              },
-              {
-                title: 'Детям от 1 до 2 лет',
-                steps: [
-                  { icon: '/icons/drop.svg', text: '1 капля' },
-                  { icon: '/icons/bottle.svg', text: 'Добавить в смесь для кормления' },
-                ]
-              },
-              {
-                title: 'Детям от 2 до 3 лет',
-                steps: [
-                  { icon: '/icons/drop.svg', text: '2 капли' },
-                  { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-                ]
-              },
-              {
-                title: 'Детям от 3 до 6 лет',
-                steps: [
-                  { icon: '/icons/drop.svg', text: '4 капли' },
-                  { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-                ]
-              },
-              {
-                title: 'Детям от 6 до 10 лет',
-                steps: [
-                  { icon: '/icons/drop.svg', text: '8 капель' },
-                  { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-                ]
-              },
-              {
-                title: 'Детям от 10 лет',
-                steps: [
-                  { icon: '/icons/drop.svg', text: '25 капель' },
-                  { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-                ]
-              },
-            ]
-          },
-          {
-            title: 'Daigo Brainy',
-            groups: [
-              {
-                title: 'Взрослым',
-                steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
-                  { icon: '/icons/food.svg', text: 'Во время еды' },
-                ]
-              }
-            ]
-          },
-          {
-            title: 'Daigo Jointic',
-            groups: [
-              {
-                title: 'Взрослым',
-                steps: [
-                  { icon: '/icons/calendar.svg', text: 'По 1 капсуле 2 раза в день' },
-                  { icon: '/icons/massage.svg', text: 'Во время еды' },
-                ]
-              }
-            ]
-          },
-          {
-            title: 'Omega-3',
-            groups: [
-              {
-                title: 'Взрослым и детям',
-                steps: [
-                  { icon: '/icons/calendar.svg', text: '2 капсулы в день во время еды' },
-                  { icon: '/icons/bottle.svg', text: 'Запивая водой' },
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      productionSection: {
-        type: 'production',
-        title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
-        images: {
-        type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
-        bottomImages: [
-          'https://products.s3.firstvds.ru/sport-box/prod-1.png',
-          'https://products.s3.firstvds.ru/sport-box/prod-2.png',
-        ]
-        },
-      },
-      images: [
-            {
-                image_url: "https://products.s3.firstvds.ru/sport-box/product-1.png",
-                is_primary: true,
-                display_order: 0
-            },
-
-      ],
-      faq: {
-        image: 'https://products.s3.firstvds.ru/beauty-box/faq-beauty-box.png',
-        items: [
-          { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
-          { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
-          { q: 'Как долго принимать?', a: 'Рекомендуем курс 4–8 недель, далее по самочувствию.' },
-          { q: 'Совместим с антибиотиками?', a: 'Да, часто применяют после курса антибиотиков для восстановления микрофлоры.' },
-          { q: 'Есть ли противопоказания?', a: 'Индивидуальная непереносимость компонентов. При хронических заболеваниях — консультация врача.' }
-        ]
-      }
-    },     
     // Daigo 5 ml
     {
       product_id: "71700acb-3584-490b-a5f7-62e8cb57b3c9",
@@ -2477,7 +2134,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         }
       ],
       price: 14900,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -2685,7 +2342,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         }
       ],
       price: 44700,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -2892,7 +2549,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         }
       ],
       price: 134100,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -3099,7 +2756,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         }
       ],
       price: 268200,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -3306,7 +2963,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         }
       ],
       price: 536400,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -3468,20 +3125,19 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 88800,
-      oldPrice: null,
+      price: 83750,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/supermozg/sostav-nabora.png',
+        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
         text: `
-          <p class="font-medium">COD LIVER OIL /Жир печени трески (2 шт)</p>
-          <p>Жир печени трески (Омега-3) / COD LIVER OIL производится из тщательно отобранной, высококачественной трески.</p>
-          <p> Треска вылавливается строго с декабря по февраль, когда рыба идёт на нерест, и её печень наиболее богата питательными веществами. Добывается вручную традиционным способом, благодаря чему сохраняются все ценные свойства печени, а сам продукт не требует дополнительной очистки от примесей.</p>
-          <p class="font-medium">Tamotsu (2 шт)</p>
+          <p class="font-medium">Daigo Brainy</p>
+          <p>первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Создан для поддержки когнитивного здоровья.</p>
+          <p class="font-medium">Tamotsu</p>
           <p class="">Натуральный источник плазмалогенов (фосфолипидов) из глубоководного морского гребешка и высококачественного коэнзима Q10.</p>
         `
       },
@@ -3494,19 +3150,19 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>БАД является единственным зарегистрированным на территории Российской Федерации источником натурального высококачественного плазмалогена в комбинации с коэнзимом Q10.</p>
           <p>Плазмалогены являются ключевыми компонентами мембран клеток головного мозга и нервной системы в целом. Также они входят в состав клеточных мембран иммунной и сердечно-сосудистой системы.</p>
           <p>В составе Tamotsu плазмалогены из глубоководного морского гребешка, которые полностью усваиваются человеческим организмом. Плазмалогены буквально «встраиваются» в мембраны повреждённых клеток, восстанавливая их работу, а антиоксидант коэнзим Q10 омолаживает клетки</p>
-          <p class="font-medium">COD LIVER OIL /Жир печени трески</p>
-          <p class="">Жир печени трески богат омега-3 (DHA и EPA), которые укрепляют клеточные мембраны мозга, улучшая когнитивные функции, память и концентрацию. <br><br>Также он поддерживает сердечно-сосудистую систему, снижает воспаление и укрепляет иммунитет, обеспечивая организм ценными витаминами A и D</p>
+          <p class="font-medium">Daigo Brainy</p>
+          <p class="">Короткий натуральный пептид хлореллы блокирует провоспалительные сигнальные пути, снижая уровень скрытого воспаления в нервной ткани. Это помогает защитить нейроны от повреждений и улучшить их функциональность. Незаменимые аминокислоты служат строительным материалом для нейромедиаторов и участвуют в энергетическом обмене, поддерживая стабильную работу мозга.</p>
         `
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/supermozg/effect.png',
+        image: 'https://products.s3.firstvds.ru/brainy/prod-2.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
           <p>Восполняя уровень плазмалогенов, мы защищаем головной мозг, сердце и другие важные органы от старения и разрушения. Tamotsu способствует улучшению памяти и усиливает концентрацию внимания, борется с когнитивной усталостью, противостоит развитию сердечно-сосудистых заболеваний и препятствует развитию нейродегенеративных заболеваний.</p>
-          <p class="font-medium">COD LIVER OIL /Жир печени трески</p>
-          <p class="">Жир печени трески и содержащаяся в нём DHA является основным структурным компонентом нейронов, напрямую улучшая память, скорость обработки информации и обучаемость. EPA снижает хроническое воспаление в нервной ткани, защищая от возрастных изменений. Помимо поддержки мозга, жир печени трески укрепляет сердечно-сосудистую систему, нормализует иммунитет благодаря витаминам A и D</p>
+          <p class="font-medium">Daigo Brainy</p>
+          <p class="">Улучшает работу нервной системы и мозга при информационных и психоэмоциональных перегрузках, способствует профилактике тревожности и депрессии, помогает более быстрому засыпанию, снижает метеочувствительность.</p>
         `
       },
       composition: {
@@ -3514,20 +3170,20 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         content: `
           <p class="font-medium">Tamotsu</p>
           <p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), соли кальция (агент антислеживающий)</p>
-          <p class="font-medium">COD LIVER OIL /Жир печени трески</p>
-          <p class=""Очищенный рыбий жир 500 мг (в 1 капсуле); Омега-3 жирные кислоты 140 мг (в 1 капсуле) Витамин А; Витамин D; <br>Эмульгатор -глицерин растительный; Эйкозапентаеновая кислота 70 мг (в 1 капсуле); Докозагексаеновая кислота 60 мг (в 1 капсуле);
+          <p class="font-medium">Daigo Brainy</p>
+          <p class=""Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.
 
-          <br><br>Оболочка капсулы - желатин (из рыбьего жира)</p>
+          </p>
         `,
-        image: 'https://products.s3.firstvds.ru/supermozg/sostav.png',
+        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/supermozg/instructions.png',
+        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
         groups: [
           {
-            title: 'Omega-3',
+            title: 'Daigo Brainy',
             steps: [
-              { icon: '/icons/drop.svg', text: '2-4 капсулы в день во время еды' },
+              { icon: '/icons/drop.svg', text: 'по 1 капсуле 2 раза в день' },
               { icon: '/icons/food.svg', text: 'Во время приема пищи' },
               { icon: '/icons/bottle.svg', text: 'Запивая водой' },
             ]
@@ -3545,8 +3201,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       productionSection: {
         type: 'production',
-        title: 'Производство революционных продуктов Tamotsu и Omega-3',
-        subtitle: 'Tamotsu и Жир печени трески COD Liver Oil — важная часть продуктовой линейки бренда Daigo, созданная с тем же вниманием к качеству, что и легендарный метабиотик Daigo. Этот ценный продукт производится на том же заводе компании B&S Corporation, расположенном в заповедной зоне у подножия горы Фудзи, где чистота природы и современные технологии создают идеальные условия для производства. Каждая партия добавок проходит строгий контроль и соответствует всем требованиям международных стандартов GMP, что гарантирует сохранение всех полезных свойств и высочайшее качество продукта. \n\nПлазмалогены добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка. \n\n1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген; \n2. Из обработанных морских гребешков получают липиды; \n3. Далее следует этап очистки жира. \n\nCOD Liver Oil производится из тщательно отобранной дикой трески, выловленной у берегов Вакканай — порт в Хоккайдо, — в строго определённое время года: с декабря по февраль, когда рыба идёт на нерест и её печень наиболее богата питательными веществами. Жир печени трески добывается вручную, традиционным способом без нагрева. Благодаря чему сохраняются все питательные вещества, а сам продукт не требует дополнительной очистки от примесей',
+        title: 'Производство революционных продуктов Tamotsu и Daigo Brainy',
+        subtitle: 'Tamotsu и Daigo Brainy — важная часть продуктовой линейки бренда Daigo, созданная с тем же вниманием к качеству, что и легендарный метабиотик Daigo. Каждая партия добавок проходит строгий контроль и соответствует всемтребованиям международных стандартов GMP, что гарантирует сохранение всех полезных свойств и высочайшее качество продукта.\n\nПлазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка.\n\n  1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген;\n\n  2. Из обработанных морских гребешков получают липиды;\n  3. Далее следует этап очистки жира.\n\nВ основе Daigo Brainy лежит натуральный короткий пептид хлореллы, полученный путём ферментации белковых остатков зелёных водорослей Chlorella pyrenoidosa по запатентованной немецкой технологии IPH, обеспечивающей прозрачность и высокий стандарт качества. Эффективность контролируется методом высокоэффективной жидкостной хроматографии, соответствие фармакопеям США, Великобритании, Европы и Японии гарантирует стабильный и безопасный состав. Используется органическая технология с ультразвуковой гомогенизацией, фильтрацией, гидролизом, низкотемпературной экстракцией, ферментацией, контролируемым охлаждением и криозаморозкой, а также распылительной сушкой. Это обеспечивает 98% биодоступность и синергичный эффект компонентов.',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -3589,7 +3245,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         ]
       }
     },
-    // Полный набор здоровья 
+    // Полный набор здоровья
     {
       product_id: "e1c11d41-fdf0-4005-a5e7-50c98afefb42",
       slug: 'polnyy-nabor-zdorovya-daigo',
@@ -3599,8 +3255,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 211400,
-      oldPrice: null,
+      price: 185350,
+      originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -3839,21 +3495,21 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       slug: 'pol-goda-zdorovya-daigo',
       title: 'Полгода здоровья от Дайго',
       subtitle: '',
-      shortDescription: 'Полный набор здоровья от Дайго — это идеальное решение для тех, кто хочет максимально ощутить преимущества от всей нашей линейки продуктов. \nВ этом наборе собраны самые качественные средства для сохранения здоровья и красоты. \nПокупка этого набора позволит вам попробовать все наши продукты и в полной мере оценить пользу от комплексного подхода.',
+      shortDescription: 'Пол года здоровья от Дайго — это идеальное решение для тех, кто хочет максимально ощутить преимущества от всей нашей линейки продуктов. \nВ этом наборе собраны самые качественные средства для сохранения здоровья и красоты. \nПокупка этого набора позволит вам попробовать все наши продукты и в полной мере оценить пользу от комплексного подхода.',
       descriptionSections: [
 
       ],
-      price: 613600,
-      oldPrice: null,
+      price: 496450,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav-nabora.png',
+        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
         text: `
-          <p class="font-medium">Daigo Lux(3)</p>
+          <p class="font-medium">Daigo Lux (2)</p>
           <p>Daigo Lux создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
           <p class="font-medium">Tamotsu(3)</p>
           <p>Натуральный источник плазмалогенов (фосфолипидов) из глубоководного морского гребешка и высококачественного коэнзима Q10.</p>
@@ -3862,10 +3518,10 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       naborCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav-nabora-2.png',
+        image: 'https://products.s3.firstvds.ru/shampo/principles.png',
         text: `
-          <p class="font-medium">COD LIVER OIL /Жир печени трески(6)</p>
-          <p>Жир печени трески (Омега-3) / COD LIVER OIL производится из тщательно отобранной, высококачественной трески. <br><br>Треска вылавливается строго с декабря по февраль, когда рыба идёт на нерест, и её печень наиболее богата питательными веществами. Добывается вручную традиционным способом, благодаря чему сохраняются все ценные свойства печени, а сам продукт не требует дополнительной очистки от примесей.</p>
+          <p class="font-medium">Daigo Jointic (3)</p>
+          <p>Первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Оказывает поддержку суставов и укрепляет костно-мышечную систему.</p>
           <p class="font-medium">Daigo Shampoo Lux(2)</p>
           <p>Инновационная разработка японских ученых в области трихологии- шампунь для восстановления правильного баланса микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи. Это возможо, благодаря наличию в составе двух уникальных компонентов: экстракта брожения риса a-EG и метаболитов 16 штаммов кисломолочных лактобактерий.</p>`
       },
@@ -3881,13 +3537,13 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/principles-2.png',
+        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Shampoo Lux</p>
           <p>Инновационная разработка японских ученых в области трихологии- шампунь для восстановления правильного баланса микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи. Это возможо, благодаря наличию в составе двух уникальных компонентов: экстракта брожения риса a-EG и метаболитов 16 штаммов кисломолочных лактобактерий.</p>
-          <p class="font-medium">COD LIVER OIL /Жир печени трески</p>
-          <p class="">Жир печени трески богат омега-3 (DHA и EPA), которые укрепляют клеточные мембраны мозга, улучшая когнитивные функции, память и концентрацию. Также он поддерживает сердечно-сосудистую систему, снижает воспаление и укрепляет иммунитет, обеспечивая организм ценными витаминами A и D</p>
+          <p class="font-medium">Daigo Jointic</p>
+          <p class="">Короткий натуральный пептид хлореллы эффективно снижает уровень скрытого воспаления в организме, в том числе в нервных структурах, связанных с функцией суставов. В сочетании с комплексом незаменимых аминокислот добавка способствует нормализации нейротрофических процессов и улучшению передачи нервных импульсов в периферической нервной системе. Такой механизм действия помогает уменьшить болевую чувствительность, улучшить нейромышечную координацию и обеспечить комплексную поддержку не только суставам, но и связанным с ними нервным окончаниям.</p>
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p class="">Это первая зубная паста, которая не просто очищает полость рта, устраняя воспаление дёсен, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
         `
@@ -3910,8 +3566,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         image: 'https://products.s3.firstvds.ru/polnyy-nabor/effect-2.png',
         imagePosition: 'left',
         content: `
-          <p class="font-medium">COD LIVER OIL /Жир печени трески</p>
-          <p class="">Жир печени трески и содержащаяся в нём DHA является основным структурным компонентом нейронов, напрямую улучшая память, скорость обработки информации и обучаемость. EPA снижает хроническое воспаление в нервной ткани, защищая от возрастных изменений. Помимо поддержки мозга, жир печени трески укрепляет сердечно-сосудистую систему, нормализует иммунитет благодаря витаминам A и D.</p>
+          <p class="font-medium">Daigo Jointic</p>
+          <p class="">Улучшает работу суставов, укрепляет хрящевую, костную и мышечную ткани, восстанавливает суставы и связки после травм. Повышает физическую выносливость и эффективность тренировок. Эффективен при седалищной, тазовой и других невропатических болях. Подходит для реабилитации, укрепления суставов у людей с избыточной массой тела и после вынужденной гиподинамии.</p>
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p class="">Паста помогает увеличить количество полезных бактерий в полости рта, создавая здоровый микробиом. Он способствует подавлению роста болезнетворных бактерий, снижая риск развития кариеса, пародонтита и кровоточивости десен. Благодаря бережному воздействию уменьшается чувствительность зубов и образование зубного налета, обеспечивая комплексную защиту и свежесть дыхания на весь день.</p>
         `
@@ -3931,15 +3587,15 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 
 <br><br>Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav.png',
+        image: 'https://daigo.ru/images/mock/product/lux/lux-faq.jpg',
       },
       compositionCombo: {
         title: '',
         image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav-2.png',
         imagePosition: 'left',
         content: `
-          <p class="font-medium">Жир печени трески </p>
-          <p>Очищенный рыбий жир, Омега-3 жирные кислоты (эйкозапентаеновая кислота, докозагексаеновой кислота), витамин А, витамин D, эмульгатор — глицерин растительный, оболочка капсулы — желатин (из рыбьего жира).</p>
+          <p class="font-medium">Daigo Jointic</p>
+          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.</p>
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p>Карбонат кальция, вода, глицерин, морская соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
           <p class="font-medium">Daigo шампунь</p>
@@ -4008,12 +3664,12 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             ]
           },
           {
-            title: 'Omega-3',
+            title: 'Daigo Jointic',
             groups: [
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: '2-4 капсулы в день во время еды' },
+                  { icon: '/icons/drop.svg', text: 'по 1 капсуле 2 раза в день во время еды' },
                   { icon: '/icons/bottle.svg', text: 'Запивая водой' },
                 ]
               }
@@ -4053,7 +3709,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/polnyy-nabor/prod-1.png',
+          'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
           'https://products.s3.firstvds.ru/polnyy-nabor/prod-2.png',
         ]
         },
@@ -4088,7 +3744,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 
       ],
       price: 1146000,
-      oldPrice: null,
+      originalPrice: null,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -4329,7 +3985,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
       price: 10000,
-      oldPrice: null,
+      originalPrice: null,
 
       images: [
         { image_url: 'https://products.s3.firstvds.ru/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
@@ -4361,7 +4017,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
       price: 20000,
-      oldPrice: null,
+      originalPrice: null,
 
       images: [
         { image_url: 'https://products.s3.firstvds.ru/sert20/	sert-product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
@@ -4393,7 +4049,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
       price: 50000,
-      oldPrice: null,
+      originalPrice: null,
 
       images: [
         { image_url: 'https://products.s3.firstvds.ru/sert10/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
@@ -4425,7 +4081,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         'Сделайте свой вклад в здоровье близких и получайте благодарности на протяжении всего 2025 года. Сертификат можно применить на покупку любого товара на нашем сайте. <br><br>На сертификаты не распространяется скидка по промокоду "Welcome10".',
 
       price: 100000,
-      oldPrice: null,
+      originalPrice: null,
 
       images: [
         { image_url: 'https://products.s3.firstvds.ru/sert100/product-100.png', is_primary: true, display_order: 0, alt: 'Сертификат 100 000 ₽' },
@@ -4450,18 +4106,18 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 
 
 
-    // Набор Тамотсу и 3 Даиго
+    // Набор ДЛЯ СТУДЕНТОВ Тамотсу и 3 Даиго
     {
       product_id: "a6ab920c-b9cb-41c2-a5cc-d2b742094165",
       slug: 'tamotsu-and-daigo5ml',
-      title: 'Набор «Tamotsu + 3 Daigo по 5 мл»',
+      title: 'Набор «Для студентов»',
       subtitle: '',
       shortDescription: 'Это идеальный набор для студентов, которые хотят усилить когнитивные функции и поддержать иммунитет в период учебы. Добавки работают через ось «Кишечник–мозг», помогая улучшить концентрацию, память и общую продуктивность. Начните учебный год с максимальной пользой для ума и здоровья!',
       descriptionSections: [
 
       ],
-      price: 81750,
-      originalPrice: 109000,
+      price: 104450,
+      originalPrice: 104450,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4562,133 +4218,18 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       }
     },
 
-    // Набор Омега и 2 Даиго
-    {
-      product_id: "6c2f2dc6-f752-4289-8a86-233a3b331231",
-      slug: 'omega3-and-daigo5ml',
-      title: 'Омега-3 и 2 Дайго 5 мл',
-      subtitle: '',
-      shortDescription: 'COD Liver Oil (Omega-3) + органический метабиотик Daigo — идеальный набор для гармоничного роста, развития и укрепления иммунитета школьников. Омега-3 способствует правильному развитию мозга и нервной системы, а Daigo укрепляет естественные защитные силы организма. Вместе они обеспечивают комплексную поддержку растущего организма, помогают детям легче справляться с учебными нагрузками и оставаться здоровыми в течение всего года.',
-      descriptionSections: [
-
-      ],
-      price: 30618,
-      originalPrice: 40825,
-      category: 'metabiotic',
-      isActive: true,
-      combo: {
-        title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/omega/principles.png',
-        text: `
-          <p class="font-medium">COD Liver Oil</p>
-          <p class="">COD Liver Oil — это ценный жир печени черной трески, природный источник наиболее биодоступных форм Омега-3 (EPA и DHA). Эти незаменимые кислоты критически важны для развития школьников. Регулярный прием способствует не только интеллектуальному развитию, но и правильному формированию нервной системы, зрения и иммунитета в период активного роста.</p>
-          <p class="font-medium">2 коробки Daigo по 5 мл</p>
-          <p>2 коробки Daigo по 5 мл — это органический метабиотик нового поколения, созданный для комплексной поддержки здоровья. Его уникальная формула содержит ферменты и клеточный материал 16 видов полезных лактобактерий, которые помогают восстановить баланс кишечной микробиоты — основу крепкого иммунитета и правильного развития растущего организма.</p>
-        `
-      },
-      actionPrinciple: {
-        title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
-        imagePosition: 'left',
-        text: `
-          <p class="font-medium">COD Liver Oil</p>
-          <p>Жир печени черной трески — это натуральный источник Омега-3 (EPA и DHA) в их наиболее активной и легкоусвояемой форме. Эти кислоты играют ключевую роль в развитии детского организма: DHA является структурным компонентом мозга, напрямую влияя на память, скорость мышления и успеваемость, в то время как EPA регулирует эмоциональный фон, помогая школьникам легче переносить учебные нагрузки. Этот механизм действия особенно важен в школьном возрасте, когда организм активно развивается и нуждается в качественных нутриентах для формирования здоровья на годы вперед.</p>
-          <p class="font-medium">Daigo</p>
-          <p class="">Органический метабиотик помогает восстановить правильныц баланс кишечной микрофлоры, а также усилить барьерную функцию кишечника и иммунный ответ. Daigo не подселяет бактерии извне, а создает условия для роста и развития родных полезных бактерий, при этом подавляя патогенную флору. Здоровая микробиота способствует выработке серотонина и других нейромедиаторов, влияющих на когнитивные функции и эмоциональный фон. </p>  `
-      },
-      effect: {
-        title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/omega/effect.png',
-        imagePosition: 'right',
-        content: `
-          <p class="font-medium">COD Liver Oil</p>
-          <p>Регулярный прием Омега-3 в составе COD Liver Oil:
-          <br><br>•	Стимулирует развитие нейронных связей — улучшает познавательные способности и усвоение информации;
-          <br>•	Формирует стрессоустойчивость — снижает тревожность и раздражительность;
-          <br>•	Поддерживает физиологический рост — способствует правильному развитию нервной системы, органов зрения и укреплению иммунитета.
-          </p>
-          <p class="font-medium">Daigo</p>
-          <p class="">Помогая нормализации микрофлоры кишечника, Daigo способствует усилению выработки нейромедиаторов и снижению воспалительных процессов, что напрямую улучшает связь по оси «кишечник-мозг». В результате школьники отмечают более ясное мышление и устойчивое внимание, что способствует лучшему усвоению учебного материала и повышению успеваемости.  Одновременно Daigo помогает сохранять бодрость в течение всего учебного дня без резких спадов. Важным эффектом является повышение стрессоустойчивости – дети легче переносят эмоциональные и умственные нагрузки. Кроме того, здоровый микробиом, который формируется при регулярном приеме Daigo, способствует правильному усвоению питательных веществ, что особенно важно для растущего организма.</p>
-        `
-      },
-      composition: {
-        title: 'Состав',
-        content: `
-          <p class="font-medium">COD Liver Oil</p>
-          <p>Очищенный рыбий жир, омега-3 жирные кислоты (эйкозапентаеновая кислота, докозагексаеновой кислота), витамин А, витамин D, эмульгатор -глицерин растительный. Оболочка капсулы - желатин (из рыбьего жира).</p>
-        <p class="font-medium">Daigo</p>
-          <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
-        `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
-      },
-      usageInstructions: {
-        comboTitle: 'Daigo',
-        groups: [
-          {
-            title: 'Взрослым',
-            steps: [
-              { icon: '/icons/drop.svg', text: 'от 10 мл, по 2-5 саше в сутки' },
-              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
-            ]
-          },
-          
-        ],
-        comboTitle2: 'COD Liver Oil:',
-        groups2: [
-          {
-            title: '',
-            steps: [
-              { icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
-              { icon: '/icons/food.svg', text: 'Во время приема пищи' },
-            ]
-          },
-        ],
-      },
-      productionSection: {
-        type: 'production',
-        title: 'Производство революционных продуктов COD Liver Oil и Daigo',
-        subtitle: 'Метабиотик Daigo и добавка COD Liver Oil производятся на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. \n \nЖир печени трески (Омега-3) производится из тщательно отобранной, высококачественной трески, выловленной у берегов Вакканай (порт в Хоккайдо, Япония). В строго определенное время года: с декабря по февраль, когда рыба идет на нерест и ее печень наиболее богата питательными веществами, и добывается вручную традиционным способом, благодаря чему сохраняются все питательные вещества, а сам продукт не требует дополнительной очистки от попадания примесей. Благодаря натуральному, преимущественно ручному, способу производства удается сохранить все питательные вещества и витамины без разрушения, в их естественном состоянии.',
-        images: {
-        type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
-        bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/omega/prod-1.png',
-        ]
-        },
-      },
-      images: [
-            {
-              image_url: "https://api.daigo.ru/uploads/products_photo/2e54e48e-0f8c-433e-80a7-9b934d3bc189.JPG",
-              is_primary: true,
-              display_order: 0
-            },
-      ],
-      faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
-        items: [
-          { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
-          { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
-          { q: 'Как долго принимать?', a: 'Рекомендуем курс 4–8 недель, далее по самочувствию.' },
-          { q: 'Совместим с антибиотиками?', a: 'Да, часто применяют после курса антибиотиков для восстановления микрофлоры.' },
-          { q: 'Есть ли противопоказания?', a: 'Индивидуальная непереносимость компонентов. При хронических заболеваниях — консультация врача.' }
-        ]
-      }
-    },
-
-    // Набор брейни и 3 Даиго
+    // Набор ДЛЯ ШКОЛЬНИКОВ брейни и 3 Даиго
     {
       product_id: "42332ea5-eda8-4011-8e44-817994f9cac5",
       slug: 'brain-and-daigo5ml',
-      title: 'Набор «Daigo Brainy + 3 Daigo 5 мл»',
+      title: 'Набор «Для старшей школы»',
       subtitle: '',
       shortDescription: 'Уникальная добавка с натуральным коротким пептидом хлореллы и незаменимыми аминокислотами Daigo Brainy + органический метабиотик Daigo — идеальный набор для студентов в период повышенных умственных нагрузок и стресса. Эти добавки поддерживают работу мозга, укрепляют иммунитет и помогают сохранить энергию для продуктивной учебы. Действие комплекса направлено на ось "Кишечник–мозг", обеспечивая ясность ума и устойчивость к нагрузкам.',
       descriptionSections: [
 
       ],
-      price: 48975,
-      originalPrice: 65300,
+      price: 62700,
+      originalPrice: 62700,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4848,8 +4389,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 47100,
-      originalPrice: 47100,
+      price: 44900,
+      originalPrice: 44900,
       category: 'metabiotic',
       isActive: true,
       combo: {
