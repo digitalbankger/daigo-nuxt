@@ -10,7 +10,7 @@ export default defineEventHandler(() => {
     {
       id: 2,
       slug: 'plazmogeny',
-      title: 'Плазмогены',
+      title: 'Плазмалогены',
       image: 'https://daigo.ru/images/mock/researches/cat-2.png',
       researchCount: 2,
     },
