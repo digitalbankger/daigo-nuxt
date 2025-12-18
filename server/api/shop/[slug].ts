@@ -3882,11 +3882,15 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/beauty-box/product-1.png",
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/beaty-1.jpg",
                 is_primary: true,
                 display_order: 0
             },
-
+            {
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/beaty-2.jpg",
+                is_primary: false,
+                display_order: 0
+            },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/beauty-box/faq-beauty-box.png',
@@ -4096,6 +4100,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
                 is_primary: true,
                 display_order: 0
             },
+            {
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/business-2.png",
+                is_primary: false,
+                display_order: 0
+            },
 
       ],
       faq: {
@@ -4248,8 +4257,13 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-1.png",
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/kandm.jpg",
                 is_primary: true,
+                display_order: 0
+            },
+            {
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/kandm-2.png",
+                is_primary: false,
                 display_order: 0
             },
             {
@@ -4762,6 +4776,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               is_primary: true,
               display_order: 0
             },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sila-2.png",
+              is_primary: false,
+              display_order: 0
+            },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
@@ -4943,6 +4962,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               is_primary: true,
               display_order: 0
             },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/she-2.png",
+              is_primary: false,
+              display_order: 0
+            },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
@@ -5097,6 +5121,12 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               is_primary: true,
               display_order: 0
             },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/family-2.png",
+              is_primary: false,
+              display_order: 0
+            },
+            
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/brainy/sostav.png',
@@ -5248,6 +5278,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             {
               image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/light.png",
               is_primary: true,
+              display_order: 0
+            },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/light-2.png",
+              is_primary: false,
               display_order: 0
             },
       ],
@@ -5403,6 +5438,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               is_primary: true,
               display_order: 0
             },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/iskra-2.png",
+              is_primary: false,
+              display_order: 0
+            },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
@@ -5554,6 +5594,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             {
               image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/krasota.png",
               is_primary: true,
+              display_order: 0
+            },
+            {
+              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/krasota-2.png",
+              is_primary: false,
               display_order: 0
             },
       ],
@@ -5752,7 +5797,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
                 is_primary: true,
                 display_order: 0
             },
-
+            {
+                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sport-2.png",
+                is_primary: false,
+                display_order: 0
+            },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/tamotsu/prod-2.png',
