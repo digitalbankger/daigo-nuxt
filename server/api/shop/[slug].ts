@@ -3615,7 +3615,7 @@ export default defineEventHandler((event) => {
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'hhttps://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-4.png',
+        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-4.png',
       },
       usageInstructions: {
         image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
