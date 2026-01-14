@@ -1,6 +1,18 @@
 <template>
   <div class="w-full px-0 md:px-0 mx-auto md:w-full">
     <!-- <header class="bg-white sticky top-0 z-50"> -->
+
+    <ClientOnly>
+      <Snowfall
+        :count="80"
+        :speed="1"
+        :images="[
+          '/images/new-year/snow-1.svg',
+          '/images/new-year/snow-2.svg',
+          '/images/new-year/snow-3.svg'
+        ]"
+      />
+    </ClientOnly>
     <header class="">
       <BaseContainer>
         <!-- <component :is="isMobile ? NavbarMobile : NavbarDesctop" /> -->
@@ -11,7 +23,7 @@
       <NuxtPage />
       <MessageModal />
     </main>
-    <BaseContainer>
+    <BaseContainer v-if="!route.meta.hideFooter">
       <!-- <component :is="isMobile ? FooterMobile : FooterDesctop" /> -->
       <FooterDesctop />
       <MobileNav class="block lg:hidden"/>
@@ -69,6 +81,9 @@ import { useAuthStore } from '@/stores/authStore'
 
 // const ui = useUiStore()
 // onMounted(() => ui.initUi())
+import { useRoute } from 'vue-router'
+const route = useRoute()
+const Snowfall = defineAsyncComponent(() => import('~/components/ui/Snowfall.vue'))
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
 

@@ -27,6 +27,7 @@ const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
 const authStore = useAuthStore()
 
+
 /* Мгновенно триггерим запрос корзины на клиенте, без ожидания mounted */
 if (import.meta.client) {
   void cartStore.loadCart()
@@ -36,6 +37,44 @@ if (import.meta.client) {
 
     // сначала ремаркетинг (если заход с utm remarketing3/5)
     await handleRemarketingOnCartVisit()
+      await enrichCartWithOriginalPrices()
+
+    async function enrichCartWithOriginalPrices() {
+  if (!cartStore.items.length) return
+
+  try {
+    const ids = cartStore.items.map(i => i.id).join(',')
+
+    const res: any = await $fetch('/api/shop/products', {
+      query: { product_ids: ids }
+    })
+
+    if (!res?.items?.length) return
+
+    const map = new Map(
+      res.items.map((p: any) => [
+        String(p.product_id),
+        Number(p.originalPrice) || 0
+      ])
+    )
+
+    cartStore.items = cartStore.items.map(item => {
+      const original = map.get(String(item.id))
+
+      return {
+        ...item,
+        originalPrice:
+          original && original > item.price
+            ? original
+            : undefined
+      }
+    })
+  } catch (e) {
+    if (process.dev) {
+      console.warn('[cart] enrich originalPrice failed', e)
+    }
+  }
+}
 
     // потом — отправка события просмотра корзины в YTM
     ytm.viewCart({
@@ -47,6 +86,7 @@ if (import.meta.client) {
             id: i.id,
             name: i.title,
             price: i.price,
+            originalPrice: i.originalPrice,
             quantity: i.quantity,
             category: i.tag ? [i.tag] : undefined
           }))
@@ -115,15 +155,25 @@ async function handleRemarketingOnCartVisit() {
 /* Синхронизация с cartOrderStore */
 function syncOrderStore() {
   const items: OrderItem[] = cartStore.items.map(i => ({
+
     id: String(i.id),
     title: i.title,
     price: i.price,
+
+    // 👇 ВАЖНО: подставляем originalPrice
+    originalPrice:
+      i.originalPrice && i.originalPrice > i.price
+        ? i.originalPrice
+        : undefined,
+
     qty: i.quantity,
     img: i.image || '',
     tag: i.tag
   }))
+
   orderStore.state.items = items
 }
+
 syncOrderStore()
 watch(() => cartStore.items, syncOrderStore, { deep: true })
 
@@ -187,7 +237,7 @@ function onCartCta() {
         </span>
       </h1>
 
-      <div class="flex flex-col lg:flex-row gap-10">
+      <div class="flex flex-col lg:flex-row gap-10 relative z-30">
         <div class="flex-1 flex flex-col gap-6 lg:w-8/12">
           <div
             v-if="cartStore.promoNotice"

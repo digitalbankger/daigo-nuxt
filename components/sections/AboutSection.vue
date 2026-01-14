@@ -55,10 +55,10 @@ const bottomCard = {
               <video
                 controls
                 preload="none"
-                poster="/images/cover-gen.webp"
+                poster="https://s3.firstvds.ru/shop-service/about.jpg"
                 class="w-full h-auto rounded-2xl sm:rounded-4xl"
               >
-                <source :src="videoUrl" type="video/mp4" />
+                <source src="https://s3.firstvds.ru/shop-service/about.mp4" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
               <div class="w-full flex justify-center">

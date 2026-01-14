@@ -27,6 +27,7 @@ export default defineEventHandler(async (event) => {
       // важное изменение: делаем картинки абсолютными, если пришёл относительный путь
       image:      p.image ? (p.image.startsWith('http') ? p.image : `${base}${p.image}`) : '',
       price:      Number(p.price) || 0,
+      originalPrice: Number(p.original_price) || 0,
       sort:       p.sort_order === 0 ? 16 : p.sort_order,
       properties: p.properties || {},
     })).filter((p: any) => ids.includes(String(p.product_id)))
@@ -124,6 +125,7 @@ export default defineEventHandler(async (event) => {
       subtitle:   p.subtitle || '',
       image:      normalizeImg(p.image), // ← делаем абсолютный URL
       price:      Number(p.price) || 0,
+      originalPrice: Number(p.original_price) || 0,
       sort:       p.sort_order === 0 ? 16 : p.sort_order,
       properties: p.properties || {},
     }))

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { useCartStore } from '~/stores/cartStore'
 
 // Типы для различных сущностей, используемых при оформлении заказа.
 export type LoyaltyStatus = 'none' | 'bronze' | 'silver' | 'gold' | 'platinum'
@@ -71,6 +72,8 @@ export const useCartOrderStore = defineStore('cartOrder', () => {
   // Reactive состояние заказа. Используем ref, чтобы иметь доступ к
   // state.value, что упрощает работу с реактивными структурами и
   // позволяет присваивать новое значение целиком.
+  const cartStore = useCartStore()
+
   const state = ref<CartOrderState>({
     items: [],
     discountPercent: 0,
@@ -91,10 +94,7 @@ export const useCartOrderStore = defineStore('cartOrder', () => {
   // Общая стоимость всех товаров без учёта доставки и скидки.
   const productsTotal = computed(() => state.value.items.reduce((s, i) => s + i.price * i.qty, 0))
   // Итоговая стоимость с учётом скидки и стоимости доставки.
-  const total = computed(() => {
-    const afterDiscount = Math.round(productsTotal.value * (1 - state.value.discountPercent / 100))
-    return afterDiscount + state.value.deliveryPrice
-  })
+  const total = computed(() => Number((cartStore as any).total || productsTotal.value))
 
   /**
    * Загрузка корзины с сервера. Этот метод можно вызывать при
@@ -107,27 +107,26 @@ export const useCartOrderStore = defineStore('cartOrder', () => {
    */
   async function loadCart() {
     try {
-      const res: any = await $fetch('/api/cart/get')
-      // Если ответ содержит товары — сохраняем их. Допускаем, что id
-      // может быть числовым; приводим его к строке для совместимости.
-      if (res && res.items) {
-        state.value.items = res.items.map((i: any) => ({
-          id: String(i.id),
-          title: i.title,
-          price: i.price,
-          qty: i.quantity ?? i.qty ?? 1,
-          img: i.image,
-          tag: i.tag,
-        }))
-      }
-      // Устанавливаем процент скидки из promo_notice, если он есть
-      if (res && res.promo_notice && (res.promo_notice.type === 'discount' || res.promo_notice.type === 'code')) {
-        state.value.discountPercent = res.promo_notice.discount || 0
-      }
-      // TODO: при наличии поля bonusesAccrue в ответе — присвоить его state.value.bonusesAccrue
-      // TODO: при наличии стоимости доставки в ответе (например, res.deliveryPrice) — присвоить state.value.deliveryPrice
+      // Используем единственный источник истины по корзине — cartStore (реальный бэкенд).
+      await cartStore.loadCart()
+
+      state.value.items = (cartStore.items || []).map((i: any) => ({
+        id: String(i.id),
+        title: i.title,
+        price: Number(i.price || 0),
+        qty: Number(i.quantity ?? i.qty ?? i.qty_order ?? i.qtyOrder ?? i.qty_in_cart ?? i.qtyInCart ?? i.qty ?? 1),
+        img: i.image || i.img || i.picture || i.photo || undefined,
+        tag: (i.tag || i.badge || i.label) ?? undefined,
+      }))
+
+      // Для совместимости оставляем discountPercent/deliveryPrice в состоянии, но расчёт total идёт из cartStore.total.
+      state.value.discountPercent = 0
+      state.value.deliveryPrice = 0
     } catch (e) {
-      console.warn('Не удалось загрузить корзину', e)
+      console.warn('Не удалось загрузить корзину для оформления заказа', e)
+      state.value.items = []
+      state.value.discountPercent = 0
+      state.value.deliveryPrice = 0
     }
   }
 

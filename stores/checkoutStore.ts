@@ -6,6 +6,25 @@ import { useCartStore } from '~/stores/cartStore'
 import { createOrder } from '~/services/orderService'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
+import { getLastUtm } from '@/composables/useUtmTracker'
+
+function buildUtmPayload() {
+  const last = getLastUtm()
+  if (!last) return undefined
+
+  const utm: any = {
+    source: last.source,
+    medium: last.medium,
+    campaign: last.campaign,
+    content: last.content,
+    term: last.term,
+  }
+
+  Object.keys(utm).forEach((k) => utm[k] === undefined && delete utm[k])
+  const hasMeaningful = ['source', 'medium', 'campaign', 'content', 'term'].some((k) => k in utm)
+  if (!hasMeaningful) return undefined
+  return utm
+}
 
 export type DeliveryKind = 'courier' | 'pvz' | 'pickup' | 'todoor'
 export type PaymentMethod =
@@ -66,6 +85,9 @@ interface StateShape {
   orderForAnotherPerson: boolean // оставляю для обратной совместимости с текущим UI (чекбокс)
   deliveryId: string | null
   paymentMethod: PaymentMethod
+
+  // списание бонусов (1 бонус = 1 рубль), отправляется в payload заказа
+  bonuses_to_use?: number
 
   comment?: string
 }
@@ -150,6 +172,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
     orderForAnotherPerson: false, // синхронизирован с otherRecipientEnabled (см. ниже)
     deliveryId: deliveryOptions.value[0]?.id || null,
     paymentMethod: 'sbp',
+
+    bonuses_to_use: 0,
 
     comment: ''
   })
@@ -281,9 +305,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
       address_line: state.address.address_line || [state.address.city, state.address.street].filter(Boolean).join(', '), // ⬅️ CHANGED
       city: state.address.city || '',
       street: state.address.street || '',
-      house: state.address.house || '',           // ⬅️ CHANGED
-      block: state.address.block || '',           // ⬅️ CHANGED
-      postal_code: state.address.postal_code || '', // ⬅️ CHANGED
+      house: state.address.house || '',
+      block: state.address.block || '',
+      postal_code: state.address.postal_code || '',
       apartment: state.address.private_house ? '' : (state.address.apartment || ''),
       entrance: state.address.private_house ? '' : (state.address.entrance || ''),
       floor: state.address.private_house ? '' : (state.address.floor || ''),
@@ -338,7 +362,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       errors.recipient.first_name = 'Укажите имя'
       errors.recipient.last_name = ''
     }
-    if (!ph || ph.length < 10) errors.recipient.phone_number = 'Укажите телефон'
+    if (!ph || ph.length !== 11) errors.recipient.phone_number = 'Укажите телефон (11 цифр)'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
     if (!city) errors.recipient.city = 'Укажите город'
 
@@ -347,7 +371,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       const op = normalizePhoneDigits(state.otherRecipientPhone || '')
       const oe = (state.otherRecipientEmail || '').trim()
       if (!on) errors.other.name = 'Укажите ФИО другого получателя'
-      if (!op || op.length < 10) errors.other.phone = 'Укажите телефон другого получателя'
+      if (!op || op.length !== 11) errors.other.phone = 'Укажите телефон другого получателя (11 цифр)'
       if (oe && !isEmail(oe)) errors.other.email = 'Email другого получателя некорректен'
     }
 
@@ -429,8 +453,11 @@ export const useCheckoutStore = defineStore('checkout', () => {
         throw new Error('EMPTY_CART')
       }
 
+      const utm = buildUtmPayload()
+
       const payload = {
         daigo_id: auth.userId,
+        bonuses_to_use: Number(state.bonuses_to_use || 0),
         recipient: {
           name: [state.recipient.first_name, state.recipient.last_name].filter(Boolean).join(' ').trim(),
           phone: state.recipient.phone_number.replace(/\D/g, ''),
@@ -446,7 +473,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
         delivery: buildDeliveryPayload(),
         payment_method: state.paymentMethod,
         comment: state.comment || undefined,
-        items
+        items,
+        ...(utm ? { utm } : {})
       }
 
       const res = await createOrder(payload as any)

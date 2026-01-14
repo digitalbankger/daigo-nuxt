@@ -7,13 +7,39 @@
     <nav class="backdrop-blur bg-white/85 border-b border-gray-200">
       <div class="mx-auto max-w-[1400px] px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between gap-3">
         <div class="flex items-center gap-7 shrink-0">
-            <NuxtLink to="/" aria-label="Главная">
+             <NuxtLink to="/" aria-label="Главная">
                 <img src="/logo.svg" alt="daigo logo" class="md:h-8 xl:h-10" />
-            </NuxtLink>
+            </NuxtLink> 
 
+             <!-- <NuxtLink to="/" aria-label="Главная">
+  <div class="relative h-28 md:h-40 xl:h-40 aspect-[3/1] -my-10 sm:-my-20 -mx-32 sm:-mx-40">
+
+    <video
+      v-if="!isSafari"
+      class="absolute inset-0 w-full h-full object-contain"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source
+        src="https://s3.firstvds.ru/shop-service/kling-5.webm"
+        type="video/webm"
+      />
+    </video>
+
+    <img
+      v-else
+      src="/logo.svg"
+      alt="daigo logo"
+      class="absolute inset-0 w-full h-full object-contain"
+    />
+
+  </div>
+</NuxtLink> -->
             <NuxtLink
                 to="/catalog"
-                class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-primary/80"
+                class="hidden w-44 lg:inline-flex justify-center items-center bg-[#AF1701] text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-[#AF1701]/80"
             >
                 <img
                 src="/icons/catalog.svg"
@@ -112,6 +138,15 @@ import { storeToRefs } from 'pinia'
 //const ui = useUiStore()
 
 //const offsetClass = computed(() => (ui.isHeadInformerVisible ? 'translate-y-14' : 'translate-y-0'))
+
+const isSafari = ref(false)
+
+onMounted(() => {
+  const ua = navigator.userAgent
+  isSafari.value =
+    /Safari/.test(ua) &&
+    !/Chrome|Chromium|Android/.test(ua)
+})
 
 const { scrolled } = useScrolled(120)
 

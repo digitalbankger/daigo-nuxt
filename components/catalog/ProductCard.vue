@@ -8,6 +8,7 @@
       @keydown.enter.space="onOpen(navigate)"
       aria-label="Открыть страницу товара"
     >
+    <img src="/images/new-year/head.png" class="w-16 sm:w-24 absolute -top-5 -right-4 sm:-top-8 sm:-right-6"/>
       <!-- изображение -->
       <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl">
         <img
@@ -20,6 +21,17 @@
           loading="lazy"
           decoding="async"
         />
+        <img  
+          v-if="!hideBonusBadge"
+          src="/images/new-year/bonus.svg" class="h-5 sm:h-8 absolute top-8 left-0 "/>
+        <p
+          v-if="!hideBonusBadge"
+          class="absolute top-[33px] sm:top-[34px] left-2 sm:left-4 uppercase text-transparent bg-clip-text text-[12px] sm:text-lg font-nauryz flex flex-row items-center justify-center gap-1 sm:gap-1"
+          style="background-image: radial-gradient(circle, #FFED68, #FFB830);"
+        >
+          <span>{{ (product.price * 0.5).toFixed(0) }}</span>Б
+        </p>
+
       </div>
 
       <!-- контент -->
@@ -38,31 +50,47 @@
 
         <!-- низ -->
         <div class="mt-auto flex flex-col items-start gap-4">
-          <p class="font-medium leading-tight text-[clamp(1rem,5vw,1.4rem)]">
-            {{ product.price.toLocaleString() }} ₽
-          </p>
+
+          <div class="flex flex-col sm:flex-row gap-0 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
+            <span v-if="product.originalPrice > product.price" class="text-[#FB0C2A] line-through text-[clamp(0.8rem,3.8vw,1.2rem)] font-light">
+              {{ product.originalPrice.toLocaleString() }} ₽
+            </span>
+            <span class="text-black text-[clamp(0.9rem,4.4vw,1.5rem)] font-medium">
+              {{ product.price.toLocaleString() }} ₽
+            </span>
+          </div>
 
           <!-- кнопка -->
+
+
           <button
-            v-if="quantityInCart === 0"
-            type="button"
-            @click.stop="addToCartHandler"
-            class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
-            :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
-          >
-            <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />
-            <span class="whitespace-nowrap">{{ isPreorder ? 'Предзаказ' : 'В корзину' }}</span>
-          </button>
+  v-if="quantityInCart === 0"
+  type="button"
+  @click.stop="addToCartHandler"
+  :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
+  class="btn-cart w-full h-10 sm:h-12 flex items-center justify-center
+         xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
+         rounded-lg whitespace-nowrap relative overflow-hidden"
+>
+  <img
+    src="/icons/add-to-cart.svg"
+    alt=""
+    class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
+  />
+  <span class="whitespace-nowrap relative z-10">
+    {{ isPreorder ? 'Предзаказ' : 'В корзину' }}
+  </span>
+</button>
 
           <!-- плюс/минус -->
           <div
             v-else
-            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full justify-between h-11 md:h-12"
+            class="flex items-center gap-2 bg-[#AF1701] px-2 rounded-lg w-full justify-between h-11 md:h-12"
           >
             <button
               type="button"
               @click.stop="decrementHandler"
-              class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full"
+              class="w-8 h-8 flex items-center justify-center bg-[#AF1701] text-white rounded-full"
               aria-label="Уменьшить количество"
             >
               <img src="/icons/decrement.svg" alt="Уменьшить количество" class="w-5 h-5" />
@@ -73,7 +101,7 @@
             <button
               type="button"
               @click.stop="incrementHandler"
-              class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full"
+              class="w-8 h-8 flex items-center justify-center bg-[#AF1701] text-white rounded-full"
               aria-label="Увеличить количество"
             >
               <img src="/icons/increment.svg" alt="Увеличить количество" class="w-5 h-5" />
@@ -94,6 +122,7 @@ import { useRoute } from '#imports'
 
 const route = useRoute()
 const ytm = useYtm()
+const analytics = useAnalytics()
 
 const { product, index, globalIndex, isLast } = defineProps<{
   product: ProductCard
@@ -140,6 +169,22 @@ function onOpen(navigate: () => void) {
 
   // в list_id передаём текущий путь, в list_name — название списка
   ytm.productClick(productObj, route.path, 'Каталог')
+
+  // ✅ Я.Метрика Enhanced Ecommerce (шаг 3 воронки: клик по товару)
+  analytics.selectItem(
+    'Каталог',
+    {
+      id: product.product_id,
+      name: product.name,
+      price: Number(product.price) || 0,
+      position: (globalIndex ?? index ?? 0) + 1,
+      category: product.tag ? String(product.tag) : undefined,
+      url: `/catalog/${product.slug}`,
+      image_url: product.image,
+      list: 'Каталог'
+    },
+    route.path
+  )
   navigate()
 }
 
@@ -149,4 +194,82 @@ function incrementHandler() {
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
+
+const hideBonusBadge = computed(() => {
+  const name = (product.name || '').toLowerCase()
+  return name.includes('сертификат')
+})
+
 </script>
+
+<style scoped>
+.btn-cart {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: #AF1701; /* базовый цвет кнопки */
+  transition: transform 0.2s ease-out, background-color 0.25s ease-out;
+}
+
+/* мягкое затемнение на hover (как у тебя) */
+.btn-cart:hover {
+  background-color: rgba(175, 23, 1, 0.85);
+}
+
+/* БЛИК "СТЕКЛО" — циклический, плавный */
+.btn-cart::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -35%;
+  width: 55%;
+  height: 180%;
+  pointer-events: none;
+
+  /* стеклянный блик */
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,255,255,0.0) 25%,
+    rgba(255, 255, 255, 0.174) 35%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(255, 255, 255, 0.237) 65%,
+    rgba(255,255,255,0.0) 75%,
+    transparent 100%
+  );
+
+  /* мягкость */
+  filter: blur(1.1px);
+  opacity: 0.85;
+
+  /* наклон и старт за пределами */
+  transform: translateX(-140%) skewX(-18deg);
+
+  /* цикл */
+  animation: btn-shine 3.8s ease-in-out infinite;
+}
+
+/* чтобы блик не перекрывал текст/иконки (но он и так pointer-events:none) */
+.btn-cart > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ключевая анимация */
+@keyframes btn-shine {
+  0%   { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
+  10%  { opacity: 0.9; }
+  50%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateX(420%) skewX(-18deg); opacity: 0; }
+}
+
+/* уважение prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-cart::before {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+</style>

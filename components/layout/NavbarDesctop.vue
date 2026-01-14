@@ -1,21 +1,59 @@
 <template>
   <!-- <HeadInformer /> -->
   <StickyHeader />
+  <!-- Desktop decor -->
+  <img
+    src="/images/new-year/decor.png"
+    class="hidden sm:block decor decor-desktop"
+  />
+
+  <!-- Mobile decor -->
+  <img
+    src="/images/new-year/decor-mob.png"
+    class="sm:hidden block decor decor-mobile"
+  />
+  
 
   <!-- nav оборачиваем в relative, чтобы позиционировать попап -->
-  <nav class="py-6 mt-0 relative">
+  <nav class="py-1 sm:py-6 mt-0 relative z-20 mb-0 sm:mb-0">
+
     <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
       <div class="flex items-center gap-7 shrink-0">
-        <NuxtLink to="/" aria-label="Главная">
+      <!--  <NuxtLink to="/" aria-label="Главная">
           <img src="/logo.svg" alt="daigo logo" class="h-10 md:h-12 xl:h-16" />
-          <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">
+           <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">
             С 1905 г. заботимся о вашем здоровье
-          </p>
+          </p> 
+        </NuxtLink> -->
+
+ <NuxtLink v-if="!isSafari" to="/" aria-label="Главная">
+  <div class="relative h-28 md:h-40 xl:h-40 aspect-[3/1] -my-10 sm:-my-20 -mx-32 sm:-mx-40">
+
+    <video
+      class="absolute inset-0 w-full h-full object-contain"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source
+        src="https://s3.firstvds.ru/shop-service/kling-5.webm"
+        type="video/webm"
+      />
+    </video>
+  </div>
+</NuxtLink>
+
+<NuxtLink v-else to="/" aria-label="Главная">
+          <img src="/logo.svg" alt="daigo logo" class="h-10 md:h-12 xl:h-16" />
+           <!-- <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">
+            С 1905 г. заботимся о вашем здоровье
+          </p>  -->
         </NuxtLink>
 
         <NuxtLink
           to="/catalog"
-          class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-primary/80"
+          class="btn-cart hidden w-44 lg:inline-flex justify-center items-center bg-[#AF1701] text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-[#AF1701]/80"
         >
           <img
             src="/icons/catalog.svg"
@@ -30,11 +68,17 @@
         <SearchBar />
       </div> -->
 
-      <div class="flex flex-row items-center gap-6 shrink-0 text-xl text-black">
+      <div class="flex flex-row items-center gap-6 shrink-0 text-xl
+      inline-flex items-center gap-6
+      rounded-lg sm:rounded-2xl px-3 sm:px-6 py-1 sm:py-3
+      bg-[#396127]/70
+      backdrop-blur-[4px]
+      shadow-[0_6px_10px_rgba(0,0,0,0.5)]
+      ">
         <a
           href="tel:88005552043"
           data-ym="header-phone"
-          class="text-sm md:text-lg flex flex-row items-center gap-2 me-0 lg:me-3 transition duration-300 text-black hover:text-primary"
+          class="text-sm md:text-lg flex flex-row items-center gap-2 me-0 lg:me-3 transition duration-300 text-black text-white hover:text-gray-300"
         >
           <svg
             class="w-[14px] md:w-[20px]"
@@ -61,12 +105,12 @@
         <button
           type="button"
           aria-label="Заказы"
-          class="hidden hover:text-primary text-black transition lg:flex flex-col items-center"
+          class="hidden text-white hover:text-gray-300 text-black transition lg:flex flex-col items-center"
           @click="goOrders"
         >
           <svg
-            width="30"
-            height="30"
+            width="24"
+            height="24"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -89,11 +133,11 @@
         <NuxtLink
           to="/cart"
           aria-label="Корзина"
-          class="relative hidden hover:text-primary text-black transition lg:flex flex-col items-center"
+          class="relative hidden text-white hover:text-gray-300 text-black transition lg:flex flex-col items-center"
         >
           <svg
-            width="30"
-            height="30"
+            width="24"
+            height="24"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -111,12 +155,12 @@
         <button
           type="button"
           aria-label="Профиль"
-          class="hidden hover:text-primary text-black transition lg:flex flex-col items-center"
+          class="hidden text-white hover:text-gray-300 text-black transition lg:flex flex-col items-center"
           @click="goProfile"
         >
           <svg
-            width="30"
-            height="30"
+            width="24"
+            height="24"
             viewBox="0 0 32 32"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -132,37 +176,45 @@
     </div>
 
     <div
-      class="flex flex-row items-center justify-between pt-3 pb-2 gap-7 px-0 sm:px-2 overflow-x-auto no-scrollbar scroll-touch md:overflow-hidden"
+      class="flex flex-row items-center justify-between pt-1 sm:pt-3 pb-2 gap-7 px-0 sm:px-2 overflow-x-auto no-scrollbar scroll-touch md:overflow-hidden"
     >
-      <div class="flex items-center gap-7 shrink-0">
+      <div class="flex items-center gap-7 shrink-0
+    
+      inline-flex items-center gap-6
+      rounded-lg sm:rounded-2xl px-4 sm:px-6 py-1 sm:py-3
+      bg-[#396127]/70
+      backdrop-blur-[4px]
+      shadow-[0_2px_8px_rgba(0,0,0,0.5)]
+    
+      ">
         <ul class="flex items-center gap-5 md:text-xl font-normal tracking-wide text-black">
-          <li class="inline-flex items-center gap-2 text-cgreen">
-            <img
+          <li class="inline-flex items-center gap-2 text-white hover:text-gray-300">
+            <!-- <img
               src="/icons/akcii.svg"
               alt="→"
               class="w-6 transition-transform duration-300 transform"
-            />
+            /> -->
             <NuxtLink to="/akcii">Акции</NuxtLink>
           </li>
-          <li class="transition duration-300 hover:text-primary">
+          <li class="transition duration-300 text-white hover:text-gray-300">
             <NuxtLink to="/about">О нас</NuxtLink>
           </li>
-          <li class="transition duration-300 hover:text-primary">
+          <li class="transition duration-300 text-white hover:text-gray-300">
             <NuxtLink to="/articles">Статьи</NuxtLink>
           </li>
-          <li class="transition duration-300 hover:text-primary">
+          <li class="transition duration-300 text-white hover:text-gray-300">
             <NuxtLink to="/researches">Исследования</NuxtLink>
           </li>
-          <li class="transition duration-300 hover:text-primary">
+          <li class="transition duration-300 text-white hover:text-gray-300">
             <NuxtLink to="/otzyvy">Отзывы</NuxtLink>
           </li>
-          <li class="transition duration-300 hover:text-primary">
+          <li class="transition duration-300 text-white hover:text-gray-300">
             <NuxtLink to="/contacts">Контакты</NuxtLink>
           </li>
 
           <!-- Партнёрам — открываем маленький попап -->
           <li
-            class="transition duration-300 hover:text-primary cursor-pointer"
+            class="transition duration-300 text-white hover:text-gray-300 cursor-pointer"
             @click="togglePartnersPopup"
           >
             <span class="inline-flex items-center gap-1">
@@ -231,6 +283,15 @@ import { useAuthStore } from '@/stores/authStore'
 // import HeadInformer from '@/components/layout/HeadInformer.vue'
 // import { useUiStore } from '@/stores/ui'
 
+const isSafari = ref(false)
+
+onMounted(() => {
+  const ua = navigator.userAgent
+  isSafari.value =
+    /Safari/.test(ua) &&
+    !/Chrome|Chromium|Android/.test(ua)
+})
+
 // const ui = useUiStore()
 const auth = useAuthStore()
 const { isAuthenticated } = storeToRefs(auth)
@@ -261,4 +322,110 @@ const togglePartnersPopup = () => {
 const closePartnersPopup = () => {
   isPartnersPopupOpen.value = false
 }
+
+
+const videoError = ref(false)
 </script>
+
+<style scoped>
+ .btn-cart {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  background: #AF1701; /* базовый цвет кнопки */
+  transition: transform 0.2s ease-out, background-color 0.25s ease-out;
+}
+
+/* мягкое затемнение на hover (как у тебя) */
+.btn-cart:hover {
+  background-color: rgba(175, 23, 1, 0.85);
+}
+
+/* БЛИК "СТЕКЛО" — циклический, плавный */
+.btn-cart::before {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -35%;
+  width: 55%;
+  height: 180%;
+  pointer-events: none;
+
+  /* стеклянный блик */
+  background: linear-gradient(
+    115deg,
+    transparent 0%,
+    rgba(255,255,255,0.0) 25%,
+    rgba(255, 255, 255, 0.174) 35%,
+    rgba(255,255,255,0.55) 50%,
+    rgba(255, 255, 255, 0.237) 65%,
+    rgba(255,255,255,0.0) 75%,
+    transparent 100%
+  );
+
+  /* мягкость */
+  filter: blur(1.1px);
+  opacity: 0.85;
+
+  /* наклон и старт за пределами */
+  transform: translateX(-140%) skewX(-18deg);
+
+  /* цикл */
+  animation: btn-shine 3.8s ease-in-out infinite;
+}
+
+/* чтобы блик не перекрывал текст/иконки (но он и так pointer-events:none) */
+.btn-cart > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ключевая анимация */
+@keyframes btn-shine {
+  0%   { transform: translateX(-140%) skewX(-18deg); opacity: 0; }
+  10%  { opacity: 0.9; }
+  50%  { opacity: 0.9; }
+  90%  { opacity: 0.9; }
+  100% { transform: translateX(420%) skewX(-18deg); opacity: 0; }
+}
+
+/* уважение prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .btn-cart::before {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+
+/* ===== ДЕКОР ===== */
+
+.decor {
+  position: absolute;
+  /*top: clamp(-140px, -10vw, -40px); /* ← уезжает вверх при сжатии */
+  top: 0;
+  height: auto;                  /* ← фиксированная высота */
+  width: 1310px;
+  z-index: 2;                     /* ниже текста */
+  pointer-events: none;
+}
+
+/* Desktop */
+.decor-desktop {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+/* Mobile */
+.decor-mobile {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+
+
+
+
+
+</style>

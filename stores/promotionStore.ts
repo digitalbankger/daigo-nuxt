@@ -123,6 +123,12 @@ export const usePromoStore = defineStore('promoStore', () => {
       return true
     }
 
+    // ⛔ Любые действия по применению акций/промокодов — только для авторизованных
+    if (!auth.isAuthenticated && (promo.promo_type === 'code' || promo.promo_type === '2plus1')) {
+      auth.openAuth('/akcii')
+      throw new Error('Для применения акции необходимо авторизоваться')
+    }
+
     // 2) Логика промокода (акции с типом code)
     if (promo.promo_type === 'code') {
       // Берём промокод из самой акции

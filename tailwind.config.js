@@ -41,6 +41,9 @@ export default {
       },
       fontFamily: {
         sans: ['Golos', 'sans-serif'],
+        nauryz: ['NauryzRedKeds', 'sans-serif'],
+        mont: ['Montserrat', 'ui-sans-serif', 'system-ui'],
+        sofia: ['Sofia Sans', 'ui-sans-serif', 'system-ui'],
       },
       fontSize: {
         slider: 'clamp(28px, 8vw, 56px)',

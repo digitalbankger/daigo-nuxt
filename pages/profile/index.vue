@@ -3,7 +3,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProfileField from '~/components/profile/ProfileField.vue'
 import AddressDropdown from '~/components/profile/AddressDropdown.vue'
 import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
-
+import RaffleTicket from '~/components/profile/RaffleTicket.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
@@ -11,6 +11,8 @@ import { computed, onMounted, watch, ref } from 'vue'
 import { navigateTo } from '#imports'
 import { useCookie } from '#app'
 import { getFirstUtm, getLastUtm, type StoredUtmSet } from '@/composables/useUtmTracker'
+import { getSpinHistory, type SpinHistoryItem } from '@/services/gamificationService'
+import { fetchUserRaffleCoupons, type RaffleCoupon } from '@/services/raffleService'
 
 definePageMeta({
   layout: 'main',
@@ -23,6 +25,134 @@ const authStore = useAuthStore()
 // реактивные поля из стора
 const { profile, isLoaded } = storeToRefs(userStore)
 const { isAuthenticated } = storeToRefs(authStore)
+
+const activePromo = ref<SpinHistoryItem | null>(null)
+
+// ---------- Лотерейные билеты ----------
+
+const raffleCoupons = ref<RaffleCoupon[]>([])
+const raffleTotalCount = ref(0)
+const raffleLoading = ref(false)
+const raffleError = ref<string | null>(null)
+
+const raffleGroups = computed(() => {
+  const groups: Record<string, RaffleCoupon[]> = {}
+  for (const c of raffleCoupons.value) {
+    const key = (c.raffle_name || 'Розыгрыш').trim() || 'Розыгрыш'
+    if (!groups[key]) groups[key] = []
+    groups[key].push(c)
+  }
+  return Object.entries(groups)
+    .map(([raffleName, coupons]) => ({
+      raffleName,
+      coupons: [...coupons].sort((a, b) => String(a.coupon_number).localeCompare(String(b.coupon_number)))
+    }))
+    .sort((a, b) => a.raffleName.localeCompare(b.raffleName))
+})
+
+async function loadRaffleCoupons(daigoId: number | string) {
+  raffleLoading.value = true
+  raffleError.value = null
+  try {
+    const res = await fetchUserRaffleCoupons(daigoId)
+    raffleCoupons.value = Array.isArray(res?.coupons) ? res.coupons : []
+    raffleTotalCount.value = Number(res?.total_count ?? raffleCoupons.value.length ?? 0)
+  } catch (e: any) {
+    raffleCoupons.value = []
+    raffleTotalCount.value = 0
+    const status = e?.response?.status
+    if (status === 401 || status === 403) {
+      raffleError.value = 'Для просмотра билетов необходимо авторизоваться.'
+    } else {
+      raffleError.value = 'Не удалось загрузить номера билетов. Попробуйте позже.'
+    }
+  } finally {
+    raffleLoading.value = false
+  }
+}
+
+const activePromoTitle = computed(() =>
+  activePromo.value?.prizeName || 'Промокод от колеса фортуны'
+)
+
+const activePromoDescription = computed(
+  () => activePromo.value?.prizeDescription || ''
+)
+
+const promoMessage = computed(() => {
+  const expiresRaw = activePromo.value?.expiresAt
+  if (!expiresRaw) return ''
+
+  const expires = new Date(expiresRaw)
+
+  if (
+    expires.getFullYear() === 2025 &&
+    expires.getMonth() === 11 &&
+    expires.getDate() === 31
+  ) {
+    return 'Промокод будет активен 1 декабря'
+  }
+
+  return `Промокод действителен до: ${expires.toLocaleDateString('ru-RU')}`
+})
+
+async function copyActivePromo() {
+  if (!activePromoCode.value) return
+
+  try {
+    await navigator.clipboard.writeText(activePromoCode.value)
+    copyStatus.value = 'success'
+    setTimeout(() => (copyStatus.value = 'idle'), 1500)
+  } catch {
+    copyStatus.value = 'error'
+    setTimeout(() => (copyStatus.value = 'idle'), 1500)
+  }
+}
+
+
+const activePromoCode = computed(() => activePromo.value?.couponCode || '')
+const hasActivePromo = computed(() => !!activePromo.value && !!activePromoCode.value)
+
+const copyStatus = ref<'idle' | 'success' | 'error'>('idle')
+
+watch(
+  profile,
+  async (p) => {
+    if (!p?.phone_number) return
+
+    try {
+      const history = await getSpinHistory(p.phone_number, {
+        limit: 20,
+        offset: 0
+      })
+
+      const now = new Date()
+      activePromo.value =
+        history.find(item => {
+          if (!item.couponCode) return false
+          if (item.status !== 'active') return false
+          return new Date(item.expiresAt) > now
+        }) || null
+    } catch {
+      activePromo.value = null
+    }
+  },
+  { immediate: true }
+)
+
+watch(
+  () => authStore.userId,
+  async (id) => {
+    if (!id) {
+      raffleCoupons.value = []
+      raffleTotalCount.value = 0
+      raffleError.value = null
+      return
+    }
+    await loadRaffleCoupons(id)
+  },
+  { immediate: true }
+)
 
 // ---------- VIP по UTM (для показа блока) ----------
 
@@ -173,19 +303,97 @@ function deleteAddress(index: number) {
       </div>
 
       <!-- Bonuses Block -->
-      <div class="relative bg-primary/10 border border-primary text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-3 items-start justify-start max-w-full md:max-w-[70%]">
-        <div class="flex flex-row gap-2 ">
-          <img src="/icons/bi_stars.svg" class="w-6" />
-          Количество бонусов:
-          <span class="text-primary font-normal md:font-medium">{{ profile.bonuses.valid.value }}</span>
+      <NuxtLink to="/bonusopad" class="relative bg-[#14350C] text-white text-sm md:text-lg rounded-xl min-h-20 px-4 py-3 mb-4 md:mb-6 flex flex-col sm:flex-row gap-3 items-start justify-between max-w-full md:max-w-[70%]">
+        <div class="my-auto">
+          <div class="flex flex-row gap-2 ">
+            <!-- <img src="/icons/bi_stars.svg" class="w-6" /> -->
+            <!-- Количество бонусов: -->
+            <span class="font-nauryz uppercase text-3xl sm:text-6xl my-auto font-normal md:font-medium text-transparent bg-clip-text" style="background-image: radial-gradient(circle, #FFED68, #FFB830);">{{ profile.bonuses.valid.value }}</span>
+          </div>
+          <span v-if="profile.bonuses.expiring.value > 0" class="text-sm">
+            {{ profile.bonuses.expiring.value }} бонусов сгорят {{ formatDate(profile.bonuses.expiring.date_end) }}
+          </span>
         </div>
-        <span v-if="profile.bonuses.expiring.value > 0" class="text-sm">
-          {{ profile.bonuses.expiring.value }} бонусов сгорят {{ formatDate(profile.bonuses.expiring.date_end) }}
-        </span>
-        <div class="absolute right-4 top-3 text-xl mb-auto mt-1">
+        <!-- <div class="absolute right-4 top-3 text-xl mb-auto mt-1">
           <img src="/icons/arrow-primary.svg" class="w-4" />
+        </div> -->
+        <p class="font-nauryz uppercase text-3xl sm:text-6xl my-auto font-normal md:font-medium text-transparent bg-clip-text" style="background-image: radial-gradient(circle, #FFED68, #FFB830);">
+          Бонусов
+        </p>
+      </NuxtLink>
+
+      <!-- Личные промокоды -->
+<div
+
+  class="relative bg-primary/10 border border-primary text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-2 max-w-full md:max-w-[70%]"
+>
+  <div class="flex items-center gap-2">
+    <img src="/icons/bi_stars.svg" class="w-6" />
+    <span>Личные промокоды:</span>
+
+    <span
+      class="text-primary font-medium cursor-pointer"
+      @click="copyActivePromo"
+    >
+      {{ activePromoCode }}
+    </span>
+
+    <span v-if="copyStatus === 'success'" class="text-xs text-primary">
+      Скопировано
+    </span>
+    <span v-else-if="copyStatus === 'error'" class="text-xs text-red-500">
+      Ошибка
+    </span>
+  </div>
+
+  <span class="text-sm">
+    {{ promoMessage }}
+  </span>
+</div>
+
+      <!-- Лотерейные билеты -->
+      <div
+        class="relative bg-[#14350C] text-white text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-2 max-w-full md:max-w-[70%]"
+      >
+        <div class="flex items-center gap-2">
+          <!-- <img src="/icons/bi_stars.svg" class="w-6" /> -->
+          <span>Номера лотерейных билетов:</span>
+
+          <span v-if="raffleLoading" class="text-xs text-gray-300">Загрузка…</span>
+          <span v-else-if="!raffleError && raffleTotalCount > 0" class="text-xs text-gray-300">
+            Всего: {{ raffleTotalCount }}
+          </span>
+        </div>
+
+        <div v-if="raffleError" class="text-xs text-red-500">{{ raffleError }}</div>
+
+        <div v-else-if="!raffleLoading && raffleGroups.length === 0" class="text-sm text-gray-300">
+          Билетов пока нет.
+        </div>
+
+        <div v-else class="flex flex-col gap-3">
+          <div v-for="g in raffleGroups" :key="g.raffleName" class="space-y-2">
+            <div class="text-xs text-gray-300">{{ g.raffleName }}</div>
+            <div class="flex flex-wrap gap-2">
+              <!-- <span
+                v-for="c in g.coupons"
+                :key="`${c.raffle_name}:${c.coupon_number}:${c.assigned_at}`"
+                class="px-2 py-1 rounded-full bg-white/70 border border-primary/20 text-primary font-medium"
+              >
+                {{ c.coupon_number }}
+              </span> -->
+              <RaffleTicket
+                v-for="c in g.coupons"
+                :key="`${c.raffle_name}:${c.coupon_number}:${c.assigned_at}`"
+                :number="c.coupon_number"
+                src="/icons/ticket.svg"
+              />
+
+            </div>
+          </div>
         </div>
       </div>
+
 
       <!-- 🔹 VIP блок — только для тех, кто пришёл по VIP-ссылке и уже авторизован -->
       <VipActivationBlock
@@ -230,17 +438,19 @@ function deleteAddress(index: number) {
       <!-- Editable Fields -->
       <div class="flex flex-col gap-4 text-sm max-w-full md:max-w-[70%]">
         <ProfileField
-          v-for="(value, field) in {
-            first_name: profile.first_name,
-            last_name: profile.last_name,
-            phone_number: profile.phone_number,
-            email: profile.email,
-            birth_day: profile.birth_day
-          }"
-          :key="field"
-          :label="field"
-          :value="value"
-          :field="field"
+          v-for="it in [
+            { field: 'first_name',  label: 'Имя',          placeholder: 'Имя',          value: profile.first_name },
+            { field: 'last_name',   label: 'Фамилия',      placeholder: 'Фамилия',      value: profile.last_name },
+            { field: 'phone_number',label: 'Телефон',      placeholder: '+7 (___) ___-__-__', value: profile.phone_number, type: 'tel' },
+            { field: 'email',       label: 'Email',        placeholder: 'Email',        value: profile.email, type: 'email' },
+            { field: 'birth_day',   label: 'Дата рождения',placeholder: 'Дата рождения',value: profile.birth_day }
+          ]"
+          :key="it.field"
+          :label="it.label"
+          :value="it.value"
+          :field="it.field"
+          :placeholder="it.placeholder"
+          :type="it.type"
           @save="updateField"
         />
       </div>
