@@ -28,14 +28,12 @@ function mapToYtmPromos(list: Array<{ id: string|number; title: string }>) {
 }
 
 onMounted(() => {
-  if (!import.meta.client) return
-  if (promoViewSent) return
-  if (!promotions.value.length) return
-
-  ytm.promoView(mapToYtmPromos(promotions.value))
-  promoViewSent = true
+  if (process.server) return
+  if (!promoViewSent && promotions.value.length) {
+    ytm.promoView(mapToYtmPromos(promotions.value))
+    promoViewSent = true
+  }
 })
-
 </script>
 
 <template>

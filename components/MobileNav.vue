@@ -7,7 +7,7 @@
           v-if="item.requiresAuth"
           @click="handleClick(item)"
           class="flex flex-col items-center text-sm gap-2"
-          :class="isActive(item.to) ? 'text-[#AF1701]' : 'text-black'"
+          :class="isActive(item.to) ? 'text-primary' : 'text-black'"
         >
           <span class="relative inline-flex items-center justify-center">
             <span v-html="item.icon" aria-hidden="true"></span>
@@ -21,7 +21,7 @@
           v-else
           :to="item.to"
           class="flex flex-col items-center text-sm gap-2"
-          :class="isActive(item.to) ? 'text-[#AF1701]' : 'text-black'"
+          :class="isActive(item.to) ? 'text-primary' : 'text-black'"
           aria-label="Навигация"
         >
           <span class="relative inline-flex items-center justify-center">

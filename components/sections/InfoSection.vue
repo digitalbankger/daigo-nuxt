@@ -9,15 +9,15 @@ const publicationCards = [
     title: 'Статьи',
     text: 'Мы еженедельно выпускаем новые статьи, в которых рассказываем о продуктах Дайго',
     imageSrc: '/images/book.webp',
-    extraImage: '/images/customers/ny-cust-3.png',
+    extraImage: '/images/Bookmark.webp',
     showArrow: true,
-    arrowSrc: '/icons/ny-arrow.svg',
+    arrowSrc: '/icons/Arrow-green.svg',
     lazy: true,
     link: "/articles",
     styles: {
-      card: 'relative overflow-hidden bg-[#326027] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
-      title: 'relative z-10 text-white font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
-      text: 'relative z-10 text-white w-full text-[clamp(1rem,4vw,1.5rem)] lg:w-4/5 sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
+      card: 'relative overflow-hidden bg-[#B7FFBA] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
+      title: 'relative z-10 font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
+      text: 'relative z-10 w-full text-[clamp(1rem,4vw,1.5rem)] lg:w-4/5 sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
       image: 'absolute bottom-0 right-0 w-[55%]',
       extraImage: 'absolute top-0 left-0 w-[31%] z-0',
     }
@@ -26,15 +26,15 @@ const publicationCards = [
     title: 'Исследования',
     text: 'Научные исследования, подтверждающие эффективность продуктов Дайго',
     imageSrc: '/images/malekula.webp',
-    extraImage: '/images/customers/ny-cust-2.png',
+    extraImage: '/images/team.webp',
     showArrow: true,
-    arrowSrc: '/icons/ny-arrow.svg',
+    arrowSrc: '/icons/Arrow-blue.svg',
     lazy: true,
     link: "/researches",
     styles: {
-      card: 'relative overflow-hidden bg-[#326027] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
-      title: 'relative z-10 text-white font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
-      text: 'relative z-10 text-white text-[clamp(1rem,4vw,1.5rem)] sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
+      card: 'relative overflow-hidden bg-[#B5EBFF] h-[290px] sm:h-[300px] lg:h-[500px] w-full sm:w-1/2 rounded-3xl sm:py-10 sm:px-10 lg:px-12',
+      title: 'relative z-10 font-medium leading-tight mb-0 lg:mb-4 text-[clamp(2rem,6vw,3.5rem)] sm:text-3xl lg:text-[clamp(2rem,6vw,3.5rem)]',
+      text: 'relative z-10 text-[clamp(1rem,4vw,1.5rem)] sm:text-base lg:text-[clamp(1rem,4vw,1.5rem)] font-normal !leading-tight',
       image: 'absolute bottom-0 right-0 w-[60%]',
       extraImage: 'absolute top-0 left-0 w-[34%] z-0',
     }
@@ -50,34 +50,34 @@ const publicationCards = [
              bg-cover bg-right-top sm:bg-right lg:bg-center text-black
              h-[345px] sm:h-[430px] start-card"
       :style="{
-        '--bg-mobile':  'url(/images/customers/ny-cust-1-mob.jpg)',
-        '--bg-tablet':  'url(/images/customers/ny-cust-1.jpg)',
-        '--bg-desktop': 'url(/images/customers/ny-cust-1.jpg)'
+        '--bg-mobile':  'url(/images/scmob.webp)',
+        '--bg-tablet':  'url(/images/StartCard.png)',
+        '--bg-desktop': 'url(/images/StartCard.png)'
       }"
     >
       <div class="w-full sm:max-w-[80%] lg:max-w-[60%]">
-        <h3 class="font-medium text-white leading-tight mb-4 text-[clamp(2rem,5vw,3.5rem)]">
+        <h3 class="font-medium leading-tight mb-4 text-[clamp(2rem,5vw,3.5rem)]">
           С чего начать
         </h3>
-        <p class="mb-4 sm:mb-6 text-white text-[clamp(1rem,3vw,1.5rem)] flex flex-col gap-4 font-normal w-full sm:max-w-[80%] sm:max-w-full lg:max-w-[550px]">
+        <p class="mb-4 sm:mb-6 text-[clamp(1rem,3vw,1.5rem)] flex flex-col gap-4 font-normal w-full sm:max-w-[80%] sm:max-w-full lg:max-w-[550px]">
           Подборка статей, чтобы вы могли познакомиться с продуктами Дайго и подробнее узнать об их применении
         </p>
         <NuxtLink
           to="/articles"
           class="hidden sm:inline-flex relative z-20 justify-center items-center gap-2 py-3 px-3 sm:px-5
-                 text-[#fff] text-lg sm:text-xl font-normal transition duration-300
-                 border border-[#fff] rounded-lg tracking-wide w-56 sm:w-72
-                 hover:bg-[#fff] hover:text-black"
+                 text-[#FA458A] text-lg sm:text-xl font-normal transition duration-300
+                 border border-[#FA458A] rounded-lg tracking-wide w-56 sm:w-72
+                 hover:bg-[#FA458A] hover:text-white"
         >
           Перейти к статьям
         </NuxtLink>
 
         <NuxtLink
           to="/articles"
-          class="relative z-20 text-[#fff] inline-flex sm:hidden items-center gap-2 text-base sm:text-2xl font-normal transition duration-300 group"
+          class="relative z-20 text-[#FA458A] inline-flex sm:hidden items-center gap-2 text-base sm:text-2xl font-normal transition duration-300 group"
         >
           Перейти к статьям
-          <img src="/icons/arrow.svg" alt="→" class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1" />
+          <img src="/icons/arrow-pink.svg" alt="→" class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1" />
         </NuxtLink>
       </div>
 

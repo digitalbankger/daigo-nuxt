@@ -1,29 +1,26 @@
 <template>
   <div class="w-full px-0 md:px-0 mx-auto md:w-full">
     <!-- <header class="bg-white sticky top-0 z-50"> -->
-
-    <ClientOnly>
-      <Snowfall
-        :count="80"
-        :speed="1"
-        :images="[
-          '/images/new-year/snow-1.svg',
-          '/images/new-year/snow-2.svg',
-          '/images/new-year/snow-3.svg'
-        ]"
-      />
-    </ClientOnly>
     <header class="">
       <BaseContainer>
         <!-- <component :is="isMobile ? NavbarMobile : NavbarDesctop" /> -->
         <NavbarDesctop />
       </BaseContainer>
+      <PromoTicker
+        :items="[
+          'ЧЕРНАЯ ПЯТНИЦА',
+          '21–30 НОЯБРЯ',
+          'ЧЕРНАЯ ПЯТНИЦА',
+          '21–30 НОЯБРЯ'
+        ]"
+        class="mb-6 sm:mb-8"
+      />
     </header>
     <main>
       <NuxtPage />
       <MessageModal />
     </main>
-    <BaseContainer v-if="!route.meta.hideFooter">
+    <BaseContainer>
       <!-- <component :is="isMobile ? FooterMobile : FooterDesctop" /> -->
       <FooterDesctop />
       <MobileNav class="block lg:hidden"/>
@@ -73,6 +70,7 @@ import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
 import MobileNav from '~/components/MobileNav.vue'
+import PromoTicker from '~/components/ui/PromoTicker.vue'
 import { defineAsyncComponent, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
@@ -81,9 +79,6 @@ import { useAuthStore } from '@/stores/authStore'
 
 // const ui = useUiStore()
 // onMounted(() => ui.initUi())
-import { useRoute } from 'vue-router'
-const route = useRoute()
-const Snowfall = defineAsyncComponent(() => import('~/components/ui/Snowfall.vue'))
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
 

@@ -4,29 +4,12 @@ import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
 import { createOrder } from '~/services/orderService'
+import { navigateTo } from '#imports'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
-import { getLastUtm } from '@/composables/useUtmTracker'
 
-function buildUtmPayload() {
-  const last = getLastUtm()
-  if (!last) return undefined
-
-  const utm: any = {
-    source: last.source,
-    medium: last.medium,
-    campaign: last.campaign,
-    content: last.content,
-    term: last.term,
-  }
-
-  Object.keys(utm).forEach((k) => utm[k] === undefined && delete utm[k])
-  const hasMeaningful = ['source', 'medium', 'campaign', 'content', 'term'].some((k) => k in utm)
-  if (!hasMeaningful) return undefined
-  return utm
-}
-
-export type DeliveryKind = 'courier' | 'pvz' | 'pickup' | 'todoor'
+// Типы способов (используются в UI и для PaymentSelector)
+export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
 export type PaymentMethod =
   | 'sbp'
   | 'tbank'
@@ -44,8 +27,6 @@ export interface DeliveryOption {
   eta?: string
   // для курьера: провайдер
   provider?: 'daigo' | 'major' | 'cdek'
-  // метод для бэкенда (например, sdek_todoor)
-  method?: string
 }
 
 interface StateShape {
@@ -64,7 +45,6 @@ interface StateShape {
   address: {
     city?: string
     street?: string
-    house?: string
     apartment?: string
     entrance?: string
     floor?: string
@@ -78,6 +58,7 @@ interface StateShape {
 
     // ⬇️ Дополнительно: базовая строка адреса (единая для всех видов)
     address_line?: string // ⬅️ CHANGED: пояснение, поле используется как общий текст адреса
+    house?: string        // ⬅️ CHANGED: для единообразия с курьером
     block?: string        // ⬅️ CHANGED
     postal_code?: string  // ⬅️ CHANGED
   }
@@ -85,9 +66,6 @@ interface StateShape {
   orderForAnotherPerson: boolean // оставляю для обратной совместимости с текущим UI (чекбокс)
   deliveryId: string | null
   paymentMethod: PaymentMethod
-
-  // списание бонусов (1 бонус = 1 рубль), отправляется в payload заказа
-  bonuses_to_use?: number
 
   comment?: string
 }
@@ -114,11 +92,11 @@ export const useCheckoutStore = defineStore('checkout', () => {
       provider: 'major'
     },
     {
-      id: 'todoor_cdek',
-      kind: 'todoor',
+      id: 'sdek_todoor',
+      kind: 'courier',
       title: 'СДЭК до двери',
-      subtitle: 'Курьерская доставка до вашей двери',
-      provider: 'cdek'
+      subtitle: 'Курьерская доставка СДЭК',
+      provider: 'cdek',
     },
     {
       id: 'pvz_cdek',
@@ -152,7 +130,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
     address: {
       city: '',
       street: '',
-      house: '',
       apartment: '',
       entrance: '',
       floor: '',
@@ -165,6 +142,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
 
       // ⬇️ Единый адрес для всех видов
       address_line: '',   // ⬅️ CHANGED: используется и курьером, и ПВЗ
+      house: '',          // ⬅️ CHANGED
       block: '',          // ⬅️ CHANGED
       postal_code: ''     // ⬅️ CHANGED
     },
@@ -172,8 +150,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
     orderForAnotherPerson: false, // синхронизирован с otherRecipientEnabled (см. ниже)
     deliveryId: deliveryOptions.value[0]?.id || null,
     paymentMethod: 'sbp',
-
-    bonuses_to_use: 0,
 
     comment: ''
   })
@@ -217,7 +193,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
     address: {
       city: '' as string,
       street: '' as string,
-      house: '' as string,
       pvzAddress: '' as string,
       pickupAddress: '' as string,
     },
@@ -236,7 +211,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
     errors.other.email = ''
     errors.address.city = ''
     errors.address.street = ''
-    errors.address.house = ''
     errors.address.pvzAddress = ''
     errors.address.pickupAddress = ''
     errors.payment = ''
@@ -305,9 +279,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
       address_line: state.address.address_line || [state.address.city, state.address.street].filter(Boolean).join(', '), // ⬅️ CHANGED
       city: state.address.city || '',
       street: state.address.street || '',
-      house: state.address.house || '',
-      block: state.address.block || '',
-      postal_code: state.address.postal_code || '',
+      house: state.address.house || '',           // ⬅️ CHANGED
+      block: state.address.block || '',           // ⬅️ CHANGED
+      postal_code: state.address.postal_code || '', // ⬅️ CHANGED
       apartment: state.address.private_house ? '' : (state.address.apartment || ''),
       entrance: state.address.private_house ? '' : (state.address.entrance || ''),
       floor: state.address.private_house ? '' : (state.address.floor || ''),
@@ -323,20 +297,14 @@ export const useCheckoutStore = defineStore('checkout', () => {
       }
     }
 
-    if (opt.kind === 'todoor') {
-      return {
-        type: 'todoor',
-        provider: opt.provider || 'cdek',
-        ...baseAddress
-      }
-    }
-
     if (opt.kind === 'pvz') {
+      // ⬅️ CHANGED: отправляем ТО ЖЕ, что и для курьера (без pvz/pvzAddress/pickup_point_id)
       return {
         type: 'pvz',
         provider: 'cdek',
+        // private_house игнорится для ПВЗ на уровне UI, но объект адреса — тот же
         ...baseAddress,
-        is_private: false 
+        is_private: false // ⬅️ CHANGED: на всякий случай фиксируем
       }
     }
 
@@ -358,11 +326,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
     const em = (state.recipient.email || '').trim()
     const city = (state.address.city || '').trim()
 
-    if (!fn && !ln) {
-      errors.recipient.first_name = 'Укажите имя'
-      errors.recipient.last_name = ''
-    }
-    if (!ph || ph.length !== 11) errors.recipient.phone_number = 'Укажите телефон (11 цифр)'
+    if (!fn) errors.recipient.first_name = 'Укажите имя'
+    if (!ln) errors.recipient.last_name = 'Укажите фамилию'
+    if (!ph || ph.length < 10) errors.recipient.phone_number = 'Укажите телефон'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
     if (!city) errors.recipient.city = 'Укажите город'
 
@@ -371,31 +337,25 @@ export const useCheckoutStore = defineStore('checkout', () => {
       const op = normalizePhoneDigits(state.otherRecipientPhone || '')
       const oe = (state.otherRecipientEmail || '').trim()
       if (!on) errors.other.name = 'Укажите ФИО другого получателя'
-      if (!op || op.length !== 11) errors.other.phone = 'Укажите телефон другого получателя (11 цифр)'
+      if (!op || op.length < 10) errors.other.phone = 'Укажите телефон другого получателя'
       if (oe && !isEmail(oe)) errors.other.email = 'Email другого получателя некорректен'
     }
 
     const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
-    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ единые правила для курьера и ПВЗ
-      // Требуем хотя бы улицу или address_line
+    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ CHANGED: единые правила для курьера и ПВЗ
+      // Требуем хотя бы улицу/дом или address_line
       const line = (state.address.address_line || '').trim()
       const street = (state.address.street || '').trim()
       if (!line && !street) {
-        errors.address.street = 'Укажите улицу'
-      }
-      // Отдельно требуем дом (из отдельного поля)
-      const house = (state.address.house || '').trim()
-      if (!house) {
-        errors.address.house = 'Укажите дом'
+        errors.address.street = 'Укажите адрес (улица и дом)'
       }
       // ПВЗ-специфичную проверку pvzAddress убираем
-      errors.address.pvzAddress = ''
+      errors.address.pvzAddress = '' // ⬅️ CHANGED: явное обнуление
     } else if (opt?.kind === 'pickup') {
       if (!(state.address.pickupAddress || pickupAddress.value)?.trim()) {
         errors.address.pickupAddress = 'Укажите адрес самовывоза'
       }
     }
-
 
     if (!state.paymentMethod) {
       errors.payment = 'Выберите способ оплаты'
@@ -411,7 +371,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
       !!errors.other.phone ||
       !!errors.other.email ||
       !!errors.address.street ||
-      !!errors.address.house ||
       !!errors.address.pvzAddress || // остаётся для совместимости, но теперь не должен заполняться
       !!errors.address.pickupAddress ||
       !!errors.payment
@@ -453,11 +412,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
         throw new Error('EMPTY_CART')
       }
 
-      const utm = buildUtmPayload()
-
       const payload = {
         daigo_id: auth.userId,
-        bonuses_to_use: Number(state.bonuses_to_use || 0),
         recipient: {
           name: [state.recipient.first_name, state.recipient.last_name].filter(Boolean).join(' ').trim(),
           phone: state.recipient.phone_number.replace(/\D/g, ''),
@@ -473,8 +429,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
         delivery: buildDeliveryPayload(),
         payment_method: state.paymentMethod,
         comment: state.comment || undefined,
-        items,
-        ...(utm ? { utm } : {})
+        items
       }
 
       const res = await createOrder(payload as any)
@@ -485,7 +440,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
         if (process.client && (res as any)?.order_id) {
           const orderId = String((res as any).order_id)
           const sentKey = `purchase_sent_${orderId}`
-
           if (!localStorage.getItem(sentKey)) {
             const products = (cart.items || [])
               .filter((i: any) => i?.id)
@@ -493,61 +447,46 @@ export const useCheckoutStore = defineStore('checkout', () => {
                 id: String(i.id),
                 name: i.title || i.name,
                 price: Number(i.price ?? 0),
-                quantity: Number(i.quantity ?? 1),
+                quantity: Number(i.quantity ?? 1)
               }))
-
             const revenue = Number.isFinite(Number(cart.total)) ? Number(cart.total) : 0
 
             analytics.purchase({
               id: orderId,
               revenue,
               currency: 'RUB',
-              products,
+              products
             })
 
-            const ytm = useYtm()
+           const ytm = useYtm()
             ytm.purchase({
               currency: 'RUB',
               id: orderId,
               revenue,
               shipping: 0,
               items: products,
-              shipping_type: state.deliveryId || undefined,
-              coupon: cart.couponInfo?.code || undefined,
-              tax: 0,
-              payment_type: state.paymentMethod,
+              payment_type: state.paymentMethod
             })
 
             localStorage.setItem(sentKey, '1')
           }
         }
-      } catch {
-        // no-op
+      } catch { /* no-op */ }
+
+
+      // Если пришла ссылка на оплату — уводим туда
+      const url = (res as any)?.confirmation?.confirmation_url
+      if (url) {
+        await navigateTo(url, { external: true })
+        // запасной переход — если провайдер не вернет обратно
+        setTimeout(() => navigateTo('/profile'), 2000)
+        return res
       }
 
-      // 👉 Никаких редиректов здесь больше нет
-      const url = (res as any)?.confirmation?.confirmation_url || null
-
-      // Возвращаем ответ + доп. поле confirmationUrl
-      return {
-        ...(res as any),
-        confirmationUrl: url,
-      }
+      return res
     } catch (e: any) {
       console.warn('ORDER_SUBMIT_FAIL', e)
-      // определяем stage ошибки для пользовательского сообщения
-      if (!lastError.value) {
-        const stage = (e as any)?.stage
-        if (stage === 'order_placement') {
-          // заказ создан, но не удалось оплатить
-          lastError.value = 'Проблема с оплатой. Заказ создан, мы свяжемся с вами.'
-        } else if (stage === 'order_creation') {
-          // заказ не был создан
-          lastError.value = 'Не удалось создать заказ, свяжитесь с менеджером.'
-        } else {
-          lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'
-        }
-      }
+      if (!lastError.value) lastError.value = e?.message || 'Не удалось оформить заказ. Попробуйте позже.'
     }
   }
 

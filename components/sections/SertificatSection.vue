@@ -34,7 +34,7 @@ const content = useContentStore()
             </p>
             <NuxtLink
               :to="'/akcii'"
-              class="inline-flex justify-center items-center gap-2 py-2 sm:py-3 px-2 sm:px-5 text-white text-xs sm:text-xl font-normal transition duration-300 rounded-md rounded-lg tracking-wide w-40 sm:w-72 bg-primary hover:bg-primary/80 hover:text-white"
+              class="inline-flex justify-center items-center gap-2 py-2 sm:py-3 px-2 sm:px-5 text-white text-xs sm:text-xl font-normal transition duration-300 rounded-md rounded-lg tracking-wide w-40 sm:w-72 bg-[#242325] hover:bg-[#242325]/80 hover:text-white"
             >
               Купить сертификат
             </NuxtLink>

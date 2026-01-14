@@ -12,40 +12,23 @@ const store = useCheckoutStore()
 const courierOptions = computed(() => store.deliveryOptions.filter(o => o.kind === 'courier'))
 const pvzOptions     = computed(() => store.deliveryOptions.filter(o => o.kind === 'pvz'))
 const pickupOptions  = computed(() => store.deliveryOptions.filter(o => o.kind === 'pickup'))
-const toDoorOptions = computed(() => store.deliveryOptions.filter(o => o.kind === 'todoor'))
 
 /** Активный вид доставки и переключение между видами */
 const selectedKind = computed<'courier' | 'pvz' | 'pickup'>({
   get() {
     const current = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-    if (!current) return store.deliveryOptions[0]?.kind === 'pvz' ? 'pvz' : 'courier'
-
-    // todoor показываем под вкладкой "Курьером"
-    return current.kind === 'todoor' ? 'courier' : current.kind
+    return current?.kind || (store.deliveryOptions[0]?.kind ?? 'courier')
   },
   set(value) {
     let list
-    if (value === 'courier') list = [...courierOptions.value, ...toDoorOptions.value]
+    if (value === 'courier') list = courierOptions.value
     else if (value === 'pvz') list = pvzOptions.value
     else if (value === 'pickup') list = pickupOptions.value
+    if (list && list.length) store.setDelivery(list[0].id)
 
-    if (list && list.length) {
-      // при переключении вкладки выбираем первый вариант в этом типе
-      store.setDelivery(list[0].id)
-    }
-
+    // ПВЗ всегда без private_house
     if (value === 'pvz') store.setAddress({ private_house: false })
   },
-})
-
-const isCourierSelected = computed(() => {
-  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-  return opt?.kind === 'courier' || opt?.kind === 'todoor'
-})
-
-const isPvzSelected = computed(() => {
-  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
-  return opt?.kind === 'pvz'
 })
 
 /** Поля адреса — ЕДИНЫЕ для всех способов */
@@ -53,12 +36,6 @@ const addressLine = computed<string>({
   get: () => store.state.address.address_line ?? '',
   set: v => store.setAddress({ address_line: v || undefined }),
 })
-
-const house = computed<string>({
-  get: () => store.state.address.house ?? '',
-  set: v => store.setAddress({ house: v || undefined }),
-})
-
 const apartment = computed<string>({
   get: () => store.state.address.apartment ?? '',
   set: v => store.setAddress({ apartment: v || undefined }),
@@ -74,6 +51,16 @@ const floor = computed<string>({
 const intercom = computed<string>({
   get: () => store.state.address.intercom ?? '',
   set: v => store.setAddress({ intercom: v || undefined }),
+})
+
+/** Активен ли конкретный вид */
+const isCourierSelected = computed(() => {
+  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
+  return opt?.kind === 'courier'
+})
+const isPvzSelected = computed(() => {
+  const opt = store.deliveryOptions.find(o => o.id === store.state.deliveryId)
+  return opt?.kind === 'pvz'
 })
 
 /** FIAS выбранного города — приходит из шага с CitySuggest */
@@ -96,8 +83,7 @@ function applyAddressFromSuggest(it: AddrItem) {
   store.setAddress?.({
     address_line: it.value,                 // полная строка в инпуте
     street: it.street || it.value,          // «улица»
-    // если DaData не дала дом — не трогаем уже введённый вручную дом
-    house: it.house || store.state.address.house || undefined,
+    house: it.house || undefined,
     block: it.block || undefined,
     postal_code: it.postal_code ?? undefined,
   })
@@ -177,28 +163,18 @@ function saveAddress() {
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
-
-        <label
-          v-for="opt in toDoorOptions"
-          :key="opt.id"
-          class="flex items-center gap-2 cursor-pointer"
-        >
-          <input type="radio" class="form-radio" :value="opt.id" v-model="store.state.deliveryId" />
-          <span class="font-medium">{{ opt.title }}</span>
-          <span class="hidden sm:block text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
-        </label>
       </div>
 
       <!-- Адресные поля -->
       <div v-if="isCourierSelected" class="space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <!-- Улица (подсказки DaData) -->
+          <!-- Улица + дом с DaData (зависит от выбранного города) -->
           <div class="md:col-span-2">
             <AddressSuggest
               v-model="addressLine"
               :cityFiasId="cityFiasId"
               @select="onAddressSelectCourier"
-              placeholder="Улица"
+              placeholder="Улица и дом"
               background="bg-white"
             />
             <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
@@ -209,34 +185,12 @@ function saveAddress() {
             </p>
           </div>
 
-          <!-- Дом отдельно, чтобы нельзя было оставить только улицу -->
-          <UiInput v-model="house" placeholder="Дом" background="bg-white" />
-          <p v-if="store.errors.address.house" class="md:col-span-2 mt-1 text-xs text-red-600">
-            {{ store.errors.address.house }}
-          </p>
-
           <UiInput v-model="apartment" placeholder="Квартира/Офис" background="bg-white" />
 
-          <UiInput
-            v-if="!store.state.address.private_house"
-            v-model="entrance"
-            placeholder="Подъезд"
-            background="bg-white"
-          />
-          <UiInput
-            v-if="!store.state.address.private_house"
-            v-model="floor"
-            placeholder="Этаж"
-            background="bg-white"
-          />
-          <UiInput
-            v-if="!store.state.address.private_house"
-            v-model="intercom"
-            placeholder="Домофон"
-            background="bg-white"
-          />
+          <UiInput v-if="!store.state.address.private_house" v-model="entrance" placeholder="Подъезд" background="bg-white" />
+          <UiInput v-if="!store.state.address.private_house" v-model="floor" placeholder="Этаж" background="bg-white" />
+          <UiInput v-if="!store.state.address.private_house" v-model="intercom" placeholder="Домофон" background="bg-white" />
         </div>
-
 
         <div>
           <BaseCheckbox v-model="store.state.address.private_house">Частный дом</BaseCheckbox>
@@ -261,7 +215,6 @@ function saveAddress() {
           <span class="font-medium">{{ opt.title }}</span>
           <span class="hidden text-sm text-gray-500" v-if="opt.subtitle">— {{ opt.subtitle }}</span>
         </label>
-        
       </div>
 
       <div v-if="isPvzSelected" class="space-y-4">
@@ -273,7 +226,7 @@ function saveAddress() {
               :cityFiasId="cityFiasId"
               @select="onAddressSelectPvz"
               background="bg-white"
-              placeholder="Адрес пункта выдачи (улица)"
+              placeholder="Адрес пункта выдачи (улица, дом)"
             />
             <p v-if="!cityFiasId" class="mt-1 text-xs text-gray-500">
               Сначала выберите город — подсказки адреса будут точнее.
@@ -283,19 +236,12 @@ function saveAddress() {
             </p>
           </div>
 
-          <!-- Дом для ПВЗ -->
-          <UiInput v-model="house" placeholder="Дом" background="bg-white" />
-          <p v-if="store.errors.address.house" class="md:col-span-2 mt-1 text-xs text-red-600">
-            {{ store.errors.address.house }}
-          </p>
-
           <!-- Доп. поля — опционально -->
           <UiInput v-model="apartment" placeholder="Квартира/Офис (необязательно)" background="bg-white" />
           <UiInput v-model="entrance"  placeholder="Подъезд (необязательно)"     background="bg-white" />
           <UiInput v-model="floor"     placeholder="Этаж (необязательно)"        background="bg-white" />
           <UiInput v-model="intercom"  placeholder="Домофон (необязательно)"     background="bg-white" />
         </div>
-
 
         <div class="flex justify-start">
           <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>

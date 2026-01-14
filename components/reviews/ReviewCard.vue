@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { Review } from '~/types/content'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import WaveSurfer from 'wavesurfer.js'
+// ⚠️ ЭТО УДАЛЯЕМ:
+// import WaveSurfer from 'wavesurfer.js'
 import { playExclusive } from '~/utils/audioController'
 import { useProductsByIds } from '~/composables/useProductsByIds'
 
@@ -12,12 +13,12 @@ const mediaSource = computed(() =>
   props.review.mediaUrl || props.review.video_url || props.review.file_url
 )
 
-const ids = computed<(string|number)[]>(() => props.review.productIds ?? [])
+const ids = computed<(string | number)[]>(() => props.review.productIds ?? [])
 const { items: relatedProducts } = useProductsByIds(ids)
 
 // Аудио
 const waveformRef = ref<HTMLDivElement | null>(null)
-const wavesurfer = ref<WaveSurfer | null>(null)
+const wavesurfer = ref<any | null>(null)
 const duration = ref<string>('00:00')
 const isPlaying = ref(false)
 
@@ -27,8 +28,21 @@ function formatDuration(seconds: number) {
   return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
 }
 
-function initWaveSurfer() {
-  if (waveformRef.value && mediaSource.value) {
+async function initWaveSurfer() {
+  // только на клиенте
+  if (!process.client) return
+  if (!waveformRef.value) return
+
+  const src = mediaSource.value
+  if (!src) {
+    console.warn('[ReviewCard] mediaSource пустой для аудио-отзыва', props.review)
+    return
+  }
+
+  try {
+    const mod = await import('wavesurfer.js')
+    const WaveSurfer = (mod as any).default || mod
+
     wavesurfer.value = WaveSurfer.create({
       container: waveformRef.value,
       waveColor: '#4f8effa3',
@@ -37,10 +51,11 @@ function initWaveSurfer() {
       barWidth: 3,
       barGap: 2,
       barRadius: 3,
-      responsive: true
+      responsive: true,
+      cursorWidth: 0
     })
 
-    wavesurfer.value.load(mediaSource.value)
+    wavesurfer.value.load(src)
 
     wavesurfer.value.on('ready', () => {
       duration.value = formatDuration(wavesurfer.value?.getDuration() || 0)
@@ -54,25 +69,36 @@ function initWaveSurfer() {
     wavesurfer.value.on('pause', () => {
       isPlaying.value = false
     })
+  } catch (e) {
+    console.error('[ReviewCard] WaveSurfer init error', e)
   }
 }
 
 function togglePlay() {
-  wavesurfer.value?.playPause()
+  if (!wavesurfer.value) {
+    console.warn('[ReviewCard] wavesurfer ещё не инициализирован')
+    return
+  }
+  wavesurfer.value.playPause()
 }
 
 function productLink(p: any) {
   if (p?.slug) return `/catalog/${p.slug}`
-  if (p?.id)   return `/product/${p.id}`
+  if (p?.id) return `/product/${p.id}`
   return '/catalog'
 }
 
 onMounted(() => {
-  if (props.review.type === 'audio') initWaveSurfer()
+  if (props.review.type === 'audio') {
+    initWaveSurfer()
+  }
 })
 
 onUnmounted(() => {
-  wavesurfer.value?.destroy()
+  if (wavesurfer.value) {
+    wavesurfer.value.destroy()
+    wavesurfer.value = null
+  }
 })
 </script>
 

@@ -26,7 +26,7 @@ const coverImageUrl = computed<string | null>(() => {
     if (b.is_primary) return 1
     return (a.display_order || 0) - (b.display_order || 0)
   })
-  return sorted[0]?.image_url || null
+  return sorted[0]?.src.image_url || null
 })
 
 // Суммарное количество по String(id) — совместимо со стором и API

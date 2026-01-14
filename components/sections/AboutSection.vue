@@ -55,16 +55,16 @@ const bottomCard = {
               <video
                 controls
                 preload="none"
-                poster="https://s3.firstvds.ru/shop-service/about.jpg"
+                poster="/images/cover-gen.webp"
                 class="w-full h-auto rounded-2xl sm:rounded-4xl"
               >
-                <source src="https://s3.firstvds.ru/shop-service/about.mp4" type="video/mp4" />
+                <source :src="videoUrl" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video>
               <div class="w-full flex justify-center">
                 <NuxtLink
                   :to="'/about'"
-                  class="inline-flex justify-center items-center gap-2 py-3 px-5 text-white text-base sm:text-xl font-normal transition duration-300 rounded-lg tracking-wide lg:w-[70%] bg-primary hover:bg-hoverbtn hover:text-black mt-6"
+                  class="inline-flex justify-center items-center gap-2 py-3 px-5 text-white text-base sm:text-xl font-normal transition duration-300 rounded-lg tracking-wide lg:w-[70%] bg-[#242325] hover:bg-hoverbtn hover:text-black mt-6"
                 >
                   Читать историю компании
                 </NuxtLink>

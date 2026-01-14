@@ -1,27 +1,4 @@
 import { useRuntimeConfig } from '#imports'
-import { getLastUtm } from '@/composables/useUtmTracker'
-
-function buildUtmPayload() {
-  const last = getLastUtm()
-  if (!last) return undefined
-
-  const utm: any = {
-    source: last.source,
-    medium: last.medium,
-    campaign: last.campaign,
-    content: last.content,
-    term: last.term,
-  }
-
-  // убираем undefined
-  Object.keys(utm).forEach((k) => utm[k] === undefined && delete utm[k])
-
-  // если нет ни одной UTM-метки (кроме ts) — не отправляем
-  const hasMeaningful = ['source', 'medium', 'campaign', 'content', 'term'].some((k) => k in utm)
-  if (!hasMeaningful) return undefined
-
-  return utm
-}
 
 /**
  * Сервис для работы с корзиной. Для гостя используется sessionID
@@ -153,28 +130,18 @@ export const cartService = {
 
   /** Предварительное оформление заказа для авторизованного */
   async preOrderUser(userId: number | string, fio: string, phone: string) {
-    const utm = buildUtmPayload()
     return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/pre-order`, {
       method: 'POST',
-      body: {
-        fio,
-        phone_number: phone,
-        ...(utm ? { utm } : {}),
-      },
+      body: { fio, phone_number: phone },
       headers: { 'Content-Type': 'application/json' },
     })
   },
 
   /** Предварительное оформление заказа для гостя */
   async preOrderGuest(sessionId: string, fio: string, phone: string) {
-    const utm = buildUtmPayload()
     return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
       method: 'POST',
-      body: {
-        fio,
-        phone_number: phone,
-        ...(utm ? { utm } : {}),
-      },
+      body: { fio, phone_number: phone },
       headers: { 'Content-Type': 'application/json' },
     })
   },

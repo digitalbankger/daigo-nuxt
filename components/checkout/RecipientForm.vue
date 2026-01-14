@@ -13,22 +13,18 @@ onMounted(async () => {
   }
 })
 
-/** Имя и фамилия по отдельности */
-const firstName = computed<string>({
-  get: () => store.state.recipient.first_name,
-  set: (val: string) => {
-    const s = sanitizeName(val)
-    store.state.recipient.first_name = s
-  }
-})
-
-const lastName = computed<string>({
-  get: () => store.state.recipient.last_name,
-  set: (val: string) => {
-    const s = sanitizeName(val)
-    store.state.recipient.last_name = s
-  }
-})
+/** ФИО в одну строку (first_name + last_name) */
+// const fullName = computed({
+//   get: () => {
+//     const { first_name, last_name } = store.state.recipient
+//     return [first_name, last_name].filter(Boolean).join(' ').trim()
+//   },
+//   set: (val: string) => {
+//     const parts = val.trim().split(/\s+/)
+//     store.state.recipient.first_name = parts.shift() || ''
+//     store.state.recipient.last_name = parts.join(' ') || ''
+//   }
+// })
 
 /** Прокси-поля получателя */
 const phone = computed({
@@ -87,45 +83,49 @@ const otherEmail = computed({
 })
 
 
-// === как и было: регулярка для имени ===
+
+// === как и было ===
 const NAME_RE = /[^\p{L}\p{M}\-'\s]/gu
-function sanitizeName(input: string): string {
+function sanitizeTwoWords(input: string): string {
   const cleaned = (input ?? '').replace(NAME_RE, '').replace(/\s+/g, ' ').trim()
-  return cleaned
+  return cleaned ? cleaned.split(' ').slice(0, 2).join(' ') : ''
 }
-
-// Отдельный стейт для touched флагов
-const firstNameTouched = ref(false)
-const lastNameTouched  = ref(false)
-
-const firstNameError = computed(() => {
-  const raw = (firstName.value || '').trim()
-  if (!firstNameTouched.value && !raw) return ''
-  if (!raw) return 'Укажите имя'
-  return store.errors.recipient.first_name || ''
-})
-
-const lastNameError = computed(() => {
-  const raw = (lastName.value || '').trim()
-  // фамилия может быть необязательной; отображаем только серверную ошибку
-  if (!lastNameTouched.value && !raw) return ''
-  return store.errors.recipient.last_name || ''
-})
-
-function onFirstNameBlur() {
-  firstNameTouched.value = true
-}
-function onLastNameBlur() {
-  lastNameTouched.value = true
-}
-watch(() => firstName.value, (v) => {
-  if (!firstNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
-    firstNameTouched.value = true
+const fullName = computed<string>({
+  get: () => {
+    const { first_name, last_name } = store.state.recipient
+    return sanitizeTwoWords([first_name, last_name].filter(Boolean).join(' '))
+  },
+  set: (val: string) => {
+    const s = sanitizeTwoWords(val)
+    const [first = '', last = ''] = s.split(' ')
+    store.state.recipient.first_name = first
+    store.state.recipient.last_name = last
   }
 })
-watch(() => lastName.value, (v) => {
-  if (!lastNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
-    lastNameTouched.value = true
+
+// Показываем ошибку только если поле тронуто ИЛИ непустое
+const fullNameError = computed(() => {
+  const raw = fullName.value?.trim() ?? ''
+  const words = raw ? raw.split(' ').filter(Boolean) : []
+
+  // до первого взаимодействия и при пустом поле — без ошибки
+  if (!fullNameTouched.value && words.length === 0) return ''
+
+  if (words.length < 2) return 'Укажите имя и фамилию'
+  return store.errors.recipient.first_name || store.errors.recipient.last_name || ''
+})
+
+const fullNameTouched = ref(false)
+
+// помечаем поле «троганным» на блюре
+function onFullNameBlur() {
+  fullNameTouched.value = true
+}
+
+// если пользователь начал печатать — тоже считаем тронутым
+watch(() => fullName.value, (v) => {
+  if (!fullNameTouched.value && (v?.trim()?.length ?? 0) > 0) {
+    fullNameTouched.value = true
   }
 })
 
@@ -144,22 +144,13 @@ watch(() => lastName.value, (v) => {
       autocomplete="name"
     /> -->
 
-    <!-- Имя и фамилия раздельно -->
     <UiInput
-      v-model="firstName"
-      placeholder="Имя*"
-      :error="firstNameError"
+      v-model="fullName"
+      placeholder="Имя Фамилия"
+      :error="fullNameError"
       background="bg-white"
-      autocomplete="given-name"
-      @blur="onFirstNameBlur"
-    />
-    <UiInput
-      v-model="lastName"
-      placeholder="Фамилия*"
-      :error="lastNameError"
-      background="bg-white"
-      autocomplete="family-name"
-      @blur="onLastNameBlur"
+      autocomplete="name"
+      @blur="onFullNameBlur"
     />
 
     <UiInput
@@ -167,7 +158,7 @@ watch(() => lastName.value, (v) => {
       type="tel"
       inputmode="tel"
       mask="ru-phone"
-      placeholder="Телефон*"
+      placeholder="Телефон"
       :error="store.errors.recipient.phone_number"
       background="bg-white"
       autocomplete="tel"
@@ -176,7 +167,7 @@ watch(() => lastName.value, (v) => {
     <UiInput
       v-model="email"
       type="email"
-      placeholder="Email*"
+      placeholder="Email"
       :error="store.errors.recipient.email"
       background="bg-white"
       autocomplete="email"
@@ -189,7 +180,7 @@ watch(() => lastName.value, (v) => {
         v-model="city"
         @select="onCitySelect"
         background="bg-white"
-        placeholder="Город*"
+        placeholder="Город"
       />
       <!-- вывод ошибки из вашего стора (оставил прежний путь) -->
       <p v-if="store.errors.recipient.city" class="mt-1 text-xs text-red-600">

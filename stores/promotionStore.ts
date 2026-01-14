@@ -123,33 +123,15 @@ export const usePromoStore = defineStore('promoStore', () => {
       return true
     }
 
-    // ⛔ Любые действия по применению акций/промокодов — только для авторизованных
-    if (!auth.isAuthenticated && (promo.promo_type === 'code' || promo.promo_type === '2plus1')) {
-      auth.openAuth('/akcii')
-      throw new Error('Для применения акции необходимо авторизоваться')
-    }
-
-    // 2) Логика промокода (акции с типом code)
+    // 2) Дальше — старая логика
     if (promo.promo_type === 'code') {
-      // Берём промокод из самой акции
-      const code = (promo.coupon || '').trim()
-      if (!code) {
-        throw new Error('Для данной акции не задан промокод')
-      }
-
       await cart.ensureLoaded()
       const hasItems = cart.items.length > 0 || (cart.subtotal ?? 0) > 0
       if (!hasItems) throw new Error('Сначала добавьте товар в корзину')
-
-      // Делаем реальный запрос к API корзины
-      const res = await cart.applyCoupon(code)
+      await cart.applyCoupon(promo.coupon || '')
       await loadPromotions()
-
-      // YTM: успешное применение купона
-      try { ytm.promoApply(String(code)) } catch {}
-
-      // возвращаем ответ бэкенда (если есть), чтобы модалка могла показать его message
-      return res ?? true
+      try { ytm.promoApply(String(promo.coupon)) } catch {}
+      return true
     }
 
     if (promo.promo_type === '2plus1') {

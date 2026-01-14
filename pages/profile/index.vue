@@ -2,17 +2,12 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProfileField from '~/components/profile/ProfileField.vue'
 import AddressDropdown from '~/components/profile/AddressDropdown.vue'
-import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
-import RaffleTicket from '~/components/profile/RaffleTicket.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
-import { computed, onMounted, watch, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { navigateTo } from '#imports'
-import { useCookie } from '#app'
-import { getFirstUtm, getLastUtm, type StoredUtmSet } from '@/composables/useUtmTracker'
 import { getSpinHistory, type SpinHistoryItem } from '@/services/gamificationService'
-import { fetchUserRaffleCoupons, type RaffleCoupon } from '@/services/raffleService'
 
 definePageMeta({
   layout: 'main',
@@ -22,54 +17,7 @@ definePageMeta({
 const userStore = useUserStore()
 const authStore = useAuthStore()
 
-// реактивные поля из стора
-const { profile, isLoaded } = storeToRefs(userStore)
-const { isAuthenticated } = storeToRefs(authStore)
-
 const activePromo = ref<SpinHistoryItem | null>(null)
-
-// ---------- Лотерейные билеты ----------
-
-const raffleCoupons = ref<RaffleCoupon[]>([])
-const raffleTotalCount = ref(0)
-const raffleLoading = ref(false)
-const raffleError = ref<string | null>(null)
-
-const raffleGroups = computed(() => {
-  const groups: Record<string, RaffleCoupon[]> = {}
-  for (const c of raffleCoupons.value) {
-    const key = (c.raffle_name || 'Розыгрыш').trim() || 'Розыгрыш'
-    if (!groups[key]) groups[key] = []
-    groups[key].push(c)
-  }
-  return Object.entries(groups)
-    .map(([raffleName, coupons]) => ({
-      raffleName,
-      coupons: [...coupons].sort((a, b) => String(a.coupon_number).localeCompare(String(b.coupon_number)))
-    }))
-    .sort((a, b) => a.raffleName.localeCompare(b.raffleName))
-})
-
-async function loadRaffleCoupons(daigoId: number | string) {
-  raffleLoading.value = true
-  raffleError.value = null
-  try {
-    const res = await fetchUserRaffleCoupons(daigoId)
-    raffleCoupons.value = Array.isArray(res?.coupons) ? res.coupons : []
-    raffleTotalCount.value = Number(res?.total_count ?? raffleCoupons.value.length ?? 0)
-  } catch (e: any) {
-    raffleCoupons.value = []
-    raffleTotalCount.value = 0
-    const status = e?.response?.status
-    if (status === 401 || status === 403) {
-      raffleError.value = 'Для просмотра билетов необходимо авторизоваться.'
-    } else {
-      raffleError.value = 'Не удалось загрузить номера билетов. Попробуйте позже.'
-    }
-  } finally {
-    raffleLoading.value = false
-  }
-}
 
 const activePromoTitle = computed(() =>
   activePromo.value?.prizeName || 'Промокод от колеса фортуны'
@@ -79,20 +27,60 @@ const activePromoDescription = computed(
   () => activePromo.value?.prizeDescription || ''
 )
 
+const activePromoCode = computed(() => activePromo.value?.couponCode || '')
+const hasActivePromo = computed(() => !!activePromo.value && !!activePromoCode.value)
+
+
+onMounted(async () => {
+  if (authStore.token && authStore.userId && !userStore.isLoaded) {
+    await userStore.load()
+  }
+
+  // после загрузки профиля пробуем получить промокод из истории спинов
+  if (profile.value?.phone_number) {
+    try {
+      const history = await getSpinHistory(profile.value.phone_number, {
+        limit: 20,
+        offset: 0
+      })
+
+      const now = new Date()
+
+      // берём самый «свежий» активный купон, который ещё не истёк
+      activePromo.value =
+        history.find((item) => {
+          if (!item.couponCode) return false
+          if (item.status !== 'active') return false
+          const expires = new Date(item.expiresAt)
+          return expires > now
+        }) || null
+    } catch (e) {
+      console.error('failed to load spin history', e)
+      activePromo.value = null
+    }
+  }
+})
+
+const { profile } = storeToRefs(userStore)
+
+const copyStatus = ref<'idle' | 'success' | 'error'>('idle')
+
 const promoMessage = computed(() => {
   const expiresRaw = activePromo.value?.expiresAt
   if (!expiresRaw) return ''
 
   const expires = new Date(expiresRaw)
 
+  // особый кейс: истекает 31.12.2025 → выводим «будет активен…»
   if (
     expires.getFullYear() === 2025 &&
-    expires.getMonth() === 11 &&
+    expires.getMonth() === 11 && // декабрь (месяцы 0–11)
     expires.getDate() === 31
   ) {
     return 'Промокод будет активен 1 декабря'
   }
 
+  // обычный вариант
   return `Промокод действителен до: ${expires.toLocaleDateString('ru-RU')}`
 })
 
@@ -103,139 +91,12 @@ async function copyActivePromo() {
     await navigator.clipboard.writeText(activePromoCode.value)
     copyStatus.value = 'success'
     setTimeout(() => (copyStatus.value = 'idle'), 1500)
-  } catch {
+  } catch (e) {
+    console.error('copy promo error', e)
     copyStatus.value = 'error'
     setTimeout(() => (copyStatus.value = 'idle'), 1500)
   }
 }
-
-
-const activePromoCode = computed(() => activePromo.value?.couponCode || '')
-const hasActivePromo = computed(() => !!activePromo.value && !!activePromoCode.value)
-
-const copyStatus = ref<'idle' | 'success' | 'error'>('idle')
-
-watch(
-  profile,
-  async (p) => {
-    if (!p?.phone_number) return
-
-    try {
-      const history = await getSpinHistory(p.phone_number, {
-        limit: 20,
-        offset: 0
-      })
-
-      const now = new Date()
-      activePromo.value =
-        history.find(item => {
-          if (!item.couponCode) return false
-          if (item.status !== 'active') return false
-          return new Date(item.expiresAt) > now
-        }) || null
-    } catch {
-      activePromo.value = null
-    }
-  },
-  { immediate: true }
-)
-
-watch(
-  () => authStore.userId,
-  async (id) => {
-    if (!id) {
-      raffleCoupons.value = []
-      raffleTotalCount.value = 0
-      raffleError.value = null
-      return
-    }
-    await loadRaffleCoupons(id)
-  },
-  { immediate: true }
-)
-
-// ---------- VIP по UTM (для показа блока) ----------
-
-function isVipUtm(utm?: StoredUtmSet | null): boolean {
-  if (!utm) return false
-
-  const src = (utm.source ?? '').toLowerCase().trim()
-  const med = (utm.medium ?? '').toLowerCase().trim()
-  const camp = (utm.campaign ?? '').toLowerCase().trim()
-  const cont = (utm.content ?? '').toLowerCase().trim()
-  const term = (utm.term ?? '').toLowerCase().trim()
-
-  return (
-    src === 'vip card' &&
-    med === 'offline' &&
-    camp === 'art catalogue card' &&
-    cont === 'vip' &&
-    term === 'vip'
-  )
-}
-
-const hasVipUtm = computed(() => {
-  if (!process.client) return false
-  const first = getFirstUtm()
-  const last = getLastUtm()
-  return isVipUtm(first) || isVipUtm(last)
-})
-
-// кука, которую ставит vip.global.ts
-const vipFromCard = useCookie<string | null>('vip_from_card', { path: '/' })
-
-// общий флаг «этот пользователь когда-то пришёл по VIP-ссылке»
-const hasVipFlag = computed(() => hasVipUtm.value || vipFromCard.value === '1')
-
-// показывать ли блок ввода VIP-кода/сканера
-const showVipBlock = computed(() => isAuthenticated.value)
-
-// после успешной активации можно убрать флаг из куки
-function handleVipActivated() {
-  vipFromCard.value = '0'
-}
-
-// ---------- Проверка токена в localStorage ----------
-
-const hasValidStoredToken = computed(() => {
-  if (!process.client) return false
-  const token = localStorage.getItem('token')
-  const expires = Number(localStorage.getItem('auth_expires_at') || 0)
-  const now = Date.now()
-  return Boolean(token && expires && now < expires)
-})
-
-const authRequested = ref(false)
-
-// ---------- Загрузка профиля при авторизации ----------
-
-watch(
-  isAuthenticated,
-  async (authed) => {
-    if (authed && !isLoaded.value) {
-      await userStore.loadProfile()
-    }
-  },
-  { immediate: true }
-)
-
-// ---------- Автоматическое открытие модалки авторизации ----------
-
-onMounted(() => {
-  // если стор уже считает, что пользователь авторизован — ничего не делаем
-  if (isAuthenticated.value) return
-
-  // если в localStorage есть ещё валидный токен — ждём, пока стор подтянется (без модалки)
-  if (hasValidStoredToken.value) return
-
-  // токена нет вообще — реально гость, открываем авторизацию
-  if (!authRequested.value) {
-    authStore.openAuth('/profile')
-    authRequested.value = true
-  }
-})
-
-// ---------- Остальная логика профиля ----------
 
 const fullName = computed(() =>
   profile.value ? `${profile.value.first_name} ${profile.value.last_name}` : ''
@@ -303,108 +164,60 @@ function deleteAddress(index: number) {
       </div>
 
       <!-- Bonuses Block -->
-      <NuxtLink to="/bonusopad" class="relative bg-[#14350C] text-white text-sm md:text-lg rounded-xl min-h-20 px-4 py-3 mb-4 md:mb-6 flex flex-col sm:flex-row gap-3 items-start justify-between max-w-full md:max-w-[70%]">
-        <div class="my-auto">
-          <div class="flex flex-row gap-2 ">
-            <!-- <img src="/icons/bi_stars.svg" class="w-6" /> -->
-            <!-- Количество бонусов: -->
-            <span class="font-nauryz uppercase text-3xl sm:text-6xl my-auto font-normal md:font-medium text-transparent bg-clip-text" style="background-image: radial-gradient(circle, #FFED68, #FFB830);">{{ profile.bonuses.valid.value }}</span>
-          </div>
-          <span v-if="profile.bonuses.expiring.value > 0" class="text-sm">
-            {{ profile.bonuses.expiring.value }} бонусов сгорят {{ formatDate(profile.bonuses.expiring.date_end) }}
-          </span>
-        </div>
-        <!-- <div class="absolute right-4 top-3 text-xl mb-auto mt-1">
-          <img src="/icons/arrow-primary.svg" class="w-4" />
+      <div class="relative bg-primary/10 border border-primary text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-3 items-start justify-start max-w-full md:max-w-[70%]">
+        <!-- <div class="flex flex-row gap-2 ">
+          <img src="/icons/bi_stars.svg" class="w-6" />
+          Личные промокоды: 
+          <span @click="copyActivePromo" v-if="hasActivePromo" class="text-primary font-normal md:font-medium cursor-pointer">{{ activePromoCode }}</span>
         </div> -->
-        <p class="font-nauryz uppercase text-3xl sm:text-6xl my-auto font-normal md:font-medium text-transparent bg-clip-text" style="background-image: radial-gradient(circle, #FFED68, #FFB830);">
-          Бонусов
-        </p>
-      </NuxtLink>
 
-      <!-- Личные промокоды -->
-<div
+        <div class="flex flex-row gap-2 ">
+  <img src="/icons/bi_stars.svg" class="w-6" />
+  Личные промокоды: 
+  <span
+    v-if="hasActivePromo"
+    class="text-primary font-normal md:font-medium cursor-pointer"
+    @click="copyActivePromo"
+  >
+    {{ activePromoCode }}
+  </span>
 
-  class="relative bg-primary/10 border border-primary text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-2 max-w-full md:max-w-[70%]"
->
-  <div class="flex items-center gap-2">
-    <img src="/icons/bi_stars.svg" class="w-6" />
-    <span>Личные промокоды:</span>
-
-    <span
-      class="text-primary font-medium cursor-pointer"
-      @click="copyActivePromo"
-    >
-      {{ activePromoCode }}
-    </span>
-
-    <span v-if="copyStatus === 'success'" class="text-xs text-primary">
-      Скопировано
-    </span>
-    <span v-else-if="copyStatus === 'error'" class="text-xs text-red-500">
-      Ошибка
-    </span>
-  </div>
-
-  <span class="text-sm">
-    {{ promoMessage }}
+  <!-- маленький статус рядом с кодом -->
+  <span
+    v-if="copyStatus === 'success'"
+    class="text-xs text-primary self-center"
+  >
+    Скопировано
+  </span>
+  <span
+    v-else-if="copyStatus === 'error'"
+    class="text-xs text-red-500 self-center"
+  >
+    Ошибка
   </span>
 </div>
 
-      <!-- Лотерейные билеты -->
-      <div
-        class="relative bg-[#14350C] text-white text-sm md:text-lg rounded-xl px-4 py-3 mb-4 md:mb-6 flex flex-col gap-2 max-w-full md:max-w-[70%]"
-      >
-        <div class="flex items-center gap-2">
-          <!-- <img src="/icons/bi_stars.svg" class="w-6" /> -->
-          <span>Номера лотерейных билетов:</span>
+        <span class="text-sm">
+          {{ promoMessage }}
+        </span>
 
-          <span v-if="raffleLoading" class="text-xs text-gray-300">Загрузка…</span>
-          <span v-else-if="!raffleError && raffleTotalCount > 0" class="text-xs text-gray-300">
-            Всего: {{ raffleTotalCount }}
-          </span>
-        </div>
-
-        <div v-if="raffleError" class="text-xs text-red-500">{{ raffleError }}</div>
-
-        <div v-else-if="!raffleLoading && raffleGroups.length === 0" class="text-sm text-gray-300">
-          Билетов пока нет.
-        </div>
-
-        <div v-else class="flex flex-col gap-3">
-          <div v-for="g in raffleGroups" :key="g.raffleName" class="space-y-2">
-            <div class="text-xs text-gray-300">{{ g.raffleName }}</div>
-            <div class="flex flex-wrap gap-2">
-              <!-- <span
-                v-for="c in g.coupons"
-                :key="`${c.raffle_name}:${c.coupon_number}:${c.assigned_at}`"
-                class="px-2 py-1 rounded-full bg-white/70 border border-primary/20 text-primary font-medium"
-              >
-                {{ c.coupon_number }}
-              </span> -->
-              <RaffleTicket
-                v-for="c in g.coupons"
-                :key="`${c.raffle_name}:${c.coupon_number}:${c.assigned_at}`"
-                :number="c.coupon_number"
-                src="/icons/ticket.svg"
-              />
-
-            </div>
-          </div>
+          <!-- <button
+    v-if="hasActivePromo"
+    type="button"
+    class="mt-1 inline-flex items-center gap-2 px-3 py-1 rounded-md bg-primary text-white text-xs md:text-sm hover:bg-primary/90 transition"
+    @click="copyActivePromo"
+  >
+    <span v-if="copyStatus === 'idle'">Скопировать промокод</span>
+    <span v-else-if="copyStatus === 'success'">Промокод скопирован!</span>
+    <span v-else>Ошибка копирования</span>
+  </button> -->
+        <div class="absolute right-4 top-3 text-xl mb-auto mt-1">
+          <img src="/icons/arrow-primary.svg" class="w-4" />
         </div>
       </div>
 
-
-      <!-- 🔹 VIP блок — только для тех, кто пришёл по VIP-ссылке и уже авторизован -->
-      <VipActivationBlock
-        v-if="isAuthenticated"
-        class="max-w-full md:max-w-[70%] mb-6"
-        :has-vip-flag="hasVipFlag"
-        @activated="handleVipActivated"
-      />
-
       <!-- Bank Cards -->
-      <!-- <div class="bg-gray-100 rounded-xl p-4 mb-6 max-w-full md:max-w-[70%]">
+      <div class="bg-gray-100 rounded-xl p-4 mb-6 max-w-full md:max-w-[70%]">
         <div class="text-base font-medium mb-4">Банковские карты</div>
         <div class="flex flex-row items-center w-full max-w-[70%] mb-6">
           <div class="relative w-[82%] md:w-[60%] h-[90px]">
@@ -433,24 +246,22 @@ function deleteAddress(index: number) {
             </template>
           </div>
         </div>
-      </div> -->
+      </div>
 
       <!-- Editable Fields -->
       <div class="flex flex-col gap-4 text-sm max-w-full md:max-w-[70%]">
         <ProfileField
-          v-for="it in [
-            { field: 'first_name',  label: 'Имя',          placeholder: 'Имя',          value: profile.first_name },
-            { field: 'last_name',   label: 'Фамилия',      placeholder: 'Фамилия',      value: profile.last_name },
-            { field: 'phone_number',label: 'Телефон',      placeholder: '+7 (___) ___-__-__', value: profile.phone_number, type: 'tel' },
-            { field: 'email',       label: 'Email',        placeholder: 'Email',        value: profile.email, type: 'email' },
-            { field: 'birth_day',   label: 'Дата рождения',placeholder: 'Дата рождения',value: profile.birth_day }
-          ]"
-          :key="it.field"
-          :label="it.label"
-          :value="it.value"
-          :field="it.field"
-          :placeholder="it.placeholder"
-          :type="it.type"
+          v-for="(value, field) in {
+            first_name: profile.first_name,
+            last_name: profile.last_name,
+            phone_number: profile.phone_number,
+            email: profile.email,
+            birth_day: profile.birth_day
+          }"
+          :key="field"
+          :label="field"
+          :value="value"
+          :field="field"
           @save="updateField"
         />
       </div>
@@ -469,18 +280,12 @@ function deleteAddress(index: number) {
       </div>
     </section>
 
-    <!-- Скелетон только когда авторизован, но профиль ещё грузится -->
-    <section v-else-if="isAuthenticated && !userStore.isLoaded" class="py-10">
+    <section v-else class="py-10">
       <div class="animate-pulse space-y-4">
         <div class="h-8 w-48 bg-gray-200 rounded" />
         <div class="h-40 w-full bg-gray-200 rounded" />
         <div class="h-6 w-2/3 bg-gray-200 rounded" />
       </div>
-    </section>
-
-    <!-- Неавторизованный пользователь: ждём авторизации в модалке -->
-    <section v-else class="py-10 text-sm md:text-base">
-      <p>Для просмотра личного кабинета авторизуйтесь в открывшемся окне.</p>
     </section>
   </BaseContainer>
 </template>

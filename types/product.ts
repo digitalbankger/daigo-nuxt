@@ -19,6 +19,7 @@ export interface ProductMini {
   title: string
   image: string
   price: number
+  originalPrice: number
   url: string
   badge?: string
   sort?: number
@@ -120,7 +121,6 @@ export interface ProductProductionSection {
 }
 
 export interface Product {
-  originalPrice: number | undefined
   sort: number
   product_id: number
   slug: string
@@ -129,7 +129,7 @@ export interface Product {
   shortDescription: string
   fullDescription: string
   price: number
-  oldPrice?: number
+  originalPrice?: number
   category: string
   actionMechanism?: string
   productionDetails?: string

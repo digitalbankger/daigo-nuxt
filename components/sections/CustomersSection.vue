@@ -143,7 +143,7 @@ const currentSlide = ref(0)
                   </NuxtLink> -->
                   <NuxtLink
                     :to="`/${slide.slugs}`"
-                    class="mt-6 inline-block px-4 py-2 text-white bg-primary rounded-full hover:bg-prymary/80 transition"
+                    class="mt-6 inline-block px-4 py-2 text-white bg-[#242325] rounded-full hover:bg-prymary/80 transition"
                   >
                     Подробнее
                   </NuxtLink>

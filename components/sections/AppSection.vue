@@ -1,5 +1,5 @@
 <template>
-  <section class="mt-24 mb-4 sm:my-20 bg-primary rounded-3xl px-4 sm:px-5 sm:px-7 py-10 sm:py-10 text-white relative overflow-visible">
+  <section class="mt-24 mb-4 sm:my-20 bg-[#242325] rounded-3xl px-4 sm:px-5 sm:px-7 py-10 sm:py-10 text-white relative overflow-visible">
     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-10">
       <div class="w-full sm:w-1/2 lg:w-4/6 order-2 sm:order-1">
         <h2 class="font-medium leading-tight mb-5 text-[clamp(1.6rem,6vw,2.8rem)] sm:text-3xl lg:text-[clamp(1.6rem,6vw,2.8rem)]">

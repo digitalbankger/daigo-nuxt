@@ -129,9 +129,9 @@ definePageMeta({
               :card="{
                 title: 'Как Дайго влияет на организм спортсменов?',
                 imageSrc: '/images/about/girl.png',
-                extraImage: '/images/subscription-left.png',
+                extraImage: '',
                 styles: {
-                  card: 'relative bg-primary rounded-2xl lg:rounded-3xl h-[180px] lg:h-[207px] overflow-hidden',
+                  card: 'relative bg-[#242325] rounded-2xl lg:rounded-3xl h-[180px] lg:h-[207px] overflow-hidden',
                   title: 'text-base lg:text-2xl font-normal text-white leading-tight mb-4 w-9/12 lg:w-7/12 relative z-10',
                   image: 'h-[180px] lg:h-[207px] absolute bottom-0 right-0 z-0',
                   extraImage: 'absolute top-0 left-0 h-[207px] z-0',
@@ -161,7 +161,7 @@ definePageMeta({
                 tags: '!w-full sm:!w-10/12 lg:!w-8/12 mb-6',
                 title: 'text-xl sm:text-cardhead font-medium leading-tight w-full sm:w-8/12',
                 image: 'h-[120px] sm:h-[280px] absolute bottom-24 sm:bottom-10 -right-4 lg:right-10',
-                button: '!mt-4 bg-primary text-white px-6 py-4 rounded-lg hover:bg-primary/80',
+                button: '!mt-4 bg-[#242325] text-white px-6 py-4 rounded-lg hover:bg-[#242325]/80',
               }
             }"
             class="w-full lg:w-8/12 order-1 lg:order-2"
@@ -249,7 +249,7 @@ definePageMeta({
           </div>
         </section> -->
       <section class="relative w-full pb-6 lg:pb-12">
-        <h2 class="text-3xl lg:text-slider font-medium mb-6 sm:mb-14">Благотворительность</h2>
+        <h2 class="text-3xl lg:text-slider font-medium mb-5">Благотворительность</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <UiCard v-for="(card, i) in cards" :key="i" :card="card" />

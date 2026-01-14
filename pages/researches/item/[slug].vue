@@ -167,7 +167,7 @@ async function submitSubscribe() {
           v-if="research?.author"
           class="w-full md:w-1/2 flex flex-col sm:flex-row gap-4 sm:gap-8"
         >
-          <img v-if="research?.author?.avatarUrl" :src="research?.author?.avatarUrl" class="w-1/3 "/>
+          <img :src="research?.author?.avatarUrl" class="w-1/3 "/>
           <div class="flex flex-col">
             <p class="text-lg text-black/50">{{ research!.author!.position }}</p>
             <p class="mt-1 text-2xl font-medium">{{ research!.author!.name }}</p>

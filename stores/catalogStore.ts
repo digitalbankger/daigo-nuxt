@@ -17,8 +17,8 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   const page = ref(1)
 
-  // Сколько на странице: 10 на мобиле, 9 на десктопе
-  const perPageDisplayed = computed(() => (device.isMobile ? 16 : 15))
+  // Сколько показываем на странице: 10 на мобиле, 9 на десктопе
+  const perPageDisplayed = computed(() => (device.isMobile ? 10 : 9))
   const totalPages = ref(1)
 
   // Кэш полного списка для facet-счётчиков и локального total
@@ -59,28 +59,20 @@ export const useCatalogStore = defineStore('catalog', () => {
       { query }
     )
 
-    // Для fallback локального поиска загружаем allProducts
-    await ensureAllLoaded()
-    const baseQuery = buildBaseQueryFromParams(params)
-    const localList = allProducts.value.filter((p) => matchesBaseFilters(p, baseQuery))
-
-    const remoteItems = data.value?.items || []
-
-    // Если бэк вернул пустой список, но локально есть совпадения — используем локальные
-    if (remoteItems.length === 0 && localList.length > 0) {
-      const start = (page.value - 1) * limit
-      const end = start + limit
-      products.value = localList.slice(start, end)
-    } else {
-      // Без обрезаний: показываем ровно то, что запросили
-      products.value = remoteItems
-    }
+    // Без обрезаний: показываем ровно то, что запросили
+    products.value = data.value?.items || []
 
     // 1) total из ответа бэка
     let total = Number(data.value?.total || 0)
-    // 2) Локальный total (если больше)
-    const totalLocal = localList.length
+
+    // 2) Локальный total по allProducts теми же фильтрами
+    await ensureAllLoaded()
+    const baseQuery = buildBaseQueryFromParams(params)
+    const totalLocal = allProducts.value.filter((p) =>
+      matchesBaseFilters(p, baseQuery)
+    ).length
     if (totalLocal > total) total = totalLocal
+
     totalPages.value = Math.max(1, Math.ceil(total / limit))
   }
 

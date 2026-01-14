@@ -5,7 +5,7 @@
       <div class="flex flex-row justify-between">
         <div>
           <NuxtLink to="/" class="block mb-2">
-            <img src="/logo.svg" alt="Daigo" class="w-32" loading="lazy" />
+            <img src="/logo-bf.svg" alt="Daigo" class="w-32" loading="lazy" />
           </NuxtLink>
           <p class="text-xs">С 1905 г. заботимся о вашем здоровье</p>
         </div>
@@ -41,17 +41,6 @@
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
-                <!-- Ссылки для партнёров -->
-                <li>
-                  <a href="https://lp.daigo.ru/daigob2b" target="_blank" rel="noopener">
-                    Корпоративным клиентам
-                  </a>
-                </li>
-                <li>
-                  <a href="https://lp.daigo.ru/vns-welcome-daigo" target="_blank" rel="noopener">
-                    Партнерская программа
-                  </a>
-                </li>
               </ul>
             </div>
 
@@ -171,10 +160,6 @@
                 </p>
               </div>
             </div> -->
-
-            <!-- <ClientOnly>
-              <DjRating />
-            </ClientOnly> -->
 
             <button
               type="button"

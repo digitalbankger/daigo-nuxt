@@ -165,7 +165,7 @@ async function resend() {
         @enter="submitPhone"
       />
 
-      <Button :variant="'solid'" class="w-full" :disabled="!canSubmitPhone || isLoading" @click="submitPhone">
+      <Button :variant="'solid'" class="w-full !bg-[#242325] hover:!bg-hoverbtn" :disabled="!canSubmitPhone || isLoading" @click="submitPhone">
         <span v-if="!isLoading">{{ mode === 'login' ? 'Получить код' : 'Зарегистрироваться и получить код' }}</span>
         <span v-else class="inline-flex items-center gap-2">
           <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">

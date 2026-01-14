@@ -67,10 +67,6 @@ export const useCartStore = defineStore('cart', () => {
   const exhibitionDiscountAmount = ref<number>(0)
   const couponInfo = ref<CouponInfo | null>(null)
 
-  // 🆕 VIP-скидка
-  const vipDiscountAmount = ref<number>(0)
-  const vipDiscountPercent = ref<number | null>(null)
-
   // sessionID гостя (храним только на клиенте)
   const guestSessionId = ref<string | null>(
     process.client ? localStorage.getItem('guest_session_id') : null
@@ -116,19 +112,6 @@ export const useCartStore = defineStore('cart', () => {
     }
   }
 
-  /** Приведение CartItem → ProductObject для YTM */
-  function toYtmProduct(it: CartItem) {
-    return {
-      id: String(it.id),
-      name: it.title,
-      price: Number(it.price) || 0,
-      quantity: Number(it.quantity) || 1,
-      category: it.tag ? [it.tag] : undefined,
-      url: `/catalog/${it.id}`,
-      image_url: it.image || undefined
-    }
-  }
-
   const itemsCount = computed(() =>
     items.value.reduce((sum, it) => sum + (it.quantity ?? 0), 0)
   )
@@ -158,23 +141,6 @@ export const useCartStore = defineStore('cart', () => {
 
     // Купон (если есть)
     couponInfo.value = data?.coupon_info || null
-
-    // 🆕 VIP discount: ищем среди coupons
-    vipDiscountAmount.value = 0
-    vipDiscountPercent.value = null
-    if (Array.isArray(data?.coupons)) {
-      for (const c of data.coupons) {
-        if (!c?.applied) continue
-        const t = String(c.type || '').toLowerCase()
-        // vip type
-        if (t === 'vip') {
-          vipDiscountAmount.value += Number(c.discount_amount || 0)
-          if (c.discount_percent != null && vipDiscountPercent.value == null) {
-            vipDiscountPercent.value = Number(c.discount_percent)
-          }
-        }
-      }
-    }
   }
 
   /** Загрузка корзины */
@@ -243,17 +209,23 @@ export const useCartStore = defineStore('cart', () => {
     }
 
     if (ok && process.client) {
-      try {
-        ytm.addToCart(toYtmProduct(item), 'cart')
+  try {
+    ytm.addToCart({
+      id: String(item.id),
+      name: item.title,
+      price: Number(item.price) || 0,
+      quantity: Number(item.quantity) || 1,
+      ...(item.tag ? { variant: [item.tag] } : {})
+    }, 'cart')
 
-        analytics.addToCart({
-          id: item.id,
-          name: item.title,
-          price: item.price,
-          quantity: item.quantity,
-          category: item.tag
-        })
-      } catch {}
+    analytics.addToCart({
+      id: item.id,
+      name: item.title,
+      price: item.price,
+      quantity: item.quantity,
+      category: item.tag
+    })
+  } catch {}
     }
   }
 
@@ -290,9 +262,21 @@ export const useCartStore = defineStore('cart', () => {
         // по ТЗ: увеличение = add_to_cart, уменьшение = remove_from_cart (на дельту)
         try {
           if (delta > 0) {
-            ytm.addToCart(toYtmProduct(after), 'cart')
+            ytm.addToCart({
+              id: String(after.id),
+              name: after.title,
+              price: Number(after.price) || 0,
+              quantity: Number(after.quantity) || 1,
+              ...(after.tag ? { variant: [after.tag] } : {})
+            }, 'cart')
           } else if (delta < 0) {
-            ytm.removeFromCart(toYtmProduct(after), 'cart')
+            ytm.removeFromCart({
+              id: String(after.id),
+              name: after.title,
+              price: Number(after.price) || 0,
+              quantity: Number(after.quantity) || 1,
+              ...(after.tag ? { variant: [after.tag] } : {})
+            }, 'cart')
           }
         } catch {
           // no-op
@@ -316,8 +300,13 @@ export const useCartStore = defineStore('cart', () => {
     } finally {
       if (removed && process.client) {
         try {
-           ytm.removeFromCart(toYtmProduct(removed), 'cart')
-
+           ytm.removeFromCart({
+            id: String(removed.id),
+              name: removed.title,
+              price: Number(removed.price) || 0,
+              quantity: Number(removed.quantity) || 1,
+              ...(removed.tag ? { variant: [removed.tag] } : {})
+            }, 'cart')
         } catch {
           // no-op
         }
@@ -352,16 +341,26 @@ export const useCartStore = defineStore('cart', () => {
     const trimmed = (code || '').trim()
     if (!trimmed) return
 
-    // ⛔ Промокоды доступны только авторизованным пользователям
-    if (!isAuthenticated.value || !userId.value) {
-      throw new Error('Для применения промокода необходимо авторизоваться')
+    let res: any
+    if (isAuthenticated.value && userId.value) {
+      res = await cartService.applyUserCoupon(userId.value, trimmed)
+    } else {
+      const sid = ensureGuestSession()
+      res = await cartService.applyGuestCoupon(sid, trimmed)
     }
-
-    const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
 
     applyServerCartState(res)
     // На случай асинхронных перерасчётов на бэке:
     await loadCart()
+
+    // YTM: успешное применение купона
+    if (process.client) {
+      try {
+        ytm.promoApply(String(trimmed))
+      } catch {
+        // no-op
+      }
+    }
 
     return res
   }
@@ -447,8 +446,6 @@ export const useCartStore = defineStore('cart', () => {
     isAuthenticated, isLoaded, 
     // новые суммы/купоны из бэка
     subtotal, total, discountAmount, remarketingDiscountAmount, exhibitionDiscountAmount, couponInfo,
-    // VIP
-    vipDiscountAmount, vipDiscountPercent,
     
     itemsCount,
     itemsUniqueCount,

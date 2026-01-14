@@ -13,7 +13,7 @@
         :class="expanded ? 'max-h-[1000px]' : 'max-h-[100px]'"
       >
         <img
-          src="https://daigo.ru/images/partners/partners-all.webp"
+          src="http://localhost:3000/images/partners/partners-all.webp"
           alt="Наши партнёры"
           format="webp"
           loading="lazy"
@@ -25,7 +25,7 @@
       <div class="w-full flex justify-center">
         <Button
           @click="expanded = !expanded"
-          class="!w-72 mt-6"
+          class="!w-72 mt-6 !bg-[#242325] hover:!bg-hoverbtn"
         >
           {{ expanded ? 'Скрыть' : 'Посмотреть все' }}
         </Button>

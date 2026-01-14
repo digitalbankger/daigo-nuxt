@@ -1,7 +1,6 @@
 // services/orderService.ts
 import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
-import type { OrderCancelReason } from '~/types/orders'
 
 /** Товар в заказе */
 export interface OrderItemPayload {
@@ -99,12 +98,9 @@ function toReadableError(e: any): Error & { status?: number } {
     status === 501
       ? 'ORDER_API_NOT_IMPLEMENTED'
       : backendMsg || 'ORDER_CREATE_FAILED'
-  ) as Error & { status?: number } & { stage?: string }
+  ) as Error & { status?: number }
 
   err.status = status
-  // прокинем stage из ответа бэка, если есть
-  const stage = e?.data?.stage ?? e?.response?._data?.stage ?? e?.stage
-  if (stage) (err as any).stage = stage
   return err
 }
 
@@ -139,21 +135,14 @@ export async function fetchOrderHistory(daigoId: number | string) {
 }
 
 /** Отмена заказа */
-export async function cancelOrder(
-  orderId: number | string,
-  reason: OrderCancelReason,
-  comment?: string
-) {
+export async function cancelOrder(orderId: number | string) {
   const { public: { daigoApiBase } } = useRuntimeConfig()
 
   try {
+    // В примере из приложения был слэш на конце — оставляем так.
     return await $fetch(`${daigoApiBase}/v1/shop/order/${orderId}/cancel/`, {
       method: 'POST',
       headers: authHeaders(),
-      body: {
-        reason, 
-        comment,  
-      },
     })
   } catch (e: any) {
     throw toReadableError(e)

@@ -19,14 +19,6 @@ body {
   overflow-x: hidden
 }
 
-body.page-bonusopad {
-  background-color: #14350C;
-}
-
-main.page-bonusopad {
-  margin-top: -200px;
-}
-
 #app {
   background-color: #fff;
 }

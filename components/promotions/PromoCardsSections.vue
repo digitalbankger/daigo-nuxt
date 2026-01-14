@@ -55,14 +55,14 @@ async function handleApply(promotion: Promotion) {
       typeof res?.discount_percent === 'number'
 
     modalStore.show({
-      title: success ? '✅ Успешно' : 'Что-то пошло не так',
+      title: success ? '✅ Успешно' : '❌ Ошибка',
       message:
         res?.message ||
         (success ? 'Акция применена' : 'Не удалось применить акцию'),
     })
   } catch (e: any) {
     modalStore.show({
-      title: 'Что-то пошло не так',
+      title: '❌ Ошибка',
       message: e?.message || 'Не удалось применить акцию',
     })
   }
@@ -75,7 +75,7 @@ async function handleCancel() {
     modalStore.show({ title: 'Готово', message: 'Акция отменена' })
   } catch (e: any) {
     modalStore.show({
-      title: 'Что-то пошло не так',
+      title: '❌ Ошибка',
       message: e?.message || 'Не удалось отменить акцию',
     })
   }
@@ -98,6 +98,9 @@ async function handleCancel() {
         @apply="handleApply"
         @cancel="handleCancel"
       />
+      <NuxtLink to="/black-friday">
+        <img src="/images/promotions/bf.jpg" />
+      </NuxtLink>
     </div>
 
     <!-- глобальный индикатор -->

@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <section id="delivery-info" class="w-full">
+  <section class="w-full">
     <div class="flex flex-col gap-6">
       <h3 class="text-2xl lg:text-3xl font-medium">Информация о доставке</h3>
       <div class="space-y-4">

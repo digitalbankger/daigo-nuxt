@@ -23,7 +23,7 @@ const activeIndex = ref(0)
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
       <div class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
         <img
-          :src="sortedImages[activeIndex]?.image_url"
+          :src="sortedImages[activeIndex]?.src.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
           width="640"
           height="480"
@@ -43,13 +43,13 @@ const activeIndex = ref(0)
       <div class="flex sm:flex-row gap-3 overflow-x-auto no-scrollbar scroll-touch px-1 sm:px-0">
         <button
           v-for="(img, index) in sortedImages"
-          :key="img.image_url"
+          :key="img.src.image_url"
           class="w-20 sm:w-32 h-20 sm:h-32 shrink-0 border rounded-lg sm:rounded-xl overflow-hidden bg-hoverbtn"
           :class="index === activeIndex ? 'border-primary' : 'border-transparent'"
           @click="activeIndex = index"
         >
           <img
-            :src="img.image_url"
+            :src="img.src.image_url"
             width="80"
             height="80"
             format="webp"

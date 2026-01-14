@@ -65,20 +65,11 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 import PartnerCard from '@/components/PartnerCard.vue'
-import { link } from 'fs'
 
 const swiperRef = ref()
 const currentSlide = ref(0)
 
 const partners = [
-  {
-    logo: '/images/partners/apteka36.png',
-    name: 'Аптечная сеть 36.6',
-    about: '',
-    link: 'https://366.ru/search/?text=daigo',
-    description:
-      'Сегодня аптеки «36.6» дают возможность управлять своим здоровьем. <br><br>Это концепция образа жизни, включающая комплексные меры по поддержанию и сохранению активного долголетия и ухода за собой.'
-  },
   {
     logo: '/images/partners/verba.png',
     name: 'Verba Mayr',
@@ -99,6 +90,13 @@ const partners = [
     about: 'Центры интегративной медицины и SPA-комплексы премиум класса.',
     description:
       'Мы активно сотрудничаем с комплексами Luciano и проводим на их территории обучающие мероприятия для ведущих врачей в Казани и Сочи.'
+  },
+  {
+    logo: '/images/partners/apteka36.png',
+    name: 'Аптечная сеть 36.6',
+    about: '',
+    description:
+      'Сегодня аптеки «36.6» дают возможность управлять своим здоровьем. <br><br>Это концепция образа жизни, включающая комплексные меры по поддержанию и сохранению активного долголетия и ухода за собой.'
   },
   {
     logo: '/images/partners/mat.png',

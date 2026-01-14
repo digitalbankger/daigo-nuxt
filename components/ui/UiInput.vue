@@ -19,6 +19,7 @@ const props = defineProps<{
   id?: string
   /** динамический фон, по умолчанию hoverbtn */
   background?: string
+  
 }>()
 
 const emit = defineEmits<{

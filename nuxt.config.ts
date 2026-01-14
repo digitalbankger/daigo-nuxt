@@ -65,25 +65,13 @@ export default defineNuxtConfig({
             'Купить Daigo (Daigo) с бесплатной доставкой у официальныго дистрибьютора в РФ и СНГ. Программа лояльности. Консультация экспертов.'
         }
       ],
-      link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-        { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap'
-        },
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;600;700;800;900&display=swap'
-        }
-      ]
+      link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
     }
   },
 
-  css: ['@/assets/styles/fonts.css', '@/assets/styles/main.css' ],
+  css: ['@/assets/styles/fonts.css', '@/assets/styles/main.css'],
 
-  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/ym.client.ts', '~/plugins/bitrix-tracker.client.ts', '~/plugins/ytm-route.client.ts', '~/plugins/mango.client.ts', '~/plugins/utm-tracker.client.ts', '~/plugins/api.client.ts', '~/plugins/ytm.client.ts' ],
+  plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/ym.client.ts', '~/plugins/bitrix-tracker.client.ts', '~/plugins/ytm-route.client.ts', '~/plugins/mango.client.ts', '~/plugins/utm-tracker.client.ts' ],
 
   modules: ['@nuxtjs/tailwindcss', '@pinia/nuxt', '@nuxtjs/device', '@nuxt/image', '@vueuse/nuxt'],
 

@@ -17,7 +17,6 @@
     "@studio-freight/lenis": "^1.0.42",
     "@vueuse/core": "^13.1.0",
     "@vueuse/nuxt": "^13.0.0",
-    "@zxing/browser": "^0.1.5",
     "axios": "^1.13.1",
     "nuxt": "^3.15.4",
     "pinia": "^2.1.3",

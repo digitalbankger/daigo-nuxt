@@ -26,17 +26,3 @@ export interface OrderListItem {
   }[]
   confirmationUrl?: string | null
 }
-
-/** Причины отмены заказа (фронт → бек) */
-export type OrderCancelReason =
-  | 'payment_issue'
-  | 'order_mistake'
-  | 'accidental_repeat'
-  | 'other'
-
-export const ORDER_CANCEL_REASONS: { value: OrderCancelReason; label: string }[] = [
-  { value: 'payment_issue',     label: 'Проблемы с оплатой' },
-  { value: 'order_mistake',     label: 'Ошибся(лась) при оформлении' },
-  { value: 'accidental_repeat', label: 'Случайный повторный заказ' },
-  { value: 'other',             label: 'Другое' },
-]

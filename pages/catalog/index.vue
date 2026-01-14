@@ -5,9 +5,10 @@ import { useRoute, useRouter, useHead, watchEffect, computed } from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
-import StaticHeroBanner from '~/components/shared/StaticHeroBanner.vue'
+import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import BannerBfCat from '~/components/catalog/BannerBfCat.vue'
 import { useYtm } from '@/composables/useYtm'
 const ytm = useYtm()
 //import PromoHero from '~/components/catalog/PromoHero.vue'
@@ -16,9 +17,10 @@ const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
 const catalogStore = useCatalogStore()
-const analytics = useAnalytics()
+const { reach } = useAnalytics()
 
 await catalogStore.fetchFilters()
+await catalogStore.fetchCatalogBanner()
 
 const page = computed(() => Number(route.query.page || 1))
 
@@ -49,13 +51,7 @@ watchEffect(async () => {
 
   const normalizedQuery = Object.fromEntries(
     Object.entries(route.query)
-      .filter(([key]) => {
-        // трекинговые/служебные параметры, которые не являются фильтрами
-        if (key === 'empty' || key === 'page') return false
-        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
-        if (key.startsWith('utm_')) return false
-        return true
-      })
+      .filter(([key]) => key !== 'empty')
       .map(([key, value]) => [
         key,
         Array.isArray(value) ? value[0] ?? '' : value ?? ''
@@ -70,53 +66,25 @@ watchEffect(async () => {
 })
 
 // Yandex TagManager
-// Yandex TagManager
 watchEffect(() => {
   const list = visibleProducts.value
   if (!list?.length) return
-
   ytm.viewListing({
-    currency: 'RUB',
-    items: list.map((p, idx) => ({
+    list_id: route.path,
+    products: list.map(p => ({
       id: p.product_id,
       name: p.name,
       price: Number(p.price) || 0,
-      position: idx + 1,
-      category: p.tag ? [p.tag] : undefined,
-      url: `/catalog/${p.slug}`,
-      image_url: p.image
-    })),
-    page_count: catalogStore.totalPages,
-    current_page: page.value
+      category: p.tag
+    }))
   })
-
-  // ✅ Я.Метрика Enhanced Ecommerce (шаг 2 воронки: показ товаров в списке)
-  analytics.viewItemList(
-    'Каталог',
-    list.map((p, idx) => ({
-      id: p.product_id,
-      name: p.name,
-      price: Number(p.price) || 0,
-      position: idx + 1,
-      category: p.tag ? String(p.tag) : undefined,
-      url: `/catalog/${p.slug}`,
-      image_url: p.image,
-      list: 'Каталог'
-    })),
-    route.fullPath
-  )
 })
 // Yandex TagManager end
 
 useHead(() => {
   const query = route.query
   const filters = Object.entries(query)
-    .filter(([k]) => {
-      if (['page', 'empty'].includes(k)) return false
-      if (k === 'ysclid' || k === 'yclid' || k === 'gclid' || k === 'fbclid') return false
-      if (k.startsWith('utm_')) return false
-      return true
-    })
+    .filter(([k]) => !['page', 'empty'].includes(k))
     .map(([k, v]) => `${k}: ${v}`)
     .join(', ')
 
@@ -208,6 +176,8 @@ function closeFilters() {
 
 <template>
   <BaseContainer>
+    <BannerBfCat />
+
     <section class="relative w-full">
       <!--<PromoHero
         class="mt-0 sm:mt-8 mb-8 sm:mb-12"
@@ -226,13 +196,9 @@ function closeFilters() {
         subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
         @done="onLeadDone"
       />-->
-      
-      <StaticHeroBanner class="mb-6 md:mb-10" />
-
       <div class="flex flex-row items-centr justify-between">
-        <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
+        <h1 class="text-slider font-medium mb-4 md:mb-6 mt-4">Каталог</h1>
       </div>
-
       <div class="flex lg:hidden items-center gap-4 mb-6 relative z-10">
         <div
           class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
@@ -309,9 +275,13 @@ function closeFilters() {
             />
           </div>
 
-          <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+          <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
-
+          <CatalogBanner
+            v-if="catalogStore.catalogBanner"
+            :banner="catalogStore.catalogBanner"
+            class="my-5 md:my-10"
+          />
 
           <div class="grid grid-cols-2 gap-4 md:gap-6 gap-y-6 md:gap-y-20 md:hidden">
             <ProductCard
