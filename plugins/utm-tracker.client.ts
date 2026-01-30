@@ -1,4 +1,4 @@
-import { trackUtmFromQuery } from '@/composables/useUtmTracker'
+import { trackUtmAuto } from '@/composables/useUtmTracker'
 
 export default defineNuxtPlugin(() => {
   if (!process.client) return
@@ -6,6 +6,6 @@ export default defineNuxtPlugin(() => {
   const router = useRouter()
 
   router.afterEach((to) => {
-    trackUtmFromQuery(to.query)
+    trackUtmAuto(to.query)
   })
 })

@@ -1,5 +1,24 @@
 // services/guestPreorder.ts
 import { useRuntimeConfig, useCookie } from '#imports'
+import { getLastUtm } from '@/composables/useUtmTracker'
+
+function buildUtmPayload() {
+  const last = getLastUtm()
+  if (!last) return undefined
+
+  const utm: any = {
+    source: last.source,
+    medium: last.medium,
+    campaign: last.campaign,
+    content: last.content,
+    term: last.term,
+  }
+
+  Object.keys(utm).forEach((k) => utm[k] === undefined && delete utm[k])
+  const hasMeaningful = ['source', 'medium', 'campaign', 'content', 'term'].some((k) => k in utm)
+  if (!hasMeaningful) return undefined
+  return utm
+}
 
 /**
  * Fire-and-forget гостевой pre-order.
@@ -15,11 +34,13 @@ export function sendGuestPreorderFireAndForget (params: {
 
   ;(async () => {
     try {
+      const utm = buildUtmPayload()
       await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
         method: 'POST',
         body: {
           fio: (fullName || '').trim(),
           phone_number: String(phone || '').replace(/\D/g, ''),
+          ...(utm ? { utm } : {}),
         }
       })
     } catch (e) {

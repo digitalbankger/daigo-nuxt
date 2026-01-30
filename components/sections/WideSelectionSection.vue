@@ -26,7 +26,7 @@
 
       <div class="w-full lg:w-1/2 flex order-1 lg:order-2">
         <img
-          src="http://localhost:3000/images/wide-selection.webp"
+          src="https://daigo.ru/images/wide-selection.webp"
           alt="Продукты Daigo"
           format="webp"
           loading="lazy"

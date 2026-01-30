@@ -27,7 +27,11 @@
 
             <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/phone.svg" />
-              <span>Телефон: +7 (905) 200-40-09</span>
+              <a
+                href="tel:88005552043"
+              >
+              <span>8 800 555 20 43</span>
+              </a>
             </div>
             <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/bi_mailbox.svg" /> 

@@ -20,6 +20,7 @@
           loading="lazy"
           decoding="async"
         />
+
       </div>
 
       <!-- контент -->
@@ -38,21 +39,37 @@
 
         <!-- низ -->
         <div class="mt-auto flex flex-col items-start gap-4">
-          <p class="font-medium leading-tight text-[clamp(1rem,5vw,1.4rem)]">
-            {{ product.price.toLocaleString() }} ₽
-          </p>
+
+          <div class="flex flex-col sm:flex-row gap-0 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
+            <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.8vw,1.2rem)] font-light">
+              {{ product.originalPrice.toLocaleString() }} ₽
+            </span>
+            <span class="text-black text-[clamp(0.9rem,4.4vw,1.5rem)] font-medium">
+              {{ product.price.toLocaleString() }} ₽
+            </span>
+          </div>
 
           <!-- кнопка -->
+
+
           <button
-            v-if="quantityInCart === 0"
-            type="button"
-            @click.stop="addToCartHandler"
-            class="w-full h-10 sm:h-12 flex items-center justify-center bg-primary xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4 rounded-lg whitespace-nowrap"
-            :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
-          >
-            <img src="/icons/add-to-cart.svg" alt="" class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0" />
-            <span class="whitespace-nowrap">{{ isPreorder ? 'Предзаказ' : 'В корзину' }}</span>
-          </button>
+  v-if="quantityInCart === 0"
+  type="button"
+  @click.stop="addToCartHandler"
+  :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
+  class="bg-primary hover:bg-hoverbtn hover:text-black  w-full h-10 sm:h-12 flex items-center justify-center
+         xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
+         rounded-lg whitespace-nowrap relative overflow-hidden"
+>
+  <img
+    src="/icons/add-to-cart.svg"
+    alt=""
+    class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
+  />
+  <span class="whitespace-nowrap relative z-10">
+    {{ isPreorder ? 'Предзаказ' : 'В корзину' }}
+  </span>
+</button>
 
           <!-- плюс/минус -->
           <div
@@ -94,6 +111,7 @@ import { useRoute } from '#imports'
 
 const route = useRoute()
 const ytm = useYtm()
+const analytics = useAnalytics()
 
 const { product, index, globalIndex, isLast } = defineProps<{
   product: ProductCard
@@ -140,6 +158,22 @@ function onOpen(navigate: () => void) {
 
   // в list_id передаём текущий путь, в list_name — название списка
   ytm.productClick(productObj, route.path, 'Каталог')
+
+  // ✅ Я.Метрика Enhanced Ecommerce (шаг 3 воронки: клик по товару)
+  analytics.selectItem(
+    'Каталог',
+    {
+      id: product.product_id,
+      name: product.name,
+      price: Number(product.price) || 0,
+      position: (globalIndex ?? index ?? 0) + 1,
+      category: product.tag ? String(product.tag) : undefined,
+      url: `/catalog/${product.slug}`,
+      image_url: product.image,
+      list: 'Каталог'
+    },
+    route.path
+  )
   navigate()
 }
 
@@ -149,4 +183,14 @@ function incrementHandler() {
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
+
+const hideBonusBadge = computed(() => {
+  const name = (product.name || '').toLowerCase()
+  return name.includes('сертификат')
+})
+
 </script>
+
+<style scoped>
+
+</style>

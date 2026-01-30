@@ -3,15 +3,19 @@ import { computed, ref, reactive, nextTick, onMounted, watch } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
 import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
+import { useCheckoutStore } from '~/stores/checkoutStore'
+import { bonusService, type BonusCalculateResponse } from '@/services/bonusService'
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
+import PaymentWarning from './PaymentWarning.vue'
 
 const analytics = useAnalytics()
 const cartStore = useCartStore()
 const authStore = useAuthStore()
 const userStore = useUserStore()
+const checkoutStore = useCheckoutStore()
 
 const props = defineProps<{ mode?: 'cart' | 'checkout' }>()
 const emit = defineEmits(['cta'])
@@ -41,8 +45,123 @@ const vipDiscountPercent = computed(() => cartStore.vipDiscountPercent)
 
 const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
 
-const enableCta = computed(() =>
-  props.mode === 'checkout' ? true : Boolean(form.fullName.trim() && form.phone.trim())
+// === Бонусы ===
+// 1) В корзине: начисление 30% от итоговой суммы.
+const earnedBonuses = computed(() => Math.floor(Number(grandTotal.value || 0) * 0.5))
+
+const earnedTicket = computed(() => Math.floor(Number(grandTotal.value || 0) / 10000))
+
+
+// 2) В оформлении заказа: доступные бонусы определяем через /v1/shop/bonus/calculate
+const bonusCalc = ref<BonusCalculateResponse | null>(null)
+const bonusCalcLoading = ref(false)
+const bonusCalcError = ref<string | null>(null)
+
+// Лимит бонусов, который пользователь может списать прямо сейчас.
+// Правило:
+// - balance = общий баланс бонусов
+// - max_bonuses_available = максимум, который можно списать в рамках текущего заказа
+// Используем max_bonuses_available только если balance больше этого значения,
+// иначе (balance меньше или равен) — лимит равен balance.
+const maxBonusesAvailable = computed(() => {
+  const balance = Number(bonusCalc.value?.balance ?? 0)
+  const max = Number(bonusCalc.value?.max_bonuses_available ?? 0)
+  if (!Number.isFinite(balance) || balance <= 0) return 0
+  if (!Number.isFinite(max) || max <= 0) return 0
+  return balance > max ? max : balance
+})
+
+const bonusToSpend = ref('')
+
+// применённые бонусы (влияют только на UI и payload заказа)
+const appliedBonuses = ref(0)
+
+const bonusToSpendNumber = computed(() => {
+  const raw = String(bonusToSpend.value || '').replace(/[^0-9]/g, '')
+  const n = Number(raw || 0)
+  return Math.max(0, Math.min(maxBonusesAvailable.value, n))
+})
+
+watch(bonusToSpendNumber, (n) => {
+  // нормализуем ввод (без лишних символов, не больше доступных)
+  if (bonusToSpend.value === '') return
+  const normalized = String(n)
+  if (bonusToSpend.value !== normalized) bonusToSpend.value = normalized
+})
+
+function applyBonuses() {
+  const n = Number(bonusToSpendNumber.value || 0)
+  appliedBonuses.value = n
+  // прокидываем в checkout payload
+  if (props.mode === 'checkout') {
+    ;(checkoutStore.state as any).bonuses_to_use = n
+  }
+}
+
+// если пользователь вручную уменьшил ввод ниже уже применённого —
+// не меняем итог до нажатия "Использовать" (предсказуемое поведение)
+
+// итоговая сумма с учётом списанных бонусов (1 бонус = 1 рубль)
+const finalTotal = computed(() => {
+  if (props.mode !== 'checkout') return Number(grandTotal.value || 0)
+  return Math.max(0, Number(grandTotal.value || 0) - Number(appliedBonuses.value || 0))
+})
+
+// Сумма корзины для расчёта лимитов по списанию бонусов
+const cartTotalForBonusCalc = computed(() => Number(finalTotal.value || 0))
+
+async function refreshBonusCalc() {
+  if (props.mode !== 'checkout') return
+
+  const total = Math.max(0, Math.floor(cartTotalForBonusCalc.value || 0))
+  bonusCalcLoading.value = true
+  bonusCalcError.value = null
+  try {
+    bonusCalc.value = await bonusService.calculate(total)
+  } catch (e: any) {
+    // не блокируем оформление заказа, просто фиксируем лимит как 0
+    bonusCalc.value = { balance: 0, max_bonuses_available: 0, max_total_discount_percent: 0, currency: '' }
+    bonusCalcError.value = e?.message || 'Не удалось получить бонусы'
+  } finally {
+    bonusCalcLoading.value = false
+  }
+}
+
+// при заходе на чек-аут и при изменении итоговой суммы — пересчитываем лимит
+watch(cartTotalForBonusCalc, () => {
+  // debounce на случай серии быстрых обновлений
+  if (props.mode !== 'checkout') return
+  refreshBonusCalc()
+}, { immediate: true })
+
+// если уже применённые бонусы оказались выше лимита — автоматически ограничиваем
+watch(maxBonusesAvailable, (max) => {
+  const lim = Number(max || 0)
+  if (appliedBonuses.value > lim) {
+    appliedBonuses.value = lim
+    bonusToSpend.value = String(lim)
+    if (props.mode === 'checkout') {
+      ;(checkoutStore.state as any).bonuses_to_use = lim
+    }
+  }
+})
+
+const phoneDigits = computed(() => String(form.phone || '').replace(/\D/g, ''))
+
+const enableCta = computed(() => {
+  if (props.mode === 'checkout') return true
+  return Boolean(form.fullName.trim() && phoneDigits.value.length === 11)
+})
+
+// ограничение: в корзине поле "Имя" — одно слово
+watch(
+  () => form.fullName,
+  (v) => {
+    if (props.mode === 'checkout') return
+    const cleaned = String(v || '').replace(/\s+/g, ' ').trim()
+    const first = cleaned.split(' ')[0] || ''
+    if (cleaned !== first) form.fullName = first
+  }
 )
 
 // === авторизация: новый инлайн-этап кода в корзине ===
@@ -140,8 +259,8 @@ watch(couponInfo, (ci) => {
 }, { immediate: true })
 
 function validateFields() {
-  errors.fullName = form.fullName.trim() ? '' : 'Введите ФИО'
-  errors.phone = form.phone.trim() ? '' : 'Введите телефон'
+  errors.fullName = form.fullName.trim() ? '' : 'Введите имя'
+  errors.phone = phoneDigits.value.length === 11 ? '' : 'Введите номер'
   return !(errors.fullName || errors.phone)
 }
 
@@ -180,13 +299,21 @@ async function handleCta() {
 async function applyCoupon() {
   const code = coupon.value.trim()
   if (!code || couponInfo.value?.applied) return
+
+  // ⛔ В гостевом режиме промокоды недоступны — предлагаем авторизацию
+  if (!authStore.isAuthenticated) {
+    authStore.openAuth('/cart')
+    return
+  }
+
   try {
     await cartStore.applyCoupon(code)
     // поле само обновится из watch(couponInfo)
-  } catch {
-    alert('Промокод недействителен')
+  } catch (e: any) {
+    alert(e?.message || 'Промокод недействителен')
   }
 }
+
 
 // оставляем хэндлер удаления на будущее (кнопку закомментируем в шаблоне)
 async function removeCoupon() {
@@ -209,12 +336,12 @@ async function removeCoupon() {
           v-model="form.fullName"
           name="full_name"
           autocomplete="name"
-          placeholder="ФИО"
+          placeholder="Имя"
           type="text"
           :maxlength="120"
           :error="errors.fullName"
           background="bg-white"
-          @blur="errors.fullName = form.fullName.trim() ? '' : 'Введите ФИО'"
+          @blur="errors.fullName = form.fullName.trim() ? '' : 'Введите имя'"
         />
         <UiInput
           ref="inputRefs.phone"
@@ -227,7 +354,7 @@ async function removeCoupon() {
           placeholder="+7 (___) ___-__-__"
           :error="errors.phone"
           background="bg-white"
-          @blur="errors.phone = form.phone.trim() ? '' : 'Введите телефон'"
+          @blur="errors.phone = phoneDigits.length === 11 ? '' : 'Введите номер'"
         />
       </div>
 
@@ -269,7 +396,7 @@ async function removeCoupon() {
         </div>
         <Button
           variant="solid"
-          class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
+          class="w-full hover:bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
           :disabled="!canSubmitCode || preOrderLoading"
           @click="verifyAndContinue"
         >
@@ -282,7 +409,7 @@ async function removeCoupon() {
       <Button
         v-else
         variant="solid"
-        class="w-full hover:bg-hoverbtn hover:text-black !text-sm md:!text-base text-white py-3 rounded-lg transition"
+        class="w-full hover:!bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
         :disabled="!enableCta || preOrderLoading"
         @click="handleCta"
       >
@@ -342,20 +469,65 @@ async function removeCoupon() {
         <span>−{{ exhibitionDiscountAmount.toLocaleString() }} ₽</span>
       </div>
       <!-- конец новых строк -->
+      <!-- 
+      <div
+        class="flex justify-between font-medium text-red-500"
+      >
+        <span>Начислим бонусов</span>
+        <span>+ {{ earnedBonuses }}</span>
+      </div> -->
+      
+      <!-- <div
+        class="flex justify-between font-medium text-red-500"
+      >
+        <span>Новогодний конкурс</span>
+        <span>+ {{ earnedTicket }} билетов</span>
+      </div> -->
 
       <div class="flex justify-between font-medium text-xl">
-        <span>Итого</span><span>{{ grandTotal.toLocaleString() }} ₽</span>
+        <span>Итого</span><span>{{ finalTotal.toLocaleString() }} ₽</span>
+      </div>
+    </div>
+
+    <!-- 🆕 списание бонусов (только на оформлении заказа) -->
+    <div v-if="props.mode === 'checkout'" class="space-y-3">
+      <div class="flex justify-between text-sm md:text-base">
+        <span class="text-black/70">Бонусы доступны для списания</span>
+        <span class="font-medium">{{ maxBonusesAvailable }}</span>
+      </div>
+
+      <UiInput
+        v-model="bonusToSpend"
+        name="bonuses"
+        type="text"
+        inputmode="numeric"
+        placeholder="Списать бонусы"
+        background="bg-white"
+      >
+        <template #right>
+          <button
+            type="button"
+            class="ml-2 text-white bg-cgreen hover:opacity-80 transition"
+            @click="applyBonuses"
+          >
+            Использовать
+          </button>
+        </template>
+      </UiInput>
+
+      <div class="text-xs text-black/50">
+        Можно списать до {{ maxBonusesAvailable }} бонусов.
       </div>
     </div>
 
     <!-- Промокод — только в корзине -->
-    <div v-if="props.mode !== 'checkout'" class="flex flex-row gap-2 md:gap-3 items-start">
+    <div v-if="props.mode === 'checkout'" class="flex flex-row gap-2 md:gap-3 items-start">
       <UiInput
         v-model="coupon"
         name="coupon"
         type="text"
         placeholder="Промокод"
-        background="bg-white !border-cgreen !text-cgreen"
+        background="bg-white !border-cgreen !text-cgreen focus:outline-none"
       >
         <template #right>
           <button
@@ -395,6 +567,8 @@ async function removeCoupon() {
         Применить
       </Button>
     </div>
+
+    <PaymentWarning v-if="props.mode === 'checkout'"/>
 
     <!-- Кнопка в режиме checkout -->
     <div v-if="props.mode === 'checkout'" class="pt-4">

@@ -249,7 +249,7 @@ definePageMeta({
           </div>
         </section> -->
       <section class="relative w-full pb-6 lg:pb-12">
-        <h2 class="text-3xl lg:text-slider font-medium mb-5">Благотворительность</h2>
+        <h2 class="text-3xl lg:text-slider font-medium mb-6 sm:mb-14">Благотворительность</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <UiCard v-for="(card, i) in cards" :key="i" :card="card" />

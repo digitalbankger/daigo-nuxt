@@ -7,6 +7,8 @@ import Button from '@/components/ui/Button.vue'
 const props = defineProps<{
   show: boolean
   secondsLeft: number
+  /** id заказа, если уже создан (чтобы вести на /thanks/:id вместо /orders) */
+  orderId?: string | number | null
   /** Можно ли закрывать по клику на оверлей (по умолчанию true) */
   overlayClosable?: boolean
 }>()
@@ -24,6 +26,10 @@ const progress = computed(() => {
 
 function goToOrders() {
   emit('close') // чтобы убрать модалку, если останемся на этой же странице
+  if (props.orderId) {
+    navigateTo(`/thanks/${String(props.orderId)}`)
+    return
+  }
   navigateTo('/orders')
 }
 </script>
@@ -89,7 +95,7 @@ function goToOrders() {
           class="text-sm mt-2 text-gray-500"
           @click="goToOrders"
         >
-          Перейти к заказам
+          {{ props.orderId ? 'Страница заказа' : 'Перейти к заказам' }}
         </button>
       </div>
     </div>

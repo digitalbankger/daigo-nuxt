@@ -55,8 +55,8 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 109700,
-      originalPrice: null,
+      price: 98730,
+      originalPrice: 109700,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -1496,6 +1496,170 @@ export default defineEventHandler((event) => {
         ]
       }
     },
+    // Усиленный курс “Волны баланса”
+    {
+      product_id: "5e99fdfa-5c31-455c-8ac1-ff3506b0bdba",
+      slug: 'usilennyy-kurs-kishechnik-mozg',
+      title: 'Набор «Волны баланса»”',
+      subtitle: '',
+      shortDescription: 'В японской философии ровные внутренние «волны» означают спокойствие тела и ясность ума. Этот набор поддерживает микробиом и помогает настроить гармонию между кишечником и мозгом. Подарите ощущение внутреннего равновесия, из которого начинается ясность. В составе:',
+      descriptionSections: [
+
+      ],
+      price: 224730,
+      originalPrice: 244700,
+      category: 'metabiotic',
+      //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
+      //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
+      isActive: true,
+      combo: {
+        title: 'Состав набора',
+        image: 'https://daigo.ru/images/mock/product/lux/lux-faq.jpg',
+        text: `
+          <p class="font-medium">Tamotsu (2 шт)</p>
+          <p class="">Натуральный источник плазмалогенов (фосфолипидов) из глубоководного морского гребешка и высококачественного коэнзима Q10.</p>
+          <p class="font-medium">Daigo Lux</p>
+          <p>Японский органический метабиотик премиум-класса. Он создаёт идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работе ЖКТ.</p>
+        `
+      },
+      actionPrinciple: {
+        title: 'Принцип действия',
+        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        imagePosition: 'left',
+        text: `
+          <p class="font-medium">Tamotsu</p>
+          <p>Плазмогены — это особые жировые молекулы, которые защищают ценные жирные кислоты от окислительного повреждения и помогают клеткам правильно регулировать уровень холестерина. Эти вещества естественным образом производятся в печени, а затем с помощью специальных переносчиков доставляются в головной мозг, где поддерживают его нормальную работу. В состав Tamotsu входят также уникальные антиоксиданты прорезилиенты и коэнзим Q10. Их задача — восстановить энергетический баланс в клетках и заблокировать цепь разрушительных реакций, возникающих при недостатке кровоснабжения, что позволяет защитить ткани мозга от повреждения.</p>
+          <p class="font-medium">Daigo Lux</p>
+          <p class="">Его действие основано на двух компонентах, которые дополняют друг друга. Ценный секрет полезных бактерий создаёт оптимальную среду для активизации и роста собственных полезных кишечных бактерий, одновременно ограничивая развитие патогенной микрофлоры. Это приводит к естественному замещению вредных бактерий полезными и улучшению состояния кишечной среды. В то же время, клеточный материал бактерий стимулирует активность иммунных клеток, включая особые образования кишечника (Пейеровы бляшки), которые усиливают выработку защитных лейкоцитов. Этот процесс помогает снизить системное воспаление, что напрямую поддерживает здоровье нервной системы и ясность ума. Daigo Lux не просто помогает восстановить баланс кишечной микрофлоры, но через укрепление иммунитета и снижение воспаления может создать фундамент для устойчивого внутреннего равновесия и оптимальной работы когнитивных функций.</p>
+        `
+      },
+      effect: {
+        title: 'Эффект',
+        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        imagePosition: 'right',
+        content: `
+          <p class="font-medium">Tamotsu</p>
+          <p>Способствует укреплению организма и поддержанию его естественных ресурсов. Он помогает при синдроме хронического информационного истощения и преждевременного старения, способствует защите сердечно-сосудистой системы и нормализации обмена веществ. Продукт поддерживает иммунную функцию и ускоряет восстановление организма после операций и травм. Также Tamotsu помогает сохранять когнитивные функции и поддерживает нервную систему при психоэмоциональных и физических перегрузках.</p>
+          <p class="font-medium">Daigo Lux</p>
+          <p class="">Способствует комплексному оздоровлению и балансу в организме. Он эффективно может помочь при дисбактериозе различного происхождения, поддерживает профилактику инфекций, включая Helicobacter pylori, облегчение состояния при хронических заболеваниях ЖКТ. Daigo Lux участвует в снижении проявления аллергических реакций, укреплении естественного иммунитета, ускорении метаболизма, а также поддерживает здоровье и увлажнение кожи, помогая замедлить процессы её старения и сухости.</p>
+        `
+      },
+      composition: {
+        title: 'Состав',
+        content: `
+          <p class="font-medium">Tamotsu</p>
+          <p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), соли кальция (агент антислеживающий).</p>
+          <p class="font-medium">Daigo Lux</p>
+          <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
+
+          <br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+          <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
+          <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
+          <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
+
+          <br><br>Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+        `,
+        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/sostav.png',
+      },
+      usageInstructions: {
+        comboTitle: 'Daigo Lux',
+        groups: [
+          {
+            title: 'Взрослым',
+            steps: [
+              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
+            ]
+          },
+          {
+            title: 'Детям от 1 до 2 лет',
+            steps: [
+              { icon: '/icons/drop.svg', text: '1 капля' },
+              { icon: '/icons/bottle.svg', text: 'Добавить в смесь для кормления' },
+            ]
+          },
+          {
+            title: 'Детям от 2 до 3 лет',
+            steps: [
+              { icon: '/icons/drop.svg', text: '2 капли' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
+            ]
+          },
+          {
+            title: 'Детям от 3 до 6 лет',
+            steps: [
+              { icon: '/icons/drop.svg', text: '4 капли' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
+            ]
+          },
+          {
+            title: 'Детям от 6 до 10 лет',
+            steps: [
+              { icon: '/icons/drop.svg', text: '8 капель' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
+            ]
+          },
+          {
+            title: 'Детям до 10 лет',
+            steps: [
+              { icon: '/icons/drop.svg', text: '25 капель' },
+              { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
+            ]
+          },
+        ],
+        comboTitle2: 'Tamotsu',
+        groups2: [
+          {
+            title: 'Взрослым',
+            steps: [
+              { icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
+              { icon: '/icons/food.svg', text: 'Во время приема пищи' },
+              { icon: '/icons/calendar.svg', text: 'Продолжительность курса - 1 месяц' },
+            ]
+          },
+        ],
+      },
+      productionSection: {
+        type: 'production',
+        title: 'Производство революционных продуктов Daigo Lux и БАД Tamotsu',
+        subtitle: 'Метабиотик премиум-класса Daigo Lux и БАД Tamotsu — инновационные продукты, рождённые на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуюя самым высоким международным стандартам GMP.\n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo Lux. Полный цикл создания метабиотика занимает более двух лет. Плазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка',
+        images: {
+        type: 'gallery',
+        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        bottomImages: [
+          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-1.png',
+          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-2.png',
+        ]
+        },
+      },
+      images: [
+            {
+                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-1.png",
+                is_primary: true,
+                display_order: 0
+            },
+            {
+                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-2.png",
+                is_primary: false,
+                display_order: 0
+            },
+            {
+                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-3.png",
+                is_primary: false,
+                display_order: 0
+            },
+      ],
+      faq: {
+        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/faq-kishechnik-i-mozg.png',
+        items: [
+          { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
+          { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
+          { q: 'Как долго принимать?', a: 'Рекомендуем курс 4–8 недель, далее по самочувствию.' },
+          { q: 'Совместим с антибиотиками?', a: 'Да, часто применяют после курса антибиотиков для восстановления микрофлоры.' },
+          { q: 'Есть ли противопоказания?', a: 'Индивидуальная непереносимость компонентов. При хронических заболеваниях — консультация врача.' }
+        ]
+      }
+    },
     // Daigo 5 ml
     {
       product_id: "71700acb-3584-490b-a5f7-62e8cb57b3c9",
@@ -1759,8 +1923,8 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 44700,
-      originalPrice: null,
+      price: 42000,
+      originalPrice: 44700,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -1966,8 +2130,8 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 134100,
-      originalPrice: null,
+      price: 124200,
+      originalPrice: 134100,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -2173,8 +2337,8 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 268200,
-      originalPrice: null,
+      price: 243000,
+      originalPrice: 268200,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -2380,8 +2544,8 @@ export default defineEventHandler((event) => {
           ]
         }
       ],
-      price: 536400,
-      originalPrice: null,
+      price: 468000,
+      originalPrice: 536400,
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
@@ -2539,12 +2703,12 @@ export default defineEventHandler((event) => {
       slug: 'nabor-supermozg',
       title: 'Набор «СУПЕРМОЗГ»',
       subtitle: '',
-      shortDescription: 'Разум — самый ценный инструмент, который есть у человека. Болезни, возраст, стрессы, бешеный ритм жизни формируют хроническую усталость, информационное истощение и ухудшают функции мозга.\n\nНабор «СУПЕРМОЗГ» включает в себя две уникальные органические добавки — БАД «Tamotsu» (плазмалогены морского гребешка) и COD Liver Oil (Жир печени трески). Идеальный дуэт для ясного ума и энергии мозга',
+      shortDescription: 'Разум — самый ценный инструмент, который есть у человека. Болезни, возраст, стрессы, бешеный ритм жизни формируют хроническую усталость, информационное истощение и ухудшают функции мозга.',
       descriptionSections: [
 
       ],
-      price: 83750,
-      originalPrice: null,
+      price: 84000,
+      originalPrice: 90000,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -2636,21 +2800,21 @@ export default defineEventHandler((event) => {
                 is_primary: true,
                 display_order: 0
             },
-            {
-                image_url: "https://products.s3.firstvds.ru/supermozg/product-2.png",
-                is_primary: false,
-                display_order: 0
-            },
-            {
-                image_url: "https://products.s3.firstvds.ru/supermozg/product-3.png",
-                is_primary: false,
-                display_order: 0
-            },
-            {
-                image_url: "https://products.s3.firstvds.ru/supermozg/product-4.png",
-                is_primary: false,
-                display_order: 0
-            },
+            // {
+            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-2.png",
+            //     is_primary: false,
+            //     display_order: 0
+            // },
+            // {
+            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-3.png",
+            //     is_primary: false,
+            //     display_order: 0
+            // },
+            // {
+            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-4.png",
+            //     is_primary: false,
+            //     display_order: 0
+            // },
       ],
       faq: {
         image: 'https://products.s3.firstvds.ru/supermozg/faq-supermozg.png',
@@ -2673,8 +2837,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 185350,
-      originalPrice: null,
+      price: 174430,
+      originalPrice: 199500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -2898,8 +3062,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 496450,
-      originalPrice: null,
+      price: 474860,
+      originalPrice: 534000,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -3142,8 +3306,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 1146000,
-      originalPrice: null,
+      price: 1021180,
+      originalPrice: 1152400,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -3504,8 +3668,6 @@ export default defineEventHandler((event) => {
 
 
 
-
- 
     // 10 по 10
     {
       product_id: "945d964d-b226-44a3-bda3-52306437f403",
@@ -3701,8 +3863,8 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 127800,
-      originalPrice: null,
+      price: 132430,
+      originalPrice: 154500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -3913,8 +4075,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 180535,
-      originalPrice: null,
+      price: 189530,
+      originalPrice: 207100,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -4130,7 +4292,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 
       ],
       price: 214745,
-      originalPrice: null,
+      originalPrice: 244700,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: '/images/mock/product/lux/lux-poster.jpg',
@@ -4300,8 +4462,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 104450,
-      originalPrice: 104450,
+      price: 105000,
+      originalPrice: 112200,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4412,8 +4574,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 62700,
-      originalPrice: 62700,
+      price: 63000,
+      originalPrice: 67200,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4573,8 +4735,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 44900,
-      originalPrice: 44900,
+      price: 45400,
+      originalPrice: 48400,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4674,8 +4836,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 47110,
-      originalPrice: 47110,
+      price: 50400,
+      originalPrice: 54100,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -4804,8 +4966,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 58270,
-      originalPrice: 58270,
+      price: 59700,
+      originalPrice: 72700,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -4990,8 +5152,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 64215,
-      originalPrice: 64215,
+      price: 68000,
+      originalPrice: 72900,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -5150,8 +5312,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 31470,
-      originalPrice: 31470,
+      price: 33700,
+      originalPrice: 35700,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -5308,8 +5470,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 31470,
-      originalPrice: 31470,
+      price: 33700,
+      originalPrice: 35700,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -5466,8 +5628,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 31470,
-      originalPrice: 31470,
+      price: 33700,
+      originalPrice: 35700,
       category: 'metabiotic',
       isActive: true,
       nabor: {
@@ -5624,8 +5786,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 174245,
-      originalPrice: null,
+      price: 182730,
+      originalPrice: 199700,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
       //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
@@ -5814,6 +5976,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         ]
       }
     },
+
   ]
 
   const product = productsMock.find(p => p.slug === slug)

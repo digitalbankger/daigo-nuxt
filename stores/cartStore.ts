@@ -352,26 +352,16 @@ export const useCartStore = defineStore('cart', () => {
     const trimmed = (code || '').trim()
     if (!trimmed) return
 
-    let res: any
-    if (isAuthenticated.value && userId.value) {
-      res = await cartService.applyUserCoupon(userId.value, trimmed)
-    } else {
-      const sid = ensureGuestSession()
-      res = await cartService.applyGuestCoupon(sid, trimmed)
+    // ⛔ Промокоды доступны только авторизованным пользователям
+    if (!isAuthenticated.value || !userId.value) {
+      throw new Error('Для применения промокода необходимо авторизоваться')
     }
+
+    const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
 
     applyServerCartState(res)
     // На случай асинхронных перерасчётов на бэке:
     await loadCart()
-
-    // YTM: успешное применение купона
-    if (process.client) {
-      try {
-        ytm.promoApply(String(trimmed))
-      } catch {
-        // no-op
-      }
-    }
 
     return res
   }

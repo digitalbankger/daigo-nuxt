@@ -5,7 +5,7 @@ import { useRoute, useRouter, useHead, watchEffect, computed } from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
-import CatalogBanner from '~/components/catalog/CatalogBanner.vue'
+import StaticHeroBanner from '~/components/shared/StaticHeroBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
@@ -16,10 +16,9 @@ const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
 const catalogStore = useCatalogStore()
-const { reach } = useAnalytics()
+const analytics = useAnalytics()
 
 await catalogStore.fetchFilters()
-await catalogStore.fetchCatalogBanner()
 
 const page = computed(() => Number(route.query.page || 1))
 
@@ -90,6 +89,22 @@ watchEffect(() => {
     page_count: catalogStore.totalPages,
     current_page: page.value
   })
+
+  // ✅ Я.Метрика Enhanced Ecommerce (шаг 2 воронки: показ товаров в списке)
+  analytics.viewItemList(
+    'Каталог',
+    list.map((p, idx) => ({
+      id: p.product_id,
+      name: p.name,
+      price: Number(p.price) || 0,
+      position: idx + 1,
+      category: p.tag ? String(p.tag) : undefined,
+      url: `/catalog/${p.slug}`,
+      image_url: p.image,
+      list: 'Каталог'
+    })),
+    route.fullPath
+  )
 })
 // Yandex TagManager end
 
@@ -194,34 +209,19 @@ function closeFilters() {
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <!--<PromoHero
-        class="mt-0 sm:mt-8 mb-8 sm:mb-12"
-        title="Ваш подарок ждет вас - запросить у менеджера!"
-        subtitle="Дарим подарки до 4 ноября"
-        primary="Получить подарок"
-        secondary="Связаться с менеджером"
-        :deadline="'2025-11-04T23:59:59+03:00'"
-        sideNote="Предложение ограничено по времени, до завершения акции осталось:"
-        @primary="openGiftModal"
-        @secondary="onContact"
-      />
-      <PromoLeadModal
-        v-model:open="isLeadOpen"
-        title="Получите свой подарок"
-        subtitle="Менеджер закрепит подарок за вами и свяжется с вами в течение часа"
-        @done="onLeadDone"
-      />-->
+
       <div class="flex flex-row items-centr justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
-      <div class="flex lg:hidden items-center gap-4 mb-6 relative z-10">
-        <div
+
+      <div class="flex  items-center gap-4 mb-6 relative z-10">
+        <!-- <div
           class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
           @click="openFilters"
           aria-label="Открыть фильтры"
         >
           <img src="/icons/filter.svg" width="20" alt="Фильтр" />
-        </div>
+        </div> -->
 
         <div class="flex overflow-x-auto gap-4 no-scrollbar">
           <button
@@ -290,13 +290,9 @@ function closeFilters() {
             />
           </div>
 
-          <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+          <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
-          <CatalogBanner
-            v-if="catalogStore.catalogBanner"
-            :banner="catalogStore.catalogBanner"
-            class="my-5 md:my-10"
-          />
+
 
           <div class="grid grid-cols-2 gap-4 md:gap-6 gap-y-6 md:gap-y-20 md:hidden">
             <ProductCard

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Review } from '~/types/content'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import WaveSurfer from 'wavesurfer.js'
+import { computed, onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
 import { playExclusive } from '~/utils/audioController'
 import { useProductsByIds } from '~/composables/useProductsByIds'
 
@@ -17,7 +16,11 @@ const { items: relatedProducts } = useProductsByIds(ids)
 
 // Аудио
 const waveformRef = ref<HTMLDivElement | null>(null)
-const wavesurfer = ref<WaveSurfer | null>(null)
+
+// ВАЖНО: не делаем это реактивным ref<WaveSurfer|null>, чтобы случайно не триггерить лишние эффекты
+let ws: any = null
+let destroyed = false
+
 const duration = ref<string>('00:00')
 const isPlaying = ref(false)
 
@@ -27,38 +30,67 @@ function formatDuration(seconds: number) {
   return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`
 }
 
-function initWaveSurfer() {
-  if (waveformRef.value && mediaSource.value) {
-    wavesurfer.value = WaveSurfer.create({
-      container: waveformRef.value,
-      waveColor: '#4f8effa3',
-      progressColor: '#4F8EFF',
-      height: 25,
-      barWidth: 3,
-      barGap: 2,
-      barRadius: 3,
-      responsive: true
-    })
+async function initWaveSurfer() {
+  if (process.server) return
+  if (props.review.type !== 'audio') return
+  if (!mediaSource.value) return
+  if (ws || destroyed) return
 
-    wavesurfer.value.load(mediaSource.value)
+  await nextTick()
+  const el = waveformRef.value
+  if (!el || !el.isConnected) return
 
-    wavesurfer.value.on('ready', () => {
-      duration.value = formatDuration(wavesurfer.value?.getDuration() || 0)
-    })
+  const WaveSurfer = (await import('wavesurfer.js')).default
 
-    wavesurfer.value.on('play', () => {
-      isPlaying.value = true
-      playExclusive(wavesurfer.value!)
-    })
+  ws = WaveSurfer.create({
+    container: el,
+    waveColor: '#4f8effa3',
+    progressColor: '#4F8EFF',
+    height: 25,
+    barWidth: 3,
+    barGap: 2,
+    barRadius: 3,
+    responsive: true
+  })
 
-    wavesurfer.value.on('pause', () => {
-      isPlaying.value = false
-    })
-  }
+  ws.load(mediaSource.value)
+
+  ws.on('ready', () => {
+    duration.value = formatDuration(ws?.getDuration?.() || 0)
+  })
+
+  ws.on('play', () => {
+    isPlaying.value = true
+    playExclusive(ws)
+  })
+
+  ws.on('pause', () => {
+    isPlaying.value = false
+  })
+
+  // optional: подавить abort/error в логике, чтобы не засоряло консоль
+  ws.on('error', () => {
+    // можно оставить пустым или логировать аккуратно
+  })
 }
 
 function togglePlay() {
-  wavesurfer.value?.playPause()
+  ws?.playPause?.()
+}
+
+function safeDestroy() {
+  if (!ws || destroyed) return
+  destroyed = true
+
+  try {
+    // если играет — стопаем (уменьшает вероятность гонки)
+    try { ws.pause?.() } catch (_) {}
+    ws.destroy()
+  } catch (_) {
+    // критично: НЕ даём ошибке вылететь наружу, иначе ломает навигацию
+  } finally {
+    ws = null
+  }
 }
 
 function productLink(p: any) {
@@ -68,11 +100,11 @@ function productLink(p: any) {
 }
 
 onMounted(() => {
-  if (props.review.type === 'audio') initWaveSurfer()
+  initWaveSurfer()
 })
 
-onUnmounted(() => {
-  wavesurfer.value?.destroy()
+onBeforeUnmount(() => {
+  safeDestroy()
 })
 </script>
 

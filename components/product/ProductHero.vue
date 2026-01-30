@@ -7,7 +7,7 @@ import { useCartStore } from '~/stores/cartStore'
 const { product } = defineProps<{ product: Product }>()
 const cartStore = useCartStore()
 
-const hasDiscount = computed(() => product.oldPrice && product.oldPrice > product.price)
+const hasDiscount = computed(() => product.originalPrice && product.originalPrice > product.price)
 
 // ✅ строковый ID (UUID)
 const productIdStr = computed(() => {
@@ -57,7 +57,7 @@ async function addToCartHandler() {
       title: product.title,
       subtitle: product.subtitle,
       price: product.price,
-      oldPrice: product.oldPrice,
+      originalPrice: product.originalPrice,
       quantity: 1,
       image: coverImageUrl.value ?? '',
       // можно передать маркер в корзину, если нужно:
@@ -116,6 +116,11 @@ const hasDescription = computed(() => {
   )
 })
 
+const hideBonusBadge = computed(() => {
+  const name = (product.title || '').toLowerCase()
+  return name.includes('сертификат')
+})
+
 onMounted(ensureCartLoadedOnce)
 </script>
 
@@ -128,6 +133,7 @@ onMounted(ensureCartLoadedOnce)
           :images="product.images"
           :has-discount="Boolean(product.oldPrice && product.oldPrice > product.price)"
         />
+
       </div>
 
       <!-- Инфо -->
@@ -184,10 +190,10 @@ onMounted(ensureCartLoadedOnce)
         </div>
 
         <div class="text-2xl mt-6 font-bold flex items-center gap-4">
-          <span v-if="hasDiscount" class="text-black/40 line-through text-base sm:text-2xl xl:text-cardhead font-normal">
-            {{ product.oldPrice?.toLocaleString() }} ₽
+          <span v-if="hasDiscount" class="text-[#FB0C2A] line-through text-base sm:text-2xl xl:text-cardhead font-normal">
+            {{ product.originalPrice?.toLocaleString() }} ₽
           </span>
-          <span :class="hasDiscount ? 'text-cgreen' : 'text-black'" class="text-2xl sm:text-4xl xl:text-product font-medium">
+          <span :class="hasDiscount ? 'text-black' : 'text-black'" class="text-2xl sm:text-4xl xl:text-product font-medium">
             {{ product.price.toLocaleString() }} ₽
           </span>
         </div>
@@ -199,7 +205,7 @@ onMounted(ensureCartLoadedOnce)
             v-if="quantityInCart === 0"
             :disabled="adding || !productIdStr"
             variant="solid"
-            class="w-full sm:w-[50%] disabled:opacity-60"
+            class="w-full sm:w-[50%] disabled:opacity-60  hover:!bg-hoverbtn"
             @click="addToCartHandler"
             :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
           >
@@ -217,7 +223,7 @@ onMounted(ensureCartLoadedOnce)
           <!-- Если есть в корзине — контрол + / − -->
           <div
             v-else
-            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+            class="flex items-center gap-2 bg-[#AF1701] px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
             <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
             <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
@@ -225,7 +231,7 @@ onMounted(ensureCartLoadedOnce)
           </div>
 
           <a href="tel:88005552043" data-ym="header-phone" class="flex w-full sm:w-[50%]">
-            <Button variant="outline" class="w-full">
+            <Button variant="outline" class="w-full hover:!text-black hover:!bg-hoverbtn hover:!border-hoverbtn" >
                             <template #icon>
                 <svg class="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path

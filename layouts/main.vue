@@ -11,7 +11,7 @@
       <NuxtPage />
       <MessageModal />
     </main>
-    <BaseContainer>
+    <BaseContainer v-if="!route.meta.hideFooter">
       <!-- <component :is="isMobile ? FooterMobile : FooterDesctop" /> -->
       <FooterDesctop />
       <MobileNav class="block lg:hidden"/>
@@ -69,6 +69,8 @@ import { useAuthStore } from '@/stores/authStore'
 
 // const ui = useUiStore()
 // onMounted(() => ui.initUi())
+import { useRoute } from 'vue-router'
+const route = useRoute()
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
 

@@ -120,6 +120,7 @@ export interface ProductProductionSection {
 }
 
 export interface Product {
+  originalPrice: number | undefined
   sort: number
   product_id: number
   slug: string

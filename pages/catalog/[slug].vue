@@ -269,6 +269,17 @@ onMounted(() => {
 
   const ytm = useYtm()
 
+  // ✅ Я.Метрика Enhanced Ecommerce (шаг 4 воронки: просмотр карточки товара)
+  const analytics = useAnalytics()
+  analytics.viewItem({
+    id: product.value.product_id,
+    name: product.value.title,
+    price: Number(product.value.price) || 0,
+    url: `/catalog/${product.value.slug}`,
+    image_url: product.value.images?.[0]?.image_url,
+    brand: 'Daigo'
+  })
+
   ytm.viewDetail({
     currency: 'RUB',
     brand: 'Daigo',

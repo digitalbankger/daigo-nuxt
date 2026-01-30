@@ -17,8 +17,8 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   const page = ref(1)
 
-  // Сколько показываем на странице: 10 на мобиле, 9 на десктопе
-  const perPageDisplayed = computed(() => (device.isMobile ? 10 : 9))
+  // Сколько на странице: 10 на мобиле, 9 на десктопе
+  const perPageDisplayed = computed(() => (device.isMobile ? 16 : 15))
   const totalPages = ref(1)
 
   // Кэш полного списка для facet-счётчиков и локального total

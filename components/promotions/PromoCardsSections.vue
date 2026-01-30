@@ -55,14 +55,14 @@ async function handleApply(promotion: Promotion) {
       typeof res?.discount_percent === 'number'
 
     modalStore.show({
-      title: success ? '✅ Успешно' : '❌ Ошибка',
+      title: success ? '✅ Успешно' : 'Что-то пошло не так',
       message:
         res?.message ||
         (success ? 'Акция применена' : 'Не удалось применить акцию'),
     })
   } catch (e: any) {
     modalStore.show({
-      title: '❌ Ошибка',
+      title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось применить акцию',
     })
   }
@@ -75,7 +75,7 @@ async function handleCancel() {
     modalStore.show({ title: 'Готово', message: 'Акция отменена' })
   } catch (e: any) {
     modalStore.show({
-      title: '❌ Ошибка',
+      title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось отменить акцию',
     })
   }
