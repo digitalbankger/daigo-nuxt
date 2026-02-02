@@ -36,8 +36,20 @@
         />
         <UiButton variant="outline" class="!w-4/5">Подписаться</UiButton>
         
-        <BaseCheckbox v-model="agree">
-          <a href="/privacy" class="">Принимаю политику конфиденциальности</a>
+        <BaseCheckbox v-model="agreeRequired">
+          <span>
+            Я принимаю
+            <a href="/privacy" class="underline">политику конфиденциальности</a>
+            и
+            <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
+          </span>
+        </BaseCheckbox>
+
+        <BaseCheckbox v-model="agreeMarketing">
+          <span>
+            Я даю согласие на получение информационных и рекламных рассылок
+            (<a href="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok" class="underline">условия</a>)
+          </span>
         </BaseCheckbox>
 
       </form>
@@ -52,13 +64,14 @@ import UiButton from '~/components/ui/Button.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const email = ref('')
-const agree = ref(false)
+const agreeRequired = ref(false)
+const agreeMarketing = ref(false)
 
 function submit() {
-  if (!agree.value) {
-    alert('Необходимо согласие с политикой конфиденциальности')
+  if (!agreeRequired.value) {
+    alert('Необходимо согласие с политикой конфиденциальности и обработкой персональных данных')
     return
   }
-  console.log('Подписка:', email.value)
+  console.log('Подписка:', { email: email.value, agreeMarketing: agreeMarketing.value })
 }
 </script>

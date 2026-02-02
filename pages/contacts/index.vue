@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useHead } from '@unhead/vue'
 import { computed, ref } from 'vue'
 import { useFeedback } from '~/composables/useFeedback'
@@ -264,10 +265,14 @@ async function submitCallback() {
                 <!-- honeypot (анти-бот, невидимое поле) -->
                 <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
 
-                <label class="flex items-center gap-2 text-sm">
-                  <input type="checkbox" v-model="agree" />
-                  <span>Принимаю политику конфиденциальности</span>
-                </label>
+                <BaseCheckbox v-model="agree">
+                  <span class="text-sm">
+                    Я принимаю
+                    <a href="/privacy" class="underline">политику конфиденциальности</a>
+                    и
+                    <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
+                  </span>
+                </BaseCheckbox>
                 <p v-if="errors.agree" class="text-red-600 text-sm -mt-2">{{ errors.agree }}</p>
 
                 <button

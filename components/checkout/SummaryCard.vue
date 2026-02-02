@@ -10,6 +10,7 @@ import UiInput from '../ui/UiInput.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 import PaymentWarning from './PaymentWarning.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const analytics = useAnalytics()
 const cartStore = useCartStore()
@@ -24,6 +25,10 @@ const form = cartStore.userForm
 
 // промокод в поле
 const coupon = ref('')
+
+// согласие с документами (обязательно для оформления)
+const agreeRequired = ref(false)
+const agreeErr = ref('')
 
 // ошибки
 const errors = reactive<{ fullName: string; phone: string }>({ fullName: '', phone: '' })
@@ -108,7 +113,7 @@ const finalTotal = computed(() => {
 })
 
 // Сумма корзины для расчёта лимитов по списанию бонусов
-const cartTotalForBonusCalc = computed(() => Number(finalTotal.value || 0))
+const cartTotalForBonusCalc = computed(() => Number(grandTotal.value || 0))
 
 async function refreshBonusCalc() {
   if (props.mode !== 'checkout') return
@@ -220,6 +225,8 @@ async function startCodeFlowIfNeeded() {
 }
 
 async function verifyAndContinue() {
+  agreeErr.value = agreeRequired.value ? '' : 'Нужно принять условия'
+  if (!agreeRequired.value) return
   if (!canSubmitCode.value) return
   await authStore.confirmCode(codeValue.value)
   // после успешной верификации продолжаем прежний флоу: preOrder -> /order
@@ -266,6 +273,11 @@ function validateFields() {
 
 async function handleCta() {
   if (props.mode === 'checkout') { emit('cta'); return }
+
+  agreeErr.value = agreeRequired.value ? '' : 'Нужно принять условия'
+  if (!agreeRequired.value) {
+    return
+  }
 
   analytics?.reach?.('lead_cart')
 
@@ -356,6 +368,19 @@ async function removeCoupon() {
           background="bg-white"
           @blur="errors.phone = phoneDigits.length === 11 ? '' : 'Введите номер'"
         />
+      </div>
+
+      <!-- согласие (обязательно) -->
+      <div class="space-y-1">
+        <BaseCheckbox v-model="agreeRequired">
+          <span class="text-xs text-black/50">
+            Я принимаю
+            <a href="/privacy" class="underline">политику конфиденциальности</a>
+            и
+            <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
+          </span>
+        </BaseCheckbox>
+        <p v-if="agreeErr" class="text-red-600 text-xs">{{ agreeErr }}</p>
       </div>
 
       <!-- БЫЛО: "ждём подтверждения пуша" — УБРАНО. -->
@@ -507,7 +532,7 @@ async function removeCoupon() {
         <template #right>
           <button
             type="button"
-            class="ml-2 text-white bg-cgreen hover:opacity-80 transition"
+            class="ml-2 text-white bg-cgreen rounded-md p-3 hover:opacity-80 transition -me-3"
             @click="applyBonuses"
           >
             Использовать
@@ -571,7 +596,7 @@ async function removeCoupon() {
     <PaymentWarning v-if="props.mode === 'checkout'"/>
 
     <!-- Кнопка в режиме checkout -->
-    <div v-if="props.mode === 'checkout'" class="pt-4">
+    <div v-if="props.mode === 'checkout'" class="pt-2">
       <Button variant="solid" class="w-full bg-black text-white py-3 rounded-lg transition" @click="handleCta">
         Оформить заказ
       </Button>
