@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
     public: {
       apiBase: process.env.API_BASE || '/api',
-      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
+      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru/api',
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
       ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751',
     }
