@@ -53,13 +53,6 @@
           <!-- honeypot для антиспама -->
           <input v-model="form.trap" type="text" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-          <BaseCheckbox v-model="agreeRequired">
-            <span class="text-xs text-black/60">
-              Я принимаю <a href="/privacy" class="underline">политику конфиденциальности</a> и <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-            </span>
-          </BaseCheckbox>
-          <p v-if="agreeErr" class="text-sm text-red-600 -mt-2">{{ agreeErr }}</p>
-
         <button
             type="submit"
             :disabled="busy || !isValid"
@@ -79,7 +72,6 @@
 <script setup lang="ts">
 import { reactive, ref, computed, nextTick } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
-import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const emits = defineEmits<{(e:'update:open', v:boolean):void; (e:'done'):void }>()
 const props = withDefaults(defineProps<{
@@ -101,9 +93,6 @@ const busy = ref(false)
 const error = ref('')
 const ok = ref(false)
 const touched = reactive({ name: false, phone: false })
-
-const agreeRequired = ref(false)
-const agreeErr = ref('')
 
 // нормализация телефона
 const normalizePhone = (val: string) => {
@@ -132,14 +121,12 @@ function onBlurPhone() {
   errors.phone = isPhoneValid() ? '' : 'Введите телефон'
 }
 
-const isValid = computed(() => isNameValid() && isPhoneValid() && !form.trap && agreeRequired.value)
+const isValid = computed(() => isNameValid() && isPhoneValid() && !form.trap)
 
 async function submit() {
   touched.name = touched.phone = true
   errors.fullName = isNameValid() ? '' : 'Введите ФИО'
   errors.phone = isPhoneValid() ? '' : 'Введите телефон'
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
 
   if (!isValid.value) {
     if (!isNameValid()) {

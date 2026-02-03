@@ -34,13 +34,9 @@ await load()
 // форма
 const message = ref('')
 const sending = ref(false)
-const agreeRequired = ref(false)
-const agreeErr = ref('')
 
 async function submit() {
   if (!props.canPost) return
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
-  if (!agreeRequired.value) return
   const text = message.value.trim()
   if (!text) return
   sending.value = true
@@ -100,13 +96,6 @@ const count = computed(() => comments.value.length)
           {{ sending ? 'Отправляем…' : 'Отправить' }}
         </Button>
       </div>
-
-      <BaseCheckbox v-model="agreeRequired" :disabled="!canPost || sending">
-        <span class="text-xs text-black/50">
-          Я принимаю <a href="/privacy" class="underline">политику конфиденциальности</a> и <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-        </span>
-      </BaseCheckbox>
-      <p v-if="agreeErr" class="text-red-600 text-sm -mt-1">{{ agreeErr }}</p>
 
       <!-- Заглушка авторизации -->
       <p v-if="!canPost" class="mt-2 text-xs text-black/50">

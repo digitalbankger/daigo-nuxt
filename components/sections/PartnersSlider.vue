@@ -65,6 +65,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 
 import PartnerCard from '@/components/PartnerCard.vue'
+import { link } from 'fs'
 
 const swiperRef = ref()
 const currentSlide = ref(0)

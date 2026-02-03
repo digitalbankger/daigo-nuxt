@@ -6,7 +6,7 @@ const props = defineProps<{
   placeholder?: string
   label?: string
   error?: string | boolean
-  type?: 'text' | 'tel' | 'email' | 'number' | 'password' | 'date'
+  type?: 'text' | 'tel' | 'email' | 'number' | 'password'
   editable?: boolean
   mask?: 'ru-phone' | string
   disabled?: boolean
@@ -27,7 +27,6 @@ const emit = defineEmits<{
   (e: 'focus'): void
   (e: 'enter'): void
   (e: 'clear'): void
-  (e: 'keydown', ev: KeyboardEvent): void
 }>()
 
 const inputEl = ref<HTMLInputElement | null>(null)
@@ -50,7 +49,6 @@ onMounted(() => {
 })
 
 function onKeydown(e: KeyboardEvent) {
-  emit('keydown', e)
   if (e.key === 'Enter') emit('enter')
 }
 

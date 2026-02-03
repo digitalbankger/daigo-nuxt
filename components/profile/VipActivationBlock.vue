@@ -30,9 +30,6 @@ const showModal = ref(false)
 const modalText = ref('')
 const isSuccess = ref(false)
 
-const agreeRequired = ref(false)
-const agreeErr = ref('')
-
 function setInputRef(el: HTMLInputElement | null, index: number) {
   inputRefs.value[index] = el
 }
@@ -68,8 +65,6 @@ function mapError(err?: string) {
 
 async function submitCode() {
   if (!canSubmit.value || loading.value) return
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
-  if (!agreeRequired.value) return
 
   try {
     loading.value = true
@@ -208,13 +203,6 @@ onBeforeUnmount(() => {
             @keydown.backspace="onBackspace(index, $event)"
           />
         </div>
-
-        <BaseCheckbox v-model="agreeRequired">
-          <span class="text-xs text-black/60">
-            Я принимаю <a href="/privacy" class="underline">политику конфиденциальности</a> и <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-          </span>
-        </BaseCheckbox>
-        <p v-if="agreeErr" class="text-sm text-red-600 -mt-2">{{ agreeErr }}</p>
 
         <Button type="submit" :disabled="!canSubmit || loading">
           <span v-if="!loading">Активировать VIP</span>

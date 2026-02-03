@@ -1,10 +1,7 @@
 <template>
-  <label
-    class="inline-flex items-center gap-2 select-none"
-    :class="props.disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'"
-  >
+  <label class="inline-flex items-center cursor-pointer gap-2 select-none">
     <div
-      class="relative w-6 xs:w-5 h-6 xs:h-5 border border-black rounded-none flex items-center justify-center transition-all duration-300"
+      class="relative w-6 xs:w-5 h-6 xs:h-5 border border-black rounded-sm flex items-center justify-center transition-all duration-300"
       :class="{ 'bg-transparent': modelValue }"
       @click.stop.prevent="toggle"
     >
@@ -29,7 +26,6 @@
 <script setup lang="ts">
 const props = defineProps<{
   modelValue: boolean
-  disabled?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -37,7 +33,6 @@ const emit = defineEmits<{
 }>()
 
 function toggle() {
-  if (props.disabled) return
   emit('update:modelValue', !props.modelValue)
 }
 </script>

@@ -7,7 +7,6 @@ import { useOrderStore } from '@/stores/orderStore'
 import { statusLabel } from '@/composables/useOrderStatus'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '~/composables/useYtm'
-import { fetchOrderThanks, type OrderThanksResponse } from '@/services/orderService'
 
 definePageMeta({ layout: 'main', ssr: false })
 
@@ -70,7 +69,6 @@ const store = useOrderStore()
 
 const receipt = ref<OrderReceipt | null>(null)
 const orderFromHistory = ref<any | null>(null)
-const orderThanks = ref<OrderThanksResponse | null>(null)
 const isLoading = ref(false)
 
 function fmtPrice(n: number) {
@@ -79,18 +77,6 @@ function fmtPrice(n: number) {
 
 const displayItems = computed<ReceiptItem[]>(() => {
   if (receipt.value?.items?.length) return receipt.value.items
-
-  // 1) приоритет: backend /v1/shop/order/thanks/:id
-  if (orderThanks.value?.items?.length) {
-    return orderThanks.value.items.map((it, idx) => ({
-      id: String(idx),
-      name: String(it.name ?? 'Товар'),
-      price: Number(it.price ?? 0),
-      quantity: Number(it.quantity ?? 1),
-      image: null,
-    }))
-  }
-
   const items = orderFromHistory.value?.items
   if (!Array.isArray(items)) return []
   return items.map((it: any) => ({
@@ -104,17 +90,12 @@ const displayItems = computed<ReceiptItem[]>(() => {
 
 const total = computed(() => {
   if (receipt.value) return Number(receipt.value.total ?? 0)
-
-  if (orderThanks.value) {
-    return Number(orderThanks.value.total_amount ?? 0)
-  }
-
   const t = orderFromHistory.value?.total ?? orderFromHistory.value?.total_amount
   return Number(t ?? 0)
 })
 
 const status = computed(() => {
-  const s = orderThanks.value?.status ?? orderFromHistory.value?.status
+  const s = orderFromHistory.value?.status
   return s ? statusLabel(s) : 'В обработке'
 })
 
@@ -221,20 +202,7 @@ async function loadOrder() {
     // 1) пытаемся взять из sessionStorage (быстро)
     tryLoadReceiptFromSession()
 
-    // 2) приоритет: забрать данные для "Спасибо" с бекенда
-    //    GET /v1/shop/order/thanks/:id
-    if (orderId.value) {
-      try {
-        const numeric = Number(String(orderId.value).replace(/^0+/, ''))
-        if (Number.isFinite(numeric) && numeric > 0) {
-          orderThanks.value = await fetchOrderThanks(numeric)
-        }
-      } catch {
-        orderThanks.value = null
-      }
-    }
-
-    // 3) подтягиваем историю заказов и ищем нужный (fallback, если thanks не отдал)
+    // 2) подтягиваем историю заказов и ищем нужный
     if (!store.orders?.length) {
       await store.loadOrderHistory()
     }

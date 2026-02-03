@@ -3,7 +3,6 @@ import { ref, computed, reactive } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import UiInput from '@/components/ui/UiInput.vue'
 import Button from '@/components/ui/Button.vue'
-import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 
 const auth = useAuthStore()
 
@@ -12,9 +11,6 @@ const mode = ref<Mode>('login')
 
 const phone = ref('')
 const name = ref('')
-
-const agreeRequired = ref(false)
-const agreeErr = ref('')
 
 const isLoading = ref(false)
 const errors = reactive<{ name: string; phone: string; code: string }>({
@@ -26,7 +22,7 @@ const errors = reactive<{ name: string; phone: string; code: string }>({
 const digits = (v: string) => v.replace(/\D/g, '')
 const isPhoneValid = computed(() => digits(phone.value).length >= 11)
 const isNameValid = computed(() => mode.value === 'login' || name.value.trim().length >= 2)
-const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && agreeRequired.value && !isLoading.value)
+const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && !isLoading.value)
 
 // ======= ШАГ 2: 4 квадрата кода =======
 const codeDigits = ref<string[]>(['', '', '', ''])
@@ -80,8 +76,6 @@ function validateCode() { errors.code = canSubmitCode.value ? '' : 'Введит
 async function submitPhone() {
   validateName()
   validatePhone()
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
-  if (!agreeRequired.value) return
   if (!canSubmitPhone.value) return
   isLoading.value = true
   try {
@@ -182,12 +176,9 @@ async function resend() {
         </span>
       </Button>
 
-      <BaseCheckbox v-model="agreeRequired">
-        <span class="text-xs text-gray-500">
-          Я принимаю <a href="/privacy" class="underline">политику конфиденциальности</a> и <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-        </span>
-      </BaseCheckbox>
-      <p v-if="agreeErr" class="text-sm text-red-600 -mt-2">{{ agreeErr }}</p>
+      <p class="text-xs text-gray-500">
+        Нажимая кнопку, вы даёте согласие на обработку персональных данных.
+      </p>
     </form>
 
     <!-- Шаг 2: ввод кода (4 квадрата) -->
@@ -221,12 +212,6 @@ async function resend() {
           </span>
         </Button>
       </div>
-
-      <BaseCheckbox v-model="agreeRequired" :disabled="true">
-        <span class="text-xs text-gray-500">
-          Я принимаю <a href="/privacy" class="underline">политику конфиденциальности</a> и <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-        </span>
-      </BaseCheckbox>
 
       <div class="text-sm text-gray-600 space-y-1">
         <div>

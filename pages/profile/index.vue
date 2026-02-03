@@ -3,6 +3,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProfileField from '~/components/profile/ProfileField.vue'
 import AddressDropdown from '~/components/profile/AddressDropdown.vue'
 import VipActivationBlock from '~/components/profile/VipActivationBlock.vue'
+import RaffleTicket from '~/components/profile/RaffleTicket.vue'
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { storeToRefs } from 'pinia'
@@ -266,17 +267,8 @@ function formatDate(date?: string | null) {
   return `${d}.${m}.${y}`
 }
 
-async function updateField(field: string, value: string) {
-
-  const v = String(value ?? '').trim()
-
-  const nullableFields = new Set(['email', 'last_name', 'birth_day'])
-
-  const payload: Record<string, any> = {
-    [field]: nullableFields.has(field) && v === '' ? null : v
-  }
-
-  await userStore.saveProfile(payload)
+function updateField(field: string, value: string) {
+  userStore.saveProfile({ [field]: value })
 }
 
 function saveAddress(index: number, address: any) {
@@ -416,7 +408,7 @@ function deleteAddress(index: number) {
             { field: 'last_name',   label: 'Фамилия',      placeholder: 'Фамилия',      value: profile.last_name },
             { field: 'phone_number',label: 'Телефон',      placeholder: '+7 (___) ___-__-__', value: profile.phone_number, type: 'tel' },
             { field: 'email',       label: 'Email',        placeholder: 'Email',        value: profile.email, type: 'email' },
-            { field: 'birth_day', label: 'Дата рождения', placeholder: 'Дата рождения', value: profile.birth_day, type: 'date' }
+            { field: 'birth_day',   label: 'Дата рождения',placeholder: 'Дата рождения',value: profile.birth_day }
           ]"
           :key="it.field"
           :label="it.label"

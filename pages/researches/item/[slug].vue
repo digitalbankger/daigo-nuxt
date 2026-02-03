@@ -8,7 +8,6 @@ import AccordionItem from '~/components/ui/AccordionItem.vue'
 import { useResearchStore } from '~/stores/researchStore'
 import type { ArticleDetail } from '~/types/articles'
 import UiInput from '~/components/ui/UiInput.vue'
-import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useNewsletter } from '~/composables/useNewsletter'
 
 definePageMeta({ layout: 'main' })
@@ -118,11 +117,6 @@ const email = ref('')
 const success = ref(false)
 const emailErr = ref<string | boolean>('')
 
-const agreeRequired = ref(false)
-// необязательное согласие на рассылки (форма подписки)
-const agreeMarketing = ref(false)
-const agreeErr = ref('')
-
 const { loading, error: subscribeError, subscribe } = useNewsletter()
 
 const emailValid = computed(() =>
@@ -138,8 +132,6 @@ function validateEmail() {
 
 async function submitSubscribe() {
   if (loading.value) return
-  agreeErr.value = agreeRequired.value ? '' : 'Необходимо согласие'
-  if (!agreeRequired.value) return
   if (!validateEmail()) return
 
   // (опционально) нормализуем
@@ -384,24 +376,11 @@ async function submitSubscribe() {
       >
         {{ loading ? 'Отправка…' : 'Отправить' }}
       </Button>
-      <div class="w-full flex flex-col gap-2 sm:order-3">
-        <BaseCheckbox v-model="agreeRequired">
-          <span>
-            Я принимаю
-            <a href="/privacy" class="underline">политику конфиденциальности</a>
-            и
-            <a href="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">согласие на обработку персональных данных</a>
-          </span>
-        </BaseCheckbox>
-        <BaseCheckbox v-model="agreeMarketing">
-          <span>
-            Я даю согласие на получение информационных и рекламных рассылок
-            (<a href="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok" class="underline">условия</a>)
-          </span>
-        </BaseCheckbox>
-        <p v-if="agreeErr" class="text-xs md:text-sm text-white/90">{{ agreeErr }}</p>
-      </div>
     </form>
+
+    <p v-if="!success" class="text-xs md:text-sm text-white/80 mt-1">
+      Нажимая «Отправить», вы соглашаетесь с условиями обработки персональных данных.
+    </p>
   </div>
 </section>
 
