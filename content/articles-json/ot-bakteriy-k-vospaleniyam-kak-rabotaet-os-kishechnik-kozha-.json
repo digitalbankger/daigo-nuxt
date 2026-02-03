@@ -8,7 +8,16 @@
   "time": 10,
   "views": 26074,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "dermatology",
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut",
+      "skin"
+    ]
+  },
   "description": "Связь кожи и кишечника",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/596/840_492_1/fb47bx7wljvigv2ory323l30lon2s17q.jpg",
   "breadcrumbs": [

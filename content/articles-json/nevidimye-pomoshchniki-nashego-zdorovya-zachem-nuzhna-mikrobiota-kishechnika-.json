@@ -8,7 +8,14 @@
   "time": 8,
   "views": 70263,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ]
+  },
   "description": "Что такое микробиота кишечника?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/55e/840_470_1/08wwykmue5teiuvf86smebj1art2gnrj.png",
   "breadcrumbs": [

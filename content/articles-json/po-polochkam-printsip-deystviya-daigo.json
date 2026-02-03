@@ -8,7 +8,20 @@
   "time": 16,
   "views": 56959,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ],
+    "klass-produkta": [
+      "metabiotics"
+    ],
+    "produkty": [
+      "daigo"
+    ]
+  },
   "description": "Баланс между этими группами микроорганизмов определяет состояние микрофлоры и, как следствие, здоровье человека. К основным причинам нарушения баланса микрофлоры относятся:",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f17/840_471_1/webpl55x9sjwkrzth57e4q2wkni9prxa.jpg",
   "breadcrumbs": [

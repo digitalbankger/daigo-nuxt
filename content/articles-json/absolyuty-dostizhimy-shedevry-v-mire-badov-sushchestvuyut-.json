@@ -8,7 +8,20 @@
   "time": 11,
   "views": 57865,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ],
+    "klass-produkta": [
+      "metabiotics"
+    ],
+    "produkty": [
+      "daigo"
+    ]
+  },
   "description": "Представьте себе картину великого художника или архитектурный ансамбль, от которого захватывает дух. Настоящий шедевр не просто радует глаз — он меняет наше представление о возможном и задаёт ориентиры для всей индустрии. В данной статье мы приоткроем тайну производства самых передовых продуктов в мире БАДов и покажем, как Daigo возвёл нутрицевтику в ранг настоящего искусства.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/8b4/840_560_1/keiiwy6vtqucas8x7qlmwuakiuoaj3on.png",
   "breadcrumbs": [

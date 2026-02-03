@@ -8,7 +8,20 @@
   "time": 8,
   "views": 86385,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ],
+    "klass-produkta": [
+      "aminobiotics"
+    ],
+    "produkty": [
+      "dermic"
+    ]
+  },
   "description": "Что такое пептиды?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/bf9/840_557_1/8oz7jvynlfxt67sf7klahd7tuhjaqa5b.png",
   "breadcrumbs": [

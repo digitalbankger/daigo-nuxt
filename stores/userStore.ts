@@ -64,26 +64,13 @@ export const useUserStore = defineStore('user', () => {
   }
 
   async function saveProfile(patch: Partial<UserProfile>) {
-    const auth = useAuthStore()
-
-    // ✅ ВАЖНО: корректно определяем ID для обновления
-    const daigoId =
-      auth.userId ??
-      (profile.value as any)?.daigo_id ??
-      (profile.value as any)?.id ??
-      null
-
-    if (!daigoId) return
-
+    if (!profile.value?.id) return
     try {
-      const updated = await updateUser(daigoId, patch)
-      profile.value = { ...(profile.value as any), ...updated }
+      const updated = await updateUser(profile.value.id, patch)
+      profile.value = { ...profile.value, ...updated }
       log('[user] saveProfile ok', Object.keys(patch))
-      return updated
     } catch (e) {
       log('[user] saveProfile error', e)
-      // ✅ важно: чтобы страница могла показать ошибку и чтобы было видно в консоли
-      throw e
     }
   }
 

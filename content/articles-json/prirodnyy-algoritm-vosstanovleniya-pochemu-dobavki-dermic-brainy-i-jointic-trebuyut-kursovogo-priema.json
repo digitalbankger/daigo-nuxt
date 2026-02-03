@@ -8,7 +8,22 @@
   "time": 8,
   "views": 77166,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology",
+      "immunology"
+    ],
+    "pomogaet-pri": [
+      "gut",
+      "immunity"
+    ],
+    "klass-produkta": [
+      "aminobiotics"
+    ],
+    "produkty": [
+      "dermic"
+    ]
+  },
   "description": "Тихая революция в организме: что может натуральный короткий пептид из Chlorella pyrenoidosa?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/412/840_407_1/0z2zws8r5u4b0wi325tmil6sw9l8lu9z.png",
   "breadcrumbs": [

@@ -151,34 +151,9 @@ export async function cancelOrder(
       method: 'POST',
       headers: authHeaders(),
       body: {
-        reason,
-        comment,
+        reason, 
+        comment,  
       },
-    })
-  } catch (e: any) {
-    throw toReadableError(e)
-  }
-}
-
-/** Данные для страницы "Спасибо" по номеру заказа */
-export type OrderThanksResponse = {
-  order_id: number
-  total_amount: string | number
-  items: Array<{
-    name: string
-    quantity: number
-    price: number
-  }>
-  status?: string
-}
-
-/** Получить данные для страницы "Спасибо" */
-export async function fetchOrderThanks(orderId: number | string): Promise<OrderThanksResponse> {
-  const { public: { daigoApiBase } } = useRuntimeConfig()
-
-  try {
-    return await $fetch<OrderThanksResponse>(`${daigoApiBase}/v1/shop/order/thanks/${orderId}`, {
-      headers: authHeaders(),
     })
   } catch (e: any) {
     throw toReadableError(e)

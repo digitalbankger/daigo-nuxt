@@ -8,7 +8,25 @@
   "time": 8,
   "views": 51863,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "dermatology",
+      "gastroenterology",
+      "immunology"
+    ],
+    "pomogaet-pri": [
+      "gut",
+      "immunity",
+      "skin"
+    ],
+    "klass-produkta": [
+      "aminobiotics",
+      "metabiotics"
+    ],
+    "produkty": [
+      "daigo"
+    ]
+  },
   "description": "Мир меняется с невероятной скоростью. Чтобы оставаться здоровыми и сохранять высокий уровень жизненной энергии, важно не просто следовать за инновациями, а выбирать лучшие из них. Сегодня самые эффективные добавки — это симбиоз актуальных научных открытий и доказанной эффективности. В этой статье мы расскажем, почему пептид хлореллы в сочетании с аминокислотами стал настоящим прорывом в нутрицевтике, и как он помогает поддерживать здоровье суставов, молодость кожи и ясность ума.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/172/840_559_1/zzxbqw3zph87560h7ju31xmc9lgrmcev.png",
   "breadcrumbs": [

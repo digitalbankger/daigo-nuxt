@@ -8,7 +8,20 @@
   "time": 8,
   "views": 94739,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ],
+    "klass-produkta": [
+      "aminobiotics"
+    ],
+    "produkty": [
+      "dermic"
+    ]
+  },
   "description": "Хлорелла и спирулина — одни из самых популярных суперфудов последних лет. Обе — микроводоросли с богатым составом, высоко ценятся за свои питательные и оздоравливающие свойства. Но при всей внешней схожести, между ними есть принципиальные различия. В этой статье мы разберём, чем же хлорелла и спирулина отличаются, и какая из водорослей действительно заслуживает места в вашем рационе.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/54d/840_560_1/edw1b8dnl60o3k11ta0bj5raflbpuehr.png",
   "breadcrumbs": [

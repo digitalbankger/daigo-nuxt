@@ -8,7 +8,20 @@
   "time": 7,
   "views": 41234,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology"
+    ],
+    "pomogaet-pri": [
+      "gut"
+    ],
+    "klass-produkta": [
+      "aminobiotics"
+    ],
+    "produkty": [
+      "dermic"
+    ]
+  },
   "description": "Иногда самые мощные природные решения выглядят скромно. Хлорелла — микроскопическая зелёная водоросль, но в её клетках скрывается потенциал, способный изменить самочувствие, внешний вид и уровень энергии. Хлореллу называют суперфудом — и не зря. Что делает эту водоросль такой особенной? Мы собрали 9 причин, которые помогают по-настоящему оценить её силу.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/6fb/840_560_1/2uh3lwzdwqwsu0oqoruqn07s30xt262a.png",
   "breadcrumbs": [

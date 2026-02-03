@@ -8,7 +8,16 @@
   "time": 8,
   "views": 25677,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "gastroenterology",
+      "immunology"
+    ],
+    "pomogaet-pri": [
+      "gut",
+      "immunity"
+    ]
+  },
   "description": "Связь иммунитета и заболеваний суставов",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/3cd/840_470_1/al9c7476ffznxraoc91swa47e1vk6h4m.png",
   "breadcrumbs": [

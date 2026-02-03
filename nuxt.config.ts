@@ -6,13 +6,12 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dadataToken: process.env.NUXT_DADATA_TOKEN || 'ac0fc720467713631eff0602ba19a2648c34f21d',
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
-      daigoApiBase: process.env.NUXT_DAIGO_API_BASE || 'http://shop-service:8083',
-
-      public: {
-        // ✅ фронт ходит только на свой же /api
-        apiBase: process.env.API_BASE || '/api',
-        ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751',
-      }
+    public: {
+      apiBase: process.env.API_BASE || '/api',
+      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
+      testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
+      ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751',
+    }
   },
 
   routeRules: {

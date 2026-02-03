@@ -8,7 +8,26 @@
   "time": 13,
   "views": 50203,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "dermatology",
+      "gastroenterology",
+      "immunology"
+    ],
+    "pomogaet-pri": [
+      "gut",
+      "immunity",
+      "skin"
+    ],
+    "klass-produkta": [
+      "aminobiotics",
+      "metabiotics"
+    ],
+    "produkty": [
+      "daigo",
+      "dermic"
+    ]
+  },
   "description": "От микроводоросли до премиум формулы: как создаются Daigo Brainy, Daigo Jointic и Daigo Dermic?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/d36/840_472_1/b57w25t4bo1nzxzona8ctdd42umb2m3l.jpg",
   "breadcrumbs": [

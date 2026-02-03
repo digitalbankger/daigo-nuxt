@@ -1,21 +1,13 @@
-// services/userService.ts
 import { api } from './api'
 
 export interface UserProfile {
-  /**
-   * В проекте исторически встречаются оба варианта:
-   * - id (иногда == daigo_id)
-   * - daigo_id (публичный идентификатор пользователя)
-   */
   id: string | number
-  daigo_id?: string | number
-
   first_name: string
   last_name: string
   email: string | null
   phone_number: string
   birth_day?: string | null
-  loyalty_status: string | null
+  loyalty_status: 'none' | 'bronze' | 'silver' | 'gold' | 'platinum'
   recipient?: string
   addresses: any[] | null
   cards: any[] | null
@@ -27,21 +19,11 @@ export interface UserProfile {
 }
 
 export const fetchUser = async (daigoId: number | string) => {
-  const id = encodeURIComponent(String(daigoId))
-  const { data } = await api.get<UserProfile>(`/v1/auth/user/${id}`)
+  const { data } = await api.get<UserProfile>(`/v1/auth/user/${daigoId}`)
   return data
 }
 
 export const updateUser = async (daigoId: number | string, patch: Partial<UserProfile>) => {
-  const id = encodeURIComponent(String(daigoId))
-  const { data } = await api.patch<UserProfile>(
-    `/v1/auth/user/${id}/update`,
-    patch,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }
-  )
+  const { data } = await api.patch<UserProfile>(`/v1/auth/user/${daigoId}/update`, patch)
   return data
 }
