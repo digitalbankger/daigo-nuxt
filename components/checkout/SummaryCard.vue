@@ -373,7 +373,7 @@ async function removeCoupon() {
       <!-- согласие (обязательно) -->
       <div class="space-y-1">
         <BaseCheckbox v-model="agreeRequired">
-          <span class="text-xs text-black/50">
+          <span class="text-xs text-black/60">
             Я принимаю
             <a href="/privacy" class="underline">политику конфиденциальности</a>
             и
@@ -532,7 +532,7 @@ async function removeCoupon() {
         <template #right>
           <button
             type="button"
-            class="ml-2 text-white bg-cgreen rounded-md p-3 hover:opacity-80 transition -me-3"
+            class="ml-2 text-white bg-cgreen hover:opacity-80 transition"
             @click="applyBonuses"
           >
             Использовать
@@ -596,7 +596,7 @@ async function removeCoupon() {
     <PaymentWarning v-if="props.mode === 'checkout'"/>
 
     <!-- Кнопка в режиме checkout -->
-    <div v-if="props.mode === 'checkout'" class="pt-2">
+    <div v-if="props.mode === 'checkout'" class="pt-4">
       <Button variant="solid" class="w-full bg-black text-white py-3 rounded-lg transition" @click="handleCta">
         Оформить заказ
       </Button>
