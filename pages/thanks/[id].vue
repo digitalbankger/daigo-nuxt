@@ -45,7 +45,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image'
 })
 
-useHead(() => ({
+useHead({
   link: [{ rel: 'canonical', href: canonical.value }],
   script: [
     {
@@ -63,7 +63,7 @@ useHead(() => ({
       })
     }
   ]
-}))
+})
 
 const store = useOrderStore()
 
@@ -100,6 +100,7 @@ const status = computed(() => {
 })
 
 const confirmationUrl = computed(() => {
+  // в истории заказов поле называется confirmationUrl
   return (
     orderFromHistory.value?.confirmationUrl ||
     orderFromHistory.value?.confirmation_url ||
@@ -114,33 +115,6 @@ function tryLoadReceiptFromSession() {
     if (!raw) return
     const parsed = JSON.parse(raw) as OrderReceipt
     if (parsed?.orderId === orderId.value) receipt.value = parsed
-  } catch {
-    // ignore
-  }
-}
-
-/**
- * ✅ Обычная JS-цель Метрики: thank_page
- * ✅ Без указания counterId (его берёт useAnalytics() из runtimeConfig.public.ymCounterId)
- * ✅ Антидубль: один раз на orderId
- */
-function sendThankPageGoalOnce() {
-  if (!process.client) return
-
-  const id = orderId.value
-  if (!id) return
-
-  const key = `goal_thank_page_sent_${id}`
-  try {
-    if (localStorage.getItem(key) === '1') return
-  } catch {
-    // ignore
-  }
-
-  try {
-    const analytics = useAnalytics()
-    analytics.reach('thank_page', { order_id: id })
-    localStorage.setItem(key, '1')
   } catch {
     // ignore
   }
@@ -214,11 +188,8 @@ async function loadOrder() {
 
     if (found) orderFromHistory.value = found
 
-    // 3) страховка отправки purchase один раз на orderId
+    // 3) страховка отправки цели покупки один раз на orderId
     ensurePurchaseGoalOnce()
-
-    // 4) ✅ JS цель thank_page один раз на orderId
-    sendThankPageGoalOnce()
   } finally {
     isLoading.value = false
   }

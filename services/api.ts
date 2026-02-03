@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { useAuthStore } from '@/stores/authStore'
 
 export const api = axios.create({
-  baseURL: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru/api',
+  baseURL: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
   headers: { 'Content-Type': 'application/json' }
 })
 
