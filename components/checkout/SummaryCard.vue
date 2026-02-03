@@ -108,7 +108,7 @@ const finalTotal = computed(() => {
 })
 
 // Сумма корзины для расчёта лимитов по списанию бонусов
-const cartTotalForBonusCalc = computed(() => Number(finalTotal.value || 0))
+const cartTotalForBonusCalc = computed(() => Number(grandTotal.value || 0))
 
 async function refreshBonusCalc() {
   if (props.mode !== 'checkout') return
@@ -507,7 +507,7 @@ async function removeCoupon() {
         <template #right>
           <button
             type="button"
-            class="ml-2 text-white bg-cgreen hover:opacity-80 transition"
+            class="ml-2 text-white bg-cgreen p-2.5 rounded-md -me-2.5 hover:opacity-80 transition"
             @click="applyBonuses"
           >
             Использовать
@@ -571,7 +571,7 @@ async function removeCoupon() {
     <PaymentWarning v-if="props.mode === 'checkout'"/>
 
     <!-- Кнопка в режиме checkout -->
-    <div v-if="props.mode === 'checkout'" class="pt-4">
+    <div v-if="props.mode === 'checkout'" class="pt-2">
       <Button variant="solid" class="w-full bg-black text-white py-3 rounded-lg transition" @click="handleCta">
         Оформить заказ
       </Button>
