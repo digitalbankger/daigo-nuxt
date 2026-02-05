@@ -132,8 +132,20 @@ export const useAuthStore = defineStore('auth', () => {
       localStorage.setItem('token', data.access_token)
       localStorage.setItem('refresh_token', data.refresh_token)
       if (userId.value != null) localStorage.setItem('daigo_id', String(userId.value))
-      // TTL access — 24 часа
-      const expiresAt = Date.now() + 24 * 60 * 60 * 1000
+      // TTL access: берём exp из JWT (если есть), иначе fallback 24ч
+      const jwtExpMs = (() => {
+        try {
+          const part = data.access_token.split('.')[1]
+          if (!part) return null
+          const json = JSON.parse(atob(part.replace(/-/g, '+').replace(/_/g, '/')))
+          const exp = Number(json?.exp)
+          if (!exp) return null
+          return exp * 1000
+        } catch {
+          return null
+        }
+      })()
+      const expiresAt = jwtExpMs ?? (Date.now() + 24 * 60 * 60 * 1000)
       localStorage.setItem('auth_expires_at', String(expiresAt))
     }
   }
@@ -157,11 +169,7 @@ export const useAuthStore = defineStore('auth', () => {
       setAuthData(data)
       return true
     } catch (e) {
-      if (process.client) {
-        localStorage.removeItem('token')
-        localStorage.removeItem('auth_expires_at')
-      }
-      token.value = null
+      clearAuth()
       return false
     }
   }

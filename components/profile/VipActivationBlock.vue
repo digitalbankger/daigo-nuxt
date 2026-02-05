@@ -2,6 +2,7 @@
 import { ref, computed, onBeforeUnmount } from 'vue'
 import UiModal from '@/components/ui/UiModal.vue'
 import Button from '@/components/ui/Button.vue'
+import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 import { activateVip } from '~/services/vipService'
 import { useUserStore } from '@/stores/userStore'
 
@@ -23,7 +24,9 @@ const codeDigits = ref<string[]>(['', '', '', '', '', ''])
 const inputRefs = ref<(HTMLInputElement | null)[]>([])
 
 const code = computed(() => codeDigits.value.join(''))
-const canSubmit = computed(() => /^\d{6}$/.test(code.value))
+const agree = ref(false)
+const agreeError = ref('')
+const canSubmit = computed(() => /^\d{6}$/.test(code.value) && agree.value)
 
 const loading = ref(false)
 const showModal = ref(false)
@@ -65,6 +68,8 @@ function mapError(err?: string) {
 
 async function submitCode() {
   if (!canSubmit.value || loading.value) return
+  agreeError.value = agree.value ? '' : 'Нужно согласие с политикой'
+  if (!agree.value) return
 
   try {
     loading.value = true
@@ -203,6 +208,18 @@ onBeforeUnmount(() => {
             @keydown.backspace="onBackspace(index, $event)"
           />
         </div>
+
+		<div class="space-y-1">
+		  <BaseCheckbox v-model="agree" @click="agreeError = ''">
+		    <span class="text-xs text-black/50">
+		      Я согласен(на) с
+		      <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+		      и
+		      <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+		    </span>
+		  </BaseCheckbox>
+		  <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
+		</div>
 
         <Button type="submit" :disabled="!canSubmit || loading">
           <span v-if="!loading">Активировать VIP</span>

@@ -4,7 +4,7 @@ definePageMeta({ layout: 'main', ssr: false })
 import { onMounted, computed, ref } from 'vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useOrderStore } from '@/stores/orderStore'
-import { statusLabel } from '@/composables/useOrderStatus'
+import { statusLabel, normalizeStatus } from '@/composables/useOrderStatus'
 import { ORDER_CANCEL_REASONS, type OrderCancelReason } from '~/types/orders'
 
 const store = useOrderStore()
@@ -43,6 +43,9 @@ const sortedOrders = computed(() =>
 function fmtPrice(n: number) {
   return new Intl.NumberFormat('ru-RU').format(n) + ' ₽'
 }
+
+// Нельзя отменять, если заказ уже отправлен (shipped) и далее по цепочке
+const NON_CANCELABLE: Array<ReturnType<typeof normalizeStatus>> = ['shipped', 'delivered', 'canceled', 'failed']
 
 const isOtherReason = computed(() => selectedReason.value === 'other')
 
@@ -142,7 +145,7 @@ function closeCancelModal() {
 
             <button
               class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-50"
-              :disabled="['delivered','canceled','failed','payment_received'].includes(o.status) || busyId===(o.id ?? o.order_id ?? o.number)"
+              :disabled="NON_CANCELABLE.includes(normalizeStatus(o.status)) || busyId===(o.id ?? o.order_id ?? o.number)"
               @click="openCancelModal(o)"
             >
               {{ busyId===(o.id ?? o.order_id ?? o.number) ? 'Отменяем…' : 'Отменить заказ' }}

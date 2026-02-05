@@ -2,6 +2,7 @@
 import { useArticlesStore } from '~/stores/articlesStore'
 import type { ArticleComment } from '~/types/articles'
 import Button from '../ui/Button.vue';
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const props = withDefaults(defineProps<{
   slug: string
@@ -34,11 +35,15 @@ await load()
 // форма
 const message = ref('')
 const sending = ref(false)
+const agree = ref(false)
+const agreeError = ref('')
 
 async function submit() {
   if (!props.canPost) return
   const text = message.value.trim()
   if (!text) return
+  agreeError.value = agree.value ? '' : 'Нужно согласиться с политикой'
+  if (!agree.value) return
   sending.value = true
   try {
     await store.addComment(props.slug, text)
@@ -95,6 +100,18 @@ const count = computed(() => comments.value.length)
         >
           {{ sending ? 'Отправляем…' : 'Отправить' }}
         </Button>
+      </div>
+
+      <div class="mt-2 space-y-1">
+        <BaseCheckbox v-model="agree" @click="agreeError = ''">
+          <span class="text-xs text-black/50">
+            Я согласен(на) с
+            <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+            и
+            <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+          </span>
+        </BaseCheckbox>
+        <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
       </div>
 
       <!-- Заглушка авторизации -->

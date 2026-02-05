@@ -7,6 +7,7 @@ import { useCheckoutStore } from '~/stores/checkoutStore'
 import { bonusService, type BonusCalculateResponse } from '@/services/bonusService'
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 import PaymentWarning from './PaymentWarning.vue'
@@ -27,6 +28,10 @@ const coupon = ref('')
 
 // ошибки
 const errors = reactive<{ fullName: string; phone: string }>({ fullName: '', phone: '' })
+
+// согласие с политикой/обработкой данных
+const consent = ref(false)
+const consentError = ref('')
 
 type Focusable = { focus: () => void } | null
 const inputRefs = { fullName: ref<Focusable>(null), phone: ref<Focusable>(null) }
@@ -150,7 +155,7 @@ const phoneDigits = computed(() => String(form.phone || '').replace(/\D/g, ''))
 
 const enableCta = computed(() => {
   if (props.mode === 'checkout') return true
-  return Boolean(form.fullName.trim() && phoneDigits.value.length === 11)
+  return Boolean(form.fullName.trim() && phoneDigits.value.length === 11 && consent.value)
 })
 
 // ограничение: в корзине поле "Имя" — одно слово
@@ -261,7 +266,8 @@ watch(couponInfo, (ci) => {
 function validateFields() {
   errors.fullName = form.fullName.trim() ? '' : 'Введите имя'
   errors.phone = phoneDigits.value.length === 11 ? '' : 'Введите номер'
-  return !(errors.fullName || errors.phone)
+  consentError.value = consent.value ? '' : 'Нужно согласие с условиями'
+  return !(errors.fullName || errors.phone || consentError.value)
 }
 
 async function handleCta() {
@@ -356,6 +362,31 @@ async function removeCoupon() {
           background="bg-white"
           @blur="errors.phone = phoneDigits.length === 11 ? '' : 'Введите номер'"
         />
+      </div>
+
+      <!-- Согласие -->
+      <div class="space-y-1">
+        <BaseCheckbox v-model="consent">
+          <span class="text-black/50 text-xs md:text-sm">
+            Я согласен с
+            <NuxtLink to="/privacy" class="underline hover:text-black" target="_blank" rel="noopener">
+              политикой конфиденциальности
+            </NuxtLink>
+            и
+            <NuxtLink
+              to="/soglasie-na-obrabotku-personalnykh-dannykh"
+              class="underline hover:text-black"
+              target="_blank"
+              rel="noopener"
+            >
+              обработкой персональных данных
+            </NuxtLink>
+          </span>
+        </BaseCheckbox>
+
+        <div v-if="consentError" class="text-red-500 text-xs">
+          {{ consentError }}
+        </div>
       </div>
 
       <!-- БЫЛО: "ждём подтверждения пуша" — УБРАНО. -->

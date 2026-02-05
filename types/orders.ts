@@ -2,7 +2,7 @@ export interface OrderHistoryApiItem {
   history_id: number
   order_id: number
   order_date: string          
-  status: string              // "created" | "pending" | "waiting_payment" | "payment_received" | "delivered" | "canceled" | "failed"
+  status: string              // created|processing|waiting_payment|paid|shipped|delivered|canceled|failed
   total_amount: number
   bonus?: number | null
   ItemIDs: number[]           // список id товаров

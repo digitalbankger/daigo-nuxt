@@ -95,7 +95,15 @@ export const useOrderStore = defineStore('orderStore', () => {
         order_id: Number(entry.order_id ?? (entry as any).order_id ?? 0) || undefined,
         number,
         date,
-        status: (entry as any).status || 'processing',
+        // статус может приходить под разными ключами в зависимости от версии бэка
+        status:
+          (entry as any).status ??
+          (entry as any).order_status ??
+          (entry as any).orderStatus ??
+          (entry as any).state ??
+          (entry as any).status_code ??
+          (entry as any).statusCode ??
+          'processing',
         total: Number((entry as any).total_amount ?? (entry as any).total ?? 0),
         bonus: (entry as any).bonus ?? null,
         items: mapped,

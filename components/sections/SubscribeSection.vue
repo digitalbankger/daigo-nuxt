@@ -34,11 +34,19 @@
           inputClass="bg-transparent"
           class="w-4/5"
         />
-        <UiButton variant="outline" class="!w-4/5">Подписаться</UiButton>
+        <UiButton variant="outline" class="!w-4/5" :disabled="!agree">Подписаться</UiButton>
         
-        <BaseCheckbox v-model="agree">
-          <a href="/privacy" class="">Принимаю политику конфиденциальности</a>
-        </BaseCheckbox>
+        <div class="space-y-1">
+          <BaseCheckbox v-model="agree" @click="agreeError = ''">
+            <span class="text-xs text-black/50">
+              Я согласен(на) с
+              <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+              и
+              <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+            </span>
+          </BaseCheckbox>
+          <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
+        </div>
 
       </form>
     </div>
@@ -53,12 +61,11 @@ import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const email = ref('')
 const agree = ref(false)
+const agreeError = ref('')
 
 function submit() {
-  if (!agree.value) {
-    alert('Необходимо согласие с политикой конфиденциальности')
-    return
-  }
+  agreeError.value = agree.value ? '' : 'Нужно согласие с политикой'
+  if (!agree.value) return
   console.log('Подписка:', email.value)
 }
 </script>

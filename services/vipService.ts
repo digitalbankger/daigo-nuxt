@@ -2,6 +2,7 @@
 import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
 import { useUserStore } from '@/stores/userStore'
+import { unref } from 'vue'
 
 export interface VipActivateResponse {
   is_activated: boolean
@@ -26,7 +27,11 @@ export async function activateVip(code: string): Promise<VipActivateResponse> {
 
   return await $fetch<VipActivateResponse>(`${daigoApiBase}/v1/auth/user/vip-activate`, {
     method: 'POST',
-    headers: auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined,
+    headers: (() => {
+      const raw = (auth as any).token
+      const token = typeof raw === 'string' ? raw : unref(raw)
+      return token ? { Authorization: `Bearer ${token}` } : undefined
+    })(),
     body: {
       daigo_id: daigoId,
       code,

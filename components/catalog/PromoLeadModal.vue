@@ -53,7 +53,19 @@
           <!-- honeypot для антиспама -->
           <input v-model="form.trap" type="text" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
-        <button
+          <div class="space-y-1">
+            <BaseCheckbox v-model="agree" @click="agreeError = ''">
+              <span class="text-xs text-black/50">
+                Я согласен(на) с
+                <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+                и
+                <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+              </span>
+            </BaseCheckbox>
+            <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
+          </div>
+
+          <button
             type="submit"
             :disabled="busy || !isValid"
             class="w-full rounded-xl bg-primary text-white py-3 disabled:opacity-60"
@@ -72,6 +84,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed, nextTick } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 const emits = defineEmits<{(e:'update:open', v:boolean):void; (e:'done'):void }>()
 const props = withDefaults(defineProps<{
@@ -93,6 +106,8 @@ const busy = ref(false)
 const error = ref('')
 const ok = ref(false)
 const touched = reactive({ name: false, phone: false })
+const agree = ref(false)
+const agreeError = ref('')
 
 // нормализация телефона
 const normalizePhone = (val: string) => {
@@ -121,12 +136,14 @@ function onBlurPhone() {
   errors.phone = isPhoneValid() ? '' : 'Введите телефон'
 }
 
-const isValid = computed(() => isNameValid() && isPhoneValid() && !form.trap)
+const isValid = computed(() => isNameValid() && isPhoneValid() && agree.value && !form.trap)
 
 async function submit() {
   touched.name = touched.phone = true
   errors.fullName = isNameValid() ? '' : 'Введите ФИО'
   errors.phone = isPhoneValid() ? '' : 'Введите телефон'
+
+  agreeError.value = agree.value ? '' : 'Нужно согласие с политикой'
 
   if (!isValid.value) {
     if (!isNameValid()) {

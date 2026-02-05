@@ -1,10 +1,11 @@
 <template>
   <label class="inline-flex items-center cursor-pointer gap-2 select-none">
     <div
-      class="relative w-6 xs:w-5 h-6 xs:h-5 border border-black rounded-sm flex items-center justify-center transition-all duration-300"
+      class="relative w-6 h-6 xs:w-5 xs:h-5 aspect-square shrink-0 border border-black rounded-sm flex items-center justify-center transition-all duration-300"
       :class="{ 'bg-transparent': modelValue }"
       @click.stop.prevent="toggle"
     >
+
       <svg
         v-if="modelValue"
         class="w-4 h-4 stroke-black"

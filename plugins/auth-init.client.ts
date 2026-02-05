@@ -41,8 +41,17 @@ export default defineNuxtPlugin(() => {
   if (!started) {
     started = true
 
-    // 1) При старте, если токен уже есть (возврат на сайт)
-    loadUserProfileOnce()
+    // 1) При старте:
+    // - если access уже есть → грузим профиль
+    // - если access нет, но refresh есть → пробуем обновить сессию, затем грузим профиль
+    ;(async () => {
+      if (!auth.token && auth.refreshToken) {
+        try {
+          await auth.tryRefresh()
+        } catch {}
+      }
+      await loadUserProfileOnce()
+    })()
 
     // 2) Следим за изменением авторизации
     watch(

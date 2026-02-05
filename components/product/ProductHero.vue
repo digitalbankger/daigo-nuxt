@@ -223,7 +223,7 @@ onMounted(ensureCartLoadedOnce)
           <!-- Если есть в корзине — контрол + / − -->
           <div
             v-else
-            class="flex items-center gap-2 bg-[#AF1701] px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+            class="flex items-center gap-2 bg-[#5B8CFF] px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
             <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
             <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>

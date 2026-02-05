@@ -8,6 +8,7 @@ import AccordionItem from '~/components/ui/AccordionItem.vue'
 import { useResearchStore } from '~/stores/researchStore'
 import type { ArticleDetail } from '~/types/articles'
 import UiInput from '~/components/ui/UiInput.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useNewsletter } from '~/composables/useNewsletter'
 
 definePageMeta({ layout: 'main' })
@@ -119,6 +120,9 @@ const emailErr = ref<string | boolean>('')
 
 const { loading, error: subscribeError, subscribe } = useNewsletter()
 
+const agree = ref(false)
+const agreeError = ref('')
+
 const emailValid = computed(() =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
 )
@@ -132,6 +136,8 @@ function validateEmail() {
 
 async function submitSubscribe() {
   if (loading.value) return
+  agreeError.value = agree.value ? '' : 'Нужно согласие с политикой'
+  if (!agree.value) return
   if (!validateEmail()) return
 
   // (опционально) нормализуем
@@ -378,9 +384,17 @@ async function submitSubscribe() {
       </Button>
     </form>
 
-    <p v-if="!success" class="text-xs md:text-sm text-white/80 mt-1">
-      Нажимая «Отправить», вы соглашаетесь с условиями обработки персональных данных.
-    </p>
+    <div v-if="!success" class="mt-1 space-y-1">
+      <BaseCheckbox v-model="agree" @click="agreeError = ''">
+        <span class="text-xs md:text-sm text-white/80">
+          Я согласен(на) с
+          <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+          и
+          <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+        </span>
+      </BaseCheckbox>
+      <p v-if="agreeError" class="text-xs text-red-200">{{ agreeError }}</p>
+    </div>
   </div>
 </section>
 

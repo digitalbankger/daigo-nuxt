@@ -3,6 +3,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useHead } from '@unhead/vue'
 import { computed, ref } from 'vue'
 import { useFeedback } from '~/composables/useFeedback'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -264,11 +265,17 @@ async function submitCallback() {
                 <!-- honeypot (анти-бот, невидимое поле) -->
                 <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
 
-                <label class="flex items-center gap-2 text-sm">
-                  <input type="checkbox" v-model="agree" />
-                  <span>Принимаю политику конфиденциальности</span>
-                </label>
-                <p v-if="errors.agree" class="text-red-600 text-sm -mt-2">{{ errors.agree }}</p>
+                <div class="space-y-1">
+                  <BaseCheckbox v-model="agree" @click="errors.agree = ''">
+                    <span class="text-xs text-black/50">
+                      Я согласен(на) с
+                      <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+                      и
+                      <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+                    </span>
+                  </BaseCheckbox>
+                  <p v-if="errors.agree" class="text-red-600 text-sm -mt-2">{{ errors.agree }}</p>
+                </div>
 
                 <button
                   type="submit"

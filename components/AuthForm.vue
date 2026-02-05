@@ -3,6 +3,7 @@ import { ref, computed, reactive } from 'vue'
 import { useAuthStore } from '@/stores/authStore'
 import UiInput from '@/components/ui/UiInput.vue'
 import Button from '@/components/ui/Button.vue'
+import BaseCheckbox from '@/components/ui/BaseCheckbox.vue'
 
 const auth = useAuthStore()
 
@@ -13,6 +14,8 @@ const phone = ref('')
 const name = ref('')
 
 const isLoading = ref(false)
+const agree = ref(false)
+const agreeError = ref('')
 const errors = reactive<{ name: string; phone: string; code: string }>({
   name: '',
   phone: '',
@@ -22,7 +25,7 @@ const errors = reactive<{ name: string; phone: string; code: string }>({
 const digits = (v: string) => v.replace(/\D/g, '')
 const isPhoneValid = computed(() => digits(phone.value).length >= 11)
 const isNameValid = computed(() => mode.value === 'login' || name.value.trim().length >= 2)
-const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && !isLoading.value)
+const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && agree.value && !isLoading.value)
 
 // ======= ШАГ 2: 4 квадрата кода =======
 const codeDigits = ref<string[]>(['', '', '', ''])
@@ -67,7 +70,11 @@ function handleKeydown(e: KeyboardEvent, idx: number) {
 }
 
 const codeValue = computed(() => codeDigits.value.join(''))
-const canSubmitCode = computed(() => codeValue.value.length === 4 && !isLoading.value)
+const canSubmitCode = computed(() => codeValue.value.length === 4 && agree.value && !isLoading.value)
+
+function validateAgree() {
+  agreeError.value = agree.value ? '' : 'Нужно согласиться с условиями'
+}
 
 function validateName() { errors.name = isNameValid.value ? '' : 'Минимум 2 символа' }
 function validatePhone() { errors.phone = isPhoneValid.value ? '' : 'Введите телефон полностью' }
@@ -76,6 +83,7 @@ function validateCode() { errors.code = canSubmitCode.value ? '' : 'Введит
 async function submitPhone() {
   validateName()
   validatePhone()
+  validateAgree()
   if (!canSubmitPhone.value) return
   isLoading.value = true
   try {
@@ -91,6 +99,7 @@ async function submitPhone() {
 
 async function submitCode() {
   validateCode()
+  validateAgree()
   if (!canSubmitCode.value) return
   isLoading.value = true
   try {
@@ -176,9 +185,17 @@ async function resend() {
         </span>
       </Button>
 
-      <p class="text-xs text-gray-500">
-        Нажимая кнопку, вы даёте согласие на обработку персональных данных.
-      </p>
+      <div class="space-y-1">
+        <BaseCheckbox v-model="agree" @click="validateAgree">
+          <span class="text-xs text-black/50">
+            Я согласен(на) с
+            <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+            и
+            <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+          </span>
+        </BaseCheckbox>
+        <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
+      </div>
     </form>
 
     <!-- Шаг 2: ввод кода (4 квадрата) -->
@@ -211,6 +228,18 @@ async function resend() {
             Проверяем…
           </span>
         </Button>
+      </div>
+
+      <div class="space-y-1">
+        <BaseCheckbox v-model="agree" @click="validateAgree">
+          <span class="text-xs text-black/50">
+            Я согласен(на) с
+            <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
+            и
+            <NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh" class="underline">обработкой персональных данных</NuxtLink>.
+          </span>
+        </BaseCheckbox>
+        <p v-if="agreeError" class="text-xs text-red-600">{{ agreeError }}</p>
       </div>
 
       <div class="text-sm text-gray-600 space-y-1">

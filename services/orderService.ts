@@ -1,6 +1,7 @@
 // services/orderService.ts
 import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
+import { unref } from 'vue'
 import type { OrderCancelReason } from '~/types/orders'
 
 /** Товар в заказе */
@@ -85,7 +86,9 @@ export interface CreateOrderResponse {
 
 function authHeaders() {
   const auth = useAuthStore()
-  return auth.token ? { Authorization: `Bearer ${auth.token}` } : undefined
+  const raw = (auth as any).token
+  const token = typeof raw === 'string' ? raw : unref(raw)
+  return token ? { Authorization: `Bearer ${token}` } : undefined
 }
 
 function toReadableError(e: any): Error & { status?: number } {
@@ -154,6 +157,32 @@ export async function cancelOrder(
         reason, 
         comment,  
       },
+    })
+  } catch (e: any) {
+    throw toReadableError(e)
+  }
+}
+
+
+/** Данные для страницы "Спасибо" (детали подтверждения заказа) */
+export interface OrderThanksResponse {
+  order_id?: string | number
+  status?: string
+  payment_url?: string | null
+  total_amount?: number
+  currency?: string
+  created_at?: string
+  [k: string]: any
+}
+
+/** "Спасибо" по заказу (данные для страницы thanks) */
+export async function fetchOrderThanks(orderId: number | string): Promise<OrderThanksResponse> {
+  const { public: { daigoApiBase } } = useRuntimeConfig()
+
+  try {
+    // ВАЖНО: убрал proxy, просто прямой вызов на daigoApiBase как и в других методах
+    return await $fetch<OrderThanksResponse>(`${daigoApiBase}/v1/shop/order/thanks/${orderId}`, {
+      headers: authHeaders(),
     })
   } catch (e: any) {
     throw toReadableError(e)

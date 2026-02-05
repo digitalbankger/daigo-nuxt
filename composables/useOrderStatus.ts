@@ -1,8 +1,9 @@
 export type OrderStatusKey =
   | 'created'
-  | 'pending'            // новое из бэка
-  | 'waiting_payment'    // новое из бэка
-  | 'payment_received'   // новое из бэка
+  | 'processing'
+  | 'waiting_payment'
+  | 'paid'
+  | 'shipped'
   | 'delivered'
   | 'canceled'
   | 'failed'
@@ -10,9 +11,10 @@ export type OrderStatusKey =
 
 const MAP: Record<OrderStatusKey, { label: string; color: 'blue'|'orange'|'green'|'red'|'gray'|'purple' }> = {
   created:           { label: 'Создан',             color: 'blue'   },
-  pending:           { label: 'В обработке',        color: 'purple' },
+  processing:        { label: 'В обработке',        color: 'purple' },
   waiting_payment:   { label: 'Ожидает оплаты',     color: 'orange' },
-  payment_received:  { label: 'Оплачен',            color: 'green'  },
+  paid:              { label: 'Оплачен',            color: 'green'  },
+  shipped:           { label: 'Отправлен',          color: 'blue'   },
   delivered:         { label: 'Доставлен',          color: 'green'  },
   canceled:          { label: 'Отменён',            color: 'gray'   },
   failed:            { label: 'Не выполнен',        color: 'red'    },
@@ -23,11 +25,12 @@ const MAP: Record<OrderStatusKey, { label: string; color: 'blue'|'orange'|'green
 export function normalizeStatus(raw?: string): OrderStatusKey {
   const s = String(raw || '').toLowerCase().trim()
 
-  // legacy-синонимы из старого фронта/апи
-  if (s === 'processing') return 'pending'
+  // legacy/синонимы из старого фронта/бэка
+  if (s === 'pending') return 'processing'
+  if (s === 'payment_received') return 'paid'
   if (s === 'awaiting_payment' || s === 'wait_payment') return 'waiting_payment'
-  if (s === 'paid' || s === 'payment_done' || s === 'payment_success') return 'payment_received'
-  if (s === 'in_way' || s === 'shipped') return 'pending' // или оставь как есть, если будет отдельный статус
+  if (s === 'payment_done' || s === 'payment_success') return 'paid'
+  if (s === 'in_way') return 'shipped'
   if (s === 'received') return 'delivered'
 
   if (s in MAP) return s as OrderStatusKey
