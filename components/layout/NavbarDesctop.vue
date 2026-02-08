@@ -4,7 +4,10 @@
   <StickyHeader />
 
   <!-- nav оборачиваем в relative, чтобы позиционировать попап -->
-  <nav class="py-6 mt-12 sm:mt-8 relative">
+  <nav
+    class="py-6 relative transition-[margin] duration-200"
+    :class="ui.isHeadInformerVisible ? 'mt-12 sm:mt-8' : 'mt-4 sm:mt-0'"
+  >
     <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
       <div class="flex items-center gap-7 shrink-0">
         <NuxtLink to="/" aria-label="Главная">
