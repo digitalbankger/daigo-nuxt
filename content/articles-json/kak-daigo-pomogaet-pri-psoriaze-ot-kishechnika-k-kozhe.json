@@ -8,7 +8,24 @@
   "time": 8,
   "views": 61329,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "psoriaz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": []
+  },
   "description": "Нарушения в работе иммунной системы",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/818/840_470_1/csv9jncyacqbm49flvz0vvd0s7t5v1a4.png",
   "breadcrumbs": [

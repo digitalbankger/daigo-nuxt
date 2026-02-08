@@ -8,7 +8,32 @@
   "time": 7,
   "views": 39676,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Преждевременное старение: почему организм «сдаёт позиции» раньше времени — и можно ли это остановить?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f22/840_470_1/tnv2gx6x2r4kih1zdxgj5hbpruowz6du.png",
   "breadcrumbs": [

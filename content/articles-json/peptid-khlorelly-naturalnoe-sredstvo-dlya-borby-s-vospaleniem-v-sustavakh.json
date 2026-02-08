@@ -8,7 +8,28 @@
   "time": 13,
   "views": 26117,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Воспаление суставов: как облегчить себе жизнь?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/826/840_470_1/bj6d5oq1vssbjywkucepgjsbic9j2v61.png",
   "breadcrumbs": [

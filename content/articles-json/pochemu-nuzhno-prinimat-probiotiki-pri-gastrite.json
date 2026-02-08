@@ -8,7 +8,29 @@
   "time": 3,
   "views": 14551,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "helicobacter-pylori",
+      "disbakterioz",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Сколько людей в вашем окружении имеют диагноз \"гастрит\"? Такое знакомое и \"популярное\" сегодня заболевание на глобальном уровне поражает более 50% населения. В России, по данным Министерства здравоохранения, за последние пять лет количество людей, страдающих гастритом и дуоденитом, увеличилось на 7%. Например, в 2018 году этот показатель составил 4,1 миллиона человек​. К сожалению, эта цифра неуклонно растет. Что это за болезнь, как ее лечить и почему некоторые специалисты назначают пробиотики, пребиотики и метабиотики при гастрите, расскажем ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/b7b/840_1163_1/zpmwkd9vko2fyyxmn4o74j1uvpwupiwm.webp",
   "breadcrumbs": [

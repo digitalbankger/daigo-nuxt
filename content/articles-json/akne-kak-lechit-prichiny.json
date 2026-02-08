@@ -8,7 +8,21 @@
   "time": 2,
   "views": 23964,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/525/840_560_1/csy0qs7avuakl1lu2vw87yydb0ssb85d.webp",
   "breadcrumbs": [

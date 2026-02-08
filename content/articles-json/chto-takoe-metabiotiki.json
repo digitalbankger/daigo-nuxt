@@ -8,7 +8,29 @@
   "time": 8,
   "views": 19257,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "kishechnaya-neprokhodimost-zapor",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "cink",
+      "vitamin-b5",
+      "vitamin-k2"
+    ]
+  },
   "description": "Метабиотики — это новейший класс функциональных добавок, которые не содержат живые микроорганизмы, а их метаболиты и клеточный материал. В отличие от традиционных пробиотиков, которые состоят из живых бактерий, метабиотики воздействуют на кишечник и организм в целом на более глубоком уровне.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/783/840_420_1/4ylu4eclwytrl0u4unxbv9xljsfk7bc2.png",
   "breadcrumbs": [

@@ -8,7 +8,20 @@
   "time": 1,
   "views": 48463,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "allergiya"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/7ef/840_535_1/k0vrddz8u032xlpi30qnd75mcpzyp6gq.webp",
   "breadcrumbs": [

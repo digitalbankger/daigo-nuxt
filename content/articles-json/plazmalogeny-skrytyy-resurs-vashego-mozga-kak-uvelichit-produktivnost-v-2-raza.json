@@ -8,7 +8,25 @@
   "time": 8,
   "views": 15271,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "alcegeymer",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "tamotsu"
+    ],
+    "sostav": [
+      "kholin"
+    ]
+  },
   "description": "Плазмалогены и продуктивность",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/154/840_470_1/nfbwwoc2ghun0481e55n8w8chqobdwa4.png",
   "breadcrumbs": [

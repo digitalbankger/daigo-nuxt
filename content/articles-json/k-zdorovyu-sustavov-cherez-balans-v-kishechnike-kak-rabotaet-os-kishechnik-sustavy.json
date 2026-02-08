@@ -10,12 +10,30 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology",
-      "immunology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity"
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "psoriaz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "khrom",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "marganec",
+      "peptid-khlorelly-iph-c"
     ]
   },
   "description": "Связь иммунитета и заболеваний суставов",

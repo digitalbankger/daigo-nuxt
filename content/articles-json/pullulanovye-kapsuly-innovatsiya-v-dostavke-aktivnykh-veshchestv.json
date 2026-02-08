@@ -8,7 +8,26 @@
   "time": 6,
   "views": 69785,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Современный рынок биологически активных добавок предлагает потребителям широкий ассортимент продуктов, направленных на поддержание здоровья и восполнение дефицита питательных веществ. Однако эффективность таких добавок во многом зависит не только от их состава, но и от формы, в которой они доставляются в организм. Недавно на рынке food supplements появился новый класс нутрицевтиков - аминобиотики. Бренд Daigo представил три добавки, направленных на поддержку главного мозга, опорно-двигательной системы и кожи. Их инновационный состав дополнился современными и безопасными пуллулановыми капсулами.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/30c/840_470_1/s2b0g2rxal02qgsqukx0lkerl9mko5wk.png",
   "breadcrumbs": [

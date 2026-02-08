@@ -8,7 +8,28 @@
   "time": 4,
   "views": 69673,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "atopicheskij-dermatit",
+      "kishechnaya-neprokhodimost-zapor",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Детский организм - это особая структура, любое вмешательство в которую должно быть максимально обоснованно и безопасно. Родители, на плечи которых ложится принятие всех решений касающихся здоровья ребенка, зачастую пребывают в растерянности от количества разной информации. Например, не все знают, для чего назначают детям пробиотики при ротовирусе или аллергии, а ведь именно кишечный микробиом играет огромное значение в работе всего желудочно-кишечного тракта и иммунитета. Коррекция микробиоты пробиотиками с живыми бактериями - один из способов восстановления того самого необходимого правильного баланса и, как следствия, полного выздоровления. Расскажем об этом подробнее.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/423/840_1163_1/h5hzs4xb05ymikn1yugfpp5g826z2h3x.jpg",
   "breadcrumbs": [

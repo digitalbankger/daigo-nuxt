@@ -8,7 +8,24 @@
   "time": 1,
   "views": 28362,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Постковидный синдром - это клиническое состояние, возникающее после выздоровления от острой коронавирусной инфекции.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1d9/840_472_1/eg9z9lqjoea4cn8rrxhzur0abyvdcax6.webp",
   "breadcrumbs": [

@@ -10,11 +10,23 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology"
+      "mozg-i-nervnaya-sistema"
     ],
     "pomogaet-pri": [
-      "gut"
-    ]
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "alcegeymer",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-dent",
+      "daigo-lux"
+    ],
+    "sostav": []
   },
   "description": "Вода — источник жизни. Эта фраза известна каждому, но современная наука готова добавить к ней уточнение: «и особенно та, что лишена тяжелых изотопов». Речь идет о так называемой «легкой» воде — продукте, который все чаще можно встретить на полках магазинов здорового питания и в статьях о биохакинге. Что это: очередная маркетинговая уловка или действительно революционное открытие? Давайте разбираться, опираясь на данные науки.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/32e/840_391_1/vjeqrkuh9twbft1nen86021q5bdy46fn.png",

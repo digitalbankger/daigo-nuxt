@@ -8,7 +8,20 @@
   "time": 1,
   "views": 40998,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/464/840_472_1/8gq0qn8f3roiiimgcn1emswodng6tgtm.webp",
   "breadcrumbs": [
@@ -43,7 +56,7 @@
     "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
     "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
   },
-  "contentTop": "\n            <h2>Шендеров Борис Аркадьевич</h2>\n<h3>Доктор медицинских наук, профессор, главный научный сотрудник ФГБУ «Центр стратегического планирования и управления медико-биологическими рисками здоровья» Министерства здравоохранения РФ, член Правления Академии активного долголетия </h3>\n <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/2i62IYqhwdw?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"Роль продуктов функционального питания. Метабиотики в сохранении активного долголетия.\">\n</iframe> <br>        ",
+  "contentTop": "\n            <h2>Шендеров Борис Аркадьевич</h2>\n<h3>Доктор медицинских наук, профессор, главный научный сотрудник ФГБУ «Центр стратегического планирования и управления медико-биологическими рисками здоровья» Министерства здравоохранения РФ, член Правления Академии активного долголетия </h3>\n <iframe src=\"https://vkvideo.ru/video_ext.php?oid=-10462818&id=456240290&hash=7b79d86a47de1ff6\" width=\"1280\" height=\"720\" frameborder=\"0\" allowfullscreen=\"1\" style=\"background-color: #000\" allow=\"autoplay; encrypted-media; fullscreen; picture-in-picture\"></iframe> <br>        ",
   "materials": {
     "title": "Полезные материалы",
     "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",

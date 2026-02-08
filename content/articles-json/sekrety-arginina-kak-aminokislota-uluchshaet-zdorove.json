@@ -8,7 +8,28 @@
   "time": 7,
   "views": 73721,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Эта аминокислота играет ключевую роль во множестве процессов нашего организма, начиная от выработки энергии и заканчивая поддержанием здоровья сердца. Где взять достаточное количество аргинина и нужно ли его принимать дополнительно? В этой статье мы разберем всё, что нужно знать об этом «универсальном солдате» Вашего здоровья.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/25a/840_472_1/983l30h6htbckxaxq3gl59r277xml983.jpg",
   "breadcrumbs": [

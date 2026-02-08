@@ -8,7 +8,29 @@
   "time": 2,
   "views": 96355,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Они остаются неясными, структурные нарушения кишечника при обследовании пациентов с СРК не обнаруживаются. Установлено, что ухудшать течение заболевания могут следующие факторы:",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/bd0/840_472_1/iuy5wxlu8p1qy3v2xhbdosnh1mrtohep.webp",
   "breadcrumbs": [

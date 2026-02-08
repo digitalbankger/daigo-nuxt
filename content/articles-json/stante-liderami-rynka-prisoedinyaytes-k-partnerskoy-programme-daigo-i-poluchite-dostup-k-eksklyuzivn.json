@@ -8,7 +8,24 @@
   "time": 2,
   "views": 86739,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-lux",
+      "daigo-shampoo",
+      "tamotsu"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/238/840_472_1/zm67w7a1thcj4netzi0p0f6szk3afugj.png",
   "breadcrumbs": [

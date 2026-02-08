@@ -8,7 +8,25 @@
   "time": 6,
   "views": 55334,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Елена Валерьевна Доскина — врач-эндокринолог высшей категории, кандидат медицинских наук, доцент кафедры эндокринологии РМАНПО, обладатель статуса «Московский врач».",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/e88/840_472_1/2428cwsef55098b0fmlgfsyzo17e1nod.png",
   "breadcrumbs": [

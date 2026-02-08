@@ -1,4 +1,3 @@
-// stores/articlesStore.ts
 import { defineStore } from 'pinia'
 import type {
   ArticleListItem,
@@ -19,7 +18,7 @@ export const useArticlesStore = defineStore('articles', () => {
   // list
   const list = ref<ArticleListItem[]>([])
   const page = ref(1)
-  const perPage = 6
+  const perPage = 15
   const totalPages = ref(1)
 
   // filters + counts
@@ -99,22 +98,15 @@ export const useArticlesStore = defineStore('articles', () => {
     const key = 'counts'
     try {
       setLoading(key, true)
-      const flatOptions: { key: string, value: string }[] = []
-      filters.value.forEach(group => {
-        group.options.forEach(option => flatOptions.push({ key: group.slug, value: option.value }))
-      })
 
-      const results = await Promise.all(flatOptions.map(async ({ key, value }) => {
-        const q: Record<string, string> = {}
-        for (const baseKey in baseQuery) {
-          if (baseKey !== key) q[baseKey] = baseQuery[baseKey].join(',')
-        }
-        q[key] = value
-        const { count } = await $fetch<{ count: number }>('/api/articles/count', { query: q })
-        return { id: `${key}__${value}`, count }
-      }))
+      const q: Record<string, string> = {}
+      for (const [k, v] of Object.entries(baseQuery)) {
+        if (Array.isArray(v) && v.length) q[k] = v.join(',')
+      }
 
-      counts.value = Object.fromEntries(results.map(r => [r.id, r.count]))
+      const { counts: result } = await $fetch<{ counts: Record<string, number> }>('/api/articles/counts', { query: q })
+      counts.value = result || {}
+
       setError(key, null)
     } catch (e: any) {
       setError(key, e?.message || 'Failed to fetch counts')

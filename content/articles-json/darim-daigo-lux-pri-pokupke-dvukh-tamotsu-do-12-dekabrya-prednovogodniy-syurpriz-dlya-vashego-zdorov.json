@@ -8,7 +8,29 @@
   "time": 2,
   "views": 63548,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lux",
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10"
+    ]
+  },
   "description": "Хотите улучшить когнитивные способности, точно мыслить, запоминать информацию мгновенно, при этом не иметь проблем с ЖКТ и быть максимально продуктивным?",
   "cover": "https://mail.daigo.ru/upload/iblock/527/zydu2p5hpbr8ppubb5ghz2j1nh2xs6ks.png",
   "breadcrumbs": [

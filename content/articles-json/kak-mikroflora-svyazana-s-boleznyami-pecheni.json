@@ -8,7 +8,27 @@
   "time": 9,
   "views": 33793,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "disbakterioz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "vitamin-b1"
+    ]
+  },
   "description": "Дисбиоз как фактор риска: как микрофлора связана с болезнями печени?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/fe6/840_470_1/73kxsxbsp94es55jp1fca347tve4m06c.png",
   "breadcrumbs": [

@@ -8,7 +8,31 @@
   "time": 5,
   "views": 41027,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/83d/840_472_1/p1bplijxj3d8633umuirrcp7f6f70qf9.jpg",
   "breadcrumbs": [

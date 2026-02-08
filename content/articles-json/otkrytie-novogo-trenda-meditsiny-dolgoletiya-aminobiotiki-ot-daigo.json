@@ -8,7 +8,26 @@
   "time": 3,
   "views": 92723,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Совместно с АНО «Научно-исследовательский медицинский центр «Геронтология» и компанией «Ideal Pharma Peptide» (Германия) ООО «Метабиотик» (бренд Daigо) принял участие в разработке новых нутрицевтиков - аминобиотиков.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/546/840_472_1/b8akt4102cnzg4r0s6865vr1rxe4n4k3.jpg",
   "breadcrumbs": [

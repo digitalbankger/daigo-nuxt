@@ -8,7 +8,26 @@
   "time": 3,
   "views": 90356,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Один из самых важных этапов в ранней стадии формирования малыша - это этап прорезывания зубов. Немногочисленные родители из числа счастливчиков говорят, что этот этап прошел незаметно. В большинстве же своем все отмечают различные дискомфортные состояния у ребенка, некоторые из которых, казалось бы, вообще не имеют к зубам никакого отношения. Высокая температура и обильное слюноотделение - привычные симптомы, но абсолютной нормой, например, считается и жидкий стул при прорезывании зубов. Как эти процессы связаны и что в данной ситуации делать, расскажем далее.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/a8c/840_691_1/qlqz20qd3cfgcsm2intxs2ms0cep18nm.jpg",
   "breadcrumbs": [

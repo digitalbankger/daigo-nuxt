@@ -8,7 +8,25 @@
   "time": 5,
   "views": 75021,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "vypadenie-volos",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent"
+    ],
+    "sostav": []
+  },
   "description": "Елена Карлинская — психолог, сертифицированный гештальт-терапевт",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/4f7/840_470_1/ozqpsl6qf388t66umsmu23qurqov10uo.jpg",
   "breadcrumbs": [

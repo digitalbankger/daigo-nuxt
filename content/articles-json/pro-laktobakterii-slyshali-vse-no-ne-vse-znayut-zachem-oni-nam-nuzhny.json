@@ -8,7 +8,21 @@
   "time": 1,
   "views": 75442,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/229/840_560_1/uwc0psayb5b4teh44h9zlq411hk8l38b.webp",
   "breadcrumbs": [

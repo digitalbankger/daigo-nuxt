@@ -8,7 +8,30 @@
   "time": 2,
   "views": 94943,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "helicobacter-pylori",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lux"
+    ],
+    "sostav": [
+      "bor",
+      "khrom"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/094/840_630_1/ouuvigozdhnxczoaufsr8jlnll4soudz.webp",
   "breadcrumbs": [

@@ -8,7 +8,22 @@
   "time": 1,
   "views": 67841,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/8d9/840_560_1/9c26aukr1lvd5f3mbdt1zai3scxtxa97.webp",
   "breadcrumbs": [

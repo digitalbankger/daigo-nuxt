@@ -8,7 +8,34 @@
   "time": 5,
   "views": 51775,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "karies",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "omega-3"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-lux",
+      "daigo-shampoo",
+      "tamotsu"
+    ],
+    "sostav": [
+      "koenzim-q10",
+      "vitamin-b1",
+      "vitamin-b5"
+    ]
+  },
   "description": "Друзья, цель бренда Daigo - здоровье как можно большего количества людей, поэтому мы дарим возможность приобрести наши продукты по СУПЕР-ценам в рамках акции «Черная пятница»!",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/8e7/840_420_1/ydw03rbgu14xje8tg9ouzggm6dl88dsf.jpg",
   "breadcrumbs": [

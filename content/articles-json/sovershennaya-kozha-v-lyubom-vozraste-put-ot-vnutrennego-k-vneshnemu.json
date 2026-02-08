@@ -8,7 +8,23 @@
   "time": 3,
   "views": 69957,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "pishchevaya-neperenosimost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Кожа — орган, выполняющий важные функции для здоровья. Основные из них — барьерная и защитная. Она предохраняет организм от:",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/425/840_472_1/za9112bihisdnafjp6u5cvtid2wpzagb.jpg",
   "breadcrumbs": [

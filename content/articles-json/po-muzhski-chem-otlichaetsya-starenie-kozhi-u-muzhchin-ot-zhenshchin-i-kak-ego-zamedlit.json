@@ -8,7 +8,31 @@
   "time": 10,
   "views": 53494,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dermic"
+    ],
+    "sostav": [
+      "cink",
+      "khrom",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-h"
+    ]
+  },
   "description": "Как происходит старение кожи?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/ca0/840_470_1/oxrd452gf1xe0amv5yhkwscub9qnj6g9.png",
   "breadcrumbs": [

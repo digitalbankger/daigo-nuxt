@@ -8,7 +8,33 @@
   "time": 7,
   "views": 44304,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "utomlyaemost",
+      "sukhaya-kozha",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Например, аминокислота лейцин является ключевым элементом в том, чтобы наше тело оставалось сильным, выносливым и активным. Лейцин — это не просто аминокислота, а ключ к здоровью мышц, энергии и активной жизни. Её важность сложно переоценить, ведь она участвует в жизненно важных процессах, от синтеза белков до регуляции уровня сахара в крови. В статье ниже подробнее расскажем о лейцине, его значении для здоровья и почему его важно получать с пищей или добавками для достижения лучших результатов в спорте и повседневной жизни.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/452/840_472_1/vq7qlz5j27hc79frw81fw1ytgnd0zt3u.jpg",
   "breadcrumbs": [

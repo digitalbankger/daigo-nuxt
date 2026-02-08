@@ -8,7 +8,28 @@
   "time": 8,
   "views": 59929,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "stomatit",
+      "vosstanovlenie-mikroflory",
+      "kishechnaya-neprokhodimost-zapor",
+      "karies",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Причины пониженной активности ваших питомцев",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f7f/840_470_1/zmdc520a9eo5n1t2euoknydp5lvjlke6.png",
   "breadcrumbs": [

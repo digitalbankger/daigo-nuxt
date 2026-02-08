@@ -10,13 +10,22 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "dermatology",
-      "gastroenterology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut",
-      "skin"
-    ]
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "karies",
+      "allergiya"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-jointic"
+    ],
+    "sostav": []
   },
   "description": "Жевательная резинка давно вошла в повседневную жизнь миллионов людей — её используют для освежения дыхания, очистки зубов после еды или просто в качестве привычки. Однако её воздействие на микрофлору ротовой полости остаётся предметом научных дискуссий. В этой статье мы разберём, как разные виды жевательной резинки влияют на микробиом полости рта, какие компоненты наиболее безопасны и как минимизировать потенциальные риски при её использовании.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f77/840_470_1/xdv38p6a9dcm5qtv87a4v0np3kfsxwpq.png",

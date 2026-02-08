@@ -8,7 +8,25 @@
   "time": 3,
   "views": 26259,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "vitamin-b1",
+      "vitamin-b5",
+      "vitamin-h"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/c4e/840_840_1/gs2drtu1s9rtrshi3l9cob2ap2gv31za.webp",
   "breadcrumbs": [

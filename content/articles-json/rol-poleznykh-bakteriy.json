@@ -8,7 +8,20 @@
   "time": 5,
   "views": 74791,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "akne"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/f5e/840_525_1/r3ptbuc0cmz1yclluumjqodn5ny99vrx.webp",
   "breadcrumbs": [

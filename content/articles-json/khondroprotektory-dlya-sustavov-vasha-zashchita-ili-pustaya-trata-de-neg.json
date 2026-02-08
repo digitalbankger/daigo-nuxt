@@ -8,7 +8,27 @@
   "time": 10,
   "views": 41345,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "khrom",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Хондропротекторы - прошлый век?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/563/840_470_1/68mtcel9vd7fo1rjhqmnp7n51ef3x2oo.png",
   "breadcrumbs": [

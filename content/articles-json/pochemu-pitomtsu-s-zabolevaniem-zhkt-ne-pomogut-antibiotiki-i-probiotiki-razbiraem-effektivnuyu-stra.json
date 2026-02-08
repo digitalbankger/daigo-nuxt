@@ -8,7 +8,30 @@
   "time": 8,
   "views": 39218,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "yazva",
+      "disbakterioz",
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Причины заболеваний ЖКТ у домашних животных",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/9ac/840_566_1/npwou1eq7o9z8sn3raedvu5wubz4cyh5.jpg",
   "breadcrumbs": [

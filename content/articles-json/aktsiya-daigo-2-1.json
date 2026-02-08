@@ -8,7 +8,22 @@
   "time": 1,
   "views": 80062,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/b0b/840_472_1/4ljbxjoz1nb8l3l07u4gm0bldsp2onxv.jpg",
   "breadcrumbs": [

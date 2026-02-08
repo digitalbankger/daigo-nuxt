@@ -8,7 +8,30 @@
   "time": 5,
   "views": 56253,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "sertificate",
+      "tamotsu"
+    ],
+    "sostav": [
+      "bor",
+      "ekstrakt-grebeshek",
+      "koenzim-q10",
+      "vitamin-b1"
+    ]
+  },
   "description": "Превентивная медицина — это одно из направлений современной медицины, главной задачей которого является сохранение хорошего самочувствия пациентов, повышение продуктивности и улучшение качества их жизни. Она становится частью нового подхода к здравоохранению, направленного на предупреждение заболеваний и продление активного долголетия.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/4b5/840_470_1/9d0q6tbod2dj6zeamedoifzfvayj72uv.png",
   "breadcrumbs": [

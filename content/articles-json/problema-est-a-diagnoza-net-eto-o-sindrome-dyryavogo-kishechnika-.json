@@ -8,7 +8,23 @@
   "time": 1,
   "views": 37146,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "pishchevaya-neperenosimost",
+      "utomlyaemost",
+      "allergiya"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/377/840_560_1/qx466n2lcf8zj74aoe6400lubfhzijdg.webp",
   "breadcrumbs": [

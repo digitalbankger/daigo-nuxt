@@ -10,21 +10,25 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "dermatology",
-      "gastroenterology",
-      "immunology"
+      "mozg-i-nervnaya-sistema"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity",
-      "skin"
+      "akne",
+      "emotsionalnaya-peregruzka"
     ],
     "klass-produkta": [
-      "aminobiotics",
-      "metabiotics"
+      "aminobiotiki"
     ],
     "produkty": [
-      "daigo"
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "khrom",
+      "marganec",
+      "peptid-khlorelly-iph-c"
     ]
   },
   "description": "Мир меняется с невероятной скоростью. Чтобы оставаться здоровыми и сохранять высокий уровень жизненной энергии, важно не просто следовать за инновациями, а выбирать лучшие из них. Сегодня самые эффективные добавки — это симбиоз актуальных научных открытий и доказанной эффективности. В этой статье мы расскажем, почему пептид хлореллы в сочетании с аминокислотами стал настоящим прорывом в нутрицевтике, и как он помогает поддерживать здоровье суставов, молодость кожи и ясность ума.",

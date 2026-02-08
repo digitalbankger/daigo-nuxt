@@ -8,7 +8,27 @@
   "time": 5,
   "views": 53330,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "stomatit",
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "karies"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent"
+    ],
+    "sostav": [
+      "bor",
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Абсолютная норма, что в нашей ротовой полости живет огромное количество разных микроорганизмов, среди которых есть условно-патогенные и патогенные. Однако, когда они преобладают над «полезными» обитателями, это приводит к различным заболеваниям: стоматит, пародонтит, гингивит, кариес и т.д. Вот почему наряду с регулярной и правильной гигиеной зубов, каждый должен знать, что такое восстановление микрофлоры полости рта и значение этого важнейшего процесса.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/646/840_560_1/udetp86fmvjbd4nntboknll9dtoq6y98.webp",
   "breadcrumbs": [

@@ -8,7 +8,27 @@
   "time": 21,
   "views": 70723,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "utomlyaemost",
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Связь иммунитета и микрофлоры",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/583/840_470_1/zhjdi133ux0t8goy7m4g3bbsoyw06ch3.png",
   "breadcrumbs": [

@@ -1,64 +1,41 @@
-import type { Article } from '~/types/articles'
+import { defineEventHandler, getQuery, setResponseHeader } from 'h3'
+import { listArticlesLite } from '~/server/utils/articlesFs'
 
-export default defineEventHandler((event) => {
-  const query = getQuery(event)
+export default defineEventHandler(async (event) => {
+  const q = getQuery(event)
+  const search = String(q.q ?? '').trim().toLowerCase()
 
-  const allArticles: Article[] = [
-    {
-      id: 1,
-      slug: 'printsip-dejstviya-metabiotikov',
-      title: 'Принцип действия метабиотиков',
-      preview: 'Секреторные выделения лактобактерий активизируют действие родных лактобактерий кишечника...',
-      image: '/images/articles/1.jpg',
-      date: '2025-06-30',
-      time: 8,
-      views: 200,
-      comments: 10,
-      properties: {
-        napravlennost: 'kishechnik-i-immunitet',
-      }
-    },
-    {
-      id: 2,
-      slug: 'podgotovka-kozhi-k-plyazhnomu-sezonu',
-      title: 'Как подготовить кожу к пляжному сезону?',
-      preview: 'Красота изнутри: как подготовить кожу за пару недель...',
-      image: '/images/articles/2.jpg',
-      date: '2025-06-24',
-      time: 10,
-      views: 150,
-      comments: 4,
-      properties: {
-        napravlennost: 'kozha-i-volosy',
-      }
-    },
-    {
-      id: 3,
-      slug: 'sindrom-puteshestvennika',
-      title: 'Синдром путешественника',
-      preview: 'Как перелёты и смена климата влияют на микробиом...',
-      image: '/images/articles/3.jpg',
-      date: '2025-05-31',
-      time: 6,
-      views: 180,
-      comments: 2,
-      properties: {
-        napravlennost: 'mozg-i-nervnaya-sistema',
+  const activeFilters = Object.entries(q).reduce<Record<string, string[]>>((acc, [key, raw]) => {
+    if (key === 'page' || key === 'q') return acc
+    const values =
+      typeof raw === 'string'
+        ? raw.split(',').map(v => v.trim()).filter(Boolean)
+        : Array.isArray(raw)
+          ? raw.flatMap(v => String(v).split(',')).map(v => v.trim()).filter(Boolean)
+          : []
+    if (values.length) acc[key] = values
+    return acc
+  }, {})
+
+  const all = await listArticlesLite()
+
+  const count = all.reduce((n, a) => {
+    if (search) {
+      const hay = `${String(a.title ?? '')} ${String(a.preview ?? '')}`.toLowerCase()
+      if (!hay.includes(search)) return n
+    }
+    for (const [key, values] of Object.entries(activeFilters)) {
+      const prop = (a as any)?.properties?.[key]
+      if (prop == null) return n
+      if (Array.isArray(prop)) {
+        if (!prop.some(v => values.includes(String(v)))) return n
+      } else {
+        if (!values.includes(String(prop))) return n
       }
     }
-  ]
+    return n + 1
+  }, 0)
 
-  const filtered = allArticles.filter(article =>
-    Object.entries(query).every(([key, raw]) => {
-      if (key === 'page') return true
-
-      const values = typeof raw === 'string'
-        ? raw.split(',')
-        : Array.isArray(raw) ? raw.flatMap(v => v.split(',')) : []
-
-      return values.includes(article.properties[key as keyof typeof article.properties])
-    })
-  )
-
-  return { count: filtered.length }
+  setResponseHeader(event, 'Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=120')
+  return { count }
 })

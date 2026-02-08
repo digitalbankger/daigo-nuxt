@@ -8,7 +8,21 @@
   "time": 11,
   "views": 36507,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Ключевые факторы, влияющие на мужское здоровье и способы их коррекции",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/eba/840_471_1/biyhl5jtfz8e0s9mk8xkrcbptce9k568.jpeg",
   "breadcrumbs": [

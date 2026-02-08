@@ -8,7 +8,25 @@
   "time": 2,
   "views": 61143,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "helicobacter-pylori"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1f0/840_560_1/hod4wzi7ksrenkria2u2y627idkio5uk.webp",
   "breadcrumbs": [

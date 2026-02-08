@@ -3,6 +3,9 @@ import { resolve } from 'node:path'
 
 const BASE_DIR = resolve(process.cwd(), 'content/articles-json')
 
+const CACHE_TTL = 60_000
+let cacheList: { ts: number; items: AnyJson[] } | null = null
+
 export type AnyJson = Record<string, any>
 
 export async function readArticle(slug: string): Promise<AnyJson | null> {
@@ -30,6 +33,8 @@ export async function listSlugs(): Promise<string[]> {
 }
 
 export async function listArticlesLite(): Promise<AnyJson[]> {
+  if (cacheList && Date.now() - cacheList.ts < CACHE_TTL) return cacheList.items
+
   const slugs = await listSlugs()
   const items: AnyJson[] = []
   // читаем только «лайт»-поля, чтобы не тащить гигантский HTML
@@ -42,7 +47,10 @@ export async function listArticlesLite(): Promise<AnyJson[]> {
       comments: a.comments ?? 0, properties: a.properties ?? {}
     })
   }))
+
   // отсортируем по дате убыв.
-  items.sort((x,y) => String(y.date).localeCompare(String(x.date)))
+  items.sort((x, y) => String(y.date).localeCompare(String(x.date)))
+
+  cacheList = { ts: Date.now(), items }
   return items
 }

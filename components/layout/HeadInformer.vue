@@ -1,40 +1,40 @@
 <template>
   <div v-if="ui.isHeadInformerVisible"
-       class="fixed top-0 left-0 right-0 z-[60] w-full bg-primary text-white"
+       class="fixed top-0 left-0 right-0 z-[70] w-full bg-primary text-white rounded-b-xl sm:rounded-b-none shadow-lg shadow-primary/30"
        aria-label="Информер со ссылкой на каталог">
-    <div class="relative flex items-center justify-between px-3 sm:px-6 py-2 sm:py-3">
+    <div class="relative flex items-center justify-center gap-4 px-3 sm:px-6 py-2 sm:py-2">
 
-      <!-- DESKTOP -->
+      <!-- DESKTOP TEXT -->
       <NuxtLink
         to="/catalog"
-        class="hidden sm:flex items-center gap-3 w-full justify-center uppercase tracking-wide hover:bg-primary/90 transition duration-300"
+        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide hover:bg-primary/90 transition duration-300"
         @click="sendInformerGoal"
       >
-        <img
-          src="/icons/sale.svg"
-          alt="sale"
-          class="w-8 h-8 p-0.5 bg-[#9AFF9F] rounded-lg"
-          loading="lazy"
-        />
-        <span class="text-sm sm:text-lg font-normal">Daigo дарит подарки - получить уже сейчас!</span>
+        <span class="text-sm sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
       </NuxtLink>
+
+      <!-- DESKTOP BUTTON -->
+      <button
+        type="button"
+        class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
+        :disabled="busy"
+        @click="applyWelcome"
+      >
+        <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
+      </button>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-sm sm:text-lg font-normal">Daigo дарит подарки</span>
-        <NuxtLink
-          to="/catalog"
-          class="sm:hidden inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E]"
-          @click="sendInformerGoal"
+        <span class="text-xs sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
+
+        <button
+          type="button"
+          class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
+          :disabled="busy"
+          @click="applyWelcome"
         >
-          <span>Получить уже сейчас</span>
-          <img
-            src="/icons/sale.svg"
-            alt="sale"
-            class="w-5 h-5"
-            loading="lazy"
-          />
-        </NuxtLink>
+          <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
+        </button>
       </div>
 
       <!-- CLOSE BUTTON -->
@@ -52,15 +52,115 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
+import { computed } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
+import { usePromoStore } from '~/stores/promotionStore'
+import { useModalStore } from '~/stores/modalStore'
+import { useYtm } from '@/composables/useYtm'
+
+type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice' | string
+interface Promotion {
+  id: number | string
+  title: string
+  description?: string
+  image?: string
+  coupon?: string | null
+  promo_type: PromoType
+  is_applied?: boolean
+  link?: string | null
+}
 
 const ui = useUiStore()
 const { reach } = useAnalytics()
+const promoStore = usePromoStore()
+const modalStore = useModalStore()
+const ytm = useYtm()
+
+const { promotions, pendingId } = storeToRefs(promoStore)
+
+const WELCOME_CODE = 'WELCOME5'
+
+const welcomePromo = computed<Promotion | null>(() => {
+  const list = (promotions.value || []) as Promotion[]
+  return list.find(p => (p.coupon || '').trim().toUpperCase() === WELCOME_CODE) || null
+})
+
+const isApplied = computed(() => Boolean(welcomePromo.value?.is_applied))
+
+const busy = computed(() => {
+  const p = welcomePromo.value
+  if (!p) return false
+  return pendingId.value === p.id
+})
 
 const sendInformerGoal = () => {
   reach('informer-click')
+}
+
+function toYtmPromo(p: Promotion) {
+  return {
+    id: String(p.id),
+    name: p.title,
+    creative: 'head_informer', // отдельный носитель, чтобы отличать от grid
+    position: '1',
+  }
+}
+
+async function applyWelcome() {
+  if (!import.meta.client) return
+
+  sendInformerGoal()
+
+  // гарантируем, что промки есть (как на акциях: если SSR не дал — подгрузить)
+  if (!promotions.value?.length) {
+    try { await promoStore.loadPromotions() } catch {}
+  }
+
+  const promo = welcomePromo.value
+  if (!promo) {
+    modalStore.show({
+      title: 'Промокод не найден',
+      message: `Промокод ${WELCOME_CODE} сейчас недоступен`,
+    })
+    return
+  }
+
+  if (busy.value) return
+
+  // YTM promoClick — как на карточках
+  ytm.promoClick([toYtmPromo(promo)])
+
+  try {
+    if (isApplied.value) {
+      await promoStore.cancelActive()
+      modalStore.show({ title: 'Готово', message: 'Акция отменена' })
+      return
+    }
+
+    const res: any = await promoStore.apply(promo as any)
+
+    // логика success — 1 в 1 как у тебя на странице акций
+    const success =
+      res === true ||
+      res?.success === true ||
+      res?.applied === true ||
+      typeof res?.discount_amount === 'number' ||
+      typeof res?.discount_percent === 'number'
+
+    modalStore.show({
+      title: success ? '✅ Успешно' : 'Что-то пошло не так',
+      message: res?.message || (success ? 'Промокод применён' : 'Не удалось применить промокод'),
+    })
+  } catch (e: any) {
+    modalStore.show({
+      title: 'Что-то пошло не так',
+      message: e?.message || 'Не удалось применить промокод',
+    })
+  }
 }
 
 const close = () => ui.closeHeadInformer()

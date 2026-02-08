@@ -8,7 +8,31 @@
   "time": 11,
   "views": 22038,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "alcegeymer",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent"
+    ],
+    "sostav": [
+      "bor",
+      "kholin",
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Как связаны кишечник и мозг?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/350/840_632_1/dg2vqm99jaz6i9ecfwixtruux7rb63jk.jpg",
   "breadcrumbs": [

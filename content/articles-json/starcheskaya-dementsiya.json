@@ -8,7 +8,28 @@
   "time": 12,
   "views": 72921,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "alcegeymer",
+      "demenciya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "tamotsu"
+    ],
+    "sostav": [
+      "bor",
+      "ekstrakt-grebeshek",
+      "kholin",
+      "koenzim-q10"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/37f/840_472_1/gwdhtn6iuktqtvk0lmotu4o3kgexoq10.webp",
   "breadcrumbs": [

@@ -8,7 +8,25 @@
   "time": 3,
   "views": 29484,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "utomlyaemost",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Разного характера аллергия, к сожалению, прочно вошла в нашу жизнь. Сезонная или пищевая - она может проявляться в различных формах, от легкого насморка и зуда, до более серьезных реакций, вплоть до анафилактического шока.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/iblock/a13/43hz2d71eg23cfirxo0gxb0pgg1oooka.webp",
   "breadcrumbs": [

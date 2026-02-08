@@ -8,7 +8,25 @@
   "time": 3,
   "views": 65899,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Наш желудочно-кишечный тракт можно отнести и к иммунной системе, и к эндокринной, и к пищеварительной. Также существует прямая связь между кишечником и мозгом, так называемая ось «кишечник-мозг», которая обуславливает взаимную зависимость работы ЖКТ, психологического состояния и когнитивных способностей. Синдром раздраженного кишечника в большой степени связан с питанием и психологическим состоянием человека. Постоянное эмоциональное напряжение и раздражающие импульсы активизируют нервную систему и подавляют пищеварение, отсюда проявление неприятных симптомов:",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/a9d/840_557_1/r4syxruqyndn5zfhjz3mg14flefqny8q.webp",
   "breadcrumbs": [

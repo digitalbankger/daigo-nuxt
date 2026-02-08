@@ -8,7 +8,27 @@
   "time": 9,
   "views": 19280,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "От стерильности к разнообразию: что важно знать о микробиоте мочевыводящих путей?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/848/840_470_1/j1xzmovwj50u0691mqtfxy3955godmov.png",
   "breadcrumbs": [

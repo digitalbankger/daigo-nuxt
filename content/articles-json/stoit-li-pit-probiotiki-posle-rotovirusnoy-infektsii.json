@@ -8,7 +8,23 @@
   "time": 3,
   "views": 65427,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lux"
+    ],
+    "sostav": []
+  },
   "description": "Невидимые глазу вирусы и инфекции обитают повсюду вокруг нас. Защититься от них можно, но не всегда получается, особенно, если речь идет о детях. Очень часто человеческий организм сталкивается с ротавирусной инфекцией. Она встречается часто, доставляет массу дискомфорта и неприятных ощущений, а многие до сих пор не знают, какое лечение необходимо. Например, нужны ли метабиотики при ротавирусе или пробиотики помогут лучше? Разберемся вместе.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/84c/840_840_1/lzikaqmixw1qcth363t5dgu1ulor2csa.jpg",
   "breadcrumbs": [

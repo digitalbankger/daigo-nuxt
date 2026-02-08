@@ -8,7 +8,25 @@
   "time": 9,
   "views": 29505,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "alcegeymer",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Связь уровня стресса и микробиоты",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/def/840_359_1/vcdujtbd3h87qdfxo3gzvbd9t9jjdu0z.png",
   "breadcrumbs": [

@@ -8,7 +8,27 @@
   "time": 6,
   "views": 86309,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "helicobacter-pylori",
+      "kishechnaya-neprokhodimost-zapor"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Соблюдение диеты при заболеваниях желудочно-кишечного тракта (ЖКТ) играет ключевую роль в процессе лечения и поддержания здоровья. Специально подобранный рацион питания снижает нагрузку на органы ЖКТ, улучшает пищеварение, уменьшает проявление неприятных симптомов, сохраняет правильный баланс кишечной микрофлоры, не перебивает действие медикаментов, способствует скорейшему выздоровлению. Наличие в организме заболеваний, вызванных бактерией Хеликобактер Пилори, является прямым показанием для разработки специального рациона и является важным аспектом лечения этого бактериального заболевания.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/f77/840_560_1/9wcg18c83ptpy0c5s1e55djsng5l0j2x.webp",
   "breadcrumbs": [

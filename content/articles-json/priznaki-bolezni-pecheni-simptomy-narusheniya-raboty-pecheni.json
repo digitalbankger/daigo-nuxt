@@ -8,7 +8,28 @@
   "time": 4,
   "views": 89369,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "sukhaya-kozha",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Печень - очень важный орган. Интересно, но она никогда не прекращает свою работу, поэтому «стареет» раньше других органов. Клетки печени обновляются лишь раз в 300 дней, для сравнения клетки кожи - раз в 28. Если не заботиться о печени, то ее компенсаторные возможности закончатся и помочь будет уже практически невозможно. Также печень часто называют молчаливым органом, так как у нее нет болевых рецепторов и это та самая причина, почему печень не болит - она не может. Однако, каждый человек может уделять должное внимание этому органу. Как понять что печени нужна помощь? Разберем ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/ef7/840_847_1/w07wnjij9eiq4djb73w9zbv97tal409n.webp",
   "breadcrumbs": [

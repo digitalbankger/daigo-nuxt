@@ -8,7 +8,30 @@
   "time": 10,
   "views": 50794,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "alcegeymer",
+      "demenciya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": [
+      "cink",
+      "l-arginin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-b1"
+    ]
+  },
   "description": "Что такое инфламейджинг и как он связан со старостью?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/796/840_470_1/moovf0wf7i4yhshm9zv5n3vb08dpuyda.png",
   "breadcrumbs": [

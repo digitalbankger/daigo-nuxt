@@ -8,7 +8,25 @@
   "time": 5,
   "views": 57480,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10"
+    ]
+  },
   "description": "Кирилл Иванович Прощаев — доктор медицинских наук, профессор, директор Автономной некоммерческой организации «Научно-исследовательский медицинский центр “Геронтология”».",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/018/840_470_1/6s4bhwezxk88sn2c2gt7xedb11x2d14y.png",
   "breadcrumbs": [

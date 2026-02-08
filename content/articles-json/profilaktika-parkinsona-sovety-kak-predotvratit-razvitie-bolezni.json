@@ -8,7 +8,21 @@
   "time": 5,
   "views": 61401,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "vosstanovlenie-mikroflory",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "Болезнь Паркинсона — это хроническое нейродегенеративное заболевание. Оно характеризуется ухудшением контроля над мышцами, дрожанием, замедлением движений и другими симптомами. Болезнь связана с потерей нейронов, производящих нейромедиатор допамин в мозге.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/2ee/840_560_1/63qw18161irhjnhpq72pcsniylke0r47.webp",
   "breadcrumbs": [

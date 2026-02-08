@@ -8,7 +8,23 @@
   "time": 2,
   "views": 61273,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lux"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/dcd/840_840_1/18g3q1eey6nmvu0st3y4c14lqhdedoya.png",
   "breadcrumbs": [

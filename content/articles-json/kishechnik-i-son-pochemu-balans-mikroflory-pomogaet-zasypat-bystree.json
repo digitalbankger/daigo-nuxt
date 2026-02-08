@@ -8,7 +8,23 @@
   "time": 6,
   "views": 59707,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-dent"
+    ],
+    "sostav": []
+  },
   "description": "Почему баланс микрофлоры помогает засыпать быстрее",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/243/840_472_1/afj3kjt1qw3uz1u775o1bqca0wxgwqsb.png",
   "breadcrumbs": [

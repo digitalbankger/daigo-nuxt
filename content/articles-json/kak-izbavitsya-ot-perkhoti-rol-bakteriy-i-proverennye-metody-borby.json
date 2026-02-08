@@ -8,7 +8,26 @@
   "time": 10,
   "views": 96819,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-shampoo"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus",
+      "l-arginin",
+      "vitamin-h"
+    ]
+  },
   "description": "Перхоть и бактерии",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/575/840_470_1/eezhi7cg5ktavpal0c0syk154gki3xg5.png",
   "breadcrumbs": [

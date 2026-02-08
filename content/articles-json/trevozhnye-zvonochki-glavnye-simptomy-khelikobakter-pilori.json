@@ -8,7 +8,30 @@
   "time": 8,
   "views": 65416,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "yazva",
+      "helicobacter-pylori",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo",
+      "daigo-lux"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/dce/840_420_1/fsxfaeuotav4qtgii6zdasz62iih94z0.jpg",
   "breadcrumbs": [

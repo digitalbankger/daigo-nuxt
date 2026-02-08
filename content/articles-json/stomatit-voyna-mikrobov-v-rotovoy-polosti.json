@@ -8,7 +8,29 @@
   "time": 9,
   "views": 66718,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "zuby-i-desna"
+    ],
+    "pomogaet-pri": [
+      "stomatit",
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "karies",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-dent"
+    ],
+    "sostav": [
+      "bor",
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Как связаны между собой кишечный и ротовой микробиом?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/da6/840_470_1/74kylkcjigbq5a2bf395hf0gu4z7o745.png",
   "breadcrumbs": [

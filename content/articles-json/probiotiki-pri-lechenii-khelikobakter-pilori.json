@@ -8,7 +8,26 @@
   "time": 3,
   "views": 24341,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "helicobacter-pylori",
+      "disbakterioz"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Бактерия Хеликобактер Пилори живет уже несколько тысяч лет и, к сожалению, продолжает эволюционировать вместе с людьми и животными (обнаруживается даже у птиц). Она отличается невероятной жизнеспособностью, выживая в кислом содержимом желудка (а это соляная кислота!) и даже колонизируя его слизистую. Доказано, что антибиотиками эту бактерию не победить - она приспосабливается к терапии, мутирует и активизируется снова. А что же эффективно против Хеликобактер Пилори?",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/4bf/840_574_1/ry04f6c2ixs2u44v54iz2z760ihwqi9s.webp",
   "breadcrumbs": [

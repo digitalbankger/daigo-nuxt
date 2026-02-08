@@ -8,7 +8,25 @@
   "time": 3,
   "views": 50968,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "kishechnaya-neprokhodimost-zapor"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Почти 100 лет назад было выявлено, что для микрофлоры полезны пробиотические продукты. Они содержат в себе «хорошие» бактерии. Что относится к продуктам-пробиотикам? Может ли кефир заменить пробиотики? Давайте разбираться.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/62f/840_1163_1/f7k200by2sqea932db7689cdp4krlvdm.webp",
   "breadcrumbs": [

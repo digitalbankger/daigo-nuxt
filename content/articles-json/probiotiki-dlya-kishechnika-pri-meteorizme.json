@@ -8,7 +8,26 @@
   "time": 2,
   "views": 28877,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Состояние, при котором в желудочно-кишечном тракте накапливаются и образуются избыточные количества газов называется «метеоризм». Он может сопровождаться ощущением вздутия и дискомфорта, вызывать неудобства и болезненные ощущения. Приведение микрофлоры кишечника к правильному балансу, где над патогенными бактериями превалируют «хорошие» микроорганизмы, помогает снижать проявление метеоризма или вовсе избавиться от него. Эффективны ли пробиотики от метеоризма и вздутия? А, может, есть более современные способы решения данной проблемы? Рассказываем в тексте ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1dd/840_472_1/dwtswpdy8pvwv0k2k2qpcpxsxt6812td.webp",
   "breadcrumbs": [

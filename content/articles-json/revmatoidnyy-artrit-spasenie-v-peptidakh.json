@@ -8,7 +8,28 @@
   "time": 11,
   "views": 18953,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Как бороться с болезнью, которая разрушает суставы и заставляет организм атаковать самого себя?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/563/840_470_1/68mtcel9vd7fo1rjhqmnp7n51ef3x2oo.png",
   "breadcrumbs": [

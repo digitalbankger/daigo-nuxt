@@ -8,7 +8,22 @@
   "time": 6,
   "views": 65443,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Питание напрямую связано с состоянием нашего здоровья, поэтому является инструментом его поддержания. Отсюда следует логичный вывод, что возникновение любых заболеваний требует изменений в рационе человека. Особенно, если проблема затрагивает органы желудочно-кишечного тракта. Например, при панкреатите питание играет основополагающую роль, помогая контролировать симптомы, предотвращать обострения и улучшать качество жизни пациентов.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/138/840_1163_1/nzq7vermuetf8cpli2y9utnmcawtsqxu.webp",
   "breadcrumbs": [

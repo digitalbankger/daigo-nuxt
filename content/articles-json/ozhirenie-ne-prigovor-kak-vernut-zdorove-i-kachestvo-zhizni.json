@@ -8,7 +8,33 @@
   "time": 9,
   "views": 26082,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic",
+      "daigo-lux"
+    ],
+    "sostav": [
+      "lipaza",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Ожирение — это не просто цифры на весах или лишние сантиметры на талии. Это сложное заболевание, которое давно перестало быть индивидуальной проблемой и превратилось в глобальную эпидемию, охватившую миллионы людей по всему миру. Сегодня ожирение называют одной из главных угроз здоровью человечества, наряду с сердечно-сосудистыми заболеваниями и диабетом. Несмотря на обилие информации о здоровом образе жизни, количество людей с избыточным весом продолжает расти. Почему ожирение стало такой масштабной проблемой, какие факторы способствуют его развитию и, главное, как можно остановить эту тенденцию, расскажем в статье.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/43f/840_420_1/xs42iqc1oar8fuhwcqlvm1kfd6om91l2.png",
   "breadcrumbs": [

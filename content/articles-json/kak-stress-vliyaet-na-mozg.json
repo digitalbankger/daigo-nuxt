@@ -8,7 +8,27 @@
   "time": 4,
   "views": 95866,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "utomlyaemost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10"
+    ]
+  },
   "description": "Самое ценное, что есть у человека, - это разум. Только после него идет здоровое тело. Именно поэтому мозг является очень уязвимым и откликается на любые внешние и внутренние изменения. К сожалению, влияние стресса на мозг огромно, хоть и не всегда негативно. Доказано, что кратковременный стресс полезно аккумулирует его силы, внимание и всю работу. Однако, чаще всего влияние стресса на когнитивные функции несет значение со знаком минус. В статье ниже коротко раскроем данную тему.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/890/840_1400_1/0p24s0up3hzwb82fmxt5nqqd27j56etg.webp",
   "breadcrumbs": [

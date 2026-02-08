@@ -8,7 +8,25 @@
   "time": 3,
   "views": 32707,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Существует целая группа воспалительных заболеваний кишечника (ВЗК), которые являются очень распространенными, включают в себя массу неприятных проявлений, но остаются не до конца изученными. При этом активно исследуется взаимосвязь микробиоты кишечника и иммунного ответа человека в патогенезе этих самых заболеваний. Например, на сегодняшний день в России язвенный колит выявляется в 19-30 случаев на 100.000 населения. Статистика растет, а среди методов лечения появляются новые варианты. Один из них - работа с микробиомом. Эффективны ли пробиотики при язвенном колите?",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/6d6/840_840_1/fiyb31s59ii0t9hlvi3w9k6vvos52h0g.webp",
   "breadcrumbs": [

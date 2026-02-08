@@ -8,7 +8,26 @@
   "time": 6,
   "views": 51982,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "vitamin-b5",
+      "vitamin-k2"
+    ]
+  },
   "description": "Современные исследования подтверждают связь системы питания с риском развития конкретных заболеваний, энергией, продуктивностью и способностью справляться со стрессом.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/c01/840_472_1/24ig0fq12bywdm1mdlwxtkhac61io276.jpg",
   "breadcrumbs": [

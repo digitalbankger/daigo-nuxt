@@ -8,7 +8,28 @@
   "time": 9,
   "views": 80864,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Мигрень под микроскопом",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/1fd/840_470_1/5j1naymhk9zd20fwjafew5ef391fyimu.png",
   "breadcrumbs": [

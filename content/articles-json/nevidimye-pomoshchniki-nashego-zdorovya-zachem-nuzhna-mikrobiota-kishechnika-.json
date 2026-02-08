@@ -10,11 +10,23 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut"
-    ]
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "pishchevaya-neperenosimost",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
   },
   "description": "Что такое микробиота кишечника?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/55e/840_470_1/08wwykmue5teiuvf86smebj1art2gnrj.png",

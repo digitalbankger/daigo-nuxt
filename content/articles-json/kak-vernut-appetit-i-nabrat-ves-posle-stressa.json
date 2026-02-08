@@ -8,7 +8,22 @@
   "time": 6,
   "views": 41429,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "kishechnaya-neprokhodimost-zapor",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "В то время, как одни люди не могут усмирить свой аппетит при любой нервной ситуации, другие не знают, как набрать вес после стресса. Оказывается, стресс и аппетит действительно тесно связаны, причем, как на физическом, так и на психологическом уровне. И если повышенный аппетит не вызывает удивления, то его полное отсутствие чревато не только снижением веса, но и грозит возникновением проблем со здоровьем.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/53c/840_1163_1/5x0yhhar8k4pb9odi1ju2dcw4uta6wrj.webp",
   "breadcrumbs": [

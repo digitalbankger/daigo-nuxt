@@ -8,7 +8,29 @@
   "time": 4,
   "views": 67429,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "tamotsu"
+    ],
+    "sostav": [
+      "koenzim-q10"
+    ]
+  },
   "description": "Жить долго и счастливо, как завещают во всех сказках, хочет каждый человек. Именно поэтому медицина и другие науки стараются найти самые действенные методы, с помощью которых можно прокачать свой организм до состояния максимальной неуязвимости перед угрозами здоровью. Это движение получило собственное название «биохакинг», а люди, следующие этому движению, называются «биохакеры» (от англ. biohacker). В тексте ниже расскажем, как стать биохакером и раскрыть свой биологический потенциал.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/74c/840_457_1/a3pkwdby298pxr8hdfjfevz372sc7015.webp",
   "breadcrumbs": [

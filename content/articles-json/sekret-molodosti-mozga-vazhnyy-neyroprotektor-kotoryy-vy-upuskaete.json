@@ -8,7 +8,19 @@
   "time": 5,
   "views": 23157,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "alcegeymer",
+      "demenciya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "Современный ритм жизни, стрессы и возрастные изменения сильно влияют на здоровье мозга. Чтобы сохранить ясный ум, хорошую память и когнитивные функции, важно своевременно поддерживать мозг с помощью правильного питания и нутриентов. Одним из ключевых элементов для здоровья мозга являются Омега-3 жирные кислоты. Они действуют как мощный нейропротектор, замедляя старение и предотвращая развитие многих заболеваний.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/5cd/840_470_1/yj2122l5q05yn2d6q2nedw632r14mot6.jpg",
   "breadcrumbs": [

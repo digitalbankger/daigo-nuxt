@@ -8,7 +8,27 @@
   "time": 5,
   "views": 73381,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Кишечник обычно ассоциируется с процессами пищеварения, но оказывается, он является ключевым игроком в сложной системе человеческого иммунитета. Этот удивительный орган обладает уникальными особенностями, позволяя ему активно участвовать в защите организма от внешних угроз. До 80% всех иммунных клеток организма находится в кишечнике. Он неутомимо принимает на себя атаки самых разных чужеродных агентов и токсинов, а помогает ему в этом полезная микрофлора. Разбираемся, как микрофлора кишечника влияет на иммунитет.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/810/840_470_1/yot349iuaena0yvl9h7vc4aurp0fidgg.webp",
   "breadcrumbs": [

@@ -8,7 +8,27 @@
   "time": 5,
   "views": 24759,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Пептиды – это короткие цепочки аминокислот, связанных между собой. Они представляют «мини-белки», которые играют важнейшую роль в регуляции множества процессов в организме. Если белки – это крупные структуры, состоящие из сотен аминокислот, то пептиды более компактны, что позволяет им легче усваиваться и быстрее воздействовать на клетки.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/4fd/840_504_1/sb1sf88egzrdmjf8z9vmn197hze83n0f.webp",
   "breadcrumbs": [

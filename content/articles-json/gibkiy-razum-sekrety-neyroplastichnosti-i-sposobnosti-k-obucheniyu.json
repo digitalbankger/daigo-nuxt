@@ -8,7 +8,28 @@
   "time": 10,
   "views": 39228,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Способность к обучению в нейропластичности",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/09a/840_551_1/q0kcqzr1wup2r2nd5ks4c8u6eeenz11r.jpg",
   "breadcrumbs": [

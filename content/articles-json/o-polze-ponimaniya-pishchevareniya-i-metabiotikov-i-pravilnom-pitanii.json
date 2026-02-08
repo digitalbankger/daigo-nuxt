@@ -8,7 +8,31 @@
   "time": 13,
   "views": 89568,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "yazva",
+      "kishechnaya-neprokhodimost-zapor",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "kholin"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/4bd/840_840_1/3gtfyti17is8fqkytdto7qdvqtoo0t22.webp",
   "breadcrumbs": [

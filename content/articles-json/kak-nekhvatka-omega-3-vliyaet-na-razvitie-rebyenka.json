@@ -8,7 +8,22 @@
   "time": 8,
   "views": 57432,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost",
+      "sukhaya-kozha",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [],
+    "sostav": [
+      "vitamin-b3"
+    ]
+  },
   "description": "Как Омега-3 жирные кислоты влияют на физическое и умственное развитие ребенка?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/539/840_470_1/ln1lavrc1oa0plfezi4gfbt32g7vtm6y.png",
   "breadcrumbs": [

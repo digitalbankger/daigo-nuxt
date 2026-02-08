@@ -8,7 +8,28 @@
   "time": 6,
   "views": 69654,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "helicobacter-pylori"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "vitamin-b1",
+      "vitamin-b5"
+    ]
+  },
   "description": "Эта бактерия способна вызывать серьезные воспаления и разрушения слизистой желудка, ассоциируется с гастритом, язвенной болезнью и даже онкологией.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/694/840_472_1/z3bdvq53rzwnr5ng4yc0v0ug62sxo8nj.jpg",
   "breadcrumbs": [

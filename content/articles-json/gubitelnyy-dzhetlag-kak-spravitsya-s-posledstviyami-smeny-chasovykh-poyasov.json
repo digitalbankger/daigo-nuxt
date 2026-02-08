@@ -8,7 +8,31 @@
   "time": 12,
   "views": 96189,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-b3"
+    ]
+  },
   "description": "Как справиться с последствиями смены часовых поясов с помощью пептида хлореллы и аминокислот?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/56d/840_470_1/gtk9yrbf3atr2bu5lm6b2cjhoijp598q.png",
   "breadcrumbs": [

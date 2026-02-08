@@ -8,7 +8,29 @@
   "time": 4,
   "views": 99034,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10"
+    ]
+  },
   "description": "Печень - это наш фильтр. Через нее проходит все, что мы едим и пьем: она обезвреживает и выводит вредные вещества, защищая от них организм. Сахар, пестициды, консерванты, антибиотики, стабилизаторы, усилители вкуса - все это проходит ежедневно через этот выносливый орган. Особенная нагрузка на нее приходится во время приема лекарств, потому во время любого лечения особенно важно поддерживать ее правильную работу. Как защитить печень? Расскажем в тексте ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/766/840_527_1/90eh9ttw3wk3ubysiuu68n5cc46lcjfx.webp",
   "breadcrumbs": [

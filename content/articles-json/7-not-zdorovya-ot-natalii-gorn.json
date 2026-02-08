@@ -8,7 +8,20 @@
   "time": 1,
   "views": 52973,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/056/840_630_1/6y08lpqpz97e0ww99hnp47kn07gzbq7x.webp",
   "breadcrumbs": [
@@ -43,7 +56,7 @@
     "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
     "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
   },
-  "contentTop": "\n            <h2>Наталию Горн (@dr.nataliya_gorn) знают как врача общей практики, специалиста по стресс-менеджменту, health-коуча, anti-age-терапевта и автора семинаров о нутриентах, витаминах и гормонах. </h2>\n <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/cBRiro1vxwI?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"7 нот здоровья от Наталии Горн\">\n</iframe> <br>        ",
+  "contentTop": "\n            <h2>Наталию Горн (@dr.nataliya_gorn) знают как врача общей практики, специалиста по стресс-менеджменту, health-коуча, anti-age-терапевта и автора семинаров о нутриентах, витаминах и гормонах. </h2>\n <iframe src=\"https://vkvideo.ru/video_ext.php?oid=-10462818&id=456240271&hash=13b34ef7ffd18e49\" width=\"640\" height=\"360\" frameborder=\"0\" allowfullscreen=\"1\" style=\"background-color: #000\" allow=\"autoplay; encrypted-media; fullscreen; picture-in-picture\"></iframe> <br>        ",
   "materials": {
     "title": "Полезные материалы",
     "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",

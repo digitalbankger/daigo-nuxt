@@ -8,7 +8,24 @@
   "time": 6,
   "views": 54800,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/b71/840_599_1/gpds1be84oo53ezp9av2wtvkkna5w1nl.webp",
   "breadcrumbs": [

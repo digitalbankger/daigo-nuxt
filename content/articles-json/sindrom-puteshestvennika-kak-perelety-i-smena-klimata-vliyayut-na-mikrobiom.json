@@ -10,13 +10,27 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology",
-      "immunology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity"
-    ]
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "yazva",
+      "pishchevaya-neperenosimost",
+      "disbakterioz",
+      "utomlyaemost",
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
   },
   "description": "Путешествия — это не только новые впечатления, но и серьезное испытание для организма. Многие сталкиваются с так называемым «синдромом путешественника» — расстройством пищеварения, усталостью, снижением иммунитета и другими неприятными симптомами после перелетов и смены климата. Одна из ключевых причин этих проблем — нарушение баланса микробиома. В этой статье разберем, как авиаперелеты, смена часовых поясов, новая еда и климат влияют на микробиом и что можно сделать, чтобы поддержать здоровье кишечника в поездках.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/447/840_471_1/txbupyumbik47ch9xitfy5bxazg2usc3.jpg",

@@ -3,15 +3,51 @@ import { listArticlesLite } from '~/server/utils/articlesFs'
 
 export default defineEventHandler(async (event) => {
   const q = getQuery(event)
+
   const page = Math.max(1, Number(q.page ?? 1))
-  const perPage = 6 // синхронно со стором
+  const perPage = 15 // синхронно со стором
+
+  const search = String(q.q ?? '').trim().toLowerCase()
+
+  const activeFilters = Object.entries(q).reduce<Record<string, string[]>>((acc, [key, raw]) => {
+    if (key === 'page' || key === 'q') return acc
+    const values =
+      typeof raw === 'string'
+        ? raw.split(',').map(v => v.trim()).filter(Boolean)
+        : Array.isArray(raw)
+          ? raw.flatMap(v => String(v).split(',')).map(v => v.trim()).filter(Boolean)
+          : []
+    if (values.length) acc[key] = values
+    return acc
+  }, {})
+
   const all = await listArticlesLite()
-  const total = all.length
+
+  const filtered = all.filter((a) => {
+    // поиск
+    if (search) {
+      const hay = `${String(a.title ?? '')} ${String(a.preview ?? '')}`.toLowerCase()
+      if (!hay.includes(search)) return false
+    }
+
+    // фильтры
+    for (const [key, values] of Object.entries(activeFilters)) {
+      const prop = (a as any)?.properties?.[key]
+      if (prop == null) return false
+      if (Array.isArray(prop)) {
+        if (!prop.some(v => values.includes(String(v)))) return false
+      } else {
+        if (!values.includes(String(prop))) return false
+      }
+    }
+    return true
+  })
+
+  const total = filtered.length
   const start = (page - 1) * perPage
-  const items = all.slice(start, start + perPage)
+  const items = filtered.slice(start, start + perPage)
 
   setResponseHeader(event, 'Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=120')
-
   return { items, total }
 })
 
@@ -4095,7 +4131,7 @@ export default defineEventHandler(async (event) => {
 // export default defineEventHandler((event) => {
 //   const query = getQuery(event)
 //   const page = Number(query.page || 1)
-//   const perPage = 6
+//     const perPage = 15 // синхронно со стором
 
 //   // нормализуем: берём только разрешённые ключи фильтров, отбрасываем пустые значения
 //   const activeFilters = Object.entries(query).reduce<Record<string, string[]>>((acc, [key, raw]) => {

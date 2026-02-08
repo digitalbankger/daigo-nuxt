@@ -8,7 +8,27 @@
   "time": 7,
   "views": 16697,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "atopicheskij-dermatit",
+      "sukhaya-kozha",
+      "allergiya",
+      "psoriaz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Знали ли вы, что наша кожа обладает естественными механизмами удержания влаги? У нее имеются сальные железы, которые вырабатывают себум - маслообразный секрет, помогающий сохранять естественный уровень увлажненности кожи. Этот процесс очень важен для здоровья кожи, а также ее красоты. Сухость кожи тела, в свою очередь, может быть связана с рядом определенных проблем: начиная недостаточным уходом, заканчивая серьезными проблемами со здоровьем. В статье ниже разберем причины и лечение сухости кожи тела.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/e46/840_1260_1/sclifmdqe3x730338b1ekrcekw237nfz.webp",
   "breadcrumbs": [

@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="`/articles/${article.slug}`" class="flex flex-col text-left group w-full max-w-[416px]">
+  <NuxtLink :to="`/articles/${article.slug}`" class="flex flex-col text-left group w-full max-w-[416px] mt-6">
     <div class="w-full h-[285px] md:h-[350px] overflow-hidden rounded-[15px] mb-4">
       <img
         :src="article.image"
@@ -11,7 +11,7 @@
       />
     </div>
 
-    <h3 class="text-xl md:text-cardhead font-medium text-black leading-tight mb-4">
+    <h3 class="text-lg md:text-2xl font-medium text-black leading-tight mb-4">
       {{ article.title }}
     </h3>
     <p class="text-sm md:text-base text-left text-black  mb-4 line-clamp-3">

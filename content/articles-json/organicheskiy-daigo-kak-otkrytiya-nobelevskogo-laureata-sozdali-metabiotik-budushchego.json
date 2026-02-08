@@ -10,18 +10,33 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology",
-      "immunology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity"
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "neyrodermit",
+      "yazva",
+      "helicobacter-pylori",
+      "atopicheskij-dermatit",
+      "disbakterioz",
+      "kishechnaya-neprokhodimost-zapor",
+      "allergiya",
+      "psoriaz",
+      "akne",
+      "emotsionalnaya-peregruzka"
     ],
     "klass-produkta": [
-      "metabiotics"
+      "metobiotiki"
     ],
     "produkty": [
-      "daigo"
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "bor",
+      "vitamin-k2"
     ]
   },
   "description": "Еще в начале XX века великий русский ученый Илья Мечников, лауреат Нобелевской премии (1908 г.), сделал революционное открытие: «Старение и болезни начинаются с токсинов в кишечнике». Он первым заговорил о связи микрофлоры и иммунитета, предложив использовать молочнокислые бактерии для продления жизни. Но настоящий прорыв совершил японский исследователь Какутаро Масагаки. Вдохновленный работами Мечникова, он в 1914 году основал компанию по производству ферментированных продуктов. Масагаки обнаружил нечто удивительное: главная ценность — не сами бактерии, а их метаболиты (секреторные выделения). Так родился Daigo — уникальный во всем мире органический метабиотик, принципиально новый подход к здоровью микробиома.",

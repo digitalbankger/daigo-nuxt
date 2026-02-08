@@ -8,7 +8,24 @@
   "time": 3,
   "views": 18442,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Почему некоторые считают, что пробиотики при аллергии у взрослых и детей - это панацея? Из-за тесной связи кишечника и иммунитета. Аллергия - это всегда неадекватный иммунный ответ организма на аллерген. Самое же большое количество иммунных клеток вырабатывается в кишечнике. То есть, связь между дисбактериозом и аллергией обусловлена ключевой ролью кишечной микрофлоры в регуляции иммунной системы, поддержании барьерной функции кишечника и развитии иммунологической толерантности. О том, правда ли помогают ли пробиотики при аллергии, расскажем ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1aa/840_840_1/qnr9pbgzerv6zfun5bxcmn02d20ptknf.webp",
   "breadcrumbs": [

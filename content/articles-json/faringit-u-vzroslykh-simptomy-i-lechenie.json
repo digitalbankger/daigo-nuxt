@@ -8,7 +8,22 @@
   "time": 7,
   "views": 85953,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "utomlyaemost"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/db1/840_560_1/bi9a1xd76mo2f3r2lq77ep6icyqmep2q.webp",
   "breadcrumbs": [

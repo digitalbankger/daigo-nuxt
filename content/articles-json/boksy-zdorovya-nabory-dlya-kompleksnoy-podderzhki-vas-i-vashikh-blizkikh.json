@@ -8,7 +8,38 @@
   "time": 6,
   "views": 11802,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "utomlyaemost",
+      "karies",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-brainy",
+      "daigo-dent",
+      "daigo-dermic",
+      "daigo-jointic",
+      "daigo-lux",
+      "daigo-shampoo",
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10",
+      "peptid-khlorelly-iph-c",
+      "vitamin-h"
+    ]
+  },
   "description": "В каждой сфере жизни, будь то работа, спорт или забота о красоте и молодости, важно получать ощутимую поддержку, которая помогает достигать необходимых целей. Для этого мы создали три уникальных набора, которые, учитывая потребности разных категорий людей, поддерживают здоровье на клеточном уровне!",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/da7/840_472_1/q69abggkek31pjsezbgk2ssb0kzcfqs9.png",
   "breadcrumbs": [

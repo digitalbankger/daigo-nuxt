@@ -10,18 +10,37 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology",
-      "immunology"
+      "mozg-i-nervnaya-sistema"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity"
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
     ],
-    "klass-produkta": [
-      "aminobiotics"
-    ],
+    "klass-produkta": [],
     "produkty": [
-      "dermic"
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "alpha-lipoevaya-kislota",
+      "bor",
+      "cellulaza",
+      "cink",
+      "dimetilaminoetanol",
+      "khrom",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "marganec",
+      "pektinaza",
+      "peptid-khlorelly-iph-c",
+      "vitamin-b1",
+      "vitamin-b14",
+      "vitamin-b5",
+      "vitamin-b6",
+      "vitamin-h"
     ]
   },
   "description": "Тихая революция в организме: что может натуральный короткий пептид из Chlorella pyrenoidosa?",

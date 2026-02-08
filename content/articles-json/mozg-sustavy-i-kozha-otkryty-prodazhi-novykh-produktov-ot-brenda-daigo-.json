@@ -8,7 +8,31 @@
   "time": 6,
   "views": 64079,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "alcegeymer",
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-h"
+    ]
+  },
   "description": "Мы знаем, что может помочь правильно управлять здоровьем на протяжении всей жизни - пептидная регуляция! Счастливы сообщить, что были созданы три абсолютно новых продукта в мире нутрицевтиков - аминобиотики: Daigo.Brainy для здоровья мозга, Daigo.Jointic для здоровья суставов и Daigo.Dermic для здоровья кожи.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/da9/840_472_1/q1ppifn0sotq026iiayzrrknu31oxl8u.png",
   "breadcrumbs": [

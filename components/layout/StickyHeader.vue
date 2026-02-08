@@ -1,7 +1,7 @@
 <template>
   <div
     class="hidden md:block fixed top-0 left-0 right-0 z-[60] transition-transform duration-300 will-change-transform"
-    :class="scrolled ? 'translate-y-0' : '-translate-y-full'"
+    :style="stickyStyle"
     aria-hidden="false"
   >
     <nav class="backdrop-blur bg-white/85 border-b border-gray-200">
@@ -102,28 +102,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue' 
+import { computed } from 'vue'
 import { useScrolled } from '@/composables/useScrolled'
-import CartBadge from '@/components/ui/CartBadge.vue'
-import { useAuthStore } from '@/stores/authStore'
-import { storeToRefs } from 'pinia'
-//import { useUiStore } from '@/stores/ui'
+import { useUiStore } from '@/stores/ui'
 
-//const ui = useUiStore()
-
-//const offsetClass = computed(() => (ui.isHeadInformerVisible ? 'translate-y-14' : 'translate-y-0'))
-
+const ui = useUiStore()
 const { scrolled } = useScrolled(120)
 
-const auth = useAuthStore()
-const { isAuthenticated } = storeToRefs(auth)
+// высота информера (у тебя 56px). Если на desktop другая — поменяй тут.
+const INFORMER_H = 48
 
-const goProfile = () => {
-  if (isAuthenticated.value) navigateTo('/profile')
-  else auth.openAuth()
-}
-const goOrders = () => {
-  if (isAuthenticated.value) navigateTo('/orders')
-  else auth.openAuth()
-}
+const stickyStyle = computed(() => {
+  const offset = ui.isHeadInformerVisible ? INFORMER_H : 0
+
+  return {
+    top: '0px',
+    transform: scrolled.value
+      ? `translateY(${offset}px)`
+      : `translateY(calc(-100% - ${offset}px))`,
+  }
+})
 </script>

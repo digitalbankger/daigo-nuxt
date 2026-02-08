@@ -8,7 +8,21 @@
   "time": 1,
   "views": 22389,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "pishchevaya-neperenosimost",
+      "allergiya",
+      "akne"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/42f/840_560_1/nyzv2t3w9y344v3y9jiqtftrsfg2ljzw.webp",
   "breadcrumbs": [

@@ -8,7 +8,25 @@
   "time": 7,
   "views": 24927,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Сахарный диабет ежедневно бросает вызов миллионам людей по всему миру. По данным Всемирной организации здравоохранения, за последние 40 лет число людей с диабетом выросло почти в четыре раза, и сегодня это заболевание стало одной из главных причин преждевременной смертности. Что делает диабет таким коварным? Какие мифы с ним связаны, и самое главное – можно ли с ним жить полноценной жизнью?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/edd/840_470_1/ronsjfkr93bqhwgl3ir267m3ds0xx1lp.png",
   "breadcrumbs": [

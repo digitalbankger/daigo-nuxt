@@ -8,7 +8,27 @@
   "time": 8,
   "views": 30087,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "disbakterioz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Баланс интимной микрофлоры",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/996/840_472_1/cjvt30j4n5tnkgbyiy2xz46wkfg4tzqb.jpg",
   "breadcrumbs": [

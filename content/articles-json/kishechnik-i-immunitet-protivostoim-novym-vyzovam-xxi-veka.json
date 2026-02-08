@@ -8,7 +8,18 @@
   "time": 1,
   "views": 12351,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1f0/840_560_1/hod4wzi7ksrenkria2u2y627idkio5uk.webp",
   "breadcrumbs": [
@@ -43,7 +54,7 @@
     "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
     "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
   },
-  "contentTop": "\n            <h2>Прощаев Кирилл Иванович </h2>\n<h3>д.м.н., врач-терапевт, профессор кафедры терапии, гериатрии и антивозрастной медицины ФГБОУ ДПО «Институт повышения квалификации Федерального медико-биологического агентства России», директор Автономной некоммерческой организации «Научно-исследовательский медицинский центр «Геронтология»</h3>\n<div>\n\t <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/ojw3ob99OPg?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"Кишечник и иммунитет-противостоим новым вызовам XXI века\">\n\t</iframe> <br>\n</div>\n <br>        ",
+  "contentTop": "\n            <h2>Прощаев Кирилл Иванович </h2>\n<h3>д.м.н., врач-терапевт, профессор кафедры терапии, гериатрии и антивозрастной медицины ФГБОУ ДПО «Институт повышения квалификации Федерального медико-биологического агентства России», директор Автономной некоммерческой организации «Научно-исследовательский медицинский центр «Геронтология»</h3>\n<div>\n\t <iframe src=\"https://vkvideo.ru/video_ext.php?oid=-10462818&id=456240258&hash=28359e7407fb2b98\" width=\"640\" height=\"360\" frameborder=\"0\" allowfullscreen=\"1\" style=\"background-color: #000\" allow=\"autoplay; encrypted-media; fullscreen; picture-in-picture\"></iframe> <br>\n</div>\n <br>        ",
   "materials": {
     "title": "Полезные материалы",
     "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",

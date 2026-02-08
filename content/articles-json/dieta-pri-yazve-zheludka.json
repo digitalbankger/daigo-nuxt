@@ -8,7 +8,25 @@
   "time": 9,
   "views": 36359,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "helicobacter-pylori",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/777/840_560_1/o1yhgtj89bwnqm9g6at1mhce0yskn8lb.webp",
   "breadcrumbs": [

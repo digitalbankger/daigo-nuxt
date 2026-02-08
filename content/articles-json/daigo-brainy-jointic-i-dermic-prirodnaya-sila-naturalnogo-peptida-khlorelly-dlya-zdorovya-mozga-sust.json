@@ -10,22 +10,26 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "dermatology",
-      "gastroenterology",
-      "immunology"
+      "mozg-i-nervnaya-sistema"
     ],
     "pomogaet-pri": [
-      "gut",
-      "immunity",
-      "skin"
+      "nevralgiya-mysh-boli",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
     ],
-    "klass-produkta": [
-      "aminobiotics",
-      "metabiotics"
-    ],
+    "klass-produkta": [],
     "produkty": [
-      "daigo",
-      "dermic"
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-b3"
     ]
   },
   "description": "От микроводоросли до премиум формулы: как создаются Daigo Brainy, Daigo Jointic и Daigo Dermic?",

@@ -8,7 +8,27 @@
   "time": 3,
   "views": 24911,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "helicobacter-pylori",
+      "disbakterioz",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "khrom"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/fee/840_559_1/vpbo0ggfyd1h4l2k8uya28rn8atjvcbt.webp",
   "breadcrumbs": [

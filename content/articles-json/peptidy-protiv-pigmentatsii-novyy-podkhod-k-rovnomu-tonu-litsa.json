@@ -8,7 +8,31 @@
   "time": 10,
   "views": 77806,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-dermic",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "bor",
+      "cink",
+      "peptid-khlorelly-iph-c",
+      "vitamin-a",
+      "vitamin-b3",
+      "vitamin-h"
+    ]
+  },
   "description": "За что отвечает каждый слой кожи?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/034/840_237_1/5weikorjvha677ihls772bnbo0phjm3n.jpg",
   "breadcrumbs": [

@@ -8,7 +8,30 @@
   "time": 12,
   "views": 47345,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "psoriaz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-dermic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Основы основ: роль слоев кожи в поддержании молодости и здоровья",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/913/840_470_1/bva34iwzen1onpri0vyn3oqlcrh1eel5.png",
   "breadcrumbs": [

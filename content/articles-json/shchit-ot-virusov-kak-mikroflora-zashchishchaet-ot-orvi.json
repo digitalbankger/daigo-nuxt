@@ -8,7 +8,28 @@
   "time": 10,
   "views": 33867,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "utomlyaemost",
+      "allergiya",
+      "akne"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Миллионы людей сталкиваются с насморком, температурой и болью в горле — классическими симптомами ОРВИ. Несмотря на то, что острые респираторные вирусные инфекции хорошо изучены, их лечение до сих пор окружено мифами и неэффективными методами. В результате болезнь затягивается, повышается риск осложнений, а организм лишается возможности справиться с инфекцией естественным путём.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/c2a/840_293_1/m5oilx8c6ox54yjsatjwl96hwa5hbni2.jpg",
   "breadcrumbs": [

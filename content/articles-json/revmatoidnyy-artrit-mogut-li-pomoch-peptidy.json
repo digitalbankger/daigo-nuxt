@@ -8,7 +8,28 @@
   "time": 12,
   "views": 59883,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "nevralgiya-mysh-boli",
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Проблемная основа ревматоидного артрита",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/957/840_215_1/1qc7s02909odfkbxhoswbathcuk49foh.jpg",
   "breadcrumbs": [

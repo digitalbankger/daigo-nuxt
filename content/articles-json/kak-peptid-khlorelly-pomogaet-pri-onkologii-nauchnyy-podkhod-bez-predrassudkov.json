@@ -10,16 +10,19 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "gastroenterology"
+      "mozg-i-nervnaya-sistema"
     ],
     "pomogaet-pri": [
-      "gut"
+      "emotsionalnaya-peregruzka"
     ],
-    "klass-produkta": [
-      "aminobiotics"
-    ],
+    "klass-produkta": [],
     "produkty": [
-      "dermic"
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "peptid-khlorelly-iph-c"
     ]
   },
   "description": "Что такое пептиды?",

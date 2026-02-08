@@ -8,7 +8,27 @@
   "time": 3,
   "views": 97137,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "В организме предусмотрено множество процессов, которые призваны обеспечивать его идеальную работу. Несмотря на свои мощные компенсаторные возможности, нарушение даже одного маленького процесса влечет за собой череду общих изменений. Например, так происходит при лактазной недостаточности, облегчить или уменьшить симптомы которой обещают безлактозные пробиотики, но действительно ли это самое оптимальное решение? Поговорим о них подробнее.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/8dd/840_1163_1/0kio86fkf4wgae4w6k23lu8a1pp22qbb.jpg",
   "breadcrumbs": [

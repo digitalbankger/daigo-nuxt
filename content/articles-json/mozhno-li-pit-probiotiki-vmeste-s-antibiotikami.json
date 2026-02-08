@@ -8,7 +8,28 @@
   "time": 3,
   "views": 37418,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "sukhaya-kozha"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Вокруг приема антибиотиков существует множество разных теорий и правил, который зачастую противоречат друг другу. Однако, сегодня мы знаем наверняка, что даже обоснованный и необходимый прием данных лекарств, очень пагубно влияет на работу всего желудочно-кишечного тракта и, в частности, на микрофлору кишечника. Благо, медицина активно движется вперед, поэтому современные протоколы лечения, включающие антибиотикотерапию, рекомендуют пробиотик принимать вместе с антибиотиком. Расскажем подробнее, какую пользу несет этот совместный прием и чем метабиотики окажутся полезнее пробиотиков.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f3a/840_840_1/vu8vdnu2xmaf0qlrvxrmucoodjh6xttm.png",
   "breadcrumbs": [

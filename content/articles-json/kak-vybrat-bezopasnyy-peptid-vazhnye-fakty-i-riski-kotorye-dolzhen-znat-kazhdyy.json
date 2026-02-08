@@ -8,7 +8,26 @@
   "time": 9,
   "views": 16257,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-dermic",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "peptid-khlorelly-iph-c",
+      "vitamin-b1"
+    ]
+  },
   "description": "Виды пептидов: факты и риски",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/525/840_470_1/2o8x3yqy1wbq01hbh1nujx9ftzq7x6e2.png",
   "breadcrumbs": [

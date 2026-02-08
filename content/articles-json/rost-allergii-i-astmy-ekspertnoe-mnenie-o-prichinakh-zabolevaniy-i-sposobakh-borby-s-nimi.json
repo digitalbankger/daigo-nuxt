@@ -8,7 +8,24 @@
   "time": 5,
   "views": 56783,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "allergiya",
+      "akne"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Аллергические заболевания затрагивают миллионы людей во всем мире, существенно влияя на качество их жизни. В последние десятилетия отмечается рост заболеваемости аллергией и астмой.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/20e/840_470_1/gkpymltfxmonzkmcwwv5cjixroywmyqz.png",
   "breadcrumbs": [

@@ -8,7 +8,21 @@
   "time": 1,
   "views": 90207,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "allergiya"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/0bc/840_1258_1/tv25mq4tj32q0qw7co3jpd97fs1y0joh.webp",
   "breadcrumbs": [
@@ -43,7 +57,7 @@
     "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
     "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
   },
-  "contentTop": "\n            <h2>Галкина Ирина Юрьевна</h2>\n<h3>Научный Руководитель компании Профлайн и руководитель Учебно Методического Центра Профлайн, кандидат.мед.наук, Член Национального общества регенеративной медицины Врач-косметолог, Тренер-методист, Международный Спикер</h3>\n<div>\n\t Кто живет в нашем кишечнике: как распознать врагов и не погубить друзей? С чего начинается здоровье ребенка и почему сейчас так много аллергиков и аутистов ? Женское нездоровье=нездоровая семья. При чем тут микрофлора ? Здоровое питание – как правильно кормить симбионтную флору ?<br>\n \n\t <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/gAksa3JuhwA?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"Где начинается наш иммунитет и как нам его не потерять? Очень полезные бляшки.\">\n\t</iframe> <br>\n</div>\n <br>        ",
+  "contentTop": "\n            <h2>Галкина Ирина Юрьевна</h2>\n<h3>Научный Руководитель компании Профлайн и руководитель Учебно Методического Центра Профлайн, кандидат.мед.наук, Член Национального общества регенеративной медицины Врач-косметолог, Тренер-методист, Международный Спикер</h3>\n<div>\n\t Кто живет в нашем кишечнике: как распознать врагов и не погубить друзей? С чего начинается здоровье ребенка и почему сейчас так много аллергиков и аутистов ? Женское нездоровье=нездоровая семья. При чем тут микрофлора ? Здоровое питание – как правильно кормить симбионтную флору ?<br>\n \n\t <iframe src=\"https://vkvideo.ru/video_ext.php?oid=-10462818&id=456240251&hash=5e5010d45fe23202\" width=\"640\" height=\"360\" frameborder=\"0\" allowfullscreen=\"1\" style=\"background-color: #000\" allow=\"autoplay; encrypted-media; fullscreen; picture-in-picture\"></iframe> <br>\n</div>\n <br>        ",
   "materials": {
     "title": "Полезные материалы",
     "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",

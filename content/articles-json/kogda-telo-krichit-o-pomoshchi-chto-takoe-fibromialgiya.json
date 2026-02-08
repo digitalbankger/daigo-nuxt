@@ -8,7 +8,35 @@
   "time": 9,
   "views": 44861,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "pishchevaya-neperenosimost",
+      "utomlyaemost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy",
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Человеческий организм — это удивительная система, в которой до сих пор много неизученного. Иногда проблемы со здоровьем проявляются так, что даже врачи разводят руками: анализы в норме, обследования не показывают отклонений, но человек продолжает страдать от боли, усталости и других неприятных симптомов. Именно так выглядит фибромиалгия — хроническое заболевание, которое остаётся загадкой для современной медицины. Ниже попробуем разобраться, что же такое фибромиалгия, какие симптомы её сопровождают, почему её так сложно диагностировать, и главное — как люди с этим диагнозом могут улучшить своё качество жизни.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/9fc/840_470_1/o277hp8ncw1li92hwuymz6116cmkdw25.png",
   "breadcrumbs": [

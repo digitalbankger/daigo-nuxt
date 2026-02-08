@@ -8,7 +8,28 @@
   "time": 5,
   "views": 49779,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus",
+      "vitamin-h"
+    ]
+  },
   "description": "Микробиота кишечника - это совокупность микроорганизмов, преимущественно бактерий, населяющих кишечник человека. Данное микробное сообщество играет важную роль в поддержании общего здоровья, а нарушение правильного баланса микрофлоры влечет за собой целую цепочку негативных последствий для организма. Восстановление микробиома кишечника процесс кропотливый, включающий целый ряд действий (корректировка питания, прием определенных добавок, занятия спортом, снижение уровня стресса).",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/415/840_480_1/s2n60nfypwmjsmdp4z2bqu71zgm9pyhu.webp",
   "breadcrumbs": [

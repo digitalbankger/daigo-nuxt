@@ -8,7 +8,26 @@
   "time": 5,
   "views": 83401,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vypadenie-volos",
+      "psoriaz",
+      "siboreya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [],
+    "produkty": [
+      "daigo-lux",
+      "daigo-shampoo"
+    ],
+    "sostav": [
+      "cink"
+    ]
+  },
   "description": "Красивые волосы - удел мечтаний многих, причем, совсем не стоит делать гендерных различий. Согласитесь, вряд ли кто-то откажется от густых, сияющих, здоровых волос. В нашем организме все продумано до мелочей, в том числе и цикл обновления волос, включающий в себя как стадию роста, так и стадию выпадения. Другое дело, когда вторая стадия превалирует над первой. По статистике 54% мужчин и 53% женщин жалуются на повышенное выпадение волос. В тексте ниже разберемся, сколько волос в сутки выпадает у человека, а также, что сделать, чтобы волосы меньше выпадали.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/f79/840_1163_1/ii2ktm8z33k3nb1b82dgets51b7qmil0.webp",
   "breadcrumbs": [

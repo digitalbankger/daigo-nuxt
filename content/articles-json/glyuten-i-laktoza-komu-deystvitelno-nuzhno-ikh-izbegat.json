@@ -8,7 +8,29 @@
   "time": 8,
   "views": 53774,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus",
+      "l-glutamin"
+    ]
+  },
   "description": "Глютен: что это и почему он стал проблемой для многих?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/64b/840_472_1/aoqi29vjazsdjfjsa8oc6icexlg5h3ym.jpg",
   "breadcrumbs": [

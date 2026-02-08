@@ -8,7 +8,29 @@
   "time": 8,
   "views": 88703,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "yazva",
+      "pokhmelie",
+      "disbakterioz",
+      "utomlyaemost"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Как алкоголь влияет на пищеварительную систему",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/3b7/840_472_1/ls721doscrphdyr4ts7i7abrojv2ampz.jpg",
   "breadcrumbs": [

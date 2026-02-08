@@ -8,7 +8,24 @@
   "time": 3,
   "views": 85684,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "zuby-i-desna"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "karies"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-dent",
+      "daigo-lux"
+    ],
+    "sostav": []
+  },
   "description": "Неприятный запах изо рта, или галитоз, является распространенной проблемой, с которой сталкиваются многие люди. Этот симптом вызывает дискомфорт и неудобство, негативно сказывается на самооценке и социальных отношениях. Несмотря на то, что галитоз часто ассоциируется с плохой гигиеной полости рта, основания для его появления могут быть гораздо более глубокими. Далее рассмотрим основные причины появления неприятного запаха изо рта и расскажем про эффективные методы, позволяющие избавиться от него.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/1b0/840_1107_1/fsznddl3s5d1if8xcflav5e6n25nwfc1.webp",
   "breadcrumbs": [

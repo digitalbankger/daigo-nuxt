@@ -8,7 +8,27 @@
   "time": 9,
   "views": 51001,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "atopicheskij-dermatit",
+      "disbakterioz",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Что делать с эозинофильным энтеритом у детей?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/ada/840_470_1/124cnx11vk22r6s20uwmz2jqanpv2orv.png",
   "breadcrumbs": [

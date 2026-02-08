@@ -8,7 +8,25 @@
   "time": 3,
   "views": 48970,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "По данным Всемирной Организации Здравоохранения (ВОЗ), от него страдают как минимум 15–20% населения планеты. Но из-за неявных проявлений 2/3 больных вообще не обращаются к врачам с этой проблемой. Речь идет о синдроме раздраженного кишечника (СРК), который до сих пор остается одной из самых загадочных проблем нашего времени. Как распознать синдром у себя? Можно ли от него избавиться? Расскажем в статье ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/39a/840_1163_1/wlh0ldj2vl0f04yeknnqir3zuy31qp08.webp",
   "breadcrumbs": [

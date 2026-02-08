@@ -8,7 +8,22 @@
   "time": 1,
   "views": 48070,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/f79/840_840_1/fk2h8gj2dy236drj3q32lxovcaul5f5r.webp",
   "breadcrumbs": [
@@ -43,7 +58,7 @@
     "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
     "about": "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией."
   },
-  "contentTop": "\n            Пробиотики, пребиотики и метабиотики – простыми словами<br>\n Эксперт по продукту Дайго – Елена Лебедева\n<ul>\n\t<li>Как работает жкт ?</li>\n\t<li>Каков состав вашей микрофлоры ?</li>\n\t<li>Какой анализ сдать?</li>\n\t<li>Что такое пробиотики, пребиотики и метабиотики?</li>\n\t<li>Состав про-, пре- и метабиотиков.&nbsp;</li>\n\t<li>Как расшифровать?</li>\n</ul>\n <iframe width=\"1280\" height=\"720\" src=\"https://www.youtube.com/embed/VYGMB70LB9U?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" allowfullscreen=\"\" title=\"Почему пробиотики и пребиотики не работают. Объяснение простыми словами.\">\n</iframe> <br>        ",
+  "contentTop": "\n            Пробиотики, пребиотики и метабиотики – простыми словами<br>\n Эксперт по продукту Дайго – Елена Лебедева\n<ul>\n\t<li>Как работает жкт ?</li>\n\t<li>Каков состав вашей микрофлоры ?</li>\n\t<li>Какой анализ сдать?</li>\n\t<li>Что такое пробиотики, пребиотики и метабиотики?</li>\n\t<li>Состав про-, пре- и метабиотиков.&nbsp;</li>\n\t<li>Как расшифровать?</li>\n</ul>\n <iframe src=\"https://vkvideo.ru/video_ext.php?oid=-10462818&id=456240281&hash=7c8e6b38733bfdc7\" width=\"1280\" height=\"720\" frameborder=\"0\" allowfullscreen=\"1\" style=\"background-color: #000\" allow=\"autoplay; encrypted-media; fullscreen; picture-in-picture\"></iframe> <br>        ",
   "materials": {
     "title": "Полезные материалы",
     "text": "<p class=\"mb-2\">Рекомендации от нашего главного врача</p> <p>Внутренние резервы организма: откройте 4 ключа к восстановлению, долголетию и энергии</p>",

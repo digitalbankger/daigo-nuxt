@@ -8,7 +8,23 @@
   "time": 6,
   "views": 64028,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "psoriaz",
+      "siboreya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "В этой статье, опираясь на экспертное мнение врача-дерматолога Юлии Галлямовой, мы детально разберем основные аспекты псориаза: от симптомов и причин до современных терапевтических стратегий, и поможем Вам получить полное и научно обоснованное понимание этого распространенного недуга.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/b92/840_470_1/sqlhvxe5rhl5wn9g8hpgqi14c5rs0tb0.png",
   "breadcrumbs": [

@@ -8,7 +8,29 @@
   "time": 7,
   "views": 94367,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "yazva",
+      "utomlyaemost",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "tamotsu"
+    ],
+    "sostav": [
+      "ekstrakt-grebeshek",
+      "koenzim-q10"
+    ]
+  },
   "description": "Сердечно-сосудистые заболевания (ССЗ) остаются одной из главных причин смертности в мире, представляя собой серьезную угрозу здоровью человека. Инфаркты, инсульты и артериальная гипертензия имеют широкое распространение и влияют на жизни миллионов людей. В чем заключаются основные аспекты сердечно-сосудистых заболеваний? Какие факторы риска? Что включают современные подходы к лечению? Когда нужно начинать профилактику заболеваний сердечно-сосудистой системы? В статье ниже постараемся ответить на все эти вопросы.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/fdb/840_560_1/m73vak0py85pehxbpf03rzvvlv31nea9.webp",
   "breadcrumbs": [

@@ -8,7 +8,27 @@
   "time": 12,
   "views": 84586,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "disbakterioz",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-jointic",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Почему гиподинамию называют «тихим убийцей»?",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/326/840_470_1/6jm406a10wufygzbm0phbab57f9h38es.png",
   "breadcrumbs": [

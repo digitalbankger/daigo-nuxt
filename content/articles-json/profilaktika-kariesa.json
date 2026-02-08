@@ -8,7 +8,26 @@
   "time": 6,
   "views": 91036,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "zuby-i-desna"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "yazva",
+      "karies"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-dent"
+    ],
+    "sostav": [
+      "bor",
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Кариес - это одно из наиболее распространенных заболеваний полости рта. Оно характеризуется разрушением твердых тканей зуба. Несмотря на значительные достижения стоматологии в области профилактики и лечения, кариес продолжает оказывать негативное влияние на здоровье зубов и общее благосостояние пациентов. Профилактика кариеса - это прекрасная возможность сохранить зубы целыми до самой старости, а также спасти свой организм от сопутствующих проблем.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/iblock/940/n6omaml049h0sp5kbngeazeeqbie77ah.webp",
   "breadcrumbs": [

@@ -8,7 +8,25 @@
   "time": 1,
   "views": 95015,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lux"
+    ],
+    "sostav": [
+      "khrom"
+    ]
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/a7a/840_472_1/v12a08etpt6plt0bs87dxd431bzunq3n.webp",
   "breadcrumbs": [

@@ -8,7 +8,28 @@
   "time": 6,
   "views": 37613,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "disbakterioz",
+      "utomlyaemost",
+      "allergiya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": [
+      "bor",
+      "cink",
+      "vitamin-h"
+    ]
+  },
   "description": "Кишечник играет ключевую роль в усвоении полезных элементов, необходимых для поддержания здоровья и жизнедеятельности организма. Без здоровой микрофлоры процесс усвоения питательных веществ нарушается, что может привести к дефициту важных элементов даже при правильном питании. В процессе пищеварения питательные вещества, такие как белки, жиры, углеводы расщепляются на более простые соединения, которые затем всасываются через стенки кишечника в кровоток.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/3d1/840_512_1/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg",
   "breadcrumbs": [

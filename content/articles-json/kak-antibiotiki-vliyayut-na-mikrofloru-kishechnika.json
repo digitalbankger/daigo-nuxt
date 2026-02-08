@@ -8,7 +8,25 @@
   "time": 3,
   "views": 93849,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "kishechnaya-neprokhodimost-zapor",
+      "allergiya"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
   "description": "Антибиотики являются мощным средством в борьбе с бактериальными инфекциями. Однако, вмешательство в мир бактерий не ограничивается только воздействием на патогенные микроорганизмы. Как влияют антибиотики на ЖКТ можно говорить много, но все сводится к одному - антибиотики нарушают микрофлору. Это и объясняет то, что многие могут испытывать после антибиотиков проблемы с кишечником.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/b3a/840_560_1/t7ru4fhwapxfo8qnwlxxy3uvowlfgov2.webp",
   "breadcrumbs": [

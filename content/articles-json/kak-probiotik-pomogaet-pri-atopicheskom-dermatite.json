@@ -8,7 +8,22 @@
   "time": 2,
   "views": 15588,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kozha-i-volosy"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "atopicheskij-dermatit",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [],
+    "sostav": []
+  },
   "description": "Наш кишечник содержит триллионы микроорганизмов, которые играют ключевую роль в поддержании общего здоровья, включая здоровье кожи. Особой проблемой в последнее время стал атопический дерматит. Как и другие проблемы с кожей, лечить его, в том числе, важно через кишечник. Как правильно это сделать? Помогают ли метабиотики при атопическом дерматите? Расскажем в статье ниже.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/f32/840_840_1/ihgsr9f24swh0ck3ipoxehekdjs6fm8y.jpg",
   "breadcrumbs": [

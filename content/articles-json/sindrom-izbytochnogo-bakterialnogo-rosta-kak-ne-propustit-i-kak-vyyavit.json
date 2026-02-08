@@ -8,7 +8,32 @@
   "time": 6,
   "views": 55658,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "pishchevaya-neperenosimost",
+      "disbakterioz",
+      "kishechnaya-neprokhodimost-zapor",
+      "utomlyaemost",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": [
+      "kulturnaya-zhidkost-lactobacillus"
+    ]
+  },
   "description": "Здоровая кишечная среда - это то, что поддерживает общее благополучие всего организма. Она полностью зависит от населяющих его бактерий. Если патогенные бактерии устроили \"революцию\" и захватили \"власть\" в кишечнике, то и работа ЖКТ, и качество кожи, и настроение, и самочувствие ухудшаются. Интегративные врачи называют такую ситуацию СИБР - синдром избыточного бактериального роста. По каким симптомам его узнать? Можно ли при СИБР пить пробиотики? Разберемся в статье.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/94e/840_504_1/pn26jxv04l75c7kpijslzqoh3ix0e2qd.webp",
   "breadcrumbs": [

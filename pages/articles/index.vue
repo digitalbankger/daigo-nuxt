@@ -16,9 +16,59 @@ const isFilterModalOpen = ref(false)
 const openFilters = () => { isFilterModalOpen.value = true }
 const closeFilters = () => { isFilterModalOpen.value = false }
 
+const searchInput = ref(String(route.query.q ?? ''))
+let searchTimer: ReturnType<typeof setTimeout> | null = null
+
+watch(() => route.query.q, (v) => {
+  const next = String(v ?? '')
+  if (next !== searchInput.value) searchInput.value = next
+})
+
+watch(searchInput, (val) => {
+  if (searchTimer) clearTimeout(searchTimer)
+  searchTimer = setTimeout(() => {
+    const q = String(val ?? '').trim()
+    const nextQuery: Record<string, any> = { ...(route.query as any), page: '1' }
+    if (q) nextQuery.q = q
+    else delete nextQuery.q
+    router.push({ path: '/articles', query: nextQuery })
+  }, 1500)
+})
+
+
 await articlesStore.fetchFilters()
 
 const page = computed(() => Number(route.query.page || 1))
+
+const activeQuery = computed(() => {
+  const q = route.query as Record<string, any>
+  return Object.fromEntries(Object.entries(q).filter(([k]) => k !== 'page' && k !== 'q'))
+})
+
+const filterLabelByValue = computed(() => {
+  const map: Record<string, Record<string, string>> = {}
+  for (const g of articlesStore.filters) {
+    map[g.slug] = Object.fromEntries(g.options.map(o => [o.value, o.label]))
+  }
+  return map
+})
+
+function clearFilterKey(key: string) {
+  const nextQuery: Record<string, any> = { ...(route.query as any) }
+  delete nextQuery[key]
+  nextQuery.page = '1'
+  router.push({ path: '/articles', query: nextQuery })
+}
+
+function clearAllFilters() {
+  const nextQuery: Record<string, any> = {}
+  // сохраняем поиск, если он есть
+  const q = String((route.query as any).q ?? '').trim()
+  if (q) nextQuery.q = q
+  nextQuery.page = '1'
+  router.push({ path: '/articles', query: nextQuery })
+}
+
 
 function buildCleanQuery(q: Record<string, any>) {
   return Object.fromEntries(
@@ -91,8 +141,28 @@ useHead(() => {
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <div class="flex flex-row items-center justify-between mb-6">
-        <h1 class="text-slider font-medium">Статьи</h1>
+      <div class="flex flex-col gap-4 mb-6">
+        <div class="flex flex-row items-center justify-between">
+          <h1 class="text-slider font-medium">Статьи</h1>
+
+          <div class="w-full max-w-[480px] hidden sm:block">
+            <input
+              v-model="searchInput"
+              type="text"
+              placeholder="Поиск по статьям"
+              class="w-full h-12 rounded-md bg-hoverbtn px-4 transition border-none focus:ring-1 focus:ring-primary focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <div class="sm:hidden">
+          <input
+            v-model="searchInput"
+            type="text"
+            placeholder="Поиск по статьям"
+            class="w-full h-10 rounded-md bg-hoverbtn px-4 transition border-none focus:ring-1 focus:ring-primary focus:outline-none"
+          />
+        </div>
       </div>
 
       <Transition name="fade">
@@ -152,10 +222,56 @@ useHead(() => {
             {{ tag.label }}
           </button>
         </div>
+      
+
+      </div>
+      
+      <div
+        v-if="Object.keys(activeQuery).length"
+        class="flex items-center justify-between gap-3 mt-2"
+      >
+        <!-- Горизонтальный скролл -->
+        <div class="flex-1 overflow-x-auto no-scrollbar">
+          <div class="flex items-center gap-2 w-max">
+            <template v-for="[key, raw] in Object.entries(activeQuery)" :key="key">
+              <div class="flex items-center gap-2 bg-hoverbtn rounded-md px-3 py-2 flex-shrink-0">
+                <span class="text-sm opacity-80 whitespace-nowrap">
+                  {{ articlesStore.filters.find(f => f.slug === key)?.label || key }}:
+                </span>
+
+                <span class="text-sm font-medium whitespace-nowrap">
+                  {{
+                    (typeof raw === 'string' ? raw.split(',') : Array.isArray(raw) ? raw : [])
+                      .map(v => filterLabelByValue[key]?.[v] || v)
+                      .join(', ')
+                  }}
+                </span>
+
+                <button
+                  class="text-xs opacity-70 hover:opacity-100 underline whitespace-nowrap"
+                  type="button"
+                  @click="clearFilterKey(key)"
+                >
+                  очистить
+                </button>
+              </div>
+            </template>
+          </div>
+        </div>
+
+        <!-- Фиксированная кнопка справа -->
+        <button
+          class="text-xs opacity-70 hover:opacity-100 underline whitespace-nowrap flex-shrink-0"
+          type="button"
+          @click="clearAllFilters"
+        >
+          очистить все
+        </button>
       </div>
 
+
       <div v-if="(articlesStore.articles ?? articlesStore.list).length > 0">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8">
           <ArticleCard
             v-for="article in (articlesStore.articles ?? articlesStore.list)"
             :key="article.slug"

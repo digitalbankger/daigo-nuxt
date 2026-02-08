@@ -8,7 +8,29 @@
   "time": 6,
   "views": 93446,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kosti-i-myshtsy"
+    ],
+    "pomogaet-pri": [
+      "yazva"
+    ],
+    "klass-produkta": [
+      "aminobiotiki"
+    ],
+    "produkty": [
+      "daigo-jointic"
+    ],
+    "sostav": [
+      "bor",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-k2"
+    ]
+  },
   "description": "Боль и скованность в суставах — проблемы, с которыми сталкивается почти каждый человек, особенно с возрастом. Но что, если эти неприятные ощущения становятся постоянными и мешают вести активную жизнь? Чаще всего за этим стоит такое заболевание, как остеоартрит — самая распространенная форма артрита, поражающая миллионы людей по всему миру. Многие считают, что боль в суставах — это неизбежный спутник старения, и с этим нужно просто смириться. Но это не так.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/9d0/840_472_1/3764fagsg6av8rqiu1bppiieupp1k8v3.jpg",
   "breadcrumbs": [

@@ -8,7 +8,33 @@
   "time": 9,
   "views": 46061,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "karies",
+      "allergiya",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "omega-3",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-lux",
+      "daigo-shampoo",
+      "tamotsu"
+    ],
+    "sostav": [
+      "bor"
+    ]
+  },
   "description": "Весенняя лихорадка началась! Успейте порадовать себя и близких выгодными предложениями, ведь здоровье — лучший подарок! В честь 8 марта мы запускаем СУПЕР-цены на продукты бренда!",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/cb9/840_420_1/l91bhcd92zpehjbduk1gv9rfeghfe1p2.jpg",
   "breadcrumbs": [

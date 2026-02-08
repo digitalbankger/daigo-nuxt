@@ -8,7 +8,37 @@
   "time": 8,
   "views": 44181,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "disbakterioz",
+      "alcegeymer",
+      "utomlyaemost",
+      "demenciya",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-brainy"
+    ],
+    "sostav": [
+      "bor",
+      "kholin",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c"
+    ]
+  },
   "description": "Современная наука все чаще подтверждает, что питание не только обеспечивает наше тело энергией, но и играет ключевую роль в поддержании здоровья мозга и психики. Нейродиетология — это новая междисциплинарная область, которая исследует взаимосвязь между питанием, когнитивными функциями и психическим состоянием, наука на стыке диетологии, неврологии и психологии. Она исследует взаимосвязь между питанием, когнитивными функциями и психическим состоянием человека. Эта дисциплина учитывает, что правильное питание способно не только улучшить физическое здоровье, но и предотвратить или облегчить такие состояния, как депрессия, тревожность, синдром дефицита внимания, деменция и хроническая усталость. Разберемся в теме подробнее.",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/4f9/840_470_1/hib3u871thu4ikgqip91zombma7owhf4.png",
   "breadcrumbs": [

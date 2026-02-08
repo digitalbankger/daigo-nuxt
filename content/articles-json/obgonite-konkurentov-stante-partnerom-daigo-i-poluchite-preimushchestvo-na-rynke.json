@@ -8,7 +8,27 @@
   "time": 2,
   "views": 61688,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory"
+    ],
+    "klass-produkta": [
+      "metobiotiki",
+      "plazmalogeny"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dent",
+      "daigo-lux",
+      "daigo-shampoo",
+      "tamotsu"
+    ],
+    "sostav": []
+  },
   "description": "",
   "cover": "https://mail.daigo.ru/upload/resize_cache/iblock/4e2/840_840_1/9b1zr8wykljrb0pwipkndk24d1bwkl9q.png",
   "breadcrumbs": [

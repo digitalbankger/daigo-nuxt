@@ -10,12 +10,37 @@
   "comments": 0,
   "properties": {
     "napravlennost": [
-      "dermatology",
-      "gastroenterology"
+      "kishechnik-i-immunitet"
     ],
     "pomogaet-pri": [
-      "gut",
-      "skin"
+      "vosstanovlenie-mikroflory",
+      "pishchevaya-neperenosimost",
+      "atopicheskij-dermatit",
+      "disbakterioz",
+      "allergiya",
+      "psoriaz",
+      "akne",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "aminobiotiki",
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-dermic"
+    ],
+    "sostav": [
+      "cink",
+      "kulturnaya-zhidkost-lactobacillus",
+      "l-arginin",
+      "l-glutamin",
+      "l-izolejcin",
+      "l-lejcin",
+      "peptid-khlorelly-iph-c",
+      "vitamin-b3",
+      "vitamin-h"
     ]
   },
   "description": "Связь кожи и кишечника",

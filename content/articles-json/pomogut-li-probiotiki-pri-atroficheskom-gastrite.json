@@ -8,7 +8,27 @@
   "time": 3,
   "views": 40913,
   "comments": 0,
-  "properties": {},
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet"
+    ],
+    "pomogaet-pri": [
+      "gastrit",
+      "vosstanovlenie-mikroflory",
+      "meteorism",
+      "helicobacter-pylori",
+      "utomlyaemost"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml",
+      "daigo-lactis-zoo"
+    ],
+    "sostav": []
+  },
   "description": "Есть ли в вашем окружении человек с гастритом? К сожалению, статистика на сегодняшний день такова, что 80% населения России, включая детей, болеют различными формами хронического гастрита. Атрофический гастрит — серьезное заболевание, требующее внимательного отношения. Частой причиной гастрита становится бактерия Helicobacter pylori, поэтому лечение этого заболевания включает коррекцию кишечной микрофлоры. Ниже расскажем, эффективны ли метабиотики при атрофическом гастрите желудка.",
   "cover": "https://mail.daigo.ru/upload/resize_webp/resize_cache/iblock/2b9/840_840_1/72y027imc05k7nalxzatyw8oeijk1gst.webp",
   "breadcrumbs": [
