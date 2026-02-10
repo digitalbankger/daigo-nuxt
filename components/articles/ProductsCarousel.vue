@@ -1,12 +1,12 @@
 <template>
-  <section v-if="resolvedProducts.length" class="py-6 md:py-8">
+  <section v-if="resolvedProducts.length" class="py-4 md:py-8">
     <div class="container">
-      <h2 class="text-3xl md:text-product font-medium mb-12">{{ title }}</h2>
+      <h2 class="text-3xl md:text-product font-medium mb-6 sm:mb-12">{{ title }}</h2>
 
       <ClientOnly>
         <Swiper
           :modules="[SwiperNavigation, SwiperPagination]"
-          :slides-per-view="2"
+          :slides-per-view="1"
           :space-between="16"
           :navigation="{
             prevEl: '.swiper-button-prev-products',
@@ -18,7 +18,7 @@
             1024: { slidesPerView: 3, spaceBetween: 20 },
             1280: { slidesPerView: 4, spaceBetween: 24 }
           }"
-          class="products-carousel"
+          class="products-carousel !py-[10px] sm:!py-[20px]"
         >
           <SwiperSlide v-for="(p, i) in resolvedProducts" :key="p.product_id || p.id || i">
             <!-- карточка каталога (твоя) -->

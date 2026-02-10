@@ -20,6 +20,7 @@
           loading="lazy"
           decoding="async"
         />
+        <img src="/images/feb/hart.png" alt="Бонусные баллы" class="absolute -top-3 sm:top-[-1.5rem] -right-3 sm:right-[-1.5rem] w-12 sm:w-20 h-12 sm:h-20" />
 
       </div>
 
@@ -40,8 +41,8 @@
         <!-- низ -->
         <div class="mt-auto flex flex-col items-start gap-4">
 
-          <div class="flex flex-col sm:flex-row gap-0 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
-            <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.8vw,1.2rem)] font-light">
+          <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
+            <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.4vw,0.98rem)] font-light">
               {{ product.originalPrice.toLocaleString() }} ₽
             </span>
             <span class="text-black text-[clamp(0.9rem,4.4vw,1.5rem)] font-medium">

@@ -11,7 +11,8 @@ export default {
   theme: { 
     extend: {
       colors: {
-        primary: '#4F8EFF',
+        // primary: '#4F8EFF',
+        primary: '#E399AC',
         hoverbtn:  '#F7F7F7',
         textbtnhover: '#49454F',
         iconcolor: '#49454F',
@@ -44,6 +45,7 @@ export default {
         nauryz: ['NauryzRedKeds', 'sans-serif'],
         mont: ['Montserrat', 'ui-sans-serif', 'system-ui'],
         sofia: ['Sofia Sans', 'ui-sans-serif', 'system-ui'],
+        haido: ['"TG Haido Grotesk"', "ui-sans-serif", "system-ui"],
       },
       fontSize: {
         slider: 'clamp(28px, 8vw, 56px)',

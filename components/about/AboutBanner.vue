@@ -4,7 +4,7 @@
 <template>
   <section class="relative w-full overflow-hidden">
     <div
-      class="flex flex-col sm:flex-row items-center justify-between px-5 sm:px-8 py-12 sm:py-20 rounded-2xl bg-[#4E8BFF] text-white relative h-[440px] lg:h-[500px]"
+      class="flex flex-col sm:flex-row items-center justify-between px-5 sm:px-8 py-12 sm:py-20 rounded-2xl bg-primary text-white relative h-[440px] lg:h-[500px]"
     >
       <div class="w-full sm:max-w-[80%] lg:max-w-[60%] relative z-20">
         <div class="flex flex-wrap gap-2 sm:gap-3 mb-6 w-full sm:w-10/12">
@@ -34,7 +34,7 @@
           class="block lg:hidden max-w-[160px] sm:max-w-[40%] lg:max-w-[580px] absolute right-2 bottom-2 z-10"
           loading="lazy"
         />
-        <img
+        <!-- <img
           src="/images/loyalty/flower.png"
           alt="Daigo & Tamotsu продукты"
           class="max-w-[100px] lg:max-w-[160px] me-10 absolute -top-10 sm:-top-14 right-[36%] z-0 rotate-[210deg]"
@@ -45,7 +45,7 @@
           alt="Daigo & Tamotsu продукты"
           class="max-w-[200px] lg:max-w-[260px] absolute bottom-0 -right-16 sm:right-0 z-0"
           loading="lazy"
-        />
+        /> -->
       </div>
     </div>
   </section>

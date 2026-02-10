@@ -52,7 +52,7 @@ const bottomCard = {
     <div class="flex flex-col lg:flex-col gap-6 items-start ">
         <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
             <div class="w-full lg:w-1/2 rounded-xl overflow-hidden">
-              <video
+              <!-- <video
                 controls
                 preload="none"
                 poster="https://s3.firstvds.ru/shop-service/about.jpg"
@@ -60,7 +60,8 @@ const bottomCard = {
               >
                 <source src="https://s3.firstvds.ru/shop-service/about.mp4" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
-              </video>
+              </video> -->
+              <img src="/images/about/about.jpg" alt="Видео о компании Daigo & Tamotsu" class="w-full h-auto rounded-2xl sm:rounded-4xl" />
               <div class="w-full flex justify-center">
                 <NuxtLink
                   :to="'/about'"

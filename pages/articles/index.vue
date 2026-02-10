@@ -136,6 +136,27 @@ useHead(() => {
     ]
   }
 })
+
+
+const PINNED_SLUG =
+  'kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota'
+
+const displayArticles = computed(() => {
+  const list = (articlesStore.articles ?? articlesStore.list ?? []) as any[]
+
+  // важно: не мутируем store-массив
+  return list.slice().sort((a, b) => {
+    // пин в начало
+    if (a.slug === PINNED_SLUG) return -1
+    if (b.slug === PINNED_SLUG) return 1
+
+    // далее сортировка по дате (новые выше)
+    const ad = String(a.date ?? '')
+    const bd = String(b.date ?? '')
+    // ISO "YYYY-MM-DD" корректно сравнивается строками
+    return bd.localeCompare(ad)
+  })
+})
 </script>
 
 <template>
@@ -270,10 +291,10 @@ useHead(() => {
       </div>
 
 
-      <div v-if="(articlesStore.articles ?? articlesStore.list).length > 0">
+      <div v-if="displayArticles.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8">
           <ArticleCard
-            v-for="article in (articlesStore.articles ?? articlesStore.list)"
+            v-for="article in displayArticles"
             :key="article.slug"
             :article="article"
           />

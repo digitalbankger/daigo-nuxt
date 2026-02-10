@@ -4,7 +4,7 @@
 <template>
   <section class="relative w-full overflow-hidden">
     <div
-      class="flex flex-col sm:flex-row items-center justify-between px-5 sm:px-8 py-8 sm:py-20 rounded-2xl bg-[#4E8BFF] text-white h-[405px] sm:h-[500px]"
+      class="flex flex-col sm:flex-row items-center justify-between px-5 sm:px-8 py-8 sm:py-20 rounded-2xl bg-primary text-white h-[405px] sm:h-[500px]"
     >
       <div class="w-full sm:max-w-[94%] lg:max-w-[60%]">
         <div class="flex flex-wrap gap-2 sm:gap-3 mb-6 w-full sm:w-9/12">
