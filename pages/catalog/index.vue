@@ -215,13 +215,13 @@ function closeFilters() {
       </div>
 
       <div class="flex  items-center gap-4 mb-6 relative z-10">
-        <!-- <div
+        <div
           class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
           @click="openFilters"
           aria-label="Открыть фильтры"
         >
           <img src="/icons/filter.svg" width="20" alt="Фильтр" />
-        </div> -->
+        </div>
 
         <div class="flex overflow-x-auto gap-4 no-scrollbar">
           <button

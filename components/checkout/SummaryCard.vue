@@ -459,7 +459,7 @@ async function removeCoupon() {
 
       <div class="flex justify-between font-medium text-cgreen">
         <span>Скидка</span>
-        <span>
+        <!-- <span>
           <template v-if="couponInfo?.applied">
             −{{ discountAmount.toLocaleString() }} ₽
             <span v-if="typeof couponInfo?.discount_percent === 'number'">
@@ -467,6 +467,9 @@ async function removeCoupon() {
             </span>
           </template>
           <template v-else>0 ₽</template>
+        </span> -->
+        <span>
+          {{ (Number(grandTotal || 0) - Number(subtotal || 0)).toLocaleString() }} ₽
         </span>
       </div>
 

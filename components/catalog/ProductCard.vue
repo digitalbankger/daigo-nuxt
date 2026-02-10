@@ -52,24 +52,43 @@
           <!-- кнопка -->
 
 
+          <div v-if="isPreorder" class="w-full flex flex-col gap-2">
+            <a
+              href="tel:88005552043"
+              class="text-xs sm:text-sm text-black/50 w-fit"
+              aria-label="Позвонить для предзаказа"
+            >
+              8 (800) 555-20-43
+            </a>
+
+            <div
+              class="bg-hoverbtn text-black w-full h-10 sm:h-12 flex items-center justify-center
+                     xs-max:text-xs text-sm sm:text-base px-2 md:px-4
+                     rounded-lg whitespace-nowrap select-none cursor-default"
+              aria-label="Предзаказ"
+            >
+              Предзаказ
+            </div>
+          </div>
+
           <button
-  v-if="quantityInCart === 0"
-  type="button"
-  @click.stop="addToCartHandler"
-  :aria-label="isPreorder ? 'Предзаказ' : 'В корзину'"
-  class="bg-primary hover:bg-hoverbtn hover:text-black  w-full h-10 sm:h-12 flex items-center justify-center
-         xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
-         rounded-lg whitespace-nowrap relative overflow-hidden"
->
-  <img
-    src="/icons/add-to-cart.svg"
-    alt=""
-    class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
-  />
-  <span class="whitespace-nowrap relative z-10">
-    {{ isPreorder ? 'Предзаказ' : 'В корзину' }}
-  </span>
-</button>
+            v-else-if="quantityInCart === 0"
+            type="button"
+            @click.stop="addToCartHandler"
+            aria-label="В корзину"
+            class="bg-primary hover:bg-hoverbtn hover:text-black  w-full h-10 sm:h-12 flex items-center justify-center
+                   xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
+                   rounded-lg whitespace-nowrap relative overflow-hidden"
+          >
+            <img
+              src="/icons/add-to-cart.svg"
+              alt=""
+              class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
+            />
+            <span class="whitespace-nowrap relative z-10">
+              В корзину
+            </span>
+          </button>
 
           <!-- плюс/минус -->
           <div
@@ -123,7 +142,7 @@ const { product, index, globalIndex, isLast } = defineProps<{
 const cartStore = useCartStore()
 
 /** список предзаказных ID */
-const PREORDER_IDS = new Set<string>(['old-02417fb2-3a7d-40fd-a2fd-02446eef174f'])
+const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
 const quantityInCart = computed(() => {
