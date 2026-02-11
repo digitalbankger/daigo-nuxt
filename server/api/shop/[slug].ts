@@ -1320,7 +1320,7 @@ export default defineEventHandler((event) => {
     },
     // Daigo dermic
     {
-      product_id: "ce6225f7-bfbb-4701-a731-e7001740c9f3",
+      product_id: "e59b81a8-1d61-4fc3-b96e-edd2b86907ad",
       slug: 'daigo-dermic',
       title: 'БАД с натуральным пептидом хлореллы Daigo Dermic',
       subtitle: 'Улучшает защитную и эстетическую функции кожи',
