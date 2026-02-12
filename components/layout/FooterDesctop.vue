@@ -20,12 +20,6 @@
           <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-6 h-6" loading="lazy" />
           </a>
-          <a href="https://www.youtube.com/@daigojp_ru" target="_blank" rel="noopener">
-            <img src="/icons/social/youtube.svg" alt="YouTube" class="w-6 h-6" loading="lazy" />
-          </a>
-          <a href="https://daigo.store" target="_blank" rel="noopener">
-            <img src="/icons/social/yam.svg" alt="Daigo" class="w-6 h-6" loading="lazy" />
-          </a>
         </div>
       </div>
 
@@ -120,12 +114,6 @@
           </a>
           <a href="https://t.me/daigoru" target="_blank" rel="noopener">
             <img src="/icons/social/telegram.svg" alt="Telegram" class="w-5 md:w-6 h-6" loading="lazy" />
-          </a>
-          <a href="https://youtube.com" target="_blank" rel="noopener">
-            <img src="/icons/social/youtube.svg" alt="YouTube" class="w-5 md:w-6 h-6" loading="lazy" />
-          </a>
-          <a href="https://daigo.store" target="_blank" rel="noopener">
-            <img src="/icons/social/yam.svg" alt="Daigo" class="w-5 md:w-6 h-6" loading="lazy" />
           </a>
         </div>
       </div>
