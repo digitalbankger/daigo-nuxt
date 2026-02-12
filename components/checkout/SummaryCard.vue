@@ -11,7 +11,6 @@ import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 import PaymentWarning from './PaymentWarning.vue'
-import TelegramLoginButton from '@/components/auth/TelegramLoginButton.vue'
 
 const analytics = useAnalytics()
 const cartStore = useCartStore()
@@ -23,9 +22,6 @@ const props = defineProps<{ mode?: 'cart' | 'checkout' }>()
 const emit = defineEmits(['cta'])
 
 const form = cartStore.userForm
-
-type LoginMethod = 'phone' | 'telegram'
-const loginMethod = ref<LoginMethod>('phone')
 
 // промокод в поле
 const coupon = ref('')
@@ -334,216 +330,126 @@ async function removeCoupon() {
     alert('Не удалось удалить промокод')
   }
 }
-
-async function handleTelegramCta() {
-  if (!consent.value) {
-    consentError.value = 'Нужно согласие с условиями'
-    return
-  }
-
-  if (!authStore.isAuthenticated) {
-    return
-  }
-
-  await proceedPreOrderAndGo()
-}
-
 </script>
 
 <template>
   <div class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
+    <!-- Блок полей (как было) -->
     <div v-if="props.mode !== 'checkout'" class="space-y-4">
-
-      <div class="inline-flex rounded-xl bg-gray-100 p-1 w-full">
-        <button
-          class="flex-1 px-4 py-2 rounded-lg transition"
-          :class="loginMethod==='phone' ? 'bg-white shadow font-medium' : 'text-gray-600'"
-          type="button"
-          @click="loginMethod='phone'"
-        >
-          По номеру
-        </button>
-
-        <button
-          class="flex-1 px-4 py-2 rounded-lg transition"
-          :class="loginMethod==='telegram' ? 'bg-white shadow font-medium' : 'text-gray-600'"
-          type="button"
-          @click="loginMethod='telegram'"
-        >
-          Telegram
-        </button>
+      <div class="flex flex-col md:flex-row gap-4">
+        <UiInput
+          ref="inputRefs.fullName"
+          v-model="form.fullName"
+          name="full_name"
+          autocomplete="name"
+          placeholder="Имя"
+          type="text"
+          :maxlength="120"
+          :error="errors.fullName"
+          background="bg-white"
+          @blur="errors.fullName = form.fullName.trim() ? '' : 'Введите имя'"
+        />
+        <UiInput
+          ref="inputRefs.phone"
+          v-model="form.phone"
+          name="phone"
+          type="tel"
+          inputmode="tel"
+          mask="ru-phone"
+          autocomplete="tel"
+          placeholder="+7 (___) ___-__-__"
+          :error="errors.phone"
+          background="bg-white"
+          @blur="errors.phone = phoneDigits.length === 11 ? '' : 'Введите номер'"
+        />
       </div>
 
-      <!-- ================= PHONE FLOW ================= -->
-      <div v-if="loginMethod === 'phone'">
+      <!-- Согласие -->
+      <div class="space-y-1">
+        <BaseCheckbox v-model="consent">
+          <span class="text-black/50 text-xs md:text-sm">
+            Я согласен с
+            <NuxtLink to="/privacy" class="underline hover:text-black" target="_blank" rel="noopener">
+              политикой конфиденциальности
+            </NuxtLink>
+            и
+            <NuxtLink
+              to="/soglasie-na-obrabotku-personalnykh-dannykh"
+              class="underline hover:text-black"
+              target="_blank"
+              rel="noopener"
+            >
+              обработкой персональных данных
+            </NuxtLink>
+          </span>
+        </BaseCheckbox>
 
-        <div class="flex flex-col md:flex-row gap-4">
-          <UiInput
-            ref="inputRefs.fullName"
-            v-model="form.fullName"
-            name="full_name"
-            autocomplete="name"
-            placeholder="Имя"
-            type="text"
-            :maxlength="120"
-            :error="errors.fullName"
-            background="bg-white"
-            @blur="errors.fullName = form.fullName.trim() ? '' : 'Введите имя'"
-          />
-          <UiInput
-            ref="inputRefs.phone"
-            v-model="form.phone"
-            name="phone"
-            type="tel"
-            inputmode="tel"
-            mask="ru-phone"
-            autocomplete="tel"
-            placeholder="+7 (___) ___-__-__"
-            :error="errors.phone"
-            background="bg-white"
-            @blur="errors.phone = phoneDigits.length === 11 ? '' : 'Введите номер'"
+        <div v-if="consentError" class="text-red-500 text-xs">
+          {{ consentError }}
+        </div>
+      </div>
+
+      <!-- БЫЛО: "ждём подтверждения пуша" — УБРАНО. -->
+      <!-- НОВОЕ: инлайн-ввод кода авторизации -->
+      <div v-if="isCodeStep && !authStore.isAuthenticated" class="space-y-3">
+        <div class="text-sm text-black/60">
+          Мы отправили код на указанный номер.
+        </div>
+        <div class="flex items-center gap-3">
+          <input
+            v-for="(_, i) in 4"
+            :key="i"
+            :ref="el => setCodeRef(el, i)"
+            :value="codeDigits[i]"
+            @input="e => onCodeInput(e, i)"
+            @keydown="e => onCodeKeydown(e as KeyboardEvent, i)"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="1"
+            class="w-14 h-14 text-center text-xl rounded-xl border border-gray-300
+                   focus:outline-none focus:ring-0 focus:border-black"
           />
         </div>
-
-        <!-- Согласие -->
-        <div class="space-y-1 mt-3">
-          <BaseCheckbox v-model="consent">
-            <span class="text-black/50 text-xs md:text-sm">
-              Я согласен с
-              <NuxtLink to="/privacy" class="underline hover:text-black" target="_blank">
-                политикой конфиденциальности
-              </NuxtLink>
-              и
-              <NuxtLink
-                to="/soglasie-na-obrabotku-personalnykh-dannykh"
-                class="underline hover:text-black"
-                target="_blank"
-              >
-                обработкой персональных данных
-              </NuxtLink>
-            </span>
-          </BaseCheckbox>
-
-          <div v-if="consentError" class="text-red-500 text-xs">
-            {{ consentError }}
+        <div class="text-sm text-gray-600 space-y-1">
+          <div>
+            <button type="button" class="underline" @click="resetCode">Изменить номер</button>
           </div>
-        </div>
-
-        <!-- Инлайн код -->
-        <div v-if="isCodeStep && !authStore.isAuthenticated" class="space-y-3 mt-3">
-          <div class="text-sm text-black/60">
-            Мы отправили код на указанный номер.
-          </div>
-
-          <div class="flex items-center gap-3">
-            <input
-              v-for="(_, i) in 4"
-              :key="i"
-              :ref="el => setCodeRef(el, i)"
-              :value="codeDigits[i]"
-              @input="e => onCodeInput(e, i)"
-              @keydown="e => onCodeKeydown(e as KeyboardEvent, i)"
-              inputmode="numeric"
-              autocomplete="one-time-code"
-              maxlength="1"
-              class="w-14 h-14 text-center text-xl rounded-xl border border-gray-300
-                    focus:outline-none focus:ring-0 focus:border-black"
-            />
-          </div>
-
-          <div class="text-sm text-gray-600 space-y-1">
-            <button type="button" class="underline" @click="resetCode">
-              Изменить номер
-            </button>
-
+          <div>
             <button
               type="button"
               class="underline disabled:opacity-50"
               :disabled="authStore.resendLeft > 0"
               @click="authStore.resendCode"
             >
-              Отправить код повторно
-              <span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
+              Отправить код повторно<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
             </button>
           </div>
-
-          <Button
-            variant="solid"
-            class="w-full !text-sm md:!text-base text-white py-3 rounded-lg transition"
-            :disabled="!canSubmitCode || preOrderLoading"
-            @click="verifyAndContinue"
-          >
-            <span v-if="preOrderLoading">Готовим заказ…</span>
-            <span v-else>Подтвердить</span>
-          </Button>
         </div>
-
-        <!-- CTA -->
-        <Button
-          v-else
-          variant="solid"
-          class="w-full mt-3 !text-sm md:!text-base text-white py-3 rounded-lg transition"
-          :disabled="!enableCta || preOrderLoading"
-          @click="handleCta"
-        >
-          <span v-if="preOrderLoading">Готовим заказ…</span>
-          <span v-else>Перейти к оформлению</span>
-        </Button>
-
-      </div>
-
-      <!-- ================= TELEGRAM FLOW ================= -->
-      <div v-else class="space-y-4">
-
-        <div class="flex justify-center">
-          <ClientOnly>
-            <TelegramLoginButton
-              bot-name="daigonotifybot"
-              size="medium"
-              :radius="12"
-              request-access="write"
-              :disabled="!consent"
-            />
-          </ClientOnly>
-        </div>
-
-        <div class="space-y-1">
-          <BaseCheckbox v-model="consent">
-            <span class="text-black/50 text-xs md:text-sm">
-              Я согласен с
-              <NuxtLink to="/privacy" class="underline" target="_blank">
-                политикой конфиденциальности
-              </NuxtLink>
-              и
-              <NuxtLink
-                to="/soglasie-na-obrabotku-personalnykh-dannykh"
-                class="underline"
-                target="_blank"
-              >
-                обработкой персональных данных
-              </NuxtLink>
-            </span>
-          </BaseCheckbox>
-
-          <div v-if="consentError" class="text-red-500 text-xs">
-            {{ consentError }}
-          </div>
-        </div>
-
         <Button
           variant="solid"
-          class="w-full"
-          :disabled="!authStore.isAuthenticated || preOrderLoading"
-          @click="proceedPreOrderAndGo"
+          class="w-full hover:bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
+          :disabled="!canSubmitCode || preOrderLoading"
+          @click="verifyAndContinue"
         >
           <span v-if="preOrderLoading">Готовим заказ…</span>
-          <span v-else>Перейти к оформлению</span>
+          <span v-else>Подтвердить</span>
         </Button>
-
       </div>
 
+      <!-- CTA как раньше -->
+      <Button
+        v-else
+        variant="solid"
+        class="w-full hover:!bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
+        :disabled="!enableCta || preOrderLoading"
+        @click="handleCta"
+      >
+        <span v-if="preOrderLoading">Готовим заказ…</span>
+        <span v-else>Перейти к оформлению</span>
+      </Button>
     </div>
 
+    <!-- Детали заказа -->
     <div class="space-y-3 md:space-y-4 text-sm md:text-base">
       <h3 class="text-2xl md:text-cardhead font-medium mb-6 md:mb-8 mt-4">Детали заказа</h3>
 
@@ -567,6 +473,7 @@ async function handleTelegramCta() {
         </span>
       </div>
 
+      <!-- 🆕 детализация скидок -->
       <div
         v-if="vipDiscountAmount > 0"
         class="flex justify-between font-medium text-cgreen"
