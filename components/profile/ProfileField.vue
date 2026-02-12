@@ -1,4 +1,3 @@
-<!-- components/profile/ProfileField.vue -->
 <script setup lang="ts">
 import { ref, watch, nextTick, computed } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
