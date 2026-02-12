@@ -61,7 +61,7 @@ const slides: Slide[] = [
       'text-[clamp(1.05rem,2.2vw,1.875rem)]',
   },
   {
-    to: '/catalog',
+    to: '/catalog?podarochnye=nabory&page=1',
     variant: 'boxes',
     title: 'Потратьте бонусы на любимых!',
     subtitle: 'Премиальные подарочные наборы для самых близких!',

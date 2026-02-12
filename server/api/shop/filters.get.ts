@@ -113,6 +113,13 @@ export default defineEventHandler(() => {
         { label: 'Экстракт морского гребешка', value: 'ekstrakt-grebeshek' },
       ],
     },
+    {
+      label: 'Подарочные',
+      slug: 'podarochnye',
+      options: [
+        { label: 'Наборы', value: 'nabory' }
+      ]
+    },
     // {
     //   label: 'Форма выпуска',
     //   slug: 'forma-vypuska',

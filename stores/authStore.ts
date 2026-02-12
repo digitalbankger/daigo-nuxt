@@ -123,6 +123,32 @@ export const useAuthStore = defineStore('auth', () => {
     redirectAfterAuth.value = null
   }
 
+    async function loginWithTelegramTokens(tokens: TokensResponse, redirectTo?: string) {
+    setAuthData(tokens)
+
+    const sid = process.client ? localStorage.getItem('guest_session_id') : null
+    if (sid) {
+      try {
+        await cartService.migrateGuestToUser(sid, tokens.daigo_id)
+        localStorage.removeItem('guest_session_id')
+      } catch (e) {
+        console.warn('[auth] migrateGuestToUser failed', e)
+      }
+    }
+
+    pendingPhone.value   = null
+    pendingName.value    = null
+    isRegisterMode.value = false
+    isCodeSent.value     = false
+    resendLeft.value     = 0
+
+    closeAuth()
+
+    const target = redirectTo ?? redirectAfterAuth.value
+    if (target) await navigateTo(target)
+    redirectAfterAuth.value = null
+  }
+
   function setAuthData(data: TokensResponse) {
     token.value        = data.access_token
     refreshToken.value = data.refresh_token
@@ -199,6 +225,8 @@ export const useAuthStore = defineStore('auth', () => {
     pendingPhone, pendingName, isRegisterMode, isCodeSent, redirectAfterAuth,
     resendLeft,
     requestCode, resendCode, confirmCode,
+
+    loginWithTelegramTokens,
 
     // state
     isAuthModalOpen,

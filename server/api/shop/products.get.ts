@@ -3,8 +3,9 @@ import { defineEventHandler, getQuery, createError } from 'h3'
 export default defineEventHandler(async (event) => {
   const q = getQuery(event)
 
-  // 0) ветка для product_ids=... (используется сторисом)
-  // если у бэка нет фильтра по id — тянем все и фильтруем на ноде (50 шт ок).
+  // =========================
+  // product_ids ветка (сторис)
+  // =========================
   if (q.product_ids) {
     const ids = (
       Array.isArray(q.product_ids)
@@ -18,49 +19,44 @@ export default defineEventHandler(async (event) => {
     const url = `${base}/v1/shop/products?page=1&page_size=9999`
     const res: any = await $fetch(url).catch(() => ({ products: [] }))
 
-    const items = (Array.isArray(res?.products) ? res.products : []).map((p: any) => ({
-      id:         p.product_id ?? p.id,
-      product_id: p.product_id ?? p.id,
-      slug:       p.slug,
-      name:       p.name_ru || p.name,
-      subtitle:   p.subtitle || '',
-      // важное изменение: делаем картинки абсолютными, если пришёл относительный путь
-      image:      p.image ? (p.image.startsWith('http') ? p.image : `${base}${p.image}`) : '',
-      price:      Number(p.price) || 0,
-      originalPrice: Number(p.original_price) || 0,
-      sort:       p.sort_order === 0 ? 16 : p.sort_order,
-      properties: p.properties || {},
-    })).filter((p: any) => ids.includes(String(p.product_id)))
+    const items = (Array.isArray(res?.products) ? res.products : [])
+      .map((p: any) => enrichProduct(p, base))
+      .filter((p: any) => ids.includes(String(p.product_id)))
 
     return { items, total: items.length }
   }
 
-  // --- вспомогалка для нормализации путей изображений ---
+  // =========================
+  // Нормализация изображений
+  // =========================
   const filesBase =
-    useRuntimeConfig(event).public.daigoFilesBase
-    || useRuntimeConfig(event).public.daigoApiBase
-    || '' // например: 'https://api.daigo.ru'
+    useRuntimeConfig(event).public.daigoFilesBase ||
+    useRuntimeConfig(event).public.daigoApiBase ||
+    ''
 
   const normalizeImg = (src: any): string => {
     if (!src) return '/images/placeholder-product.png'
     const s = String(src)
     if (s.startsWith('http') || s.startsWith('data:')) return s
-    // склеиваем базовый хост и относительный путь (/uploads/...)
     const base = filesBase.replace(/\/$/, '')
     return base + (s.startsWith('/') ? s : `/${s}`)
   }
-  // ------------------------------------------------------
 
-  // пагинация: бэку нужен page + page_size
+  // =========================
+  // Пагинация
+  // =========================
   const page = Number(q.page ?? 1) || 1
-  const pageSize = Number(q.page_size ?? q.limit ?? 9) || 9
+  const pageSize = Number(q.page_size ?? q.limit ?? 15) || 15
 
-  // собираем параметры; не шлём служебные/пустые
+  let effectivePageSize = pageSize
+  if (q.podarochnye) {
+    effectivePageSize = 9999
+  }
+
   const params = new URLSearchParams()
   params.set('page', String(page))
-  params.set('page_size', String(pageSize))
+  params.set('page_size', String(effectivePageSize))
 
-  // napravlennost -> как есть (у вас бэк его принимает)
   if (q.napravlennost) {
     const csv = Array.isArray(q.napravlennost)
       ? q.napravlennost.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
@@ -68,44 +64,45 @@ export default defineEventHandler(async (event) => {
     params.set('napravlennost', csv)
   }
 
-  // --- ТЕСТОВАЯ ПОДМЕНА SLUG'А (вкл/выкл одной строкой) ---
-  const TEST_REWRITE_SLUG = false // ← поставьте true для теста, затем верните false/удалите
-  const rewriteSlug = (s: string) =>
-    (TEST_REWRITE_SLUG && s === 'daigo-lux') ? 'metabiotik-daigo-lux' : s
-  // ---------------------------------------------------------
-
-  // produkty -> name (бэкенд фильтрует по name/slug/… — мы отправляем name)
   if (q.produkty) {
     const vals = Array.isArray(q.produkty)
       ? q.produkty.flatMap(v => String(v).split(',')).filter(Boolean)
       : String(q.produkty).split(',').filter(Boolean)
-
-    const rewritten = vals.map(rewriteSlug)
-    const csv = rewritten.join(',')
-    params.set('name', csv)
+    params.set('name', vals.join(','))
   }
 
-  // прокинем остальные фильтры «как есть» (кроме служебных и трекинговых)
   for (const [k, vAny] of Object.entries(q)) {
-    if (['page', 'page_size', 'limit', 'napravlennost', 'produkty', 'empty'].includes(k)) continue
+    if (
+      [
+        'page',
+        'page_size',
+        'limit',
+        'napravlennost',
+        'produkty',
+        'empty',
+        'podarochnye',
+      ].includes(k)
+    )
+      continue
 
-    // трекинговые / рекламные параметры игнорируем — они не являются фильтрами каталога
     if (
       k === 'ysclid' ||
       k === 'yclid' ||
       k === 'gclid' ||
       k === 'fbclid' ||
       k.startsWith('utm_')
-    ) continue
+    )
+      continue
 
     if (vAny == null || vAny === '') continue
+
     const csv = Array.isArray(vAny)
       ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
       : String(vAny)
+
     if (csv) params.set(k, csv)
   }
 
-  // некоторым бэкам нужна «сырая» запятая в CSV — уберём %2C
   const qs = params.toString().replaceAll('%2C', ',')
   const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
   const url = `${base}/v1/shop/products?${qs}`
@@ -113,33 +110,58 @@ export default defineEventHandler(async (event) => {
   if (import.meta.dev) console.log('[catalog] →', url)
 
   try {
-    // raw нужен, чтобы достать заголовки
     const res: any = await $fetch.raw(url, { timeout: 8000 })
     const raw: any = res._data
 
-    const items = (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => ({
-      id:         p.product_id ?? p.id,
-      product_id: p.product_id ?? p.id,
-      slug:       p.slug,
-      name:       p.name_ru || p.name,
-      subtitle:   p.subtitle || '',
-      image:      normalizeImg(p.image), // ← делаем абсолютный URL
-      price:      Number(p.price) || 0,
-      originalPrice: Number(p.original_price) || 0,
-      sort:       p.sort_order === 0 ? 16 : p.sort_order,
-      properties: p.properties || {},
-    }))
+    const items = (Array.isArray(raw?.products) ? raw.products : [])
+      .map((p: any) => {
+        const price = Number(p.price) || 0
+        const slug = String(p.slug || '')
+        const baseProps = p.properties || {}
 
-    // total — из тела или X-Total-Count; если нет — мягкий фолбэк
-    let total = Number(raw?.total ?? res.headers.get?.('X-Total-Count') ?? NaN)
-    if (!Number.isFinite(total)) {
-      total = (items.length < pageSize)
-        ? (page - 1) * pageSize + items.length
-        : (page + 1) * pageSize
+        let enrichedProps = { ...baseProps }
+
+        const isExcluded =
+          slug.startsWith('sertifikat') ||
+          slug === 'tamotsu' ||
+          slug.includes('mesyats') ||
+          slug.includes('mesyatsev')
+
+        if (price > 30000 && !isExcluded) {
+          enrichedProps.podarochnye = ['nabory']
+        }
+
+        return {
+          id: p.product_id ?? p.id,
+          product_id: p.product_id ?? p.id,
+          slug,
+          name: p.name_ru || p.name,
+          subtitle: p.subtitle || '',
+          image: normalizeImg(p.image),
+          price,
+          originalPrice: Number(p.original_price) || 0,
+          sort: p.sort_order === 0 ? 16 : p.sort_order,
+          properties: enrichedProps,
+        }
+      })
+
+    let filteredItems = items
+
+    if (q.podarochnye) {
+      const values = Array.isArray(q.podarochnye)
+        ? q.podarochnye
+        : String(q.podarochnye).split(',')
+
+      filteredItems = items.filter((p) => {
+        const prop = p.properties?.podarochnye || []
+        return values.some((v) => prop.includes(v))
+      })
     }
 
-    if (import.meta.dev) console.log('[catalog] items=', items.length, 'total=', total)
-    return { items, total }
+    return {
+      items: filteredItems,
+      total: filteredItems.length,
+    }
   } catch (e: any) {
     throw createError({
       statusCode: e?.response?.status || 502,
@@ -147,6 +169,159 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
+
+
+
+
+// import { defineEventHandler, getQuery, createError } from 'h3'
+
+// export default defineEventHandler(async (event) => {
+//   const q = getQuery(event)
+
+//   // 0) ветка для product_ids=... (используется сторисом)
+//   // если у бэка нет фильтра по id — тянем все и фильтруем на ноде (50 шт ок).
+//   if (q.product_ids) {
+//     const ids = (
+//       Array.isArray(q.product_ids)
+//         ? q.product_ids.flatMap(v => String(v).split(','))
+//         : String(q.product_ids).split(',')
+//     )
+//       .map(s => s.trim())
+//       .filter(Boolean)
+
+//     const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+//     const url = `${base}/v1/shop/products?page=1&page_size=9999`
+//     const res: any = await $fetch(url).catch(() => ({ products: [] }))
+
+//     const items = (Array.isArray(res?.products) ? res.products : []).map((p: any) => ({
+//       id:         p.product_id ?? p.id,
+//       product_id: p.product_id ?? p.id,
+//       slug:       p.slug,
+//       name:       p.name_ru || p.name,
+//       subtitle:   p.subtitle || '',
+//       // важное изменение: делаем картинки абсолютными, если пришёл относительный путь
+//       image:      p.image ? (p.image.startsWith('http') ? p.image : `${base}${p.image}`) : '',
+//       price:      Number(p.price) || 0,
+//       originalPrice: Number(p.original_price) || 0,
+//       sort:       p.sort_order === 0 ? 16 : p.sort_order,
+//       properties: p.properties || {},
+//     })).filter((p: any) => ids.includes(String(p.product_id)))
+
+//     return { items, total: items.length }
+//   }
+
+//   // --- вспомогалка для нормализации путей изображений ---
+//   const filesBase =
+//     useRuntimeConfig(event).public.daigoFilesBase
+//     || useRuntimeConfig(event).public.daigoApiBase
+//     || '' // например: 'https://api.daigo.ru'
+
+//   const normalizeImg = (src: any): string => {
+//     if (!src) return '/images/placeholder-product.png'
+//     const s = String(src)
+//     if (s.startsWith('http') || s.startsWith('data:')) return s
+//     // склеиваем базовый хост и относительный путь (/uploads/...)
+//     const base = filesBase.replace(/\/$/, '')
+//     return base + (s.startsWith('/') ? s : `/${s}`)
+//   }
+//   // ------------------------------------------------------
+
+//   // пагинация: бэку нужен page + page_size
+//   const page = Number(q.page ?? 1) || 1
+//   const pageSize = Number(q.page_size ?? q.limit ?? 9) || 9
+
+//   // собираем параметры; не шлём служебные/пустые
+//   const params = new URLSearchParams()
+//   params.set('page', String(page))
+//   params.set('page_size', String(pageSize))
+
+//   // napravlennost -> как есть (у вас бэк его принимает)
+//   if (q.napravlennost) {
+//     const csv = Array.isArray(q.napravlennost)
+//       ? q.napravlennost.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
+//       : String(q.napravlennost)
+//     params.set('napravlennost', csv)
+//   }
+
+//   // --- ТЕСТОВАЯ ПОДМЕНА SLUG'А (вкл/выкл одной строкой) ---
+//   const TEST_REWRITE_SLUG = false // ← поставьте true для теста, затем верните false/удалите
+//   const rewriteSlug = (s: string) =>
+//     (TEST_REWRITE_SLUG && s === 'daigo-lux') ? 'metabiotik-daigo-lux' : s
+//   // ---------------------------------------------------------
+
+//   // produkty -> name (бэкенд фильтрует по name/slug/… — мы отправляем name)
+//   if (q.produkty) {
+//     const vals = Array.isArray(q.produkty)
+//       ? q.produkty.flatMap(v => String(v).split(',')).filter(Boolean)
+//       : String(q.produkty).split(',').filter(Boolean)
+
+//     const rewritten = vals.map(rewriteSlug)
+//     const csv = rewritten.join(',')
+//     params.set('name', csv)
+//   }
+
+//   // прокинем остальные фильтры «как есть» (кроме служебных и трекинговых)
+//   for (const [k, vAny] of Object.entries(q)) {
+//     if (['page', 'page_size', 'limit', 'napravlennost', 'produkty', 'empty'].includes(k)) continue
+
+//     // трекинговые / рекламные параметры игнорируем — они не являются фильтрами каталога
+//     if (
+//       k === 'ysclid' ||
+//       k === 'yclid' ||
+//       k === 'gclid' ||
+//       k === 'fbclid' ||
+//       k.startsWith('utm_')
+//     ) continue
+
+//     if (vAny == null || vAny === '') continue
+//     const csv = Array.isArray(vAny)
+//       ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
+//       : String(vAny)
+//     if (csv) params.set(k, csv)
+//   }
+
+//   // некоторым бэкам нужна «сырая» запятая в CSV — уберём %2C
+//   const qs = params.toString().replaceAll('%2C', ',')
+//   const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+//   const url = `${base}/v1/shop/products?${qs}`
+
+//   if (import.meta.dev) console.log('[catalog] →', url)
+
+//   try {
+//     // raw нужен, чтобы достать заголовки
+//     const res: any = await $fetch.raw(url, { timeout: 8000 })
+//     const raw: any = res._data
+
+//     const items = (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => ({
+//       id:         p.product_id ?? p.id,
+//       product_id: p.product_id ?? p.id,
+//       slug:       p.slug,
+//       name:       p.name_ru || p.name,
+//       subtitle:   p.subtitle || '',
+//       image:      normalizeImg(p.image), // ← делаем абсолютный URL
+//       price:      Number(p.price) || 0,
+//       originalPrice: Number(p.original_price) || 0,
+//       sort:       p.sort_order === 0 ? 16 : p.sort_order,
+//       properties: p.properties || {},
+//     }))
+
+//     // total — из тела или X-Total-Count; если нет — мягкий фолбэк
+//     let total = Number(raw?.total ?? res.headers.get?.('X-Total-Count') ?? NaN)
+//     if (!Number.isFinite(total)) {
+//       total = (items.length < pageSize)
+//         ? (page - 1) * pageSize + items.length
+//         : (page + 1) * pageSize
+//     }
+
+//     if (import.meta.dev) console.log('[catalog] items=', items.length, 'total=', total)
+//     return { items, total }
+//   } catch (e: any) {
+//     throw createError({
+//       statusCode: e?.response?.status || 502,
+//       statusMessage: 'Catalog upstream error',
+//     })
+//   }
+// })
 
 
 
