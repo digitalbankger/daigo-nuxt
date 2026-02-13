@@ -130,46 +130,15 @@ type ArticleProduct = {
   subtitle?: string
 }
 
-// ✅ НОРМАЛЬНЫЕ КОНСТАНТЫ (а не "products": ...)
-const products: ArticleProduct[] = [
-  {
-    product_id: '71700acb-3584-490b-a5f7-62e8cb57b3c9',
-    title: 'Daigo Lux',
-    image: 'https://daigo.ru/images/mock/catalog/daigo-lux.png',
-    price: 95700,
-    url: '/catalog/daigo-lux',
-    badge: 'Хит',
-  },
-  {
-    product_id: '6dd5b27c-65fa-4de2-ada7-472f233cf60a',
-    title: 'Tamotsu',
-    image: 'https://daigo.ru/images/mock/catalog/tamotsu.png',
-    price: 67500,
-    url: '/catalog/tamotsu',
-  },
-]
-
 const productsIds: string[] = [
   '71700acb-3584-490b-a5f7-62e8cb57b3c9',
-  '6dd5b27c-65fa-4de2-ada7-472f233cf60a',
-  '34572cff-889e-4baa-b269-9c4a976dd381',
+  'cafac368-1074-417d-bb3e-4470b4e28190',
+  '8631769b-3431-4fa7-9e36-5a9fe0da2412',
+  'f4b6d734-7eea-4926-8bfa-dfe0969e19ee',
 ]
 
 // ✅ То, что ты передаёшь в ProductsCarousel
 const productIds = computed<(string | number)[]>(() => productsIds)
-
-// ✅ Фолбэк в формате, который обычно ждёт карусель
-const productsFallback = computed(() =>
-  products.map(p => ({
-    product_id: p.product_id,
-    slug: p.slug || String(p.url || '').replace(/^\/catalog\//, ''),
-    name: p.name || p.title,
-    subtitle: p.subtitle || '',
-    image: p.image,
-    price: p.price,
-    tag: p.tag || p.badge || undefined,
-  }))
-)
 
 </script>
 
@@ -458,7 +427,6 @@ const productsFallback = computed(() =>
 
         <ProductsCarousel
             :product-ids="productIds"
-            :fallback="productsFallback"
             title="Рекомендуемые товары"
         />
 

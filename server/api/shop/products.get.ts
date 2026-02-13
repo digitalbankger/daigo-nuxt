@@ -16,11 +16,35 @@ export default defineEventHandler(async (event) => {
       .filter(Boolean)
 
     const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+    const filesBase =
+      useRuntimeConfig(event).public.daigoFilesBase ||
+      base ||
+      ''
+
+    const normalizeImg = (src: any): string => {
+      if (!src) return '/images/placeholder-product.png'
+      const s = String(src)
+      if (s.startsWith('http') || s.startsWith('data:')) return s
+      const b = filesBase.replace(/\/$/, '')
+      return b + (s.startsWith('/') ? s : `/${s}`)
+    }
+
     const url = `${base}/v1/shop/products?page=1&page_size=9999`
     const res: any = await $fetch(url).catch(() => ({ products: [] }))
 
     const items = (Array.isArray(res?.products) ? res.products : [])
-      .map((p: any) => enrichProduct(p, base))
+      .map((p: any) => ({
+        id: p.product_id ?? p.id,
+        product_id: p.product_id ?? p.id,
+        slug: p.slug,
+        name: p.name_ru || p.name,
+        subtitle: p.subtitle || '',
+        image: normalizeImg(p.image),
+        price: Number(p.price) || 0,
+        originalPrice: Number(p.original_price) || 0,
+        sort: p.sort_order === 0 ? 16 : p.sort_order,
+        properties: p.properties || {},
+      }))
       .filter((p: any) => ids.includes(String(p.product_id)))
 
     return { items, total: items.length }
