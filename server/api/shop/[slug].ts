@@ -4462,8 +4462,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 97250,
-      originalPrice: 104450,
+      price: 105000,
+      originalPrice: 112200,
       category: 'metabiotic',
       isActive: true,
       combo: {
@@ -4574,8 +4574,8 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 58500,
-      originalPrice: 62700,
+      price: 63000,
+      originalPrice: 67200,
       category: 'metabiotic',
       isActive: true,
       combo: {
