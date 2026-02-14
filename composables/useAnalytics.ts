@@ -36,9 +36,20 @@ export function useAnalytics() {
   const counterId = Number(ymCounterId)
 
   const ymCall = (...args: any[]) => {
-    if (process.client && typeof window !== 'undefined' && typeof (window as any).ym === 'function') {
-      ;(window as any).ym(...args)
+    if (!process.client || typeof window === 'undefined') return
+
+    const w = window as any
+
+    // Если вызов произошёл раньше инициализации плагина — ставим shim,
+    // чтобы цели/хиты не потерялись.
+    if (typeof w.ym !== 'function') {
+      const ymQueue: any[] = []
+      w.ym = (...q: any[]) => { ymQueue.push(q) }
+      ;(w.ym as any).a = ymQueue
+      ;(w.ym as any).l = Date.now()
     }
+
+    w.ym(...args)
   }
 
   function hit(path?: string, title?: string) {
@@ -163,7 +174,7 @@ export function useAnalytics() {
       }]}
     })
     // параллельно шлём явную цель для наглядной конверсии
-    reach('add_to_cart', {
+    reach('addtocart', {
       product_id: String(p.id),
       price: Number(p.price),
       quantity: Number(p.quantity)

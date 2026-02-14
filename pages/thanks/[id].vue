@@ -170,6 +170,25 @@ function ensurePurchaseGoalOnce() {
   }
 }
 
+function ensureThankPageGoalOnce() {
+  if (!process.client) return
+
+  const sentKey = `thank_page_sent_${orderId.value}`
+  try {
+    if (localStorage.getItem(sentKey)) return
+  } catch {
+    // ignore
+  }
+
+  try {
+    const analytics = useAnalytics()
+    analytics.reach('thank_page', { order_id: orderId.value })
+    localStorage.setItem(sentKey, '1')
+  } catch {
+    // ignore
+  }
+}
+
 async function loadOrder() {
   isLoading.value = true
   try {
@@ -190,6 +209,9 @@ async function loadOrder() {
 
     // 3) страховка отправки цели покупки один раз на orderId
     ensurePurchaseGoalOnce()
+
+    // 4) цель попадания на страницу спасибо (один раз на orderId)
+    ensureThankPageGoalOnce()
   } finally {
     isLoading.value = false
   }

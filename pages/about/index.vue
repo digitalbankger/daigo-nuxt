@@ -108,7 +108,7 @@ definePageMeta({
     <div class="flex flex-col gap-10">
       <AboutBanner />
       <CategorySection />
-      <AboutSection class="mt-6"/>
+      <AboutSection class="mt-6" :show-read-button="false" />
       <WideSelectionSection />
       <section class="relative w-full pb-6 lg:pb-6">
         <h2 class="text-slider sm:text-product lg:text-slider font-medium mb-5">Исследования</h2>

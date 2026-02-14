@@ -84,6 +84,14 @@ const createdOrderId = ref<string | null>(null)
 const paySecondsLeft = ref(5)
 let payTimer: ReturnType<typeof setInterval> | null = null
 
+function redirectToPayment(url: string) {
+  if (!process.client) return
+  // Даём GTM/Метрике/аналитике пару тиков, чтобы успеть обработать ecommerce purchase
+  window.setTimeout(() => {
+    window.location.href = url
+  }, 500)
+}
+
 function startPaymentTimer() {
   paySecondsLeft.value = 5
 
@@ -94,7 +102,7 @@ function startPaymentTimer() {
 
   // 🔥 моментальная попытка авто-редиректа
   if (paymentUrl.value && process.client) {
-    window.location.href = paymentUrl.value
+    redirectToPayment(paymentUrl.value)
   }
 
   // таймер только для отображения секунд
@@ -123,7 +131,7 @@ function goToPayment() {
     payTimer = null
   }
   if (process.client) {
-    window.location.href = paymentUrl.value
+    redirectToPayment(paymentUrl.value)
   }
 }
 

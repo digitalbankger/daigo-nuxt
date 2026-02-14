@@ -55,10 +55,10 @@ const bottomCard = {
               <!-- <video
                 controls
                 preload="none"
-                poster="https://s3.firstvds.ru/shop-service/about.jpg"
+                poster="/images/about/about.jpg"
                 class="w-full h-auto rounded-2xl sm:rounded-4xl"
               >
-                <source src="https://s3.firstvds.ru/shop-service/about.mp4" type="video/mp4" />
+                <source src="https://s3.firstvds.ru/materials/daigo-about.mp4" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video> -->
               <img src="/images/about/about.jpg" alt="Видео о компании Daigo & Tamotsu" class="w-full h-auto rounded-2xl sm:rounded-4xl" />
