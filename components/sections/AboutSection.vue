@@ -2,6 +2,10 @@
 import UiCard from '@/components/ui/UiCard.vue'
 const { $device } = useNuxtApp()
 
+const props = withDefaults(defineProps<{ showReadButton?: boolean }>(), {
+  showReadButton: true,
+})
+
 const bottomCardForUi = computed(() => ({
   ...bottomCard,
   imageSrc: $device.isMobile
@@ -62,7 +66,7 @@ const bottomCard = {
                 Ваш браузер не поддерживает видео.
               </video> -->
               <img src="/images/about/about.jpg" alt="Видео о компании Daigo & Tamotsu" class="w-full h-auto rounded-2xl sm:rounded-4xl" />
-              <div class="w-full flex justify-center">
+              <div v-if="props.showReadButton" class="w-full flex justify-center">
                 <NuxtLink
                   :to="'/about'"
                   class="inline-flex justify-center items-center gap-2 py-3 px-5 text-white text-base sm:text-xl font-normal transition duration-300 rounded-lg tracking-wide lg:w-[70%] bg-primary hover:bg-hoverbtn hover:text-black mt-6"
