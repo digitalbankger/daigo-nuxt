@@ -123,7 +123,6 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
       <ClientOnly>
         <RewardSection />
       </ClientOnly>
-      <AppSection />
     </div>
   </BaseContainer>
 
