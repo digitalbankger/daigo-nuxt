@@ -477,6 +477,30 @@ export const useCheckoutStore = defineStore('checkout', () => {
         ...(utm ? { utm } : {})
       }
 
+// === YM goals: payment type (fires only when user clicked "Оформить заказ" and validation passed) ===
+try {
+  const analytics = useAnalytics()
+  const pm = state.paymentMethod
+
+  const goal =
+    (pm === 'sbp' || pm === 'bank_card')
+      ? 'onlinepay'
+      : (pm === 'courier_card' || pm === 'cash')
+        ? 'offlinepay'
+        : (pm === 'dolyame' || pm === 'tbank')
+          ? 'paylater'
+          : null
+
+  if (goal) {
+    analytics.reach(goal, {
+      payment_method: pm,
+      delivery_id: state.deliveryId || undefined
+    })
+  }
+} catch {
+  // no-op
+}
+
       const res = await createOrder(payload as any)
 
       // === YM: ecommerce purchase ===
