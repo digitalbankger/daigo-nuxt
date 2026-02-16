@@ -1814,6 +1814,59 @@ export default defineEventHandler((event) => {
               <p class="text-sm md:text-base lg:text-2xl leading-tight">Срок годности — 3 года.<br>
               Условия хранения: хранить в сухом, прохладном, защищённом от света, недоступном для детей месте, при температуре от 0 °C до 25 °C.</p>`
       },
+      // reviews: {
+      //   ratingAvg: 4.8,
+      //   count: 124,
+      //   source: 'Daigo.ru',
+      //   items: [
+      //     {
+      //       id: 'r1',
+      //       author: 'Анна',
+      //       rating: 5,
+      //       date: '2025-01-12',
+      //       title: 'Помогло при хеликобактере',
+      //       text: 'После курса стало легче, ушли боли и тяжесть.',
+      //       verified: true,
+      //       tags: ['Хеликобактер', 'ЖКТ'],
+      //       media: [
+      //         {
+      //           id: 'm1',
+      //           type: 'image',
+      //           thumb: 'https://products.s3.firstvds.ru/reviews/daigo5/r1-thumb.jpg',
+      //           src: 'https://products.s3.firstvds.ru/reviews/daigo5/r1.jpg'
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       id: 'r2',
+      //       author: 'Игорь',
+      //       rating: 4,
+      //       date: '2025-02-03',
+      //       title: 'Энергии стало больше',
+      //       text: 'Не ожидал, но реально стал бодрее.',
+      //       verified: true,
+      //       tags: ['Энергия'],
+      //       media: [
+      //         {
+      //           id: 'm2',
+      //           type: 'video',
+      //           thumb: 'https://products.s3.firstvds.ru/reviews/daigo5/r2-thumb.jpg',
+      //           src: 'https://products.s3.firstvds.ru/reviews/daigo5/r2.mp4'
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       id: 'r3',
+      //       author: 'Марина',
+      //       rating: 5,
+      //       date: '2025-02-20',
+      //       title: 'После антибиотиков',
+      //       text: 'Восстановление пошло быстрее, кишечник успокоился.',
+      //       verified: false,
+      //       tags: ['После антибиотиков', 'ЖКТ']
+      //     }
+      //   ]
+      // },
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',

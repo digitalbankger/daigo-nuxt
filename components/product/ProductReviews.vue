@@ -4,20 +4,21 @@ import { computed, ref } from 'vue'
 type ReviewMedia = {
   id: string
   type: 'image' | 'video'
-  thumb: string        // миниатюра
-  src?: string         // оригинал (если хочешь открыть)
+  thumb: string    
+  src?: string  
 }
 
 type ReviewItem = {
   id: string
   author: string
-  rating: number // 1..5
+  rating: number
   date?: string
   title?: string
   text: string
   source?: string
   verified?: boolean
-  media?: ReviewMedia[] // <= добавили
+  media?: ReviewMedia[]
+  tags?: string[]
 }
 
 const props = defineProps<{
@@ -42,24 +43,37 @@ const safeTitle = computed(() => props.title ?? 'Customer Reviews')
 const showActions = computed(() => props.showActions ?? true)
 
 const items = computed(() => props.reviews?.items ?? [])
-const count = computed(() => props.reviews?.count ?? items.value.length)
+const count = computed(() => filteredCount.value)
+
+const activeTag = ref<string>('Все')
+
+const tags = computed(() => {
+  const set = new Set<string>()
+  for (const it of items.value) {
+    for (const t of (it.tags ?? [])) set.add(t)
+  }
+  return ['Все', ...Array.from(set)]
+})
+
+const filteredItems = computed(() => {
+  if (activeTag.value === 'Все') return items.value
+  return items.value.filter(it => (it.tags ?? []).includes(activeTag.value))
+})
+
+const filteredCount = computed(() => filteredItems.value.length)
+
 
 const clampRating = (r: number) => Math.max(0, Math.min(5, r))
 
 const ratingAvg = computed(() => {
-  const v = props.reviews?.ratingAvg
-  if (typeof v === 'number') return clampRating(v)
-
-  // fallback: посчитать из items
-  if (!items.value.length) return 0
-  const sum = items.value.reduce((acc, it) => acc + clampRating(it.rating), 0)
-  return sum / items.value.length
+  if (!filteredItems.value.length) return 0
+  const sum = filteredItems.value.reduce((acc, it) => acc + clampRating(it.rating), 0)
+  return sum / filteredItems.value.length
 })
 
-/** Распределение: {5: n, 4: n, ...} */
 const dist = computed(() => {
   const d: Record<number, number> = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
-  for (const it of items.value) {
+  for (const it of filteredItems.value) {
     const r = Math.round(clampRating(it.rating))
     if (r >= 1 && r <= 5) d[r]++
   }
@@ -73,7 +87,7 @@ const percent = (stars: number) => {
 
 const allMedia = computed(() => {
   const out: ReviewMedia[] = []
-  for (const it of items.value) {
+  for (const it of filteredItems.value) {
     if (it.media?.length) out.push(...it.media)
   }
   return out
@@ -102,10 +116,23 @@ const openMedia = (m: ReviewMedia) => {
         {{ safeTitle }}
       </h2>
 
-      <!-- SUMMARY -->
+      <div class="mt-5 flex flex-wrap justify-center gap-2">
+        <button
+          v-for="t in tags"
+          :key="t"
+          type="button"
+          class="h-9 px-4 rounded-full text-sm border transition"
+          :class="activeTag === t
+            ? 'bg-[#111] text-white border-[#111]'
+            : 'bg-white text-[#111] border-[#E5E7EB] hover:border-[#111]'"
+          @click="activeTag = t"
+        >
+          {{ t }}
+        </button>
+      </div>
+
       <div class="mt-6 rounded-2xl border border-[#E5E7EB] bg-white px-5 py-6 sm:px-7">
         <div class="grid grid-cols-1 gap-6 sm:grid-cols-[220px_1fr] sm:gap-10">
-          <!-- LEFT: rating -->
           <div class="text-center sm:text-left">
             <div class="text-[44px] leading-none font-semibold text-[#111]">
               {{ ratingAvg.toFixed(1) }}
@@ -135,9 +162,7 @@ const openMedia = (m: ReviewMedia) => {
             <div class="sr-only">{{ starsLabel }}</div>
           </div>
 
-          <!-- RIGHT: distribution + gallery + actions -->
           <div>
-            <!-- distribution -->
             <div class="space-y-2">
               <div v-for="s in [5, 4, 3, 2, 1]" :key="s" class="flex items-center gap-3">
                 <div class="w-12 text-sm text-[#111]">{{ s }} Star</div>
@@ -155,7 +180,6 @@ const openMedia = (m: ReviewMedia) => {
               </div>
             </div>
 
-            <!-- media gallery -->
             <div v-if="gallery.length" class="mt-6">
               <div class="grid grid-cols-4 gap-3 sm:grid-cols-6">
                 <button
@@ -168,7 +192,6 @@ const openMedia = (m: ReviewMedia) => {
                 >
                   <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
 
-                  <!-- play overlay for video -->
                   <div
                     v-if="m.type === 'video'"
                     class="absolute inset-0 grid place-items-center bg-black/15"
@@ -215,10 +238,9 @@ const openMedia = (m: ReviewMedia) => {
         </div>
       </div>
 
-      <!-- LIST (опционально, ниже summary) -->
       <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
         <article
-          v-for="r in items"
+          v-for="r in filteredItems"
           :key="r.id"
           class="rounded-2xl border border-[#E5E7EB] bg-white p-5"
         >
@@ -255,9 +277,6 @@ const openMedia = (m: ReviewMedia) => {
         </article>
       </div>
 
-      <!-- (опционально) простая модалка для медиа — если хочешь прям тут.
-           Сейчас оставил как заготовку, потому что у тебя уже могут быть свои модалки.
-      -->
       <teleport to="body">
         <div
           v-if="activeMedia"

@@ -4,6 +4,7 @@ const props = defineProps<{
   closable?: boolean
   /** Разрешать ли закрытие по клику по оверлею (по умолчанию true) */
   closeOnOverlay?: boolean
+  panelClass?: string
 }>()
 
 const emit = defineEmits<{
@@ -18,7 +19,12 @@ const emit = defineEmits<{
       class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4"
       @click.self="props.closeOnOverlay !== false && emit('close')"
     >
-      <div class="bg-white rounded-xl p-6 max-w-[90vw] w-full sm:max-w-md shadow-lg relative">
+      <div
+        :class="[
+          'bg-white rounded-xl p-6 max-w-[90vw] w-full shadow-lg relative',
+          props.panelClass ?? 'sm:max-w-md'
+        ]"
+      >
         <slot />
         <button
           v-if="closable !== false"
