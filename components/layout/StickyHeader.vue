@@ -105,6 +105,7 @@
 import { computed } from 'vue'
 import { useScrolled } from '@/composables/useScrolled'
 import { useUiStore } from '@/stores/ui'
+import CartBadge from '@/components/ui/CartBadge.vue'
 
 const ui = useUiStore()
 const { scrolled } = useScrolled(120)

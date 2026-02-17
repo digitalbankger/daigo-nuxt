@@ -227,8 +227,7 @@
 import { ref } from 'vue'
 import { navigateTo } from '#imports'
 import { storeToRefs } from 'pinia'
-
-import SearchBar from '~/components/ui/SearchInput.vue'
+//import SearchBar from '~/components/ui/SearchInput.vue'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import StickyHeader from '@/components/layout/StickyHeader.vue'
 import { useAuthStore } from '@/stores/authStore'

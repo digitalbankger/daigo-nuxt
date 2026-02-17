@@ -18,28 +18,28 @@ import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
 import { useYtm } from '@/composables/useYtm'
 import { useAnalytics } from '@/composables/useAnalytics'
 import { onMounted, computed, ref } from 'vue'
-// import ReviewsBlock from '@/components/product/ProductReviews.vue'
-// import UiModal from '@/components/ui/UiModal.vue'
+import ReviewsBlock from '@/components/product/ProductReviews.vue'
+import UiModal from '@/components/ui/UiModal.vue'
 
-// type ReviewMedia = {
-//   id: string
-//   type: 'image' | 'video'
-//   thumb: string
-//   src?: string
-// }
+type ReviewMedia = {
+  id: string
+  type: 'image' | 'video'
+  thumb: string
+  src?: string
+}
 
-// const isMediaModalOpen = ref(false)
-// const activeMedia = ref<ReviewMedia | null>(null)
+const isMediaModalOpen = ref(false)
+const activeMedia = ref<ReviewMedia | null>(null)
 
-// const onOpenMedia = (m: ReviewMedia) => {
-//   activeMedia.value = m
-//   isMediaModalOpen.value = true
-// }
+const onOpenMedia = (m: ReviewMedia) => {
+  activeMedia.value = m
+  isMediaModalOpen.value = true
+}
 
-// const closeMedia = () => {
-//   isMediaModalOpen.value = false
-//   activeMedia.value = null
-// }
+const closeMedia = () => {
+  isMediaModalOpen.value = false
+  activeMedia.value = null
+}
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -47,7 +47,6 @@ await productStore.loadProduct(route.params.slug as string)
 
 const product = computed(() => productStore.product)
 
-// признак «это сертификат?» — выберите свой источник правды
 const isCertificate = computed(() =>
   product.value?.template === 'certificate' ||
   product.value?.type === 'certificate' ||
@@ -56,14 +55,12 @@ const isCertificate = computed(() =>
 
 
 
-// ✅ ОДИН onMounted, внутри – проверка на client и вызов useYtm
 onMounted(() => {
-  if (!import.meta.client) return        // защита от SSR
+  if (!import.meta.client) return
   if (!product.value) return
 
   const ytm = useYtm()
 
-  // ✅ Я.Метрика Enhanced Ecommerce (шаг 4 воронки: просмотр карточки товара)
   const analytics = useAnalytics()
   analytics.viewItem({
     id: product.value.product_id,
@@ -88,7 +85,6 @@ onMounted(() => {
   })
 })
 
-// хлебные крошки / JSON-LD
 const { breadcrumbs, jsonLd } = useBreadcrumbs(product, '/catalog')
 
 const faqJsonLd = computed(() => {
@@ -105,7 +101,6 @@ const faqJsonLd = computed(() => {
   }
 })
 
-// OpenGraph/Twitter image (берём сначала из effect.image)
 const SITE_URL = 'https://daigo.ru'
 const shareImage = computed(() => {
   const fromEffect = product.value?.effect?.image
@@ -156,7 +151,6 @@ useHead(() => {
 <template>
   <BaseContainer>
     <div v-if="product">
-      <!-- breadcrumbs -->
       <nav aria-label="Хлебные крошки" class="mb-2 md:mb-4 text-sm md:text-base text-black/50">
         <ul class="flex flex-wrap items-center gap-1">
           <li v-for="(bc, i) in breadcrumbs" :key="i" class="flex items-center gap-1">
@@ -266,13 +260,15 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <!-- <ReviewsBlock
+        <ReviewsBlock
           v-if="product?.reviews?.items?.length"
           :reviews="product.reviews"
+          :show-actions="true"
           title="Отзывы"
           @openMedia="onOpenMedia"
+          class="mt-10 md:mt-20"
         /> 
-        
+
         <UiModal
           :show="isMediaModalOpen"
           @close="closeMedia"
@@ -298,7 +294,7 @@ useHead(() => {
               :src="activeMedia?.src"
             />
           </div>
-        </UiModal> -->
+        </UiModal>
 
         <ProductProductionSection
           v-if="product.productionSection"

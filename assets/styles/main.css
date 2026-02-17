@@ -44,17 +44,12 @@ textarea::placeholder {
 
 input {
   border: 1px solid #11111134;
-
 }
 input:focus {
   border-color: #659CFF;
 }
 input:focus-visible {
   outline: none;
-}
-
-* {
-  user-select: none;
 }
 
 * {

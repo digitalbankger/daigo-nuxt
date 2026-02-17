@@ -153,11 +153,11 @@ onMounted(ensureCartLoadedOnce)
         <p class="xs-max:text-base text-base sm:text-lg font-medium py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
         <div class="flex gap-1 flex-row">
-          <img src="/icons/rating.svg" class="w-5"/>
-          <img src="/icons/rating.svg" class="w-5"/>
-          <img src="/icons/rating.svg" class="w-5"/>
-          <img src="/icons/rating.svg" class="w-5"/>
-          <img src="/icons/rating.svg" class="w-5"/>
+          <img src="/icons/rating-gold.svg" class="w-5"/>
+          <img src="/icons/rating-gold.svg" class="w-5"/>
+          <img src="/icons/rating-gold.svg" class="w-5"/>
+          <img src="/icons/rating-gold.svg" class="w-5"/>
+          <img src="/icons/rating-gold.svg" class="w-5"/>
         </div>
 
         <div class="flex gap-3 sm:gap-4 mt-4">
@@ -183,7 +183,7 @@ onMounted(ensureCartLoadedOnce)
             to="/otzyvy"
             class="text-sm xl:text-base text-primary border border-primary rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 sm:gap-2"
           >
-            <img src="/icons/star.svg" alt="fire" />
+            <img src="/icons/star-gold.svg" alt="fire" />
             <span>Отзывы</span>
             <img src="/icons/arrow-m-primary.svg" alt="arrow" class="w-3 sm:w-4 h-3 sm:h-4 pt-0.5 sm:pt-0" />
           </NuxtLink>
@@ -242,7 +242,7 @@ onMounted(ensureCartLoadedOnce)
           <!-- Если есть в корзине — контрол + / − -->
           <div
             v-else
-            class="flex items-center gap-2 bg-[#5B8CFF] px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+            class="flex items-center gap-2 bg-primary/80 px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
             <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
             <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
