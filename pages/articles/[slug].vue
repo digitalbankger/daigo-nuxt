@@ -189,35 +189,6 @@ function formatPriceRUB(val: number | string | undefined) {
 
       <!-- title + meta -->
       <h1 class="text-3xl md:text-head font-medium leading-tight">{{ article?.title }}</h1>
-      <div class="mt-6 md:mt-8 flex flex-wrap items-center gap-3 md:gap-6 text-black">
-        <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
-          <img src="/icons/publications/calendar.svg" class="w-4 md:w-5" />
-          <!-- месяц + 2-значный год -->
-          <span>
-            {{
-              new Date(article?.date || '').toLocaleDateString('ru-RU', {
-                month: 'long',
-                year: '2-digit'
-              })
-            }}
-          </span>
-        </div>
-
-        <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
-          <img src="/icons/publications/clock.svg" class="w-4 md:w-5" />
-          <span aria-label="Время чтения">{{ article?.time }} мин</span>
-        </div>
-
-        <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
-          <img src="/icons/publications/ye.svg" class="w-5 md:w-6" />
-          <span aria-label="Просмотры">{{ article?.views }}</span>
-        </div>
-
-        <div class="text-sm md:text-2xl flex flex-row items-center gap-2">
-          <img src="/icons/publications/comment.svg" class="w-4 md:w-5" />
-          <span aria-label="Комментарии">{{ article?.comments }}</span>
-        </div>
-      </div>
 
       <div class="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-10">
         <!-- main -->

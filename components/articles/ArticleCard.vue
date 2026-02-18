@@ -17,24 +17,7 @@
     <p class="text-sm md:text-base text-left text-black  mb-4 line-clamp-3">
       {{ article.preview }}
     </p>
-    <div class="text-sm md:text-base text-black/50 flex gap-2 md:gap-4 mt-auto">
-        <span class="flex flex-row gap-2 items-center">          
-            <img src="/icons/calendar.svg" class="w-4 md:w-5 opacity-50" />
-            {{ article.date }}
-        </span>
-        <span class="flex flex-row gap-2 items-center">          
-            <img src="/icons/clock.svg" class="w-4 md:w-5 opacity-50" />
-            {{ article.time }} мин
-        </span>
-        <span class="flex flex-row gap-2 items-center">          
-            <img src="/icons/eye.svg" class="w-4 md:w-5 opacity-50" />
-            {{ article.views }}
-        </span>
-        <span class="flex flex-row gap-2 items-center">          
-            <img src="/icons/comments.svg" class="w-4 md:w-5 opacity-50" />
-            {{ article.comments }}
-        </span>
-    </div>
+    
   </NuxtLink>
 </template>
 

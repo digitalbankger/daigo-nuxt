@@ -190,7 +190,7 @@ onMounted(ensureCartLoadedOnce)
         </div>
 
         <div class="text-2xl mt-6 font-bold flex items-center gap-4">
-          <span v-if="hasDiscount" class="text-[#FB0C2A] line-through text-base sm:text-2xl xl:text-cardhead font-normal">
+          <span v-if="hasDiscount" class="text-primary line-through text-base sm:text-2xl xl:text-cardhead font-normal">
             {{ product.originalPrice?.toLocaleString() }} ₽
           </span>
           <span :class="hasDiscount ? 'text-black' : 'text-black'" class="text-2xl sm:text-4xl xl:text-product font-medium">

@@ -148,6 +148,7 @@ export default defineEventHandler(async (event) => {
         const isExcluded =
           slug.startsWith('sertifikat') ||
           slug === 'tamotsu' ||
+          slug === 'lux-daigo-metabiotik' ||
           slug.includes('mesyats') ||
           slug.includes('mesyatsev')
 
