@@ -72,7 +72,7 @@ const count = computed(() => comments.value.length)
   <section>
     <!-- Заголовок -->
     <div class="flex items-baseline gap-3">
-      <h3 class="text-xl md:text-slider font-medium">Комментарии</h3>
+      <h3 class="text-xl md:text-slider font-medium mb-5">Комментарии</h3>
       <span class="text-xl md:text-product text-black/50">{{ count }}</span>
     </div>
 
@@ -102,7 +102,7 @@ const count = computed(() => comments.value.length)
         </Button>
       </div>
 
-      <div class="mt-2 space-y-1">
+      <div class="mt-3 space-y-1">
         <BaseCheckbox v-model="agree" @click="agreeError = ''">
           <span class="text-xs text-black/50">
             Я согласен(на) с

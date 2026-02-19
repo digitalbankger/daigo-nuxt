@@ -2,7 +2,6 @@
 const props = defineProps<{
   show: boolean
   closable?: boolean
-  /** Разрешать ли закрытие по клику по оверлею (по умолчанию true) */
   closeOnOverlay?: boolean
   panelClass?: string
 }>()

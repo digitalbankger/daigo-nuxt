@@ -1,14 +1,5 @@
 import { defineNuxtPlugin, useRuntimeConfig, useRouter } from '#imports'
 
-// ВАЖНО: не дублируем глобальные типы, если они уже есть в types/analytics.d.ts.
-// Если нет — можно раскомментировать блок ниже и он не будет конфликтовать.
-// declare global {
-//   interface Window {
-//     ym?: (id: number, method: string, ...rest: any[]) => void
-//     dataLayer?: any[] // делаем опциональным, чтобы не конфликтовать
-//   }
-// }
-
 export default defineNuxtPlugin(() => {
   if (!process.client) return
 
@@ -20,10 +11,10 @@ export default defineNuxtPlugin(() => {
     return
   }
 
-  // 1) Гарантируем наличие dataLayer (для ecommerce)
+  // dataLayer (для ecommerce)
   ;(window as any).dataLayer = (window as any).dataLayer || []
 
-  // 2) Ставим shim ym и грузим скрипт без IIFE — проще и безопаснее для TS
+  // shim ym и грузим скрипт без IIFE — для TS
   const w = window as any
   if (typeof w.ym !== 'function') {
     const ymQueue: any[] = []
@@ -40,18 +31,18 @@ export default defineNuxtPlugin(() => {
     document.head.appendChild(s)
   }
 
-  // 3) Инициализируем счётчик (ecommerce через dataLayer)
+  // Инициализируем
   w.ym(counterId, 'init', {
     clickmap: true,
     trackLinks: true,
     accurateTrackBounce: true,
-    defer: true,
-    trackHash: true,
     webvisor: true,
     ecommerce: 'dataLayer',
+    referrer: document.referrer, 
+    url: location.href, 
   })
 
-  // 4) SPA-хиты — берём роутер правильно
+  // SPA-хиты
   const router = useRouter()
   const sendHit = () => {
     const rt = router.currentRoute.value
@@ -60,30 +51,26 @@ export default defineNuxtPlugin(() => {
     })
   }
 
-  // первый hit после монтирования страницы
   sendHit()
-  // и все последующие после навигации
   router.afterEach(() => sendHit())
 
-  // 5) Клики по tel:
+  // Клики по тел:
   const onClick = (e: MouseEvent) => {
     const a = (e.target as HTMLElement | null)?.closest?.('a[href^="tel:"]') as HTMLAnchorElement | null
     if (!a) return
-    // пометь ссылку в хедере: <a href="tel:+7..." data-ym="header-phone">
     const isHeader = a.dataset.ym === 'header-phone'
     w.ym(counterId, 'reachGoal', isHeader ? 'header_phone_click' : 'call_click')
   }
   document.addEventListener('click', onClick, { capture: true })
 
-  // 6) Агрегатор отправок форм: window.dispatchEvent(new CustomEvent('form:success', { detail: { name: 'contact' } }))
+  // форымы
   const onFormSuccess = (ev: Event) => {
     const detail = (ev as CustomEvent).detail || {}
     w.ym(counterId, 'reachGoal', 'form_submit', { form: detail?.name || detail?.form || 'unknown' })
   }
   window.addEventListener('form:success', onFormSuccess)
 
-  // Очистку слушателей через специальный nuxt-хук можно не делать.
-  // Если очень нужно — раскомментируй beforeunload:
+  // чистка слушателей хуком ()
   // window.addEventListener('beforeunload', () => {
   //   document.removeEventListener('click', onClick, { capture: true } as any)
   //   window.removeEventListener('form:success', onFormSuccess as any)

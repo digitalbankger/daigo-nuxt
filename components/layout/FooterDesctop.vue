@@ -33,6 +33,7 @@
                 <li><NuxtLink to="/about">О нас</NuxtLink></li>
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
+                <li><NuxtLink to="/certificates">Сертификаты на продукцию</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
                 <!-- Ссылки для партнёров -->
@@ -140,6 +141,7 @@
                 <li><NuxtLink to="/about">О нас</NuxtLink></li>
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
+                <li><NuxtLink to="/certificates">Сертификаты на продукцию</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
               </ul>
