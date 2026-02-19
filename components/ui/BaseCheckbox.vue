@@ -1,8 +1,8 @@
 <template>
   <label class="inline-flex items-center cursor-pointer gap-2 select-none">
     <div
-      class="relative w-6 h-6 xs:w-5 xs:h-5 aspect-square shrink-0 border border-black rounded-sm flex items-center justify-center transition-all duration-300"
-      :class="{ 'bg-transparent': modelValue }"
+      class="relative w-6 h-6 xs:w-5 xs:h-5 aspect-square shrink-0 border rounded-sm flex items-center justify-center transition-all duration-300"
+      :class="[{ 'bg-transparent': modelValue }, props.error ? 'border-red-500' : 'border-black']"
       @click.stop.prevent="toggle"
     >
 
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 const props = defineProps<{
   modelValue: boolean
+  error?: boolean
 }>()
 
 const emit = defineEmits<{

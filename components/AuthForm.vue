@@ -25,7 +25,8 @@ const errors = reactive<{ name: string; phone: string; code: string }>({
 const digits = (v: string) => v.replace(/\D/g, '')
 const isPhoneValid = computed(() => digits(phone.value).length >= 11)
 const isNameValid = computed(() => mode.value === 'login' || name.value.trim().length >= 2)
-const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && agree.value && !isLoading.value)
+// Кнопка должна быть кликабельной даже без галочки — подсветим чекбокс по валидации
+const canSubmitPhone = computed(() => isPhoneValid.value && isNameValid.value && !isLoading.value)
 
 // ======= ШАГ 2: 4 квадрата кода =======
 const codeDigits = ref<string[]>(['', '', '', ''])
@@ -70,7 +71,8 @@ function handleKeydown(e: KeyboardEvent, idx: number) {
 }
 
 const codeValue = computed(() => codeDigits.value.join(''))
-const canSubmitCode = computed(() => codeValue.value.length === 4 && agree.value && !isLoading.value)
+// Аналогично: не блокируем кнопку из-за чекбокса, а подсвечиваем ошибку
+const canSubmitCode = computed(() => codeValue.value.length === 4 && !isLoading.value)
 
 function validateAgree() {
   agreeError.value = agree.value ? '' : 'Нужно согласиться с условиями'
@@ -84,6 +86,7 @@ async function submitPhone() {
   validateName()
   validatePhone()
   validateAgree()
+  if (!agree.value) return
   if (!canSubmitPhone.value) return
   isLoading.value = true
   try {
@@ -100,6 +103,7 @@ async function submitPhone() {
 async function submitCode() {
   validateCode()
   validateAgree()
+  if (!agree.value) return
   if (!canSubmitCode.value) return
   isLoading.value = true
   try {
@@ -186,7 +190,7 @@ async function resend() {
       </Button>
 
       <div class="space-y-1">
-        <BaseCheckbox v-model="agree" @click="validateAgree">
+        <BaseCheckbox v-model="agree" :error="!!agreeError" @click="validateAgree">
           <span class="text-xs text-black/50">
             Я согласен(на) с
             <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
@@ -200,7 +204,7 @@ async function resend() {
 
     <!-- Шаг 2: ввод кода (4 квадрата) -->
     <form v-else class="space-y-4" @submit.prevent="submitCode">
-      <p class="text-base">Мы отправили код на указанный номер.</p>
+      <p class="text-base">{{ auth.deliveryHint }}</p>
 
       <div class="flex items-center gap-3">
         <input
@@ -231,7 +235,7 @@ async function resend() {
       </div>
 
       <div class="space-y-1">
-        <BaseCheckbox v-model="agree" @click="validateAgree">
+        <BaseCheckbox v-model="agree" :error="!!agreeError" @click="validateAgree">
           <span class="text-xs text-black/50">
             Я согласен(на) с
             <NuxtLink to="/privacy" class="underline">политикой конфиденциальности</NuxtLink>
@@ -255,7 +259,7 @@ async function resend() {
             :disabled="auth.resendLeft > 0"
             @click="resend"
           >
-            Отправить код повторно<span v-if="auth.resendLeft > 0"> ({{ auth.resendLeft }})</span>
+            Получить код звонком<span v-if="auth.resendLeft > 0"> ({{ auth.resendLeft }})</span>
           </button>
         </div>
       </div>

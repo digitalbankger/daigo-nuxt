@@ -58,7 +58,7 @@ onMounted(() => {
 
 <template>
   <div class="space-y-3">
-    <div class="text-sm text-gray-600">Мы отправили код на указанный номер.</div>
+    <div class="text-sm text-gray-600">{{ auth.deliveryHint }}</div>
     <div class="flex items-center gap-3">
       <input v-for="(_, i) in 4" :key="i"
              :ref="el => setRef(el, i)"
@@ -72,7 +72,7 @@ onMounted(() => {
     <div class="text-sm text-gray-600 space-x-4">
       <button type="button" class="underline" @click="$emit('change-phone')">Изменить номер</button>
       <button type="button" class="underline disabled:opacity-50" :disabled="auth.resendLeft>0" @click="auth.resendCode">
-        Отправить код повторно<span v-if="auth.resendLeft>0"> ({{ auth.resendLeft }})</span>
+        Получить код звонком<span v-if="auth.resendLeft>0"> ({{ auth.resendLeft }})</span>
       </button>
     </div>
     <Button :variant="'solid'" class="w-full" type="button" :disabled="!canSubmit" @click="verify">Подтвердить</Button>

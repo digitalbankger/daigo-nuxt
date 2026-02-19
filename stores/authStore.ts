@@ -3,6 +3,7 @@ import { defineStore, skipHydrate } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import {
   sendAuthCode,
+  sendAuthFc,
   verifyAuthCode,
   refreshAuthToken,
   type TokensResponse
@@ -52,6 +53,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   // resend-блокировка (отсчёт 30 секунд)
   const resendLeft = ref(0) // сек до повторной отправки, 0 — можно отправлять
+  const resendCount = ref(0) // сколько раз пользователь нажимал «отправить код повторно»
+  const lastSendMethod = ref<'sms' | 'call'>('sms')
 
   log('[auth:init]', 'token=', mask(token.value), 'refresh=', mask(refreshToken.value), 'uid=', userId.value)
 
@@ -76,14 +79,22 @@ export const useAuthStore = defineStore('auth', () => {
     pendingName.value    = (opts.name ?? '').trim() || null
     isRegisterMode.value = Boolean(opts.isRegister)
 
+    resendCount.value = 0
+
     await sendAuthCode(phone_number)
+    lastSendMethod.value = 'sms'
     isCodeSent.value = true
     startResendTimer(30) // блокируем повторную отправку на 30 секунд
   }
 
   async function resendCode() {
     if (!pendingPhone.value || resendLeft.value > 0) return
-    await sendAuthCode(pendingPhone.value)
+
+    // 1-я отправка — SMS (requestCode), 2-я и далее — звонок (fallback)
+    await sendAuthFc(pendingPhone.value)
+    lastSendMethod.value = 'call'
+
+    resendCount.value += 1
     startResendTimer(30)
   }
 
@@ -116,6 +127,8 @@ export const useAuthStore = defineStore('auth', () => {
     isRegisterMode.value = false
     isCodeSent.value     = false
     resendLeft.value     = 0
+    resendCount.value    = 0
+    lastSendMethod.value = 'sms'
 
     closeAuth()
     const target = redirectTo ?? redirectAfterAuth.value
@@ -141,6 +154,8 @@ export const useAuthStore = defineStore('auth', () => {
     isRegisterMode.value = false
     isCodeSent.value     = false
     resendLeft.value     = 0
+    resendCount.value    = 0
+    lastSendMethod.value = 'sms'
 
     closeAuth()
 
@@ -216,6 +231,14 @@ export const useAuthStore = defineStore('auth', () => {
     await softLogout('/')
   }
 
+
+  const deliveryHint = computed(() => {
+    if (lastSendMethod.value === 'call') {
+      return 'Сейчас поступит звонок. Введите последние 4 цифры входящего номера.'
+    }
+    return 'Мы отправили СМС с кодом на указанный номер.'
+  })
+
   watch([token, refreshToken, userId], () => {
     log('[auth] changed', 'token=', mask(token.value), 'refresh=', mask(refreshToken.value), 'uid=', userId.value)
   })
@@ -224,6 +247,9 @@ export const useAuthStore = defineStore('auth', () => {
     // code auth
     pendingPhone, pendingName, isRegisterMode, isCodeSent, redirectAfterAuth,
     resendLeft,
+    resendCount,
+    lastSendMethod,
+    deliveryHint,
     requestCode, resendCode, confirmCode,
 
     loginWithTelegramTokens,

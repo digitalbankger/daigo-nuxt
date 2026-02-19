@@ -7,9 +7,16 @@ export interface TokensResponse {
   daigo_id: number
 }
 
-/** Отправка кода на номер */
+/** Отправка кода на номер (SMS) */
 export const sendAuthCode = async (phone_number: string) => {
   const { data } = await api.post<{ message: string }>('/v1/auth/send-code', { phone_number })
+  return data
+}
+
+
+/** Отправка кода через звонок (fallback после повторной отправки) */
+export const sendAuthFc = async (phone_number: string) => {
+  const { data } = await api.post<{ message: string }>('/v1/auth/send-fc', { phone_number })
   return data
 }
 
