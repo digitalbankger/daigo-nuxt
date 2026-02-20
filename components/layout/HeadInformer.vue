@@ -7,7 +7,7 @@
       <!-- DESKTOP TEXT -->
       <NuxtLink
         to="/catalog"
-        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide hover:bg-primary/90 transition duration-300"
+        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
         @click="sendInformerGoal"
       >
         <span class="text-sm sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>

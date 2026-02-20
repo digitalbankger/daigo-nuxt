@@ -25,10 +25,10 @@ const slides: Slide[] = [
   {
     to: '/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota',
     variant: 'circle-product',
-    title: 'Здоровые отношения с Daigo',
-    subtitle: 'Узнайте как микрофлора создает гармонию в отношениях и почему ей нужна забота',
-    image: '/images/feb/main-desc-2.jpg',
-    imageMobile: '/images/feb/main-mob-2.jpg',
+    title: 'Интимное здоровье мужчин — упущенное звено',
+    subtitle: 'Узнайте как привнести гармонию в отношения через заботу о своем партнере',
+    image: '/images/feb/md23-1.jpg',
+    imageMobile: '/images/feb/mm23-1.jpg',
     // circleImage: '/images/love/card-1-circle.png',
     // circleImageMobile: '/images/love/card-1-circle.png',
     contentClass:
@@ -38,18 +38,18 @@ const slides: Slide[] = [
       'rounded-2xl sm:rounded-4xl',
     titleClass:
       'text-white font-haido font-bold leading-[1] ' +
-      'text-[clamp(1.8rem,4vw,4.6rem)]',
+      'text-[clamp(1.8rem,4vw,2.6rem)]',
 
   },
   {
     to: '/catalog', 
     variant: 'hearts',
     title: 'Подарите любимым здоровье',
-    subtitle: 'Забота о здоровье самых близких — лучший подарок на 14 Февраля',
-    image: '/images/feb/main-desc-3.jpg',
-    imageMobile: '/images/feb/main-mob-3.jpg',
+    subtitle: 'Забота о здоровье самых близких — лучший подарок на 23 Февраля',
+    image: '/images/feb/md23-2.jpg',
+    imageMobile: '/images/feb/mm23-2.jpg',
     contentClass:
-      'relative z-[3] flex flex-col items-start justify-end sm:justify-start ' +
+      'relative z-[3] flex flex-col items-start justify-center sm:justify-center ' +
       'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[800px] ' +
       'px-6 md:px-10 py-6 md:py-12 gap-2 ' +
       'rounded-2xl sm:rounded-4xl',
@@ -57,7 +57,7 @@ const slides: Slide[] = [
       'text-white font-haido font-bold leading-[1] ' +
       'text-[clamp(1.8rem,4vw,4.2rem)] sm:-mt-4 ',
     subtitleClass:
-      'mt-2 text-white font-haido font-medium leading-snug mb-6 sm:mb-2 w-full sm:w-[400px] mt-6 ' +
+      'mt-2 text-white font-haido font-medium leading-snug mb-6 sm:mb-2 w-full sm:w-[680px] mt-6 ' +
       'text-[clamp(1.05rem,2.2vw,1.875rem)]',
   },
   {
@@ -65,8 +65,8 @@ const slides: Slide[] = [
     variant: 'boxes',
     title: 'Потратьте бонусы на любимых!',
     subtitle: 'Премиальные подарочные наборы для самых близких!',
-    image: '/images/feb/main-desc.jpg',
-    imageMobile: '/images/feb/main-mob.jpg',
+    image: '/images/feb/md23-3.jpg',
+    imageMobile: '/images/feb/mm23-3.jpg',
     mobileBreakAfterWord: 'Потратьте ',
   },
 ]

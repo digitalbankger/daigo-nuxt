@@ -181,14 +181,14 @@ async function submitSubscribe() {
     <section
       class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl md:min-h-[415px] bg-primary bg-no-repeat px-4 md:px-6 lg:px-10 py-8 md:py-8 text-white mt-16"
     >
-      <img src="/images/subscription-product.png" alt="" class="hidden md:block absolute z-0 right-0" />
+      <!-- <img src="/images/subscription-product.png" alt="" class="hidden md:block absolute z-0 right-0" />
       <img src="/images/subscription-left.png" alt="" class="hidden md:block absolute z-0 left-0" />
       <img src="/images/subscription-product-mob.png" alt="" class="block md:hidden absolute z-0 right-0" />
-      <img src="/images/subscription-left-mob.png" alt="" class="block md:hidden absolute z-0 left-0" />
+      <img src="/images/subscription-left-mob.png" alt="" class="block md:hidden absolute z-0 left-0" /> -->
 
       <div class="relative z-10 md:w-full flex flex-col gap-4 items-start justify-center my-auto">
         <h2 class="font-medium leading-tight text-3xl md:text-slider w-9/12 md:w-full">
-          Подпишитесь на <span class="ms-1 rounded-md px-1 md:px-3 py-1 text-black bg-[#C3FF00]">рассылку</span>
+          Подпишитесь на <span class="ms-1 rounded-md px-1 md:px-3 py-1 text-white bg-transparent [#C3FF00]">рассылку</span>
         </h2>
 
         <p class="text-sm lg:text-lg md:text-2xl leading-5 md:leading-10 text-left max-w-[90%] md:max-w-[60%] mb-1">
@@ -222,7 +222,7 @@ async function submitSubscribe() {
           />
           <Button
             variant="solid"
-            class="!text-black text-lg bg-white hover:bg-gray-100 w-full sm:w-60"
+            class="!text-white text-lg bg-white hover:bg-gray-100 w-full sm:w-60"
             type="submit"
             :disabled="loading"
           >

@@ -107,4 +107,71 @@ input:focus-visible {
     }
     .no-scrollbar-mobile::-webkit-scrollbar { display: none; }
   }
+
+/* 1) bg-primary -> градиент ДЛЯ ВСЕХ элементов */
+  .bg-primary {
+    background-image: linear-gradient(90deg, #9AB75C 0%, #28513B 100%);
+    background-color: transparent;
+  }
+
+  /* 2) border-primary -> один цвет */
+  .border-primary {
+    border-color: #28513B;
+    border-image: none;
+  }
+
+  /* 3) text-primary -> один цвет (чтобы не ломать читабельность) */
+  .text-primary {
+    color: #28513B;
+    background-image: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+  }
+
+     /* shadow-primary -> зелёная тень */
+  .shadow-primary {
+    --tw-shadow: 0 12px 30px rgba(40, 81, 59, 0.25);
+    --tw-shadow-colored: 0 12px 30px rgba(40, 81, 59, 0.25);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
+      var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
+  }
+  /* shadow-primary/<opacity> — задаёт цвет тени через переменную Tailwind */
+  .shadow-primary { --tw-shadow-color: rgb(40 81 59 / 1); }
+  .shadow-primary\/10 { --tw-shadow-color: rgb(40 81 59 / 0.10); }
+  .shadow-primary\/20 { --tw-shadow-color: rgb(40 81 59 / 0.20); }
+  .shadow-primary\/30 { --tw-shadow-color: rgb(40 81 59 / 0.30); }
+  .shadow-primary\/40 { --tw-shadow-color: rgb(40 81 59 / 0.40); }
+  .shadow-primary\/50 { --tw-shadow-color: rgb(40 81 59 / 0.50); }
+
+  /* важно: именно это заставляет shadow-lg использовать цвет */
+  .shadow-primary,
+  .shadow-primary\/10,
+  .shadow-primary\/20,
+  .shadow-primary\/30,
+  .shadow-primary\/40,
+  .shadow-primary\/50 {
+    --tw-shadow-colored: var(--tw-shadow);
+  }
+  /* 4) Авто-hover ТОЛЬКО для кнопок/ссылок с bg-primary: плавное усиление */
+  button.bg-primary,
+  a.bg-primary,
+  [role="button"].bg-primary {
+    transition: filter 200ms ease;
+  }
+
+  button.bg-primary:hover,
+  a.bg-primary:hover,
+  [role="button"].bg-primary:hover {
+    filter: brightness(1.07) contrast(1.02);
+  }
+
+  /* 5) Перебиваем hover:bg-hoverbtn, если он висит на этих кнопках */
+  button.bg-primary.hover\:bg-hoverbtn:hover,
+  a.bg-primary.hover\:bg-hoverbtn:hover,
+  [role="button"].bg-primary.hover\:bg-hoverbtn:hover {
+    background-color: transparent;
+    background-image: linear-gradient(150deg, #9AB75C 0%, #28513B 100%);
+    color: #fff !important;
+  }
 }

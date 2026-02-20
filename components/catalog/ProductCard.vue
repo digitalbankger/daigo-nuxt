@@ -98,7 +98,7 @@
             <button
               type="button"
               @click.stop="decrementHandler"
-              class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full"
+              class="w-8 h-8 flex items-center justify-center bg-white/20 text-white rounded-full"
               aria-label="Уменьшить количество"
             >
               <img src="/icons/decrement.svg" alt="Уменьшить количество" class="w-5 h-5" />
@@ -109,7 +109,7 @@
             <button
               type="button"
               @click.stop="incrementHandler"
-              class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full"
+              class="w-8 h-8 flex items-center justify-center bg-white/20 text-white rounded-full"
               aria-label="Увеличить количество"
             >
               <img src="/icons/increment.svg" alt="Увеличить количество" class="w-5 h-5" />

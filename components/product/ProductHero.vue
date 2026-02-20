@@ -242,15 +242,15 @@ onMounted(ensureCartLoadedOnce)
           <!-- Если есть в корзине — контрол + / − -->
           <div
             v-else
-            class="flex items-center gap-2 bg-primary/80 px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
+            class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full sm:w-[50%] justify-between h-11 md:h-12 text-white"
           >
-            <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
+            <button type="button" :disabled="adding" @click="decrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
             <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
-            <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/15 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+            <button type="button" :disabled="adding" @click="incrementHandler" class="w-9 h-9 flex items-center justify-center rounded-full bg-white/20 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
           </div>
 
           <a href="tel:88005552043" data-ym="header-phone" class="flex w-full sm:w-[50%]">
-            <Button variant="outline" class="w-full hover:!text-black hover:!bg-hoverbtn hover:!border-hoverbtn" >
+            <Button variant="outline" class="w-full hover:!text-white hover:!bg-hoverbtn hover:!border-hoverbtn" >
                             <template #icon>
                 <svg class="w-4 h-4 fill-current transition-colors" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path

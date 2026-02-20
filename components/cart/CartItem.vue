@@ -24,10 +24,8 @@ const displayOriginalPrice = computed(() => {
   return props.item.originalPrice
 })
 
-// Читаем базовый URL из runtimeConfig (daigoApiBase)
 const { public: { daigoApiBase } } = useRuntimeConfig()
 
-// Вычисляем полный путь к изображению: если image уже содержит http, не добавляем базу
 const fullImage = computed(() => {
   const url = props.item.image
   return /^https?:\/\//.test(url) ? url : `${daigoApiBase}${url}`
@@ -36,7 +34,6 @@ const fullImage = computed(() => {
 
 <template>
   <div class="flex gap-4 md:gap-8 border-b pb-4 w-full lg:w-4/5">
-    <!-- используем вычисленное свойство fullImage -->
     <img
       :src="fullImage"
       alt=""
