@@ -20,7 +20,6 @@
           loading="lazy"
           decoding="async"
         />
-        <img src="/images/feb/hart.png" alt="Бонусные баллы" class="absolute -top-3 sm:top-[-1.5rem] -right-3 sm:right-[-1.5rem] w-12 sm:w-20 h-12 sm:h-20" />
 
       </div>
 
