@@ -7,11 +7,9 @@ import InfoSection from '~/components/sections/InfoSection.vue'
 import CustomersSection from '~/components/sections/CustomersSection.vue'
 import SertificatSection from '~/components/sections/SertificatSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
-import AppSection from '~/components/sections/AppSection.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import MediaModal from '~/components/reviews/MediaModal.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
-import MainCardsSwiper from '~/components/swiper/MainCardsSwiper.vue'
 
 import { ref } from 'vue'
 import type { Review } from '~/types/content'
@@ -82,8 +80,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <MainCardsSwiper />
-      <!-- <BannerSection :banners="banners" /> -->
+      <BannerSection :banners="banners" />
 
       <!-- <ClientOnly>
         <StoriesList v-model:stories="stories" @open="openStory" />
