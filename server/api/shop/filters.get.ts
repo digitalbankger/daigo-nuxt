@@ -1,7 +1,7 @@
 export default defineEventHandler(() => {
   return [
     {
-      label: 'Направленния',
+      label: 'Направления',
       slug: 'napravlennost',
       options: [
         { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
