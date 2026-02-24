@@ -1817,8 +1817,40 @@ export default defineEventHandler((event) => {
       // reviews: {
       //   ratingAvg: 4.9,
       //   count: 10,
-      //   source: 'Сообщения клиентов',
+      //   source: 'Сообщения Не  указаноов',
       //   items: [
+      //     {
+      //       id: 'r_latvia_7yo_01',
+      //       author: 'Не указано',
+      //       rating: 5,
+      //       title: 'Девочка 7 лет (Латвия): улучшение после 2 месяцев приёма',
+      //       text:
+      //         'Доброго времени суток.\n' +
+      //         '\n' +
+      //         'Отзыв Дайго:\n' +
+      //         'Девочка 7 лет, живут в Латвии, около 2-х лет безуспешного стандартного лечения у разных рижских врачей мазями и магниями.\n' +
+      //         'Уже начал видоизменяться ноготок и пошла неприязнь со стороны одноклассников.\n' +
+      //         '2 месяца приёма Дайго — и волшебство произошло.\n' +
+      //         '\n' +
+      //         'Я подумала, что ребёнок устал от лечения, и посоветовала Дайго сочетать с сиропом Нервозит педиакид.\n' +
+      //         'Просто вкусно и полезно 😊',
+      //       verified: false,
+      //       tags: ['Дерматит', 'Кожа'],
+      //       media: [
+      //         {
+      //           id: 'm1',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png', 
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png'
+      //         },
+      //         {
+      //           id: 'm2',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg', 
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg' 
+      //         }
+      //       ]
+      //     },
       //     {
       //       id: 'r1',
       //       author: 'Татьяна',
@@ -1867,7 +1899,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r3',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Кожа чище + больше энергии',
       //       text:
@@ -1907,7 +1939,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r5',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Атопический дерматит у ребёнка',
       //       text:
@@ -1945,7 +1977,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r6',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Кожная реакция у ребёнка — прошло за полдня',
       //       text:
@@ -1974,7 +2006,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r7',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Давление нормализовалось, кишечник работает',
       //       text:
@@ -1997,7 +2029,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r8',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Спорт: энергии больше, тренировки легче',
       //       text:
@@ -2018,7 +2050,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r9',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Кишечная инфекция у ребёнка — стало лучше за 2 дня',
       //       text:
@@ -2029,7 +2061,7 @@ export default defineEventHandler((event) => {
 
       //     {
       //       id: 'r10',
-      //       author: 'Клиент',
+      //       author: 'Не  указано',
       //       rating: 5,
       //       title: 'Пищеварение лучше, бодрость и энергия',
       //       text:

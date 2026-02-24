@@ -15,7 +15,7 @@ const emit = defineEmits<{
   <transition name="fade">
     <div
       v-if="show"
-      class="fixed inset-0 z-50 bg-black/40 flex items-center justify-center px-4"
+      class="fixed inset-0 z-[99999] bg-black/40 flex items-center justify-center px-4"
       @click.self="props.closeOnOverlay !== false && emit('close')"
     >
       <div

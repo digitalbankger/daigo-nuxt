@@ -20,13 +20,4 @@ useHead({
 
 <template>
   <NuxtLayout />
-  <noscript>
-    <div>
-      <img
-        src="https://mc.yandex.ru/watch/31773751"
-        style="position:absolute; left:-9999px;"
-        alt=""
-      />
-    </div>
-  </noscript>
 </template>

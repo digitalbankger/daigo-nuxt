@@ -199,7 +199,7 @@ onBeforeUnmount(() => {
         {{ safeTitle }}
       </h2>
 
-      <p class="text-lg mb-8 mt-4 whitespace-pre-line">Отзывы от клиентов Daigo со всего мира</p>
+      <p class="text-lg mb-8 mt-4 whitespace-pre-line">Отзывы от клиентов Daigo <br class="block sm:hidden">со всего мира</p>
 
       <div class="mt-5 -mx-1 px-1 flex gap-2 overflow-x-auto whitespace-nowrap no-scrollbar">
         <button
@@ -307,7 +307,7 @@ onBeforeUnmount(() => {
           <div v-if="showActions" class="flex flex-col items-stretch gap-3">
             <button
               type="button"
-              class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition ms-auto"
+              class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition w-full sm:w-auto sm:ms-auto"
               @click="emit('write')"
             >
               Написать отзыв
@@ -384,7 +384,34 @@ onBeforeUnmount(() => {
           >
             {{ getText(r) }}
           </p>
+          
+          <div v-if="r.media?.length" class="mt-4 grid grid-cols-4 sm:grid-cols-6 gap-2">
+            <button
+              v-for="(m, idx) in r.media.slice(0, 4)"
+              :key="m.id + ':' + idx"
+              type="button"
+              class="group relative aspect-square overflow-hidden rounded-xl border border-[#E5E7EB] bg-[#F3F4F6]"
+              @click="openMedia(m)"
+            >
+              <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
 
+              <div v-if="m.type === 'video'" class="absolute inset-0 grid place-items-center bg-black/20">
+                <div class="grid place-items-center h-7 w-7 rounded-full bg-white/90 shadow">
+                  <svg viewBox="0 0 20 20" class="h-4 w-4 text-[#111]" fill="currentColor">
+                    <path d="M8 5v10l8-5-8-5z" />
+                  </svg>
+                </div>
+              </div>
+
+              <div
+                v-if="idx === 3 && r.media.length > 4"
+                class="absolute inset-0 grid place-items-center bg-black/45 text-white text-sm font-semibold"
+              >
+                +{{ r.media.length - 4 }}
+              </div>
+            </button>
+          </div>
+          
           <button
             v-if="shouldShowReadMore(r)"
             type="button"
@@ -415,7 +442,7 @@ onBeforeUnmount(() => {
         :panelClass="'sm:max-w-3xl p-0 overflow-hidden'"
       >
         <div class="flex items-center justify-between px-4 py-3 border-b border-[#E5E7EB]">
-          <div class="text-lg font-medium">Отзыв</div>
+          <div class="text-xl font-medium">Отзыв</div>
           <button class="text-sm text-[#6B7280] hover:text-[#111]" @click="closeReview">Закрыть</button>
         </div>
 
