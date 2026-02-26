@@ -34,24 +34,24 @@ const linkFor = (c: Category) => {
         <div
           v-if="category.isPromo"
           class="col-span-2 sm:col-span-2 lg:col-span-1 xl:col-span-2 
-             bg-cover bg-bottom rounded-2.5xl px-6 sm:px-10 py-7 sm:py-12 lg:py-7 flex flex-row gap-3 relative overflow-hidden bg-[#83A255]"
+             bg-cover bg-bottom rounded-2.5xl px-6 sm:px-10 py-7 sm:py-12 lg:py-7 flex flex-row gap-3 relative overflow-hidden bg-cpinklight"
         >
           <img src="/icons/deal.svg" class="w-[90px] sm:w-[140px] absolute top-0 left-2 z-0"/>
 
           <div class="relative z-10 flex flex-col gap-3 w-[80%] sm:w-[55%] justify-center">
-            <h3 class="xs-max:text-2xl text-[32px] sm:text-product font-medium text-white">
-              Акции <span class="text-[#fff]">Daigo</span>
+            <h3 class="xs-max:text-2xl text-[32px] sm:text-product font-medium text-black">
+              Акции <span class="text-[#FA458A]">Daigo</span>
             </h3>
-            <p class="text-sm sm:text-2xl text-gray-800 my-0 sm:mb-4 lg:my-4 leading-snug text-white/90">
+            <p class="text-sm sm:text-2xl text-gray-800 my-0 sm:mb-4 lg:my-4 leading-snug">
               Актуальная информация<br></br>о скидках и акциях
             </p>
             <NuxtLink
               to="/akcii"
-              class="text-[#fff] inline-flex items-center gap-2 text-sm sm:text-2xl font-normal transition duration-300 group"
+              class="text-[#FA458A] inline-flex items-center gap-2 text-sm sm:text-2xl font-normal transition duration-300 group"
             >
               Перейти к акциям
               <img
-                src="/icons/arrow-white.svg"
+                src="/icons/arrow-pink.svg"
                 alt="→"
                 class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
               />

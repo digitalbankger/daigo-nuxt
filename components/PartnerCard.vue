@@ -1,5 +1,5 @@
 <template>
-  <div @click="toLink()" @keydown.enter="toLink" @keydown.space.prevent="toLink" tabindex="0" role="link" class="relative bg-hoverbtn rounded-3xl px-4 py-6 md:p-8 min-h-[430px] h-full flex flex-col justify-start items-start cursor-pointer hover:shadow-productcard transition-shadow duration-300">
+  <div @click="toLink()" @keydown.enter="toLink" @keydown.space.prevent="toLink" tabindex="0" role="link" class="relative bg-hoverbtn rounded-3xl px-4 py-6 md:p-8 min-h-[460px] h-full flex flex-col justify-start items-start cursor-pointer hover:shadow-productcard transition-shadow duration-300">
   <img
     v-if="partner.logo"
     :src="partner.logo"

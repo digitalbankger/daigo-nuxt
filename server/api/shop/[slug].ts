@@ -1814,460 +1814,460 @@ export default defineEventHandler((event) => {
               <p class="text-sm md:text-base lg:text-2xl leading-tight">Срок годности — 3 года.<br>
               Условия хранения: хранить в сухом, прохладном, защищённом от света, недоступном для детей месте, при температуре от 0 °C до 25 °C.</p>`
       },
-      reviews: {
-        ratingAvg: 4.9,
-        count: 10,
-        source: 'Сообщения Не  указаноов',
-        items: [
-          {
-            id: 'r_latvia_7yo_01',
-            author: 'Не указано',
-            rating: 5,
-            title: 'Девочка 7 лет (Латвия): улучшение после 2 месяцев приёма',
-            text:
-              'Доброго времени суток.\n' +
-              '\n' +
-              'Отзыв Дайго:\n' +
-              'Девочка 7 лет, живут в Латвии, около 2-х лет безуспешного стандартного лечения у разных рижских врачей мазями и магниями.\n' +
-              'Уже начал видоизменяться ноготок и пошла неприязнь со стороны одноклассников.\n' +
-              '2 месяца приёма Дайго — и волшебство произошло.\n' +
-              '\n' +
-              'Я подумала, что ребёнок устал от лечения, и посоветовала Дайго сочетать с сиропом Нервозит педиакид.\n' +
-              'Просто вкусно и полезно 😊',
-            verified: false,
-            tags: ['Дерматит', 'Кожа'],
-            media: [
-              {
-                id: 'm1',
-                type: 'image',
-                thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png', 
-                src: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png'
-              },
-              {
-                id: 'm2',
-                type: 'image',
-                thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg', 
-                src: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg' 
-              }
-            ]
-          },
-          {
-            id: 'r1',
-            author: 'Татьяна',
-            rating: 5,
-            title: 'Ребёнок: температура и резкое улучшение',
-            text:
-              'Здравствуйте! Положительный эффект) занимаемся в полном объеме, не смотря на то, что травма была 2 мес назад.\n' +
-              'На прошлой неделе ребенок заболел, 39,6 температура, не сбивалась лекарствами ниже 38 ..\n' +
-              'На следующий день вспомнила , что вы положили попробовать метабиотик , дала один пакет , через 30 мин сказал стало легче, но температура та же, появился аппетит - заснул, проснулся 38, дала еще на ночь- проснулся здоровый ребенок ! Удивили !\n' +
-              'Дорогие только очень!\n' +
-              'Причем ,на второй день, ни каких лекарств, кроме метабиотика не пил',
-            verified: true,
-            tags: ['Дети', 'Температура', 'Иммунитет', 'ОРВИ'],
-            media: [
+      // reviews: {
+      //   ratingAvg: 4.9,
+      //   count: 10,
+      //   source: 'Сообщения Не  указаноов',
+      //   items: [
+      //     {
+      //       id: 'r_latvia_7yo_01',
+      //       author: 'Не указано',
+      //       rating: 5,
+      //       title: 'Девочка 7 лет (Латвия): улучшение после 2 месяцев приёма',
+      //       text:
+      //         'Доброго времени суток.\n' +
+      //         '\n' +
+      //         'Отзыв Дайго:\n' +
+      //         'Девочка 7 лет, живут в Латвии, около 2-х лет безуспешного стандартного лечения у разных рижских врачей мазями и магниями.\n' +
+      //         'Уже начал видоизменяться ноготок и пошла неприязнь со стороны одноклассников.\n' +
+      //         '2 месяца приёма Дайго — и волшебство произошло.\n' +
+      //         '\n' +
+      //         'Я подумала, что ребёнок устал от лечения, и посоветовала Дайго сочетать с сиропом Нервозит педиакид.\n' +
+      //         'Просто вкусно и полезно 😊',
+      //       verified: false,
+      //       tags: ['Дерматит', 'Кожа'],
+      //       media: [
+      //         {
+      //           id: 'm1',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png', 
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/fing1.png'
+      //         },
+      //         {
+      //           id: 'm2',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg', 
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/fing2.jpg' 
+      //         }
+      //       ]
+      //     },
+      //     {
+      //       id: 'r1',
+      //       author: 'Татьяна',
+      //       rating: 5,
+      //       title: 'Ребёнок: температура и резкое улучшение',
+      //       text:
+      //         'Здравствуйте! Положительный эффект) занимаемся в полном объеме, не смотря на то, что травма была 2 мес назад.\n' +
+      //         'На прошлой неделе ребенок заболел, 39,6 температура, не сбивалась лекарствами ниже 38 ..\n' +
+      //         'На следующий день вспомнила , что вы положили попробовать метабиотик , дала один пакет , через 30 мин сказал стало легче, но температура та же, появился аппетит - заснул, проснулся 38, дала еще на ночь- проснулся здоровый ребенок ! Удивили !\n' +
+      //         'Дорогие только очень!\n' +
+      //         'Причем ,на второй день, ни каких лекарств, кроме метабиотика не пил',
+      //       verified: true,
+      //       tags: ['Дети', 'Температура', 'Иммунитет', 'ОРВИ'],
+      //       media: [
 
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r2',
-            author: 'Марина',
-            rating: 5,
-            title: 'Внук перестал часто болеть',
-            text:
-              'Спасибо.\n' +
-              'Внук первый раз четвёртый месяц не болеет.\n' +
-              'Благодаря Дайго.\n' +
-              'Бедный ребенок весь год так болел в саду что мне страшно было.\n' +
-              'Решила теперь его весь год поить',
-            verified: true,
-            tags: ['Дети', 'Иммунитет', 'Профилактика'],
-            media: [
+      //     {
+      //       id: 'r2',
+      //       author: 'Марина',
+      //       rating: 5,
+      //       title: 'Внук перестал часто болеть',
+      //       text:
+      //         'Спасибо.\n' +
+      //         'Внук первый раз четвёртый месяц не болеет.\n' +
+      //         'Благодаря Дайго.\n' +
+      //         'Бедный ребенок весь год так болел в саду что мне страшно было.\n' +
+      //         'Решила теперь его весь год поить',
+      //       verified: true,
+      //       tags: ['Дети', 'Иммунитет', 'Профилактика'],
+      //       media: [
 
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r3',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Кожа чище + больше энергии',
-            text:
-              'Принимали дайго в течении 2 недель, нам очень понравился эффект!\n' +
-              'Кожа стала чище и сияющей, энергии намного больше . Вообщем, хотели бы приобрести ещё одну коробочку.\n' +
-              'Нам оооочень понравился',
-            verified: false,
-            tags: ['Кожа', 'Энергия', 'Самочувствие'],
-            media: [
+      //     {
+      //       id: 'r3',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Кожа чище + больше энергии',
+      //       text:
+      //         'Принимали дайго в течении 2 недель, нам очень понравился эффект!\n' +
+      //         'Кожа стала чище и сияющей, энергии намного больше . Вообщем, хотели бы приобрести ещё одну коробочку.\n' +
+      //         'Нам оооочень понравился',
+      //       verified: false,
+      //       tags: ['Кожа', 'Энергия', 'Самочувствие'],
+      //       media: [
 
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r4',
-            author: 'Анастасия',
-            rating: 5,
-            title: 'Насморк прошёл, настроение лучше',
-            text:
-              'Я выпила , так удивлена , что насморк затяжной прошел и настроение лучше стало 😁',
-            verified: false,
-            tags: ['Иммунитет', 'Насморк', 'Настроение'],
-            media: [
+      //     {
+      //       id: 'r4',
+      //       author: 'Анастасия',
+      //       rating: 5,
+      //       title: 'Насморк прошёл, настроение лучше',
+      //       text:
+      //         'Я выпила , так удивлена , что насморк затяжной прошел и настроение лучше стало 😁',
+      //       verified: false,
+      //       tags: ['Иммунитет', 'Насморк', 'Настроение'],
+      //       media: [
               
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r5',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Атопический дерматит у ребёнка',
-            text:
-              'Метабиотик Дайго помог нашему 4х летнему сыну Кириллу вылечить атопический дерматит.\n\n' +
-              'Атопический дерматит - проблема, которая находится не только на уровне тела, но еще и психики.\n' +
-              'Глубоко работая с этой темой через знания психосоматики, я так же понимала, что важно еще подключать восстановление на телесном уровне. Вопрос был только как и с помощью чего?\n' +
-              'Я долго искала выход, пробовала разные варианты: витамины, крема. Параллельно с этим я работала с собой и своими установками, психологическим состоянием.\n' +
-              'И однажды я совершенно случайно пришла в аптеку 36.6 и мы разговорились с консультантом и она посоветовала мне Дайго и сказала, что это точно решит наши проблемы, потому что это пробиотики "другого поколения", новый подход.\n' +
-              'Я не смогла даже сдержать слезы, потому что это дало мне веру, что мы сможем помочь Кириллу.\n\n' +
-              'Сначала мы решили с сыном перейти на безглютеновое, безмолочное питание с минимумом сахара.\n' +
-              'Чтобы ему было проще привыкнуть, я тоже села на эту диету. Я решила, что нужно убрать все раздражители и после этого уже начать давать метабиотик. На подготовку ушло не больше месяца.\n' +
-              'И далее Кирилл начал принимать 1 пакетик- 5мл утром натощак.\n\n' +
-              'Так он пропил 2 месяца.\n' +
-              'Качество кожи. Мы выдохнули.\n' +
-              'Но я не хотела, чтобы сын всю жизнь сидел на диете и во всем себя ограничивал.\n' +
-              'На третий месяц приёма, который совпадал с поездкой на море, я приняла решение, что пора зайти в эту проблему с другой стороны.\n' +
-              'Я села напротив сына и сказала ему, прямо смотря ему в глаза с уверенным голосом, что он полностью здоров и теперь ему можно все.\n' +
-              'Он очень обрадовался, хоть это был и риск, я не знала до конца как будут развиваться события, но понимала, что сила убеждения и подготовленная микрофлора кишечника сыграют нам "на руку".\n\n' +
-              'Так и вышло.\n\n' +
-              'К сожалению, в конце сентября сын сильно заболел и пропил 7 дней антибиотики. Это привело к временному регрессу. Во время приёма антибиотиков, я продолжала давать Дайго. Но он закончился.\n' +
-              'И кожа сама восстановилась!!!\n' +
-              'Сейчас у сына есть признаки алоергического насморка.\n' +
-              'Поэтому я снова заказала Дайго. И точно знаю что делать.',
-            verified: true,
-            tags: ['Дети', 'Кожа', 'Атопический дерматит', 'Аллергия', 'После антибиотиков'],
-            media: [
+      //     {
+      //       id: 'r5',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Атопический дерматит у ребёнка',
+      //       text:
+      //         'Метабиотик Дайго помог нашему 4х летнему сыну Кириллу вылечить атопический дерматит.\n\n' +
+      //         'Атопический дерматит - проблема, которая находится не только на уровне тела, но еще и психики.\n' +
+      //         'Глубоко работая с этой темой через знания психосоматики, я так же понимала, что важно еще подключать восстановление на телесном уровне. Вопрос был только как и с помощью чего?\n' +
+      //         'Я долго искала выход, пробовала разные варианты: витамины, крема. Параллельно с этим я работала с собой и своими установками, психологическим состоянием.\n' +
+      //         'И однажды я совершенно случайно пришла в аптеку 36.6 и мы разговорились с консультантом и она посоветовала мне Дайго и сказала, что это точно решит наши проблемы, потому что это пробиотики "другого поколения", новый подход.\n' +
+      //         'Я не смогла даже сдержать слезы, потому что это дало мне веру, что мы сможем помочь Кириллу.\n\n' +
+      //         'Сначала мы решили с сыном перейти на безглютеновое, безмолочное питание с минимумом сахара.\n' +
+      //         'Чтобы ему было проще привыкнуть, я тоже села на эту диету. Я решила, что нужно убрать все раздражители и после этого уже начать давать метабиотик. На подготовку ушло не больше месяца.\n' +
+      //         'И далее Кирилл начал принимать 1 пакетик- 5мл утром натощак.\n\n' +
+      //         'Так он пропил 2 месяца.\n' +
+      //         'Качество кожи. Мы выдохнули.\n' +
+      //         'Но я не хотела, чтобы сын всю жизнь сидел на диете и во всем себя ограничивал.\n' +
+      //         'На третий месяц приёма, который совпадал с поездкой на море, я приняла решение, что пора зайти в эту проблему с другой стороны.\n' +
+      //         'Я села напротив сына и сказала ему, прямо смотря ему в глаза с уверенным голосом, что он полностью здоров и теперь ему можно все.\n' +
+      //         'Он очень обрадовался, хоть это был и риск, я не знала до конца как будут развиваться события, но понимала, что сила убеждения и подготовленная микрофлора кишечника сыграют нам "на руку".\n\n' +
+      //         'Так и вышло.\n\n' +
+      //         'К сожалению, в конце сентября сын сильно заболел и пропил 7 дней антибиотики. Это привело к временному регрессу. Во время приёма антибиотиков, я продолжала давать Дайго. Но он закончился.\n' +
+      //         'И кожа сама восстановилась!!!\n' +
+      //         'Сейчас у сына есть признаки алоергического насморка.\n' +
+      //         'Поэтому я снова заказала Дайго. И точно знаю что делать.',
+      //       verified: true,
+      //       tags: ['Дети', 'Кожа', 'Атопический дерматит', 'Аллергия', 'После антибиотиков'],
+      //       media: [
 
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r6',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Кожная реакция у ребёнка — прошло за полдня',
-            text:
-              'У дочери вирус в первый день дал реакцию на кожу. Пятнами вся пошла, как розовый лишай, но я не уверена что это он.\n' +
-              'Я и забыла про метабиотик и начал лечить как врач сказал. Но за сутки только хуже стало.\n\n' +
-              'Потом до меня дошло и я ей все пятна по телу протерла метабиотиком, на большие прям прикладывалась на ватном диске. И все меньше чем за пол дня прошло.\n\n' +
-              'Это вначале , и вот через пол часа сразу как обработала.\n' +
-              'К обеду уже вся кожа чистая была',
-            verified: false,
-            tags: ['Дети', 'Кожа', 'Аллергия', 'Вирус'],
-            media: [
-              {
-                id: 'm6a',
-                type: 'image',
-                thumb: 'https://s3.firstvds.ru/feedbacks/reviews/alerg1.jpg',
-                src: 'https://s3.firstvds.ru/feedbacks/reviews/alerg1.jpg'
-              },
-              {
-                id: 'm6b',
-                type: 'image',
-                thumb: 'https://s3.firstvds.ru/feedbacks/reviews/alerg2.jpg',
-                src: 'https://s3.firstvds.ru/feedbacks/reviews/alerg2.jpg'
-              }
-            ]
-          },
+      //     {
+      //       id: 'r6',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Кожная реакция у ребёнка — прошло за полдня',
+      //       text:
+      //         'У дочери вирус в первый день дал реакцию на кожу. Пятнами вся пошла, как розовый лишай, но я не уверена что это он.\n' +
+      //         'Я и забыла про метабиотик и начал лечить как врач сказал. Но за сутки только хуже стало.\n\n' +
+      //         'Потом до меня дошло и я ей все пятна по телу протерла метабиотиком, на большие прям прикладывалась на ватном диске. И все меньше чем за пол дня прошло.\n\n' +
+      //         'Это вначале , и вот через пол часа сразу как обработала.\n' +
+      //         'К обеду уже вся кожа чистая была',
+      //       verified: false,
+      //       tags: ['Дети', 'Кожа', 'Аллергия', 'Вирус'],
+      //       media: [
+      //         {
+      //           id: 'm6a',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/alerg1.jpg',
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/alerg1.jpg'
+      //         },
+      //         {
+      //           id: 'm6b',
+      //           type: 'image',
+      //           thumb: 'https://s3.firstvds.ru/feedbacks/reviews/alerg2.jpg',
+      //           src: 'https://s3.firstvds.ru/feedbacks/reviews/alerg2.jpg'
+      //         }
+      //       ]
+      //     },
 
-          {
-            id: 'r7',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Давление нормализовалось, кишечник работает',
-            text:
-              'Ксенечка, знаешь какие изменения меня удивили после приема капель - нормализация давления, кишечник работает.\n' +
-              '( только не сглазить).\n' +
-              'Сегодня начала пить коллаген, при котором условие ограничить сахар.\n' +
-              'Спокойно пока пила чай,кофе без всего.\n' +
-              'Тебя неустанно благодарю ежедневно. Ты настоящий',
-            verified: false,
-            tags: ['Давление', 'Кишечник', 'Самочувствие'],
-            media: [
+      //     {
+      //       id: 'r7',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Давление нормализовалось, кишечник работает',
+      //       text:
+      //         'Ксенечка, знаешь какие изменения меня удивили после приема капель - нормализация давления, кишечник работает.\n' +
+      //         '( только не сглазить).\n' +
+      //         'Сегодня начала пить коллаген, при котором условие ограничить сахар.\n' +
+      //         'Спокойно пока пила чай,кофе без всего.\n' +
+      //         'Тебя неустанно благодарю ежедневно. Ты настоящий',
+      //       verified: false,
+      //       tags: ['Давление', 'Кишечник', 'Самочувствие'],
+      //       media: [
               
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r8',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Спорт: энергии больше, тренировки легче',
-            text:
-              'Хочу сказать, что удивительный эффект от этих саше конечно.\n' +
-              'Ну... хожу на тренировки и после них не чувствую приятной усталости, а чувствую что могла бы еще столько же оттренироваться, хорошее самочувствие, кишечник счастлив.\n' +
-              'В общем то с первого дня энергии прибавилось заметно',
-            verified: false,
-            tags: ['Энергия', 'Спорт', 'ЖКТ', 'Самочувствие'],
-            media: [
+      //     {
+      //       id: 'r8',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Спорт: энергии больше, тренировки легче',
+      //       text:
+      //         'Хочу сказать, что удивительный эффект от этих саше конечно.\n' +
+      //         'Ну... хожу на тренировки и после них не чувствую приятной усталости, а чувствую что могла бы еще столько же оттренироваться, хорошее самочувствие, кишечник счастлив.\n' +
+      //         'В общем то с первого дня энергии прибавилось заметно',
+      //       verified: false,
+      //       tags: ['Энергия', 'Спорт', 'ЖКТ', 'Самочувствие'],
+      //       media: [
 
-            ]
-          },
+      //       ]
+      //     },
 
-          {
-            id: 'r9',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Кишечная инфекция у ребёнка — стало лучше за 2 дня',
-            text:
-              'У ребенка была кишечная инфекция (предположительно). Пропили в большой дозировке несколько дней. Но уже через 2 дня ребенок себя начал чувствовать намного лучше.',
-            verified: false,
-            tags: ['Дети', 'ЖКТ', 'Инфекция']
-          },
+      //     {
+      //       id: 'r9',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Кишечная инфекция у ребёнка — стало лучше за 2 дня',
+      //       text:
+      //         'У ребенка была кишечная инфекция (предположительно). Пропили в большой дозировке несколько дней. Но уже через 2 дня ребенок себя начал чувствовать намного лучше.',
+      //       verified: false,
+      //       tags: ['Дети', 'ЖКТ', 'Инфекция']
+      //     },
 
-          {
-            id: 'r10',
-            author: 'Не  указано',
-            rating: 5,
-            title: 'Пищеварение лучше, бодрость и энергия',
-            text:
-              'Улучшено пищеварение, бодрость сил, много энергии. Для меня как для действующего спортсмена бодибилдера это очень важно.',
-            verified: false,
-            tags: ['Пищеварение', 'Энергия', 'Спорт', 'ЖКТ']
-          },
+      //     {
+      //       id: 'r10',
+      //       author: 'Не  указано',
+      //       rating: 5,
+      //       title: 'Пищеварение лучше, бодрость и энергия',
+      //       text:
+      //         'Улучшено пищеварение, бодрость сил, много энергии. Для меня как для действующего спортсмена бодибилдера это очень важно.',
+      //       verified: false,
+      //       tags: ['Пищеварение', 'Энергия', 'Спорт', 'ЖКТ']
+      //     },
 
-          {
-            id: 'r11',
-            author: 'Maria',
-            rating: 5,
-            title: 'Прошла ежедневная изжога',
-            text:
-              'When I started taking Daigo, I got rid of the heartburn that had been bothering me daily. Before that, I was constantly using "Reni" to relieve the discomfort, but with Daigo, this problem disappeared. I\'m so glad I found such an effective and magical remedy!',
-            verified: true,
-            tags: ['Изжога', 'ЖКТ', 'Пищеварение'],
-            i18n: {
-              en: {
-                title: 'Heartburn disappeared',
-                text: 'When I started taking Daigo, I got rid of the heartburn that had been bothering me daily. Before that, I was constantly using "Reni" to relieve the discomfort, but with Daigo, this problem disappeared. I\'m so glad I found such an effective and magical remedy!'
-              },
-              ru: {
-                title: 'Прошла ежедневная изжога',
-                text: 'Когда я начала принимать Daigo, исчезла изжога, которая беспокоила меня каждый день. До этого я постоянно принимала «Ренни», чтобы снять дискомфорт, но с Daigo эта проблема ушла. Я так рада, что нашла настолько эффективное и «волшебное» средство!'
-              }
-            }
-          },
+      //     {
+      //       id: 'r11',
+      //       author: 'Maria',
+      //       rating: 5,
+      //       title: 'Прошла ежедневная изжога',
+      //       text:
+      //         'When I started taking Daigo, I got rid of the heartburn that had been bothering me daily. Before that, I was constantly using "Reni" to relieve the discomfort, but with Daigo, this problem disappeared. I\'m so glad I found such an effective and magical remedy!',
+      //       verified: true,
+      //       tags: ['Изжога', 'ЖКТ', 'Пищеварение'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Heartburn disappeared',
+      //           text: 'When I started taking Daigo, I got rid of the heartburn that had been bothering me daily. Before that, I was constantly using "Reni" to relieve the discomfort, but with Daigo, this problem disappeared. I\'m so glad I found such an effective and magical remedy!'
+      //         },
+      //         ru: {
+      //           title: 'Прошла ежедневная изжога',
+      //           text: 'Когда я начала принимать Daigo, исчезла изжога, которая беспокоила меня каждый день. До этого я постоянно принимала «Ренни», чтобы снять дискомфорт, но с Daigo эта проблема ушла. Я так рада, что нашла настолько эффективное и «волшебное» средство!'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r12',
-            author: 'Bella',
-            rating: 5,
-            title: 'Ушли вздутие, колики и изжога + минус 9 кг',
-            text:
-              "I was recommended Daigo at the 'therapeutic fasting' clinic. I've had digestive issues for as long as I can remember: bloating, colic, gas, irregular bowel movements, burping, heartburn… I've been taking Daigo for 2 months now, and all of these issues have disappeared! On top of that, in 2 months, I’ve lost 9 kilograms! Of course, I want to keep taking the product, but what I'm most curious about is how long the effect will last after using it. So, I'll return here with an upda...Show full review",
-            verified: true,
-            tags: ['ЖКТ', 'Вздутие', 'Изжога', 'Стул', 'Снижение веса'],
-            i18n: {
-              en: {
-                title: 'Bloating, colic and heartburn gone + lost 9 kg',
-                text: "I was recommended Daigo at the 'therapeutic fasting' clinic. I've had digestive issues for as long as I can remember: bloating, colic, gas, irregular bowel movements, burping, heartburn… I've been taking Daigo for 2 months now, and all of these issues have disappeared! On top of that, in 2 months, I’ve lost 9 kilograms! Of course, I want to keep taking the product, but what I'm most curious about is how long the effect will last after using it. So, I'll return here with an update."
-              },
-              ru: {
-                title: 'Ушли вздутие, колики и изжога + минус 9 кг',
-                text: 'Мне порекомендовали Daigo в клинике «лечебного голодания». Проблемы с пищеварением были сколько себя помню: вздутие, колики, газообразование, нерегулярный стул, отрыжка, изжога… Я принимаю Daigo уже 2 месяца — и всё это исчезло! Кроме того, за 2 месяца я похудела на 9 кг. Хочу продолжать курс, но больше всего интересно, как долго сохранится эффект после окончания приёма. Позже вернусь и напишу обновление.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r12',
+      //       author: 'Bella',
+      //       rating: 5,
+      //       title: 'Ушли вздутие, колики и изжога + минус 9 кг',
+      //       text:
+      //         "I was recommended Daigo at the 'therapeutic fasting' clinic. I've had digestive issues for as long as I can remember: bloating, colic, gas, irregular bowel movements, burping, heartburn… I've been taking Daigo for 2 months now, and all of these issues have disappeared! On top of that, in 2 months, I’ve lost 9 kilograms! Of course, I want to keep taking the product, but what I'm most curious about is how long the effect will last after using it. So, I'll return here with an upda...Show full review",
+      //       verified: true,
+      //       tags: ['ЖКТ', 'Вздутие', 'Изжога', 'Стул', 'Снижение веса'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Bloating, colic and heartburn gone + lost 9 kg',
+      //           text: "I was recommended Daigo at the 'therapeutic fasting' clinic. I've had digestive issues for as long as I can remember: bloating, colic, gas, irregular bowel movements, burping, heartburn… I've been taking Daigo for 2 months now, and all of these issues have disappeared! On top of that, in 2 months, I’ve lost 9 kilograms! Of course, I want to keep taking the product, but what I'm most curious about is how long the effect will last after using it. So, I'll return here with an update."
+      //         },
+      //         ru: {
+      //           title: 'Ушли вздутие, колики и изжога + минус 9 кг',
+      //           text: 'Мне порекомендовали Daigo в клинике «лечебного голодания». Проблемы с пищеварением были сколько себя помню: вздутие, колики, газообразование, нерегулярный стул, отрыжка, изжога… Я принимаю Daigo уже 2 месяца — и всё это исчезло! Кроме того, за 2 месяца я похудела на 9 кг. Хочу продолжать курс, но больше всего интересно, как долго сохранится эффект после окончания приёма. Позже вернусь и напишу обновление.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r13',
-            author: 'Eva',
-            rating: 5,
-            title: 'Ушли вздутие и тяжесть через пару дней',
-            text:
-              'I had been skeptical about Daigo for about 3 years. I doubted it would actually work, and the price was also a deterrent. But one day, the manager from Beauty Boutique called me again and offered to try Daigo. I thought about it for a while, but eventually decided to give it a try. I started taking it with no great expectations, mostly thinking it would be a waste of money. However, just a couple of days later, my bloating and the heaviness after meals disappeared, and I starte...Show full review',
-            verified: true,
-            tags: ['ЖКТ', 'Вздутие', 'Тяжесть после еды'],
-            i18n: {
-              en: {
-                title: 'Bloating and heaviness gone in a couple of days',
-                text: 'I had been skeptical about Daigo for about 3 years. I doubted it would actually work, and the price was also a deterrent. But one day, the manager from Beauty Boutique called me again and offered to try Daigo. I thought about it for a while, but eventually decided to give it a try. I started taking it with no great expectations, mostly thinking it would be a waste of money. However, just a couple of days later, my bloating and the heaviness after meals disappeared.'
-              },
-              ru: {
-                title: 'Ушли вздутие и тяжесть через пару дней',
-                text: 'Я скептически относилась к Daigo около 3 лет: сомневалась, что это действительно работает, и цена тоже останавливала. Но однажды менеджер Beauty Boutique снова позвонил и предложил попробовать Daigo. Я подумала и всё-таки решилась. Начала приём без особых ожиданий, скорее считая, что это будут «выброшенные деньги». Однако уже через пару дней у меня прошли вздутие и тяжесть после еды.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r13',
+      //       author: 'Eva',
+      //       rating: 5,
+      //       title: 'Ушли вздутие и тяжесть через пару дней',
+      //       text:
+      //         'I had been skeptical about Daigo for about 3 years. I doubted it would actually work, and the price was also a deterrent. But one day, the manager from Beauty Boutique called me again and offered to try Daigo. I thought about it for a while, but eventually decided to give it a try. I started taking it with no great expectations, mostly thinking it would be a waste of money. However, just a couple of days later, my bloating and the heaviness after meals disappeared, and I starte...Show full review',
+      //       verified: true,
+      //       tags: ['ЖКТ', 'Вздутие', 'Тяжесть после еды'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Bloating and heaviness gone in a couple of days',
+      //           text: 'I had been skeptical about Daigo for about 3 years. I doubted it would actually work, and the price was also a deterrent. But one day, the manager from Beauty Boutique called me again and offered to try Daigo. I thought about it for a while, but eventually decided to give it a try. I started taking it with no great expectations, mostly thinking it would be a waste of money. However, just a couple of days later, my bloating and the heaviness after meals disappeared.'
+      //         },
+      //         ru: {
+      //           title: 'Ушли вздутие и тяжесть через пару дней',
+      //           text: 'Я скептически относилась к Daigo около 3 лет: сомневалась, что это действительно работает, и цена тоже останавливала. Но однажды менеджер Beauty Boutique снова позвонил и предложил попробовать Daigo. Я подумала и всё-таки решилась. Начала приём без особых ожиданий, скорее считая, что это будут «выброшенные деньги». Однако уже через пару дней у меня прошли вздутие и тяжесть после еды.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r14',
-            author: 'Michael',
-            rating: 5,
-            title: 'Год приёма — не болел даже в сезон вирусов',
-            text:
-              "A friend recommended the Daigo metabiotic, and I decided to try it to strengthen my immune system. I don’t have any serious health issues, but I do get seasonal colds, fatigue, and sluggishness from time to time. Since Daigo has different course durations, I decided to take it for a year. Yes, it’s not cheap, but I had the opportunity. The result has been amazing: I haven’t gotten sick at all, even during the peak of the viral season. My digestive system is working great, and I...Show full review",
-            verified: true,
-            tags: ['Иммунитет', 'Профилактика', 'ЖКТ', 'Энергия'],
-            i18n: {
-              en: {
-                title: 'A year of use — didn’t get sick even in viral season',
-                text: "A friend recommended the Daigo metabiotic, and I decided to try it to strengthen my immune system. I don’t have any serious health issues, but I do get seasonal colds, fatigue, and sluggishness from time to time. Since Daigo has different course durations, I decided to take it for a year. Yes, it’s not cheap, but I had the opportunity. The result has been amazing: I haven’t gotten sick at all, even during the peak of the viral season. My digestive system is working great."
-              },
-              ru: {
-                title: 'Год приёма — не болел даже в сезон вирусов',
-                text: 'Друг порекомендовал метабиотик Daigo, и я решил попробовать для укрепления иммунитета. Серьёзных проблем со здоровьем у меня нет, но периодически бывают сезонные простуды, усталость и вялость. Так как у Daigo есть разные длительности курсов, я решил принимать его целый год. Да, это недёшево, но у меня была такая возможность. Результат отличный: я вообще не болел, даже в пик сезона вирусов. Пищеварение тоже работает прекрасно.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r14',
+      //       author: 'Michael',
+      //       rating: 5,
+      //       title: 'Год приёма — не болел даже в сезон вирусов',
+      //       text:
+      //         "A friend recommended the Daigo metabiotic, and I decided to try it to strengthen my immune system. I don’t have any serious health issues, but I do get seasonal colds, fatigue, and sluggishness from time to time. Since Daigo has different course durations, I decided to take it for a year. Yes, it’s not cheap, but I had the opportunity. The result has been amazing: I haven’t gotten sick at all, even during the peak of the viral season. My digestive system is working great, and I...Show full review",
+      //       verified: true,
+      //       tags: ['Иммунитет', 'Профилактика', 'ЖКТ', 'Энергия'],
+      //       i18n: {
+      //         en: {
+      //           title: 'A year of use — didn’t get sick even in viral season',
+      //           text: "A friend recommended the Daigo metabiotic, and I decided to try it to strengthen my immune system. I don’t have any serious health issues, but I do get seasonal colds, fatigue, and sluggishness from time to time. Since Daigo has different course durations, I decided to take it for a year. Yes, it’s not cheap, but I had the opportunity. The result has been amazing: I haven’t gotten sick at all, even during the peak of the viral season. My digestive system is working great."
+      //         },
+      //         ru: {
+      //           title: 'Год приёма — не болел даже в сезон вирусов',
+      //           text: 'Друг порекомендовал метабиотик Daigo, и я решил попробовать для укрепления иммунитета. Серьёзных проблем со здоровьем у меня нет, но периодически бывают сезонные простуды, усталость и вялость. Так как у Daigo есть разные длительности курсов, я решил принимать его целый год. Да, это недёшево, но у меня была такая возможность. Результат отличный: я вообще не болел, даже в пик сезона вирусов. Пищеварение тоже работает прекрасно.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r15',
-            author: 'Miriam',
-            rating: 5,
-            title: 'Жизнь без боли в желудке',
-            text:
-              "I used to have severe stomach pain, and I couldn't go a day without medication. I tried countless doctors and treatments, but the effect was always temporary: the pain would return, and I would start vomiting. One day, I was recommended the Daigo drink, and since then, my life has changed. I realized what it means to live without pain and enjoy every day. After starting to take Daigo, I noticed improvements in my stomach and gut function. My skin began to glow, wrinkles smoothe...Show full review",
-            verified: true,
-            tags: ['Желудок', 'Боль', 'Тошнота', 'ЖКТ', 'Кожа'],
-            i18n: {
-              en: {
-                title: 'Life without stomach pain',
-                text: "I used to have severe stomach pain, and I couldn't go a day without medication. I tried countless doctors and treatments, but the effect was always temporary: the pain would return, and I would start vomiting. One day, I was recommended the Daigo drink, and since then, my life has changed. I realized what it means to live without pain and enjoy every day. After starting to take Daigo, I noticed improvements in my stomach and gut function."
-              },
-              ru: {
-                title: 'Жизнь без боли в желудке',
-                text: 'Раньше у меня были сильные боли в желудке, и я не могла прожить ни дня без лекарств. Я прошла через множество врачей и схем лечения, но эффект был временным: боль возвращалась, начиналась рвота. Однажды мне порекомендовали напиток Daigo — и с этого момента моя жизнь изменилась. Я поняла, что значит жить без боли и радоваться каждому дню. После начала приёма Daigo я заметила улучшения в работе желудка и кишечника.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r15',
+      //       author: 'Miriam',
+      //       rating: 5,
+      //       title: 'Жизнь без боли в желудке',
+      //       text:
+      //         "I used to have severe stomach pain, and I couldn't go a day without medication. I tried countless doctors and treatments, but the effect was always temporary: the pain would return, and I would start vomiting. One day, I was recommended the Daigo drink, and since then, my life has changed. I realized what it means to live without pain and enjoy every day. After starting to take Daigo, I noticed improvements in my stomach and gut function. My skin began to glow, wrinkles smoothe...Show full review",
+      //       verified: true,
+      //       tags: ['Желудок', 'Боль', 'Тошнота', 'ЖКТ', 'Кожа'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Life without stomach pain',
+      //           text: "I used to have severe stomach pain, and I couldn't go a day without medication. I tried countless doctors and treatments, but the effect was always temporary: the pain would return, and I would start vomiting. One day, I was recommended the Daigo drink, and since then, my life has changed. I realized what it means to live without pain and enjoy every day. After starting to take Daigo, I noticed improvements in my stomach and gut function."
+      //         },
+      //         ru: {
+      //           title: 'Жизнь без боли в желудке',
+      //           text: 'Раньше у меня были сильные боли в желудке, и я не могла прожить ни дня без лекарств. Я прошла через множество врачей и схем лечения, но эффект был временным: боль возвращалась, начиналась рвота. Однажды мне порекомендовали напиток Daigo — и с этого момента моя жизнь изменилась. Я поняла, что значит жить без боли и радоваться каждому дню. После начала приёма Daigo я заметила улучшения в работе желудка и кишечника.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r16',
-            author: 'Maya',
-            rating: 5,
-            title: 'Нормализовалось пищеварение + ушли отёки и боли',
-            text:
-              "I started taking Daigo in December 2011. At first, I experienced some discomfort in my digestive system, but within a week, everything normalized, and my digestive system started working like clockwork. I felt lighter, the swelling in my legs went down, and my legs stopped aching. My wrists no longer hurt either. The most significant change was that large papillomas (benign skin growths) on my intimate area, which had caused me a lot of discomfort, completely disappeared. I al...Show full review",
-            verified: true,
-            tags: ['Пищеварение', 'Отёки', 'Суставы', 'Кожа'],
-            i18n: {
-              en: {
-                title: 'Digestion normalized + swelling and pain gone',
-                text: "I started taking Daigo in December 2011. At first, I experienced some discomfort in my digestive system, but within a week, everything normalized, and my digestive system started working like clockwork. I felt lighter, the swelling in my legs went down, and my legs stopped aching. My wrists no longer hurt either. The most significant change was that large papillomas (benign skin growths) on my intimate area, which had caused me a lot of discomfort, completely disappeared."
-              },
-              ru: {
-                title: 'Нормализовалось пищеварение + ушли отёки и боли',
-                text: 'Я начала принимать Daigo в декабре 2011 года. Сначала был небольшой дискомфорт со стороны пищеварения, но в течение недели всё нормализовалось, и ЖКТ стал работать как часы. Появилось ощущение лёгкости, ушли отёки ног и перестали болеть ноги. Также перестали болеть запястья. Самое заметное изменение — крупные папилломы (доброкачественные образования) в интимной зоне, которые доставляли сильный дискомфорт, полностью исчезли.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r16',
+      //       author: 'Maya',
+      //       rating: 5,
+      //       title: 'Нормализовалось пищеварение + ушли отёки и боли',
+      //       text:
+      //         "I started taking Daigo in December 2011. At first, I experienced some discomfort in my digestive system, but within a week, everything normalized, and my digestive system started working like clockwork. I felt lighter, the swelling in my legs went down, and my legs stopped aching. My wrists no longer hurt either. The most significant change was that large papillomas (benign skin growths) on my intimate area, which had caused me a lot of discomfort, completely disappeared. I al...Show full review",
+      //       verified: true,
+      //       tags: ['Пищеварение', 'Отёки', 'Суставы', 'Кожа'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Digestion normalized + swelling and pain gone',
+      //           text: "I started taking Daigo in December 2011. At first, I experienced some discomfort in my digestive system, but within a week, everything normalized, and my digestive system started working like clockwork. I felt lighter, the swelling in my legs went down, and my legs stopped aching. My wrists no longer hurt either. The most significant change was that large papillomas (benign skin growths) on my intimate area, which had caused me a lot of discomfort, completely disappeared."
+      //         },
+      //         ru: {
+      //           title: 'Нормализовалось пищеварение + ушли отёки и боли',
+      //           text: 'Я начала принимать Daigo в декабре 2011 года. Сначала был небольшой дискомфорт со стороны пищеварения, но в течение недели всё нормализовалось, и ЖКТ стал работать как часы. Появилось ощущение лёгкости, ушли отёки ног и перестали болеть ноги. Также перестали болеть запястья. Самое заметное изменение — крупные папилломы (доброкачественные образования) в интимной зоне, которые доставляли сильный дискомфорт, полностью исчезли.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r17',
-            author: 'Sophia',
-            rating: 5,
-            title: 'Семейный приём — энергия, иммунитет, пищеварение',
-            text:
-              "This is a really great metabiotic! We've been using it as a family for a few months now, and the results are amazing. We live in Dubai, and the weather and fast pace of life can take a toll on the body. But with this metabiotic, it's been much easier: digestion improved, immunity is stronger, and we have more energy. It helps keep the body in good shape, and it's all natural and safe. We've definitely felt better overall — lighter and more energized. We're definitely sticking ...Show full review",
-            verified: true,
-            tags: ['Семья', 'Пищеварение', 'Иммунитет', 'Энергия', 'Самочувствие'],
-            i18n: {
-              en: {
-                title: 'Family use — energy, immunity, digestion',
-                text: "This is a really great metabiotic! We've been using it as a family for a few months now, and the results are amazing. We live in Dubai, and the weather and fast pace of life can take a toll on the body. But with this metabiotic, it's been much easier: digestion improved, immunity is stronger, and we have more energy. It helps keep the body in good shape, and it's all natural and safe. We've definitely felt better overall — lighter and more energized."
-              },
-              ru: {
-                title: 'Семейный приём — энергия, иммунитет, пищеварение',
-                text: 'Это действительно отличный метабиотик! Мы принимаем его всей семьёй уже несколько месяцев, и результат впечатляет. Мы живём в Дубае — климат и быстрый ритм жизни сильно влияют на организм. Но с этим метабиотиком стало заметно легче: улучшилось пищеварение, иммунитет стал крепче, появилось больше энергии. Он помогает держать организм «в форме», и при этом натуральный и безопасный. В целом мы чувствуем себя лучше — легче и бодрее.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r17',
+      //       author: 'Sophia',
+      //       rating: 5,
+      //       title: 'Семейный приём — энергия, иммунитет, пищеварение',
+      //       text:
+      //         "This is a really great metabiotic! We've been using it as a family for a few months now, and the results are amazing. We live in Dubai, and the weather and fast pace of life can take a toll on the body. But with this metabiotic, it's been much easier: digestion improved, immunity is stronger, and we have more energy. It helps keep the body in good shape, and it's all natural and safe. We've definitely felt better overall — lighter and more energized. We're definitely sticking ...Show full review",
+      //       verified: true,
+      //       tags: ['Семья', 'Пищеварение', 'Иммунитет', 'Энергия', 'Самочувствие'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Family use — energy, immunity, digestion',
+      //           text: "This is a really great metabiotic! We've been using it as a family for a few months now, and the results are amazing. We live in Dubai, and the weather and fast pace of life can take a toll on the body. But with this metabiotic, it's been much easier: digestion improved, immunity is stronger, and we have more energy. It helps keep the body in good shape, and it's all natural and safe. We've definitely felt better overall — lighter and more energized."
+      //         },
+      //         ru: {
+      //           title: 'Семейный приём — энергия, иммунитет, пищеварение',
+      //           text: 'Это действительно отличный метабиотик! Мы принимаем его всей семьёй уже несколько месяцев, и результат впечатляет. Мы живём в Дубае — климат и быстрый ритм жизни сильно влияют на организм. Но с этим метабиотиком стало заметно легче: улучшилось пищеварение, иммунитет стал крепче, появилось больше энергии. Он помогает держать организм «в форме», и при этом натуральный и безопасный. В целом мы чувствуем себя лучше — легче и бодрее.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r18',
-            author: 'Liam',
-            rating: 5,
-            title: 'Отлично поддерживает иммунитет',
-            text:
-              'An excellent supplement for boosting and supporting the immune system.',
-            verified: true,
-            tags: ['Иммунитет', 'Профилактика'],
-            i18n: {
-              en: {
-                title: 'Great immune support',
-                text: 'An excellent supplement for boosting and supporting the immune system.'
-              },
-              ru: {
-                title: 'Отлично поддерживает иммунитет',
-                text: 'Отличная добавка для укрепления и поддержки иммунной системы.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r18',
+      //       author: 'Liam',
+      //       rating: 5,
+      //       title: 'Отлично поддерживает иммунитет',
+      //       text:
+      //         'An excellent supplement for boosting and supporting the immune system.',
+      //       verified: true,
+      //       tags: ['Иммунитет', 'Профилактика'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Great immune support',
+      //           text: 'An excellent supplement for boosting and supporting the immune system.'
+      //         },
+      //         ru: {
+      //           title: 'Отлично поддерживает иммунитет',
+      //           text: 'Отличная добавка для укрепления и поддержки иммунной системы.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r19',
-            author: 'Isabella',
-            rating: 5,
-            title: '80 лет: принимала 3 года, принимала и во время COVID',
-            text:
-              "I turned 80 years old this January. I have been taking Daigo regularly for 3 years, and in June 2020, I contracted COVID-19. The illness was severe, and I spent 1.5 months in the hospital. Given that I had my gallbladder removed 12 years ago, suffer from chronic pancreatitis, and have had hypothyroidism for 25 years, my condition was complicated. During my treatment, I took 5 sachets of Daigo daily, and my daughter brought them to me along with my food until I was discharged fr...Show full review",
-            verified: true,
-            tags: ['Иммунитет', 'Восстановление', 'ЖКТ', 'Пожилые'],
-            i18n: {
-              en: {
-                title: '80 years old: 3 years on Daigo, also during COVID',
-                text: "I turned 80 years old this January. I have been taking Daigo regularly for 3 years, and in June 2020, I contracted COVID-19. The illness was severe, and I spent 1.5 months in the hospital. Given that I had my gallbladder removed 12 years ago, suffer from chronic pancreatitis, and have had hypothyroidism for 25 years, my condition was complicated. During my treatment, I took 5 sachets of Daigo daily, and my daughter brought them to me along with my food until I was discharged."
-              },
-              ru: {
-                title: '80 лет: принимала 3 года, принимала и во время COVID',
-                text: 'В январе мне исполнилось 80 лет. Я регулярно принимаю Daigo уже 3 года, и в июне 2020 года заболела COVID-19. Болезнь протекала тяжело, я провела 1,5 месяца в больнице. Учитывая, что 12 лет назад мне удалили желчный пузырь, есть хронический панкреатит и гипотиреоз уже 25 лет, состояние было осложнённым. Во время лечения я принимала по 5 саше Daigo в день, и дочь приносила их мне вместе с едой до самой выписки.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r19',
+      //       author: 'Isabella',
+      //       rating: 5,
+      //       title: '80 лет: принимала 3 года, принимала и во время COVID',
+      //       text:
+      //         "I turned 80 years old this January. I have been taking Daigo regularly for 3 years, and in June 2020, I contracted COVID-19. The illness was severe, and I spent 1.5 months in the hospital. Given that I had my gallbladder removed 12 years ago, suffer from chronic pancreatitis, and have had hypothyroidism for 25 years, my condition was complicated. During my treatment, I took 5 sachets of Daigo daily, and my daughter brought them to me along with my food until I was discharged fr...Show full review",
+      //       verified: true,
+      //       tags: ['Иммунитет', 'Восстановление', 'ЖКТ', 'Пожилые'],
+      //       i18n: {
+      //         en: {
+      //           title: '80 years old: 3 years on Daigo, also during COVID',
+      //           text: "I turned 80 years old this January. I have been taking Daigo regularly for 3 years, and in June 2020, I contracted COVID-19. The illness was severe, and I spent 1.5 months in the hospital. Given that I had my gallbladder removed 12 years ago, suffer from chronic pancreatitis, and have had hypothyroidism for 25 years, my condition was complicated. During my treatment, I took 5 sachets of Daigo daily, and my daughter brought them to me along with my food until I was discharged."
+      //         },
+      //         ru: {
+      //           title: '80 лет: принимала 3 года, принимала и во время COVID',
+      //           text: 'В январе мне исполнилось 80 лет. Я регулярно принимаю Daigo уже 3 года, и в июне 2020 года заболела COVID-19. Болезнь протекала тяжело, я провела 1,5 месяца в больнице. Учитывая, что 12 лет назад мне удалили желчный пузырь, есть хронический панкреатит и гипотиреоз уже 25 лет, состояние было осложнённым. Во время лечения я принимала по 5 саше Daigo в день, и дочь приносила их мне вместе с едой до самой выписки.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r20',
-            author: 'Amara',
-            rating: 5,
-            title: 'Кожа ровнее + меньше высыпаний + энергия',
-            text:
-              "I recently had a facial cleansing with my cosmetologist, and she recommended trying the Daigo Lux course to improve my skin. I decided to give it a try, and the results amazed me! After just a few days, I noticed my skin was more even, breakouts had cleared up, and my complexion looked noticeably better. On top of that, I felt a boost of energy, like I was revitalized from the inside. The Daigo Lux course has become a great addition to my skincare routine, and I’ll definitely c...Show full review",
-            verified: true,
-            tags: ['Кожа', 'Высыпания', 'Энергия'],
-            i18n: {
-              en: {
-                title: 'Smoother skin + fewer breakouts + energy boost',
-                text: "I recently had a facial cleansing with my cosmetologist, and she recommended trying the Daigo Lux course to improve my skin. I decided to give it a try, and the results amazed me! After just a few days, I noticed my skin was more even, breakouts had cleared up, and my complexion looked noticeably better. On top of that, I felt a boost of energy, like I was revitalized from the inside. The Daigo Lux course has become a great addition to my skincare routine."
-              },
-              ru: {
-                title: 'Кожа ровнее + меньше высыпаний + энергия',
-                text: 'Недавно я делала чистку лица у косметолога, и она посоветовала попробовать курс Daigo Lux для улучшения кожи. Я решила попробовать — и результат меня удивил! Уже через несколько дней кожа стала более ровной, высыпания ушли, цвет лица заметно улучшился. Плюс появился прилив энергии — будто «ожила изнутри». Курс Daigo Lux стал отличным дополнением к моему уходу за кожей.'
-              }
-            }
-          },
+      //     {
+      //       id: 'r20',
+      //       author: 'Amara',
+      //       rating: 5,
+      //       title: 'Кожа ровнее + меньше высыпаний + энергия',
+      //       text:
+      //         "I recently had a facial cleansing with my cosmetologist, and she recommended trying the Daigo Lux course to improve my skin. I decided to give it a try, and the results amazed me! After just a few days, I noticed my skin was more even, breakouts had cleared up, and my complexion looked noticeably better. On top of that, I felt a boost of energy, like I was revitalized from the inside. The Daigo Lux course has become a great addition to my skincare routine, and I’ll definitely c...Show full review",
+      //       verified: true,
+      //       tags: ['Кожа', 'Высыпания', 'Энергия'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Smoother skin + fewer breakouts + energy boost',
+      //           text: "I recently had a facial cleansing with my cosmetologist, and she recommended trying the Daigo Lux course to improve my skin. I decided to give it a try, and the results amazed me! After just a few days, I noticed my skin was more even, breakouts had cleared up, and my complexion looked noticeably better. On top of that, I felt a boost of energy, like I was revitalized from the inside. The Daigo Lux course has become a great addition to my skincare routine."
+      //         },
+      //         ru: {
+      //           title: 'Кожа ровнее + меньше высыпаний + энергия',
+      //           text: 'Недавно я делала чистку лица у косметолога, и она посоветовала попробовать курс Daigo Lux для улучшения кожи. Я решила попробовать — и результат меня удивил! Уже через несколько дней кожа стала более ровной, высыпания ушли, цвет лица заметно улучшился. Плюс появился прилив энергии — будто «ожила изнутри». Курс Daigo Lux стал отличным дополнением к моему уходу за кожей.'
+      //         }
+      //       }
+      //     },
 
-          {
-            id: 'r21',
-            author: 'Aaliyah',
-            rating: 5,
-            title: 'Спорт: лучше бег и быстрее восстановление',
-            text:
-              "This was my first experience with this product, and it really works. My running results improved, and recovery after intense workouts is much faster. Daigo really gives energy to accomplish many tasks! I liked it, it’s a great product!",
-            verified: true,
-            tags: ['Спорт', 'Восстановление', 'Энергия'],
-            i18n: {
-              en: {
-                title: 'Sport: better running and faster recovery',
-                text: "This was my first experience with this product, and it really works. My running results improved, and recovery after intense workouts is much faster. Daigo really gives energy to accomplish many tasks! I liked it, it’s a great product!"
-              },
-              ru: {
-                title: 'Спорт: лучше бег и быстрее восстановление',
-                text: 'Это был мой первый опыт с этим продуктом — и он реально работает. Улучшились результаты в беге, а восстановление после интенсивных тренировок стало намного быстрее. Daigo действительно даёт энергию и помогает успевать больше. Мне понравилось, отличный продукт!'
-              }
-            }
-          }
+      //     {
+      //       id: 'r21',
+      //       author: 'Aaliyah',
+      //       rating: 5,
+      //       title: 'Спорт: лучше бег и быстрее восстановление',
+      //       text:
+      //         "This was my first experience with this product, and it really works. My running results improved, and recovery after intense workouts is much faster. Daigo really gives energy to accomplish many tasks! I liked it, it’s a great product!",
+      //       verified: true,
+      //       tags: ['Спорт', 'Восстановление', 'Энергия'],
+      //       i18n: {
+      //         en: {
+      //           title: 'Sport: better running and faster recovery',
+      //           text: "This was my first experience with this product, and it really works. My running results improved, and recovery after intense workouts is much faster. Daigo really gives energy to accomplish many tasks! I liked it, it’s a great product!"
+      //         },
+      //         ru: {
+      //           title: 'Спорт: лучше бег и быстрее восстановление',
+      //           text: 'Это был мой первый опыт с этим продуктом — и он реально работает. Улучшились результаты в беге, а восстановление после интенсивных тренировок стало намного быстрее. Daigo действительно даёт энергию и помогает успевать больше. Мне понравилось, отличный продукт!'
+      //         }
+      //       }
+      //     }
 
-        ]
-      },
+      //   ]
+      // },
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',

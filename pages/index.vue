@@ -13,7 +13,6 @@ import AboutSection from '~/components/sections/AboutSection.vue'
 
 import { ref } from 'vue'
 import type { Review } from '~/types/content'
-import MainCardsSwiper from '~/components/swiper/MainCardsSwiper.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -81,8 +80,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <MainCardsSwiper />
-      <!-- <BannerSection :banners="banners" /> -->
+      <BannerSection :banners="banners" />
 
       <!-- <ClientOnly>
         <StoriesList v-model:stories="stories" @open="openStory" />
