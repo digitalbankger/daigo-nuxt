@@ -21,11 +21,48 @@ import { onMounted, computed, ref } from 'vue'
 import ReviewsBlock from '@/components/product/ProductReviews.vue'
 import UiModal from '@/components/ui/UiModal.vue'
 
+// Отзыв
 type ReviewMedia = {
   id: string
   type: 'image' | 'video'
   thumb: string
   src?: string
+}
+
+const isWriteReviewOpen = ref(false)
+const isWriteReviewSuccess = ref(false)
+
+const reviewForm = ref({
+  author: '',
+  rating: 5,
+  title: '',
+  text: '',
+})
+
+const reviewErrors = ref<{ author?: string; text?: string }>({})
+
+const openWriteReview = () => {
+  isWriteReviewOpen.value = true
+  isWriteReviewSuccess.value = false
+  reviewErrors.value = {}
+}
+
+const closeWriteReview = () => {
+  isWriteReviewOpen.value = false
+  isWriteReviewSuccess.value = false
+  reviewErrors.value = {}
+  reviewForm.value = { author: '', rating: 5, title: '', text: '' }
+}
+
+const submitReview = () => {
+  const e: typeof reviewErrors.value = {}
+  if (!reviewForm.value.author.trim()) e.author = 'Введите имя'
+  if (reviewForm.value.text.trim().length < 10) e.text = 'Отзыв слишком короткий (минимум 10 символов)'
+  reviewErrors.value = e
+  if (Object.keys(e).length) return
+
+  // заглушка: “успех” без API
+  isWriteReviewSuccess.value = true
 }
 
 const isMediaModalOpen = ref(false)
@@ -40,6 +77,7 @@ const closeMedia = () => {
   isMediaModalOpen.value = false
   activeMedia.value = null
 }
+// --- Конец логики отзывов ---
 
 const route = useRoute()
 const productStore = useProductStore()
@@ -266,7 +304,9 @@ useHead(() => {
           :show-actions="true"
           title="Отзывы"
           @openMedia="onOpenMedia"
+          @write="openWriteReview"
           class="mt-10 md:mt-20"
+          id="reviews"
         /> 
 
         <UiModal
@@ -293,6 +333,120 @@ useHead(() => {
               controls
               :src="activeMedia?.src"
             />
+          </div>
+        </UiModal>
+
+        <UiModal
+          :show="isWriteReviewOpen"
+          @close="closeWriteReview"
+          :panelClass="'sm:max-w-2xl p-0 overflow-hidden'"
+        >
+          <div class="flex items-center justify-between px-4 py-3 border-b border-[#E5E7EB]">
+            <div class="text-lg font-medium">Написать отзыв</div>
+            <button class="text-sm text-[#6B7280] hover:text-[#111]" @click="closeWriteReview">Закрыть</button>
+          </div>
+
+          <div class="p-5">
+            <!-- SUCCESS -->
+            <div v-if="isWriteReviewSuccess" class="rounded-2xl border border-[#E5E7EB] bg-white p-5">
+              <div class="text-lg font-semibold mb-2">Отзыв отправлен успешно</div>
+              <p class="text-sm text-[#6B7280]">
+                Мы опубликуем его после модерации.
+              </p>
+
+              <button
+                type="button"
+                class="mt-5 h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
+                @click="closeWriteReview"
+              >
+                Понятно
+              </button>
+            </div>
+
+            <!-- FORM -->
+            <form v-else class="space-y-4" @submit.prevent="submitReview">
+              <div>
+                <label class="block text-sm font-medium mb-1">Ваше имя</label>
+                <input
+                  v-model="reviewForm.author"
+                  type="text"
+                  class="w-full h-11 rounded-lg border border-[#E5E7EB] px-3 outline-none focus:border-[#111] transition"
+                  placeholder="Например: Татьяна"
+                />
+                <div v-if="reviewErrors.author" class="mt-1 text-xs text-red-600">
+                  {{ reviewErrors.author }}
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-1">Оценка</label>
+                <div class="flex items-center gap-2">
+                  <button
+                    v-for="i in 5"
+                    :key="i"
+                    type="button"
+                    class="h-10 w-10 rounded-lg border border-[#E5E7EB] grid place-items-center transition"
+                    :class="i <= reviewForm.rating ? 'bg-[#FFF7E0] border-[#e3c97b]' : 'bg-white'"
+                    @click="reviewForm.rating = i"
+                    aria-label="set rating"
+                  >
+                    <svg
+                      class="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                      :class="i <= reviewForm.rating ? 'text-[#e3c97b]' : 'text-[#E5E7EB]'"
+                    >
+                      <path
+                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.159c.969 0 1.371 1.24.588 1.81l-3.366 2.447a1 1 0 00-.363 1.118l1.286 3.957c.3.921-.755 1.688-1.539 1.118L10.59 15.77a1 1 0 00-1.176 0L6.943 17.999c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.96 9.384c-.783-.57-.38-1.81.588-1.81h4.159a1 1 0 00.95-.69l1.286-3.957z"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-1">Заголовок (необязательно)</label>
+                <input
+                  v-model="reviewForm.title"
+                  type="text"
+                  class="w-full h-11 rounded-lg border border-[#E5E7EB] px-3 outline-none focus:border-[#111] transition"
+                  placeholder="Коротко о главном"
+                />
+              </div>
+
+              <div>
+                <label class="block text-sm font-medium mb-1">Текст отзыва</label>
+                <textarea
+                  v-model="reviewForm.text"
+                  rows="6"
+                  class="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 outline-none focus:border-[#111] transition resize-none"
+                  placeholder="Поделитесь вашим опытом…"
+                />
+                <div v-if="reviewErrors.text" class="mt-1 text-xs text-red-600">
+                  {{ reviewErrors.text }}
+                </div>
+              </div>
+
+              <div class="flex items-center justify-end gap-2 pt-2">
+                <button
+                  type="button"
+                  class="h-11 rounded-lg border border-[#E5E7EB] bg-white px-4 text-sm font-medium text-[#111] hover:border-[#111] transition"
+                  @click="closeWriteReview"
+                >
+                  Отмена
+                </button>
+                <button
+                  type="submit"
+                  class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
+                >
+                  Отправить отзыв
+                </button>
+              </div>
+
+              <p class="text-xs text-[#6B7280]">
+                Мы опубликуем отзыв после модерации.
+              </p>
+            </form>
           </div>
         </UiModal>
 
