@@ -1,6 +1,5 @@
 <template>
   <div class="relative !pl-[0%] sm:!pl-[8%]">
-    <!-- Заголовок и стрелки -->
     <div class="relative max-w-[1310px] w-full mx-auto flex items-center justify-between mb-6">
       <div class="hidden sm:flex gap-2 sm:gap-5 absolute right-0 -top-14">
         <button class="swiper-button-prev-partner">
@@ -12,7 +11,6 @@
       </div>
     </div>
 
-    <!-- Слайдер -->
     <Swiper
       ref="swiperRef"
       :modules="[Navigation]"

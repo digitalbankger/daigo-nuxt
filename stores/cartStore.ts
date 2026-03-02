@@ -102,13 +102,21 @@ export const useCartStore = defineStore('cart', () => {
     return guestSessionId.value!
   }
 
-  /** Маппер айтемов с бэка */
   function mapApiItem(i: any): CartItem {
+    const price = Number(i.price ?? 0)
+
+    const original =
+      i.original_price ?? i.originalPrice ?? i.old_price ?? i.oldPrice ?? null
+
+    const originalPrice = original != null ? Number(original) : undefined
+
     return {
       id: i.product_id,
       title: i.title || i.name,
       subtitle: i.subtitle || '',
-      price: Number(i.price ?? 0),
+      price,
+      originalPrice:
+        originalPrice != null && originalPrice > price ? originalPrice : undefined,
       oldPrice: i.old_price != null ? Number(i.old_price) : undefined,
       quantity: Number(i.quantity ?? 0),
       image: i.image || '',

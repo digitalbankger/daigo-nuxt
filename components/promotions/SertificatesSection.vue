@@ -132,13 +132,13 @@ function disableFloating() {
             Используется за 1 покупку, остаток сгорает. На сертификаты не распространяется скидка по промокоду "Welcome5"
           </p>
 
-          <!-- <UiButton
+          <UiButton
             class="mt-2 w-full lg:!w-60"
             :to="'/promotions/certificates'"
             variant="solid"
           >
             Узнать подробнее
-          </UiButton> -->
+          </UiButton>
         </div>
         <img src="/images/promotions/promo-sert-mob.jpg" class="w-full block lg:hidden order-2"/>
       </div>

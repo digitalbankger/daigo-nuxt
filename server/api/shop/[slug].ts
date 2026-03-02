@@ -1,3 +1,28 @@
+
+// import { createError } from 'h3'
+
+// export default defineEventHandler(async (event) => {
+//   const { slug } = event.context.params!
+
+//   // Реальный бэк (карточка товара)
+//   const url = `https://api.daigo.ru/v1/shop/products/${encodeURIComponent(String(slug))}/card`
+
+//   try {
+//     return await $fetch(url, { method: 'GET' })
+//   } catch (e: any) {
+//     const statusCode = Number(e?.statusCode) || 500
+//     const statusMessage =
+//       e?.data?.message ||
+//       e?.data?.error ||
+//       e?.message ||
+//       'Не удалось загрузить карточку товара'
+
+//     throw createError({ statusCode, statusMessage })
+//   }
+// })
+
+
+
 export default defineEventHandler((event) => {
   const { slug } = event.context.params!
 //https://products.s3.firstvds.ru/dent/
