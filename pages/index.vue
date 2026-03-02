@@ -39,6 +39,18 @@ function openMediaModal(review: Review) {
   isMediaModalOpen.value = true
 }
 
+const aboutVideoSrc = ref('')
+
+function openAboutVideo(payload: { type: 'video'; src: string }) {
+  aboutVideoSrc.value = payload.src
+  isMediaModalOpen.value = true
+}
+
+function closeMediaModal() {
+  isMediaModalOpen.value = false
+  selectedReview.value = null
+  aboutVideoSrc.value = ''
+}
 /* ----- сторис ----- */
 const contentStore = useContentStore()
 await contentStore.load()
@@ -98,7 +110,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
       <h2 class="text-slider md:text-product lg:text-slider font-medium mt-8">
         О компании Да́йго
       </h2>
-      <AboutSection />
+      <AboutSection @open-video="openAboutVideo" />
       <InfoSection />
       <CustomersSection />
       <SertificatSection />
@@ -124,13 +136,10 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
   </BaseContainer>
 
   <MediaModal
-    v-if="selectedReview"
     :show="isMediaModalOpen"
-    :type="selectedReview.type"
-    :src="selectedReview.file_url || selectedReview.photo_urls?.[0] || ''"
-    :onClose="() => {
-      isMediaModalOpen = false
-      selectedReview.value = null
-    }"
+    :type="aboutVideoSrc ? 'video' : (selectedReview?.type || 'image')"
+    :src="aboutVideoSrc || selectedReview?.file_url || selectedReview?.photo_urls?.[0] || ''"
+    :onClose="closeMediaModal"
+
   />
 </template>
