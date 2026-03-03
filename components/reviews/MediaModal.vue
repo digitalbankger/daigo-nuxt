@@ -17,7 +17,7 @@ onBeforeUnmount(() => window.removeEventListener('keydown', handleKey))
 </script>
 
 <template>
-  <div v-if="show" class="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center">
+  <div v-if="show" class="fixed inset-0 z-[99999] bg-black/80 flex items-center justify-center" .self="onClose">
     <div class="relative w-full max-w-2xl mx-auto bg-white rounded-lg overflow-hidden">
       <button
         @click="onClose"
