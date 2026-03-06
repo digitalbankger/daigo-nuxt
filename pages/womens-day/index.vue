@@ -8,6 +8,10 @@ import 'swiper/css'
 // ✅ добавили
 import { toPng } from 'html-to-image'
 
+// YM goal trigger (виртуальный хит под YTM-триггер /ym_events/share8marta)
+const YM_COUNTER_ID = 31773751
+const YM_SHARE_HIT = '/ym_events/share8marta'
+
 definePageMeta({
   layout: 'womens',
 })
@@ -181,11 +185,15 @@ const shareOrDownload = async () => {
 
     const canShare = !!navigator.canShare && navigator.canShare({ files: [file] })
     if (canShare && navigator.share) {
+      // важно: цель должна фиксироваться только после реального успешного share
       await navigator.share({
         files: [file],
         title: 'Открытка',
         text: 'Ты великая 💙',
       })
+
+      // ✅ Yandex Metrika / YTM: виртуальный hit под триггер "/ym_events/share8marta"
+      ;(window as any).ym?.(YM_COUNTER_ID, 'hit', YM_SHARE_HIT)
       return
     }
 
@@ -193,6 +201,9 @@ const shareOrDownload = async () => {
     a.href = dataUrl
     a.download = 'daigo-card.png'
     a.click()
+
+    // ✅ Fallback (десктоп/без системного share): считаем скачивание как "поделился"
+    ;(window as any).ym?.(YM_COUNTER_ID, 'hit', YM_SHARE_HIT)
   } finally {
     isSharing.value = false
   }
@@ -543,14 +554,12 @@ onBeforeUnmount(() => {
            backdrop-blur-[2px]
            overflow-hidden"
   >
-    <!-- “блик” -->
-    <div class="shine absolute -left-1/2 top-0 h-full w-1/2"></div>
   </div>
 
   <!-- Текст -->
   <p
     class="relative text-right text-cur font-haido
-           text-[18px] sm:text-[28px]
+           text-[16px] sm:text-[28px]
            leading-[1.2] break-words"
     :class="isRevealing ? 'ink-reveal' : ''"
   >
@@ -564,7 +573,7 @@ onBeforeUnmount(() => {
   <div v-if="selectedPhrase" class="mt-8 flex justify-center gap-4">
     <button
       type="button"
-      class="bg-primary text-white px-8 py-4 rounded-full shadow hover:opacity-90 transition disabled:opacity-60"
+      class="bg-primary text-white px-6 py-3 rounded-full shadow hover:opacity-90 transition disabled:opacity-60"
       :disabled="isSharing"
       @click="shareOrDownload"
     >
@@ -573,7 +582,7 @@ onBeforeUnmount(() => {
 
     <button
       type="button"
-      class="bg-white/80 text-cur px-8 py-4 rounded-full shadow hover:shadow-md transition"
+      class="bg-white/80 text-cur px-6 py-3 rounded-full shadow hover:shadow-md transition"
       @click="pickPhrase"
     >
       Ещё раз
