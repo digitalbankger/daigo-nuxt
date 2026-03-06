@@ -61,7 +61,7 @@ const slides: Slide[] = [
       'text-[clamp(0.9rem,2.2vw,1.875rem)]',
   },
   {
-    to: '/catalog',
+    to: '/womens-day',
     variant: 'hearts',
     title: '',
     subtitle: '',
