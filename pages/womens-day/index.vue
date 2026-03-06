@@ -117,18 +117,12 @@ const isRevealing = ref(false)
 let rafId: number | null = null
 
 const showPhrase = ref(false)
+const phraseKey = ref(0)
 
 const pickPhrase = () => {
   const idx = Math.floor(Math.random() * phrases.length)
-
-  // скрыть, чтобы transition отыграл заново
-  showPhrase.value = false
-
-  // маленькая пауза, чтобы Vue успел применить v-if=false
-  requestAnimationFrame(() => {
-    selectedPhrase.value = phrases[idx]
-    showPhrase.value = true
-  })
+  selectedPhrase.value = phrases[idx]
+  phraseKey.value++
 }
 
 const POSTCARD_BG = '/images/women/template.webp'
@@ -524,17 +518,21 @@ onBeforeUnmount(() => {
       
       <!-- Блок текста в открытке -->
 <div class="absolute left-[18%] right-[18%] top-[52%]">
-  <Transition name="fadePhrase" mode="out-in">
-    <p
-      v-if="selectedPhrase && showPhrase"
-      :key="selectedPhrase"
-      class="text-right text-cur font-haido
-             text-[16px] sm:text-[28px]
-             leading-[1.2] break-words"
-    >
-      {{ selectedPhrase }}
-    </p>
-  </Transition>
+  <!-- фиксируем высоту, чтобы не было прыжков -->
+  <div class="relative min-h-[84px] sm:min-h-[120px]">
+    <Transition name="fadePhrase" mode="out-in">
+      <p
+        v-if="selectedPhrase"
+        :key="phraseKey"
+        class="absolute inset-0
+               text-right text-cur font-haido
+               text-[16px] sm:text-[28px]
+               leading-[1.2] break-words"
+      >
+        {{ selectedPhrase }}
+      </p>
+    </Transition>
+  </div>
 </div>
     </div>
   </div>
@@ -725,7 +723,7 @@ onBeforeUnmount(() => {
 
 .fadePhrase-enter-active,
 .fadePhrase-leave-active {
-  transition: opacity 1420ms ease, transform 1420ms ease, filter 1420ms ease;
+  transition: opacity 1220ms ease, transform 1220ms ease, filter 1220ms ease;
 }
 
 .fadePhrase-enter-from {
