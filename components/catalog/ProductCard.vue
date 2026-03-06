@@ -33,7 +33,7 @@
           {{ product.name }}
         </h3>
 
-        <p class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem]">
+        <p class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem] whitespace-pre-line">
           {{ product.subtitle }}
         </p>
 

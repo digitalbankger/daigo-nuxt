@@ -5,10 +5,8 @@ import type { Swiper as SwiperCore } from 'swiper'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 import 'swiper/css'
 
-// ✅ добавили
 import { toPng } from 'html-to-image'
 
-// YM goal trigger (виртуальный хит под YTM-триггер /ym_events/share8marta)
 const YM_COUNTER_ID = 31773751
 const YM_SHARE_HIT = '/ym_events/share8marta'
 
@@ -33,24 +31,23 @@ const ctaTitle = 'Ты великая.'
 const ctaSub =
   'потому что…\nдержишься, даже когда никто не\nвидит, как тебе сложно'
 
-const authorName = 'Gleb Timofeev'
 
 // если переименуешь "kurie 1.png" -> "kurie-1.png", поменяй:
-const heroPhoto = '/images/women/head.png'
+const heroPhoto = '/images/women/head.webp'
 
 type Slide = { name: string; desc: string; image: string }
 
 const slides = ref<Slide[]>([
-  { name: 'Майя Плисекцкая', desc: 'Одна из величайших балерин XX века, изменившая язык современного балета', image: '/images/women/w0.png' },
-  { name: 'Каталин Карико', desc: 'Биохимик, чьи исследования стали основой технологии mRNA-вакцин', image: '/images/women/w1.png' },
-  { name: 'Коко Шанель', desc: 'Дизайнер, радикально изменившая представление о женской моде', image: '/images/women/w2.png' },
-  { name: 'Эммануэль Шарпантье', desc: 'Лауреат Нобелевской премии за разработку технологии редактирования генома CRISPR', image: '/images/women/w3.png' },
-  { name: 'Заха Хадид', desc: 'Архитектор, ставшая первой женщиной-лауреатом Притцкеровской премии', image: '/images/women/w4.png' },
-  { name: 'Мария Кюри', desc: 'Физик и химик, дважды лауреат Нобелевской премии за открытия в области радиоактивности', image: '/images/women/w5.png' },
-  { name: 'Джоан Роулинг', desc: 'Писательница, создавшая одну из самых известных литературных вселенных современности', image: '/images/women/w6.png' },
-  { name: 'Розалинд Франклин', desc: 'Учёная, чьи исследования позволили раскрыть структуру молекулы ДНК', image: '/images/women/w7.png' },
-  { name: 'Ту Юю', desc: 'Лауреат Нобелевской премии за открытие лекарства против малярии, спасшего миллионы жизней', image: '/images/women/w8.png' },
-  { name: 'Валентина Терешкова', desc: 'Первая женщина в истории, совершившая космический полёт', image: '/images/women/w9.png' },
+  { name: 'Майя Плисекцкая', desc: 'Одна из величайших балерин XX века, изменившая язык современного балета', image: '/images/women/w0.webp' },
+  { name: 'Каталин Карико', desc: 'Биохимик, чьи исследования стали основой технологии mRNA-вакцин', image: '/images/women/w1.webp' },
+  { name: 'Коко Шанель', desc: 'Дизайнер, радикально изменившая представление о женской моде', image: '/images/women/w2.webp' },
+  { name: 'Эммануэль Шарпантье', desc: 'Лауреат Нобелевской премии за разработку технологии редактирования генома CRISPR', image: '/images/women/w3.webp' },
+  { name: 'Заха Хадид', desc: 'Архитектор, ставшая первой женщиной-лауреатом Притцкеровской премии', image: '/images/women/w4.webp' },
+  { name: 'Мария Кюри', desc: 'Физик и химик, дважды лауреат Нобелевской премии за открытия в области радиоактивности', image: '/images/women/w5.webp' },
+  { name: 'Джоан Роулинг', desc: 'Писательница, создавшая одну из самых известных литературных вселенных современности', image: '/images/women/w6.webp' },
+  { name: 'Розалинд Франклин', desc: 'Учёная, чьи исследования позволили раскрыть структуру молекулы ДНК', image: '/images/women/w7.webp' },
+  { name: 'Ту Юю', desc: 'Лауреат Нобелевской премии за открытие лекарства против малярии, спасшего миллионы жизней', image: '/images/women/w8.webp' },
+  { name: 'Валентина Терешкова', desc: 'Первая женщина в истории, совершившая космический полёт', image: '/images/women/w9.webp' },
 ])
 
 const swiper = ref<SwiperCore | null>(null)
@@ -119,40 +116,23 @@ const revealedText = ref('')
 const isRevealing = ref(false)
 let rafId: number | null = null
 
-const revealPhrase = (text: string) => {
-  if (rafId) cancelAnimationFrame(rafId)
-  revealedText.value = ''
-  isRevealing.value = true
-
-  const start = performance.now()
-  const duration = 4650
-  const len = text.length
-
-  const step = (t: number) => {
-    const p = Math.min(1, (t - start) / duration)
-    const eased = 1 - Math.pow(1 - p, 3)
-    const count = Math.max(1, Math.floor(eased * len))
-
-    revealedText.value = text.slice(0, count)
-
-    if (p < 1) {
-      rafId = requestAnimationFrame(step)
-    } else {
-      isRevealing.value = false
-      rafId = null
-    }
-  }
-
-  rafId = requestAnimationFrame(step)
-}
-
-const POSTCARD_BG = '/images/women/template.png'
+const showPhrase = ref(false)
 
 const pickPhrase = () => {
   const idx = Math.floor(Math.random() * phrases.length)
-  selectedPhrase.value = phrases[idx]
-  revealPhrase(selectedPhrase.value)
+
+  // скрыть, чтобы transition отыграл заново
+  showPhrase.value = false
+
+  // маленькая пауза, чтобы Vue успел применить v-if=false
+  requestAnimationFrame(() => {
+    selectedPhrase.value = phrases[idx]
+    showPhrase.value = true
+  })
 }
+
+const POSTCARD_BG = '/images/women/template.webp'
+
 
 const waitForImages = async (el: HTMLElement) => {
   const imgs = Array.from(el.querySelectorAll('img')) as HTMLImageElement[]
@@ -189,7 +169,7 @@ const shareOrDownload = async () => {
       await navigator.share({
         files: [file],
         title: 'Открытка',
-        text: 'Ты великая 💙',
+        text: 'С 8 Марта! daigo.ru',
       })
 
       // ✅ Yandex Metrika / YTM: виртуальный hit под триггер "/ym_events/share8marta"
@@ -265,7 +245,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.13" data-max="240"
     class="absolute w-[130px] top-[5%] right-[6%] will-change-transform
            sm:w-[460px] sm:top-[2.5%] sm:right-[21%]"
-    src="/images/women/bg-1.png" alt="" loading="eager" decoding="async"
+    src="/images/women/bg-1.webp" alt="" loading="eager" decoding="async"
   />
 
   <!-- bg-2 (верх центр) -->
@@ -273,7 +253,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.17" data-max="260"
     class="absolute w-[100px] top-[8%] right-[28%] will-change-transform
            sm:w-[320px] sm:top-[9%] sm:right-[44%]"
-    src="/images/women/bg-2.png" alt="" loading="lazy" decoding="async"
+    src="/images/women/bg-2.webp" alt="" loading="lazy" decoding="async"
   />
 
   <!-- bg-4 (большое пятно) -->
@@ -281,7 +261,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.09" data-max="200"
     class="absolute w-[320px] top-[10%] right-[4%] will-change-transform
            sm:w-[880px] sm:top-[11%] sm:right-[33%]"
-    src="/images/women/bg-4.png" alt="" loading="lazy" decoding="async"
+    src="/images/women/bg-4.webp" alt="" loading="lazy" decoding="async"
   />
 
   <!-- bg-7 (rotate/flip) -->
@@ -292,7 +272,7 @@ onBeforeUnmount(() => {
     <img
       data-parallax data-speed="0.11" data-max="220"
       class="w-full h-auto will-change-transform"
-      src="/images/women/bg-7.png" alt="" loading="lazy" decoding="async"
+      src="/images/women/bg-7.webp" alt="" loading="lazy" decoding="async"
     />
   </div>
 
@@ -304,7 +284,7 @@ onBeforeUnmount(() => {
     <img
       data-parallax data-speed="0.08" data-max="180"
       class="w-full h-auto will-change-transform"
-      src="/images/women/bg-5.png" alt="" loading="lazy" decoding="async"
+      src="/images/women/bg-5.webp" alt="" loading="lazy" decoding="async"
     />
   </div>
 
@@ -313,7 +293,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.18" data-max="280"
     class="hidden sm:block absolute w-[180px] top-[18%] right-[-22%] will-change-transform
            sm:w-[300px] sm:top-[16%] sm:-right-[16%]"
-    src="/images/women/bg-1.png" alt="" loading="eager" decoding="async"
+    src="/images/women/bg-1.webp" alt="" loading="eager" decoding="async"
   />
 
   <!-- bg-6 (середина слева) -->
@@ -321,7 +301,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.12" data-max="240"
     class="absolute w-[120px] top-[54%] left-[80%] rotate-[60deg] will-change-transform
            sm:w-[500px] sm:top-[54%] sm:left-[22%]"
-    src="/images/women/bg-6.png" alt="" loading="lazy" decoding="async"
+    src="/images/women/bg-6.webp" alt="" loading="lazy" decoding="async"
   />
 
   <!-- bg-2 (середина справа, rotate) -->
@@ -332,7 +312,7 @@ onBeforeUnmount(() => {
     <img
       data-parallax data-speed="0.16" data-max="280"
       class="w-full h-auto will-change-transform"
-      src="/images/women/bg-2.png" alt="" loading="lazy" decoding="async"
+      src="/images/women/bg-2.webp" alt="" loading="lazy" decoding="async"
     />
   </div>
 
@@ -344,7 +324,7 @@ onBeforeUnmount(() => {
     <img
       data-parallax data-speed="0.10" data-max="220"
       class="w-full h-auto will-change-transform"
-      src="/images/women/bg-1.png" alt="" loading="eager" decoding="async"
+      src="/images/women/bg-1.webp" alt="" loading="eager" decoding="async"
     />
   </div>
 
@@ -353,7 +333,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.14" data-max="260"
     class="absolute w-[180px] top-[12%] left-[-8%] will-change-transform
            sm:w-[500px] sm:top-[18%] sm:-left-[16%]"
-    src="/images/women/bg-3.png" alt="" loading="lazy" decoding="async"
+    src="/images/women/bg-3.webp" alt="" loading="lazy" decoding="async"
   />
 
   <!-- bg-7 (право низ) -->
@@ -361,7 +341,7 @@ onBeforeUnmount(() => {
     data-parallax data-speed="0.15" data-max="260"
     class="hidden sm:block absolute w-[240px] top-[70%] right-[-28%] will-change-transform
            sm:w-[380px] sm:top-[68%] sm:-right-[18%]"
-    src="/images/women/bg-7.png" alt="" loading="lazy" decoding="async"
+    src="/images/women/bg-7.webp" alt="" loading="lazy" decoding="async"
   />
 </div>
 
@@ -382,7 +362,7 @@ onBeforeUnmount(() => {
         <div class="absolute w-[360px] sm:w-[860px] h-[90px] sm:h-[320px] top-[15%] sm:top-[17%] -right-52 sm:-right-[24%] drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]">
           <!-- подложка -->
           <img
-            src="/images/women/plain.png"
+            src="/images/women/plain.webp"
             alt=""
             class="absolute inset-0 w-full h-full object-cover"
             loading="lazy"
@@ -448,7 +428,7 @@ onBeforeUnmount(() => {
       <!-- Рукописная цитата на ленте -->
       <div class="relative w-full h-[360px] sm:mt-10">
         <img
-          src="/images/women/stroke-new.png"
+          src="/images/women/stroke-new.webp"
           alt=""
           class="absolute inset-0 w-full h-full object-cover scale-[1.2] sm:scale-[1.1] origin-top-center"
           loading="lazy"
@@ -465,7 +445,7 @@ onBeforeUnmount(() => {
 
       <div class="-mt-10 sm:hidden block relative w-[280px] sm:w-[680px] h-[120px] sm:h-[260px] drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]">
           <img
-            src="/images/women/plain.png"
+            src="/images/women/plain.webp"
             alt=""
             class="absolute inset-0 -left-36 sm:-left-40 w-full h-full -scale-x-100"
             loading="lazy"
@@ -483,7 +463,7 @@ onBeforeUnmount(() => {
       <section class="relative -mt-20 sm:mt-16 w-full flex items-center justify-between gap-10">
         <div class="hidden sm:block relative w-[380px] sm:w-[660px] h-[120px] sm:h-[320px] drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]">
           <img
-            src="/images/women/plain.png"
+            src="/images/women/plain.webp"
             alt=""
             class="absolute inset-0 -left-0 sm:-left-40 w-full h-full -scale-x-100"
             loading="lazy"
@@ -543,28 +523,18 @@ onBeforeUnmount(() => {
       />
       
       <!-- Блок текста в открытке -->
-<div
-  v-if="selectedPhrase"
-  class="absolute left-[18%] right-[18%] top-[52%]"
->
-  <!-- Красивый оверлей пока идёт проявление -->
-  <div
-    v-if="isRevealing"
-    class="absolute -inset-x-2 -inset-y-3 rounded-2xl
-           backdrop-blur-[2px]
-           overflow-hidden"
-  >
-  </div>
-
-  <!-- Текст -->
-  <p
-    class="relative text-right text-cur font-haido
-           text-[16px] sm:text-[28px]
-           leading-[1.2] break-words"
-    :class="isRevealing ? 'ink-reveal' : ''"
-  >
-    {{ isRevealing ? revealedText : selectedPhrase }}
-  </p>
+<div class="absolute left-[18%] right-[18%] top-[52%]">
+  <Transition name="fadePhrase" mode="out-in">
+    <p
+      v-if="selectedPhrase && showPhrase"
+      :key="selectedPhrase"
+      class="text-right text-cur font-haido
+             text-[16px] sm:text-[28px]
+             leading-[1.2] break-words"
+    >
+      {{ selectedPhrase }}
+    </p>
+  </Transition>
 </div>
     </div>
   </div>
@@ -691,7 +661,7 @@ onBeforeUnmount(() => {
   content:"";
   position:absolute;
   inset:0;
-  background:url('/images/women/bg-7.png') no-repeat 12px 10px;
+  background:url('/images/women/bg-7.webp') no-repeat 12px 10px;
   background-size:110px auto;
   opacity:.35;
   pointer-events:none;
@@ -751,5 +721,34 @@ onBeforeUnmount(() => {
 @keyframes shineMove{
   from { transform: translateX(-30%) skewX(-18deg); }
   to   { transform: translateX(260%) skewX(-18deg); }
+}
+
+.fadePhrase-enter-active,
+.fadePhrase-leave-active {
+  transition: opacity 1420ms ease, transform 1420ms ease, filter 1420ms ease;
+}
+
+.fadePhrase-enter-from {
+  opacity: 0;
+  transform: translateY(10px);
+  filter: blur(6px);
+}
+
+.fadePhrase-enter-to {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.fadePhrase-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.fadePhrase-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+  filter: blur(4px);
 }
 </style>
