@@ -100,6 +100,18 @@ export default defineEventHandler((event) => {
   const url = getRequestURL(event)
   const pathname = decodeURI(url.pathname)
 
+  //      (не зависит от MODE, работает для /WD, /WD/, /wd, /wd/)
+  // 0.1) Короткая ссылка /WD → /?utm_source=8marta&utm_medium=landing&utm_campaign=sharing
+  const pNorm = pathname.replace(/\/+$/, '')
+  if (pNorm.toLowerCase() === '/wd') {
+    const qs = new URLSearchParams(url.searchParams) // если вдруг уже есть query — сохраним
+    qs.set('utm_source', '8marta')
+    qs.set('utm_medium', 'landing')
+    qs.set('utm_campaign', 'sharing')
+
+    return sendRedirect(event, `/?${qs.toString()}`, 302)
+  }
+
   // 0) Нормализация битых query вида:
   //    /catalog?napravlennost=.../?ysclid=XXX&page=1
   // Идея: если значение ЛЮБОГО параметра содержит подстроку "/?...", то:

@@ -163,7 +163,7 @@ const shareOrDownload = async () => {
       await navigator.share({
         files: [file],
         title: 'Открытка',
-        text: 'С 8 Марта! daigo.ru',
+        text: 'С 8 Марта! Ты — великая 💐 https://daigo.ru/WD',
       })
 
       // ✅ Yandex Metrika / YTM: виртуальный hit под триггер "/ym_events/share8marta"
