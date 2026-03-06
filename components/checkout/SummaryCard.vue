@@ -43,6 +43,9 @@ const discountAmount = computed(() => cartStore.discountAmount)
 const remarketingDiscountAmount = computed(() => cartStore.remarketingDiscountAmount)
 const exhibitionDiscountAmount = computed(() => cartStore.exhibitionDiscountAmount)
 const couponInfo = computed(() => cartStore.couponInfo)
+const hasNonStackableCoupon = computed(() =>
+  Array.isArray(cartStore.coupons) && cartStore.coupons.some(c => c?.is_stackable === false)
+)
 
 // vip скидка
 const vipDiscountAmount = computed(() => cartStore.vipDiscountAmount)
@@ -95,6 +98,8 @@ watch(bonusToSpendNumber, (n) => {
 })
 
 function applyBonuses() {
+  if (hasNonStackableCoupon.value) return
+
   const n = Number(bonusToSpendNumber.value || 0)
   appliedBonuses.value = n
   // прокидываем в checkout payload
@@ -150,6 +155,16 @@ watch(maxBonusesAvailable, (max) => {
     }
   }
 })
+
+watch(hasNonStackableCoupon, (blocked) => {
+  if (!blocked) return
+
+  appliedBonuses.value = 0
+  bonusToSpend.value = ''
+  if (props.mode === 'checkout') {
+    ;(checkoutStore.state as any).bonuses_to_use = 0
+  }
+}, { immediate: true })
 
 const phoneDigits = computed(() => String(form.phone || '').replace(/\D/g, ''))
 
@@ -539,11 +554,13 @@ async function removeCoupon() {
         inputmode="numeric"
         placeholder="Списать бонусы"
         background="bg-white"
+        :disabled="hasNonStackableCoupon"
       >
         <template #right>
           <button
             type="button"
-            class="ml-2 text-white bg-cgreen p-2.5 rounded-md -me-2.5 hover:opacity-80 transition"
+            class="ml-2 text-white bg-cgreen p-2.5 rounded-md -me-2.5 hover:opacity-80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+            :disabled="hasNonStackableCoupon"
             @click="applyBonuses"
           >
             Использовать
@@ -552,7 +569,12 @@ async function removeCoupon() {
       </UiInput>
 
       <div class="text-xs text-black/50">
-        Можно списать до {{ maxBonusesAvailable }} бонусов.
+        <template v-if="hasNonStackableCoupon">
+          Списание бонусов недоступно, если в корзине применён не суммируемый купон.
+        </template>
+        <template v-else>
+          Можно списать до {{ maxBonusesAvailable }} бонусов.
+        </template>
       </div>
     </div>
 

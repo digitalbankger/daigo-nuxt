@@ -60,6 +60,25 @@ const slides: Slide[] = [
       'text-white font-haido font-medium leading-snug mb-2 sm:mb-2 w-full sm:w-[580px] mt-2 sm:mt-6 ' +
       'text-[clamp(0.9rem,2.2vw,1.875rem)]',
   },
+  {
+    to: '/catalog',
+    variant: 'hearts',
+    title: '',
+    subtitle: '',
+    image: '/images/women/8md-2.jpg',
+    imageMobile: '/images/women/8mm-2.jpg',
+    contentClass:
+      'relative z-[3] flex flex-col items-start justify-end sm:justify-center ' +
+      'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[580px] ' +
+      'px-4 md:px-10 py-6 md:py-12 gap-2 ' +
+      'rounded-2xl sm:rounded-4xl',
+    titleClass:
+      'text-white font-haido font-bold leading-[1] ' +
+      'text-[clamp(2.2rem,4.4vw,4.2rem)] sm:-mt-4 ',
+    subtitleClass:
+      'text-white font-haido font-medium leading-snug mb-2 sm:mb-2 w-full sm:w-[580px] mt-2 sm:mt-6 ' +
+      'text-[clamp(0.9rem,2.2vw,1.875rem)]',
+  },
   // {
   //   to: '/catalog?podarochnye=nabory&page=1',
   //   variant: 'boxes',

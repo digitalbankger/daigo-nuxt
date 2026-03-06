@@ -47,6 +47,16 @@ export interface CouponInfo {
   discount_amount?: number
 }
 
+export interface CartCoupon {
+  id?: number
+  code?: string
+  type?: string
+  applied?: boolean
+  discount_percent?: number
+  discount_amount?: number
+  is_stackable?: boolean
+}
+
 export const useCartStore = defineStore('cart', () => {
   const analytics = useAnalytics()
   const auth = useAuthStore()
@@ -66,6 +76,7 @@ export const useCartStore = defineStore('cart', () => {
   const remarketingDiscountAmount = ref<number>(0)
   const exhibitionDiscountAmount = ref<number>(0)
   const couponInfo = ref<CouponInfo | null>(null)
+  const coupons = ref<CartCoupon[]>([])
 
   // 🆕 VIP-скидка
   const vipDiscountAmount = ref<number>(0)
@@ -166,6 +177,7 @@ export const useCartStore = defineStore('cart', () => {
 
     // Купон (если есть)
     couponInfo.value = data?.coupon_info || null
+    coupons.value = Array.isArray(data?.coupons) ? data.coupons : []
 
     // 🆕 VIP discount: ищем среди coupons
     vipDiscountAmount.value = 0
@@ -202,6 +214,7 @@ export const useCartStore = defineStore('cart', () => {
           remarketingDiscountAmount.value = 0
           exhibitionDiscountAmount.value = 0
           couponInfo.value = null
+          coupons.value = []
           return
         }
         const sid = ensureGuestSession()
@@ -220,6 +233,7 @@ export const useCartStore = defineStore('cart', () => {
         remarketingDiscountAmount.value = 0
         exhibitionDiscountAmount.value = 0
         couponInfo.value = null
+        coupons.value = []
         if (process.client) localStorage.removeItem('guest_session_id')
         guestSessionId.value = null
       } else {
@@ -454,7 +468,7 @@ export const useCartStore = defineStore('cart', () => {
     items, gifts, promoNotice, userForm, daysLeft,
     isAuthenticated, isLoaded, 
     // новые суммы/купоны из бэка
-    subtotal, total, discountAmount, remarketingDiscountAmount, exhibitionDiscountAmount, couponInfo,
+    subtotal, total, discountAmount, remarketingDiscountAmount, exhibitionDiscountAmount, couponInfo, coupons,
     // VIP
     vipDiscountAmount, vipDiscountPercent,
     
