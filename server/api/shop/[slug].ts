@@ -4094,7 +4094,7 @@ export default defineEventHandler((event) => {
       originalPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert10/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
+        { image_url: 'https://products.s3.firstvds.ru/sert50/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
       ],
 
       // изображения для внутренних секций
