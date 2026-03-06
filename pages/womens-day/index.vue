@@ -125,7 +125,7 @@ const pickPhrase = () => {
   phraseKey.value++
 }
 
-const POSTCARD_BG = '/images/women/template.webp'
+const POSTCARD_BG = '/images/women/template.png'
 
 
 const waitForImages = async (el: HTMLElement) => {
