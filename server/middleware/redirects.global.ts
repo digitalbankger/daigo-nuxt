@@ -101,15 +101,18 @@ export default defineEventHandler((event) => {
   const pathname = decodeURI(url.pathname)
 
   //      (не зависит от MODE, работает для /WD, /WD/, /wd, /wd/)
-  // 0.1) Короткая ссылка /WD → /?utm_source=8marta&utm_medium=landing&utm_campaign=sharing
+  // 0.1) /WD → /womens-day?utm_source=share&utm_campaign=080326&utm_content=landing
   const pNorm = pathname.replace(/\/+$/, '')
   if (pNorm.toLowerCase() === '/wd') {
-    const qs = new URLSearchParams(url.searchParams) // если вдруг уже есть query — сохраним
-    qs.set('utm_source', '8marta')
-    qs.set('utm_medium', 'landing')
-    qs.set('utm_campaign', 'sharing')
+    const qs = new URLSearchParams(url.searchParams) // сохраняем существующие query, если есть
 
-    return sendRedirect(event, `/?${qs.toString()}`, 302)
+    // гарантируем нужные UTM
+    qs.set('utm_source', 'share')
+    qs.set('utm_campaign', '080326')
+    qs.set('utm_content', 'landing')
+
+    const location = `/womens-day?${qs.toString()}`
+    return sendRedirect(event, location, 301)
   }
 
   // 0) Нормализация битых query вида:
