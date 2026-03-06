@@ -43,9 +43,8 @@ const discountAmount = computed(() => cartStore.discountAmount)
 const remarketingDiscountAmount = computed(() => cartStore.remarketingDiscountAmount)
 const exhibitionDiscountAmount = computed(() => cartStore.exhibitionDiscountAmount)
 const couponInfo = computed(() => cartStore.couponInfo)
-const hasNonStackableCoupon = computed(() =>
-  Array.isArray(cartStore.coupons) && cartStore.coupons.some(c => c?.is_stackable === false)
-)
+const coupons = computed(() => cartStore.coupons || [])
+const hasNonStackableCoupon = computed(() => coupons.value.some(c => c?.is_stackable === false))
 
 // vip скидка
 const vipDiscountAmount = computed(() => cartStore.vipDiscountAmount)
@@ -568,9 +567,9 @@ async function removeCoupon() {
         </template>
       </UiInput>
 
-      <div class="text-xs text-black/50">
+      <div class="text-xs" :class="hasNonStackableCoupon ? 'text-red-500' : 'text-black/50'">
         <template v-if="hasNonStackableCoupon">
-          Списание бонусов недоступно, если в корзине применён не суммируемый купон.
+          Списание бонусов недоступно, пока применён промокод без суммирования.
         </template>
         <template v-else>
           Можно списать до {{ maxBonusesAvailable }} бонусов.
@@ -600,7 +599,6 @@ async function removeCoupon() {
               <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          <!--
           <button
             v-if="couponInfo?.applied"
             type="button"
@@ -611,18 +609,17 @@ async function removeCoupon() {
           >
             ✕
           </button>
-          -->
         </template>
       </UiInput>
 
       <Button
         variant="outline"
         class="h-[52px] w-full !border-cgreen"
-        :class="couponInfo?.applied ? '!text-gray-300 cursor-not-allowed hover:bg-transparent' : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
-        :disabled="!!couponInfo?.applied || !coupon.trim()"
-        @click="applyCoupon"
+        :class="couponInfo?.applied ? '!border-red-500 !text-red-500 hover:!bg-red-500 hover:!text-white' : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
+        :disabled="!couponInfo?.applied && !coupon.trim()"
+        @click="couponInfo?.applied ? removeCoupon() : applyCoupon()"
       >
-        Применить
+        {{ couponInfo?.applied ? 'Удалить' : 'Применить' }}
       </Button>
     </div>
 

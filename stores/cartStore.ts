@@ -50,11 +50,11 @@ export interface CouponInfo {
 export interface CartCoupon {
   id?: number
   code?: string
-  type?: string
   applied?: boolean
   discount_percent?: number
   discount_amount?: number
   is_stackable?: boolean
+  type?: string
 }
 
 export const useCartStore = defineStore('cart', () => {
@@ -367,6 +367,7 @@ export const useCartStore = defineStore('cart', () => {
     remarketingDiscountAmount.value = 0
     exhibitionDiscountAmount.value = 0
     couponInfo.value = null
+    coupons.value = []
   }
 
   /** Применить промокод — используем ответ бэка целиком */
@@ -393,12 +394,11 @@ export const useCartStore = defineStore('cart', () => {
     // сохраним текущий код, чтобы отправить remove после успешного удаления
     const prevCode = couponInfo.value?.code
 
-    if (isAuthenticated.value && userId.value) {
-      await cartService.removeUserCoupon(userId.value)
-    } else {
-      const sid = ensureGuestSession()
-      await cartService.removeGuestCoupon(sid)
+    if (!isAuthenticated.value || !userId.value) {
+      throw new Error('Для удаления промокода необходимо авторизоваться')
     }
+
+    await cartService.removeUserCoupon(userId.value)
     await loadCart()
 
     // YTM: успешная отмена купона
