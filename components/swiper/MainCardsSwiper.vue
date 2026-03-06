@@ -22,53 +22,53 @@ type Slide = {
 }
 
 const slides: Slide[] = [
-  {
-    to: '/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota',
-    variant: 'circle-product',
-    title: 'Интимное здоровье мужчин — упущенное звено',
-    subtitle: 'Узнайте как привнести гармонию в отношения через заботу о своем партнере',
-    image: '/images/feb/md23-1.jpg',
-    imageMobile: '/images/feb/mm23-1.jpg',
-    // circleImage: '/images/love/card-1-circle.png',
-    // circleImageMobile: '/images/love/card-1-circle.png',
-    contentClass:
-      'relative z-[3] flex flex-col items-start justify-start sm:justify-center gap-4 ' +
-      'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[600px] ' +
-      'px-6 md:px-10 py-6 md:py-12 gap-2 ' +
-      'rounded-2xl sm:rounded-4xl',
-    titleClass:
-      'text-white font-haido font-bold leading-[1] ' +
-      'text-[clamp(1.8rem,4vw,2.6rem)]',
+  // {
+  //   to: '/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota',
+  //   variant: 'circle-product',
+  //   title: 'Интимное здоровье мужчин — упущенное звено',
+  //   subtitle: 'Узнайте как привнести гармонию в отношения через заботу о своем партнере',
+  //   image: '/images/feb/md23-1.jpg',
+  //   imageMobile: '/images/feb/mm23-1.jpg',
+  //   // circleImage: '/images/love/card-1-circle.png',
+  //   // circleImageMobile: '/images/love/card-1-circle.png',
+  //   contentClass:
+  //     'relative z-[3] flex flex-col items-start justify-start sm:justify-center gap-4 ' +
+  //     'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[600px] ' +
+  //     'px-6 md:px-10 py-6 md:py-12 gap-2 ' +
+  //     'rounded-2xl sm:rounded-4xl',
+  //   titleClass:
+  //     'text-white font-haido font-bold leading-[1] ' +
+  //     'text-[clamp(1.8rem,4vw,2.6rem)]',
 
-  },
+  // },
   {
-    to: '/catalog', 
+    to: '/catalog',
     variant: 'hearts',
-    title: 'Подарите любимым здоровье',
-    subtitle: 'Забота о здоровье самых близких — лучший подарок на 23 Февраля',
-    image: '/images/feb/md23-2.jpg',
-    imageMobile: '/images/feb/mm23-2.jpg',
+    title: 'Время заботы о себе',
+    subtitle: 'Поддержка внутреннего баланса \nдля вашей устойчивости каждый день.',
+    image: '/images/feb/8md.jpg',
+    imageMobile: '/images/feb/8mm.jpg',
     contentClass:
-      'relative z-[3] flex flex-col items-start justify-center sm:justify-center ' +
-      'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[800px] ' +
-      'px-6 md:px-10 py-6 md:py-12 gap-2 ' +
+      'relative z-[3] flex flex-col items-start justify-end sm:justify-center ' +
+      'h-[420px] sm:h-[360px] lg:h-[500px] w-full sm:w-[580px] ' +
+      'px-4 md:px-10 py-6 md:py-12 gap-2 ' +
       'rounded-2xl sm:rounded-4xl',
     titleClass:
       'text-white font-haido font-bold leading-[1] ' +
-      'text-[clamp(1.8rem,4vw,4.2rem)] sm:-mt-4 ',
+      'text-[clamp(2.2rem,4.4vw,4.2rem)] sm:-mt-4 ',
     subtitleClass:
-      'mt-2 text-white font-haido font-medium leading-snug mb-6 sm:mb-2 w-full sm:w-[680px] mt-6 ' +
-      'text-[clamp(1.05rem,2.2vw,1.875rem)]',
+      'text-white font-haido font-medium leading-snug mb-2 sm:mb-2 w-full sm:w-[580px] mt-2 sm:mt-6 ' +
+      'text-[clamp(0.9rem,2.2vw,1.875rem)]',
   },
-  {
-    to: '/catalog?podarochnye=nabory&page=1',
-    variant: 'boxes',
-    title: 'Потратьте бонусы на любимых!',
-    subtitle: 'Премиальные подарочные наборы для самых близких!',
-    image: '/images/feb/md23-3.jpg',
-    imageMobile: '/images/feb/mm23-3.jpg',
-    mobileBreakAfterWord: 'Потратьте ',
-  },
+  // {
+  //   to: '/catalog?podarochnye=nabory&page=1',
+  //   variant: 'boxes',
+  //   title: 'Потратьте бонусы на любимых!',
+  //   subtitle: 'Премиальные подарочные наборы для самых близких!',
+  //   image: '/images/feb/md23-3.jpg',
+  //   imageMobile: '/images/feb/mm23-3.jpg',
+  //   mobileBreakAfterWord: 'Потратьте ',
+  // },
 ]
 </script>
 

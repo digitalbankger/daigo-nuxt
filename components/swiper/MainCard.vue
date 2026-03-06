@@ -24,7 +24,6 @@ const props = withDefaults(defineProps<{
   class: '',
   mobileBreakAfterWord: '',
 
-  // дефолтные стили — как у тебя было раньше
   contentClass:
     'relative z-[3] flex flex-col items-start justify-end ' +
     'h-[420px] sm:h-[360px] lg:h-[500px] ' +
@@ -47,24 +46,66 @@ const titleLines = computed(() => {
   return [t]
 })
 
+function escapeRegExp(str: string) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+
+function escapeHtml(str: string) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;')
+}
+
+// проверка "буква/цифра" (чтобы не матчить "о насущном")
+function isWordChar(ch?: string) {
+  if (!ch) return false
+  return /[0-9A-Za-zА-Яа-яЁё]/.test(ch)
+}
+
 const titleHtml = computed(() => {
   const t = (props.title || '').trim()
   if (!t) return ''
   if (t.includes('\n')) return ''
 
+  // ====== НОВОЕ: "о нас" всегда второй строкой + italic ======
+  const phrase = 'о себе'
+  const lower = t.toLowerCase()
+  const idx = lower.indexOf(phrase)
+
+  if (idx !== -1) {
+    const afterChar = t[idx + phrase.length]
+    // если дальше идёт буква/цифра — это типа "о насущном", пропускаем
+    if (!isWordChar(afterChar)) {
+      const before = t
+        .slice(0, idx)
+        .trim()
+        // ВАЖНО: исправленный регэксп (дефис экранирован)
+        .replace(/[—–:\-]\s*$/g, '')
+        .trim()
+
+      const originalPhrase = t.slice(idx, idx + phrase.length) // сохраняем регистр как в строке
+      const after = t.slice(idx + phrase.length).trim()
+
+      const secondLine = `<span class="italic font-medium">${escapeHtml(originalPhrase)}</span>${after ? ` ${escapeHtml(after)}` : ''}`
+
+      if (!before) return secondLine
+      return `${escapeHtml(before)}<br>${secondLine}`
+    }
+  }
+  // ====== /НОВОЕ ======
+
+  // старая логика переноса на мобилке (не ломаем)
   if (props.mobileBreakAfterWord && t.startsWith(props.mobileBreakAfterWord + ' ')) {
     const rest = t.replace(new RegExp(`^${escapeRegExp(props.mobileBreakAfterWord)}\\s+`), '')
-    return `${props.mobileBreakAfterWord}<span class="inline sm:hidden"><br></span>${rest}`
+    return `${escapeHtml(props.mobileBreakAfterWord)}<span class="inline sm:hidden"><br></span>${escapeHtml(rest)}`
   }
 
   return ''
 })
 
-function escapeRegExp(str: string) {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-}
-
-// computed классы (можно потом расширять, например variant)
 const sectionClass = computed(() => ['w-full mt-0 rounded-2xl sm:rounded-3xl', props.class].join(' '))
 const linkClass = computed(() => 'relative block w-full overflow-hidden rounded-2xl sm:rounded-3xl')
 const pictureClass = computed(() => 'absolute inset-0 z-0 rounded-2xl sm:rounded-3xl')
@@ -76,7 +117,6 @@ const subtitleClass = computed(() => props.subtitleClass)
 <template>
   <section :class="sectionClass" aria-label="Промо-баннер">
     <NuxtLink :to="props.to" :class="linkClass">
-      <!-- Фон -->
       <picture :class="pictureClass" aria-hidden="true">
         <source media="(min-width: 768px)" :srcset="props.image" />
         <img
@@ -88,9 +128,7 @@ const subtitleClass = computed(() => props.subtitleClass)
         />
       </picture>
 
-      <!-- Контент -->
       <div :class="contentClass">
-        <!-- если title содержит \n -->
         <h2 v-if="(props.title || '').includes('\n')" :class="titleClass">
           <template v-for="(line, idx) in titleLines" :key="idx">
             <span>{{ line }}</span>
@@ -98,14 +136,13 @@ const subtitleClass = computed(() => props.subtitleClass)
           </template>
         </h2>
 
-        <!-- иначе: обычный заголовок + перенос на мобиле -->
         <h2
           v-else
           :class="titleClass"
           v-html="titleHtml || (props.title || '')"
         />
 
-        <p v-if="props.subtitle" :class="subtitleClass">
+        <p v-if="props.subtitle" :class="[subtitleClass, 'whitespace-pre-line']">
           {{ props.subtitle }}
         </p>
       </div>

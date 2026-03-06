@@ -12,6 +12,7 @@ export default {
     extend: {
       colors: {
         primary: '#4F8EFF',
+        cur: '#4C51BD',
         hoverbtn:  '#F7F7F7',
         textbtnhover: '#49454F',
         iconcolor: '#49454F',
@@ -45,6 +46,7 @@ export default {
         mont: ['Montserrat', 'ui-sans-serif', 'system-ui'],
         sofia: ['Sofia Sans', 'ui-sans-serif', 'system-ui'],
         haido: ['"TG Haido Grotesk"', "ui-sans-serif", "system-ui"],
+        atziluth: ['AtziluthScript', 'cursive'],
       },
       fontSize: {
         slider: 'clamp(28px, 8vw, 56px)',
