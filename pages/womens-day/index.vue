@@ -139,34 +139,83 @@ const waitForImages = async (el: HTMLElement) => {
   }))
 }
 
+const preloadImage = (src: string) =>
+  new Promise<void>((resolve) => {
+    const img = new Image()
+    img.onload = () => resolve()
+    img.onerror = () => resolve()
+    img.src = src
+  })
+
+const isSafariBrowser = () => {
+  if (!import.meta.client) return false
+  const ua = navigator.userAgent
+  return /^((?!chrome|android).)*safari/i.test(ua)
+}
+
+const nextFrame = () =>
+  new Promise<void>((resolve) => requestAnimationFrame(() => resolve()))
+
 const shareOrDownload = async () => {
   if (!cardRef.value || !import.meta.client) return
   isSharing.value = true
 
-  try {
-    // @ts-ignore
-    await (document.fonts?.ready ?? Promise.resolve())
-    await waitForImages(cardRef.value)
+  const el = cardRef.value
+  const safari = isSafariBrowser()
 
-    const dataUrl = await toPng(cardRef.value, {
+  try {
+    await (document.fonts?.ready ?? Promise.resolve())
+
+    // фон открытки
+    await preloadImage(POSTCARD_BG)
+
+    // если внутри карточки будут обычные img — тоже дождаться
+    await waitForImages(el)
+
+    // даём Safari ещё чуть времени после загрузки картинок и шрифтов
+    await nextFrame()
+    await nextFrame()
+
+    // на время экспорта выключаем анимации
+    el.classList.add('capture-mode')
+
+    const options = {
       cacheBust: true,
-      pixelRatio: 2,
+      pixelRatio: safari ? 1 : 2,
       backgroundColor: '#ffffff00',
-    })
+      skipAutoScale: true,
+      canvasWidth: el.clientWidth,
+      canvasHeight: el.clientHeight,
+    }
+
+    let dataUrl = ''
+
+    if (safari) {
+      // первый проход "прогревает" Safari
+      try {
+        await toPng(el, options)
+      } catch (_) {}
+
+      await nextFrame()
+      await new Promise(resolve => setTimeout(resolve, 80))
+
+      dataUrl = await toPng(el, options)
+    } else {
+      dataUrl = await toPng(el, options)
+    }
 
     const blob = await (await fetch(dataUrl)).blob()
     const file = new File([blob], 'daigo-card.png', { type: 'image/png' })
 
     const canShare = !!navigator.canShare && navigator.canShare({ files: [file] })
+
     if (canShare && navigator.share) {
-      // важно: цель должна фиксироваться только после реального успешного share
       await navigator.share({
         files: [file],
         title: 'Открытка',
         text: 'С 8 Марта! Ты — великая 💐 https://daigo.ru/WD',
       })
 
-      // ✅ Yandex Metrika / YTM: виртуальный hit под триггер "/ym_events/share8marta"
       ;(window as any).ym?.(YM_COUNTER_ID, 'hit', YM_SHARE_HIT)
       return
     }
@@ -176,9 +225,11 @@ const shareOrDownload = async () => {
     a.download = 'daigo-card.png'
     a.click()
 
-    // ✅ Fallback (десктоп/без системного share): считаем скачивание как "поделился"
     ;(window as any).ym?.(YM_COUNTER_ID, 'hit', YM_SHARE_HIT)
+  } catch (error) {
+    console.error('shareOrDownload error:', error)
   } finally {
+    el.classList.remove('capture-mode')
     isSharing.value = false
   }
 }
@@ -503,19 +554,10 @@ onBeforeUnmount(() => {
   <!-- ОТКРЫТКА (ЭТА ЖЕ ОБЛАСТЬ БУДЕТ РЕНДЕРИТЬСЯ В PNG) -->
   <div class="mt-8 w-full flex justify-center">
     <div
-      ref="cardRef"
-      class="relative w-full max-w-[720px] aspect-square
-             drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
-    >
-      <!-- фон открытки -->
-      <img
-        :src="POSTCARD_BG"
-        alt=""
-        class="absolute inset-0 w-full h-full object-contain"
-        loading="lazy"
-        decoding="async"
-      />
-      
+  ref="cardRef"
+  class="postcard relative w-full max-w-[720px] aspect-square
+         drop-shadow-[0_18px_28px_rgba(0,0,0,0.22)]"
+>
       <!-- Блок текста в открытке -->
 <div class="absolute left-[18%] right-[18%] top-[52%]">
   <!-- фиксируем высоту, чтобы не было прыжков -->
@@ -748,5 +790,40 @@ onBeforeUnmount(() => {
   opacity: 0;
   transform: translateY(-6px);
   filter: blur(4px);
+}
+
+.capture-mode,
+.capture-mode * {
+  animation: none !important;
+  transition: none !important;
+  caret-color: transparent !important;
+}
+
+.capture-mode .fadePhrase-enter-active,
+.capture-mode .fadePhrase-leave-active {
+  transition: none !important;
+}
+
+.capture-mode .fadePhrase-enter-from,
+.capture-mode .fadePhrase-enter-to,
+.capture-mode .fadePhrase-leave-from,
+.capture-mode .fadePhrase-leave-to {
+  opacity: 1 !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.postcard {
+  background-image: url('/images/women/template.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.postcard {
+  background-image: url('/images/women/template.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 </style>
