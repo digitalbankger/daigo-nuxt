@@ -103,48 +103,6 @@ input:focus-visible {
 
 
 
-   /* 1) text-primary -> временно делаем фиксированный цвет */
-  .text-primary {
-    color: #7881cd !important;
-  }
-
-  /* 2) bg-primary -> градиент как на скрине */
-  .bg-primary {
-    background-image: linear-gradient(90deg, #e68db0 0%, #6273c0 100%) !important;
-    background-color: transparent !important;
-  }
-  /* базовая плавность для кнопок */
-  button.bg-primary,
-  a.bg-primary,
-  .btn.bg-primary {
-    transition: background-image 220ms ease, filter 220ms ease, transform 220ms ease;
-    will-change: background-image, filter, transform;
-  }
-
-  /* hover меняет угол/направление градиента */
-  button.bg-primary:hover,
-  a.bg-primary:hover,
-  .btn.bg-primary:hover {
-    background-image: linear-gradient(120deg, #e68db0 0%, #6273c0 100%) !important;
-    filter: brightness(1.03);
-    transform: translateY(-1px);
-    color: #fff !important;
-  }
-
-  button.bg-primary:active,
-  a.bg-primary:active,
-  .btn.bg-primary:active {
-    transform: translateY(0px);
-    filter: brightness(0.99);
-  }
-
-
-
-
-
-
-
-
   @media (max-width: 767px) {
     .no-scrollbar-mobile {
       -ms-overflow-style: none;
