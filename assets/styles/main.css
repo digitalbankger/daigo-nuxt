@@ -102,7 +102,6 @@ input:focus-visible {
 
 
 
-
   @media (max-width: 767px) {
     .no-scrollbar-mobile {
       -ms-overflow-style: none;
