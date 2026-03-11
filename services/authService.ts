@@ -14,7 +14,7 @@ export const sendAuthCode = async (phone_number: string) => {
 }
 
 
-/** Отправка кода через звонок (fallback после повторной отправки) */
+/** Отправка кода через звонок */
 export const sendAuthFc = async (phone_number: string) => {
   const { data } = await api.post<{ message: string }>('/v1/auth/send-fc', { phone_number })
   return data

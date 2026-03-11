@@ -5,6 +5,7 @@ import { useUserStore } from '~/stores/userStore'
 import { cartService } from '~/services/cartService'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
+import { getCouponApplyMessage, isCouponApplySuccess } from '~/utils/coupon'
 
 export interface CartItem {
   id: string | number
@@ -385,6 +386,10 @@ export const useCartStore = defineStore('cart', () => {
     applyServerCartState(res)
     // На случай асинхронных перерасчётов на бэке:
     await loadCart()
+
+    if (!isCouponApplySuccess(res)) {
+      throw new Error(getCouponApplyMessage(res))
+    }
 
     return res
   }

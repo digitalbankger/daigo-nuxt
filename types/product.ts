@@ -6,6 +6,7 @@ export interface ProductCard {
   name: string
   subtitle: string
   image: string
+  detailImages?: string[]
   price: number
   originalPrice?: number
   discount?: number

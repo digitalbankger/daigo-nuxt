@@ -436,7 +436,7 @@ async function removeCoupon() {
               :disabled="authStore.resendLeft > 0"
               @click="authStore.resendCode"
             >
-              Получить код звонком<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
+              Получить код по СМС<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
             </button>
           </div>
         </div>

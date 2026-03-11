@@ -9,31 +9,72 @@
       aria-label="Открыть страницу товара"
     >
       <!-- изображение -->
-      <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn flex items-center justify-center overflow-hidden mb-2 md:mb-4 rounded-xl">
-        <img
-          :src="product.image"
-          :alt="product.name"
-          :size="500"
-          :width="500"
-          :height="500"
-          class="h-[140px] sm:h-[280px] object-contain"
-          loading="lazy"
-          decoding="async"
-        />
+      <div class="w-full overflow-hidden mb-2 md:mb-4 rounded-xl">
+        <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
+          <Swiper
+            class="product-card-swiper h-full"
+            :slides-per-view="1"
+            :space-between="0"
+            :allow-touch-move="galleryImages.length > 1"
+            :simulate-touch="galleryImages.length > 1"
+            :grab-cursor="galleryImages.length > 1"
+            :resistance-ratio="0.85"
+            :threshold="6"
+            :prevent-clicks="true"
+            :prevent-clicks-propagation="true"
+            @swiper="onSwiper"
+            @slideChange="onSlideChange"
+          >
+            <SwiperSlide
+              v-for="(image, imageIndex) in galleryImages"
+              :key="`${product.product_id}-${imageIndex}`"
+              class="h-full"
+            >
+              <div class="w-full h-full flex items-center justify-center select-none">
+                <img
+                  :src="image"
+                  :alt="`${product.name} ${imageIndex + 1}`"
+                  :size="500"
+                  :width="500"
+                  :height="500"
+                  class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                  loading="lazy"
+                  decoding="async"
+                  draggable="false"
+                />
+              </div>
+            </SwiperSlide>
+          </Swiper>
+        </div>
 
+        <div
+          v-if="galleryImages.length > 1"
+          class="flex items-center justify-center gap-1.5 mt-2 px-2 sm:px-4"
+          @click.stop
+        >
+          <button
+            v-for="(_, imageIndex) in galleryImages"
+            :key="`dot-${product.product_id}-${imageIndex}`"
+            type="button"
+            class="product-card-dot"
+            :class="{ 'is-active': currentSlide === imageIndex }"
+            :aria-label="`Показать изображение ${imageIndex + 1}`"
+            @click.stop="setSlide(imageIndex)"
+          />
+        </div>
       </div>
 
       <!-- контент -->
       <div class="p-2 md:p-4 flex flex-col flex-1">
         <h3
-          class="font-normal md:font-medium leading-tight mb-2 text-sm sm:text-base
+          class="font-normal md:font-medium leading-tight mb-0.5 sm:mb-2 text-sm sm:text-base
                  md:text-[1.4rem]
                  line-clamp-3 sm:line-clamp-2 xs-max:min-h-[3.2rem] min-h-[3rem] md:min-h-[3.2rem]"
         >
           {{ product.name }}
         </h3>
 
-        <p class="hidden md:block text-[clamp(0.9rem,6vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem] whitespace-pre-line">
+        <p class="block text-[clamp(0.8rem,3.2vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem] whitespace-pre-line">
           {{ product.subtitle }}
         </p>
 
@@ -124,7 +165,10 @@
 <script setup lang="ts">
 import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+import type { Swiper as SwiperClass } from 'swiper'
+import 'swiper/css'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 
@@ -144,6 +188,50 @@ const cartStore = useCartStore()
 /** список предзаказных ID */
 const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
+
+const galleryImages = computed(() => {
+  const seen = new Set<string>()
+  const raw = [product.image, ...(product.detailImages || [])]
+
+  return raw
+    .map((image) => String(image || '').trim())
+    .filter(Boolean)
+    .filter((image) => {
+      if (seen.has(image)) return false
+      seen.add(image)
+      return true
+    })
+})
+
+const currentSlide = ref(0)
+const swiperRef = ref<SwiperClass | null>(null)
+
+watch(galleryImages, (images) => {
+  if (!images.length) {
+    currentSlide.value = 0
+    swiperRef.value?.slideTo(0, 0)
+    return
+  }
+
+  if (currentSlide.value > images.length - 1) {
+    currentSlide.value = 0
+    swiperRef.value?.slideTo(0, 0)
+  }
+}, { immediate: true })
+
+function onSwiper(swiper: SwiperClass) {
+  swiperRef.value = swiper
+  currentSlide.value = swiper.activeIndex || 0
+}
+
+function onSlideChange(swiper: SwiperClass) {
+  currentSlide.value = swiper.activeIndex || 0
+}
+
+function setSlide(index: number) {
+  currentSlide.value = index
+  swiperRef.value?.slideTo(index)
+}
 
 const quantityInCart = computed(() => {
   const item = cartStore.items.find(i => String(i.id) === String(product.product_id))
@@ -211,5 +299,24 @@ const hideBonusBadge = computed(() => {
 </script>
 
 <style scoped>
+.product-card-dot {
+  width: 80%;
+  height: 4px;
+  border-radius: 9999px;
+  background: #36486929;
+  transition: all 0.2s ease;
+}
 
+.product-card-dot.is-active {
+  width: 80%;
+  background: #4f8eff;
+}
+
+:deep(.product-card-swiper .swiper-wrapper) {
+  height: 100%;
+}
+
+:deep(.product-card-swiper .swiper-slide) {
+  height: 100%;
+}
 </style>

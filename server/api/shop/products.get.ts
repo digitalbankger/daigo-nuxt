@@ -40,6 +40,9 @@ export default defineEventHandler(async (event) => {
         name: p.name_ru || p.name,
         subtitle: p.subtitle || '',
         image: normalizeImg(p.image),
+        detailImages: Array.isArray(p.detail_images)
+          ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
+          : [],
         price: Number(p.price) || 0,
         originalPrice: Number(p.original_price) || 0,
         sort: p.sort_order === 0 ? 16 : p.sort_order,
@@ -163,6 +166,9 @@ export default defineEventHandler(async (event) => {
           name: p.name_ru || p.name,
           subtitle: p.subtitle || '',
           image: normalizeImg(p.image),
+          detailImages: Array.isArray(p.detail_images)
+            ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
+            : [],
           price,
           originalPrice: Number(p.original_price) || 0,
           sort: p.sort_order === 0 ? 16 : p.sort_order,

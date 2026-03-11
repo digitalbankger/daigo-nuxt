@@ -72,7 +72,7 @@ onMounted(() => {
     <div class="text-sm text-gray-600 space-x-4">
       <button type="button" class="underline" @click="$emit('change-phone')">Изменить номер</button>
       <button type="button" class="underline disabled:opacity-50" :disabled="auth.resendLeft>0" @click="auth.resendCode">
-        Получить код звонком<span v-if="auth.resendLeft>0"> ({{ auth.resendLeft }})</span>
+        Получить код по СМС<span v-if="auth.resendLeft>0"> ({{ auth.resendLeft }})</span>
       </button>
     </div>
     <Button :variant="'solid'" class="w-full" type="button" :disabled="!canSubmit" @click="verify">Подтвердить</Button>

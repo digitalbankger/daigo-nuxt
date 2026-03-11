@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import { onMounted } from 'vue'
-import { navigateTo } from '#imports'
+import { onMounted, ref, watch } from 'vue'
+import { navigateTo, useRoute } from '#imports'
 import { usePromoStore } from '~/stores/promotionStore'
 import { useModalStore } from '~/stores/modalStore'
+import { useAuthStore } from '~/stores/authStore'
 import PromotionItem from '~/components/ui/PromotionItem.vue'
+import { isCouponApplySuccess } from '~/utils/coupon'
 
 type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice'
 interface Promotion {
@@ -16,10 +18,14 @@ interface Promotion {
   promo_type: PromoType
   // флаг с бэка (может уже быть в типах)
   is_applied?: boolean
+  link?: string | null
 }
 
+const route = useRoute()
+const authStore = useAuthStore()
 const promoStore = usePromoStore()
 const modalStore = useModalStore()
+const pendingPromotionAfterAuth = ref<Promotion | null>(null)
 
 // берём состояния из стора
 const { promotions, isApplying, pendingId } = storeToRefs(promoStore)
@@ -28,6 +34,34 @@ onMounted(() => {
   // на CSR подгружаем, если SSR не вернул (например, нет session_id на сервере)
   if (!promotions.value.length) promoStore.loadPromotions()
 })
+
+function isAuthRequiredError(error: any) {
+  return error?.code === 'AUTH_REQUIRED' || String(error?.message || '').toLowerCase().includes('необходимо авторизоваться')
+}
+
+function getPromoEntityLabel(promotion: Promotion) {
+  return promotion.promo_type === 'code' ? 'промокод' : 'акцию'
+}
+
+watch(
+  () => authStore.isAuthenticated,
+  (isAuthenticated) => {
+    if (!isAuthenticated || !pendingPromotionAfterAuth.value) return
+
+    const promotion = pendingPromotionAfterAuth.value
+    pendingPromotionAfterAuth.value = null
+
+    modalStore.show({
+      title: `Ура, теперь вы можете применить ${getPromoEntityLabel(promotion)}`,
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы повторить применение.',
+      buttonText: 'Применить ещё раз',
+      onConfirm: async () => {
+        modalStore.close()
+        await handleApply(promotion)
+      },
+    })
+  }
+)
 
 async function handleApply(promotion: Promotion) {
   try {
@@ -47,12 +81,7 @@ async function handleApply(promotion: Promotion) {
     // Для 'discount' стор делает navigateTo — модалка не нужна
     if (promotion.promo_type === 'discount') return
 
-    const success =
-      res === true || // случай 2+1 → просто true
-      res?.success === true ||
-      res?.applied === true ||
-      typeof res?.discount_amount === 'number' ||
-      typeof res?.discount_percent === 'number'
+    const success = isCouponApplySuccess(res)
 
     modalStore.show({
       title: success ? '✅ Успешно' : 'Что-то пошло не так',
@@ -61,6 +90,20 @@ async function handleApply(promotion: Promotion) {
         (success ? 'Акция применена' : 'Не удалось применить акцию'),
     })
   } catch (e: any) {
+    if (isAuthRequiredError(e)) {
+      pendingPromotionAfterAuth.value = promotion
+      modalStore.show({
+        title: 'Что-то пошло не так',
+        message: e?.message || 'Для применения акции необходимо авторизоваться',
+        buttonText: 'Авторизоваться',
+        onConfirm: async () => {
+          modalStore.close()
+          authStore.openAuth(route.fullPath)
+        },
+      })
+      return
+    }
+
     modalStore.show({
       title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось применить акцию',

@@ -29,6 +29,30 @@ type ReviewMedia = {
   src?: string
 }
 
+type ProductReviewItem = {
+  id: string
+  author: string
+  rating: number
+  date?: string
+  title?: string
+  text: string
+  source?: string
+  verified?: boolean
+  media?: ReviewMedia[]
+  tags?: string[]
+  i18n?: {
+    ru: { title?: string; text: string }
+    en?: { title?: string; text: string }
+  }
+}
+
+type ProductReviewsData = {
+  ratingAvg?: number
+  count?: number
+  source?: string
+  items: ProductReviewItem[]
+}
+
 const isWriteReviewOpen = ref(false)
 const isWriteReviewSuccess = ref(false)
 
@@ -83,7 +107,16 @@ const route = useRoute()
 const productStore = useProductStore()
 await productStore.loadProduct(route.params.slug as string)
 
+const { data: productReviewsResponse } = await useFetch<ProductReviewsData>(`/api/shop/reviews/${route.params.slug as string}`, {
+  key: `product-reviews:${route.params.slug as string}`,
+  default: () => ({ items: [] })
+})
+
 const product = computed(() => productStore.product)
+const productReviews = computed<ProductReviewsData>(() => {
+  const value = productReviewsResponse.value
+  return value && Array.isArray(value.items) ? value : { items: [] }
+})
 
 const isCertificate = computed(() =>
   product.value?.template === 'certificate' ||
@@ -298,16 +331,16 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <ReviewsBlock
-          v-if="product?.reviews?.items?.length"
-          :reviews="product.reviews"
+        <!-- <ReviewsBlock
+          v-if="productReviews?.items?.length"
+          :reviews="productReviews"
           :show-actions="true"
           title="Отзывы"
           @openMedia="onOpenMedia"
           @write="openWriteReview"
           class="mt-10 md:mt-20"
           id="reviews"
-        /> 
+        />  -->
 
         <UiModal
           :show="isMediaModalOpen"

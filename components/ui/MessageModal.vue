@@ -16,9 +16,10 @@ const modalStore = useModalStore()
         <p class="text-xl text-black/60">{{ modalStore.message }}</p>
         <Button
           variant="solid"
-          @click="modalStore.close"
+          :disabled="modalStore.isProcessing"
+          @click="modalStore.confirm"
         >
-          Закрыть
+          {{ modalStore.isProcessing ? 'Подождите…' : modalStore.buttonText }}
         </Button>
     </div>
   </UiModal>

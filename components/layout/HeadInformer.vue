@@ -18,7 +18,7 @@
         type="button"
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
         :disabled="busy"
-        @click="applyWelcome"
+        @click="applyWelcome()"
       >
         <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
       </button>
@@ -31,7 +31,7 @@
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
           :disabled="busy"
-          @click="applyWelcome"
+          @click="applyWelcome()"
         >
           <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
         </button>
@@ -54,13 +54,16 @@
 
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
+import { useRoute } from '#imports'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
 import { usePromoStore } from '~/stores/promotionStore'
 import { useModalStore } from '~/stores/modalStore'
+import { useAuthStore } from '~/stores/authStore'
 import { useYtm } from '@/composables/useYtm'
+import { isCouponApplySuccess } from '~/utils/coupon'
 
 type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice' | string
 interface Promotion {
@@ -75,6 +78,8 @@ interface Promotion {
 }
 
 const ui = useUiStore()
+const route = useRoute()
+const authStore = useAuthStore()
 const { reach } = useAnalytics()
 const promoStore = usePromoStore()
 const modalStore = useModalStore()
@@ -83,6 +88,7 @@ const ytm = useYtm()
 const { promotions, pendingId } = storeToRefs(promoStore)
 
 const WELCOME_CODE = 'WELCOME5'
+const shouldOfferWelcomeReapply = ref(false)
 
 const welcomePromo = computed<Promotion | null>(() => {
   const list = (promotions.value || []) as Promotion[]
@@ -110,10 +116,47 @@ function toYtmPromo(p: Promotion) {
   }
 }
 
-async function applyWelcome() {
+function isAuthRequiredError(error: any) {
+  return error?.code === 'AUTH_REQUIRED' || String(error?.message || '').toLowerCase().includes('необходимо авторизоваться')
+}
+
+function showWelcomeAuthModal() {
+  shouldOfferWelcomeReapply.value = true
+  modalStore.show({
+    title: 'Что-то пошло не так',
+    message: 'Для применения акции необходимо авторизоваться',
+    buttonText: 'Авторизоваться',
+    onConfirm: async () => {
+      modalStore.close()
+      authStore.openAuth(route.fullPath)
+    },
+  })
+}
+
+watch(
+  () => authStore.isAuthenticated,
+  (isAuthenticated) => {
+    if (!isAuthenticated || !shouldOfferWelcomeReapply.value) return
+
+    shouldOfferWelcomeReapply.value = false
+    modalStore.show({
+      title: 'Ура, теперь вы можете применить промокод',
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME5 ещё раз.',
+      buttonText: 'Применить ещё раз',
+      onConfirm: async () => {
+        modalStore.close()
+        await applyWelcome({ skipGoal: true })
+      },
+    })
+  }
+)
+
+async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
   if (!import.meta.client) return
 
-  sendInformerGoal()
+  if (!opts.skipGoal) {
+    sendInformerGoal()
+  }
 
   // гарантируем, что промки есть (как на акциях: если SSR не дал — подгрузить)
   if (!promotions.value?.length) {
@@ -144,18 +187,18 @@ async function applyWelcome() {
     const res: any = await promoStore.apply(promo as any)
 
     // логика success — 1 в 1 как у тебя на странице акций
-    const success =
-      res === true ||
-      res?.success === true ||
-      res?.applied === true ||
-      typeof res?.discount_amount === 'number' ||
-      typeof res?.discount_percent === 'number'
+    const success = isCouponApplySuccess(res)
 
     modalStore.show({
       title: success ? '✅ Успешно' : 'Что-то пошло не так',
       message: res?.message || (success ? 'Промокод применён' : 'Не удалось применить промокод'),
     })
   } catch (e: any) {
+    if (isAuthRequiredError(e)) {
+      showWelcomeAuthModal()
+      return
+    }
+
     modalStore.show({
       title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось применить промокод',
