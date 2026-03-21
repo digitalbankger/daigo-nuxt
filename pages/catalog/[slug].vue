@@ -331,7 +331,7 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <!-- <ReviewsBlock
+        <ReviewsBlock
           v-if="productReviews?.items?.length"
           :reviews="productReviews"
           :show-actions="true"
@@ -340,7 +340,7 @@ useHead(() => {
           @write="openWriteReview"
           class="mt-10 md:mt-20"
           id="reviews"
-        />  -->
+        />
 
         <UiModal
           :show="isMediaModalOpen"
