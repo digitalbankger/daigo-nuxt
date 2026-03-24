@@ -117,7 +117,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -126,7 +126,7 @@ export default defineEventHandler((event) => {
         content: `
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -141,7 +141,7 @@ export default defineEventHandler((event) => {
           {
             title: 'Взрослым',
             steps: [
-              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
               { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
@@ -535,7 +535,7 @@ export default defineEventHandler((event) => {
       composition: {
         title: 'Состав',
         content: `
-          <p>Вода, молочная кислота, подсластитель неотама, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: <br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016).</p>
+          <p>Вода, молочная кислота, подсластитель неотама, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: <br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016).</p>
         `,
         image: 'https://products.s3.firstvds.ru/lactis/effect.png',
       },
@@ -556,7 +556,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство кормовой добавки Lactis Zoo',
-        subtitle: 'Lactis Zoo производится там же, где и легендарный метабиотик Daigo Компания-производитель B&S corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'Lactis Zoo производится там же, где и легендарный метабиотик Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/dent/Image.png',
@@ -690,7 +690,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -700,7 +700,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 10 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -732,7 +732,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-10/prod-gen.png',
@@ -854,7 +854,7 @@ export default defineEventHandler((event) => {
         title: 'Принцип действия',
         image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
         text: `
-          <p>Плазмогены — это отдельный класс липидов, их основной задачей является защита ПНЖК от агрессивного окисления, также они управляют выбросами холестерина клетками. Эти удивительные вещества вырабатываются в печени, затем они транспортируются с помощью липопротеидов в головной мозг, где выполняют регулирующие функции.</p>
+          <p>Плазмалогены — это отдельный класс липидов, их основной задачей является защита ПНЖК от агрессивного окисления, также они управляют выбросами холестерина клетками. Эти удивительные вещества вырабатываются в печени, затем они транспортируются с помощью липопротеидов в головной мозг, где выполняют регулирующие функции.</p>
 
           <p>Уникальные антиоксиданты прорезилиенты и коэнзим Q10 устраняют энергетический дисбаланс и блокируют подавляющее большинство веерных патохимических реакций ишемического каскада.</p>
 
@@ -911,7 +911,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Tamotsu',
-        subtitle: 'Tamotsu производится на том же заводе, где и легендарный метабиотик Daigo. Завод-производитель B&S Corporation. Фабрика расположена в заповедной зоне в у горы Фудзи и полностью соответствует Международным стандартам GMP. Плазмалогены добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка. \n\n1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген; \n\n2. Из обработанных морских гребешков получают липиды; \n\n3. Далее следует этап очистки жира. \n\nВ итоге получаются плазмалогены высочайшего качества, биодоступности, безопасности и эффективности. В комбинации с коэнзимом Q10 они приносят колоссальную пользу для организма в составе БАДа Tamotsu.',
+        subtitle: 'Tamotsu производится на том же заводе, где и легендарный метабиотик Daigo. Завод-производитель B&S Corporation. Фабрика расположена в заповедной зоне у горы Фудзи и полностью соответствует Международным стандартам GMP. Плазмалогены добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка. \n\n1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген; \n\n2. Из обработанных морских гребешков получают липиды; \n\n3. Далее следует этап очистки жира. \n\nВ итоге получаются плазмалогены высочайшего качества, биодоступности, безопасности и эффективности. В комбинации с коэнзимом Q10 они приносят колоссальную пользу для организма в составе БАДа Tamotsu.',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -1517,7 +1517,7 @@ export default defineEventHandler((event) => {
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
-          <p>Плазмогены — это особые жировые молекулы, которые защищают ценные жирные кислоты от окислительного повреждения и помогают клеткам правильно регулировать уровень холестерина. Эти вещества естественным образом производятся в печени, а затем с помощью специальных переносчиков доставляются в головной мозг, где поддерживают его нормальную работу. В состав Tamotsu входят также уникальные антиоксиданты прорезилиенты и коэнзим Q10. Их задача — восстановить энергетический баланс в клетках и заблокировать цепь разрушительных реакций, возникающих при недостатке кровоснабжения, что позволяет защитить ткани мозга от повреждения.</p>
+          <p>Плазмалогены — это особые жировые молекулы, которые защищают ценные жирные кислоты от окислительного повреждения и помогают клеткам правильно регулировать уровень холестерина. Эти вещества естественным образом производятся в печени, а затем с помощью специальных переносчиков доставляются в головной мозг, где поддерживают его нормальную работу. В состав Tamotsu входят также уникальные антиоксиданты прорезилиенты и коэнзим Q10. Их задача — восстановить энергетический баланс в клетках и заблокировать цепь разрушительных реакций, возникающих при недостатке кровоснабжения, что позволяет защитить ткани мозга от повреждения.</p>
           <p class="font-medium">Daigo Lux</p>
           <p class="">Его действие основано на двух компонентах, которые дополняют друг друга. Ценный секрет полезных бактерий создаёт оптимальную среду для активизации и роста собственных полезных кишечных бактерий, одновременно ограничивая развитие патогенной микрофлоры. Это приводит к естественному замещению вредных бактерий полезными и улучшению состояния кишечной среды. В то же время, клеточный материал бактерий стимулирует активность иммунных клеток, включая особые образования кишечника (Пейеровы бляшки), которые усиливают выработку защитных лейкоцитов. Этот процесс помогает снизить системное воспаление, что напрямую поддерживает здоровье нервной системы и ясность ума. Daigo Lux не просто помогает восстановить баланс кишечной микрофлоры, но через укрепление иммунитета и снижение воспаления может создать фундамент для устойчивого внутреннего равновесия и оптимальной работы когнитивных функций.</p>
         `
@@ -1541,7 +1541,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
 
-          <br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+          <br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
           <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
           <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
           <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
@@ -1556,7 +1556,7 @@ export default defineEventHandler((event) => {
           {
             title: 'Взрослым',
             steps: [
-              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
               { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
@@ -1706,7 +1706,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -1716,7 +1716,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 5 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -1749,7 +1749,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
@@ -1891,7 +1891,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -1901,7 +1901,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 5 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -1934,7 +1934,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
@@ -2075,7 +2075,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -2085,7 +2085,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 5 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -2118,7 +2118,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
@@ -2259,7 +2259,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -2269,7 +2269,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 5 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -2302,7 +2302,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
@@ -2443,7 +2443,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -2453,7 +2453,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 5 мл, 30 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -2486,7 +2486,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
@@ -2753,7 +2753,7 @@ export default defineEventHandler((event) => {
 из морского гребешка.</p>
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-<br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+<br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), <br>L. rhamnosus (BSC 016); 
@@ -2781,7 +2781,7 @@ export default defineEventHandler((event) => {
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -2829,7 +2829,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -2949,7 +2949,7 @@ export default defineEventHandler((event) => {
 из морского гребешка.</p>
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-<br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+<br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), <br>L. rhamnosus (BSC 016); 
@@ -2979,7 +2979,7 @@ export default defineEventHandler((event) => {
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -3039,7 +3039,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -3154,7 +3154,7 @@ export default defineEventHandler((event) => {
 из морского гребешка.</p>
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-<br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+<br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), <br>L. rhamnosus (BSC 016); 
@@ -3182,7 +3182,7 @@ export default defineEventHandler((event) => {
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -3230,7 +3230,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/emperor/prod-gen.png',
@@ -3497,7 +3497,7 @@ export default defineEventHandler((event) => {
             <li>Старении и сухости кожи</li>
           </ul>
           <p class="!mt-8">
-            Эффективность Daigo была проверена и доказана при помощи японских (B&S corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
+            Эффективность Daigo была проверена и доказана в японских (B&S Corporation), испанских (Life Length) и российских (НИИ Склифосовского) исследованиях.
             Продукт сертифицирован международным сертификатом GMP.</p>
         `
       },
@@ -3507,7 +3507,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Жидкость в саше-пакетиках по 10 мл, 10 саше в упаковке.</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода <strong>Lactobacillus</strong>:</p>
           <p>
-            L. curtvavus (BSC 001), L. curtvavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),<br/>
+            L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),<br/>
             L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007),<br/>
             L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010),<br/>
             L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013),<br/>
@@ -3539,7 +3539,7 @@ export default defineEventHandler((event) => {
       productionSection: {
         type: 'production',
         title: 'Производство революционного продукта Daigo',
-        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
+        subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
           image: 'https://products.s3.firstvds.ru/daigo-10/prod-gen.png',
@@ -3672,7 +3672,7 @@ L-глутамин 60 мг; L-изолейцин 60 мг; L-лейцин 60 мг
         content: `
           <p class="font-medium">Daigo Lux</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
@@ -3688,7 +3688,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -3736,7 +3736,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -3850,7 +3850,7 @@ L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэт�
         content: `
           <p class="font-medium">Daigo Lux</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
@@ -3868,7 +3868,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -3916,7 +3916,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
@@ -3983,7 +3983,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
-          <p>Плазмогены — это особые жировые молекулы, которые защищают ценные жирные кислоты от окислительного повреждения и помогают клеткам правильно регулировать уровень холестерина. Эти вещества естественным образом производятся в печени, а затем с помощью специальных переносчиков доставляются в головной мозг, где поддерживают его нормальную работу. В состав Tamotsu входят также уникальные антиоксиданты прорезилиенты и коэнзим Q10. Их задача — восстановить энергетический баланс в клетках и заблокировать цепь разрушительных реакций, возникающих при недостатке кровоснабжения, что позволяет защитить ткани мозга от повреждения.</p>
+          <p>Плазмалогены — это особые жировые молекулы, которые защищают ценные жирные кислоты от окислительного повреждения и помогают клеткам правильно регулировать уровень холестерина. Эти вещества естественным образом производятся в печени, а затем с помощью специальных переносчиков доставляются в головной мозг, где поддерживают его нормальную работу. В состав Tamotsu входят также уникальные антиоксиданты прорезилиенты и коэнзим Q10. Их задача — восстановить энергетический баланс в клетках и заблокировать цепь разрушительных реакций, возникающих при недостатке кровоснабжения, что позволяет защитить ткани мозга от повреждения.</p>
           <p class="font-medium">Daigo Lux</p>
           <p class="">Его действие основано на двух компонентах, которые дополняют друг друга. Ценный секрет полезных бактерий создаёт оптимальную среду для активизации и роста собственных полезных кишечных бактерий, одновременно ограничивая развитие патогенной микрофлоры. Это приводит к естественному замещению вредных бактерий полезными и улучшению состояния кишечной среды. В то же время, клеточный материал бактерий стимулирует активность иммунных клеток, включая особые образования кишечника (Пейеровы бляшки), которые усиливают выработку защитных лейкоцитов. Этот процесс помогает снизить системное воспаление, что напрямую поддерживает здоровье нервной системы и ясность ума. Daigo Lux не просто помогает восстановить баланс кишечной микрофлоры, но через укрепление иммунитета и снижение воспаления может создать фундамент для устойчивого внутреннего равновесия и оптимальной работы когнитивных функций.</p>
         `
@@ -4007,7 +4007,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
 
-          <br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+          <br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
           <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
           <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
           <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
@@ -4022,7 +4022,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           {
             title: 'Взрослым',
             steps: [
-              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+              { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
               { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
             ]
           },
@@ -4140,7 +4140,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий).</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -4301,7 +4301,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           </div>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -4413,7 +4413,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -4535,7 +4535,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Jointic</p>
         <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
         
@@ -4679,7 +4679,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Dermic</p>
         <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 910 нг, Витамин Н — 50 нг.</p>
         <p class="font-medium">Daigo Shampoo</p>
@@ -4851,7 +4851,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         content: `
           <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-          Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+          Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
           <p class="font-medium">Daigo Jointic</p>
           <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
           <p class="font-medium">Daigo Brainy</p>
@@ -5011,7 +5011,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Brainy</p>
         <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 662,5 2 нг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 нг.</p>
         
@@ -5169,7 +5169,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Jointic</p>
         <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
         
@@ -5327,7 +5327,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 10 мл.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Dermic</p>
         <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 910 нг, Витамин Н — 50 нг.</p>
         
@@ -5480,7 +5480,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
          
           <p class="font-medium">Daigo Lux</p>
           <p class="">Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-<br><br>L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+<br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 <br>L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 <br>L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 <br>L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), <br>L. rhamnosus (BSC 016); 
@@ -5509,7 +5509,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -5545,7 +5545,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',

@@ -404,8 +404,6 @@ async function removeCoupon() {
         </div>
       </div>
 
-      <!-- БЫЛО: "ждём подтверждения пуша" — УБРАНО. -->
-      <!-- НОВОЕ: инлайн-ввод кода авторизации -->
       <div v-if="isCodeStep && !authStore.isAuthenticated" class="space-y-3">
         <div class="text-sm text-black/60">
           {{ authStore.deliveryHint }}
@@ -436,7 +434,7 @@ async function removeCoupon() {
               :disabled="authStore.resendLeft > 0"
               @click="authStore.resendCode"
             >
-              Получить код по СМС<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
+              Получить код звонком<span v-if="authStore.resendLeft > 0"> ({{ authStore.resendLeft }})</span>
             </button>
           </div>
         </div>

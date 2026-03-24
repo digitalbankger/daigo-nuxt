@@ -1,27 +1,34 @@
 <template>
   <div
-    class="hidden md:block fixed top-0 left-0 right-0 z-[60] transition-transform duration-300 will-change-transform"
+    class="hidden md:block fixed top-0 left-0 right-0 z-[60] transition-transform duration-300 will-change-transform border-b border-gray-200"
     :style="stickyStyle"
     aria-hidden="false"
   >
-    <nav class="backdrop-blur bg-white/85 border-b border-gray-200">
+  <div class="relative mx-auto max-w-[1400px]">
+    <nav class="backdrop-blur bg-white/85">
       <div class="mx-auto max-w-[1400px] px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between gap-3">
         <div class="flex items-center gap-7 shrink-0">
             <NuxtLink to="/" aria-label="Главная">
                 <img src="/logo.svg" alt="daigo logo" class="md:h-8 xl:h-10" />
             </NuxtLink>
 
-            <NuxtLink
-                to="/catalog"
-                class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-primary/80"
+            <div
+              class="hidden lg:block"
+              @mouseenter="openCatalogPopup"
+              @mouseleave="scheduleCatalogClose"
             >
-                <img
-                src="/icons/catalog.svg"
-                alt="→"
-                class="w-5 h-5 transition-transform duration-300 transform group-hover:rotate-90"
-                />
-                Каталог
-            </NuxtLink>
+              <NuxtLink
+                  to="/catalog"
+                  class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-2 px-4 text-lg font-normal transition duration-300 group hover:bg-primary/80"
+              >
+                  <img
+                  src="/icons/catalog.svg"
+                  alt="→"
+                  class="w-5 h-5 transition-transform duration-300 transform group-hover:rotate-90"
+                  />
+                  Каталог
+              </NuxtLink>
+            </div>
         </div>
 
         <!-- ЦЕНТР: Каталог (ленивая иконка) -->
@@ -83,7 +90,6 @@
                     <CartBadge />
                 </NuxtLink>
 
-                <!-- Профиль: заменяем NuxtLink на кнопку -->
                 <button
                     type="button"
                     aria-label="Профиль"
@@ -98,14 +104,26 @@
             </div>
       </div>
     </nav>
+      <!-- <Transition name="catalog-popup">
+        <CatalogHoverMenu
+          v-if="isCatalogPopupOpen"
+          @mouseenter="cancelCatalogClose"
+          @mouseleave="scheduleCatalogClose"
+          @close="closeCatalogPopup"
+          class="mt-3"
+        />
+      </Transition> -->
+
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, onBeforeUnmount, computed } from 'vue'
 import { useScrolled } from '@/composables/useScrolled'
 import { useUiStore } from '@/stores/ui'
 import CartBadge from '@/components/ui/CartBadge.vue'
+import CatalogHoverMenu from '@/components/layout/CatalogHoverMenu.vue'
 
 const ui = useUiStore()
 const { scrolled } = useScrolled(120)
@@ -123,4 +141,57 @@ const stickyStyle = computed(() => {
       : `translateY(calc(-100% - ${offset}px))`,
   }
 })
+
+const isCatalogPopupOpen = ref(false)
+let catalogCloseTimer: ReturnType<typeof setTimeout> | null = null
+
+const openCatalogPopup = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  isCatalogPopupOpen.value = true
+  closePartnersPopup()
+}
+
+const cancelCatalogClose = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+}
+
+const scheduleCatalogClose = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  catalogCloseTimer = setTimeout(() => {
+    isCatalogPopupOpen.value = false
+  }, 180)
+}
+
+const closeCatalogPopup = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  isCatalogPopupOpen.value = false
+}
+
+onBeforeUnmount(() => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+})
 </script>
+
+<style scoped>
+.catalog-popup-enter-active,
+.catalog-popup-leave-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    filter 0.22s ease;
+}
+
+.catalog-popup-enter-from,
+.catalog-popup-leave-to {
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+  filter: blur(4px);
+}
+
+.catalog-popup-enter-to,
+.catalog-popup-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+</style>

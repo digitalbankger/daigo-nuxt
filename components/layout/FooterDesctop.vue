@@ -34,6 +34,7 @@
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/quality-and-safety">Качество и безопасность</NuxtLink></li>
+                <li><NuxtLink to="/faq">Частые вопросы</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
                 <!-- Ссылки для партнёров -->
@@ -142,6 +143,7 @@
                 <li><NuxtLink to="/articles">Статьи</NuxtLink></li>
                 <li><NuxtLink to="/researches">Исследования</NuxtLink></li>
                 <li><NuxtLink to="/quality-and-safety">Качество и безопасность</NuxtLink></li>
+                <li><NuxtLink to="/faq">Частые вопросы</NuxtLink></li>
                 <li><NuxtLink to="/otzyvy">Отзывы</NuxtLink></li>
                 <li><NuxtLink to="/contacts">Контакты</NuxtLink></li>
               </ul>

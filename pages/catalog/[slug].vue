@@ -20,6 +20,7 @@ import { useAnalytics } from '@/composables/useAnalytics'
 import { onMounted, computed, ref } from 'vue'
 import ReviewsBlock from '@/components/product/ProductReviews.vue'
 import UiModal from '@/components/ui/UiModal.vue'
+import DaigoSpecialSections from '@/components/product/special/DaigoSpecialSections.vue'
 
 // Отзыв
 type ReviewMedia = {
@@ -248,6 +249,24 @@ useHead(() => {
         <ClientOnly>
           <ProductStickyCartPopup :product="product" observe-target="#product-cta" />
         </ClientOnly>
+
+        <!-- <DaigoSpecialSections
+          :product-id="product?.id"
+          :product-slug="product?.slug"
+          :enabled-product-ids="[101, 102]"
+          :enabled-product-slugs="['metabiotik-daigo', 'metabiotik-daigo-10ml']"
+        />
+
+        <ReviewsBlock
+          v-if="productReviews?.items?.length"
+          :reviews="productReviews"
+          :show-actions="true"
+          title="Отзывы"
+          @openMedia="onOpenMedia"
+          @write="openWriteReview"
+          class="mt-10 md:mt-20"
+          id="reviews"
+        /> -->
 
         <ProductDescription :product="product" />
 

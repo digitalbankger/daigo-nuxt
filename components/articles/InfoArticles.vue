@@ -21,7 +21,7 @@ const publicationCards = [
     }
   },
   {
-    title: 'Плазмогены Дайго',
+    title: 'Плазмалогены Дайго',
     text: 'Подборка статей, чтобы вы могли узнать больше о плазмогенах Дайго и об их применении',
     imageSrc: '/images/articles/plasmo.png',
     showArrow: true,

@@ -20,7 +20,7 @@ export default defineEventHandler(() => {
         { label: 'Кишечная непроходимость (запор)', value: 'kishechnaya-neprokhodimost-zapor' },
         { label: 'Эмоциональная перегрузка', value: 'emotsionalnaya-peregruzka' },
         { label: 'Деменция', value: 'demenciya' },
-        { label: 'Сиборея', value: 'siboreya' },
+        { label: 'Себорея', value: 'siboreya' },
         { label: 'Стоматит', value: 'stomatit' },
         { label: 'Язва', value: 'yazva' },
         { label: 'Гастрит', value: 'gastrit' },
@@ -39,7 +39,7 @@ export default defineEventHandler(() => {
         { label: 'Сухость кожи', value: 'sukhaya-kozha' },
         { label: 'Утомляемость', value: 'utomlyaemost' },
         { label: 'Похмелье', value: 'pokhmelie' },
-        { label: 'Востановление микрофлоры', value: 'vosstanovlenie-mikroflory' },
+        { label: 'Восстановление микрофлоры', value: 'vosstanovlenie-mikroflory' },
       ]
     },
     {
@@ -47,9 +47,8 @@ export default defineEventHandler(() => {
       slug: 'klass-produkta',
       options: [
         { label: 'Аминобиотики', value: 'aminobiotiki' },
-        { label: 'Метобиотики', value: 'metobiotiki' },
+        { label: 'Метабиотики', value: 'metobiotiki' },
         { label: 'Плазмалогены', value: 'plazmalogeny' },
-        { label: 'Омега 3', value: 'omega-3' },
       ]
     },
     {
@@ -76,7 +75,7 @@ export default defineEventHandler(() => {
     //   options: [
     //     { label: 'Для детей и мам', value: 'dlya-detej-i-mam' },
     //     { label: 'Для активного долголетия', value: 'dlya-aktivnogo-dolgoletiya' },
-    //     { label: 'Для повышение продуктивноти', value: 'dlya-produkтивnosti' },
+    //     { label: 'Для повышения продуктивности', value: 'dlya-produktivnosti' },
     //     { label: 'Для животных', value: 'dlya-zhivotnyh' },
     //   ],
     // },

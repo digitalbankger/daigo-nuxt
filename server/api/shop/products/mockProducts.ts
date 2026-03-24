@@ -53,7 +53,7 @@ export const mockProducts = [
           <p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий).</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -169,7 +169,7 @@ export const mockProducts = [
           <p>Очищенный рыбий жир, омега-3 жирные кислоты (эйкозапентаеновая кислота, докозагексаеновой кислота), витамин А, витамин D, эмульгатор -глицерин растительный. Оболочка капсулы - желатин (из рыбьего жира).</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -329,7 +329,7 @@ export const mockProducts = [
           </div>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -441,7 +441,7 @@ export const mockProducts = [
           <p>Карбонат кальция, вода, глицерин, соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         <p class="font-medium">Daigo</p>
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
-Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
+Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
         image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
       },
@@ -571,7 +571,7 @@ L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэт�
         content: `
           <p class="font-medium">Daigo Lux</p>
           <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: 
-L. curtavus (BSC 001), L. curtavus (BSC 002), L. casel (BSC 003), L. casel (BSC 004),
+L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004),
 L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), 
 L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), 
 L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); 
@@ -589,7 +589,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               {
                 title: 'Взрослым',
                 steps: [
-                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитру в сутки' },
+                  { icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
                   { icon: '/icons/bottle.svg', text: 'Развести в чистой воде' },
                 ]
               },
@@ -671,7 +671,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       productionSection: {
         type: 'production',
         title: 'Производство революционных продуктов бренда Daigo',
-        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответсувет стандартам GPM',
+        subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
         topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',

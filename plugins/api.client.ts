@@ -53,7 +53,7 @@ export default defineNuxtPlugin(() => {
 
       // не делаем рефреш для эндпоинта рефреша/авторизации
       const url = String(request)
-      if (url.includes('/v1/auth/refresh') || url.includes('/v1/auth/send-code') || url.includes('/v1/auth/verify-code')) {
+      if (url.includes('/v1/auth/refresh') || url.includes('/v1/auth/send-code') || url.includes('/v1/auth/send-fc') || url.includes('/v1/auth/verify-code')) {
         return
       }
 

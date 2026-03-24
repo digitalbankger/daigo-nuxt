@@ -54,7 +54,7 @@ export const useAuthStore = defineStore('auth', () => {
   // resend-блокировка (отсчёт 30 секунд)
   const resendLeft = ref(0) // сек до повторной отправки, 0 — можно отправлять
   const resendCount = ref(0) // сколько раз пользователь нажимал «отправить код повторно»
-  const lastSendMethod = ref<'sms' | 'call'>('call')
+  const lastSendMethod = ref<'sms' | 'call'>('sms')
 
   log('[auth:init]', 'token=', mask(token.value), 'refresh=', mask(refreshToken.value), 'uid=', userId.value)
 
@@ -81,8 +81,8 @@ export const useAuthStore = defineStore('auth', () => {
 
     resendCount.value = 0
 
-    await sendAuthFc(phone_number)
-    lastSendMethod.value = 'call'
+    await sendAuthCode(phone_number)
+    lastSendMethod.value = 'sms'
     isCodeSent.value = true
     startResendTimer(30) // блокируем повторную отправку на 30 секунд
   }
@@ -90,9 +90,9 @@ export const useAuthStore = defineStore('auth', () => {
   async function resendCode() {
     if (!pendingPhone.value || resendLeft.value > 0) return
 
-    // 1-я отправка — звонок (requestCode), повторная отправка — SMS (fallback)
-    await sendAuthCode(pendingPhone.value)
-    lastSendMethod.value = 'sms'
+    // 1-я отправка — SMS (requestCode), повторная отправка — звонок (fallback)
+    await sendAuthFc(pendingPhone.value)
+    lastSendMethod.value = 'call'
 
     resendCount.value += 1
     startResendTimer(30)
@@ -128,7 +128,7 @@ export const useAuthStore = defineStore('auth', () => {
     isCodeSent.value     = false
     resendLeft.value     = 0
     resendCount.value    = 0
-    lastSendMethod.value = 'call'
+    lastSendMethod.value = 'sms'
 
     closeAuth()
     const target = redirectTo ?? redirectAfterAuth.value
@@ -155,7 +155,7 @@ export const useAuthStore = defineStore('auth', () => {
     isCodeSent.value     = false
     resendLeft.value     = 0
     resendCount.value    = 0
-    lastSendMethod.value = 'call'
+    lastSendMethod.value = 'sms'
 
     closeAuth()
 
@@ -233,10 +233,10 @@ export const useAuthStore = defineStore('auth', () => {
 
 
   const deliveryHint = computed(() => {
-    if (lastSendMethod.value === 'sms') {
-      return 'Мы отправили СМС с кодом на указанный номер.'
+    if (lastSendMethod.value === 'call') {
+      return 'Сейчас поступит звонок. Введите последние 4 цифры входящего номера.'
     }
-    return 'Сейчас поступит звонок. Введите последние 4 цифры входящего номера.'
+    return 'Мы отправили СМС с кодом на указанный номер.'
   })
 
   watch([token, refreshToken, userId], () => {

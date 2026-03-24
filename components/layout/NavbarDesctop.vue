@@ -17,17 +17,23 @@
           </p>
         </NuxtLink>
 
-        <NuxtLink
-          to="/catalog"
-          class="hidden w-44 lg:inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-primary/80"
+        <div
+          class="hidden lg:block"
+          @mouseenter="openCatalogPopup"
+          @mouseleave="scheduleCatalogClose"
         >
-          <img
-            src="/icons/catalog.svg"
-            alt="→"
-            class="w-5 h-5 transition-transform duration-300 transform group-hover:rotate-90"
-          />
-          Каталог
-        </NuxtLink>
+          <NuxtLink
+            to="/catalog"
+            class="w-44 inline-flex justify-center items-center bg-primary text-white rounded-lg gap-2 py-3 px-6 text-xl font-normal transition duration-300 group hover:bg-primary/80"
+          >
+            <img
+              src="/icons/catalog.svg"
+              alt="→"
+              class="w-5 h-5 transition-transform duration-300 transform group-hover:rotate-90"
+            />
+            Каталог
+          </NuxtLink>
+        </div>
       </div>
 
       <!-- <div class="hidden lg:block me-auto w-[40%]">
@@ -161,6 +167,9 @@
             <NuxtLink to="/otzyvy">Отзывы</NuxtLink>
           </li>
           <li class="transition duration-300 hover:text-primary">
+            <NuxtLink to="/faq">Частые вопросы</NuxtLink>
+          </li>
+          <li class="transition duration-300 hover:text-primary">
             <NuxtLink to="/contacts">Контакты</NuxtLink>
           </li>
 
@@ -192,7 +201,6 @@
       </div>
     </div>
 
-    <!-- Маленький попап «Партнёрам» -->
     <div
       v-if="isPartnersPopupOpen"
       class="absolute right-0 sm:right-80 top-full-2 mt-2 z-50 bg-white border border-gray-200 rounded-lg shadow-lg text-base"
@@ -220,11 +228,20 @@
         </li>
       </ul>
     </div>
+    
+    <!-- <Transition name="catalog-popup">
+      <CatalogHoverMenu
+        v-if="isCatalogPopupOpen"
+        @mouseenter="cancelCatalogClose"
+        @mouseleave="scheduleCatalogClose"
+        @close="closeCatalogPopup"
+      />
+    </Transition> -->
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 import { navigateTo } from '#imports'
 import { storeToRefs } from 'pinia'
 //import SearchBar from '~/components/ui/SearchInput.vue'
@@ -233,6 +250,7 @@ import StickyHeader from '@/components/layout/StickyHeader.vue'
 import { useAuthStore } from '@/stores/authStore'
 import HeadInformer from '@/components/layout/HeadInformer.vue'
 import { useUiStore } from '@/stores/ui'
+import CatalogHoverMenu from '@/components/layout/CatalogHoverMenu.vue'
 
 const ui = useUiStore()
 const auth = useAuthStore()
@@ -246,6 +264,35 @@ const goProfile = () => {
   }
 }
 
+const isCatalogPopupOpen = ref(false)
+let catalogCloseTimer: ReturnType<typeof setTimeout> | null = null
+
+const openCatalogPopup = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  isCatalogPopupOpen.value = true
+  closePartnersPopup()
+}
+
+const cancelCatalogClose = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+}
+
+const scheduleCatalogClose = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  catalogCloseTimer = setTimeout(() => {
+    isCatalogPopupOpen.value = false
+  }, 180)
+}
+
+const closeCatalogPopup = () => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  isCatalogPopupOpen.value = false
+}
+
+onBeforeUnmount(() => {
+  if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+})
+
 const ORDERS_PATH = '/orders'
 
 const goOrders = () => {
@@ -256,12 +303,38 @@ const goOrders = () => {
   }
 }
 
-// Попап «Партнёрам»
 const isPartnersPopupOpen = ref(false)
 const togglePartnersPopup = () => {
+  closeCatalogPopup()
   isPartnersPopupOpen.value = !isPartnersPopupOpen.value
 }
+
 const closePartnersPopup = () => {
   isPartnersPopupOpen.value = false
 }
 </script>
+
+
+<style scoped>
+.catalog-popup-enter-active,
+.catalog-popup-leave-active {
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    filter 0.22s ease;
+}
+
+.catalog-popup-enter-from,
+.catalog-popup-leave-to {
+  opacity: 0;
+  transform: translateY(10px) scale(0.985);
+  filter: blur(4px);
+}
+
+.catalog-popup-enter-to,
+.catalog-popup-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+</style>

@@ -179,13 +179,13 @@ async function resend() {
       />
 
       <Button :variant="'solid'" class="w-full" :disabled="!canSubmitPhone || isLoading" @click="submitPhone">
-        <span v-if="!isLoading">{{ mode === 'login' ? 'Получить код звонком' : 'Зарегистрироваться и получить код звонком' }}</span>
+        <span v-if="!isLoading">{{ mode === 'login' ? 'Получить код по СМС' : 'Зарегистрироваться и получить код по СМС' }}</span>
         <span v-else class="inline-flex items-center gap-2">
           <svg class="animate-spin h-5 w-5" viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="4" opacity=".25"/>
             <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" stroke-width="4" fill="none"/>
           </svg>
-          Запрашиваем звонок…
+          Отправляем СМС…
         </span>
       </Button>
 
@@ -259,7 +259,7 @@ async function resend() {
             :disabled="auth.resendLeft > 0"
             @click="resend"
           >
-            Получить код по СМС<span v-if="auth.resendLeft > 0"> ({{ auth.resendLeft }})</span>
+            Получить код звонком<span v-if="auth.resendLeft > 0"> ({{ auth.resendLeft }})</span>
           </button>
         </div>
       </div>
