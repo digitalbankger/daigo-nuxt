@@ -229,14 +229,14 @@
       </ul>
     </div>
     
-    <!-- <Transition name="catalog-popup">
+    <Transition name="catalog-popup">
       <CatalogHoverMenu
         v-if="isCatalogPopupOpen"
         @mouseenter="cancelCatalogClose"
         @mouseleave="scheduleCatalogClose"
         @close="closeCatalogPopup"
       />
-    </Transition> -->
+    </Transition>
   </nav>
 </template>
 

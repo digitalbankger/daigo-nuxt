@@ -1,19 +1,16 @@
-<!-- <template>
+<template>
   <div class="catalog-hover-menu text-white">
     <div class="catalog-hover-menu__top">
       <div class="catalog-hover-menu__tabs">
         <button class="catalog-hover-menu__tab catalog-hover-menu__tab--active" type="button">
-          Shop
+          Каталог
         </button>
         <NuxtLink to="/researches" class="catalog-hover-menu__tab">
-          Science
+          Исследования
         </NuxtLink>
         <NuxtLink to="/articles" class="catalog-hover-menu__tab">
-          Learn
+          Статьи
         </NuxtLink>
-        <button class="catalog-hover-menu__tab" type="button">
-          Sign in
-        </button>
       </div>
 
       <button
@@ -105,7 +102,7 @@ defineEmits<{
 }>()
 
 type CatalogItem = {
-  id: string
+  product_id: string
   code: string
   title: string
   badge?: string
@@ -116,24 +113,32 @@ type CatalogItem = {
 
 const items = ref<CatalogItem[]>([
   {
-    id: 'daigo',
-    code: 'DG-01',
-    title: 'Метабиотик Daigo',
-    image: '/images/catalog-hover/daigo.webp',
+    product_id: 'daigo',
+    code: 'Метабиотик',
+    title: 'Метабиотик Daigo 5мл',
+    image: 'https://products.s3.firstvds.ru/daigo-5/product-1.png',
     href: '/catalog/metabiotik-daigo',
     description: 'Поддержка микробиома, пищеварения и общего баланса организма.'
   },
   {
-    id: 'daigo-lux',
-    code: 'DG-02',
+    product_id: 'daigo',
+    code: 'Метабиотик',
+    title: 'Метабиотик Daigo 10мл',
+    image: 'https://products.s3.firstvds.ru/daigo-10/product-1.png',
+    href: '/catalog/metabiotik-daigo',
+    description: 'Поддержка микробиома, пищеварения и общего баланса организма.'
+  },
+  {
+    product_id: 'daigo-lux',
+    code: 'Метабиотик',
     title: 'Метабиотик Daigo Lux',
     badge: 'Хит',
-    image: '/images/catalog-hover/daigo-lux.webp',
-    href: '/catalog/metabiotik-daigo-lux',
+    image: 'https://s3.firstvds.ru/products/lux/lux-effect.jpg',
+    href: '/catalog/lux-daigo-metabiotik',
     description: 'Усиленная формула для курсового приема и комплексной поддержки.'
   },
   {
-    id: 'tamotsu',
+    product_id: 'tamotsu',
     code: 'TM-01',
     title: 'Tamotsu',
     image: '/images/catalog-hover/tamotsu.webp',
@@ -141,7 +146,7 @@ const items = ref<CatalogItem[]>([
     description: 'Поддержка энергии, клеточного обмена и возрастного ресурса.'
   },
   {
-    id: 'jointic',
+    product_id: 'jointic',
     code: 'JT-01',
     title: 'Daigo Jointic',
     image: '/images/catalog-hover/jointic.webp',
@@ -149,7 +154,7 @@ const items = ref<CatalogItem[]>([
     description: 'Поддержка суставов, связок и подвижности.'
   },
   {
-    id: 'brainy',
+    product_id: 'brainy',
     code: 'BR-01',
     title: 'Daigo Brainy',
     image: '/images/catalog-hover/brainy.webp',
@@ -157,7 +162,7 @@ const items = ref<CatalogItem[]>([
     description: 'Поддержка концентрации, памяти и когнитивной активности.'
   },
   {
-    id: 'dermic',
+    product_id: 'dermic',
     code: 'DR-01',
     title: 'Daigo Dermic',
     image: '/images/catalog-hover/dermic.webp',
@@ -213,7 +218,7 @@ const activeItem = computed(() => {
 .catalog-hover-menu__tab {
   height: 40px;
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -234,7 +239,7 @@ const activeItem = computed(() => {
 .catalog-hover-menu__close {
   width: 40px;
   height: 40px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.08);
   color: white;
   border: 0;
@@ -281,13 +286,14 @@ const activeItem = computed(() => {
   gap: 16px;
   align-items: center;
   padding: 12px;
-  border-radius: 24px;
+  border-radius: 14px;
   text-align: left;
   border: 0;
   background: transparent;
   color: white;
   cursor: pointer;
   transition: 0.2s ease;
+  margin-bottom: 15px;
 }
 
 .catalog-hover-menu__item:hover,
@@ -298,7 +304,7 @@ const activeItem = computed(() => {
 .catalog-hover-menu__thumb {
   width: 96px;
   height: 96px;
-  border-radius: 20px;
+  border-radius: 14px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.08);
 }
@@ -330,18 +336,18 @@ const activeItem = computed(() => {
   align-items: center;
   height: 28px;
   padding: 0 12px;
-  border-radius: 999px;
+  border-radius: 14px;
   background: #b7e36e;
   color: #2f4025;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .catalog-hover-menu__title {
-  margin-top: 8px;
-  font-size: 20px;
+  margin-top: 6px;
+  font-size: 18px;
   line-height: 1.2;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .catalog-hover-menu__preview {
@@ -350,7 +356,7 @@ const activeItem = computed(() => {
 
 .catalog-hover-menu__preview-card {
   height: 100%;
-  border-radius: 24px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
   display: grid;
@@ -400,7 +406,7 @@ const activeItem = computed(() => {
 .catalog-hover-menu__btn {
   min-height: 44px;
   padding: 0 18px;
-  border-radius: 999px;
+  border-radius: 14px;
   display: inline-flex;
   align-items: center;
   text-decoration: none;
@@ -438,7 +444,9 @@ const activeItem = computed(() => {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-
+.catalog-hover-menu__preview-card {
+  grid-template-rows: 330px 1fr;
+}
 @media (max-width: 1279px) {
   .catalog-hover-menu {
     width: min(calc(100vw - 32px), 760px);
@@ -449,7 +457,7 @@ const activeItem = computed(() => {
   }
 
   .catalog-hover-menu__preview-card {
-    grid-template-rows: 220px 1fr;
+    grid-template-rows: 330px 1fr;
   }
 }
-</style> -->
+</style>
