@@ -104,7 +104,7 @@
             </div>
       </div>
     </nav>
-      <Transition name="catalog-popup">
+      <!-- <Transition name="catalog-popup">
         <CatalogHoverMenu
           v-if="isCatalogPopupOpen"
           @mouseenter="cancelCatalogClose"
@@ -112,7 +112,7 @@
           @close="closeCatalogPopup"
           class="mt-3"
         />
-      </Transition>
+      </Transition> -->
 
     </div>
   </div>
