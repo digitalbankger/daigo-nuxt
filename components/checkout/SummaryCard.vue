@@ -463,7 +463,6 @@ async function removeCoupon() {
       
     </div>
 
-    <!-- Детали заказа -->
     <div class="space-y-3 md:space-y-4 text-sm md:text-base">
       <h3 class="text-2xl md:text-cardhead font-medium mb-6 md:mb-8 mt-4">Детали заказа</h3>
 
@@ -487,7 +486,6 @@ async function removeCoupon() {
         </span>
       </div>
 
-      <!-- 🆕 детализация скидок -->
       <div
         v-if="vipDiscountAmount > 0"
         class="flex justify-between font-medium text-cgreen"
@@ -537,8 +535,7 @@ async function removeCoupon() {
       </div>
     </div>
 
-    <!-- 🆕 списание бонусов (только на оформлении заказа) -->
-    <div v-if="props.mode === 'checkout'" class="space-y-3">
+    <!-- <div v-if="props.mode === 'checkout'" class="space-y-3">
       <div class="flex justify-between text-sm md:text-base">
         <span class="text-black/70">Бонусы доступны для списания</span>
         <span class="font-medium">{{ maxBonusesAvailable }}</span>
@@ -573,9 +570,8 @@ async function removeCoupon() {
           Можно списать до {{ maxBonusesAvailable }} бонусов.
         </template>
       </div>
-    </div>
+    </div> -->
 
-    <!-- Промокод — только в корзине -->
     <div v-if="props.mode === 'checkout'" class="flex flex-row gap-2 md:gap-3 items-start">
       <UiInput
         v-model="coupon"
@@ -623,7 +619,6 @@ async function removeCoupon() {
 
     <PaymentWarning v-if="props.mode === 'checkout'"/>
 
-    <!-- Кнопка в режиме checkout -->
     <div v-if="props.mode === 'checkout'" class="pt-2">
       <Button variant="solid" class="w-full bg-black text-white py-3 rounded-lg transition" @click="handleCta">
         Оформить заказ
@@ -633,6 +628,5 @@ async function removeCoupon() {
 </template>
 
 <style scoped>
-/* страховочный сброс аутлайна для некоторых браузеров */
 input:focus { outline: none !important; box-shadow: none !important; }
 </style>
