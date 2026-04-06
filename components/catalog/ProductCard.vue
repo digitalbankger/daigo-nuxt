@@ -8,47 +8,64 @@
       @keydown.enter.space="onOpen(navigate)"
       aria-label="Открыть страницу товара"
     >
-      <!-- изображение -->
       <div class="w-full overflow-hidden mb-2 md:mb-4 rounded-xl">
         <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
-          <Swiper
-            class="product-card-swiper h-full"
-            :slides-per-view="1"
-            :space-between="0"
-            :allow-touch-move="galleryImages.length > 1"
-            :simulate-touch="galleryImages.length > 1"
-            :grab-cursor="galleryImages.length > 1"
-            :resistance-ratio="0.85"
-            :threshold="6"
-            :prevent-clicks="true"
-            :prevent-clicks-propagation="true"
-            @swiper="onSwiper"
-            @slideChange="onSlideChange"
-          >
-            <SwiperSlide
-              v-for="(image, imageIndex) in galleryImages"
-              :key="`${product.product_id}-${imageIndex}`"
-              class="h-full"
+          <template v-if="hasGallery">
+            <Swiper
+              class="product-card-swiper h-full"
+              :slides-per-view="1"
+              :space-between="0"
+              :allow-touch-move="true"
+              :simulate-touch="true"
+              :grab-cursor="true"
+              :resistance-ratio="0.85"
+              :threshold="6"
+              :prevent-clicks="true"
+              :prevent-clicks-propagation="true"
+              @swiper="onSwiper"
+              @slideChange="onSlideChange"
             >
-              <div class="w-full h-full flex items-center justify-center select-none">
-                <img
-                  :src="image"
-                  :alt="`${product.name} ${imageIndex + 1}`"
-                  :size="500"
-                  :width="500"
-                  :height="500"
-                  class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
-                  loading="lazy"
-                  decoding="async"
-                  draggable="false"
-                />
-              </div>
-            </SwiperSlide>
-          </Swiper>
+              <SwiperSlide
+                v-for="(image, imageIndex) in galleryImages"
+                :key="`${product.product_id}-${imageIndex}`"
+                class="h-full"
+              >
+                <div class="w-full h-full flex items-center justify-center select-none">
+                  <img
+                    :src="image"
+                    :alt="`${product.name} ${imageIndex + 1}`"
+                    :width="500"
+                    :height="500"
+                    class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                    :loading="priority ? 'eager' : 'lazy'"
+                    decoding="async"
+                    :fetchpriority="priority ? 'high' : 'auto'"
+                    draggable="false"
+                  />
+                </div>
+              </SwiperSlide>
+            </Swiper>
+          </template>
+
+          <template v-else>
+            <div class="w-full h-full flex items-center justify-center select-none">
+              <img
+                :src="galleryImages[0] || product.image"
+                :alt="product.name"
+                :width="500"
+                :height="500"
+                class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                :loading="priority ? 'eager' : 'lazy'"
+                decoding="async"
+                :fetchpriority="priority ? 'high' : 'auto'"
+                draggable="false"
+              />
+            </div>
+          </template>
         </div>
 
         <div
-          v-if="galleryImages.length > 1"
+          v-if="hasGallery"
           class="flex items-center justify-center gap-1.5 mt-2 px-2 sm:px-4"
           @click.stop
         >
@@ -64,7 +81,6 @@
         </div>
       </div>
 
-      <!-- контент -->
       <div class="p-2 md:p-4 flex flex-col flex-1">
         <h3
           class="font-normal md:font-medium leading-tight mb-0.5 sm:mb-2 text-sm sm:text-base
@@ -78,9 +94,7 @@
           {{ product.subtitle }}
         </p>
 
-        <!-- низ -->
         <div class="mt-auto flex flex-col items-start gap-4">
-
           <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
             <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.4vw,0.98rem)] font-light">
               {{ product.originalPrice.toLocaleString() }} ₽
@@ -89,9 +103,6 @@
               {{ product.price.toLocaleString() }} ₽
             </span>
           </div>
-
-          <!-- кнопка -->
-
 
           <div v-if="isPreorder" class="w-full flex flex-col gap-2">
             <a
@@ -131,7 +142,6 @@
             </span>
           </button>
 
-          <!-- плюс/минус -->
           <div
             v-else
             class="flex items-center gap-2 bg-primary px-2 rounded-lg w-full justify-between h-11 md:h-12"
@@ -176,16 +186,15 @@ const route = useRoute()
 const ytm = useYtm()
 const analytics = useAnalytics()
 
-const { product, index, globalIndex, isLast } = defineProps<{
+const { product, index, globalIndex, priority } = defineProps<{
   product: ProductCard
   index?: number
   globalIndex?: number
-  isLast?: boolean
+  priority?: boolean
 }>()
 
 const cartStore = useCartStore()
 
-/** список предзаказных ID */
 const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
@@ -203,11 +212,12 @@ const galleryImages = computed(() => {
     })
 })
 
+const hasGallery = computed(() => galleryImages.value.length > 1)
 const currentSlide = ref(0)
 const swiperRef = ref<SwiperClass | null>(null)
 
 watch(galleryImages, (images) => {
-  if (!images.length) {
+  if (!images.length || !hasGallery.value) {
     currentSlide.value = 0
     swiperRef.value?.slideTo(0, 0)
     return
@@ -248,7 +258,6 @@ function addToCartHandler() {
     quantity: 1,
     image: product.image,
     tag: product.tag,
-    // meta: { preorder: isPreorder.value } // если нужно
   })
 }
 
@@ -263,10 +272,8 @@ function onOpen(navigate: () => void) {
     image_url: product.image
   }
 
-  // в list_id передаём текущий путь, в list_name — название списка
   ytm.productClick(productObj, route.path, 'Каталог')
 
-  // ✅ Я.Метрика Enhanced Ecommerce (шаг 3 воронки: клик по товару)
   analytics.selectItem(
     'Каталог',
     {
@@ -290,12 +297,6 @@ function incrementHandler() {
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
-
-const hideBonusBadge = computed(() => {
-  const name = (product.name || '').toLowerCase()
-  return name.includes('сертификат')
-})
-
 </script>
 
 <style scoped>

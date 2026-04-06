@@ -24,7 +24,11 @@
     </div>
 
     <div class="catalog-hover-menu__body">
-      <div class="catalog-hover-menu__list">
+      <div
+        class="catalog-hover-menu__list"
+        @wheel.stop
+        @touchmove.stop
+      >
         <button
           v-for="item in items"
           :key="item.id"
@@ -40,13 +44,13 @@
 
           <div class="catalog-hover-menu__meta">
             <div class="catalog-hover-menu__code-row">
-              <span class="catalog-hover-menu__code">{{ item.code }}</span>
+              <span class="catalog-hover-menu__code font-mont">{{ item.code }}</span>
               <span v-if="item.badge" class="catalog-hover-menu__badge">
                 {{ item.badge }}
               </span>
             </div>
 
-            <div class="catalog-hover-menu__title">
+            <div class="catalog-hover-menu__title font-mont">
               {{ item.title }}
             </div>
           </div>
@@ -60,15 +64,11 @@
           </div>
 
           <div class="catalog-hover-menu__preview-content">
-            <p class="catalog-hover-menu__preview-code">
-              {{ activeItem.code }}
-            </p>
-
-            <h3 class="catalog-hover-menu__preview-title">
+            <h3 class="catalog-hover-menu__preview-title font-mont">
               {{ activeItem.title }}
             </h3>
 
-            <p class="catalog-hover-menu__preview-text">
+            <p class="catalog-hover-menu__preview-text font-mont">
               {{ activeItem.description }}
             </p>
 
@@ -77,9 +77,9 @@
                 Открыть товар
               </NuxtLink>
 
-              <NuxtLink to="/catalog" class="catalog-hover-menu__btn catalog-hover-menu__btn--ghost">
+              <!-- <NuxtLink to="/catalog" class="catalog-hover-menu__btn catalog-hover-menu__btn--ghost">
                 Весь каталог
-              </NuxtLink>
+              </NuxtLink> -->
             </div>
           </div>
         </div>
@@ -96,85 +96,18 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
+import { catalogMenuProducts } from '~/constants/catalogMenu'
 
 defineEmits<{
   (e: 'close'): void
 }>()
 
-type CatalogItem = {
-  product_id: string
-  code: string
-  title: string
-  badge?: string
-  image: string
-  href: string
-  description: string
-}
+const items = catalogMenuProducts
 
-const items = ref<CatalogItem[]>([
-  {
-    product_id: 'daigo',
-    code: 'Метабиотик',
-    title: 'Метабиотик Daigo 5мл',
-    image: 'https://products.s3.firstvds.ru/daigo-5/product-1.png',
-    href: '/catalog/metabiotik-daigo',
-    description: 'Поддержка микробиома, пищеварения и общего баланса организма.'
-  },
-  {
-    product_id: 'daigo',
-    code: 'Метабиотик',
-    title: 'Метабиотик Daigo 10мл',
-    image: 'https://products.s3.firstvds.ru/daigo-10/product-1.png',
-    href: '/catalog/metabiotik-daigo',
-    description: 'Поддержка микробиома, пищеварения и общего баланса организма.'
-  },
-  {
-    product_id: 'daigo-lux',
-    code: 'Метабиотик',
-    title: 'Метабиотик Daigo Lux',
-    badge: 'Хит',
-    image: 'https://s3.firstvds.ru/products/lux/lux-effect.jpg',
-    href: '/catalog/lux-daigo-metabiotik',
-    description: 'Усиленная формула для курсового приема и комплексной поддержки.'
-  },
-  {
-    product_id: 'tamotsu',
-    code: 'TM-01',
-    title: 'Tamotsu',
-    image: '/images/catalog-hover/tamotsu.webp',
-    href: '/catalog/tamotsu',
-    description: 'Поддержка энергии, клеточного обмена и возрастного ресурса.'
-  },
-  {
-    product_id: 'jointic',
-    code: 'JT-01',
-    title: 'Daigo Jointic',
-    image: '/images/catalog-hover/jointic.webp',
-    href: '/catalog/daigo-jointic',
-    description: 'Поддержка суставов, связок и подвижности.'
-  },
-  {
-    product_id: 'brainy',
-    code: 'BR-01',
-    title: 'Daigo Brainy',
-    image: '/images/catalog-hover/brainy.webp',
-    href: '/catalog/daigo-brainy',
-    description: 'Поддержка концентрации, памяти и когнитивной активности.'
-  },
-  {
-    product_id: 'dermic',
-    code: 'DR-01',
-    title: 'Daigo Dermic',
-    image: '/images/catalog-hover/dermic.webp',
-    href: '/catalog/daigo-dermic',
-    description: 'Поддержка кожи, волос и общего внешнего тонуса.'
-  }
-])
-
-const activeId = ref(items.value[0]?.id ?? '')
+const activeId = ref(items[0]?.id ?? '')
 
 const activeItem = computed(() => {
-  return items.value.find((item) => item.id === activeId.value) ?? items.value[0]
+  return items.find((item) => item.id === activeId.value) ?? items[0]
 })
 </script>
 
@@ -184,13 +117,13 @@ const activeItem = computed(() => {
   left: 0;
   top: calc(54% + 16px);
   z-index: 100;
-  width: min(calc(100vw - 32px), 860px);
+  width: min(calc(100vw - 32px), 720px);
   max-height: calc(100vh - 9rem);
   display: flex;
   flex-direction: column;
   padding: 16px;
   border-radius: 28px;
-  background: #4d525a6b;
+  background: #4d525a8a;
   backdrop-filter: blur(38px);
   -webkit-backdrop-filter: blur(38px);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -198,6 +131,9 @@ const activeItem = computed(() => {
   overflow: hidden;
   transform-origin: top left;
   will-change: opacity, transform, filter;
+
+  /* важно */
+  overscroll-behavior: contain;
 }
 
 .catalog-hover-menu__top {
@@ -206,6 +142,7 @@ const activeItem = computed(() => {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 12px;
+  flex-shrink: 0;
 }
 
 .catalog-hover-menu__tabs {
@@ -257,12 +194,19 @@ const activeItem = computed(() => {
   gap: 16px;
   min-height: 0;
   flex: 1;
+  overflow: hidden; /* важно */
 }
 
 .catalog-hover-menu__list {
   min-height: 0;
+  height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
   padding-right: 6px;
+
+  /* важно */
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .catalog-hover-menu__list::-webkit-scrollbar {
@@ -327,7 +271,8 @@ const activeItem = computed(() => {
 }
 
 .catalog-hover-menu__code {
-  font-size: 14px;
+  font-size: 13px;
+  font-weight: 400;
   color: rgba(255, 255, 255, 0.68);
 }
 
@@ -337,15 +282,15 @@ const activeItem = computed(() => {
   height: 28px;
   padding: 0 12px;
   border-radius: 14px;
-  background: #b7e36e;
+  background: #9aff9f;
   color: #2f4025;
   font-size: 14px;
   font-weight: 500;
 }
 
 .catalog-hover-menu__title {
-  margin-top: 6px;
-  font-size: 18px;
+  margin-top: 4px;
+  font-size: 16px;
   line-height: 1.2;
   font-weight: 500;
 }
@@ -356,15 +301,11 @@ const activeItem = computed(() => {
 
 .catalog-hover-menu__preview-card {
   height: 100%;
-  border-radius: 14px;
+  border-radius: 20px;
   background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
   display: grid;
-  grid-template-rows: 260px 1fr;
-}
-
-.catalog-hover-menu__preview-image {
-  background: rgba(255, 255, 255, 0.08);
+  grid-template-rows: 330px 1fr;
 }
 
 .catalog-hover-menu__preview-image img {
@@ -377,21 +318,16 @@ const activeItem = computed(() => {
   padding: 20px;
 }
 
-.catalog-hover-menu__preview-code {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.68);
-}
-
 .catalog-hover-menu__preview-title {
   margin-top: 8px;
-  font-size: 30px;
+  font-size: 24px;
   line-height: 1.1;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .catalog-hover-menu__preview-text {
   margin-top: 12px;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.85);
 }
@@ -411,9 +347,11 @@ const activeItem = computed(() => {
   align-items: center;
   text-decoration: none;
   transition: 0.2s ease;
+  justify-content: center;
 }
 
 .catalog-hover-menu__btn--solid {
+  width: 100%;
   background: white;
   color: #2c322a;
 }
@@ -435,6 +373,7 @@ const activeItem = computed(() => {
   display: flex;
   justify-content: flex-end;
   margin-top: 12px;
+  flex-shrink: 0;
 }
 
 .catalog-hover-menu__all {
@@ -444,12 +383,10 @@ const activeItem = computed(() => {
   text-decoration: underline;
   text-underline-offset: 4px;
 }
-.catalog-hover-menu__preview-card {
-  grid-template-rows: 330px 1fr;
-}
+
 @media (max-width: 1279px) {
   .catalog-hover-menu {
-    width: min(calc(100vw - 32px), 760px);
+    width: min(calc(100vw - 32px), 660px);
   }
 
   .catalog-hover-menu__body {

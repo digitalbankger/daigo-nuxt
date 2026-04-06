@@ -40,7 +40,7 @@
         <SearchBar />
       </div> -->
 
-      <div class="flex flex-row items-center gap-6 shrink-0 text-xl text-black">
+      <div class="flex flex-row items-center gap-2 sm:gap-6 shrink-0 text-xl text-black">
         <a
           href="tel:88005552043"
           data-ym="header-phone"
@@ -67,6 +67,20 @@
           </svg>
           <span>8 800 555 20 43</span>
         </a>
+
+        <!-- <button
+          type="button"
+          aria-label="Открыть меню"
+          class="lg:hidden inline-flex items-center justify-center text-black transition duration-300"
+          @click="toggleMobileCatalog"
+        >
+          <svg width="24" height="24" viewBox="0 0 118 118" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.6666 24.5833H98.3333" stroke="#141416" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.6666 59H98.3333" stroke="#141416" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19.6666 93.4167H98.3333" stroke="#141416" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+
+        </button> -->
 
         <button
           type="button"
@@ -228,8 +242,28 @@
         </li>
       </ul>
     </div>
+
+    <!-- <Transition name="mobile-catalog-backdrop">
+      <button
+        v-if="isMobileCatalogOpen"
+        type="button"
+        aria-label="Закрыть меню"
+        class="fixed inset-0 z-[40] bg-black/25 lg:hidden"
+        @click="closeMobileCatalog"
+      />
+    </Transition>
+
+    <Transition name="mobile-catalog-panel">
+      <MobileCatalogMenu
+        v-if="isMobileCatalogOpen"
+        class="absolute left-0 right-0 top-[-40px] z-[2147483001] lg:hidden"
+        @close="closeMobileCatalog"
+        @go-profile="goProfile"
+        @go-orders="goOrders"
+      />
+    </Transition>
     
-    <!-- <Transition name="catalog-popup">
+    <Transition name="catalog-popup">
       <CatalogHoverMenu
         v-if="isCatalogPopupOpen"
         @mouseenter="cancelCatalogClose"
@@ -241,20 +275,54 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onBeforeUnmount } from 'vue'
-import { navigateTo } from '#imports'
+import { ref, onBeforeUnmount, watch, defineAsyncComponent } from 'vue'
+import { navigateTo, useRoute } from '#imports'
 import { storeToRefs } from 'pinia'
-//import SearchBar from '~/components/ui/SearchInput.vue'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import StickyHeader from '@/components/layout/StickyHeader.vue'
 import { useAuthStore } from '@/stores/authStore'
 import HeadInformer from '@/components/layout/HeadInformer.vue'
 import { useUiStore } from '@/stores/ui'
-import CatalogHoverMenu from '@/components/layout/CatalogHoverMenu.vue'
+
+const CatalogHoverMenu = defineAsyncComponent(() => import('@/components/layout/CatalogHoverMenu.vue'))
+const MobileCatalogMenu = defineAsyncComponent(() => import('@/components/layout/MobileCatalogMenu.vue'))
 
 const ui = useUiStore()
 const auth = useAuthStore()
 const { isAuthenticated } = storeToRefs(auth)
+
+const route = useRoute()
+const isMobileCatalogOpen = ref(false)
+
+const lockBodyScroll = () => {
+  if (!import.meta.client) return
+  document.documentElement.style.overflow = 'hidden'
+  document.body.style.overflow = 'hidden'
+}
+
+const unlockBodyScroll = () => {
+  if (!import.meta.client) return
+  document.documentElement.style.overflow = ''
+  document.body.style.overflow = ''
+}
+
+const openMobileCatalog = () => {
+  isMobileCatalogOpen.value = true
+  closeCatalogPopup()
+  closePartnersPopup()
+}
+
+const closeMobileCatalog = () => {
+  isMobileCatalogOpen.value = false
+}
+
+const toggleMobileCatalog = () => {
+  if (isMobileCatalogOpen.value) {
+    closeMobileCatalog()
+  } else {
+    openMobileCatalog()
+  }
+}
 
 const goProfile = () => {
   if (isAuthenticated.value) {
@@ -289,8 +357,26 @@ const closeCatalogPopup = () => {
   isCatalogPopupOpen.value = false
 }
 
+watch(isMobileCatalogOpen, (isOpen) => {
+  if (isOpen) {
+    lockBodyScroll()
+  } else {
+    unlockBodyScroll()
+  }
+})
+
+watch(
+  () => route.fullPath,
+  () => {
+    closeMobileCatalog()
+    closeCatalogPopup()
+    closePartnersPopup()
+  }
+)
+
 onBeforeUnmount(() => {
   if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
+  unlockBodyScroll()
 })
 
 const ORDERS_PATH = '/orders'
@@ -333,6 +419,38 @@ const closePartnersPopup = () => {
 
 .catalog-popup-enter-to,
 .catalog-popup-leave-from {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.mobile-catalog-backdrop-enter-active,
+.mobile-catalog-backdrop-leave-active {
+  transition: opacity 0.22s ease;
+}
+
+.mobile-catalog-backdrop-enter-from,
+.mobile-catalog-backdrop-leave-to {
+  opacity: 0;
+}
+
+.mobile-catalog-panel-enter-active,
+.mobile-catalog-panel-leave-active {
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease,
+    filter 0.24s ease;
+}
+
+.mobile-catalog-panel-enter-from,
+.mobile-catalog-panel-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.985);
+  filter: blur(6px);
+}
+
+.mobile-catalog-panel-enter-to,
+.mobile-catalog-panel-leave-from {
   opacity: 1;
   transform: translateY(0) scale(1);
   filter: blur(0);

@@ -119,6 +119,7 @@ export default defineEventHandler(() => {
         { label: 'Наборы', value: 'nabory' }
       ]
     },
+
     // {
     //   label: 'Форма выпуска',
     //   slug: 'forma-vypuska',

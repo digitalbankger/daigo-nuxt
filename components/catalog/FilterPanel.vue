@@ -77,8 +77,16 @@ const route  = useRoute()
 const selected = reactive<Record<string, string[]>>({})
 const opened   = ref<string[]>([])
 
-/** Только слаги реальных групп фильтров (для отбраковки page/empty и пр.) */
 const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
+
+let countsTimer: ReturnType<typeof setTimeout> | null = null
+
+function queueCountsRecalc(delay = 120) {
+  if (countsTimer) clearTimeout(countsTimer)
+  countsTimer = setTimeout(() => {
+    props.store.fetchCounts(cleanedSelected())
+  }, delay)
+}
 
 function toggle(slug: string) {
   opened.value.includes(slug)
@@ -97,10 +105,9 @@ function toggleOption(groupSlug: string, value: string) {
 function clearFilters() {
   for (const key in selected) selected[key] = []
   router.push({ path: route.path, query: { page: '1' } })
-  props.store.fetchCounts({})
+  queueCountsRecalc(0)
 }
 
-/** Очищенная копия selected: только разрешённые ключи и непустые массивы */
 function cleanedSelected(): Record<string, string[]> {
   const clean: Record<string, string[]> = {}
   const allow = allowedSlugs.value
@@ -111,9 +118,12 @@ function cleanedSelected(): Record<string, string[]> {
   return clean
 }
 
-/** Заполняем selected из URL только по разрешённым слагам */
 function hydrateFromRoute() {
   const allow = allowedSlugs.value
+  for (const key of Object.keys(selected)) {
+    if (allow.has(key)) selected[key] = []
+  }
+
   for (const [key, raw] of Object.entries(route.query)) {
     if (!allow.has(key)) continue
     const values =
@@ -122,28 +132,24 @@ function hydrateFromRoute() {
         : Array.isArray(raw)
           ? raw.flatMap(v => typeof v === 'string' ? v.split(',') : []).filter(Boolean)
           : []
-    if (values.length) selected[key] = values
+    selected[key] = values
   }
 }
 
 onMounted(() => {
   hydrateFromRoute()
-  props.store.fetchCounts(cleanedSelected())
+  queueCountsRecalc(900)
 })
 
-/** Если фильтры загрузились позже — повторно инициализируем из URL и пересчитаем */
 watch(() => filters.value, () => {
-  // не затираем уже выбранное — только добавим недостающие из URL
   hydrateFromRoute()
-  props.store.fetchCounts(cleanedSelected())
+  queueCountsRecalc(200)
 }, { deep: true })
 
-// Обновляем количество при выборе фильтров (с очищением ключей)
 watch(selected, () => {
-  props.store.fetchCounts(cleanedSelected())
+  queueCountsRecalc(120)
 }, { deep: true })
 
-// Обновляем URL при изменении выбранных фильтров (только фильтровые ключи)
 watch(selected, () => {
   const query: Record<string, string> = {}
   const allow = allowedSlugs.value
@@ -152,6 +158,19 @@ watch(selected, () => {
     if (arr?.length) query[k] = arr.join(',')
   }
   query.page = '1'
-  router.push({ path: route.path, query })
+
+  const currentQuery = Object.fromEntries(
+    Object.entries(route.query)
+      .filter(([key]) => allow.has(key) || key === 'page')
+      .map(([key, value]) => [key, Array.isArray(value) ? value[0] ?? '' : String(value ?? '')])
+  )
+
+  if (JSON.stringify(currentQuery) !== JSON.stringify(query)) {
+    router.push({ path: route.path, query })
+  }
+}, { deep: true })
+
+watch(() => route.query, () => {
+  hydrateFromRoute()
 }, { deep: true })
 </script>

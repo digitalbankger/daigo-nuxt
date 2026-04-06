@@ -1,28 +1,42 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, watchEffect, computed } from '#imports'
+import { useRoute, useRouter, useHead, watch, computed, ref } from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
+import { useDeviceStore } from '~/stores/deviceStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
-import StaticHeroBanner from '~/components/shared/StaticHeroBanner.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
-const ytm = useYtm()
-//import PromoHero from '~/components/catalog/PromoHero.vue'
-//import PromoLeadModal from '~/components/catalog/PromoLeadModal.vue'
 
+const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
 const catalogStore = useCatalogStore()
+const deviceStore = useDeviceStore()
 const analytics = useAnalytics()
 
 await catalogStore.fetchFilters()
 
 const page = computed(() => Number(route.query.page || 1))
+const normalizedQuery = computed(() => {
+  return Object.fromEntries(
+    Object.entries(route.query)
+      .filter(([key]) => {
+        if (key === 'empty' || key === 'page') return false
+        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
+        if (key.startsWith('utm_')) return false
+        return true
+      })
+      .map(([key, value]) => [
+        key,
+        Array.isArray(value) ? value[0] ?? '' : value ?? ''
+      ])
+  ) as Record<string, string>
+})
 
-const PIVOT = 15 
+const PIVOT = 15
 
 const visibleProducts = computed(() => {
   const products = catalogStore.products.filter(p => (p.price ?? 0) > 0)
@@ -36,77 +50,67 @@ const visibleProducts = computed(() => {
 
     if (aKey !== bKey) return aKey - bKey
 
-    // стабильный порядок внутри одинаковых ключей
-    // сначала по name (если есть), иначе по id
     const aTie = String(a.title ?? a.product_id ?? '')
     const bTie = String(b.title ?? b.product_id ?? '')
     return aTie.localeCompare(bTie, 'ru')
   })
 })
 
-watchEffect(async () => {
-  catalogStore.setPage(page.value)
+const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3))
+const featuredProducts = computed(() => visibleProducts.value.slice(0, featuredCount.value))
+const otherProducts = computed(() => visibleProducts.value.slice(featuredCount.value))
 
-  const normalizedQuery = Object.fromEntries(
-    Object.entries(route.query)
-      .filter(([key]) => {
-        // трекинговые/служебные параметры, которые не являются фильтрами
-        if (key === 'empty' || key === 'page') return false
-        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
-        if (key.startsWith('utm_')) return false
-        return true
-      })
-      .map(([key, value]) => [
-        key,
-        Array.isArray(value) ? value[0] ?? '' : value ?? ''
-      ])
-  ) as Record<string, string>
+watch(
+  [page, normalizedQuery],
+  async () => {
+    catalogStore.setPage(page.value)
+    await catalogStore.fetchProducts(normalizedQuery.value)
 
-  await catalogStore.fetchProducts(normalizedQuery)
+    if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
+      router.replace({ query: { ...route.query, empty: '1' } })
+    }
+  },
+  { immediate: true, deep: true }
+)
 
-  if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
-    router.replace({ query: { ...route.query, empty: '1' } })
-  }
-})
+watch(
+  [visibleProducts, page],
+  () => {
+    const list = visibleProducts.value
+    if (!list.length) return
 
-// Yandex TagManager
-// Yandex TagManager
-watchEffect(() => {
-  const list = visibleProducts.value
-  if (!list?.length) return
+    ytm.viewListing({
+      currency: 'RUB',
+      items: list.map((p, idx) => ({
+        id: p.product_id,
+        name: p.name,
+        price: Number(p.price) || 0,
+        position: idx + 1,
+        category: p.tag ? [p.tag] : undefined,
+        url: `/catalog/${p.slug}`,
+        image_url: p.image
+      })),
+      page_count: catalogStore.totalPages,
+      current_page: page.value
+    })
 
-  ytm.viewListing({
-    currency: 'RUB',
-    items: list.map((p, idx) => ({
-      id: p.product_id,
-      name: p.name,
-      price: Number(p.price) || 0,
-      position: idx + 1,
-      category: p.tag ? [p.tag] : undefined,
-      url: `/catalog/${p.slug}`,
-      image_url: p.image
-    })),
-    page_count: catalogStore.totalPages,
-    current_page: page.value
-  })
-
-  // ✅ Я.Метрика Enhanced Ecommerce (шаг 2 воронки: показ товаров в списке)
-  analytics.viewItemList(
-    'Каталог',
-    list.map((p, idx) => ({
-      id: p.product_id,
-      name: p.name,
-      price: Number(p.price) || 0,
-      position: idx + 1,
-      category: p.tag ? String(p.tag) : undefined,
-      url: `/catalog/${p.slug}`,
-      image_url: p.image,
-      list: 'Каталог'
-    })),
-    route.fullPath
-  )
-})
-// Yandex TagManager end
+    analytics.viewItemList(
+      'Каталог',
+      list.map((p, idx) => ({
+        id: p.product_id,
+        name: p.name,
+        price: Number(p.price) || 0,
+        position: idx + 1,
+        category: p.tag ? String(p.tag) : undefined,
+        url: `/catalog/${p.slug}`,
+        image_url: p.image,
+        list: 'Каталог'
+      })),
+      route.fullPath
+    )
+  },
+  { immediate: true }
+)
 
 useHead(() => {
   const query = route.query
@@ -162,12 +166,6 @@ useHead(() => {
   }
 })
 
-const firstRowMobile = computed(() => visibleProducts.value.slice(0, 2))
-const firstRowDesktop = computed(() => visibleProducts.value.slice(0, 3))
-
-const otherProductsMobile = computed(() => visibleProducts.value.slice(2))
-const otherProductsDesktop = computed(() => visibleProducts.value.slice(3))
-
 const isFilterModalOpen = ref(false)
 
 function openFilters() {
@@ -177,44 +175,16 @@ function openFilters() {
 function closeFilters() {
   isFilterModalOpen.value = false
 }
-
-// function openChat() {
-//   if (typeof window !== 'undefined') {
-//     const cq = (window as any).carrotquest
-//     if (cq && typeof cq.open === 'function') cq.open()
-//     else if (cq && typeof cq.toggle === 'function') cq.toggle()
-//     else console.warn('Carrot quest не найден или не инициализировался')
-//     reach('promo_action')
-//   }
-// }
-
-// function onContact() {
-//   reach('promo_action')
-//   openChat()
-// }
-
-// const isLeadOpen = ref(false)
-
-// function openGiftModal() {
-//   isLeadOpen.value = true
-//   reach('promo_action')
-// }
-
-// function onLeadDone() {
-//   isLeadOpen.value = false
-//   reach('promo_lead_sent')
-// }
 </script>
 
 <template>
   <BaseContainer>
     <section class="relative w-full">
-
       <div class="flex flex-row items-centr justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
 
-      <div class="flex  items-center gap-4 mb-6 relative z-10">
+      <div class="flex items-center gap-4 mb-6 relative z-10">
         <div
           class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
           @click="openFilters"
@@ -269,44 +239,28 @@ function closeFilters() {
         <aside class="hidden lg:block w-full lg:w-1/4">
           <FilterPanel :store="catalogStore" :with-shadow="true" />
         </aside>
-        
-        <div 
-          v-if="visibleProducts.length"
-          class="w-full lg:w-3/4"
-        >
-          <div class="grid grid-cols-2 gap-4 gap-y-6 lg:hidden">
-            <ProductCard
-              v-for="product in firstRowMobile"
-              :key="product.id"
-              :product="product"
-            />
-          </div>
 
-          <div class="hidden lg:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
+        <div v-if="visibleProducts.length" class="w-full lg:w-3/4">
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
-              v-for="product in firstRowDesktop"
-              :key="product.id"
+              v-for="(product, idx) in featuredProducts"
+              :key="String(product.product_id)"
               :product="product"
+              :index="idx"
+              :global-index="idx"
+              :priority="idx < 3"
             />
           </div>
 
           <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
-
-
-          <div class="grid grid-cols-2 gap-4 md:gap-6 gap-y-6 md:gap-y-20 md:hidden">
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
-              v-for="product in otherProductsMobile"
-              :key="product.id"
+              v-for="(product, idx) in otherProducts"
+              :key="String(product.product_id)"
               :product="product"
-            />
-          </div>
-
-          <div class="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
-            <ProductCard
-              v-for="product in otherProductsDesktop"
-              :key="product.id"
-              :product="product"
+              :index="idx + featuredCount"
+              :global-index="idx + featuredCount"
             />
           </div>
 
@@ -317,8 +271,8 @@ function closeFilters() {
               Широкий выбор биологически активных добавок на Daigo.ru
             </h2>
             <p class="mb-20 text-base md:text-lg text-white">
-              Онлайн магазин БАДов «Дайго» - это надёжное место для покупки качественных биологически активных добавок. 
-              <br>Забота о здоровье становится все более актуальной темой. Люди стремятся к жизни полной энергии и бодрости, и правильное питание играет здесь ключевую роль. 
+              Онлайн магазин БАДов «Дайго» - это надёжное место для покупки качественных биологически активных добавок.
+              <br>Забота о здоровье становится все более актуальной темой. Люди стремятся к жизни полной энергии и бодрости, и правильное питание играет здесь ключевую роль.
               <br>Магазин «Дайго» предлагает широкий ассортимент БАДов, которые помогут поддержать организм в тонусе, улучшить общее состояние и повысить иммунитет. <br><br>Один из ключевых принципов магазина «Дайго» - это качество и безопасность продукции. Представленные на сайте товары прошли строгий контроль качества, что позволяет быть уверенными в их эффективности и безопасности для здоровья. Приятным бонусом для наших клиентов является удобная система заказа и доставки. Вы можете оформить покупку в любое время, не выходя из дома, и получить заказ в кратчайшие сроки. Забота о собственном здоровье — это важный шаг на пути к полноценной и счастливой жизни. Поддерживайте организм с помощью качественных биологически активных добавок из магазина «Дайго» и наслаждайтесь активным образом жизни!
             </p>
           </div>
