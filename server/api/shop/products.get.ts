@@ -189,9 +189,83 @@ export default defineEventHandler(async (event) => {
       })
     }
 
+    const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
+    const bodyTotal = Number(
+      raw?.total ??
+      raw?.count ??
+      raw?.meta?.total ??
+      raw?.pagination?.total ??
+      raw?.pagination?.count ??
+      NaN
+    )
+
+    const bodyTotalPages = Number(
+      raw?.total_pages ??
+      raw?.pages ??
+      raw?.last_page ??
+      raw?.meta?.total_pages ??
+      raw?.meta?.last_page ??
+      raw?.pagination?.total_pages ??
+      raw?.pagination?.last_page ??
+      NaN
+    )
+
+    let total = q.podarochnye
+      ? filteredItems.length
+      : Number.isFinite(bodyTotal)
+        ? bodyTotal
+        : Number.isFinite(headerTotal)
+          ? headerTotal
+          : Number.isFinite(bodyTotalPages)
+            ? bodyTotalPages * effectivePageSize
+            : NaN
+
+    const shouldProbeTotal =
+      !q.podarochnye &&
+      page === 1 &&
+      items.length > 0 &&
+      (!Number.isFinite(total) || total <= items.length)
+
+    if (shouldProbeTotal) {
+      const seenIds = new Set(
+        items.map((p: any) => String(p.product_id ?? p.id ?? p.slug ?? ''))
+      )
+
+      for (let probePage = 2; probePage <= 50; probePage++) {
+        const probeParams = new URLSearchParams(params)
+        probeParams.set('page', String(probePage))
+
+        const probeQs = probeParams.toString().replaceAll('%2C', ',')
+        const probeUrl = `${base}/v1/shop/products?${probeQs}`
+
+        const probeRaw: any = await $fetch(probeUrl, { timeout: 8000 }).catch(() => null)
+        const probeItems = Array.isArray(probeRaw?.products) ? probeRaw.products : []
+
+        if (!probeItems.length) break
+
+        let added = 0
+        for (const p of probeItems) {
+          const id = String(p?.product_id ?? p?.id ?? p?.slug ?? '')
+          if (!id) continue
+          if (!seenIds.has(id)) {
+            seenIds.add(id)
+            added++
+          }
+        }
+
+        if (added === 0) break
+      }
+
+      total = seenIds.size
+    }
+
+    if (!Number.isFinite(total)) {
+      total = items.length
+    }
+
     return {
       items: filteredItems,
-      total: filteredItems.length,
+      total,
     }
   } catch (e: any) {
     throw createError({

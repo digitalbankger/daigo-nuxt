@@ -358,9 +358,11 @@ export const useCheckoutStore = defineStore('checkout', () => {
     const em = (state.recipient.email || '').trim()
     const city = (state.address.city || '').trim()
 
-    if (!fn && !ln) {
+    if (!fn) {
       errors.recipient.first_name = 'Укажите имя'
-      errors.recipient.last_name = ''
+    }
+    if (!ln) {
+      errors.recipient.last_name = 'Укажите фамилию'
     }
     if (!ph || ph.length !== 11) errors.recipient.phone_number = 'Укажите телефон (11 цифр)'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'

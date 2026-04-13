@@ -107,8 +107,8 @@ const firstNameError = computed(() => {
 
 const lastNameError = computed(() => {
   const raw = (lastName.value || '').trim()
-  // фамилия может быть необязательной; отображаем только серверную ошибку
   if (!lastNameTouched.value && !raw) return ''
+  if (!raw) return 'Укажите фамилию'
   return store.errors.recipient.last_name || ''
 })
 
