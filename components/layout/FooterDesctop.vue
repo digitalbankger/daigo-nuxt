@@ -7,7 +7,7 @@
           <NuxtLink to="/" class="block mb-2">
             <img src="/logo.svg" alt="Daigo" class="w-32" loading="lazy" />
           </NuxtLink>
-          <p class="text-xs">С 1905 г. заботимся о вашем здоровье</p>
+          <p class="text-xs">С 1914 г. заботимся о вашем здоровье</p>
         </div>
 
         <div class="flex gap-5">
@@ -104,7 +104,7 @@
           <NuxtLink to="/" class="block mb-2">
             <img src="/logo.svg" alt="Daigo" class="w-24" loading="lazy" />
           </NuxtLink>
-          <p class="text-[6px]">С 1905 г. заботимся о вашем здоровье</p>
+          <p class="text-[6px]">С 1914 г. заботимся о вашем здоровье</p>
         </div>
 
         <div class="flex gap-3 md:gap-5 mt-1">
