@@ -50,12 +50,12 @@
           <div
             v-for="(card, idx) in section.cards.slice(5)"
             :key="'bottom-' + idx"
-            class="w-full lg:w-1/2 bg-[#FAFAFA] px-4 py-6 sm:py-6 sm:px-6 pb-8 rounded-2xl sm:rounded-3xl relative flex flex-col gap-4"
+            class="w-full lg:w-1/2 bg-[#FAFAFA] px-4 py-6 sm:py-6 sm:px-6 pb-8 rounded-2xl sm:rounded-3xl relative flex flex-col gap-4 overflow-hidden"
           >
             <h3 class="font-medium text-xl sm:text-cardhead w-full leading-tight sm:w-6/12 lg:w-full">{{ card.title }}</h3>
             <hr class="text-black/15 border my-1 w-9/12 sm:w-7/12 lg:w-9/12" />
-            <p class="text-sm sm:text-base w-10/12 sm:w-8/12 lg:w-10/12">{{ card.text }}</p>
-            <p class="mt-2 text-xs sm:text-sm text-black/70 sm:w-8/12 lg:w-10/12">{{ card.note }}</p>
+            <p class="text-sm sm:text-base w-10/12 sm:w-8/12 lg:w-10/12 whitespace-pre-line">{{ card.text }}</p>
+            <p class="mt-2 text-xs sm:text-sm text-black/70 sm:w-8/12 lg:w-10/12 whitespace-pre-line">{{ card.note }}</p>
             <img
               v-if="card.image"
               :src="card.image"
