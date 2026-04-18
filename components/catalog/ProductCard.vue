@@ -22,6 +22,8 @@
               :threshold="6"
               :prevent-clicks="true"
               :prevent-clicks-propagation="true"
+              :preload-images="false"
+              :update-on-images-ready="false"
               @swiper="onSwiper"
               @slideChange="onSlideChange"
             >
@@ -31,16 +33,22 @@
                 class="h-full"
               >
                 <div class="w-full h-full flex items-center justify-center select-none">
-                  <img
+                  <OptimizedPicture
+                    v-if="isSlideLoaded(imageIndex)"
                     :src="image"
                     :alt="`${product.name} ${imageIndex + 1}`"
-                    :width="500"
-                    :height="500"
-                    class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
-                    :loading="priority ? 'eager' : 'lazy'"
+                    :width="560"
+                    :height="560"
+                    :sizes="pictureSizes"
+                    :loading="imageIndex === 0 && priority ? 'eager' : 'lazy'"
                     decoding="async"
-                    :fetchpriority="priority ? 'high' : 'auto'"
-                    draggable="false"
+                    :fetchpriority="imageIndex === 0 && priority ? 'high' : 'auto'"
+                    img-class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                  />
+                  <div
+                    v-else
+                    class="h-[140px] sm:h-[280px] w-full"
+                    aria-hidden="true"
                   />
                 </div>
               </SwiperSlide>
@@ -49,16 +57,16 @@
 
           <template v-else>
             <div class="w-full h-full flex items-center justify-center select-none">
-              <img
+              <OptimizedPicture
                 :src="galleryImages[0] || product.image"
                 :alt="product.name"
-                :width="500"
-                :height="500"
-                class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                :width="560"
+                :height="560"
+                :sizes="pictureSizes"
                 :loading="priority ? 'eager' : 'lazy'"
                 decoding="async"
                 :fetchpriority="priority ? 'high' : 'auto'"
-                draggable="false"
+                img-class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
               />
             </div>
           </template>
@@ -181,6 +189,7 @@ import type { Swiper as SwiperClass } from 'swiper'
 import 'swiper/css'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
+import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -197,6 +206,8 @@ const cartStore = useCartStore()
 
 const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
+
+const pictureSizes = '(max-width: 639px) 44vw, (max-width: 1023px) 30vw, 22vw'
 
 const galleryImages = computed(() => {
   const seen = new Set<string>()
@@ -215,30 +226,43 @@ const galleryImages = computed(() => {
 const hasGallery = computed(() => galleryImages.value.length > 1)
 const currentSlide = ref(0)
 const swiperRef = ref<SwiperClass | null>(null)
+const loadedSlides = ref<number[]>([])
+
+function markSlideLoaded(index: number) {
+  if (index < 0 || index >= galleryImages.value.length) return
+  if (loadedSlides.value.includes(index)) return
+  loadedSlides.value = [...loadedSlides.value, index]
+}
+
+function preloadAround(index: number) {
+  markSlideLoaded(index)
+  markSlideLoaded(index - 1)
+  markSlideLoaded(index + 1)
+}
+
+function isSlideLoaded(index: number) {
+  return loadedSlides.value.includes(index)
+}
 
 watch(galleryImages, (images) => {
-  if (!images.length || !hasGallery.value) {
-    currentSlide.value = 0
-    swiperRef.value?.slideTo(0, 0)
-    return
-  }
-
-  if (currentSlide.value > images.length - 1) {
-    currentSlide.value = 0
-    swiperRef.value?.slideTo(0, 0)
-  }
+  loadedSlides.value = images.length ? [0] : []
+  currentSlide.value = 0
+  swiperRef.value?.slideTo(0, 0)
 }, { immediate: true })
 
 function onSwiper(swiper: SwiperClass) {
   swiperRef.value = swiper
   currentSlide.value = swiper.activeIndex || 0
+  preloadAround(currentSlide.value)
 }
 
 function onSlideChange(swiper: SwiperClass) {
   currentSlide.value = swiper.activeIndex || 0
+  preloadAround(currentSlide.value)
 }
 
 function setSlide(index: number) {
+  preloadAround(index)
   currentSlide.value = index
   swiperRef.value?.slideTo(index)
 }
@@ -294,6 +318,7 @@ function onOpen(navigate: () => void) {
 function incrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value + 1)
 }
+
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }

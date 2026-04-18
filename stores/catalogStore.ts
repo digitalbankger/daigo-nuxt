@@ -58,8 +58,33 @@ export const useCatalogStore = defineStore('catalog', () => {
     if (allLoadingPromise) return allLoadingPromise
 
     allLoadingPromise = (async () => {
+      try {
+        const fast = await $fetch<{ items: ProductCard[]; total?: number }>('/api/shop/products', {
+          query: { page: '1', limit: '9999' }
+        })
+
+        const fastItems = Array.isArray(fast?.items) ? fast.items : []
+        const hasExplicitTotal = typeof fast?.total === 'number' && Number.isFinite(fast.total)
+        const fastTotal = hasExplicitTotal ? Number(fast.total) : 0
+
+        if (!fastItems.length) {
+          allProducts.value = []
+          allLoaded.value = true
+          return
+        }
+
+        if (hasExplicitTotal && fastItems.length >= fastTotal) {
+          allProducts.value = fastItems
+          allLoaded.value = true
+          return
+        }
+      } catch {
+        // fallback below
+      }
+
       const acc: ProductCard[] = []
-      const batchSize = 50
+      const seenIds = new Set<string>()
+      const batchSize = 100
 
       for (let p = 1; p <= 200; p++) {
         const res = await $fetch<{ items: ProductCard[] }>('/api/shop/products', {
@@ -67,15 +92,22 @@ export const useCatalogStore = defineStore('catalog', () => {
         })
 
         const batch = Array.isArray(res?.items) ? res.items : []
-        acc.push(...batch)
+
+        for (const item of batch) {
+          const id = String(item?.product_id ?? item?.slug ?? '')
+          if (!id || seenIds.has(id)) continue
+          seenIds.add(id)
+          acc.push(item)
+        }
 
         if (batch.length < batchSize) break
       }
 
       allProducts.value = acc
       allLoaded.value = true
+    })().finally(() => {
       allLoadingPromise = null
-    })()
+    })
 
     return allLoadingPromise
   }

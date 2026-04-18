@@ -6,33 +6,49 @@ export default defineNuxtConfig({
   runtimeConfig: {
     dadataToken: process.env.NUXT_DADATA_TOKEN || 'ac0fc720467713631eff0602ba19a2648c34f21d',
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
+    ipx: {
+      baseURL: process.env.NUXT_IPX_BASE_URL || '/_ipx',
+      http: {
+        domains: [
+          'daigo.ru',
+          'api.daigo.ru',
+          'products.s3.firstvds.ru',
+        ],
+      },
+    },
     public: {
       apiBase: process.env.API_BASE || '/api',
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
+      daigoFilesBase:
+        process.env.NUXT_PUBLIC_FILES_BASE ||
+        process.env.NUXT_PUBLIC_API_BASE ||
+        'https://api.daigo.ru',
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
       ymCounterId: process.env.NUXT_PUBLIC_YM_ID || '31773751',
     }
   },
 
   routeRules: {
-    // Главная: ISR каждые 10 минут
     '/': { isr: 600 },
 
-    // Долгий кэш статики Nuxt
     '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
 
-    // IPX-трансформации (для @nuxt/image) — кэш для CDN + SWR
     '/_ipx/**': {
       headers: {
         'cache-control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
       }
     },
 
-    // Пример серверного API с кэш-заголовками (под ISR)
     '/api/home': {
       headers: {
         'cache-control': 'public, max-age=0, s-maxage=600, stale-while-revalidate=86400'
+      }
+    },
+
+    '/api/shop/products': {
+      headers: {
+        'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600'
       }
     }
   },
@@ -41,12 +57,10 @@ export default defineNuxtConfig({
     devErrorHandler: true,
     logLevel: 5,
     storage: {
-      // Кэш Nitro (для cachedEventHandler/cachedFunction)
       cache: process.env.REDIS_URL
         ? { driver: 'redis', url: process.env.REDIS_URL, base: 'cache' }
         : { driver: 'fs', base: './.nitro/cache' },
 
-      // Кэш IPX (@nuxt/image)
       'ipx:cache': process.env.IPX_CACHE_DRIVER === 'redis' && process.env.REDIS_URL
         ? { driver: 'redis', url: process.env.REDIS_URL, base: 'ipx' }
         : { driver: 'fs', base: './.nitro/ipx' }
@@ -89,17 +103,33 @@ export default defineNuxtConfig({
 
   image: {
     provider: 'ipx',
-    // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
+    inject: true,
+    format: ['avif', 'webp'],
+    quality: 72,
     domains: ['daigo.ru', 'products.s3.firstvds.ru', 'api.daigo.ru'],
-    ipx: {
-      // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1536
     },
+    ipx: {},
     presets: {
       product: {
         modifiers: {
           format: 'webp',
           width: 600,
           quality: 75
+        }
+      },
+      catalogCard: {
+        modifiers: {
+          width: 560,
+          height: 560,
+          fit: 'inside',
+          quality: 72
         }
       }
     }
