@@ -1,9 +1,7 @@
 #!/usr/bin/env node
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises'
-import { createWriteStream } from 'node:fs'
 import path from 'node:path'
 import process from 'node:process'
-import { pipeline } from 'node:stream/promises'
 
 let sharp
 try {
@@ -17,8 +15,29 @@ const PROJECT_ROOT = process.cwd()
 const PUBLIC_DIR = path.join(PROJECT_ROOT, 'public')
 const OUTPUT_DIR = path.join(PUBLIC_DIR, 'images', 'optimized')
 const MANIFEST_PATH = path.join(OUTPUT_DIR, 'manifest.json')
-const API_BASE = process.env.IMAGE_SOURCE_API_BASE || 'http://localhost:3000/api'
-const SITE_BASE = process.env.IMAGE_SITE_BASE || 'http://localhost:3000'
+
+const RAW_BACKEND_BASE =
+  process.env.IMAGE_DAIGO_API_BASE ||
+  process.env.NUXT_PUBLIC_API_BASE ||
+  'https://api.daigo.ru'
+
+const DAIGO_API_BASE = String(RAW_BACKEND_BASE).replace(/\/+$/, '')
+
+const RAW_SITE_BASE =
+  process.env.IMAGE_SITE_BASE ||
+  process.env.NUXT_PUBLIC_SITE_BASE ||
+  process.env.NUXT_PUBLIC_TEST_API_BASE ||
+  'https://daigo.ru'
+
+const SITE_BASE = String(RAW_SITE_BASE).replace(/\/+$/, '')
+
+const RAW_FILES_BASE =
+  process.env.IMAGE_FILES_BASE ||
+  process.env.NUXT_PUBLIC_FILES_BASE ||
+  process.env.NUXT_PUBLIC_DAIGO_FILES_BASE ||
+  DAIGO_API_BASE
+
+const FILES_BASE = String(RAW_FILES_BASE).replace(/\/+$/, '')
 const WIDTHS = [120, 200, 320, 480, 800, 1200, 1600, 2000]
 
 function stripQueryAndHash(value) {
@@ -90,6 +109,18 @@ async function fetchBuffer(url) {
   return Buffer.from(arrayBuffer)
 }
 
+function resolveRelativeUrl(src) {
+  const cleanSrc = normalizeSource(src)
+  if (!cleanSrc.startsWith('/')) return cleanSrc
+
+  const localCandidate = path.join(PUBLIC_DIR, cleanSrc.replace(/^\/+/, ''))
+  if (cleanSrc.startsWith('/images/')) {
+    return new URL(cleanSrc, SITE_BASE).toString()
+  }
+
+  return new URL(cleanSrc, FILES_BASE).toString()
+}
+
 async function loadImageBuffer(src) {
   const normalized = normalizeSource(src)
   if (!normalized) throw new Error('Empty src')
@@ -97,7 +128,7 @@ async function loadImageBuffer(src) {
   if (normalized.startsWith('/')) {
     const localBuffer = await readLocalPublicFile(normalized)
     if (localBuffer) return localBuffer
-    return fetchBuffer(new URL(normalized, SITE_BASE).toString())
+    return fetchBuffer(resolveRelativeUrl(normalized))
   }
 
   return fetchBuffer(normalized)
@@ -109,23 +140,52 @@ async function fetchJson(url) {
   return res.json()
 }
 
+function normalizeProductListItem(item) {
+  return {
+    image: item?.image || '',
+    detailImages: Array.isArray(item?.detail_images)
+      ? item.detail_images
+      : Array.isArray(item?.detailImages)
+        ? item.detailImages
+        : [],
+    slug: item?.slug || '',
+  }
+}
+
+function normalizeProductCardItem(product) {
+  const images = Array.isArray(product?.images)
+    ? product.images
+    : Array.isArray(product?.gallery)
+      ? product.gallery
+      : []
+
+  return {
+    images,
+  }
+}
+
 function collectImageUrls(productList, productCards) {
   const urls = new Set()
 
-  for (const item of productList) {
-    if (item?.image) urls.add(item.image)
-    if (Array.isArray(item?.detailImages)) {
-      for (const image of item.detailImages) {
-        if (image) urls.add(image)
-      }
+  for (const rawItem of productList) {
+    const item = normalizeProductListItem(rawItem)
+    if (item.image) urls.add(item.image)
+    for (const image of item.detailImages) {
+      if (image) urls.add(image)
     }
   }
 
-  for (const product of productCards) {
-    if (Array.isArray(product?.images)) {
-      for (const image of product.images) {
-        if (image?.image_url) urls.add(image.image_url)
+  for (const rawProduct of productCards) {
+    const product = normalizeProductCardItem(rawProduct)
+    for (const image of product.images) {
+      if (typeof image === 'string' && image) {
+        urls.add(image)
+        continue
       }
+
+      if (image?.image_url) urls.add(image.image_url)
+      else if (image?.src) urls.add(image.src)
+      else if (image?.url) urls.add(image.url)
     }
   }
 
@@ -198,18 +258,30 @@ async function saveManifest(manifest) {
   await writeFile(MANIFEST_PATH, JSON.stringify(manifest, null, 2), 'utf8')
 }
 
+async function fetchCatalogList() {
+  const url = `${DAIGO_API_BASE}/v1/shop/products?page=1&page_size=9999`
+  const raw = await fetchJson(url)
+  return Array.isArray(raw?.products) ? raw.products : []
+}
+
+async function fetchProductCard(slug) {
+  const encoded = encodeURIComponent(String(slug))
+  const url = `${DAIGO_API_BASE}/v1/shop/products/${encoded}/card`
+  return fetchJson(url)
+}
+
 async function main() {
-  console.log(`API_BASE=${API_BASE}`)
+  console.log(`DAIGO_API_BASE=${DAIGO_API_BASE}`)
+  console.log(`FILES_BASE=${FILES_BASE}`)
   console.log(`SITE_BASE=${SITE_BASE}`)
 
-  const catalog = await fetchJson(`${API_BASE}/shop/products?page=1&page_size=9999`)
-  const items = Array.isArray(catalog?.items) ? catalog.items : []
+  const items = await fetchCatalogList()
   const slugs = items.map((item) => item?.slug).filter(Boolean)
 
   const cards = []
   for (const slug of slugs) {
     try {
-      const product = await fetchJson(`${API_BASE}/shop/${encodeURIComponent(slug)}`)
+      const product = await fetchProductCard(slug)
       cards.push(product)
     } catch (error) {
       console.warn(`[skip product] ${slug}: ${error.message}`)
