@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { ProductImage } from '~/types/product'
+import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
 
 const { images, hasDiscount } = defineProps<{
   images: ProductImage[]
@@ -22,13 +23,14 @@ const activeIndex = ref(0)
   <section class="">
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
       <div class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10">
-        <img
+        <OptimizedPicture
           :src="sortedImages[activeIndex]?.image_url"
           :alt="'Изображение ' + (activeIndex + 1)"
-          width="640"
-          height="480"
-          format="webp"
-          loading="eager"
+          :width="640"
+          :height="640"
+          :widths="[800, 1200, 1600]"
+          sizes="(max-width: 639px) 100vw, 50vw"
+          eager
           class="max-w-full max-h-full object-contain aspect-[1/1] transition-all duration-300"
         />
         <div
@@ -48,12 +50,13 @@ const activeIndex = ref(0)
           :class="index === activeIndex ? 'border-primary' : 'border-transparent'"
           @click="activeIndex = index"
         >
-          <img
+          <OptimizedPicture
             :src="img.image_url"
-            width="80"
-            height="80"
-            format="webp"
-            loading="lazy"
+            :width="128"
+            :height="128"
+            :widths="[120, 200]"
+            sizes="128px"
+            :alt="'Миниатюра ' + (index + 1)"
             class="w-full h-full object-contain"
           />
         </button>

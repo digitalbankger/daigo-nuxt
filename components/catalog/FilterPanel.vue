@@ -38,7 +38,7 @@
             {{ option.label }}
             <span
               v-if="counts[`${group.slug}__${option.value}`] !== undefined"
-              class="text-sm text-gray-500"
+              class="inline-block min-w-[3ch] text-right text-sm text-gray-500"
             >
               ({{ counts[`${group.slug}__${option.value}`] }})
             </span>
@@ -80,12 +80,31 @@ const opened   = ref<string[]>([])
 const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
 
 let countsTimer: ReturnType<typeof setTimeout> | null = null
+let didScheduleInitialCounts = false
 
 function queueCountsRecalc(delay = 120) {
   if (countsTimer) clearTimeout(countsTimer)
   countsTimer = setTimeout(() => {
     props.store.fetchCounts(cleanedSelected())
   }, delay)
+}
+
+function scheduleInitialCounts() {
+  if (didScheduleInitialCounts) return
+  didScheduleInitialCounts = true
+
+  if (typeof window !== 'undefined') {
+    const idleWindow = window as Window & {
+      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number
+    }
+
+    if (typeof idleWindow.requestIdleCallback === 'function') {
+      idleWindow.requestIdleCallback(() => queueCountsRecalc(0), { timeout: 1500 })
+      return
+    }
+  }
+
+  queueCountsRecalc(1200)
 }
 
 function toggle(slug: string) {
@@ -138,15 +157,16 @@ function hydrateFromRoute() {
 
 onMounted(() => {
   hydrateFromRoute()
-  queueCountsRecalc(900)
+  scheduleInitialCounts()
 })
 
-watch(() => filters.value, () => {
+watch(() => filters.value.length, () => {
   hydrateFromRoute()
-  queueCountsRecalc(200)
-}, { deep: true })
+  scheduleInitialCounts()
+})
 
 watch(selected, () => {
+  if (!didScheduleInitialCounts) return
   queueCountsRecalc(120)
 }, { deep: true })
 

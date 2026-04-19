@@ -2,6 +2,7 @@
 import { onMounted, onBeforeUnmount, ref, computed } from 'vue'
 import type { Product } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
+import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
 
 const props = defineProps<{ product: Product; observeTarget?: string }>()
 const cartStore = useCartStore()
@@ -143,11 +144,14 @@ onBeforeUnmount(() => {
       aria-live="polite"
     >
       <div class="shrink-0">
-        <img
+        <OptimizedPicture
           v-if="coverImageUrl"
           :src="coverImageUrl"
           :alt="product.title"
-          width="64" height="64" format="webp" loading="lazy"
+          :width="64"
+          :height="64"
+          :widths="[64, 128]"
+          sizes="64px"
           class="w-14 h-14 md:w-16 md:h-16 rounded-xl object-contain bg-gray-50"
         />
         <div v-else class="w-14 h-14 md:w-16 md:h-16 rounded-xl bg-gray-100" />

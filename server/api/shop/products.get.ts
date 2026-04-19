@@ -1,88 +1,48 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
 
-export default defineEventHandler(async (event) => {
-  const q = getQuery(event)
+const RESPONSE_TTL_MS = 5 * 60 * 1000
+const TOTAL_TTL_MS = 10 * 60 * 1000
 
-  // =========================
-  // product_ids ветка (сторис)
-  // =========================
-  if (q.product_ids) {
-    const ids = (
-      Array.isArray(q.product_ids)
-        ? q.product_ids.flatMap(v => String(v).split(','))
-        : String(q.product_ids).split(',')
-    )
-      .map(s => s.trim())
-      .filter(Boolean)
+type CacheEntry<T> = {
+  expiresAt: number
+  value: T
+}
 
-    const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-    const filesBase =
-      useRuntimeConfig(event).public.daigoFilesBase ||
-      base ||
-      ''
+const responseCache = new Map<string, CacheEntry<any>>()
+const totalCache = new Map<string, CacheEntry<number>>()
 
-    const normalizeImg = (src: any): string => {
-      if (!src) return '/images/placeholder-product.png'
-      const s = String(src)
-      if (s.startsWith('http') || s.startsWith('data:')) return s
-      const b = filesBase.replace(/\/$/, '')
-      return b + (s.startsWith('/') ? s : `/${s}`)
-    }
-
-    const url = `${base}/v1/shop/products?page=1&page_size=9999`
-    const res: any = await $fetch(url).catch(() => ({ products: [] }))
-
-    const items = (Array.isArray(res?.products) ? res.products : [])
-      .map((p: any) => ({
-        id: p.product_id ?? p.id,
-        product_id: p.product_id ?? p.id,
-        slug: p.slug,
-        name: p.name_ru || p.name,
-        subtitle: p.subtitle || '',
-        image: normalizeImg(p.image),
-        detailImages: Array.isArray(p.detail_images)
-          ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
-          : [],
-        price: Number(p.price) || 0,
-        originalPrice: Number(p.original_price) || 0,
-        sort: p.sort_order === 0 ? 16 : p.sort_order,
-        properties: p.properties || {},
-      }))
-      .filter((p: any) => ids.includes(String(p.product_id)))
-
-    return { items, total: items.length }
+function getCachedValue<T>(store: Map<string, CacheEntry<T>>, key: string): T | null {
+  const now = Date.now()
+  const cached = store.get(key)
+  if (!cached) return null
+  if (cached.expiresAt <= now) {
+    store.delete(key)
+    return null
   }
+  return cached.value
+}
 
-  // =========================
-  // Нормализация изображений
-  // =========================
-  const filesBase =
-    useRuntimeConfig(event).public.daigoFilesBase ||
-    useRuntimeConfig(event).public.daigoApiBase ||
-    ''
+function setCachedValue<T>(store: Map<string, CacheEntry<T>>, key: string, value: T, ttlMs: number) {
+  store.set(key, {
+    expiresAt: Date.now() + ttlMs,
+    value,
+  })
+}
 
-  const normalizeImg = (src: any): string => {
+function normalizeImgFactory(filesBase: string) {
+  return (src: any): string => {
     if (!src) return '/images/placeholder-product.png'
     const s = String(src)
     if (s.startsWith('http') || s.startsWith('data:')) return s
     const base = filesBase.replace(/\/$/, '')
     return base + (s.startsWith('/') ? s : `/${s}`)
   }
+}
 
-  // =========================
-  // Пагинация
-  // =========================
-  const page = Number(q.page ?? 1) || 1
-  const pageSize = Number(q.page_size ?? q.limit ?? 15) || 15
-
-  let effectivePageSize = pageSize
-  if (q.podarochnye) {
-    effectivePageSize = 9999
-  }
-
+function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: number) {
   const params = new URLSearchParams()
   params.set('page', String(page))
-  params.set('page_size', String(effectivePageSize))
+  params.set('page_size', String(pageSize))
 
   if (q.napravlennost) {
     const csv = Array.isArray(q.napravlennost)
@@ -108,9 +68,10 @@ export default defineEventHandler(async (event) => {
         'produkty',
         'empty',
         'podarochnye',
+        'no_total',
+        'for',
       ].includes(k)
-    )
-      continue
+    ) continue
 
     if (
       k === 'ysclid' ||
@@ -118,8 +79,7 @@ export default defineEventHandler(async (event) => {
       k === 'gclid' ||
       k === 'fbclid' ||
       k.startsWith('utm_')
-    )
-      continue
+    ) continue
 
     if (vAny == null || vAny === '') continue
 
@@ -130,143 +90,253 @@ export default defineEventHandler(async (event) => {
     if (csv) params.set(k, csv)
   }
 
+  return params
+}
+
+function getFilterCacheKey(q: Record<string, any>) {
+  const entries = Object.entries(q)
+    .filter(([k, v]) => {
+      if ([
+        'page',
+        'page_size',
+        'limit',
+        'empty',
+        'no_total',
+        'for',
+      ].includes(k)) return false
+      if (
+        k === 'ysclid' ||
+        k === 'yclid' ||
+        k === 'gclid' ||
+        k === 'fbclid' ||
+        k.startsWith('utm_')
+      ) return false
+      return v != null && v !== ''
+    })
+    .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
+    .sort(([a], [b]) => a.localeCompare(b))
+
+  return JSON.stringify(entries)
+}
+
+async function fetchRawProducts(base: string, params: URLSearchParams, timeout = 8000) {
   const qs = params.toString().replaceAll('%2C', ',')
-  const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
   const url = `${base}/v1/shop/products?${qs}`
+  const res: any = await $fetch.raw(url, { timeout })
+  return { res, raw: res._data }
+}
 
-  if (import.meta.dev) console.log('[catalog] →', url)
+function mapProducts(raw: any, normalizeImg: (src: any) => string) {
+  return (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => {
+    const price = Number(p.price) || 0
+    const slug = String(p.slug || '')
+    const baseProps = p.properties || {}
 
-  try {
-    const res: any = await $fetch.raw(url, { timeout: 8000 })
-    const raw: any = res._data
+    let enrichedProps = { ...baseProps }
 
-    const items = (Array.isArray(raw?.products) ? raw.products : [])
-      .map((p: any) => {
-        const price = Number(p.price) || 0
-        const slug = String(p.slug || '')
-        const baseProps = p.properties || {}
+    const isExcluded =
+      slug.startsWith('sertifikat') ||
+      slug === 'tamotsu' ||
+      slug === 'lux-daigo-metabiotik' ||
+      slug.includes('mesyats') ||
+      slug.includes('mesyatsev')
 
-        let enrichedProps = { ...baseProps }
-
-        const isExcluded =
-          slug.startsWith('sertifikat') ||
-          slug === 'tamotsu' ||
-          slug === 'lux-daigo-metabiotik' ||
-          slug.includes('mesyats') ||
-          slug.includes('mesyatsev')
-
-        if (price > 30000 && !isExcluded) {
-          enrichedProps.podarochnye = ['nabory']
-        }
-
-        return {
-          id: p.product_id ?? p.id,
-          product_id: p.product_id ?? p.id,
-          slug,
-          name: p.name_ru || p.name,
-          subtitle: p.subtitle || '',
-          image: normalizeImg(p.image),
-          detailImages: Array.isArray(p.detail_images)
-            ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
-            : [],
-          price,
-          originalPrice: Number(p.original_price) || 0,
-          sort: p.sort_order === 0 ? 16 : p.sort_order,
-          properties: enrichedProps,
-        }
-      })
-
-    let filteredItems = items
-
-    if (q.podarochnye) {
-      const values = Array.isArray(q.podarochnye)
-        ? q.podarochnye
-        : String(q.podarochnye).split(',')
-
-      filteredItems = items.filter((p) => {
-        const prop = p.properties?.podarochnye || []
-        return values.some((v) => prop.includes(v))
-      })
-    }
-
-    const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
-    const bodyTotal = Number(
-      raw?.total ??
-      raw?.count ??
-      raw?.meta?.total ??
-      raw?.pagination?.total ??
-      raw?.pagination?.count ??
-      NaN
-    )
-
-    const bodyTotalPages = Number(
-      raw?.total_pages ??
-      raw?.pages ??
-      raw?.last_page ??
-      raw?.meta?.total_pages ??
-      raw?.meta?.last_page ??
-      raw?.pagination?.total_pages ??
-      raw?.pagination?.last_page ??
-      NaN
-    )
-
-    let total = q.podarochnye
-      ? filteredItems.length
-      : Number.isFinite(bodyTotal)
-        ? bodyTotal
-        : Number.isFinite(headerTotal)
-          ? headerTotal
-          : Number.isFinite(bodyTotalPages)
-            ? bodyTotalPages * effectivePageSize
-            : NaN
-
-    const shouldProbeTotal =
-      !q.podarochnye &&
-      page === 1 &&
-      items.length > 0 &&
-      (!Number.isFinite(total) || total <= items.length)
-
-    if (shouldProbeTotal) {
-      const seenIds = new Set(
-        items.map((p: any) => String(p.product_id ?? p.id ?? p.slug ?? ''))
-      )
-
-      for (let probePage = 2; probePage <= 50; probePage++) {
-        const probeParams = new URLSearchParams(params)
-        probeParams.set('page', String(probePage))
-
-        const probeQs = probeParams.toString().replaceAll('%2C', ',')
-        const probeUrl = `${base}/v1/shop/products?${probeQs}`
-
-        const probeRaw: any = await $fetch(probeUrl, { timeout: 8000 }).catch(() => null)
-        const probeItems = Array.isArray(probeRaw?.products) ? probeRaw.products : []
-
-        if (!probeItems.length) break
-
-        let added = 0
-        for (const p of probeItems) {
-          const id = String(p?.product_id ?? p?.id ?? p?.slug ?? '')
-          if (!id) continue
-          if (!seenIds.has(id)) {
-            seenIds.add(id)
-            added++
-          }
-        }
-
-        if (added === 0) break
-      }
-
-      total = seenIds.size
-    }
-
-    if (!Number.isFinite(total)) {
-      total = items.length
+    if (price > 30000 && !isExcluded) {
+      enrichedProps.podarochnye = ['nabory']
     }
 
     return {
+      id: p.product_id ?? p.id,
+      product_id: p.product_id ?? p.id,
+      slug,
+      name: p.name_ru || p.name,
+      subtitle: p.subtitle || '',
+      image: normalizeImg(p.image),
+      detailImages: Array.isArray(p.detail_images)
+        ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
+        : [],
+      price,
+      originalPrice: Number(p.original_price) || 0,
+      sort: p.sort_order === 0 ? 16 : p.sort_order,
+      properties: enrichedProps,
+    }
+  })
+}
+
+function applyGiftFilter(items: any[], q: Record<string, any>) {
+  if (!q.podarochnye) return items
+
+  const values = Array.isArray(q.podarochnye)
+    ? q.podarochnye
+    : String(q.podarochnye).split(',')
+
+  return items.filter((p) => {
+    const prop = p.properties?.podarochnye || []
+    return values.some((v) => prop.includes(v))
+  })
+}
+
+async function resolveTotalViaLargeFetch(base: string, q: Record<string, any>, normalizeImg: (src: any) => string) {
+  const totalKey = getFilterCacheKey(q)
+  const cached = getCachedValue(totalCache, totalKey)
+  if (cached != null) return cached
+
+  const params = buildParamsFromQuery(q, 1, 9999)
+  const { res, raw } = await fetchRawProducts(base, params, 12000)
+  const mapped = applyGiftFilter(mapProducts(raw, normalizeImg), q)
+
+  const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
+  const bodyTotal = Number(
+    raw?.total ??
+    raw?.count ??
+    raw?.meta?.total ??
+    raw?.pagination?.total ??
+    raw?.pagination?.count ??
+    NaN
+  )
+
+  const total = q.podarochnye
+    ? mapped.length
+    : Number.isFinite(bodyTotal) && bodyTotal > 0
+      ? bodyTotal
+      : Number.isFinite(headerTotal) && headerTotal > 0
+        ? headerTotal
+        : mapped.length
+
+  setCachedValue(totalCache, totalKey, total, TOTAL_TTL_MS)
+  return total
+}
+
+export default defineEventHandler(async (event) => {
+  const q = getQuery(event)
+
+  if (q.product_ids) {
+    const ids = (
+      Array.isArray(q.product_ids)
+        ? q.product_ids.flatMap(v => String(v).split(','))
+        : String(q.product_ids).split(',')
+    )
+      .map(s => s.trim())
+      .filter(Boolean)
+
+    const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+    const filesBase =
+      useRuntimeConfig(event).public.daigoFilesBase ||
+      base ||
+      ''
+
+    const normalizeImg = normalizeImgFactory(filesBase)
+    const url = `${base}/v1/shop/products?page=1&page_size=9999`
+    const res: any = await $fetch(url).catch(() => ({ products: [] }))
+
+    const items = (Array.isArray(res?.products) ? res.products : [])
+      .map((p: any) => ({
+        id: p.product_id ?? p.id,
+        product_id: p.product_id ?? p.id,
+        slug: p.slug,
+        name: p.name_ru || p.name,
+        subtitle: p.subtitle || '',
+        image: normalizeImg(p.image),
+        detailImages: Array.isArray(p.detail_images)
+          ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
+          : [],
+        price: Number(p.price) || 0,
+        originalPrice: Number(p.original_price) || 0,
+        sort: p.sort_order === 0 ? 16 : p.sort_order,
+        properties: p.properties || {},
+      }))
+      .filter((p: any) => ids.includes(String(p.product_id)))
+
+    return { items, total: items.length }
+  }
+
+  const responseKey = event.node.req.url || JSON.stringify(q)
+  const cachedResponse = getCachedValue(responseCache, responseKey)
+  if (cachedResponse) {
+    return cachedResponse
+  }
+
+  const filesBase =
+    useRuntimeConfig(event).public.daigoFilesBase ||
+    useRuntimeConfig(event).public.daigoApiBase ||
+    ''
+
+  const normalizeImg = normalizeImgFactory(filesBase)
+
+  const page = Number(q.page ?? 1) || 1
+  const pageSize = Number(q.page_size ?? q.limit ?? 15) || 15
+  const effectivePageSize = q.podarochnye ? 9999 : pageSize
+
+  const params = buildParamsFromQuery(q, page, effectivePageSize)
+  const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+  const noTotalMode = q.no_total === '1' || q.for === 'counts'
+
+  try {
+    const { res, raw } = await fetchRawProducts(base, params)
+    const items = mapProducts(raw, normalizeImg)
+    const filteredItems = applyGiftFilter(items, q)
+
+    let total = filteredItems.length
+
+    if (!noTotalMode) {
+      const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
+      const bodyTotal = Number(
+        raw?.total ??
+        raw?.count ??
+        raw?.meta?.total ??
+        raw?.pagination?.total ??
+        raw?.pagination?.count ??
+        NaN
+      )
+
+      const bodyTotalPages = Number(
+        raw?.total_pages ??
+        raw?.pages ??
+        raw?.last_page ??
+        raw?.meta?.total_pages ??
+        raw?.meta?.last_page ??
+        raw?.pagination?.total_pages ??
+        raw?.pagination?.last_page ??
+        NaN
+      )
+
+      total = q.podarochnye
+        ? filteredItems.length
+        : Number.isFinite(bodyTotal) && bodyTotal > 0
+          ? bodyTotal
+          : Number.isFinite(headerTotal) && headerTotal > 0
+            ? headerTotal
+            : Number.isFinite(bodyTotalPages) && bodyTotalPages > 0
+              ? bodyTotalPages * effectivePageSize
+              : NaN
+
+      const needsExactTotal =
+        !q.podarochnye &&
+        page === 1 &&
+        items.length > 0 &&
+        (
+          !Number.isFinite(total) ||
+          total <= items.length
+        )
+
+      if (needsExactTotal) {
+        total = await resolveTotalViaLargeFetch(base, q as Record<string, any>, normalizeImg)
+      }
+
+      if (!Number.isFinite(total)) {
+        total = items.length < effectivePageSize
+          ? (page - 1) * effectivePageSize + items.length
+          : page * effectivePageSize + 1
+      }
+    }
+
+    const payload = {
       items: filteredItems,
       total,
     }
+
+    setCachedValue(responseCache, responseKey, payload, RESPONSE_TTL_MS)
+    return payload
   } catch (e: any) {
     throw createError({
       statusCode: e?.response?.status || 502,
@@ -274,414 +344,3 @@ export default defineEventHandler(async (event) => {
     })
   }
 })
-
-
-
-
-// import { defineEventHandler, getQuery, createError } from 'h3'
-
-// export default defineEventHandler(async (event) => {
-//   const q = getQuery(event)
-
-//   // 0) ветка для product_ids=... (используется сторисом)
-//   // если у бэка нет фильтра по id — тянем все и фильтруем на ноде (50 шт ок).
-//   if (q.product_ids) {
-//     const ids = (
-//       Array.isArray(q.product_ids)
-//         ? q.product_ids.flatMap(v => String(v).split(','))
-//         : String(q.product_ids).split(',')
-//     )
-//       .map(s => s.trim())
-//       .filter(Boolean)
-
-//     const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-//     const url = `${base}/v1/shop/products?page=1&page_size=9999`
-//     const res: any = await $fetch(url).catch(() => ({ products: [] }))
-
-//     const items = (Array.isArray(res?.products) ? res.products : []).map((p: any) => ({
-//       id:         p.product_id ?? p.id,
-//       product_id: p.product_id ?? p.id,
-//       slug:       p.slug,
-//       name:       p.name_ru || p.name,
-//       subtitle:   p.subtitle || '',
-//       // важное изменение: делаем картинки абсолютными, если пришёл относительный путь
-//       image:      p.image ? (p.image.startsWith('http') ? p.image : `${base}${p.image}`) : '',
-//       price:      Number(p.price) || 0,
-//       originalPrice: Number(p.original_price) || 0,
-//       sort:       p.sort_order === 0 ? 16 : p.sort_order,
-//       properties: p.properties || {},
-//     })).filter((p: any) => ids.includes(String(p.product_id)))
-
-//     return { items, total: items.length }
-//   }
-
-//   // --- вспомогалка для нормализации путей изображений ---
-//   const filesBase =
-//     useRuntimeConfig(event).public.daigoFilesBase
-//     || useRuntimeConfig(event).public.daigoApiBase
-//     || '' // например: 'https://api.daigo.ru'
-
-//   const normalizeImg = (src: any): string => {
-//     if (!src) return '/images/placeholder-product.png'
-//     const s = String(src)
-//     if (s.startsWith('http') || s.startsWith('data:')) return s
-//     // склеиваем базовый хост и относительный путь (/uploads/...)
-//     const base = filesBase.replace(/\/$/, '')
-//     return base + (s.startsWith('/') ? s : `/${s}`)
-//   }
-//   // ------------------------------------------------------
-
-//   // пагинация: бэку нужен page + page_size
-//   const page = Number(q.page ?? 1) || 1
-//   const pageSize = Number(q.page_size ?? q.limit ?? 9) || 9
-
-//   // собираем параметры; не шлём служебные/пустые
-//   const params = new URLSearchParams()
-//   params.set('page', String(page))
-//   params.set('page_size', String(pageSize))
-
-//   // napravlennost -> как есть (у вас бэк его принимает)
-//   if (q.napravlennost) {
-//     const csv = Array.isArray(q.napravlennost)
-//       ? q.napravlennost.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
-//       : String(q.napravlennost)
-//     params.set('napravlennost', csv)
-//   }
-
-//   // --- ТЕСТОВАЯ ПОДМЕНА SLUG'А (вкл/выкл одной строкой) ---
-//   const TEST_REWRITE_SLUG = false // ← поставьте true для теста, затем верните false/удалите
-//   const rewriteSlug = (s: string) =>
-//     (TEST_REWRITE_SLUG && s === 'daigo-lux') ? 'metabiotik-daigo-lux' : s
-//   // ---------------------------------------------------------
-
-//   // produkty -> name (бэкенд фильтрует по name/slug/… — мы отправляем name)
-//   if (q.produkty) {
-//     const vals = Array.isArray(q.produkty)
-//       ? q.produkty.flatMap(v => String(v).split(',')).filter(Boolean)
-//       : String(q.produkty).split(',').filter(Boolean)
-
-//     const rewritten = vals.map(rewriteSlug)
-//     const csv = rewritten.join(',')
-//     params.set('name', csv)
-//   }
-
-//   // прокинем остальные фильтры «как есть» (кроме служебных и трекинговых)
-//   for (const [k, vAny] of Object.entries(q)) {
-//     if (['page', 'page_size', 'limit', 'napravlennost', 'produkty', 'empty'].includes(k)) continue
-
-//     // трекинговые / рекламные параметры игнорируем — они не являются фильтрами каталога
-//     if (
-//       k === 'ysclid' ||
-//       k === 'yclid' ||
-//       k === 'gclid' ||
-//       k === 'fbclid' ||
-//       k.startsWith('utm_')
-//     ) continue
-
-//     if (vAny == null || vAny === '') continue
-//     const csv = Array.isArray(vAny)
-//       ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
-//       : String(vAny)
-//     if (csv) params.set(k, csv)
-//   }
-
-//   // некоторым бэкам нужна «сырая» запятая в CSV — уберём %2C
-//   const qs = params.toString().replaceAll('%2C', ',')
-//   const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-//   const url = `${base}/v1/shop/products?${qs}`
-
-//   if (import.meta.dev) console.log('[catalog] →', url)
-
-//   try {
-//     // raw нужен, чтобы достать заголовки
-//     const res: any = await $fetch.raw(url, { timeout: 8000 })
-//     const raw: any = res._data
-
-//     const items = (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => ({
-//       id:         p.product_id ?? p.id,
-//       product_id: p.product_id ?? p.id,
-//       slug:       p.slug,
-//       name:       p.name_ru || p.name,
-//       subtitle:   p.subtitle || '',
-//       image:      normalizeImg(p.image), // ← делаем абсолютный URL
-//       price:      Number(p.price) || 0,
-//       originalPrice: Number(p.original_price) || 0,
-//       sort:       p.sort_order === 0 ? 16 : p.sort_order,
-//       properties: p.properties || {},
-//     }))
-
-//     // total — из тела или X-Total-Count; если нет — мягкий фолбэк
-//     let total = Number(raw?.total ?? res.headers.get?.('X-Total-Count') ?? NaN)
-//     if (!Number.isFinite(total)) {
-//       total = (items.length < pageSize)
-//         ? (page - 1) * pageSize + items.length
-//         : (page + 1) * pageSize
-//     }
-
-//     if (import.meta.dev) console.log('[catalog] items=', items.length, 'total=', total)
-//     return { items, total }
-//   } catch (e: any) {
-//     throw createError({
-//       statusCode: e?.response?.status || 502,
-//       statusMessage: 'Catalog upstream error',
-//     })
-//   }
-// })
-
-
-
-
-
-// import type { Product, ProductCard } from '~/types/product'
-
-// export default defineEventHandler((event) => {
-//   const query = getQuery(event)
-//   const page = Number(query.page || 1)
-//   const perPage = 9
-
-//   const allProducts: ProductCard[] = [
-//     {
-//       product_id: 1,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Lux',
-//       subtitle: 'Для кишечника и иммунитета',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
-//       price: 95700,
-//       properties: {
-//         'pomogaet-pri': 'allergiya',
-//         'napravlennost': 'kishechnik-i-immunitet',
-//         'klass-produkta': 'aminobiotiki',
-//         'produkty': 'daigo-lux',
-//         'dlya-kogo': 'dlya-detej-i-mam',
-//         'sostav': 'peptproduct_id-khlorelly-iph-c',
-//         'forma-vypuska': 'zhproduct_idkost',
-//         'strana-proizvoditel': 'yaponiya'
-//       }
-//     },
-//     {
-//       product_id: 2,
-//       slug: 'daigo-dent',
-//       name: 'Daigo Dent',
-//       subtitle: 'Для зубов и дёсен',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
-//       price: 3200,
-//       properties: {
-//         'pomogaet-pri': 'karies',
-//         'napravlennost': 'zuby-i-desna',
-//         'klass-produkta': 'metobiotiki',
-//         'produkty': 'daigo-dent',
-//         'dlya-kogo': 'dlya-detej-i-mam',
-//         'sostav': 'vitamin-b3',
-//         'forma-vypuska': 'pasta',
-//         'strana-proizvoditel': 'yaponiya'
-//       }
-//     },
-//     {
-//       product_id: 3,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Brainy',
-//       subtitle: 'Для мозга и памяти',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-brainy.png',
-//       price: 8900,
-//       properties: {
-//         'pomogaet-pri': 'demenciya',
-//         'napravlennost': 'mozg-i-nervnaya-sistema',
-//         'klass-produkta': 'plazmalogeny',
-//         'produkty': 'daigo-brainy',
-//         'dlya-kogo': 'dlya-aktivnogo-dolgoletiya',
-//         'sostav': 'vitamin-b14',
-//         'forma-vypuska': 'kapsuly',
-//         'strana-proizvoditel': 'italiya'
-//       }
-//     },
-//     {
-//       product_id: 4,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Dermic',
-//       subtitle: 'Для кожи',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-dermic.png',
-//       price: 16200,
-//       properties: {
-//         'pomogaet-pri': 'akne',
-//         'napravlennost': 'kozha-i-volosy',
-//         'klass-produkta': 'aminobiotiki',
-//         'produkty': 'daigo-dermic',
-//         'dlya-kogo': 'dlya-detej-i-mam',
-//         'sostav': 'vitamin-a',
-//         'forma-vypuska': 'gel-kapsuly',
-//         'strana-proizvoditel': 'yaponiya'
-//       }
-//     },
-//     {
-//       product_id: 5,
-//       slug: 'daigo-lux',
-//       name: 'Tamotsu',
-//       subtitle: 'Для энергии и иммунитета',
-//       image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
-//       price: 67500,
-//       properties: {
-//         'pomogaet-pri': 'utomlyaemost',
-//         'napravlennost': 'kishechnik-i-immunitet',
-//         'klass-produkta': 'omega-3',
-//         'produkty': 'tamotsu',
-//         'dlya-kogo': 'dlya-aktivnogo-dolgoletiya',
-//         'sostav': 'omega-9',
-//         'forma-vypuska': 'kapsuly',
-//         'strana-proizvoditel': 'italiya'
-//       }
-//     },
-//     {
-//       product_id: 6,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Dent',
-//       subtitle: 'Зубы и десна',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
-//       price: 3200,
-//       properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
-//     },
-//     {
-//       product_id: 7,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Shampoo',
-//       subtitle: 'Кожа и волосы',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
-//       price: 16200,
-//       properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 8,
-//       slug: 'daigo-lux',
-//       name: 'Omega-3',
-//       subtitle: 'Жир печени трески',
-//       image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
-//       price: 14000,
-//       properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
-//     },
-//     {
-//       product_id: 9,
-//       slug: 'daigo-lux',
-//       name: 'Lactis zoo',
-//       subtitle: 'Для животных',
-//       image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
-//       price: 6200,
-//       properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
-//     },
-//     {
-//       product_id: 10,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Emperor',
-//       subtitle: 'Год здоровья в подарок',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
-//       price: 1097000,
-//       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 11,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Lux 2 страница',
-//       subtitle: 'Для кишечника и иммунитета',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-lux.png',
-//       price: 95700,
-//       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 12,
-//       slug: 'daigo-lux',
-//       name: 'Daigo 5 ml 2 страница',
-//       subtitle: 'Для кишечника и иммунитета',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-5ml.png',
-//       price: 13100,
-//       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 13,
-//       slug: 'daigo-lux',
-//       name: 'Daigo 10 ml 2 страница',
-//       subtitle: 'Для кишечника и иммунитета',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-10ml.png',
-//       price: 24100,
-//       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 14,
-//       slug: 'daigo-lux',
-//       name: 'Tamotsu 2 страница',
-//       subtitle: 'Для мозга и нервной системы',
-//       image: 'http://localhost:3000/images/mock/catalog/tamotsu.png',
-//       price: 67500,
-//       properties: { 'Помогает при': 'brain', 'Состав': 'peptproduct_ides' }
-//     },
-//     {
-//       product_id: 15,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Dent 2 страница',
-//       subtitle: 'Зубы и десна',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-dent.png',
-//       price: 3200,
-//       properties: { 'Помогает при': 'teeth', 'Состав': 'lacto' }
-//     },
-//     {
-//       product_id: 16,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Shampoo 2 страница',
-//       subtitle: 'Кожа и волосы',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-shampoo.png',
-//       price: 16200,
-//       properties: { 'Помогает при': 'skin', 'Состав': 'ferment' }
-//     },
-//     {
-//       product_id: 17,
-//       slug: 'daigo-lux',
-//       name: 'Omega-3 2 страница',
-//       subtitle: 'Жир печени трески',
-//       image: 'http://localhost:3000/images/mock/catalog/omega-3.png',
-//       price: 14000,
-//       properties: { 'Помогает при': 'heart', 'Состав': 'omega3' }
-//     },
-//     {
-//       product_id: 18,
-//       slug: 'daigo-lux',
-//       name: 'Lactis zoo 2 страница',
-//       subtitle: 'Для животных',
-//       image: 'http://localhost:3000/images/mock/catalog/lactis-zoo.png',
-//       price: 6200,
-//       properties: { 'Помогает при': 'animals', 'Состав': 'lacto' }
-//     },
-//     {
-//       product_id: 19,
-//       slug: 'daigo-lux',
-//       name: 'Daigo Emperor 2 страница',
-//       subtitle: 'Год здоровья в подарок',
-//       image: 'http://localhost:3000/images/mock/catalog/daigo-emperor.png',
-//       price: 1097000,
-//       properties: { 'Помогает при': 'immunity', 'Состав': 'ferment' }
-//     }
-//   ]
-
-//   if (query.product_ids) {
-//     const product_ids = Array.isArray(query.product_ids)
-//       ? query.product_ids.flatMap(i => i.toString().split(','))
-//       : query.product_ids.toString().split(',')
-
-//     const product_idNums = product_ids.map(Number)
-//     return {
-//       items: allProducts.filter(p => product_idNums.includes(p.product_id)),
-//       total: product_idNums.length
-//     }
-//   }
-
-//   const filtered = allProducts.filter(p =>
-//     Object.entries(query).every(([key, value]) => {
-//       if (key === 'page') return true
-//       return p.properties[key] === value
-//     })
-//   )
-
-//   const total = filtered.length
-//   const paginated = filtered.slice((page - 1) * perPage, page * perPage)
-
-//   return {
-//     items: paginated,
-//     total
-//   }
-// })

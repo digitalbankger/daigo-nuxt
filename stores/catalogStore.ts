@@ -22,6 +22,7 @@ export const useCatalogStore = defineStore('catalog', () => {
   const allProducts = ref<ProductCard[]>([])
   const allLoaded = ref(false)
   let allLoadingPromise: Promise<void> | null = null
+  const countsCache = new Map<string, Record<string, number>>()
 
   const setPage = (value: number) => {
     page.value = value
@@ -58,55 +59,21 @@ export const useCatalogStore = defineStore('catalog', () => {
     if (allLoadingPromise) return allLoadingPromise
 
     allLoadingPromise = (async () => {
-      try {
-        const fast = await $fetch<{ items: ProductCard[]; total?: number }>('/api/shop/products', {
-          query: { page: '1', limit: '9999' }
-        })
-
-        const fastItems = Array.isArray(fast?.items) ? fast.items : []
-        const hasExplicitTotal = typeof fast?.total === 'number' && Number.isFinite(fast.total)
-        const fastTotal = hasExplicitTotal ? Number(fast.total) : 0
-
-        if (!fastItems.length) {
-          allProducts.value = []
-          allLoaded.value = true
-          return
+      const res = await $fetch<{ items: ProductCard[] }>('/api/shop/products', {
+        query: {
+          page: '1',
+          limit: '9999',
+          no_total: '1',
+          for: 'counts',
         }
+      })
 
-        if (hasExplicitTotal && fastItems.length >= fastTotal) {
-          allProducts.value = fastItems
-          allLoaded.value = true
-          return
-        }
-      } catch {
-        // fallback below
-      }
-
-      const acc: ProductCard[] = []
-      const seenIds = new Set<string>()
-      const batchSize = 100
-
-      for (let p = 1; p <= 200; p++) {
-        const res = await $fetch<{ items: ProductCard[] }>('/api/shop/products', {
-          query: { page: String(p), limit: String(batchSize) }
-        })
-
-        const batch = Array.isArray(res?.items) ? res.items : []
-
-        for (const item of batch) {
-          const id = String(item?.product_id ?? item?.slug ?? '')
-          if (!id || seenIds.has(id)) continue
-          seenIds.add(id)
-          acc.push(item)
-        }
-
-        if (batch.length < batchSize) break
-      }
-
-      allProducts.value = acc
+      allProducts.value = Array.isArray(res?.items) ? res.items : []
       allLoaded.value = true
-    })().finally(() => {
       allLoadingPromise = null
+    })().catch((error) => {
+      allLoadingPromise = null
+      throw error
     })
 
     return allLoadingPromise
@@ -144,6 +111,20 @@ export const useCatalogStore = defineStore('catalog', () => {
   }
 
   const fetchCounts = async (baseQuery: BaseQuery = {}) => {
+    const cacheKey = JSON.stringify(
+      Object.keys(baseQuery)
+        .sort()
+        .reduce((acc, key) => {
+          acc[key] = [...baseQuery[key]].sort()
+          return acc
+        }, {} as BaseQuery)
+    )
+
+    if (countsCache.has(cacheKey)) {
+      counts.value = countsCache.get(cacheKey) || {}
+      return
+    }
+
     await ensureAllLoaded()
     const flat: Record<string, number> = {}
 
@@ -160,6 +141,7 @@ export const useCatalogStore = defineStore('catalog', () => {
       }
     }
 
+    countsCache.set(cacheKey, flat)
     counts.value = flat
   }
 
