@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, watch, computed, ref } from '#imports'
+import { useRoute, useRouter, useHead, watch, computed, ref, onMounted, nextTick } from '#imports'
 import { defineAsyncComponent } from 'vue'
 import { useCatalogStore } from '~/stores/catalogStore'
 import { useDeviceStore } from '~/stores/deviceStore'
@@ -178,6 +178,63 @@ function openFilters() {
 function closeFilters() {
   isFilterModalOpen.value = false
 }
+
+async function scrollToHash(hash = route.hash) {
+  if (!import.meta.client || !hash) return
+
+  const id = hash.replace('#', '')
+  if (!id) return
+
+  await nextTick()
+
+  let attempts = 0
+  const maxAttempts = 30
+  const delay = 150
+
+  const tryScroll = () => {
+    const el = document.getElementById(id)
+
+    if (el) {
+      const headerOffset = 120
+      const top = el.getBoundingClientRect().top + window.scrollY - headerOffset
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth',
+      })
+
+      return
+    }
+
+    attempts++
+
+    if (attempts < maxAttempts) {
+      window.setTimeout(tryScroll, delay)
+    }
+  }
+
+  window.setTimeout(tryScroll, 300)
+}
+
+onMounted(() => {
+  scrollToHash()
+})
+
+watch(
+  () => route.hash,
+  (hash) => {
+    scrollToHash(hash)
+  }
+)
+
+watch(
+  () => visibleProducts.value.length,
+  async () => {
+    if (route.hash) {
+      await scrollToHash(route.hash)
+    }
+  }
+)
 </script>
 
 <template>
@@ -255,7 +312,9 @@ function closeFilters() {
             />
           </div>
 
-          <CatalogMayQuiz class="my-8 md:my-10" />
+          <div id="quiz" class="my-8 md:my-10 scroll-mt-[120px]">
+            <CatalogMayQuiz />
+          </div>
 
           <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 

@@ -756,7 +756,7 @@ async function addBundleToCart(offer: BundleOffer) {
 </script>
 
 <template>
-  <section id="quiz" class="catalog-may-quiz w-full !font-haido" aria-label="Майский квиз Daigo">
+  <section class="catalog-may-quiz w-full !font-haido" aria-label="Майский квиз Daigo">
     <div
       class="quiz-card text-white"
       :class="{ 'quiz-card--intro': step === 'intro' }"
