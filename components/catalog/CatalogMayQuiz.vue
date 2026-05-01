@@ -6,6 +6,7 @@ import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useAuthStore } from '~/stores/authStore'
 import { useCartStore } from '~/stores/cartStore'
+import { useUserStore } from '~/stores/userStore'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '~/composables/useYtm'
 import { mayQuizService } from '~/services/mayQuizService'
@@ -74,6 +75,7 @@ const TOTAL_SLIDES_COUNT = 6
 
 const auth = useAuthStore()
 const cart = useCartStore()
+const user = useUserStore()
 const analytics = useAnalytics()
 const ytm = useYtm()
 const { isAuthenticated } = storeToRefs(auth)
@@ -380,12 +382,30 @@ async function startQuiz() {
   await checkClientAndStartScenario()
 }
 
+async function getClientCheckPhone(): Promise<string> {
+  const enteredPhone = phoneDigits.value
+  if (enteredPhone) return enteredPhone
+
+  const profilePhone = String(user.profile?.phone_number || '').replace(/\D/g, '')
+  if (profilePhone) return profilePhone
+
+  if (isAuthenticated.value && !user.isLoaded) {
+    try {
+      await user.loadProfile?.()
+    } catch {
+      // профиль может не загрузиться, тогда проверка уйдёт без phone
+    }
+  }
+
+  return String(user.profile?.phone_number || '').replace(/\D/g, '')
+}
+
 async function checkClientAndStartScenario() {
   step.value = 'checking'
   clientCheckError.value = ''
 
   try {
-    const isNew = await mayQuizService.checkIsNewClient(auth.token)
+    const isNew = await mayQuizService.checkIsNewClient(auth.token, await getClientCheckPhone())
     clientBranch.value = isNew ? 'new' : 'regular'
   } catch (e) {
     console.warn('[CatalogMayQuiz] check client failed', e)
@@ -435,13 +455,15 @@ declare global {
 function sendYtmEvent(path: string, payload: Record<string, any> = {}) {
   if (!process.client) return
 
-  window.dataLayer = window.dataLayer || []
-
-  window.dataLayer.push({
+  ytm.push({
     event: path,
     event_path: path,
+    event_data: {
+      path,
+      ...payload,
+    },
     ...payload,
-  })
+  } as any)
 }
 
 async function finishQuiz() {

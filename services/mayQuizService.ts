@@ -12,10 +12,34 @@ function apiBase(): string {
   return String(daigoApiBase || 'https://api.daigo.ru').replace(/\/+$/, '')
 }
 
+function getJwtToken(token?: string | null): string {
+  if (token) return String(token)
+
+  if (process.client) {
+    try {
+      return localStorage.getItem('token') || ''
+    } catch {
+      return ''
+    }
+  }
+
+  return ''
+}
+
 function authHeaders(token?: string | null): Record<string, string> {
-  return token
-    ? { Authorization: `Bearer ${token}` }
-    : {}
+  const jwt = getJwtToken(token)
+  return jwt ? { Authorization: `Bearer ${jwt}` } : {}
+}
+
+function requiredAuthHeaders(token?: string | null): Record<string, string> {
+  const jwt = getJwtToken(token)
+  if (!jwt) throw new Error('Не найден JWT токен для авторизованного запроса')
+
+  return { Authorization: `Bearer ${jwt}` }
+}
+
+function normalizePhone(phone?: string | null): string {
+  return String(phone || '').replace(/\D/g, '')
 }
 
 function normalizeCheckClientResponse(response: CheckClientResponse): boolean {
@@ -36,9 +60,11 @@ function normalizeCheckClientResponse(response: CheckClientResponse): boolean {
 }
 
 export const mayQuizService = {
-  async checkIsNewClient(token?: string | null): Promise<boolean> {
+  async checkIsNewClient(token?: string | null, phone?: string | null): Promise<boolean> {
+    const phoneDigits = normalizePhone(phone)
     const response = await $fetch<CheckClientResponse>(`${apiBase()}/v1/shop/check-client/new`, {
       method: 'GET',
+      query: phoneDigits ? { phone: phoneDigits } : undefined,
       headers: authHeaders(token),
     })
 
@@ -51,7 +77,7 @@ export const mayQuizService = {
       body,
       headers: {
         'Content-Type': 'application/json',
-        ...authHeaders(token),
+        ...requiredAuthHeaders(token),
       },
     })
   },
