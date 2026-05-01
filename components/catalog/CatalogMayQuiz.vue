@@ -426,10 +426,35 @@ async function nextQuestion() {
   await finishQuiz()
 }
 
+declare global {
+  interface Window {
+    dataLayer?: Array<Record<string, any>>
+  }
+}
+
+function sendYtmEvent(path: string, payload: Record<string, any> = {}) {
+  if (!process.client) return
+
+  window.dataLayer = window.dataLayer || []
+
+  window.dataLayer.push({
+    event: path,
+    event_path: path,
+    ...payload,
+  })
+}
+
 async function finishQuiz() {
   forcedResultKey.value = result.value.key
 
   analytics.reach('may_quiz_complete', {
+    client_type: clientBranch.value || 'unknown',
+    result: result.value.key,
+    score: score.value,
+  })
+
+  sendYtmEvent('/ym_events/quiz', {
+    quiz_name: 'may_quiz',
     client_type: clientBranch.value || 'unknown',
     result: result.value.key,
     score: score.value,
