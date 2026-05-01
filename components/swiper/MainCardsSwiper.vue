@@ -42,7 +42,7 @@ const slides: Slide[] = [
 
   // },
   {
-    to: '/catalog',
+    to: '/catalog#quiz',
     variant: 'hearts',
     title: 'Пройди квиз и получи уникальное предложение на майский детокс',
     subtitle: 'Как майские праздники влияют на твою систему? \nОтветь на 5 вопросов, получи персональную поддержку организма',
@@ -50,15 +50,15 @@ const slides: Slide[] = [
     imageMobile: '/images/catalog/bg.jpg',
     contentClass:
       'relative z-[3] flex flex-col items-start justify-center sm:justify-center ' +
-      'h-[420px] sm:h-[360px] lg:h-[500px] w-full ' +
+      'h-[320px] sm:h-[360px] lg:h-[500px] w-full ' +
       'px-4 md:px-10 py-6 md:py-12 gap-2 ' +
       'rounded-2xl sm:rounded-4xl',
     titleClass:
-      'text-white font-haido font-bold leading-[1] ' +
-      'text-[clamp(1.8rem,3.8vw,4.2rem)] sm:-mt-4 ',
+      'text-white font-haido font-medium leading-[1] ' +
+      'text-[clamp(1.7rem,3.6vw,4.2rem)] sm:-mt-4 ',
     subtitleClass:
       'text-white font-haido font-medium leading-snug mb-2 sm:mb-2 w-full mt-2 sm:mt-6 ' +
-      'text-[clamp(0.8rem,2vw,1.875rem)]',
+      'text-[clamp(0.7rem,1.8vw,1.875rem)]',
   },
   // {
   //   to: '/womens-day',

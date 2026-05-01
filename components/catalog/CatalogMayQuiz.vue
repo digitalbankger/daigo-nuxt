@@ -756,7 +756,7 @@ async function addBundleToCart(offer: BundleOffer) {
 </script>
 
 <template>
-  <section class="catalog-may-quiz w-full !font-haido" aria-label="Майский квиз Daigo">
+  <section id="quiz" class="catalog-may-quiz w-full !font-haido" aria-label="Майский квиз Daigo">
     <div
       class="quiz-card text-white"
       :class="{ 'quiz-card--intro': step === 'intro' }"
@@ -1439,6 +1439,13 @@ async function addBundleToCart(offer: BundleOffer) {
   .quiz-layer {
     min-height: auto;
   }
+  .quiz-card--intro .quiz-layer {
+    padding: 25px 15px;
+  }
+  .quiz-card--intro {
+    height: 260px;
+  }
+
 
   .quiz-layer {
     padding: 24px 18px;
@@ -1475,5 +1482,6 @@ async function addBundleToCart(offer: BundleOffer) {
     padding: 0 5px;
     font-size: 22px;
   }
+  
 }
 </style>

@@ -149,7 +149,7 @@ const subtitleClass = computed(() => props.subtitleClass)
         <a
           v-if="props.subtitle"
           :href="props.to"
-          class="mt-6 border border-white h-[54px] w-[310px] flex items-center justify-center rounded-lg py-2 px-6 text-xl text-white hover:bg-white hover:text-black transition-colors duration-300"
+          class="mt-6 border border-white h-[44px] sm:h-[54px] w-full sm:w-[310px] flex items-center justify-center rounded-lg py-2 px-6 text-lg sm:text-xl text-white hover:bg-white hover:text-black transition-colors duration-300"
         >Пройти квиз
         </a>
       </div>
