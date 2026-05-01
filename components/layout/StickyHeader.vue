@@ -1,9 +1,9 @@
 <template>
   <div
     class="hidden md:block fixed top-0 left-0 right-0 z-[60] transition-transform duration-300 will-change-transform border-b border-gray-200"
-    :style="stickyStyle"
     aria-hidden="false"
   >
+  <!-- :style="stickyStyle" -->
   <div class="relative mx-auto max-w-[1400px]">
     <nav class="backdrop-blur bg-white/85">
       <div class="mx-auto max-w-[1400px] px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between gap-3">
