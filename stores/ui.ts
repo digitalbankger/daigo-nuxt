@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 export const useUiStore = defineStore('ui', () => {
   // по умолчанию информер виден
-  const isHeadInformerVisible = ref(true)
+  const isHeadInformerVisible = ref(false)
 
   // просто меняем значение в памяти
   function closeHeadInformer() {

@@ -1,6 +1,5 @@
 <template>
-  <!-- <HeadInformer /> -->
-  <!-- <HeadInformer v-if="ui.isHeadInformerVisible" @close="ui.closeHeadInformer" /> -->
+  <HeadInformer v-if="ui.isHeadInformerVisible" @close="ui.closeHeadInformer" />
   <StickyHeader />
 
   <!-- nav оборачиваем в relative, чтобы позиционировать попап -->

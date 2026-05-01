@@ -475,12 +475,7 @@ async function finishQuiz() {
     score: score.value,
   })
 
-  sendYtmEvent('/ym_events/quiz', {
-    quiz_name: 'may_quiz',
-    client_type: clientBranch.value || 'unknown',
-    result: result.value.key,
-    score: score.value,
-  })
+  window.ym?.(31773751, 'hit', '/ym_events/quiz')
 
   saveCompletedQuiz()
 
