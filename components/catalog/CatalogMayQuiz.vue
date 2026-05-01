@@ -298,7 +298,7 @@ const bundleOffers: BundleOffer[] = [
     title: 'Месячный курс метабиотика Daigo 5',
     button: 'Положить в корзину',
     slugCandidates: ['metabiotik-daigo', 'metabiotik-daigo-5ml', 'metabiotik-daigo-5', 'daigo-5ml'],
-    staticImage: '/images/catalog/res5ml.png',
+    staticImage: '/images/catalog/res5ml1.png',
     imageAlt: 'Месячный курс метабиотика Daigo 5',
   },
   {
@@ -306,7 +306,7 @@ const bundleOffers: BundleOffer[] = [
     title: 'Усиленный курс метабиотика Daigo 10',
     button: 'Положить в корзину',
     slugCandidates: ['metabiotik-daigo-10', 'metabiotik-daigo-10ml', 'daigo-10ml'],
-    staticImage: '/images/catalog/res10ml.png',
+    staticImage: '/images/catalog/res10ml1.png',
     imageAlt: 'Усиленный курс метабиотика Daigo 10',
   },
   {
@@ -314,7 +314,7 @@ const bundleOffers: BundleOffer[] = [
     title: 'Полный курс Аминобиотиков',
     button: 'Положить в корзину',
     slugCandidates: ['daigo-dermic', 'aminobiotiki-daigo-dermic', 'daigo-brain', 'daigo-jointic'],
-    staticImage: '/images/catalog/resdermic.png',
+    staticImage: '/images/catalog/resdermic1.png',
     imageAlt: 'Полный курс аминобиотиков',
   },
 ]
