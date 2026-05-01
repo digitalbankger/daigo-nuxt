@@ -145,6 +145,13 @@ const subtitleClass = computed(() => props.subtitleClass)
         <p v-if="props.subtitle" :class="[subtitleClass, 'whitespace-pre-line']">
           {{ props.subtitle }}
         </p>
+
+        <a
+          v-if="props.subtitle"
+          :href="props.to"
+          class="mt-6 border border-white h-[54px] w-[310px] flex items-center justify-center rounded-lg py-2 px-6 text-xl text-white hover:bg-white hover:text-black transition-colors duration-300"
+        >Пройти квиз
+        </a>
       </div>
     </NuxtLink>
   </section>

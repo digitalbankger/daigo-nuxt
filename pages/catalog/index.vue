@@ -2,6 +2,7 @@
 definePageMeta({ layout: 'main' })
 
 import { useRoute, useRouter, useHead, watch, computed, ref } from '#imports'
+import { defineAsyncComponent } from 'vue'
 import { useCatalogStore } from '~/stores/catalogStore'
 import { useDeviceStore } from '~/stores/deviceStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
@@ -9,6 +10,8 @@ import ProductCard from '~/components/catalog/ProductCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
+
+const CatalogMayQuiz = defineAsyncComponent(() => import('~/components/catalog/CatalogMayQuiz.vue'))
 
 const ytm = useYtm()
 const route = useRoute()
@@ -251,6 +254,8 @@ function closeFilters() {
               :priority="idx < 3"
             />
           </div>
+
+          <CatalogMayQuiz class="my-8 md:my-10" />
 
           <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
