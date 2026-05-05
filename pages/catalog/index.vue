@@ -19,6 +19,7 @@ const router = useRouter()
 const catalogStore = useCatalogStore()
 const deviceStore = useDeviceStore()
 const analytics = useAnalytics()
+const isCatalogLoading = ref(true)
 
 await catalogStore.fetchFilters()
 
@@ -62,15 +63,22 @@ const visibleProducts = computed(() => {
 const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3))
 const featuredProducts = computed(() => visibleProducts.value.slice(0, featuredCount.value))
 const otherProducts = computed(() => visibleProducts.value.slice(featuredCount.value))
+const skeletonItems = Array.from({ length: 9 })
 
 watch(
   [page, normalizedQuery],
   async () => {
-    catalogStore.setPage(page.value)
-    await catalogStore.fetchProducts(normalizedQuery.value)
+    isCatalogLoading.value = true
 
-    if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
-      router.replace({ query: { ...route.query, empty: '1' } })
+    try {
+      catalogStore.setPage(page.value)
+      await catalogStore.fetchProducts(normalizedQuery.value)
+
+      if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
+        router.replace({ query: { ...route.query, empty: '1' } })
+      }
+    } finally {
+      isCatalogLoading.value = false
     }
   },
   { immediate: true, deep: true }
@@ -300,7 +308,29 @@ watch(
           <FilterPanel :store="catalogStore" :with-shadow="true" />
         </aside>
 
-        <div v-if="visibleProducts.length" class="w-full lg:w-3/4">
+        <div v-if="isCatalogLoading" class="w-full lg:w-3/4">
+          <p class="mb-6 text-center text-lg font-medium text-black/70">
+            Каталог загружается...
+          </p>
+
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
+            <div
+              v-for="(_, idx) in skeletonItems"
+              :key="idx"
+              class="catalog-skeleton-card"
+            >
+              <div class="catalog-skeleton-image"></div>
+
+              <div class="catalog-skeleton-content">
+                <div class="catalog-skeleton-line catalog-skeleton-line-title"></div>
+                <div class="catalog-skeleton-line catalog-skeleton-line-short"></div>
+                <div class="catalog-skeleton-line catalog-skeleton-line-price"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div v-else-if="visibleProducts.length" class="w-full lg:w-3/4">
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
               v-for="(product, idx) in featuredProducts"
@@ -316,7 +346,9 @@ watch(
             <CatalogMayQuiz />
           </div>
 
-          <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
+          <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">
+            БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ
+          </p>
 
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
@@ -375,5 +407,82 @@ watch(
 }
 .slide-left-leave-to {
   transform: translateX(-100%);
+}
+
+.catalog-skeleton-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  background: #f9f9f9;
+  min-height: 360px;
+}
+
+.catalog-skeleton-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.65),
+    transparent
+  );
+  animation: skeleton-shimmer 1.35s infinite;
+}
+
+.catalog-skeleton-image {
+  width: 100%;
+  height: 220px;
+  background: #f4f4f4;
+  border-radius: 20px 20px 0 0;
+}
+
+.catalog-skeleton-content {
+  padding: 18px;
+}
+
+.catalog-skeleton-line {
+  height: 14px;
+  border-radius: 999px;
+  background: #f1f1f1;
+  margin-bottom: 12px;
+}
+
+.catalog-skeleton-line-title {
+  width: 85%;
+  height: 18px;
+}
+
+.catalog-skeleton-line-short {
+  width: 65%;
+}
+
+.catalog-skeleton-line-price {
+  width: 45%;
+  height: 20px;
+  margin-top: 24px;
+}
+
+@keyframes skeleton-shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@media (max-width: 767px) {
+  .catalog-skeleton-card {
+    min-height: 280px;
+    border-radius: 14px;
+  }
+
+  .catalog-skeleton-image {
+    height: 160px;
+    border-radius: 14px 14px 0 0;
+  }
+
+  .catalog-skeleton-content {
+    padding: 12px;
+  }
 }
 </style>
