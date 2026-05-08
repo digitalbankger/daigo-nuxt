@@ -196,7 +196,7 @@ const { product, index, globalIndex, priority } = defineProps<{
 
 const cartStore = useCartStore()
 
-const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
+const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
 const galleryImages = computed(() => {
