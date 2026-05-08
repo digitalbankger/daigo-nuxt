@@ -42,12 +42,12 @@ const slides: Slide[] = [
 
   // },
   {
-    to: '/catalog#quiz',
+    to: '',
     variant: 'hearts',
-    title: 'Пройди квиз и получи уникальное предложение на майский детокс',
-    subtitle: 'Как майские праздники влияют на твою систему? \nОтветь на 5 вопросов, получи персональную поддержку организма',
-    image: '/images/catalog/bg.jpg',
-    imageMobile: '/images/catalog/bg.jpg',
+    title: '',
+    subtitle: '',
+    image: '/images/catalog/may9.png',
+    imageMobile: '/images/catalog/may9.png',
     contentClass:
       'relative z-[3] flex flex-col items-start justify-center sm:justify-center ' +
       'h-[320px] sm:h-[360px] lg:h-[500px] w-full ' +
