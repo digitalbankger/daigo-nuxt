@@ -11,8 +11,6 @@ import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
 
-const CatalogMayQuiz = defineAsyncComponent(() => import('~/components/catalog/CatalogMayQuiz.vue'))
-
 const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
@@ -340,10 +338,6 @@ watch(
               :global-index="idx"
               :priority="idx < 3"
             />
-          </div>
-
-          <div id="quiz" class="my-8 md:my-10 scroll-mt-[120px]">
-            <CatalogMayQuiz />
           </div>
 
           <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">

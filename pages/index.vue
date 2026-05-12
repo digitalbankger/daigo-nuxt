@@ -93,9 +93,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <!-- <BannerSection :banners="banners" /> -->
-      <!-- <MainCardsSwiper /> -->
-       <img src="/images/catalog/may9.png" alt="">
+      <BannerSection :banners="banners" />
 
       <!-- <ClientOnly>
         <StoriesList v-model:stories="stories" @open="openStory" />
