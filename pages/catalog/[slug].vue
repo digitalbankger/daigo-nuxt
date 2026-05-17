@@ -2,6 +2,7 @@
 definePageMeta({ layout: 'main' })
 
 import { useProductStore } from '~/stores/productStore'
+import { useAuthStore } from '~/stores/authStore'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProductHero from '~/components/product/ProductHero.vue'
 import ProductDescription from '~/components/product/ProductDescription.vue'
@@ -56,6 +57,7 @@ type ProductReviewsData = {
 
 const isWriteReviewOpen = ref(false)
 const isWriteReviewSuccess = ref(false)
+const isSubmittingReview = ref(false)
 
 const reviewForm = ref({
   author: '',
@@ -64,9 +66,16 @@ const reviewForm = ref({
   text: '',
 })
 
-const reviewErrors = ref<{ author?: string; text?: string }>({})
+const reviewErrors = ref<{ author?: string; text?: string; form?: string }>({})
+
+const authStore = useAuthStore()
 
 const openWriteReview = () => {
+  if (!authStore.isAuthenticated || !authStore.userId) {
+    authStore.openAuth(route.fullPath)
+    return
+  }
+
   isWriteReviewOpen.value = true
   isWriteReviewSuccess.value = false
   reviewErrors.value = {}
@@ -76,24 +85,78 @@ const closeWriteReview = () => {
   isWriteReviewOpen.value = false
   isWriteReviewSuccess.value = false
   reviewErrors.value = {}
+  isSubmittingReview.value = false
   reviewForm.value = { author: '', rating: 5, title: '', text: '' }
 }
 
-const submitReview = () => {
+const submitReview = async () => {
+  if (isSubmittingReview.value) return
+
   const e: typeof reviewErrors.value = {}
   if (!reviewForm.value.author.trim()) e.author = 'Введите имя'
   if (reviewForm.value.text.trim().length < 10) e.text = 'Отзыв слишком короткий (минимум 10 символов)'
+
+  if (!authStore.isAuthenticated || !authStore.userId || !authStore.token) {
+    e.form = 'Чтобы оставить отзыв, авторизуйтесь.'
+    reviewErrors.value = e
+    authStore.openAuth(route.fullPath)
+    return
+  }
+
   reviewErrors.value = e
   if (Object.keys(e).length) return
 
-  // заглушка: “успех” без API
-  isWriteReviewSuccess.value = true
+  isSubmittingReview.value = true
+
+  try {
+    const slug = String(product.value?.slug || route.params.slug || '')
+
+    await $fetch(`/api/shop/reviews/${encodeURIComponent(slug)}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${authStore.token}`,
+      },
+      body: {
+        author: reviewForm.value.author.trim(),
+        rating: Number(reviewForm.value.rating),
+        title: reviewForm.value.title.trim(),
+        text: reviewForm.value.text.trim(),
+        tags: [],
+        media: [],
+        daigo_id: authStore.userId,
+      },
+    })
+
+    isWriteReviewSuccess.value = true
+  } catch (err: any) {
+    const status = Number(err?.statusCode || err?.response?.status || err?.status || 0)
+
+    if (status === 401 || status === 403) {
+      reviewErrors.value = {
+        form: 'Сессия авторизации истекла. Авторизуйтесь еще раз, чтобы оставить отзыв.',
+      }
+      authStore.openAuth(route.fullPath)
+      return
+    }
+
+    reviewErrors.value = {
+      form:
+        err?.data?.message ||
+        err?.data?.statusMessage ||
+        err?.statusMessage ||
+        err?.message ||
+        'Не удалось отправить отзыв. Попробуйте еще раз.',
+    }
+  } finally {
+    isSubmittingReview.value = false
+  }
 }
 
 const isMediaModalOpen = ref(false)
 const activeMedia = ref<ReviewMedia | null>(null)
 
 const onOpenMedia = (m: ReviewMedia) => {
+  if (m.type === 'video') return
   activeMedia.value = m
   isMediaModalOpen.value = true
 }
@@ -489,10 +552,15 @@ useHead(() => {
                 </button>
                 <button
                   type="submit"
-                  class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
+                  :disabled="isSubmittingReview"
+                  class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Отправить отзыв
+                  {{ isSubmittingReview ? 'Отправляем…' : 'Отправить отзыв' }}
                 </button>
+              </div>
+
+              <div v-if="reviewErrors.form" class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
+                {{ reviewErrors.form }}
               </div>
 
               <p class="text-xs text-[#6B7280]">

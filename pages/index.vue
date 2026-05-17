@@ -8,12 +8,7 @@ import CustomersSection from '~/components/sections/CustomersSection.vue'
 import SertificatSection from '~/components/sections/SertificatSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import MediaModal from '~/components/reviews/MediaModal.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
-
-import { ref } from 'vue'
-import type { Review } from '~/types/content'
-import MainCardsSwiper from '~/components/swiper/MainCardsSwiper.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -32,26 +27,6 @@ useSeoMeta({
   twitterImage: 'https://daigo.ru/images/wide-selection.webp',
 })
 
-/* ----- отзывы (медиа) ----- */
-const isMediaModalOpen = ref(false)
-const selectedReview = ref<Review | null>(null)
-function openMediaModal(review: Review) {
-  selectedReview.value = review
-  isMediaModalOpen.value = true
-}
-
-const aboutVideoSrc = ref('')
-
-function openAboutVideo(payload: { type: 'video'; src: string }) {
-  aboutVideoSrc.value = payload.src
-  isMediaModalOpen.value = true
-}
-
-function closeMediaModal() {
-  isMediaModalOpen.value = false
-  selectedReview.value = null
-  aboutVideoSrc.value = ''
-}
 /* ----- сторис ----- */
 const contentStore = useContentStore()
 await contentStore.load()
@@ -111,7 +86,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
       <h2 class="text-slider md:text-product lg:text-slider font-medium mt-8">
         О компании Да́йго
       </h2>
-      <AboutSection @open-video="openAboutVideo" />
+      <AboutSection />
       <InfoSection />
       <CustomersSection />
       <SertificatSection />
@@ -123,7 +98,6 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
     <ReviewSlider
       v-if="reviews"
       :reviews="reviews"
-      @open-review="openMediaModal"
     />
   </div>
 
@@ -135,12 +109,4 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
       </ClientOnly>
     </div>
   </BaseContainer>
-
-  <MediaModal
-    :show="isMediaModalOpen"
-    :type="aboutVideoSrc ? 'video' : (selectedReview?.type || 'image')"
-    :src="aboutVideoSrc || selectedReview?.file_url || selectedReview?.photo_urls?.[0] || ''"
-    :onClose="closeMediaModal"
-
-  />
 </template>

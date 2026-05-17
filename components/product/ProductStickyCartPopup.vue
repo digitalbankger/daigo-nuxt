@@ -8,6 +8,7 @@ const props = defineProps<{ product: Product; observeTarget?: string }>()
 const cartStore = useCartStore()
 
 const isVisible = ref(false)
+const isDismissed = ref(false)
 const adding = ref(false)
 
 const hasDiscount = computed(() => props.product.oldPrice && props.product.oldPrice > props.product.price)
@@ -22,6 +23,10 @@ const truncatedTitle = computed(() => {
   const w = t.trim().split(/\s+/u)
   return w.length <= 4 ? t.trim() : w.slice(0, 4).join(' ') + '…'
 })
+
+function closePopup() {
+  isDismissed.value = true
+}
 
 const coverImageUrl = computed<string | null>(() => {
   const imgs = props.product.images || []
@@ -137,12 +142,23 @@ onBeforeUnmount(() => {
 <template>
   <transition name="fade">
     <aside
-      v-if="isVisible"
+      v-if="isVisible && !isDismissed"
       class="fixed z-[60] left-1/2 -translate-x-1/2 bottom-16 sm:bottom-4 w-[92vw] sm:max-w-[680px]
              bg-white rounded-2xl shadow-xl border border-black/5
-             p-3 sm:p-4 md:p-5 flex items-start sm:items-center gap-3 md:gap-5"
+             p-3 pr-10 sm:p-4 sm:pr-11 md:p-5 md:pr-12 flex items-start sm:items-center gap-3 md:gap-5"
       aria-live="polite"
     >
+      <button
+        type="button"
+        class="absolute right-2 top-2 z-10 grid h-8 w-8 place-items-center rounded-full text-black/45 transition hover:bg-black/5 hover:text-black focus:outline-none focus:ring-2 focus:ring-primary/30"
+        aria-label="Закрыть попап товара"
+        @click="closePopup"
+      >
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </button>
+
       <div class="shrink-0">
         <OptimizedPicture
           v-if="coverImageUrl"

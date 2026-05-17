@@ -5,7 +5,6 @@ import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
 import { useHead } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ReviewCard from '~/components/reviews/ReviewCard.vue'
-import MediaModal from '~/components/reviews/MediaModal.vue'
 import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 import { useReviewsStore } from '~/stores/reviewsStore'
 import type { Review } from '~/types/content'
@@ -50,8 +49,6 @@ function openStory(review: Review) {
   }
 }
 
-// Модалка: видео/аудио карточек (не «сторис»)
-const selectedStory = ref<Review | null>(null)
 
 // Модалка: полный текст отзыва
 const selectedTextReview = ref<Review | null>(null)
@@ -131,7 +128,6 @@ useHead(() => {
             v-for="review in reviews.filter(r => r.type === 'video')"
             :key="review.id"
             :review="review"
-            @open-story="() => (selectedStory = review)"
           />
         </div>
 
@@ -150,7 +146,6 @@ useHead(() => {
             v-for="review in reviews.filter(r => r.type === 'audio')"
             :key="review.id"
             :review="review"
-            @open-story="() => (selectedStory = review)"
           />
         </div>
 
@@ -182,17 +177,6 @@ useHead(() => {
           :isOpen="isCelebModalOpen"
           :reviews="modalReviews"
           @close="isCelebModalOpen = false"
-        />
-      </ClientOnly>
-
-      <!-- Модалка видео/аудио -->
-      <ClientOnly>
-        <MediaModal
-          v-if="selectedStory"
-          :show="!!selectedStory"
-          :type="selectedStory.file_url ? 'video' : selectedStory.file_url ? 'audio' : 'image'"
-          :src="selectedStory.file_url || selectedStory.file_url || selectedStory.preview"
-          :onClose="() => (selectedStory = null)"
         />
       </ClientOnly>
 

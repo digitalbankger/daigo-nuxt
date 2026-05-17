@@ -1,3 +1,19 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import type { Review } from '~/types/content'
+import InlineVideoPlayer from '~/components/ui/InlineVideoPlayer.vue'
+
+const props = defineProps<{ review: Review }>()
+
+const mediaSource = computed(() =>
+  props.review.mediaUrl || props.review.video_url || props.review.file_url || ''
+)
+
+const posterSource = computed(() =>
+  props.review.preview || props.review.photo_urls?.[0] || ''
+)
+</script>
+
 <template>
   <div class="relative min-h-[520px] md:min-h-[340px] lg:min-h-[465px] md:h-[340px] lg:h-[465px] md:px-10 lg:px-14 md:py-12 rounded-2xl md:rounded-3xl bg-hoverbtn flex flex-col md:flex-row gap-4">
     <div class="flex flex-col justify-start md:w-1/2 text-left order-2 md:order-1 px-4 pb-6 md:px-0 md:py-0">
@@ -16,53 +32,27 @@
           class="w-4 md:w-6 h-4 md:h-6 pt-0.5 rotate-180 mt-auto"
         />
       </div>
-      <!-- <NuxtLink
-        :to="review.file_url"
-        v-if="review.file_url"
-        target="_blank"
-        rel="noopener"
-        class="inline-flex items-center gap-2 py-3 mt-3 ml-9 text-2xl text-primary font-normal transition duration-300 group"
-      >
-        Читать весь отзыв
-        <img
-          src="/icons/arrow.svg"
-          alt="→"
-          class="w-5 h-5 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1"
-        />
-      </NuxtLink> -->
     </div>
 
     <div class="relative w-full md:w-1/2 order-1 md:order-2">
+      <InlineVideoPlayer
+        v-if="review.type === 'video' && mediaSource"
+        :src="mediaSource"
+        :poster="posterSource"
+        :title="`Видео отзыв ${review.author}`"
+        class="w-full h-[296px] md:h-full rounded-2xl md:rounded-3xl"
+      />
+
       <NuxtImg
-        v-if="review.photo_urls[0]"
+        v-else-if="review.photo_urls?.[0]"
         :src="review.photo_urls[0]"
         alt="Фото автора"
-        class="md:w-auto h-[296px] md:h-auto lg:h-full mx-auto object-cover rounded-2xl md:rounded-3xl cursor-pointer"
+        class="md:w-auto h-[296px] md:h-auto lg:h-full mx-auto object-cover rounded-2xl md:rounded-3xl"
         format="webp"
         sizes="(max-width: 390px)"
         loading="lazy"
         placeholder
       />
-      <div v-if="review.type === 'video'" class="absolute inset-0 flex items-center justify-center">
-        <img
-          src="/icons/play-white.svg"
-          class="w-18 h-18 cursor-pointer"
-          alt="play"
-          @click.stop="emit('open-review', review)"
-        />
-      </div>
-
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import type { Review } from '~/types/content'
-
-defineProps<{ review: Review }>()
-
-const emit = defineEmits<{
-  (e: 'open-review', review: Review): void
-}>()
-
-</script>

@@ -3,6 +3,7 @@ import type { Review } from '~/types/content'
 import { computed, onMounted, onBeforeUnmount, ref, nextTick } from 'vue'
 import { playExclusive } from '~/utils/audioController'
 import { useProductsByIds } from '~/composables/useProductsByIds'
+import InlineVideoPlayer from '~/components/ui/InlineVideoPlayer.vue'
 
 const props = defineProps<{ review: Review }>()
 const emit = defineEmits(['open-story', 'open-text'])
@@ -138,22 +139,32 @@ onBeforeUnmount(() => {
     </template>
 
     <!-- Видео -->
-     <template v-if="review.type === 'video'">
+    <template v-if="review.type === 'video'">
       <div
-        @click="emit('open-story')"
-        class="h-[545px] relative rounded-xl overflow-hidden cursor-pointer transition hover:-translate-y-1 bg-white shadow-md"
+        class="h-[545px] relative rounded-xl overflow-hidden transition hover:-translate-y-1 bg-white shadow-md"
       >
         <div class="relative">
-          <NuxtImg v-if="review.photo_urls" :src="review.preview || review.photo_urls[0]" format="webp" class="w-full h-[380px] object-cover" />
-          <div class="absolute inset-0 flex items-center justify-center">
-            <img src="/icons/play.svg" class="w-20 h-20" alt="play" />
-          </div>
+          <InlineVideoPlayer
+            v-if="mediaSource"
+            :src="mediaSource"
+            :poster="review.preview || review.photo_urls?.[0]"
+            :title="`Видео отзыв ${review.author}`"
+            class="w-full h-[380px]"
+          />
+
+          <NuxtImg
+            v-else-if="review.photo_urls"
+            :src="review.preview || review.photo_urls[0]"
+            format="webp"
+            class="w-full h-[380px] object-cover"
+          />
+
           <div class="absolute top-3 left-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">
             Видео
           </div>
           <div
             v-if="relatedProducts.length"
-            class="absolute bottom-3 left-3 mt-4 flex flex-col w-fit flex-wrap gap-2"
+            class="absolute bottom-3 left-3 z-20 mt-4 flex flex-col w-fit flex-wrap gap-2"
           >
             <NuxtLink
               v-for="product in relatedProducts"
@@ -169,7 +180,7 @@ onBeforeUnmount(() => {
             </NuxtLink>
           </div>
 
-          <div class="absolute bottom-3 right-3 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">
+          <div class="absolute bottom-3 right-3 z-20 text-sm bg-[#EEF4FF] text-primary rounded px-2 py-1">
             {{ review.duration || '00:00' }}
           </div>
         </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import UiModal from '@/components/ui/UiModal.vue'
+import InlineVideoPlayer from '~/components/ui/InlineVideoPlayer.vue'
 
 type ReviewMedia = {
   id: string
@@ -116,7 +117,10 @@ const rest = computed(() => Math.max(0, allMedia.value.length - galleryLimit))
 const formatCount = (n: number) => new Intl.NumberFormat('ru-RU').format(Number.isFinite(n) ? n : 0)
 const starsLabel = computed(() => `${ratingAvg.value.toFixed(1)} / 5`)
 
-const openMedia = (m: ReviewMedia) => emit('openMedia', m)
+const openMedia = (m: ReviewMedia) => {
+  if (m.type === 'video') return
+  emit('openMedia', m)
+}
 
 type ReviewLang = 'ru' | 'en'
 const lang = ref<ReviewLang>('en')
@@ -267,37 +271,39 @@ onBeforeUnmount(() => {
 
             <div v-if="gallery.length" class="mt-6">
               <div class="grid grid-cols-4 gap-3 sm:grid-cols-6">
-                <button
+                <div
                   v-for="(m, idx) in gallery"
                   :key="m.id + ':' + idx"
-                  type="button"
                   class="group relative aspect-square overflow-hidden rounded-xl border border-[#E5E7EB] bg-[#F3F4F6]"
-                  @click="openMedia(m)"
-                  aria-label="open media"
                 >
-                  <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
+                  <InlineVideoPlayer
+                    v-if="m.type === 'video' && m.src"
+                    :src="m.src"
+                    :poster="m.thumb"
+                    title="Видео отзыв"
+                    class="h-full w-full"
+                  />
 
-                  <div
-                    v-if="m.type === 'video'"
-                    class="absolute inset-0 grid place-items-center bg-black/15"
+                  <button
+                    v-else
+                    type="button"
+                    class="absolute inset-0"
+                    @click="openMedia(m)"
+                    aria-label="Открыть медиа"
                   >
-                    <div class="grid place-items-center h-9 w-9 rounded-full bg-white/90 shadow">
-                      <svg viewBox="0 0 20 20" class="h-5 w-5 text-[#111]" fill="currentColor">
-                        <path d="M8 5v10l8-5-8-5z" />
-                      </svg>
-                    </div>
-                  </div>
+                    <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
+                  </button>
 
                   <!-- +N overlay on last -->
                   <div
                     v-if="idx === gallery.length - 1 && rest > 0"
-                    class="absolute inset-0 grid place-items-center bg-black/45 text-white font-semibold"
+                    class="pointer-events-none absolute inset-0 grid place-items-center bg-black/45 text-white font-semibold"
                   >
                     +{{ rest }}
                   </div>
 
-                  <div class="absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-[#111] transition" />
-                </button>
+                  <div class="pointer-events-none absolute inset-0 ring-0 group-hover:ring-2 group-hover:ring-[#111] transition" />
+                </div>
               </div>
             </div>
 
@@ -386,30 +392,35 @@ onBeforeUnmount(() => {
           </p>
           
           <div v-if="r.media?.length" class="mt-4 grid grid-cols-4 sm:grid-cols-6 gap-2">
-            <button
+            <div
               v-for="(m, idx) in r.media.slice(0, 4)"
               :key="m.id + ':' + idx"
-              type="button"
               class="group relative aspect-square overflow-hidden rounded-xl border border-[#E5E7EB] bg-[#F3F4F6]"
-              @click="openMedia(m)"
             >
-              <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
+              <InlineVideoPlayer
+                v-if="m.type === 'video' && m.src"
+                :src="m.src"
+                :poster="m.thumb"
+                title="Видео отзыв"
+                class="h-full w-full"
+              />
 
-              <div v-if="m.type === 'video'" class="absolute inset-0 grid place-items-center bg-black/20">
-                <div class="grid place-items-center h-7 w-7 rounded-full bg-white/90 shadow">
-                  <svg viewBox="0 0 20 20" class="h-4 w-4 text-[#111]" fill="currentColor">
-                    <path d="M8 5v10l8-5-8-5z" />
-                  </svg>
-                </div>
-              </div>
+              <button
+                v-else
+                type="button"
+                class="absolute inset-0"
+                @click="openMedia(m)"
+              >
+                <img :src="m.thumb" alt="" class="h-full w-full object-cover" loading="lazy" />
+              </button>
 
               <div
                 v-if="idx === 3 && r.media.length > 4"
-                class="absolute inset-0 grid place-items-center bg-black/45 text-white text-sm font-semibold"
+                class="pointer-events-none absolute inset-0 grid place-items-center bg-black/45 text-white text-sm font-semibold"
               >
                 +{{ r.media.length - 4 }}
               </div>
-            </button>
+            </div>
           </div>
           
           <button
@@ -488,20 +499,28 @@ onBeforeUnmount(() => {
 
           <!-- media -->
           <div v-if="activeReview?.media?.length" class="mt-4 grid grid-cols-2 sm:grid-cols-3 gap-3">
-            <button
+            <div
               v-for="m in activeReview.media"
               :key="m.id"
-              type="button"
               class="relative aspect-video overflow-hidden rounded-xl border border-[#E5E7EB] bg-[#F3F4F6]"
-              @click="openMedia(m)"
             >
-              <img :src="m.thumb" alt="" class="h-full w-full object-cover" />
-              <div v-if="m.type === 'video'" class="absolute inset-0 grid place-items-center bg-black/15">
-                <div class="grid place-items-center h-9 w-9 rounded-full bg-white/90 shadow">
-                  <svg viewBox="0 0 20 20" class="h-5 w-5 text-[#111]" fill="currentColor"><path d="M8 5v10l8-5-8-5z" /></svg>
-                </div>
-              </div>
-            </button>
+              <InlineVideoPlayer
+                v-if="m.type === 'video' && m.src"
+                :src="m.src"
+                :poster="m.thumb"
+                title="Видео отзыв"
+                class="h-full w-full"
+              />
+
+              <button
+                v-else
+                type="button"
+                class="absolute inset-0"
+                @click="openMedia(m)"
+              >
+                <img :src="m.thumb" alt="" class="h-full w-full object-cover" />
+              </button>
+            </div>
           </div>
 
           <!-- product -->

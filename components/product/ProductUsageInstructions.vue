@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import MediaModal from '~/components/reviews/MediaModal.vue'
-import { ref } from 'vue'
+import InlineVideoPlayer from '~/components/ui/InlineVideoPlayer.vue'
 
 interface UsageStep { icon?: string; text: string }
 interface UsageGroup { title: string; steps: UsageStep[] }
@@ -27,7 +26,6 @@ const props = defineProps<{
   data?: ProductUsageInstruction | null
 }>()
 
-const showVideo = ref(false)
 
 /** Кол-во колонок с учётом наличия картинки */
 const gridCols = (len = 0, hasImage = false) => {
@@ -219,24 +217,11 @@ const gridCols = (len = 0, hasImage = false) => {
         Видео инструкция <br class="block sm:hidden" />по применению
       </h3>
 
-      <div
-        class="relative w-full h-[210px] sm:h-[350px] lg:h-[610px] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden bg-hoverbtn cursor-pointer"
-        @click="showVideo = true"
-      >
-        <img
-          :src="data.videoPoster || '/images/default-video.jpg'"
-          alt="Видео постер"
-          class="w-full h-full object-cover"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-
-      <MediaModal
-        :show="showVideo"
-        type="video"
+      <InlineVideoPlayer
         :src="data.videoUrl"
-        :onClose="() => (showVideo = false)"
+        :poster="data.videoPoster || '/images/default-video.jpg'"
+        title="Видео инструкция по применению"
+        class="w-full h-[210px] sm:h-[350px] lg:h-[610px] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden bg-hoverbtn"
       />
     </div>
   </section>

@@ -5,8 +5,6 @@ import { computed, ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ReviewCard from '~/components/reviews/ReviewCard.vue'
-import MediaModal from '~/components/reviews/MediaModal.vue'
-import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 import type { Review } from '~/types/content'
 import { useReviewsStore } from '~/stores/reviewsStore'
 
@@ -80,10 +78,6 @@ function go(p: number) {
   router.push({ query: { ...route.query, page: p } })
 }
 
-/** Модалки (видео/аудио/картинки) */
-const selected = ref<Review | null>(null)
-function openMedia(r: Review) { selected.value = r }
-
 /** SEO / OG */
 useSeoMeta({
   title: conf.value.seoTitle,
@@ -113,7 +107,6 @@ useSeoMeta({
             v-for="r in paginated"
             :key="r.id"
             :review="r"
-            @open-story="() => openMedia(r)"
           />
         </div>
 
@@ -137,22 +130,6 @@ useSeoMeta({
         </div>
       </template>
 
-      <!-- Модалка медиа -->
-      <ClientOnly>
-        <MediaModal
-          v-if="selected"
-          :show="!!selected"
-          :type="selected.type === 'video' ? 'video' : selected.type === 'audio' ? 'audio' : 'image'"
-          :src="
-            selected.type === 'video'
-              ? (selected.video_url || selected.mediaUrl || selected.file_url || selected.preview)
-              : selected.type === 'audio'
-                ? (selected.file_url || selected.mediaUrl)
-                : (selected.preview || (selected.photo_urls && selected.photo_urls[0]) || '')
-          "
-          :onClose="() => (selected = null)"
-        />
-      </ClientOnly>
 
     </section>
   </BaseContainer>

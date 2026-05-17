@@ -16,8 +16,8 @@ const productIdStr = computed(() => {
   return id ? String(id) : ''
 })
 
-/** список товаров с предзаказом (можно расширять) */
-const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
+/** список товаров с предзаказом (можно расширять) через '3232-3232-2323' */
+const PREORDER_IDS = new Set<string>([])
 const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
 
 const adding = ref(false)

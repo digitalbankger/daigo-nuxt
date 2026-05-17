@@ -1,15 +1,12 @@
 <script setup lang="ts">
 import UiCard from '@/components/ui/UiCard.vue'
+import InlineVideoPlayer from '~/components/ui/InlineVideoPlayer.vue'
 
 const { $device } = useNuxtApp()
 
 const props = withDefaults(defineProps<{ showReadButton?: boolean }>(), {
   showReadButton: true,
 })
-
-const emit = defineEmits<{
-  (e: 'open-video', payload: { type: 'video'; src: string; poster?: string }): void
-}>()
 
 const aboutVideo = {
   src: 'https://s3.firstvds.ru/materials/daigo-about.mp4',
@@ -59,13 +56,6 @@ const bottomCard = {
   },
 }
 
-function onPlay() {
-  emit('open-video', {
-    type: 'video',
-    src: aboutVideo.src,
-    poster: aboutVideo.poster,
-  })
-}
 </script>
 
 <template>
@@ -74,28 +64,12 @@ function onPlay() {
       <div class="flex flex-col lg:flex-row gap-6 items-start w-full">
         <!-- Видео превью + плей -->
         <div class="w-full lg:w-1/2 rounded-xl overflow-hidden">
-          <div class="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden">
-            <img
-              :src="aboutVideo.poster"
-              alt="Видео о компании Daigo & Tamotsu"
-              class="w-full h-auto rounded-2xl sm:rounded-3xl"
-              loading="lazy"
-            />
-
-            <!-- play overlay -->
-            <button
-              type="button"
-              class="absolute inset-0 flex items-center justify-center hover:scale-105 transition"
-              aria-label="Открыть видео"
-              @click.stop="onPlay"
-            >
-              <img
-                src="/icons/play-white.svg"
-                class="w-18 h-18 cursor-pointer"
-                alt="play"
-              />
-            </button>
-          </div>
+          <InlineVideoPlayer
+            :src="aboutVideo.src"
+            :poster="aboutVideo.poster"
+            title="Видео о компании Daigo & Tamotsu"
+            class="w-full aspect-video rounded-2xl sm:rounded-3xl overflow-hidden"
+          />
 
           <div v-if="props.showReadButton" class="w-full flex justify-center">
             <NuxtLink
