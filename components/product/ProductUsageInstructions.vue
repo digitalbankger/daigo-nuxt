@@ -211,7 +211,7 @@ const gridCols = (len = 0, hasImage = false) => {
       </div>
     </div>
 
-    <!-- Видео-блок -->
+    <!-- Видео-блок
     <div v-if="data.videoUrl" class="mt-6">
       <h3 class="text-xl sm:text-3xl lg:text-product leading-tight font-medium mb-4 sm:mb-8 sm:mt-6">
         Видео инструкция <br class="block sm:hidden" />по применению
@@ -223,6 +223,6 @@ const gridCols = (len = 0, hasImage = false) => {
         title="Видео инструкция по применению"
         class="w-full h-[210px] sm:h-[350px] lg:h-[610px] aspect-video rounded-2xl sm:rounded-3xl overflow-hidden bg-hoverbtn"
       />
-    </div>
+    </div>-->
   </section>
 </template>

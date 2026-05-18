@@ -387,7 +387,7 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <ProductVideo :video-url="product.videoUrl" :video-poster="product.videoPoster" />
+        <!-- <ProductVideo :video-url="product.videoUrl" :video-poster="product.videoPoster" /> -->
 
         <ProductInfoBlock
           v-if="product.composition"
