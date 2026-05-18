@@ -88,8 +88,8 @@ export default defineEventHandler((event) => {
       category: 'metabiotic',
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
-      videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: '/images/mock/product/lux/lux-poster.jpg',
+      videoUrl: '',
+      videoPoster: '',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
@@ -160,8 +160,8 @@ export default defineEventHandler((event) => {
             ]
           },
         ],
-        videoUrl: '/videos/daigo.mp4',
-        videoPoster: '/images/mock/product/lux/instr-poster.jpg',
+        videoUrl: '',
+        videoPoster: '',
         footnote: 'Можно применять для профилактики постоянно. Срок годности — 3 года...',
         text: `<p class="text-sm md:text-base lg:text-2xl font-medium">Можно применять для профилактики постоянно.</p>
               <p class="text-sm md:text-base lg:text-2xl leading-tight">Срок годности — 3 года.<br>
