@@ -2691,7 +2691,7 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 174430,
+      price: 182207,
       originalPrice: 199500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -2882,7 +2882,7 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 474860,
+      price: 489964,
       originalPrice: 534000,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -3092,7 +3092,7 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 1021180,
+      price: 1051838,
       originalPrice: 1152400,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -3615,7 +3615,7 @@ export default defineEventHandler((event) => {
       descriptionSections: [
 
       ],
-      price: 132430,
+      price: 140357,
       originalPrice: 154500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
@@ -4616,7 +4616,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       descriptionSections: [
 
       ],
-      price: 59700,
+      price: 66737,
       originalPrice: 72700,
       category: 'metabiotic',
       isActive: true,
