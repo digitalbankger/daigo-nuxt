@@ -8,8 +8,8 @@
     <nav class="backdrop-blur bg-white/85">
       <div class="mx-auto max-w-[1400px] px-3 sm:px-4 lg:px-6 h-16 flex items-center justify-between gap-3">
         <div class="flex items-center gap-7 shrink-0">
-            <NuxtLink to="/" aria-label="Главная">
-                <img src="/logo.svg" alt="daigo logo" class="md:h-8 xl:h-10" />
+            <NuxtLink to="/" aria-label="Главная" class="cursor-pointer">
+                <img src="/logo.svg" alt="daigo logo" class="md:h-8 xl:h-10 cursor-pointer" />
             </NuxtLink>
 
             <div
@@ -120,12 +120,17 @@
 
 <script setup lang="ts">
 import { ref, onBeforeUnmount, computed } from 'vue'
+import { navigateTo } from '#imports'
+import { storeToRefs } from 'pinia'
 import { useScrolled } from '@/composables/useScrolled'
 import { useUiStore } from '@/stores/ui'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import CatalogHoverMenu from '@/components/layout/CatalogHoverMenu.vue'
+import { useAuthStore } from '@/stores/authStore'
 
 const ui = useUiStore()
+const auth = useAuthStore()
+const { isAuthenticated } = storeToRefs(auth)
 const { scrolled } = useScrolled(120)
 
 // высота информера (у тебя 56px). Если на desktop другая — поменяй тут.
@@ -141,6 +146,27 @@ const stickyStyle = computed(() => {
       : `translateY(calc(-100% - ${offset}px))`,
   }
 })
+
+
+const ORDERS_PATH = '/orders'
+
+const goProfile = () => {
+  if (isAuthenticated.value) {
+    navigateTo('/profile')
+  } else {
+    auth.openAuth()
+  }
+}
+
+const goOrders = () => {
+  if (isAuthenticated.value) {
+    navigateTo(ORDERS_PATH)
+  } else {
+    auth.openAuth()
+  }
+}
+
+const closePartnersPopup = () => {}
 
 const isCatalogPopupOpen = ref(false)
 let catalogCloseTimer: ReturnType<typeof setTimeout> | null = null

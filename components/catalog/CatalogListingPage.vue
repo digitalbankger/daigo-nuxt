@@ -1,144 +1,256 @@
 <script setup lang="ts">
-definePageMeta({ layout: 'main' })
-
-import { useRoute, useRouter, useHead, watch, computed, ref, onMounted, onBeforeUnmount, nextTick } from '#imports'
+import {
+  useRoute,
+  useRouter,
+  useHead,
+  watch,
+  computed,
+  ref,
+  onMounted,
+  onBeforeUnmount,
+  nextTick,
+} from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
-import { useDeviceStore } from '~/stores/deviceStore'
+import { useAnalytics } from '@/composables/useAnalytics'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
-import Button from '~/components/ui/Button.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
+import {
+  buildCatalogFilterPath,
+  catalogFiltersToApiQuery,
+  mergeCatalogFilters,
+  normalizeCatalogFilters,
+  parseCatalogFilterSegments,
+  parseCatalogFilterValues,
+  parseCatalogQueryFilters,
+  stableCatalogFiltersKey,
+  uniqueCatalogFilterValues,
+  filterPathIsCatalogFilter,
+  type CatalogFilterValues,
+} from '~/utils/catalogFilterRoute'
+
+type QuickReasonFilter = {
+  label: string
+  query: Record<string, string[]>
+}
+
+const PRODUCTS_LIMIT = 12
+
+const quickReasonFilters: QuickReasonFilter[] = [
+  {
+    label: 'Микрофлора после лечения',
+    query: { 'pomogaet-pri': ['vosstanovlenie-mikroflory', 'disbakterioz'] },
+  },
+  {
+    label: 'Пищевая непереносимость',
+    query: { 'pomogaet-pri': ['pishchevaya-neperenosimost'] },
+  },
+  {
+    label: 'Иммунитет',
+    query: { napravlennost: ['kishechnik-i-immunitet'] },
+  },
+  {
+    label: 'ЖКТ у детей',
+    query: { 'pomogaet-pri': ['meteorism', 'disbakterioz', 'kishechnaya-neprokhodimost-zapor'] },
+  },
+  {
+    label: 'Профилактика',
+    query: { 'klass-produkta': ['metobiotiki'] },
+  },
+  {
+    label: 'Аллергии',
+    query: { 'pomogaet-pri': ['allergiya', 'pishchevaya-neperenosimost'] },
+  },
+  {
+    label: 'Дерматит и псориаз',
+    query: { 'pomogaet-pri': ['atopicheskij-dermatit', 'neyrodermit', 'psoriaz'] },
+  },
+  {
+    label: 'Волосы и дефициты',
+    query: { 'pomogaet-pri': ['vypadenie-volos'] },
+  },
+  {
+    label: 'После химиотерапии',
+    query: {
+      napravlennost: ['kishechnik-i-immunitet'],
+      'pomogaet-pri': ['vosstanovlenie-mikroflory'],
+    },
+  },
+  {
+    label: 'Возрастная профилактика',
+    query: {
+      napravlennost: ['mozg-i-nervnaya-sistema'],
+      'pomogaet-pri': ['demenciya', 'alcegeymer'],
+    },
+  },
+]
 
 const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
 const catalogStore = useCatalogStore()
-const deviceStore = useDeviceStore()
 const analytics = useAnalytics()
 const isCatalogLoading = ref(true)
-
-const PRODUCTS_PER_LOAD = 12
-const PIVOT = 15
-const displayLimit = ref(PRODUCTS_PER_LOAD)
+const isLoadingMore = ref(false)
+const currentLazyPage = ref(1)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
+const skeletonItems = Array.from({ length: PRODUCTS_LIMIT })
 let loadMoreObserver: IntersectionObserver | null = null
 
 await catalogStore.fetchFilters()
 
-const normalizedQuery = computed(() => {
-  return Object.fromEntries(
-    Object.entries(route.query)
-      .filter(([key]) => {
-        if (key === 'empty' || key === 'page') return false
-        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
-        if (key.startsWith('utm_')) return false
-        return true
-      })
-      .map(([key, value]) => [
-        key,
-        Array.isArray(value) ? value[0] ?? '' : value ?? ''
-      ])
-  ) as Record<string, string>
+const pagingQueryKeys = new Set(['empty', 'page', 'page_size', 'limit'])
+const allowedFilterSlugs = computed(() => new Set(catalogStore.filters.map((group) => group.slug)))
+const filterOrder = computed(() => catalogStore.filters.map((group) => group.slug))
+
+function cleanRoutePathFilters() {
+  return parseCatalogFilterSegments(route.params.filters, allowedFilterSlugs.value)
+}
+
+function cleanRouteQueryFilters() {
+  return parseCatalogQueryFilters(route.query as Record<string, unknown>, allowedFilterSlugs.value)
+}
+
+const normalizedFilters = computed<CatalogFilterValues>(() => {
+  return mergeCatalogFilters(cleanRoutePathFilters(), cleanRouteQueryFilters())
 })
+
+const normalizedQuery = computed(() => catalogFiltersToApiQuery(normalizedFilters.value))
+const normalizedQueryKey = computed(() => stableCatalogFiltersKey(normalizedFilters.value))
+
+function getFilterPath(filters: CatalogFilterValues = normalizedFilters.value) {
+  return buildCatalogFilterPath(filters, filterOrder.value)
+}
+
+function hasPagingQueryParams() {
+  return Object.keys(route.query).some((key) => pagingQueryKeys.has(key))
+}
+
+function hasLegacyFilterQueryParams() {
+  return Object.keys(cleanRouteQueryFilters()).length > 0
+}
+
+function cloneFilters(filters: CatalogFilterValues): CatalogFilterValues {
+  return normalizeCatalogFilters(
+    Object.fromEntries(
+      Object.entries(filters).map(([key, values]) => [key, [...values]])
+    )
+  )
+}
 
 const visibleProducts = computed(() => {
-  const products = catalogStore.products.filter(p => (p.price ?? 0) > 0)
-
-  return products.slice().sort((a, b) => {
-    const aSort = Number.isFinite(+a.sort) ? +a.sort : 0
-    const bSort = Number.isFinite(+b.sort) ? +b.sort : 0
-
-    const aKey = aSort === 0 ? PIVOT + 0.5 : aSort
-    const bKey = bSort === 0 ? PIVOT + 0.5 : bSort
-
-    if (aKey !== bKey) return aKey - bKey
-
-    const aTie = String(a.name ?? a.product_id ?? '')
-    const bTie = String(b.name ?? b.product_id ?? '')
-    return aTie.localeCompare(bTie, 'ru')
-  })
+  return catalogStore.products.filter(p => (p.price ?? 0) > 0)
 })
 
-const renderedProducts = computed(() => visibleProducts.value.slice(0, displayLimit.value))
-const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3))
-const featuredProducts = computed(() => renderedProducts.value.slice(0, featuredCount.value))
-const otherProducts = computed(() => renderedProducts.value.slice(featuredCount.value))
-const hasMoreProducts = computed(() => renderedProducts.value.length < visibleProducts.value.length)
-const remainingProductsCount = computed(() => Math.max(0, visibleProducts.value.length - renderedProducts.value.length))
-const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD })
-
-function cleanupQuery(query: typeof route.query) {
-  const nextQuery = { ...query }
-  delete nextQuery.empty
-  delete nextQuery.page
-  return nextQuery
-}
-
-function applyQuickFilter(key: string, value: string) {
-  router.push({ query: { ...cleanupQuery(route.query), [key]: value } })
-}
-
-function loadMoreProducts() {
-  if (!hasMoreProducts.value) return
-  displayLimit.value = Math.min(displayLimit.value + PRODUCTS_PER_LOAD, visibleProducts.value.length)
-}
-
-function disconnectLoadMoreObserver() {
-  loadMoreObserver?.disconnect()
-  loadMoreObserver = null
-}
-
-async function setupLoadMoreObserver() {
-  if (!import.meta.client) return
-
-  await nextTick()
-  disconnectLoadMoreObserver()
-
-  if (!hasMoreProducts.value || !loadMoreTrigger.value) return
-
-  loadMoreObserver = new IntersectionObserver((entries) => {
-    if (entries.some((entry) => entry.isIntersecting)) {
-      loadMoreProducts()
-    }
-  }, {
-    root: null,
-    rootMargin: '320px 0px',
-    threshold: 0.01,
+function isReasonActive(reason: QuickReasonFilter) {
+  return Object.entries(reason.query).every(([key, values]) => {
+    const currentValues = normalizedFilters.value[key] || []
+    return values.every((value) => currentValues.includes(value))
   })
+}
 
-  loadMoreObserver.observe(loadMoreTrigger.value)
+async function toggleReason(reason: QuickReasonFilter) {
+  const filters = cloneFilters(normalizedFilters.value)
+  const active = isReasonActive(reason)
+
+  for (const [key, values] of Object.entries(reason.query)) {
+    const currentValues = parseCatalogFilterValues(filters[key])
+    const nextValues = active
+      ? currentValues.filter((value) => !values.includes(value))
+      : uniqueCatalogFilterValues([...currentValues, ...values])
+
+    if (nextValues.length) filters[key] = nextValues
+    else delete filters[key]
+  }
+
+  await router.push({ path: getFilterPath(filters), query: {}, hash: route.hash })
+}
+
+async function loadFirstPage() {
+  isCatalogLoading.value = true
+  isLoadingMore.value = false
+  currentLazyPage.value = 1
+  catalogStore.resetProducts()
+
+  try {
+    await catalogStore.fetchProducts(normalizedQuery.value, {
+      page: 1,
+      limit: PRODUCTS_LIMIT,
+      append: false,
+    })
+  } finally {
+    isCatalogLoading.value = false
+  }
+}
+
+async function loadNextPage() {
+  if (isCatalogLoading.value || isLoadingMore.value || !catalogStore.hasMore) return
+
+  isLoadingMore.value = true
+
+  try {
+    const nextPage = currentLazyPage.value + 1
+    await catalogStore.fetchProducts(normalizedQuery.value, {
+      page: nextPage,
+      limit: PRODUCTS_LIMIT,
+      append: true,
+    })
+    currentLazyPage.value = nextPage
+  } finally {
+    isLoadingMore.value = false
+  }
+}
+
+function attachLoadMoreObserver(el: HTMLElement | null) {
+  if (!import.meta.client) return
+  if (loadMoreObserver) loadMoreObserver.disconnect()
+  loadMoreObserver = null
+
+  if (!el || !('IntersectionObserver' in window)) return
+
+  loadMoreObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        loadNextPage()
+      }
+    },
+    { rootMargin: '420px 0px 420px 0px' }
+  )
+
+  loadMoreObserver.observe(el)
 }
 
 watch(
-  normalizedQuery,
-  async () => {
-    isCatalogLoading.value = true
-    displayLimit.value = PRODUCTS_PER_LOAD
+  () => [route.path, route.query, route.params.filters, allowedFilterSlugs.value.size],
+  () => {
+    if (!import.meta.client) return
 
-    try {
-      await catalogStore.fetchProducts(normalizedQuery.value)
+    const targetPath = getFilterPath()
+    const shouldRedirectLegacyQuery = hasLegacyFilterQueryParams()
+    const shouldCleanPaging = hasPagingQueryParams()
+    const shouldNormalizeFilterPath = filterPathIsCatalogFilter(route.path) && route.path !== targetPath
 
-      if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
-        router.replace({ query: { ...route.query, empty: '1' } })
-      }
+    if (!shouldRedirectLegacyQuery && !shouldCleanPaging && !shouldNormalizeFilterPath) return
 
-      if (visibleProducts.value.length > 0 && 'empty' in route.query) {
-        router.replace({ query: cleanupQuery(route.query) })
-      }
-    } finally {
-      isCatalogLoading.value = false
-      setupLoadMoreObserver()
-    }
+    router.replace({ path: targetPath, query: {}, hash: route.hash })
   },
   { immediate: true, deep: true }
 )
 
 watch(
-  [renderedProducts, visibleProducts],
+  normalizedQueryKey,
+  async () => {
+    await loadFirstPage()
+  },
+  { immediate: true }
+)
+
+watch(
+  [visibleProducts, currentLazyPage],
   () => {
-    const list = renderedProducts.value
-    if (!list.length || isCatalogLoading.value) return
+    const list = visibleProducts.value
+    if (!list.length) return
 
     ytm.viewListing({
       currency: 'RUB',
@@ -151,8 +263,8 @@ watch(
         url: `/catalog/${p.slug}`,
         image_url: p.image
       })),
-      page_count: Math.max(1, Math.ceil(visibleProducts.value.length / PRODUCTS_PER_LOAD)),
-      current_page: Math.max(1, Math.ceil(renderedProducts.value.length / PRODUCTS_PER_LOAD))
+      page_count: catalogStore.totalPages,
+      current_page: currentLazyPage.value
     })
 
     analytics.viewItemList(
@@ -174,36 +286,27 @@ watch(
 )
 
 watch(
-  [loadMoreTrigger, hasMoreProducts],
-  () => {
-    setupLoadMoreObserver()
-  }
+  loadMoreTrigger,
+  (el) => {
+    attachLoadMoreObserver(el)
+  },
+  { flush: 'post' }
 )
 
 useHead(() => {
-  const query = route.query
-  const filters = Object.entries(query)
-    .filter(([key]) => {
-      if (['page', 'empty'].includes(key)) return false
-      if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
-      if (key.startsWith('utm_')) return false
-      return true
-    })
-    .map(([key, value]) => `${key}: ${value}`)
+  const filters = Object.entries(normalizedQuery.value)
+    .map(([k, v]) => `${k}: ${v}`)
     .join(', ')
 
-  const isEmpty = 'empty' in query
-  const title = isEmpty
-    ? 'Товары не найдены — Daigo'
-    : filters
-      ? `Каталог: ${filters} — Daigo`
-      : 'Каталог — Daigo'
+  const title = filters
+    ? `Каталог Daigo — ${filters}`
+    : 'Каталог продукции Daigo'
 
-  const description = isEmpty
-    ? 'По вашему запросу товары не найдены.'
-    : filters
-      ? `Подборка товаров по фильтрам: ${filters}`
-      : 'Каталог продукции Daigo: метабиотики, аминобиотики, подарочные сертификаты и наборы.'
+  const description = filters
+    ? `Подборка товаров Daigo по фильтрам: ${filters}`
+    : 'Каталог продукции Daigo: метабиотики, аминобиотики и продукты для поддержки здоровья.'
+
+  const canonicalPath = getFilterPath()
 
   return {
     title,
@@ -211,15 +314,12 @@ useHead(() => {
       { name: 'description', content: description },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { name: 'robots', content: isEmpty ? 'noindex, follow' : 'index, follow' }
+      { name: 'robots', content: 'index, follow' }
     ],
     link: [
       {
         rel: 'canonical',
-        href: 'https://daigo.ru' + route.fullPath
-          .replace(/([?&])empty=1(&?)/, '$1')
-          .replace(/([?&])page=\d+(&?)/, '$1')
-          .replace(/[?&]$/, '')
+        href: `https://daigo.ru${canonicalPath}`
       }
     ],
     script: [
@@ -290,11 +390,11 @@ async function scrollToHash(hash = route.hash) {
 
 onMounted(() => {
   scrollToHash()
-  setupLoadMoreObserver()
+  attachLoadMoreObserver(loadMoreTrigger.value)
 })
 
 onBeforeUnmount(() => {
-  disconnectLoadMoreObserver()
+  if (loadMoreObserver) loadMoreObserver.disconnect()
 })
 
 watch(
@@ -307,8 +407,6 @@ watch(
 watch(
   () => visibleProducts.value.length,
   async () => {
-    setupLoadMoreObserver()
-
     if (route.hash) {
       await scrollToHash(route.hash)
     }
@@ -319,33 +417,30 @@ watch(
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <div class="flex flex-row items-centr justify-between">
+      <div class="flex flex-row items-center justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
 
-      <div class="flex items-center gap-4 mb-6 relative z-10">
-        <div
-          class="flex flex-row justify-center items-center rounded-md bg-hoverbtn w-10 h-10 cursor-pointer flex-shrink-0"
+      <div class="relative z-10 mb-6 flex items-center gap-3 md:gap-4">
+        <button
+          class="flex h-10 w-10 flex-shrink-0 cursor-pointer flex-row items-center justify-center rounded-md bg-hoverbtn"
           @click="openFilters"
           aria-label="Открыть фильтры"
+          type="button"
         >
-          <img src="/icons/filter.svg" width="20" alt="Фильтр" />
-        </div>
+          <img src="/icons/filter.svg" width="20" alt="" />
+        </button>
 
-        <div class="flex overflow-x-auto gap-4 no-scrollbar">
+        <div class="quick-filters-scroll flex gap-3 overflow-x-auto pr-2">
           <button
-            v-for="tag in [
-              { label: 'Кишечник и иммунитет', value: 'kishechnik-i-immunitet' },
-              { label: 'Нервная система и мозг', value: 'mozg-i-nervnaya-sistema' },
-              { label: 'Кожа и волосы', value: 'kozha-i-volosy' }
-            ]"
-            :key="tag.value"
-            class="flex-shrink-0 px-4 py-2 rounded-md"
-            :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
-            @click="applyQuickFilter('napravlennost', tag.value)"
+            v-for="reason in quickReasonFilters"
+            :key="reason.label"
+            class="flex-shrink-0 rounded-md px-4 py-2 text-sm md:text-base transition-colors"
+            :class="isReasonActive(reason) ? 'bg-primary text-white' : 'bg-hoverbtn text-black hover:bg-gray-100'"
             type="button"
+            @click="toggleReason(reason)"
           >
-            {{ tag.label }}
+            {{ reason.label }}
           </button>
         </div>
       </div>
@@ -361,10 +456,10 @@ watch(
       <Transition name="slide-left">
         <div
           v-if="isFilterModalOpen"
-          class="fixed inset-y-0 left-0 z-50 w-11/12 rounded-r-2xl sm:w-[500px] bg-white p-3 md:p-6 overflow-y-auto"
+          class="fixed inset-y-0 left-0 z-50 w-11/12 rounded-r-2xl bg-white p-3 overflow-y-auto sm:w-[500px] md:p-6"
         >
           <div class="w-full flex justify-between items-center mb-4">
-            <button @click="closeFilters" class="absolute top-4 right-4">
+            <button @click="closeFilters" class="absolute top-4 right-4" type="button" aria-label="Закрыть фильтры">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
               </svg>
@@ -374,8 +469,8 @@ watch(
         </div>
       </Transition>
 
-      <div class="flex flex-row gap-7">
-        <aside class="hidden lg:block w-full lg:w-1/4">
+      <div class="flex flex-row items-start gap-7">
+        <aside class="hidden w-full lg:sticky lg:top-[120px] lg:block lg:max-h-[calc(100vh-140px)] lg:w-1/4 lg:self-start lg:overflow-y-auto lg:pr-1">
           <FilterPanel :store="catalogStore" :with-shadow="true" />
         </aside>
 
@@ -401,41 +496,32 @@ watch(
           </div>
         </div>
 
-        <div v-else-if="renderedProducts.length" class="w-full lg:w-3/4">
+        <div v-else-if="visibleProducts.length" class="w-full lg:w-3/4">
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
-              v-for="(product, idx) in featuredProducts"
+              v-for="(product, idx) in visibleProducts"
               :key="String(product.product_id)"
               :product="product"
               :index="idx"
               :global-index="idx"
-              :priority="idx < 3"
+              :priority="idx < 4"
             />
           </div>
 
-          <p class="xs-max:text-base text-lg font-medium mx-auto text-center my-10 border-y py-4 w-full">
-            БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ
-          </p>
+          <div ref="loadMoreTrigger" class="flex min-h-20 items-center justify-center py-8">
+            <button
+              v-if="catalogStore.hasMore"
+              class="rounded-full border border-black/10 px-6 py-3 text-base font-medium transition hover:bg-hoverbtn disabled:cursor-wait disabled:opacity-60"
+              type="button"
+              :disabled="isLoadingMore"
+              @click="loadNextPage"
+            >
+              {{ isLoadingMore ? 'Загружаем...' : 'Показать еще 12' }}
+            </button>
 
-          <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
-            <ProductCard
-              v-for="(product, idx) in otherProducts"
-              :key="String(product.product_id)"
-              :product="product"
-              :index="idx + featuredCount"
-              :global-index="idx + featuredCount"
-            />
-          </div>
-
-          <div
-            v-if="hasMoreProducts"
-            ref="loadMoreTrigger"
-            class="mt-10 flex flex-col items-center gap-3"
-          >
-            <Button type="button" class="min-w-[220px]" @click="loadMoreProducts">
-              Показать ещё
-              <span v-if="remainingProductsCount">({{ remainingProductsCount }})</span>
-            </Button>
+            <p v-else class="text-sm text-black/50">
+              Все товары загружены
+            </p>
           </div>
 
           <div class="mt-0 text-sm text-gray-700 leading-relaxed h-2 relative overflow-hidden">
@@ -459,6 +545,14 @@ watch(
 </template>
 
 <style scoped>
+.quick-filters-scroll {
+  scrollbar-width: none;
+}
+
+.quick-filters-scroll::-webkit-scrollbar {
+  display: none;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity 0.3s ease;
 }
@@ -510,28 +604,30 @@ watch(
 .catalog-skeleton-image {
   width: 100%;
   height: 220px;
-  background: #f4f4f4;
+  background: #f3f3f3;
   border-radius: 20px 20px 0 0;
 }
 
 .catalog-skeleton-content {
+  position: relative;
+  z-index: 1;
   padding: 18px;
 }
 
 .catalog-skeleton-line {
-  height: 14px;
   border-radius: 999px;
-  background: #f1f1f1;
-  margin-bottom: 12px;
+  background: #ececec;
 }
 
 .catalog-skeleton-line-title {
-  width: 85%;
-  height: 18px;
+  width: 80%;
+  height: 24px;
 }
 
 .catalog-skeleton-line-short {
-  width: 65%;
+  width: 60%;
+  height: 16px;
+  margin-top: 14px;
 }
 
 .catalog-skeleton-line-price {

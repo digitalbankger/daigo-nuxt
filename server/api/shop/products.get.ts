@@ -2,6 +2,8 @@ import { defineEventHandler, getQuery, createError } from 'h3'
 
 const RESPONSE_TTL_MS = 5 * 60 * 1000
 const TOTAL_TTL_MS = 10 * 60 * 1000
+const COLLECT_PAGE_SIZE = 100
+const COLLECT_MAX_PAGES = 20
 
 type CacheEntry<T> = {
   expiresAt: number
@@ -10,6 +12,20 @@ type CacheEntry<T> = {
 
 const responseCache = new Map<string, CacheEntry<any>>()
 const totalCache = new Map<string, CacheEntry<number>>()
+
+const IGNORED_FILTER_KEYS = new Set([
+  'page',
+  'page_size',
+  'limit',
+  'empty',
+  'no_total',
+  'for',
+  'product_ids',
+])
+
+const PROPERTY_ALIASES: Record<string, string[]> = {
+  produkty: ['produkty', 'producty', 'products', 'name'],
+}
 
 function getCachedValue<T>(store: Map<string, CacheEntry<T>>, key: string): T | null {
   const now = Date.now()
@@ -32,30 +48,57 @@ function setCachedValue<T>(store: Map<string, CacheEntry<T>>, key: string, value
 function normalizeImgFactory(filesBase: string) {
   return (src: any): string => {
     if (!src) return '/images/placeholder-product.png'
-    const s = String(src)
+    const s = String(src).trim()
+    if (!s) return '/images/placeholder-product.png'
     if (s.startsWith('http') || s.startsWith('data:')) return s
     const base = filesBase.replace(/\/$/, '')
     return base + (s.startsWith('/') ? s : `/${s}`)
   }
 }
 
-function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: number) {
+function isIgnoredFilterKey(key: string) {
+  return IGNORED_FILTER_KEYS.has(key) || key.startsWith('utm_') || ['ysclid', 'yclid', 'gclid', 'fbclid'].includes(key)
+}
+
+function normalizeFilterValue(value: any) {
+  const normalized = String(value || '').trim()
+
+  if (['certificate', 'certificates', 'sertifikat', 'sertifikaty'].includes(normalized)) {
+    return 'sertificate'
+  }
+
+  return normalized
+}
+
+function toStringArray(value: unknown): string[] {
+  if (Array.isArray(value)) return value.flatMap((item) => toStringArray(item))
+  if (value == null) return []
+
+  return String(value)
+    .split(',')
+    .map((item) => normalizeFilterValue(item))
+    .filter(Boolean)
+}
+
+function unique(values: string[]) {
+  return Array.from(new Set(values))
+}
+
+function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: number, withFilters = true) {
   const params = new URLSearchParams()
   params.set('page', String(page))
   params.set('page_size', String(pageSize))
 
+  if (!withFilters) return params
+
   if (q.napravlennost) {
-    const csv = Array.isArray(q.napravlennost)
-      ? q.napravlennost.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
-      : String(q.napravlennost)
-    params.set('napravlennost', csv)
+    const csv = toStringArray(q.napravlennost).join(',')
+    if (csv) params.set('napravlennost', csv)
   }
 
   if (q.produkty) {
-    const vals = Array.isArray(q.produkty)
-      ? q.produkty.flatMap(v => String(v).split(',')).filter(Boolean)
-      : String(q.produkty).split(',').filter(Boolean)
-    params.set('name', vals.join(','))
+    const csv = toStringArray(q.produkty).join(',')
+    if (csv) params.set('name', csv)
   }
 
   for (const [k, vAny] of Object.entries(q)) {
@@ -70,23 +113,13 @@ function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: nu
         'podarochnye',
         'no_total',
         'for',
+        'product_ids',
       ].includes(k)
     ) continue
 
-    if (
-      k === 'ysclid' ||
-      k === 'yclid' ||
-      k === 'gclid' ||
-      k === 'fbclid' ||
-      k.startsWith('utm_')
-    ) continue
+    if (isIgnoredFilterKey(k)) continue
 
-    if (vAny == null || vAny === '') continue
-
-    const csv = Array.isArray(vAny)
-      ? vAny.flatMap(v => String(v).split(',')).filter(Boolean).join(',')
-      : String(vAny)
-
+    const csv = toStringArray(vAny).join(',')
     if (csv) params.set(k, csv)
   }
 
@@ -95,25 +128,8 @@ function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: nu
 
 function getFilterCacheKey(q: Record<string, any>) {
   const entries = Object.entries(q)
-    .filter(([k, v]) => {
-      if ([
-        'page',
-        'page_size',
-        'limit',
-        'empty',
-        'no_total',
-        'for',
-      ].includes(k)) return false
-      if (
-        k === 'ysclid' ||
-        k === 'yclid' ||
-        k === 'gclid' ||
-        k === 'fbclid' ||
-        k.startsWith('utm_')
-      ) return false
-      return v != null && v !== ''
-    })
-    .map(([k, v]) => [k, Array.isArray(v) ? v.join(',') : String(v)])
+    .filter(([k, v]) => !isIgnoredFilterKey(k) && v != null && v !== '')
+    .map(([k, v]) => [k, toStringArray(v).sort().join(',')])
     .sort(([a], [b]) => a.localeCompare(b))
 
   return JSON.stringify(entries)
@@ -126,23 +142,99 @@ async function fetchRawProducts(base: string, params: URLSearchParams, timeout =
   return { res, raw: res._data }
 }
 
+async function collectRawProducts(base: string, q: Record<string, any>, withFilters = false) {
+  const collected: any[] = []
+  const seen = new Set<string>()
+  let firstResponse: any = null
+  let firstRaw: any = null
+
+  for (let page = 1; page <= COLLECT_MAX_PAGES; page++) {
+    const params = buildParamsFromQuery(q, page, COLLECT_PAGE_SIZE, withFilters)
+    let res: any
+    let raw: any
+
+    try {
+      const response = await fetchRawProducts(base, params, 12000)
+      res = response.res
+      raw = response.raw
+    } catch (error) {
+      if (collected.length > 0) break
+      throw error
+    }
+
+    if (page === 1) {
+      firstResponse = res
+      firstRaw = raw
+    }
+
+    const rawProducts = Array.isArray(raw?.products) ? raw.products : []
+    if (!rawProducts.length) break
+
+    let added = 0
+
+    rawProducts.forEach((product: any, index: number) => {
+      const key = String(product?.product_id ?? product?.id ?? product?.slug ?? `${page}-${index}`)
+      if (seen.has(key)) return
+
+      seen.add(key)
+      collected.push(product)
+      added++
+    })
+
+    if (added === 0) break
+
+    const totalPages = Number(
+      raw?.total_pages ??
+      raw?.pages ??
+      raw?.last_page ??
+      raw?.meta?.total_pages ??
+      raw?.meta?.last_page ??
+      raw?.pagination?.total_pages ??
+      raw?.pagination?.last_page ??
+      NaN
+    )
+
+    if (Number.isFinite(totalPages) && totalPages > 0 && page >= totalPages) break
+  }
+
+  return {
+    res: firstResponse,
+    raw: {
+      ...(firstRaw || {}),
+      products: collected,
+    },
+  }
+}
+
+function addPropertyValue(properties: Record<string, any>, key: string, value: string) {
+  const current = toStringArray(properties[key])
+  if (!current.includes(value)) current.push(value)
+  properties[key] = current
+}
+
 function mapProducts(raw: any, normalizeImg: (src: any) => string) {
   return (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => {
     const price = Number(p.price) || 0
     const slug = String(p.slug || '')
     const baseProps = p.properties || {}
+    const enrichedProps: Record<string, any> = { ...baseProps }
 
-    let enrichedProps = { ...baseProps }
+    const isCertificate = slug.startsWith('sertifikat')
+    if (isCertificate) {
+      addPropertyValue(enrichedProps, 'produkty', 'sertificate')
+      addPropertyValue(enrichedProps, 'producty', 'sertificate')
+      addPropertyValue(enrichedProps, 'products', 'sertificate')
+    }
 
-    const isExcluded =
-      slug.startsWith('sertifikat') ||
+    const isExcludedGift =
+      isCertificate ||
       slug === 'tamotsu' ||
       slug === 'lux-daigo-metabiotik' ||
       slug.includes('mesyats') ||
       slug.includes('mesyatsev')
 
-    if (price > 30000 && !isExcluded) {
-      enrichedProps.podarochnye = ['nabory']
+    if (price > 30000 && !isExcludedGift) {
+      addPropertyValue(enrichedProps, 'podarochnye', 'nabory')
     }
 
     return {
@@ -163,17 +255,37 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
   })
 }
 
-function applyGiftFilter(items: any[], q: Record<string, any>) {
-  if (!q.podarochnye) return items
+function propValues(product: any, slug: string): string[] {
+  const aliases = PROPERTY_ALIASES[slug] || [slug]
+  const values: string[] = []
 
-  const values = Array.isArray(q.podarochnye)
-    ? q.podarochnye
-    : String(q.podarochnye).split(',')
+  for (const key of aliases) {
+    values.push(...toStringArray(product?.properties?.[key]))
+  }
 
-  return items.filter((p) => {
-    const prop = p.properties?.podarochnye || []
-    return values.some((v) => prop.includes(v))
-  })
+  if (slug === 'produkty' && String(product?.slug || '').startsWith('sertifikat')) {
+    values.push('sertificate')
+  }
+
+  return unique(values)
+}
+
+function matchesLocalFilters(product: any, q: Record<string, any>) {
+  for (const [key, rawValue] of Object.entries(q)) {
+    if (isIgnoredFilterKey(key)) continue
+
+    const selectedValues = toStringArray(rawValue)
+    if (!selectedValues.length) continue
+
+    const productValues = propValues(product, key)
+    if (!selectedValues.some((value) => productValues.includes(value))) return false
+  }
+
+  return true
+}
+
+function applyLocalFilters(items: any[], q: Record<string, any>) {
+  return items.filter((product) => matchesLocalFilters(product, q))
 }
 
 async function resolveTotalViaLargeFetch(base: string, q: Record<string, any>, normalizeImg: (src: any) => string) {
@@ -181,71 +293,31 @@ async function resolveTotalViaLargeFetch(base: string, q: Record<string, any>, n
   const cached = getCachedValue(totalCache, totalKey)
   if (cached != null) return cached
 
-  const params = buildParamsFromQuery(q, 1, 9999)
-  const { res, raw } = await fetchRawProducts(base, params, 12000)
-  const mapped = applyGiftFilter(mapProducts(raw, normalizeImg), q)
-
-  const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
-  const bodyTotal = Number(
-    raw?.total ??
-    raw?.count ??
-    raw?.meta?.total ??
-    raw?.pagination?.total ??
-    raw?.pagination?.count ??
-    NaN
-  )
-
-  const total = q.podarochnye
-    ? mapped.length
-    : Number.isFinite(bodyTotal) && bodyTotal > 0
-      ? bodyTotal
-      : Number.isFinite(headerTotal) && headerTotal > 0
-        ? headerTotal
-        : mapped.length
+  const { raw } = await collectRawProducts(base, q, false)
+  const mapped = mapProducts(raw, normalizeImg)
+  const total = applyLocalFilters(mapped, q).length
 
   setCachedValue(totalCache, totalKey, total, TOTAL_TTL_MS)
   return total
 }
 
 export default defineEventHandler(async (event) => {
-  const q = getQuery(event)
+  const q = getQuery(event) as Record<string, any>
+  const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
+  const filesBase =
+    useRuntimeConfig(event).public.daigoFilesBase ||
+    useRuntimeConfig(event).public.daigoApiBase ||
+    base ||
+    ''
+
+  const normalizeImg = normalizeImgFactory(filesBase)
 
   if (q.product_ids) {
-    const ids = (
-      Array.isArray(q.product_ids)
-        ? q.product_ids.flatMap(v => String(v).split(','))
-        : String(q.product_ids).split(',')
-    )
-      .map(s => s.trim())
-      .filter(Boolean)
+    const ids = toStringArray(q.product_ids)
+    const { raw } = await collectRawProducts(base, {}, false)
 
-    const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-    const filesBase =
-      useRuntimeConfig(event).public.daigoFilesBase ||
-      base ||
-      ''
-
-    const normalizeImg = normalizeImgFactory(filesBase)
-    const url = `${base}/v1/shop/products?page=1&page_size=9999`
-    const res: any = await $fetch(url).catch(() => ({ products: [] }))
-
-    const items = (Array.isArray(res?.products) ? res.products : [])
-      .map((p: any) => ({
-        id: p.product_id ?? p.id,
-        product_id: p.product_id ?? p.id,
-        slug: p.slug,
-        name: p.name_ru || p.name,
-        subtitle: p.subtitle || '',
-        image: normalizeImg(p.image),
-        detailImages: Array.isArray(p.detail_images)
-          ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
-          : [],
-        price: Number(p.price) || 0,
-        originalPrice: Number(p.original_price) || 0,
-        sort: p.sort_order === 0 ? 16 : p.sort_order,
-        properties: p.properties || {},
-      }))
-      .filter((p: any) => ids.includes(String(p.product_id)))
+    const items = mapProducts(raw, normalizeImg)
+      .filter((product: any) => ids.includes(String(product.product_id)))
 
     return { items, total: items.length }
   }
@@ -256,84 +328,68 @@ export default defineEventHandler(async (event) => {
     return cachedResponse
   }
 
-  const filesBase =
-    useRuntimeConfig(event).public.daigoFilesBase ||
-    useRuntimeConfig(event).public.daigoApiBase ||
-    ''
-
-  const normalizeImg = normalizeImgFactory(filesBase)
-
   const page = Number(q.page ?? 1) || 1
   const pageSize = Number(q.page_size ?? q.limit ?? 15) || 15
-  const effectivePageSize = q.podarochnye ? 9999 : pageSize
-
-  const params = buildParamsFromQuery(q, page, effectivePageSize)
-  const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-  const noTotalMode = q.no_total === '1' || q.for === 'counts'
+  const noTotalMode = q.no_total === '1' || q.for === 'counts' || q.for === 'catalog'
 
   try {
+    if (noTotalMode || pageSize >= 999) {
+      const { raw } = await collectRawProducts(base, q, false)
+      const items = applyLocalFilters(mapProducts(raw, normalizeImg), q)
+      const payload = { items, total: items.length }
+
+      setCachedValue(responseCache, responseKey, payload, RESPONSE_TTL_MS)
+      return payload
+    }
+
+    const params = buildParamsFromQuery(q, page, pageSize, true)
     const { res, raw } = await fetchRawProducts(base, params)
-    const items = mapProducts(raw, normalizeImg)
-    const filteredItems = applyGiftFilter(items, q)
+    const items = applyLocalFilters(mapProducts(raw, normalizeImg), q)
 
-    let total = filteredItems.length
+    let total = items.length
 
-    if (!noTotalMode) {
-      const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
-      const bodyTotal = Number(
-        raw?.total ??
-        raw?.count ??
-        raw?.meta?.total ??
-        raw?.pagination?.total ??
-        raw?.pagination?.count ??
-        NaN
-      )
+    const headerTotal = Number(res.headers.get?.('X-Total-Count') ?? NaN)
+    const bodyTotal = Number(
+      raw?.total ??
+      raw?.count ??
+      raw?.meta?.total ??
+      raw?.pagination?.total ??
+      raw?.pagination?.count ??
+      NaN
+    )
 
-      const bodyTotalPages = Number(
-        raw?.total_pages ??
-        raw?.pages ??
-        raw?.last_page ??
-        raw?.meta?.total_pages ??
-        raw?.meta?.last_page ??
-        raw?.pagination?.total_pages ??
-        raw?.pagination?.last_page ??
-        NaN
-      )
+    const bodyTotalPages = Number(
+      raw?.total_pages ??
+      raw?.pages ??
+      raw?.last_page ??
+      raw?.meta?.total_pages ??
+      raw?.meta?.last_page ??
+      raw?.pagination?.total_pages ??
+      raw?.pagination?.last_page ??
+      NaN
+    )
 
-      total = q.podarochnye
-        ? filteredItems.length
-        : Number.isFinite(bodyTotal) && bodyTotal > 0
-          ? bodyTotal
-          : Number.isFinite(headerTotal) && headerTotal > 0
-            ? headerTotal
-            : Number.isFinite(bodyTotalPages) && bodyTotalPages > 0
-              ? bodyTotalPages * effectivePageSize
-              : NaN
+    total = Number.isFinite(bodyTotal) && bodyTotal > 0
+      ? bodyTotal
+      : Number.isFinite(headerTotal) && headerTotal > 0
+        ? headerTotal
+        : Number.isFinite(bodyTotalPages) && bodyTotalPages > 0
+          ? bodyTotalPages * pageSize
+          : NaN
 
-      const needsExactTotal =
-        !q.podarochnye &&
-        page === 1 &&
-        items.length > 0 &&
-        (
-          !Number.isFinite(total) ||
-          total <= items.length
-        )
+    const needsExactTotal = !Number.isFinite(total) || total <= items.length
 
-      if (needsExactTotal) {
-        total = await resolveTotalViaLargeFetch(base, q as Record<string, any>, normalizeImg)
-      }
-
-      if (!Number.isFinite(total)) {
-        total = items.length < effectivePageSize
-          ? (page - 1) * effectivePageSize + items.length
-          : page * effectivePageSize + 1
-      }
+    if (needsExactTotal) {
+      total = await resolveTotalViaLargeFetch(base, q, normalizeImg)
     }
 
-    const payload = {
-      items: filteredItems,
-      total,
+    if (!Number.isFinite(total)) {
+      total = items.length < pageSize
+        ? (page - 1) * pageSize + items.length
+        : page * pageSize + 1
     }
+
+    const payload = { items, total }
 
     setCachedValue(responseCache, responseKey, payload, RESPONSE_TTL_MS)
     return payload

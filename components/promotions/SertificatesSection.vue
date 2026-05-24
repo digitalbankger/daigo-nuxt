@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { navigateTo } from '#imports'
+import UiButton from '~/components/ui/Button.vue'
 
 const floating = ref(false)
+
+const certificateCatalogLink = { path: '/catalog', query: { produkty: 'sertificate' } }
 
 function enableFloating() {
   setTimeout(() => {
@@ -11,6 +15,10 @@ function enableFloating() {
 
 function disableFloating() {
   floating.value = false
+}
+
+function goToCertificatesCatalog() {
+  navigateTo(certificateCatalogLink)
 }
 </script>
 
@@ -134,8 +142,9 @@ function disableFloating() {
 
           <UiButton
             class="mt-2 w-full lg:!w-60"
-            :to="'/promotions/certificates'"
             variant="solid"
+            type="button"
+            @click="goToCertificatesCatalog"
           >
             Узнать подробнее
           </UiButton>

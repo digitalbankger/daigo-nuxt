@@ -123,7 +123,7 @@ function toggleOption(groupSlug: string, value: string) {
 
 function clearFilters() {
   for (const key in selected) selected[key] = []
-  router.push({ path: route.path, query: { page: '1' } })
+  router.push({ path: route.path, query: {} })
   queueCountsRecalc(0)
 }
 
@@ -177,11 +177,9 @@ watch(selected, () => {
     if (!allow.has(k)) continue
     if (arr?.length) query[k] = arr.join(',')
   }
-  query.page = '1'
-
   const currentQuery = Object.fromEntries(
     Object.entries(route.query)
-      .filter(([key]) => allow.has(key) || key === 'page')
+      .filter(([key]) => allow.has(key))
       .map(([key, value]) => [key, Array.isArray(value) ? value[0] ?? '' : String(value ?? '')])
   )
 

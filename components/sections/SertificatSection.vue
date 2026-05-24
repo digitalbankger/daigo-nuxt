@@ -3,6 +3,7 @@ import { useContentStore } from '~/stores/contentStore'
 const { $device } = useNuxtApp()
 
 const content = useContentStore()
+const certificateCatalogLink = { path: '/catalog', query: { produkty: 'sertificate' } }
 
 </script>
 
@@ -33,7 +34,7 @@ const content = useContentStore()
               Идеальный подарок для заботы о здоровье и красоте, получатель сможет сам выбрать, что он хочет.
             </p>
             <NuxtLink
-              :to="'/akcii'"
+              :to="certificateCatalogLink"
               class="inline-flex justify-center items-center gap-2 py-2 sm:py-3 px-2 sm:px-5 text-white text-xs sm:text-xl font-normal transition duration-300 rounded-md rounded-lg tracking-wide w-40 sm:w-72 bg-primary hover:bg-primary/80 hover:text-white"
             >
               Купить сертификат

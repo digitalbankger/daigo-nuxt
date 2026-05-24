@@ -3,21 +3,69 @@ import { ref, computed } from 'vue'
 import type { ProductCard } from '~/types/product'
 import type { FilterGroup } from '~/types/filter'
 import type { CatalogBanner } from '~/types/catalog'
-import { useDeviceStore } from '@/stores/deviceStore'
 
 type BaseQuery = Record<string, string[]>
 
-export const useCatalogStore = defineStore('catalog', () => {
-  const device = useDeviceStore()
+const LOAD_BATCH_SIZE = 12
 
+const IGNORED_QUERY_KEYS = new Set([
+  'page',
+  'page_size',
+  'limit',
+  'empty',
+  'no_total',
+  'for',
+  'ysclid',
+  'yclid',
+  'gclid',
+  'fbclid',
+])
+
+const PROPERTY_ALIASES: Record<string, string[]> = {
+  produkty: ['produkty', 'producty', 'products', 'name'],
+}
+
+function isIgnoredQueryKey(key: string) {
+  return IGNORED_QUERY_KEYS.has(key) || key.startsWith('utm_')
+}
+
+function normalizeFilterValue(value: string) {
+  const normalized = String(value || '').trim()
+
+  if (['certificate', 'certificates', 'sertifikat', 'sertifikaty'].includes(normalized)) {
+    return 'sertificate'
+  }
+
+  return normalized
+}
+
+function toStringArray(value: unknown) {
+  if (Array.isArray(value)) {
+    return value.flatMap((item) => toStringArray(item))
+  }
+
+  if (value == null) return []
+
+  return String(value)
+    .split(',')
+    .map((item) => normalizeFilterValue(item))
+    .filter(Boolean)
+}
+
+function unique(values: string[]) {
+  return Array.from(new Set(values))
+}
+
+export const useCatalogStore = defineStore('catalog', () => {
   const products = ref<ProductCard[]>([])
   const filters = ref<FilterGroup[]>([])
   const catalogBanner = ref<CatalogBanner | null>(null)
   const counts = ref<Record<string, number>>({})
 
   const page = ref(1)
-  const perPageDisplayed = computed(() => (device.isMobile ? 16 : 15))
+  const perPageDisplayed = computed(() => LOAD_BATCH_SIZE)
   const totalPages = ref(1)
+  const totalProducts = ref(0)
 
   const allProducts = ref<ProductCard[]>([])
   const allLoaded = ref(false)
@@ -38,22 +86,6 @@ export const useCatalogStore = defineStore('catalog', () => {
     catalogBanner.value = result || null
   }
 
-  const fetchProducts = async (params: Record<string, string>) => {
-    const limit = perPageDisplayed.value
-    const query = {
-      ...params,
-      page: String(page.value),
-      limit: String(limit),
-    }
-
-    const data = await $fetch<{ items: ProductCard[]; total: number }>('/api/shop/products', { query })
-
-    products.value = Array.isArray(data?.items) ? data.items : []
-
-    const total = Number(data?.total || 0)
-    totalPages.value = Math.max(1, Math.ceil(total / limit))
-  }
-
   async function ensureAllLoaded() {
     if (allLoaded.value) return
     if (allLoadingPromise) return allLoadingPromise
@@ -64,7 +96,7 @@ export const useCatalogStore = defineStore('catalog', () => {
           page: '1',
           limit: '9999',
           no_total: '1',
-          for: 'counts',
+          for: 'catalog',
         }
       })
 
@@ -81,33 +113,63 @@ export const useCatalogStore = defineStore('catalog', () => {
 
   function buildBaseQueryFromParams(params: Record<string, string>): BaseQuery {
     const base: BaseQuery = {}
-    for (const [k, v] of Object.entries(params)) {
-      if (['page', 'page_size', 'limit', 'empty'].includes(k)) continue
-      if (!v) continue
-      base[k] = String(v).split(',').filter(Boolean)
+
+    for (const [key, value] of Object.entries(params)) {
+      if (isIgnoredQueryKey(key)) continue
+      if (!value) continue
+
+      const values = toStringArray(value)
+      if (values.length) base[key] = values
     }
+
     return base
   }
 
-  function propValues(p: ProductCard, slug: string): string[] {
-    const raw = (p as any)?.properties?.[slug]
-    if (Array.isArray(raw)) return raw.map(String)
-    if (raw == null) return []
-    return String(raw).split(',').map((s) => s.trim()).filter(Boolean)
+  function propValues(product: ProductCard, slug: string): string[] {
+    const aliases = PROPERTY_ALIASES[slug] || [slug]
+    const values: string[] = []
+
+    for (const key of aliases) {
+      values.push(...toStringArray((product as any)?.properties?.[key]))
+    }
+
+    if (slug === 'produkty' && String(product.slug || '').startsWith('sertifikat')) {
+      values.push('sertificate')
+    }
+
+    return unique(values)
   }
 
   function matchesBaseFilters(
-    p: ProductCard,
+    product: ProductCard,
     base: BaseQuery,
     skipGroup?: string
   ) {
-    for (const [k, values] of Object.entries(base)) {
-      if (k === skipGroup) continue
+    for (const [key, values] of Object.entries(base)) {
+      if (key === skipGroup) continue
       if (!values?.length) continue
-      const pv = propValues(p, k)
-      if (!values.some((v) => pv.includes(v))) return false
+
+      const productValues = propValues(product, key)
+      const normalizedValues = values.map(normalizeFilterValue)
+
+      if (!normalizedValues.some((value) => productValues.includes(value))) {
+        return false
+      }
     }
+
     return true
+  }
+
+  const fetchProducts = async (params: Record<string, string>) => {
+    await ensureAllLoaded()
+
+    const baseQuery = buildBaseQueryFromParams(params)
+    const filteredProducts = allProducts.value.filter((product) => matchesBaseFilters(product, baseQuery))
+
+    products.value = filteredProducts
+    totalProducts.value = filteredProducts.length
+    totalPages.value = Math.max(1, Math.ceil(filteredProducts.length / LOAD_BATCH_SIZE))
+    page.value = 1
   }
 
   const fetchCounts = async (baseQuery: BaseQuery = {}) => {
@@ -115,7 +177,7 @@ export const useCatalogStore = defineStore('catalog', () => {
       Object.keys(baseQuery)
         .sort()
         .reduce((acc, key) => {
-          acc[key] = [...baseQuery[key]].sort()
+          acc[key] = [...baseQuery[key]].map(normalizeFilterValue).sort()
           return acc
         }, {} as BaseQuery)
     )
@@ -130,14 +192,15 @@ export const useCatalogStore = defineStore('catalog', () => {
 
     for (const group of filters.value || []) {
       const slug = group.slug
+
       for (const option of group.options) {
-        const val = option.value
-        const cnt = allProducts.value.filter((p) => {
-          if (!matchesBaseFilters(p, baseQuery, slug)) return false
-          const pv = propValues(p, slug)
-          return pv.includes(val)
+        const value = normalizeFilterValue(option.value)
+        const count = allProducts.value.filter((product) => {
+          if (!matchesBaseFilters(product, baseQuery, slug)) return false
+          return propValues(product, slug).includes(value)
         }).length
-        flat[`${slug}__${val}`] = cnt
+
+        flat[`${slug}__${option.value}`] = count
       }
     }
 
@@ -153,6 +216,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     page,
     perPageDisplayed,
     totalPages,
+    totalProducts,
     setPage,
     fetchFilters,
     fetchProducts,

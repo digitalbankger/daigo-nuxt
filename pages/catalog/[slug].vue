@@ -188,6 +188,30 @@ const isCertificate = computed(() =>
   product.value?.category === 'certificate'
 )
 
+const shouldShowProductFaq = computed(() => {
+  if (!product.value) return false
+
+  const { faq: _faq, ...productWithoutFaq } = product.value as any
+  const rawText = JSON.stringify(productWithoutFaq)
+    .toLowerCase()
+    .replace(/ё/g, 'е')
+
+  const normalizedText = rawText.replace(/[^a-zа-я0-9]+/g, ' ')
+  const compactText = normalizedText.replace(/\s+/g, '')
+
+  return (
+    compactText.includes('daigo5ml') ||
+    compactText.includes('daigo5мл') ||
+    compactText.includes('дайго5мл') ||
+    compactText.includes('daigo10ml') ||
+    compactText.includes('daigo10мл') ||
+    compactText.includes('дайго10мл') ||
+    /(?:daigo|дайго)10.*(?:ml|мл)/.test(compactText) ||
+    normalizedText.includes('люкс') ||
+    /\blux\b/.test(normalizedText)
+  )
+})
+
 
 
 onMounted(() => {
@@ -223,6 +247,8 @@ onMounted(() => {
 const { breadcrumbs, jsonLd } = useBreadcrumbs(product, '/catalog')
 
 const faqJsonLd = computed(() => {
+  if (!shouldShowProductFaq.value) return null
+
   const faq = product.value?.faq
   if (!faq?.items?.length) return null
   return {
@@ -580,7 +606,7 @@ useHead(() => {
           <RewardSection class="mt-12 md:mt-16 md:mt-12" />
         </ClientOnly>
 
-        <ProductFAQ v-if="product.faq?.items?.length" :faq="product.faq" />
+        <ProductFAQ v-if="shouldShowProductFaq && product.faq?.items?.length" :faq="product.faq" />
 
         <section
           class="relative overflow-hidden w-full flex items-center justify-center rounded-2xl lg:min-h-[380px] bg-primary bg-no-repeat px-4 md:px-6 lg:px-10 py-4 md:py-8 text-white mt-16"
