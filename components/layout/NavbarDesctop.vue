@@ -210,6 +210,31 @@
               </svg>
             </span>
           </li>
+
+
+          <li
+            class="transition duration-300 hover:text-primary cursor-pointer"
+            @click="toggleDoctorsPopup"
+          >
+            <span class="inline-flex items-center gap-1">
+              Врачам
+              <svg
+                class="w-3 h-3 transform transition-transform"
+                :class="isDoctorsPopupOpen ? 'rotate-180' : ''"
+                viewBox="0 0 10 6"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9 1L5 5L1 1"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+          </li>
         </ul>
       </div>
     </div>
@@ -237,6 +262,25 @@
             class="block px-2 py-1 rounded hover:bg-gray-100"
           >
             Партнерская программа
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
+    <div
+      v-if="isDoctorsPopupOpen"
+      class="absolute right-0 sm:right-0 top-full-2 mt-2 z-50 bg-white border border-gray-200 rounded-lg shadow-lg text-base"
+    >
+      <ul class="py-2 px-3 space-y-1 whitespace-nowrap">
+        <li>
+          <a
+            href="https://res.daigo.ru"
+            target="_blank"
+            rel="noopener"
+            class="block px-2 py-1 rounded hover:bg-gray-100"
+          >
+            Наблюдательная программа
           </a>
         </li>
       </ul>
@@ -309,6 +353,7 @@ const openMobileCatalog = () => {
   isMobileCatalogOpen.value = true
   closeCatalogPopup()
   closePartnersPopup()
+  closeDoctorsPopup()
 }
 
 const closeMobileCatalog = () => {
@@ -338,6 +383,7 @@ const openCatalogPopup = () => {
   if (catalogCloseTimer) clearTimeout(catalogCloseTimer)
   isCatalogPopupOpen.value = true
   closePartnersPopup()
+  closeDoctorsPopup()
 }
 
 const cancelCatalogClose = () => {
@@ -370,6 +416,7 @@ watch(
     closeMobileCatalog()
     closeCatalogPopup()
     closePartnersPopup()
+    closeDoctorsPopup()
   }
 )
 
@@ -391,11 +438,23 @@ const goOrders = () => {
 const isPartnersPopupOpen = ref(false)
 const togglePartnersPopup = () => {
   closeCatalogPopup()
+  closeDoctorsPopup()
   isPartnersPopupOpen.value = !isPartnersPopupOpen.value
 }
 
 const closePartnersPopup = () => {
   isPartnersPopupOpen.value = false
+}
+
+const isDoctorsPopupOpen = ref(false)
+const toggleDoctorsPopup = () => {
+  closeCatalogPopup()
+  closePartnersPopup()
+  isDoctorsPopupOpen.value = !isDoctorsPopupOpen.value
+}
+
+const closeDoctorsPopup = () => {
+  isDoctorsPopupOpen.value = false
 }
 </script>
 

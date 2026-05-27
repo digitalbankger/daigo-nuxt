@@ -5,7 +5,7 @@ import UiButton from '~/components/ui/Button.vue'
 
 const floating = ref(false)
 
-const certificateCatalogLink = { path: '/catalog', query: { produkty: 'sertificate' } }
+const certificateCatalogLink = { path: '/catalog', query: { podarochnye: 'sertificate' } }
 
 function enableFloating() {
   setTimeout(() => {
@@ -146,7 +146,7 @@ function goToCertificatesCatalog() {
             type="button"
             @click="goToCertificatesCatalog"
           >
-            Узнать подробнее
+            Купить сертификат
           </UiButton>
         </div>
         <img src="/images/promotions/promo-sert-mob.jpg" class="w-full block lg:hidden order-2"/>

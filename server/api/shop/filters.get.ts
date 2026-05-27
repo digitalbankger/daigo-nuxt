@@ -116,7 +116,8 @@ export default defineEventHandler(() => {
       label: 'Подарочные',
       slug: 'podarochnye',
       options: [
-        { label: 'Наборы', value: 'nabory' }
+        { label: 'Наборы', value: 'nabory' },
+        { label: 'Сертификаты', value: 'sertificate' }
       ]
     },
 

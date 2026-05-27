@@ -3,7 +3,7 @@ import { useContentStore } from '~/stores/contentStore'
 const { $device } = useNuxtApp()
 
 const content = useContentStore()
-const certificateCatalogLink = { path: '/catalog', query: { produkty: 'sertificate' } }
+const certificateCatalogLink = { path: '/catalog', query: { podarochnye: 'sertificate' } }
 
 </script>
 

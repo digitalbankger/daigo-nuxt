@@ -224,6 +224,7 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
       addPropertyValue(enrichedProps, 'produkty', 'sertificate')
       addPropertyValue(enrichedProps, 'producty', 'sertificate')
       addPropertyValue(enrichedProps, 'products', 'sertificate')
+      addPropertyValue(enrichedProps, 'podarochnye', 'sertificate')
     }
 
     const isExcludedGift =
@@ -263,7 +264,10 @@ function propValues(product: any, slug: string): string[] {
     values.push(...toStringArray(product?.properties?.[key]))
   }
 
-  if (slug === 'produkty' && String(product?.slug || '').startsWith('sertifikat')) {
+  if (
+    (slug === 'produkty' || slug === 'podarochnye') &&
+    String(product?.slug || '').startsWith('sertifikat')
+  ) {
     values.push('sertificate')
   }
 

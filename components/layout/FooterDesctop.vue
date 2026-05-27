@@ -57,7 +57,7 @@
                 <li><NuxtLink to="/oplata">Оплата</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-vozvrata-i-obmena">Условия возрата и обмена</NuxtLink></li>
-                <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
+                <li><NuxtLink :to="{ path: '/catalog', query: { podarochnye: 'sertificate' } }">Подарочные сертификаты</NuxtLink></li>
                 <!-- <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li> -->
               </ul>
             </div>
@@ -129,7 +129,7 @@
                 <li><NuxtLink to="/oplata">Оплата</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-dostavki">Доставка</NuxtLink></li>
                 <li><NuxtLink to="/usloviya-vozvrata-i-obmena">Условия возрата и обмена</NuxtLink></li>
-                <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
+                <li><NuxtLink :to="{ path: '/catalog', query: { podarochnye: 'sertificate' } }">Подарочные сертификаты</NuxtLink></li>
                 <!-- <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li> -->
                 <!-- <li><NuxtLink to="/loyalty">Программа лояльности</NuxtLink></li> -->
               </ul>

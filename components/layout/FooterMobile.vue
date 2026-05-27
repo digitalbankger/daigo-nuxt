@@ -37,7 +37,7 @@
               <ul class="space-y-2 w-5/6 text-base">
                 <li><NuxtLink to="/payment">Оплата</NuxtLink></li>
                 <li><NuxtLink to="/delivery">Доставка</NuxtLink></li>
-                <li><NuxtLink to="/certificates">Подарочные сертификаты</NuxtLink></li>
+                <li><NuxtLink :to="{ path: '/catalog', query: { podarochnye: 'sertificate' } }">Подарочные сертификаты</NuxtLink></li>
                 <li><NuxtLink to="/referral">Реферальная программа</NuxtLink></li>
                 <li><NuxtLink to="/partners">Партнерская программа</NuxtLink></li>
               </ul>

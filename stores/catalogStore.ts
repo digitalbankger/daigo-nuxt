@@ -133,7 +133,10 @@ export const useCatalogStore = defineStore('catalog', () => {
       values.push(...toStringArray((product as any)?.properties?.[key]))
     }
 
-    if (slug === 'produkty' && String(product.slug || '').startsWith('sertifikat')) {
+    if (
+      (slug === 'produkty' || slug === 'podarochnye') &&
+      String(product.slug || '').startsWith('sertifikat')
+    ) {
       values.push('sertificate')
     }
 
