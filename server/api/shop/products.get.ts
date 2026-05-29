@@ -21,6 +21,7 @@ const IGNORED_FILTER_KEYS = new Set([
   'no_total',
   'for',
   'product_ids',
+  'etext',
 ])
 
 const PROPERTY_ALIASES: Record<string, string[]> = {

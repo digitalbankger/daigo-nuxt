@@ -31,7 +31,7 @@ const normalizedQuery = computed(() => {
     Object.entries(route.query)
       .filter(([key]) => {
         if (key === 'empty' || key === 'page') return false
-        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
+        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid' || key === 'etext') return false
         if (key.startsWith('utm_')) return false
         return true
       })
@@ -72,6 +72,7 @@ function cleanupQuery(query: typeof route.query) {
   const nextQuery = { ...query }
   delete nextQuery.empty
   delete nextQuery.page
+  delete nextQuery.etext
   return nextQuery
 }
 
@@ -185,7 +186,7 @@ useHead(() => {
   const filters = Object.entries(query)
     .filter(([key]) => {
       if (['page', 'empty'].includes(key)) return false
-      if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid') return false
+      if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid' || key === 'etext') return false
       if (key.startsWith('utm_')) return false
       return true
     })

@@ -116,6 +116,7 @@ export const useCartStore = defineStore('cart', () => {
 
   function mapApiItem(i: any): CartItem {
     const price = Number(i.price ?? 0)
+    const productId = i.product_id ?? i.id
 
     const original =
       i.original_price ?? i.originalPrice ?? i.old_price ?? i.oldPrice ?? null
@@ -123,15 +124,15 @@ export const useCartStore = defineStore('cart', () => {
     const originalPrice = original != null ? Number(original) : undefined
 
     return {
-      id: i.product_id,
-      title: i.title || i.name,
+      id: productId,
+      title: i.title || i.name || i.name_ru || '',
       subtitle: i.subtitle || '',
       price,
       originalPrice:
         originalPrice != null && originalPrice > price ? originalPrice : undefined,
       oldPrice: i.old_price != null ? Number(i.old_price) : undefined,
-      quantity: Number(i.quantity ?? 0),
-      image: i.image || '',
+      quantity: Number(i.quantity ?? i.qty ?? i.qty_order ?? i.qtyOrder ?? i.qty_in_cart ?? i.qtyInCart ?? 0),
+      image: i.image || i.img || i.picture || i.photo || '',
       tag: i.tag,
     }
   }

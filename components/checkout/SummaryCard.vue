@@ -188,6 +188,7 @@ watch(
 const authLoading = ref(false)          // оставляем для совместимости, но не используем «пуш-ожидание»
 const preOrderLoading = ref(false)
 const isCodeStep = ref(false)           // показывать ли блок ввода кода в корзине
+const ctaError = ref('')
 
 // 4 квадрата кода
 const codeDigits = ref<string[]>(['', '', '', ''])
@@ -227,6 +228,17 @@ function resetCode() {
   codeDigits.value = ['', '', '', '']
   authStore.isCodeSent = false
   isCodeStep.value = false
+  ctaError.value = ''
+}
+
+function getCartCtaErrorMessage(error: any) {
+  const message = String(error?.message || '')
+
+  if (message === 'AUTH_REQUIRED') {
+    return 'Не удалось подтвердить авторизацию. Обновите страницу и попробуйте ещё раз.'
+  }
+
+  return message || 'Не удалось перейти к оформлению. Попробуйте ещё раз или свяжитесь с менеджером.'
 }
 
 // отправка кода и верификация
@@ -241,9 +253,19 @@ async function startCodeFlowIfNeeded() {
 
 async function verifyAndContinue() {
   if (!canSubmitCode.value) return
-  await authStore.confirmCode(codeValue.value)
-  // после успешной верификации продолжаем прежний флоу: preOrder -> /order
-  await proceedPreOrderAndGo()
+
+  ctaError.value = ''
+
+  try {
+    await authStore.confirmCode(codeValue.value)
+    // после успешной верификации продолжаем прежний флоу: preOrder -> /order
+    await proceedPreOrderAndGo()
+  } catch (error: any) {
+    ctaError.value = getCartCtaErrorMessage(error)
+    if (process.dev) {
+      console.warn('[cart] verify/pre-order failed', error)
+    }
+  }
 }
 
 // ===== старый флоу под капотом: preOrder → navigate ====
@@ -288,7 +310,7 @@ function validateFields() {
 async function handleCta() {
   if (props.mode === 'checkout') { emit('cta'); return }
 
-  analytics?.reach?.('lead_cart')
+  ctaError.value = ''
 
   const ok = validateFields()
   if (!ok) {
@@ -298,23 +320,32 @@ async function handleCta() {
     return
   }
 
-  if (authStore.isAuthenticated) {
-    await proceedPreOrderAndGo()
-    return
-  }
+  analytics?.reach?.('lead_cart')
 
-  // Гостевой лид — как раньше (fire and forget)
   try {
-    const sessionId = ensureGuestSessionId()
-    sendGuestPreorderFireAndForget({
-      sessionId,
-      fullName: form.fullName,
-      phone: form.phone
-    })
-  } catch { /* игнорим */ }
+    if (authStore.isAuthenticated) {
+      await proceedPreOrderAndGo()
+      return
+    }
 
-  // Теперь вместо "пуш-ожидания" показываем инлайн код и подтверждаем
-  await startCodeFlowIfNeeded()
+    // Гостевой лид — как раньше (fire and forget)
+    try {
+      const sessionId = ensureGuestSessionId()
+      sendGuestPreorderFireAndForget({
+        sessionId,
+        fullName: form.fullName,
+        phone: form.phone
+      })
+    } catch { /* игнорим */ }
+
+    // Теперь вместо "пуш-ожидания" показываем инлайн код и подтверждаем
+    await startCodeFlowIfNeeded()
+  } catch (error: any) {
+    ctaError.value = getCartCtaErrorMessage(error)
+    if (process.dev) {
+      console.warn('[cart] pre-order/start auth failed', error)
+    }
+  }
 }
 
 async function applyCoupon() {
@@ -454,12 +485,16 @@ async function removeCoupon() {
         v-else
         variant="solid"
         class="w-full hover:!bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
-        :disabled="!enableCta || preOrderLoading"
+        :disabled="preOrderLoading"
         @click="handleCta"
       >
         <span v-if="preOrderLoading">Готовим заказ…</span>
         <span v-else>Перейти к оформлению</span>
       </Button>
+
+      <div v-if="ctaError" class="text-red-500 text-xs md:text-sm">
+        {{ ctaError }}
+      </div>
       
     </div>
 

@@ -19,6 +19,7 @@ const IGNORED_QUERY_KEYS = new Set([
   'yclid',
   'gclid',
   'fbclid',
+  'etext',
 ])
 
 const PROPERTY_ALIASES: Record<string, string[]> = {
