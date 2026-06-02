@@ -17,10 +17,10 @@
       <button
         type="button"
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
-        :disabled="busy"
+        :disabled="busy || isApplied"
         @click="applyWelcome()"
       >
-        <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME10' : 'Применить WELCOME10') }}</span>
+        <span>{{ buttonLabel }}</span>
       </button>
 
       <!-- MOBILE -->
@@ -30,10 +30,10 @@
         <button
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
-          :disabled="busy"
+          :disabled="busy || isApplied"
           @click="applyWelcome()"
         >
-          <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME10' : 'Применить WELCOME10') }}</span>
+          <span>{{ buttonLabel }}</span>
         </button>
       </div>
 
@@ -55,76 +55,57 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { storeToRefs } from 'pinia'
 import { useRoute } from '#imports'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
-import { usePromoStore } from '~/stores/promotionStore'
 import { useModalStore } from '~/stores/modalStore'
 import { useAuthStore } from '~/stores/authStore'
-import { useYtm } from '@/composables/useYtm'
-import { isCouponApplySuccess } from '~/utils/coupon'
-
-type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice' | string
-interface Promotion {
-  id: number | string
-  title: string
-  description?: string
-  image?: string
-  coupon?: string | null
-  promo_type: PromoType
-  is_applied?: boolean
-  link?: string | null
-}
+import { useCartStore } from '~/stores/cartStore'
+import { getCouponApplyMessage, isCouponApplySuccess } from '~/utils/coupon'
 
 const ui = useUiStore()
 const route = useRoute()
 const authStore = useAuthStore()
+const cartStore = useCartStore()
 const { reach } = useAnalytics()
-const promoStore = usePromoStore()
 const modalStore = useModalStore()
-const ytm = useYtm()
-
-const { promotions, pendingId } = storeToRefs(promoStore)
 
 const WELCOME_CODE = 'WELCOME10'
 const shouldOfferWelcomeReapply = ref(false)
+const isProcessing = ref(false)
 
-const welcomePromo = computed<Promotion | null>(() => {
-  const list = (promotions.value || []) as Promotion[]
-  return list.find(p => (p.coupon || '').trim().toUpperCase() === WELCOME_CODE) || null
+const isApplied = computed(() => {
+  const currentCode = String(cartStore.couponInfo?.code || '').trim().toUpperCase()
+  if (currentCode === WELCOME_CODE) return true
+
+  return (cartStore.coupons || []).some((coupon: any) => {
+    const code = String(coupon?.code || '').trim().toUpperCase()
+    return code === WELCOME_CODE && coupon?.applied !== false
+  })
 })
 
-const isApplied = computed(() => Boolean(welcomePromo.value?.is_applied))
+const busy = computed(() => isProcessing.value)
 
-const busy = computed(() => {
-  const p = welcomePromo.value
-  if (!p) return false
-  return pendingId.value === p.id
+const buttonLabel = computed(() => {
+  if (busy.value) return 'Применяем…'
+  if (isApplied.value) return 'WELCOME10 применён'
+  return 'Применить WELCOME10'
 })
 
 const sendInformerGoal = () => {
   reach('informer-click')
 }
 
-function toYtmPromo(p: Promotion) {
-  return {
-    id: String(p.id),
-    name: p.title,
-    creative: 'head_informer', // отдельный носитель, чтобы отличать от grid
-    position: '1',
-  }
-}
-
 function isAuthRequiredError(error: any) {
-  return error?.code === 'AUTH_REQUIRED' || String(error?.message || '').toLowerCase().includes('необходимо авторизоваться')
+  const text = String(error?.message || '').toLowerCase()
+  return error?.code === 'AUTH_REQUIRED' || text.includes('авториз')
 }
 
 function showWelcomeAuthModal() {
   shouldOfferWelcomeReapply.value = true
   modalStore.show({
-    title: 'Что-то пошло не так',
-    message: 'Для применения акции необходимо авторизоваться',
+    title: 'Для применения промокода нужна авторизация',
+    message: 'Авторизуйтесь, и мы применим WELCOME10 к вашей корзине.',
     buttonText: 'Авторизоваться',
     onConfirm: async () => {
       modalStore.close()
@@ -140,9 +121,9 @@ watch(
 
     shouldOfferWelcomeReapply.value = false
     modalStore.show({
-      title: 'Ура, теперь вы можете применить промокод',
-      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME10 ещё раз.',
-      buttonText: 'Применить ещё раз',
+      title: 'Готово, можно применить промокод',
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME10.',
+      buttonText: 'Применить WELCOME10',
       onConfirm: async () => {
         modalStore.close()
         await applyWelcome({ skipGoal: true })
@@ -152,46 +133,30 @@ watch(
 )
 
 async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
-  if (!import.meta.client) return
+  if (!import.meta.client || isProcessing.value) return
 
   if (!opts.skipGoal) {
     sendInformerGoal()
   }
 
-  // гарантируем, что промки есть (как на акциях: если SSR не дал — подгрузить)
-  if (!promotions.value?.length) {
-    try { await promoStore.loadPromotions() } catch {}
-  }
-
-  const promo = welcomePromo.value
-  if (!promo) {
+  if (isApplied.value) {
     modalStore.show({
-      title: 'Промокод не найден',
-      message: `Промокод ${WELCOME_CODE} сейчас недоступен`,
+      title: 'Промокод уже применён',
+      message: 'WELCOME10 уже активен в вашей корзине.',
     })
     return
   }
 
-  if (busy.value) return
-
-  // YTM promoClick — как на карточках
-  ytm.promoClick([toYtmPromo(promo)])
+  isProcessing.value = true
 
   try {
-    if (isApplied.value) {
-      await promoStore.cancelActive()
-      modalStore.show({ title: 'Готово', message: 'Акция отменена' })
-      return
-    }
-
-    const res: any = await promoStore.apply(promo as any)
-
-    // логика success — 1 в 1 как у тебя на странице акций
+    await cartStore.ensureLoaded()
+    const res: any = await cartStore.applyCoupon(WELCOME_CODE)
     const success = isCouponApplySuccess(res)
 
     modalStore.show({
       title: success ? '✅ Успешно' : 'Что-то пошло не так',
-      message: res?.message || (success ? 'Промокод применён' : 'Не удалось применить промокод'),
+      message: res?.message || (success ? 'Промокод применён к корзине' : getCouponApplyMessage(res)),
     })
   } catch (e: any) {
     if (isAuthRequiredError(e)) {
@@ -203,6 +168,8 @@ async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
       title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось применить промокод',
     })
+  } finally {
+    isProcessing.value = false
   }
 }
 

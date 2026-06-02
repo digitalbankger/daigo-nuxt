@@ -37,7 +37,7 @@
                     :alt="`${product.name} ${imageIndex + 1}`"
                     :width="560"
                     :height="560"
-                    class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                    :class="cardImageClass"
                     :eager="priority && imageIndex === 0"
                   />
                   <div
@@ -57,7 +57,7 @@
                 :alt="product.name"
                 :width="560"
                 :height="560"
-                class="h-[140px] sm:h-[280px] object-contain pointer-events-none"
+                :class="cardImageClass"
                 :eager="priority"
               />
             </div>
@@ -187,12 +187,17 @@ const route = useRoute()
 const ytm = useYtm()
 const analytics = useAnalytics()
 
-const { product, index, globalIndex, priority } = defineProps<{
+const { product, index, globalIndex, priority, imageClass } = defineProps<{
   product: ProductCard
   index?: number
   globalIndex?: number
   priority?: boolean
+  imageClass?: string
 }>()
+
+const cardImageClass = computed(() =>
+  imageClass || 'h-[140px] sm:h-[280px] object-contain pointer-events-none'
+)
 
 const cartStore = useCartStore()
 

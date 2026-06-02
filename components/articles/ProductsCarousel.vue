@@ -25,6 +25,7 @@
             <ProductCard
               :product="p"
               :global-index="i"
+              image-class="w-[92%] h-[145px] sm:h-[285px] object-contain pointer-events-none"
             />
           </SwiperSlide>
         </Swiper>
