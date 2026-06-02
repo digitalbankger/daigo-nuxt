@@ -10,7 +10,7 @@
         class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
         @click="sendInformerGoal"
       >
-        <span class="text-sm sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
+        <span class="text-sm sm:text-lg font-mont font-medium">10% скидка на первый заказ</span>
       </NuxtLink>
 
       <!-- DESKTOP BUTTON -->
@@ -20,12 +20,12 @@
         :disabled="busy"
         @click="applyWelcome()"
       >
-        <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
+        <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME10' : 'Применить WELCOME10') }}</span>
       </button>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-xs sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
+        <span class="text-xs sm:text-lg font-mont font-medium">10% скидка на первый заказ</span>
 
         <button
           type="button"
@@ -33,7 +33,7 @@
           :disabled="busy"
           @click="applyWelcome()"
         >
-          <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
+          <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME10' : 'Применить WELCOME10') }}</span>
         </button>
       </div>
 
@@ -87,7 +87,7 @@ const ytm = useYtm()
 
 const { promotions, pendingId } = storeToRefs(promoStore)
 
-const WELCOME_CODE = 'WELCOME5'
+const WELCOME_CODE = 'WELCOME10'
 const shouldOfferWelcomeReapply = ref(false)
 
 const welcomePromo = computed<Promotion | null>(() => {
@@ -141,7 +141,7 @@ watch(
     shouldOfferWelcomeReapply.value = false
     modalStore.show({
       title: 'Ура, теперь вы можете применить промокод',
-      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME5 ещё раз.',
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME10 ещё раз.',
       buttonText: 'Применить ещё раз',
       onConfirm: async () => {
         modalStore.close()

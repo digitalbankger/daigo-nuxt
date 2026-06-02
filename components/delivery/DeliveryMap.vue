@@ -35,7 +35,7 @@
             </div>
             <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/bi_mailbox.svg" /> 
-              <span>Email: info@daigo.ru</span>
+              <span>Электронная почта: info@daigo.ru</span>
             </div>
             <div class="text-sm lg:text-lg flex flex-row items-center gap-2">
               <img src="/icons/clock.svg" /> 

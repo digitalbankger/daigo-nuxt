@@ -9,6 +9,9 @@
     <main>
       <NuxtPage />
       <MessageModal />
+      <ClientOnly>
+        <FirstOrderWelcomePopup />
+      </ClientOnly>
     </main>
 
     <!-- AUTH SHEET -->
@@ -53,6 +56,7 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import NavbarWomen from '~/components/layout/NavbarWomen.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
+import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
 import { defineAsyncComponent, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'

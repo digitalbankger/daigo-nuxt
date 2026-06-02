@@ -169,11 +169,11 @@ async function submitCallback() {
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/phone.svg" class="w-5 md:w-6"/>
-            <span>Телефон HR службы: 8 903 599 20 63</span>
+            <span>Телефон отдела кадров: 8 903 599 20 63</span>
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6"/> 
-            <span>Email: info@daigo.ru</span>
+            <span>Электронная почта: info@daigo.ru</span>
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/clock.svg" class="w-5 md:w-6"/> 

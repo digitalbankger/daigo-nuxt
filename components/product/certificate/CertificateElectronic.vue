@@ -51,7 +51,7 @@ const resolvedHow = computed(() => props.howImage || props.certImages?.imgThirt 
         <!-- Правая половина (4 шага) -->
         <div class="lg:basis-1/2 flex flex-wrap gap-4 sm:gap-6">
           <div class="relative overflow-hidden bg-hoverbtn rounded-2xl sm:rounded-3xl p-4 sm:p-6 min-h-[200px] sm:min-h-[300px] basis-full sm:basis-[calc(50%-0.5rem)] lg:basis-[calc(50%-0.75rem)] grow">
-            <h4 class="text-lg sm:text-2xl leading-tight font-normal mb-2">Получите письмо на email</h4>
+            <h4 class="text-lg sm:text-2xl leading-tight font-normal mb-2">Получите письмо на электронную почту</h4>
             <p class="text-sm sm:text-lg text-black/60">В нём будет сертификат и уникальный код активации</p>
             <img src="/images/cert/env.png" class="absolute right-0 bottom-0 w-40 object-contain" loading="lazy">
             <span class="absolute left-3 bottom-2 text-2xl sm:text-slider font-medium text-[#5DA3FF]">01</span>
@@ -107,7 +107,7 @@ const resolvedHow = computed(() => props.howImage || props.certImages?.imgThirt 
         <!-- Левая половина (3 карточки) -->
         <div class="lg:basis-1/2 flex flex-wrap gap-4 sm:gap-6">
           <div class="relative overflow-hidden bg-hoverbtn rounded-2xl sm:rounded-3xl p-4 sm:p-6 min-h-[200px] sm:min-h-[300px] basis-full sm:basis-[calc(50%-0.5rem)] lg:basis-[calc(50%-0.75rem)] grow">
-            <h4 class="text-lg sm:text-2xl leading-tight font-normal mb-2">Укажите email получателя</h4>
+            <h4 class="text-lg sm:text-2xl leading-tight font-normal mb-2">Укажите электронную почту получателя</h4>
             <p class="text-sm sm:text-lg text-black/60">Передайте лично в премиальной упаковке, сопровождая тёплыми словами</p>
             <img src="/images/cert/env.png" class="absolute right-0 bottom-0 h-36 object-contain" loading="lazy">
             <span class="absolute left-3 bottom-2 text-2xl sm:text-slider font-medium text-[#5DA3FF]">01</span>

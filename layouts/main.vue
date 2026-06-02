@@ -10,6 +10,9 @@
     <main>
       <NuxtPage />
       <MessageModal />
+      <ClientOnly>
+        <FirstOrderWelcomePopup />
+      </ClientOnly>
     </main>
     <BaseContainer v-if="!route.meta.hideFooter">
       <!-- <component :is="isMobile ? FooterMobile : FooterDesctop" /> -->
@@ -60,6 +63,7 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
+import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
 import MobileNav from '~/components/MobileNav.vue'
 import { defineAsyncComponent, watch } from 'vue'
 import { storeToRefs } from 'pinia'
