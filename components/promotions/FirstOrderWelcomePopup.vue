@@ -5,10 +5,19 @@
     @close="closePopup"
   >
     <div class="relative overflow-hidden rounded-xl bg-white">
+      <button
+        type="button"
+        class="absolute right-3 top-3 z-20 flex h-9 w-9 items-center justify-center rounded-full bg-white/90 text-2xl leading-none text-black/50 shadow-sm transition hover:bg-white hover:text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+        aria-label="Закрыть попап"
+        @click="closePopup"
+      >
+        <span aria-hidden="true">×</span>
+      </button>
+
       <div class="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-primary/10" />
       <div class="absolute -left-10 top-24 h-28 w-28 rounded-full bg-[#FFEBF1]" />
 
-      <div class="relative p-6 sm:p-8 text-center">
+      <div class="relative p-6 pt-12 sm:p-8 sm:pt-10 text-center">
         <div class="mx-auto mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#FFEBF1] text-2xl">
           %
         </div>
