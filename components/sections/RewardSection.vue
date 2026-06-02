@@ -4,57 +4,15 @@
       <h2 class="text-slider sm:text-product lg:text-slider font-medium leading-tight mb-2 sm:mb-6">
         Награды и сертификаты
       </h2>
-      
-      <div class="relative hidden sm:flex gap-2 sm:gap-5 ms-auto">
-        <button ref="prevEl" class="swiper-button-prev-reward" type="button">
-          <img src="/icons/arrow-left.svg" alt="prev" class="w-2/3 sm:w-11/12" />
-        </button>
-        <button ref="nextEl" class="swiper-button-next-reward" type="button">
-          <img src="/icons/arrow-right.svg" alt="next" class="w-2/3 sm:w-11/12" />
-        </button>
-      </div>
     </div>
-    <div class="relative !pl-[0%] sm:!pl-[8%]">
-      <!-- Слайдер -->
-      <Swiper
-        ref="swiperRef"
-        :modules="[Navigation]"
-        :space-between="32"
-        :loop="false"
-        :speed="500"
-        :navigation="{
-          nextEl: '.swiper-button-next-reward',
-          prevEl: '.swiper-button-prev-reward',
-        } as NavigationOptions"
-        :breakpoints="{
-          320: { slidesPerView: 1 },
-          768: { slidesPerView: 1.3 },
-          1024: { slidesPerView: 2 },
-          1280: { slidesPerView: 2 },
-        }"
-        class="overflow-visible"
-        @slideChange="({ realIndex }) => (currentSlide = realIndex)"
-      >
-        <SwiperSlide
-          v-for="(reward, index) in rewards"
-          :key="index"
-          class="h-auto mb-5"
-        >
-          <RewardCard :reward="reward" @open="openReward" />
-        </SwiperSlide>
-      </Swiper>
 
-      <!-- Пагинация-полоски -->
-      <div class="flex gap-2 absolute bottom-0 right-0 sm:right-0 z-20">
-        <div
-          v-for="(_, i) in rewards.length"
-          :key="i"
-          class="h-[2.5px] sm:h-[3px] w-4 sm:w-16 rounded-full transition-colors"
-          :style="{
-            backgroundColor: i === currentSlide ? '#303030CC' : '#3030301A',
-          }"
-        />
-      </div>
+    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+      <RewardCard
+        v-for="(reward, index) in rewards"
+        :key="index"
+        :reward="reward"
+        @open="openReward"
+      />
     </div>
   </div>
 
@@ -126,15 +84,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, nextTick } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import { Navigation } from 'swiper/modules'
-import 'swiper/css'
-import 'swiper/css/navigation'
-import type { Swiper as SwiperClass } from 'swiper/types'
-
+import { ref } from 'vue'
 import RewardCard from '~/components/RewardCard.vue'
-import type { NavigationOptions } from 'swiper/types'
 
 type Reward = {
   image?: string
@@ -155,27 +106,6 @@ const openReward = (reward: Reward) => {
 const closeReward = () => {
   isModalOpen.value = false
   selectedReward.value = null
-}
-
-const swiperRef = ref()
-const currentSlide = ref(0)
-
-const prevEl = ref<HTMLElement | null>(null)
-const nextEl = ref<HTMLElement | null>(null)
-
-const onSwiper = (swiper: SwiperClass) => {
-  nextTick(() => {
-    // @ts-expect-error swiper params mutable
-    swiper.params.navigation = {
-      prevEl: prevEl.value,
-      nextEl: nextEl.value,
-    }
-
-    // переинициализируем навигацию
-    swiper.navigation?.destroy?.()
-    swiper.navigation?.init?.()
-    swiper.navigation?.update?.()
-  })
 }
 
 // Перечень наград и премий. Каждому объекту соответствуют
@@ -290,35 +220,4 @@ const rewards = [
       'Номинация: «Ветеринарные препараты». Результат: Победитель конкурса новинок. Продукт: Lactis zoo.',
   },
 ]
-
-onMounted(() => {
-  nextTick(() => {
-    swiperRef.value?.swiper?.update()
-    currentSlide.value = swiperRef.value?.swiper?.realIndex ?? 0
-  })
-})
 </script>
-
-<style scoped>
-
-.swiper-button-next-reward::after,
-.swiper-button-prev-reward::after {
-  display: none !important;
-  content: none !important;
-}
-
-.swiper-button-prev-reward,
-.swiper-button-next-reward {
-  top: 50px;
-  justify-content: flex-end;
-}
-
-.swiper-button-prev-reward {
-  left: auto;
-  right: 40px;
-}
-
-.swiper-button-next-reward {
-  right: 0;
-}
-</style>
