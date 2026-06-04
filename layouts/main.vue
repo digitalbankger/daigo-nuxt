@@ -55,11 +55,13 @@
         </div>
       </Transition>
     </Teleport>
+    <CookieConsentBanner />
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import CookieConsentBanner from '~/components/layout/CookieConsentBanner.vue'
 import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'

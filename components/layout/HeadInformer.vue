@@ -18,7 +18,7 @@
         type="button"
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
         :disabled="busy || isApplied"
-        @click="applyWelcome()"
+        @click="applyPromo()"
       >
         <span>{{ buttonLabel }}</span>
       </button>
@@ -31,7 +31,7 @@
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
           :disabled="busy || isApplied"
-          @click="applyWelcome()"
+          @click="applyPromo()"
         >
           <span>{{ buttonLabel }}</span>
         </button>
@@ -70,17 +70,17 @@ const cartStore = useCartStore()
 const { reach } = useAnalytics()
 const modalStore = useModalStore()
 
-const WELCOME_CODE = 'WELCOME10'
-const shouldOfferWelcomeReapply = ref(false)
+const PROMO_CODE = 'ЛЕТО10'
+const shouldOfferPromoReapply = ref(false)
 const isProcessing = ref(false)
 
 const isApplied = computed(() => {
   const currentCode = String(cartStore.couponInfo?.code || '').trim().toUpperCase()
-  if (currentCode === WELCOME_CODE) return true
+  if (currentCode === PROMO_CODE) return true
 
   return (cartStore.coupons || []).some((coupon: any) => {
     const code = String(coupon?.code || '').trim().toUpperCase()
-    return code === WELCOME_CODE && coupon?.applied !== false
+    return code === PROMO_CODE && coupon?.applied !== false
   })
 })
 
@@ -88,8 +88,8 @@ const busy = computed(() => isProcessing.value)
 
 const buttonLabel = computed(() => {
   if (busy.value) return 'Применяем…'
-  if (isApplied.value) return 'WELCOME10 применён'
-  return 'Применить WELCOME10'
+  if (isApplied.value) return 'ЛЕТО10 применён'
+  return 'Применить ЛЕТО10'
 })
 
 const sendInformerGoal = () => {
@@ -101,11 +101,11 @@ function isAuthRequiredError(error: any) {
   return error?.code === 'AUTH_REQUIRED' || text.includes('авториз')
 }
 
-function showWelcomeAuthModal() {
-  shouldOfferWelcomeReapply.value = true
+function showPromoAuthModal() {
+  shouldOfferPromoReapply.value = true
   modalStore.show({
     title: 'Для применения промокода нужна авторизация',
-    message: 'Авторизуйтесь, и мы применим WELCOME10 к вашей корзине.',
+    message: 'Авторизуйтесь, и мы применим ЛЕТО10 к вашей корзине.',
     buttonText: 'Авторизоваться',
     onConfirm: async () => {
       modalStore.close()
@@ -117,22 +117,22 @@ function showWelcomeAuthModal() {
 watch(
   () => authStore.isAuthenticated,
   (isAuthenticated) => {
-    if (!isAuthenticated || !shouldOfferWelcomeReapply.value) return
+    if (!isAuthenticated || !shouldOfferPromoReapply.value) return
 
-    shouldOfferWelcomeReapply.value = false
+    shouldOfferPromoReapply.value = false
     modalStore.show({
       title: 'Готово, можно применить промокод',
-      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME10.',
-      buttonText: 'Применить WELCOME10',
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить ЛЕТО10.',
+      buttonText: 'Применить ЛЕТО10',
       onConfirm: async () => {
         modalStore.close()
-        await applyWelcome({ skipGoal: true })
+        await applyPromo({ skipGoal: true })
       },
     })
   }
 )
 
-async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
+async function applyPromo(opts: { skipGoal?: boolean } = {}) {
   if (!import.meta.client || isProcessing.value) return
 
   if (!opts.skipGoal) {
@@ -142,7 +142,7 @@ async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
   if (isApplied.value) {
     modalStore.show({
       title: 'Промокод уже применён',
-      message: 'WELCOME10 уже активен в вашей корзине.',
+      message: 'ЛЕТО10 уже активен в вашей корзине.',
     })
     return
   }
@@ -151,7 +151,7 @@ async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
 
   try {
     await cartStore.ensureLoaded()
-    const res: any = await cartStore.applyCoupon(WELCOME_CODE)
+    const res: any = await cartStore.applyCoupon(PROMO_CODE)
     const success = isCouponApplySuccess(res)
 
     modalStore.show({
@@ -160,7 +160,7 @@ async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
     })
   } catch (e: any) {
     if (isAuthRequiredError(e)) {
-      showWelcomeAuthModal()
+      showPromoAuthModal()
       return
     }
 

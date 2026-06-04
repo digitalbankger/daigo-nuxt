@@ -49,11 +49,13 @@
         </div>
       </Transition>
     </Teleport>
+    <CookieConsentBanner />
   </div>
 </template>
 
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import CookieConsentBanner from '~/components/layout/CookieConsentBanner.vue'
 import NavbarWomen from '~/components/layout/NavbarWomen.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
 import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
