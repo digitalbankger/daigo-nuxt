@@ -72,24 +72,32 @@
               </div>
             </div>
           </div>
+          <!-- <ul class="space-y-2 w-5/6 text-base">
+            <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
+            <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
+            <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
+            <li><NuxtLink to="/user-agreement">Пользовательское соглашение</NuxtLink></li>
+            <li><NuxtLink to="/terms-sale">Условия продажи товаров</NuxtLink></li>
+          </ul> -->
+
+        </div>
+
+        <div class="md:w-1/4 text-left py-8">
+          <!-- <img src="/icons/social/qr.svg" alt="QR-код приложения" class="w-4/6 md:w-full lg:w-4/6 ms-auto" loading="lazy" />
+          <p class="w-4/6 md:w-full lg:w-4/6 my-2 ms-auto text-base md:text-sm lg:text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
+          <div class="w-4/6 md:w-full lg:w-4/6 ms-auto flex justify-center gap-4 mt-2">
+            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
+            <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
+            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
+          </div> -->
           <ul class="space-y-2 w-5/6 text-base">
+            <p class="font-medium text-xl mb-2">Информация</p>
             <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
             <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
             <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
             <li><NuxtLink to="/user-agreement">Пользовательское соглашение</NuxtLink></li>
             <li><NuxtLink to="/terms-sale">Условия продажи товаров</NuxtLink></li>
           </ul>
-
-        </div>
-
-        <div class="md:w-1/4 text-center">
-          <img src="/icons/social/qr.svg" alt="QR-код приложения" class="w-4/6 md:w-full lg:w-4/6 ms-auto" loading="lazy" />
-          <p class="w-4/6 md:w-full lg:w-4/6 my-2 ms-auto text-base md:text-sm lg:text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
-          <div class="w-4/6 md:w-full lg:w-4/6 ms-auto flex justify-center gap-4 mt-2">
-            <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
-            <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
-            <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
-          </div>
         </div>
       </div>
 
@@ -208,15 +216,22 @@
 
         </div>
 
-        <div class="w-full md:w-1/4 text-left">
+        <div class="hidden sm:block w-full md:w-1/4 text-left">
           <!-- <img src="/icons/social/qr.svg" alt="QR-код приложения" class="w-4/6 ms-auto" loading="lazy" /> -->
-          <p class="block md:hidden w-full my-2 ms-0 md:ms-auto text-sm md:text-base leading-tight">Скачать мобильное приложение Дайго</p>
+          <!-- <p class="block md:hidden w-full my-2 ms-0 md:ms-auto text-sm md:text-base leading-tight">Скачать мобильное приложение Дайго</p>
           <p class="hidden md:block w-4/6 my-2 ms-0 md:ms-auto text-base leading-tight">Наведите камеру<br />и скачайте мобильное приложение Дайго!</p>
           <div class="w-full ms-0 md:ms-auto flex justify-start gap-4 mt-4">
             <a href="https://play.google.com/store/apps/details?id=ru.daigo.appmobile"><img src="/icons/social/gp.svg" alt="Google Play" class="w-8" loading="lazy" /></a>
             <img src="/icons/social/appstore.svg" alt="App Store" class="w-8" loading="lazy" />
             <a href="https://www.rustore.ru/catalog/app/ru.daigo.appmobile"><img src="/icons/social/rustore.svg" alt="Ru Store" class="w-8" loading="lazy" /></a>
-          </div>
+          </div> -->
+          <ul class="space-y-2 w-5/6 text-base">
+            <li><NuxtLink to="/soglasie-na-obrabotku-personalnykh-dannykh">Согласие на обработку персональных данных</NuxtLink></li>
+            <li><NuxtLink to="/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok">Согласие на получение рассылок</NuxtLink></li>
+            <li><NuxtLink to="/privacy">Политика конфиденциальности</NuxtLink></li>
+            <li><NuxtLink to="/user-agreement">Пользовательское соглашение</NuxtLink></li>
+            <li><NuxtLink to="/terms-sale">Условия продажи товаров</NuxtLink></li>
+          </ul>
         </div>
       </div>
     </div>
