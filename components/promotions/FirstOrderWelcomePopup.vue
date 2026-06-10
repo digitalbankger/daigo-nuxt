@@ -509,11 +509,11 @@ watch(
   .summer-popup__text {
         max-width: 100%;
         margin-top: 26px;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: bold;
         font-style: normal;
         width: 78%;
-        margin-bottom: 40px;
+        margin-bottom: 90px;
   }
 
   .summer-popup__coupon {
