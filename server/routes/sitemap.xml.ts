@@ -28,8 +28,6 @@ type FilterGroup = {
 
 const SITE_URL = 'https://daigo.ru'
 const PRODUCT_PAGE_SIZE = 9999
-const CATALOG_PER_PAGE = 15
-const MAX_CATALOG_PAGES_IN_SITEMAP = 3
 
 const STATIC_ROUTES: SitemapEntry[] = [
   { loc: '/', changefreq: 'daily', priority: 1 },
@@ -236,16 +234,6 @@ function addCatalogPagination(target: Map<string, SitemapEntry>, path: string, t
     changefreq: 'daily',
     priority,
   })
-
-  const totalPages = Math.min(MAX_CATALOG_PAGES_IN_SITEMAP, Math.ceil(totalItems / CATALOG_PER_PAGE))
-  for (let page = 2; page <= totalPages; page++) {
-    const separator = path.includes('?') ? '&' : '?'
-    addEntry(target, {
-      loc: `${path}${separator}page=${page}`,
-      changefreq: 'daily',
-      priority: Math.max(0.45, priority - 0.1),
-    })
-  }
 }
 
 function getCatalogFilterGroups(filters: FilterGroup[], products: ProductLike[]): FilterGroup[] {

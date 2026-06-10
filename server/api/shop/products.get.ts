@@ -22,6 +22,7 @@ const IGNORED_FILTER_KEYS = new Set([
   'for',
   'product_ids',
   'etext',
+  'ybaip',
 ])
 
 const PROPERTY_ALIASES: Record<string, string[]> = {
@@ -58,7 +59,7 @@ function normalizeImgFactory(filesBase: string) {
 }
 
 function isIgnoredFilterKey(key: string) {
-  return IGNORED_FILTER_KEYS.has(key) || key.startsWith('utm_') || ['ysclid', 'yclid', 'gclid', 'fbclid'].includes(key)
+  return IGNORED_FILTER_KEYS.has(key) || key.startsWith('utm_') || ['ysclid', 'yclid', 'gclid', 'fbclid', 'ybaip'].includes(key)
 }
 
 function normalizeFilterValue(value: any) {

@@ -80,7 +80,7 @@ const slides: Slide[] = [
   //     'text-[clamp(0.9rem,2.2vw,1.875rem)]',
   // },
   // {
-  //   to: '/catalog?podarochnye=nabory&page=1',
+  //   to: '/catalog?podarochnye=nabory',
   //   variant: 'boxes',
   //   title: 'Потратьте бонусы на любимых!',
   //   subtitle: 'Премиальные подарочные наборы для самых близких!',

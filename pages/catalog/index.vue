@@ -24,17 +24,26 @@ const displayLimit = ref(PRODUCTS_PER_LOAD)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 let loadMoreObserver: IntersectionObserver | null = null
 
+const SERVICE_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit'])
+const TRACKING_QUERY_KEYS = new Set(['ysclid', 'yclid', 'gclid', 'fbclid', 'etext', 'ybaip'])
+const CATALOG_QUERY_KEYS_TO_DROP = new Set(['empty', 'page'])
+
+function isTrackingQueryKey(key: string) {
+  return TRACKING_QUERY_KEYS.has(key) || key.startsWith('utm_')
+}
+
+function isCatalogFilterQueryKey(key: string) {
+  if (SERVICE_QUERY_KEYS.has(key)) return false
+  if (isTrackingQueryKey(key)) return false
+  return true
+}
+
 await catalogStore.fetchFilters()
 
 const normalizedQuery = computed(() => {
   return Object.fromEntries(
     Object.entries(route.query)
-      .filter(([key]) => {
-        if (key === 'empty' || key === 'page') return false
-        if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid' || key === 'etext') return false
-        if (key.startsWith('utm_')) return false
-        return true
-      })
+      .filter(([key]) => isCatalogFilterQueryKey(key))
       .map(([key, value]) => [
         key,
         Array.isArray(value) ? value[0] ?? '' : value ?? ''
@@ -70,10 +79,28 @@ const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD })
 
 function cleanupQuery(query: typeof route.query) {
   const nextQuery = { ...query }
-  delete nextQuery.empty
-  delete nextQuery.page
-  delete nextQuery.etext
+
+  for (const key of CATALOG_QUERY_KEYS_TO_DROP) {
+    delete nextQuery[key]
+  }
+
   return nextQuery
+}
+
+function hasDeprecatedCatalogQuery(query: typeof route.query) {
+  return Object.keys(query).some((key) => CATALOG_QUERY_KEYS_TO_DROP.has(key))
+}
+
+function buildCatalogCanonicalHref() {
+  const params = new URLSearchParams()
+
+  for (const [key, value] of Object.entries(normalizedQuery.value)) {
+    if (!value) continue
+    params.set(key, String(value))
+  }
+
+  const qs = params.toString().replaceAll('%2C', ',')
+  return `https://daigo.ru/catalog${qs ? `?${qs}` : ''}`
 }
 
 function applyQuickFilter(key: string, value: string) {
@@ -119,18 +146,19 @@ watch(
 
     try {
       await catalogStore.fetchProducts(normalizedQuery.value)
-
-      if (visibleProducts.value.length === 0 && !('empty' in route.query)) {
-        router.replace({ query: { ...route.query, empty: '1' } })
-      }
-
-      if (visibleProducts.value.length > 0 && 'empty' in route.query) {
-        router.replace({ query: cleanupQuery(route.query) })
-      }
     } finally {
       isCatalogLoading.value = false
       setupLoadMoreObserver()
     }
+  },
+  { immediate: true, deep: true }
+)
+
+watch(
+  () => route.query,
+  () => {
+    if (!hasDeprecatedCatalogQuery(route.query)) return
+    router.replace({ query: cleanupQuery(route.query), hash: route.hash })
   },
   { immediate: true, deep: true }
 )
@@ -184,27 +212,17 @@ watch(
 useHead(() => {
   const query = route.query
   const filters = Object.entries(query)
-    .filter(([key]) => {
-      if (['page', 'empty'].includes(key)) return false
-      if (key === 'ysclid' || key === 'yclid' || key === 'gclid' || key === 'fbclid' || key === 'etext') return false
-      if (key.startsWith('utm_')) return false
-      return true
-    })
+    .filter(([key]) => isCatalogFilterQueryKey(key))
     .map(([key, value]) => `${key}: ${value}`)
     .join(', ')
 
-  const isEmpty = 'empty' in query
-  const title = isEmpty
-    ? 'Товары не найдены — Daigo'
-    : filters
-      ? `Каталог: ${filters} — Daigo`
-      : 'Каталог — Daigo'
+  const title = filters
+    ? `Каталог: ${filters} — Daigo`
+    : 'Каталог — Daigo'
 
-  const description = isEmpty
-    ? 'По вашему запросу товары не найдены.'
-    : filters
-      ? `Подборка товаров по фильтрам: ${filters}`
-      : 'Каталог продукции Daigo: метабиотики, аминобиотики, подарочные сертификаты и наборы.'
+  const description = filters
+    ? `Подборка товаров по фильтрам: ${filters}`
+    : 'Каталог продукции Daigo: метабиотики, аминобиотики, подарочные сертификаты и наборы.'
 
   return {
     title,
@@ -212,15 +230,12 @@ useHead(() => {
       { name: 'description', content: description },
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
-      { name: 'robots', content: isEmpty ? 'noindex, follow' : 'index, follow' }
+      { name: 'robots', content: 'index, follow' }
     ],
     link: [
       {
         rel: 'canonical',
-        href: 'https://daigo.ru' + route.fullPath
-          .replace(/([?&])empty=1(&?)/, '$1')
-          .replace(/([?&])page=\d+(&?)/, '$1')
-          .replace(/[?&]$/, '')
+        href: buildCatalogCanonicalHref()
       }
     ],
     script: [

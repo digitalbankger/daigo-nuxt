@@ -2,7 +2,7 @@ export type CatalogFilterValues = Record<string, string[]>
 
 const FILTER_PATH_PREFIX = '/catalog/filter'
 const IGNORED_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit'])
-const TRACKING_QUERY_KEYS = new Set(['ysclid', 'yclid', 'gclid', 'fbclid'])
+const TRACKING_QUERY_KEYS = new Set(['ysclid', 'yclid', 'gclid', 'fbclid', 'etext', 'ybaip'])
 
 export function parseCatalogFilterValues(value: unknown): string[] {
   if (Array.isArray(value)) {

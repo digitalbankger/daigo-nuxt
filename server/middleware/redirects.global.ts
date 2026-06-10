@@ -75,6 +75,17 @@ function matchesParams(actual: URLSearchParams, required: URLSearchParams) {
   return true
 }
 
+const CATALOG_QUERY_KEYS_TO_DROP = new Set(['empty', 'page'])
+
+function isCatalogPath(pathname: string) {
+  return pathname === '/catalog' || pathname.startsWith('/catalog/')
+}
+
+function buildRedirectLocation(pathname: string, params: URLSearchParams) {
+  const qs = params.toString()
+  return qs ? `${pathname}?${qs}` : pathname
+}
+
 
 
 // ===== ПОДГОТОВКА КАРТ С УЧЁТОМ MODE =====
@@ -113,6 +124,48 @@ export default defineEventHandler((event) => {
 
     const location = `/womens-day?${qs.toString()}`
     return sendRedirect(event, location, 301)
+  }
+
+  // 0.2) Нормализация битых рекламных URL вида:
+  //      /catalog/metabiotik-daigo&page=1&utm_source=...
+  //      Первый GET-параметр ошибочно попал в pathname через &, поэтому переносим хвост в query.
+  const brokenQueryMatch = pathname.match(/^(.+?)&([A-Za-z0-9_.~-]+)=([^#]*)$/)
+  const brokenPath = brokenQueryMatch?.[1] || ''
+  const brokenQueryKey = brokenQueryMatch?.[2] || ''
+  const brokenQueryValue = brokenQueryMatch?.[3] || ''
+
+  if (brokenQueryMatch && isCatalogPath(brokenPath)) {
+    const fixedPath = brokenPath.replace(/\/+$/, '') || '/'
+    const movedParams = new URLSearchParams(`${brokenQueryKey}=${brokenQueryValue}`)
+    const qs = new URLSearchParams(url.searchParams)
+
+    for (const [key, value] of movedParams.entries()) {
+      if (!qs.has(key)) qs.set(key, value)
+    }
+
+    for (const key of CATALOG_QUERY_KEYS_TO_DROP) {
+      qs.delete(key)
+    }
+
+    return sendRedirect(event, buildRedirectLocation(fixedPath, qs), 301)
+  }
+
+  // 0.3) У каталога больше нет страниц. Служебные page/empty убираем из входящих URL,
+  //      чтобы они не попадали в canonical и не влияли на ленивую подгрузку.
+  if (isCatalogPath(pathname)) {
+    const qs = new URLSearchParams(url.searchParams)
+    let hasDeprecatedCatalogParam = false
+
+    for (const key of CATALOG_QUERY_KEYS_TO_DROP) {
+      if (qs.has(key)) {
+        qs.delete(key)
+        hasDeprecatedCatalogParam = true
+      }
+    }
+
+    if (hasDeprecatedCatalogParam) {
+      return sendRedirect(event, buildRedirectLocation(pathname, qs), 301)
+    }
   }
 
   // 0) Нормализация битых query вида:
