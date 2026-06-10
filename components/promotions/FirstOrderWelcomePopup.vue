@@ -183,32 +183,33 @@ async function getClientPhone() {
 }
 
 async function maybeShowPopup() {
-  if (!import.meta.client) return
-  if (!authStore.isAuthenticated || !authStore.userId) return
+  // if (!import.meta.client) return
+  // if (!authStore.isAuthenticated || !authStore.userId) return
 
-  const uid = String(authStore.userId)
-  if (checkedUserId.value === uid) return
-  checkedUserId.value = uid
+  // const uid = String(authStore.userId)
+  // if (checkedUserId.value === uid) return
+  // checkedUserId.value = uid
 
-  if (wasSeen()) return
+  // if (wasSeen()) return
 
-  try {
-    const phone = await getClientPhone()
-    const isNewClient = await mayQuizService.checkIsNewClient(authStore.token, phone)
+  // try {
+  //   const phone = await getClientPhone()
+  //   const isNewClient = await mayQuizService.checkIsNewClient(authStore.token, phone)
 
-    if (!isNewClient || wasSeen()) return
+  //   if (!isNewClient || wasSeen()) return
 
-    await nextTick()
-    window.setTimeout(() => {
-      if (!authStore.isAuthenticated || wasSeen() || modalStore.isOpen) return
-      message.value = ''
-      messageType.value = 'success'
-      heroImageIndex.value = 0
-      isOpen.value = true
-    }, 600)
-  } catch (error) {
-    console.warn('[FirstOrderWelcomePopup] client check failed', error)
-  }
+  //   await nextTick()
+  //   window.setTimeout(() => {
+  //     if (!authStore.isAuthenticated || wasSeen() || modalStore.isOpen) return
+  //     message.value = ''
+  //     messageType.value = 'success'
+  //     heroImageIndex.value = 0
+  //     isOpen.value = true
+  //   }, 600)
+  // } catch (error) {
+  //   console.warn('[FirstOrderWelcomePopup] client check failed', error)
+  // }
+  isOpen.value = true
 }
 
 async function copyCode() {
@@ -456,6 +457,8 @@ watch(
   .summer-popup {
     min-height: auto;
     border-radius: 22px;
+    background-position: center;
+    background-position-x: 66%;
   }
 
   .summer-popup::after {
@@ -472,7 +475,7 @@ watch(
 
   .summer-popup__content {
     max-width: none;
-    padding: 25px 15px 50px 25px;
+    padding: 20px 15px 30px 15px;
   }
   .summer-popup {
     width: 100%;
@@ -484,7 +487,7 @@ watch(
   }
 
   .summer-popup__tags {
-    gap: 7px;
+    gap: 4px;
     margin-top: 18px;
   }
 
@@ -494,6 +497,8 @@ watch(
     font-size: 11px;
     border-radius: 6px;
     gap: 6px;
+    border: 2px solid rgba(255,255,255,.9);
+    align-items: center;
   }
 
   .summer-popup__tag-icon {
@@ -502,29 +507,49 @@ watch(
   }
 
   .summer-popup__text {
-    max-width: 100%;
-    margin-top: 26px;
-    font-size: 15px;
+        max-width: 100%;
+        margin-top: 26px;
+        font-size: 14px;
+        font-weight: bold;
+        font-style: normal;
+        width: 78%;
+        margin-bottom: 40px;
   }
 
   .summer-popup__coupon {
-    width: 245px;
-    margin-top: 20px;
-    padding: 11px 12px;
-    font-size: 16px;
+        width: 212px;
+        margin-top: 20px;
+        padding: 11px 12px;
+        font-size: 15px;
+        font-weight: 400;
+        letter-spacing: .01em;
+        border-radius: 5px;
   }
 
   .summer-popup__actions {
-    gap: 10px;
+            gap: 6px;
+        width: 212px;
+        margin-top: 10px;
   }
 
   .summer-popup__button {
     min-width: 0;
     width: calc(50% - 5px);
-    height: 44px;
+    height: 40px;
     padding: 0 10px;
     font-size: 12px;
-    background: rgba(255,255,255,.2);
+    font-weight: 400;
+    background: #fff;
+    border: 0;
+    border-radius: 5px;
+  }
+  .summer-popup__button:last-child {
+    background: #20A1C5;
+    color: #fff;
+  }
+  .summer-popup__button:last-child:hover {
+    background: #fff;
+    color: #20A1C5;
   }
 
   .summer-popup__message {
