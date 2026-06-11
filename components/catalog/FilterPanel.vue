@@ -78,6 +78,7 @@ const selected = reactive<Record<string, string[]>>({})
 const opened   = ref<string[]>([])
 
 const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
+const SERVICE_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit', 'no_total', 'for'])
 
 let countsTimer: ReturnType<typeof setTimeout> | null = null
 let didScheduleInitialCounts = false
@@ -121,9 +122,64 @@ function toggleOption(groupSlug: string, value: string) {
   else selected[groupSlug].splice(index, 1)
 }
 
+function shouldDropQueryKeyOnFilterChange(key: string) {
+  return allowedSlugs.value.has(key) || SERVICE_QUERY_KEYS.has(key)
+}
+
+function getPreservedQuery() {
+  const query: Record<string, string | string[]> = {}
+
+  for (const [key, value] of Object.entries(route.query)) {
+    if (shouldDropQueryKeyOnFilterChange(key)) continue
+    if (value == null) continue
+
+    if (Array.isArray(value)) {
+      const values = value.filter((item): item is string => typeof item === 'string' && item !== '')
+      if (values.length) query[key] = values
+      continue
+    }
+
+    const stringValue = String(value)
+    if (stringValue) query[key] = stringValue
+  }
+
+  return query
+}
+
+function buildSelectedFilterQuery() {
+  const query: Record<string, string> = {}
+  const allow = allowedSlugs.value
+
+  for (const [key, values] of Object.entries(selected)) {
+    if (!allow.has(key)) continue
+    if (Array.isArray(values) && values.length) query[key] = values.join(',')
+  }
+
+  return query
+}
+
+function getCurrentFilterQuery() {
+  const query: Record<string, string> = {}
+  const allow = allowedSlugs.value
+
+  for (const [key, value] of Object.entries(route.query)) {
+    if (!allow.has(key)) continue
+    if (Array.isArray(value)) {
+      const firstValue = value.find((item): item is string => typeof item === 'string' && item !== '')
+      if (firstValue) query[key] = firstValue
+      continue
+    }
+
+    const stringValue = String(value ?? '')
+    if (stringValue) query[key] = stringValue
+  }
+
+  return query
+}
+
 function clearFilters() {
   for (const key in selected) selected[key] = []
-  router.push({ path: route.path, query: {} })
+  router.push({ path: route.path, query: getPreservedQuery(), hash: route.hash })
   queueCountsRecalc(0)
 }
 
@@ -171,20 +227,18 @@ watch(selected, () => {
 }, { deep: true })
 
 watch(selected, () => {
-  const query: Record<string, string> = {}
-  const allow = allowedSlugs.value
-  for (const [k, arr] of Object.entries(selected)) {
-    if (!allow.has(k)) continue
-    if (arr?.length) query[k] = arr.join(',')
-  }
-  const currentQuery = Object.fromEntries(
-    Object.entries(route.query)
-      .filter(([key]) => allow.has(key))
-      .map(([key, value]) => [key, Array.isArray(value) ? value[0] ?? '' : String(value ?? '')])
-  )
+  const filterQuery = buildSelectedFilterQuery()
+  const currentFilterQuery = getCurrentFilterQuery()
 
-  if (JSON.stringify(currentQuery) !== JSON.stringify(query)) {
-    router.push({ path: route.path, query })
+  if (JSON.stringify(currentFilterQuery) !== JSON.stringify(filterQuery)) {
+    router.push({
+      path: route.path,
+      query: {
+        ...getPreservedQuery(),
+        ...filterQuery,
+      },
+      hash: route.hash,
+    })
   }
 }, { deep: true })
 

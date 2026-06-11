@@ -812,7 +812,7 @@ async function addBundleToCart(offer: BundleOffer) {
           </div>
 
           <button type="submit" class="quiz-button quiz-button-wide" :disabled="isAuthLoading">
-            {{ isAuthLoading ? 'Отправляем код…' : 'Получить код по СМС' }}
+            {{ isAuthLoading ? 'Отправляем код…' : 'Получить код звонком' }}
           </button>
         </form>
 

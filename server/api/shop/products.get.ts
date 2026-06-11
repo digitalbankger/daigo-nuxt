@@ -1,4 +1,5 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
+import { CATALOG_FILTER_SLUGS } from '~/constants/catalogFilters'
 
 const RESPONSE_TTL_MS = 5 * 60 * 1000
 const TOTAL_TTL_MS = 10 * 60 * 1000
@@ -13,7 +14,7 @@ type CacheEntry<T> = {
 const responseCache = new Map<string, CacheEntry<any>>()
 const totalCache = new Map<string, CacheEntry<number>>()
 
-const IGNORED_FILTER_KEYS = new Set([
+const SERVICE_QUERY_KEYS = new Set([
   'page',
   'page_size',
   'limit',
@@ -21,8 +22,12 @@ const IGNORED_FILTER_KEYS = new Set([
   'no_total',
   'for',
   'product_ids',
-  'etext',
-  'ybaip',
+])
+
+const CATALOG_FILTER_KEYS = new Set(CATALOG_FILTER_SLUGS)
+
+const LOCAL_ONLY_FILTER_KEYS = new Set([
+  'podarochnye',
 ])
 
 const PROPERTY_ALIASES: Record<string, string[]> = {
@@ -58,8 +63,12 @@ function normalizeImgFactory(filesBase: string) {
   }
 }
 
-function isIgnoredFilterKey(key: string) {
-  return IGNORED_FILTER_KEYS.has(key) || key.startsWith('utm_') || ['ysclid', 'yclid', 'gclid', 'fbclid', 'ybaip'].includes(key)
+function isServiceQueryKey(key: string) {
+  return SERVICE_QUERY_KEYS.has(key)
+}
+
+function isCatalogFilterKey(key: string) {
+  return CATALOG_FILTER_KEYS.has(key)
 }
 
 function normalizeFilterValue(value: any) {
@@ -103,38 +112,34 @@ function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: nu
     if (csv) params.set('name', csv)
   }
 
-  for (const [k, vAny] of Object.entries(q)) {
-    if (
-      [
-        'page',
-        'page_size',
-        'limit',
-        'napravlennost',
-        'produkty',
-        'empty',
-        'podarochnye',
-        'no_total',
-        'for',
-        'product_ids',
-      ].includes(k)
-    ) continue
+  for (const [key, value] of Object.entries(q)) {
+    if (key === 'napravlennost' || key === 'produkty') continue
+    if (isServiceQueryKey(key) || !isCatalogFilterKey(key) || LOCAL_ONLY_FILTER_KEYS.has(key)) continue
 
-    if (isIgnoredFilterKey(k)) continue
-
-    const csv = toStringArray(vAny).join(',')
-    if (csv) params.set(k, csv)
+    const csv = toStringArray(value).join(',')
+    if (csv) params.set(key, csv)
   }
 
   return params
 }
 
-function getFilterCacheKey(q: Record<string, any>) {
-  const entries = Object.entries(q)
-    .filter(([k, v]) => !isIgnoredFilterKey(k) && v != null && v !== '')
-    .map(([k, v]) => [k, toStringArray(v).sort().join(',')])
+function getRelevantQueryEntries(q: Record<string, any>, includeServiceKeys = false) {
+  return Object.entries(q)
+    .filter(([key, value]) => {
+      if (value == null || value === '') return false
+      if (isCatalogFilterKey(key)) return true
+      return includeServiceKeys && isServiceQueryKey(key)
+    })
+    .map(([key, value]) => [key, toStringArray(value).sort().join(',')])
     .sort(([a], [b]) => a.localeCompare(b))
+}
 
-  return JSON.stringify(entries)
+function getFilterCacheKey(q: Record<string, any>) {
+  return JSON.stringify(getRelevantQueryEntries(q, false))
+}
+
+function getResponseCacheKey(q: Record<string, any>) {
+  return JSON.stringify(getRelevantQueryEntries(q, true))
 }
 
 async function fetchRawProducts(base: string, params: URLSearchParams, timeout = 8000) {
@@ -278,7 +283,7 @@ function propValues(product: any, slug: string): string[] {
 
 function matchesLocalFilters(product: any, q: Record<string, any>) {
   for (const [key, rawValue] of Object.entries(q)) {
-    if (isIgnoredFilterKey(key)) continue
+    if (!isCatalogFilterKey(key)) continue
 
     const selectedValues = toStringArray(rawValue)
     if (!selectedValues.length) continue
@@ -328,7 +333,7 @@ export default defineEventHandler(async (event) => {
     return { items, total: items.length }
   }
 
-  const responseKey = event.node.req.url || JSON.stringify(q)
+  const responseKey = getResponseCacheKey(q)
   const cachedResponse = getCachedValue(responseCache, responseKey)
   if (cachedResponse) {
     return cachedResponse

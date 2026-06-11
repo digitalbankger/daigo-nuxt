@@ -74,16 +74,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, ref, watch } from 'vue'
+import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import UiModal from '~/components/ui/UiModal.vue'
 import { useAuthStore } from '~/stores/authStore'
-import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
-import { mayQuizService } from '~/services/mayQuizService'
 import { useModalStore } from '~/stores/modalStore'
 
 const PROMO_CODE = 'ЛЕТО10'
-const STORAGE_KEY_PREFIX = 'leto10_first_order_popup_seen'
+const MAIN_TRIGGER_KEY = 'leto10_popup_main_shown_v2'
+const EXIT_TRIGGER_KEY = 'leto10_popup_exit_shown_v2'
+const CONVERTED_KEY = 'leto10_popup_converted_v2'
+const OPEN_DELAY_MS = 7_000
+const REQUIRED_SCROLL_PROGRESS = 0.4
 
 const summerReasons = [
   {
@@ -108,20 +110,7 @@ const summerReasons = [
   },
 ]
 
-const heroImageCandidates = [
-  '/images/promotions/leto10-popup-products.webp',
-  '/images/promotions/leto10-popup-products.png',
-  '/images/promotions/leto10-popup.webp',
-  '/images/promotions/leto10-popup.png',
-  '/images/promotions/summer-popup-products.webp',
-  '/images/promotions/summer-popup-products.png',
-  '/images/promotions/welcome-summer-products.webp',
-  '/images/promotions/welcome-summer-products.png',
-  '/images/group-products.webp',
-]
-
 const authStore = useAuthStore()
-const userStore = useUserStore()
 const cartStore = useCartStore()
 const modalStore = useModalStore()
 
@@ -129,87 +118,132 @@ const isOpen = ref(false)
 const isProcessing = ref(false)
 const message = ref('')
 const messageType = ref<'success' | 'error'>('success')
-const checkedUserId = ref<string | null>(null)
-const heroImageIndex = ref(0)
+const hasSpentEnoughTime = ref(false)
+const hasScrolledEnough = ref(false)
+const wasClosedByUser = ref(false)
+const pendingActionAfterAuth = ref<null | 'apply-code'>(null)
 
-const heroImageSrc = computed(() => {
-  if (heroImageIndex.value < 0) return ''
-  return heroImageCandidates[heroImageIndex.value] || ''
-})
+let openDelayTimer: ReturnType<typeof window.setTimeout> | null = null
 
-function useNextHeroImage() {
-  if (heroImageIndex.value < heroImageCandidates.length - 1) {
-    heroImageIndex.value += 1
-    return
-  }
+function getSessionFlag(key: string) {
+  if (!import.meta.client) return false
 
-  heroImageIndex.value = -1
-}
-
-function getStorageKey() {
-  return `${STORAGE_KEY_PREFIX}:${authStore.userId || 'unknown'}`
-}
-
-function markSeen() {
-  if (!import.meta.client) return
   try {
-    localStorage.setItem(getStorageKey(), '1')
-  } catch {}
-}
-
-function wasSeen() {
-  if (!import.meta.client) return true
-  try {
-    return localStorage.getItem(getStorageKey()) === '1'
+    return window.sessionStorage.getItem(key) === '1'
   } catch {
-    return true
+    return false
   }
 }
 
-async function getClientPhone() {
-  let phone = String(userStore.profile?.phone_number || '').replace(/\D/g, '')
-  if (phone) return phone
+function setSessionFlag(key: string) {
+  if (!import.meta.client) return
 
-  if (!userStore.isLoaded) {
-    try {
-      await userStore.loadProfile()
-    } catch {
-      // Если профиль временно не загрузился, проверка нового клиента уйдёт без телефона.
-    }
+  try {
+    window.sessionStorage.setItem(key, '1')
+  } catch {
+    // Если sessionStorage недоступен, попап всё равно должен работать в текущей вкладке.
   }
-
-  phone = String(userStore.profile?.phone_number || '').replace(/\D/g, '')
-  return phone
 }
 
-async function maybeShowPopup() {
-  // if (!import.meta.client) return
-  // if (!authStore.isAuthenticated || !authStore.userId) return
+function isDesktopExitIntentAvailable() {
+  if (!import.meta.client) return false
 
-  // const uid = String(authStore.userId)
-  // if (checkedUserId.value === uid) return
-  // checkedUserId.value = uid
+  return window.innerWidth >= 1024
+    && Boolean(window.matchMedia?.('(hover: hover) and (pointer: fine)').matches)
+}
 
-  // if (wasSeen()) return
+function resetPopupState() {
+  message.value = ''
+  messageType.value = 'success'
+}
 
-  // try {
-  //   const phone = await getClientPhone()
-  //   const isNewClient = await mayQuizService.checkIsNewClient(authStore.token, phone)
+function canOpenPopup() {
+  if (!import.meta.client) return false
+  if (isOpen.value) return false
+  if (modalStore.isOpen) return false
+  if (authStore.isAuthModalOpen) return false
+  if (getSessionFlag(CONVERTED_KEY)) return false
 
-  //   if (!isNewClient || wasSeen()) return
+  return true
+}
 
-  //   await nextTick()
-  //   window.setTimeout(() => {
-  //     if (!authStore.isAuthenticated || wasSeen() || modalStore.isOpen) return
-  //     message.value = ''
-  //     messageType.value = 'success'
-  //     heroImageIndex.value = 0
-  //     isOpen.value = true
-  //   }, 600)
-  // } catch (error) {
-  //   console.warn('[FirstOrderWelcomePopup] client check failed', error)
-  // }
+async function openPopup(source: 'main' | 'exit') {
+  if (!canOpenPopup()) return
+
+  if (source === 'main') {
+    if (getSessionFlag(MAIN_TRIGGER_KEY)) return
+    setSessionFlag(MAIN_TRIGGER_KEY)
+  }
+
+  if (source === 'exit') {
+    if (!wasClosedByUser.value) return
+    if (!isDesktopExitIntentAvailable()) return
+    if (getSessionFlag(EXIT_TRIGGER_KEY)) return
+    setSessionFlag(EXIT_TRIGGER_KEY)
+  }
+
+  await nextTick()
+  resetPopupState()
   isOpen.value = true
+}
+
+function getScrollProgress() {
+  if (!import.meta.client) return 0
+
+  const documentElement = document.documentElement
+  const scrollTop = window.scrollY || documentElement.scrollTop || 0
+  const maxScroll = Math.max(0, documentElement.scrollHeight - window.innerHeight)
+
+  if (maxScroll <= 0) return 1
+
+  return Math.min(1, scrollTop / maxScroll)
+}
+
+function checkMainPopupTrigger() {
+  if (!hasSpentEnoughTime.value || !hasScrolledEnough.value) return
+
+  openPopup('main')
+}
+
+function handleScroll() {
+  if (hasScrolledEnough.value) return
+
+  hasScrolledEnough.value = getScrollProgress() >= REQUIRED_SCROLL_PROGRESS
+  checkMainPopupTrigger()
+}
+
+function handleExitIntent(event: MouseEvent) {
+  if (event.clientY > 0) return
+
+  openPopup('exit')
+}
+
+function markConverted() {
+  setSessionFlag(CONVERTED_KEY)
+  wasClosedByUser.value = false
+  pendingActionAfterAuth.value = null
+}
+
+function requestAuthBeforeApplyCode() {
+  pendingActionAfterAuth.value = 'apply-code'
+  message.value = ''
+  isProcessing.value = false
+  isOpen.value = false
+  authStore.openAuth()
+}
+
+async function resumePendingActionAfterAuth() {
+  if (!import.meta.client) return
+  if (pendingActionAfterAuth.value !== 'apply-code') return
+  if (!authStore.isAuthenticated) return
+  if (authStore.isAuthModalOpen) return
+
+  pendingActionAfterAuth.value = null
+  resetPopupState()
+  isOpen.value = true
+
+  await nextTick()
+  await applyCode()
 }
 
 async function copyCode() {
@@ -218,10 +252,11 @@ async function copyCode() {
   try {
     if (!navigator.clipboard?.writeText) throw new Error('Clipboard API is unavailable')
     await navigator.clipboard.writeText(PROMO_CODE)
+    markConverted()
     messageType.value = 'success'
     message.value = `Промокод ${PROMO_CODE} скопирован`
-    markSeen()
   } catch {
+    markConverted()
     messageType.value = 'error'
     message.value = `Скопируйте промокод вручную: ${PROMO_CODE}`
   }
@@ -229,21 +264,33 @@ async function copyCode() {
 
 async function applyCode() {
   if (isProcessing.value) return
+
+  if (!authStore.isAuthenticated) {
+    requestAuthBeforeApplyCode()
+    return
+  }
+
   isProcessing.value = true
   message.value = ''
 
   try {
     await cartStore.ensureLoaded()
     await cartStore.applyCoupon(PROMO_CODE)
+    markConverted()
     messageType.value = 'success'
     message.value = 'Промокод применён к корзине'
-    markSeen()
 
     window.setTimeout(() => {
       isOpen.value = false
     }, 900)
   } catch (error: any) {
     const text = error?.message || 'Не удалось применить промокод'
+
+    if (text === 'AUTH_REQUIRED' || text.toLowerCase().includes('авториз')) {
+      requestAuthBeforeApplyCode()
+      return
+    }
+
     messageType.value = 'error'
     message.value = text
   } finally {
@@ -252,17 +299,45 @@ async function applyCode() {
 }
 
 function closePopup() {
-  markSeen()
+  wasClosedByUser.value = true
   isOpen.value = false
 }
 
 watch(
-  () => [authStore.isAuthenticated, authStore.userId] as const,
-  () => {
-    maybeShowPopup()
-  },
-  { immediate: true }
+  () => [modalStore.isOpen, authStore.isAuthModalOpen, authStore.isAuthenticated] as const,
+  ([isMessageModalOpen, isAuthOpen, isAuthenticated]) => {
+    if (!isMessageModalOpen && !isAuthOpen) checkMainPopupTrigger()
+
+    if (isAuthenticated && !isAuthOpen) {
+      void resumePendingActionAfterAuth()
+    }
+  }
 )
+
+onMounted(() => {
+  if (!import.meta.client) return
+
+  openDelayTimer = window.setTimeout(() => {
+    hasSpentEnoughTime.value = true
+    checkMainPopupTrigger()
+  }, OPEN_DELAY_MS)
+
+  handleScroll()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  document.documentElement.addEventListener('mouseleave', handleExitIntent)
+})
+
+onBeforeUnmount(() => {
+  if (!import.meta.client) return
+
+  if (openDelayTimer) {
+    window.clearTimeout(openDelayTimer)
+    openDelayTimer = null
+  }
+
+  window.removeEventListener('scroll', handleScroll)
+  document.documentElement.removeEventListener('mouseleave', handleExitIntent)
+})
 </script>
 
 <style scoped>

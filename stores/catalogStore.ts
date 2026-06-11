@@ -8,27 +8,8 @@ type BaseQuery = Record<string, string[]>
 
 const LOAD_BATCH_SIZE = 12
 
-const IGNORED_QUERY_KEYS = new Set([
-  'page',
-  'page_size',
-  'limit',
-  'empty',
-  'no_total',
-  'for',
-  'ysclid',
-  'yclid',
-  'gclid',
-  'fbclid',
-  'etext',
-  'ybaip',
-])
-
 const PROPERTY_ALIASES: Record<string, string[]> = {
   produkty: ['produkty', 'producty', 'products', 'name'],
-}
-
-function isIgnoredQueryKey(key: string) {
-  return IGNORED_QUERY_KEYS.has(key) || key.startsWith('utm_')
 }
 
 function normalizeFilterValue(value: string) {
@@ -74,6 +55,14 @@ export const useCatalogStore = defineStore('catalog', () => {
   let allLoadingPromise: Promise<void> | null = null
   const countsCache = new Map<string, Record<string, number>>()
 
+  function getAllowedFilterSlugs() {
+    return new Set(filters.value.map((group) => group.slug))
+  }
+
+  function isCatalogFilterKey(key: string) {
+    return getAllowedFilterSlugs().has(key)
+  }
+
   const setPage = (value: number) => {
     page.value = value
   }
@@ -117,7 +106,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     const base: BaseQuery = {}
 
     for (const [key, value] of Object.entries(params)) {
-      if (isIgnoredQueryKey(key)) continue
+      if (!isCatalogFilterKey(key)) continue
       if (!value) continue
 
       const values = toStringArray(value)

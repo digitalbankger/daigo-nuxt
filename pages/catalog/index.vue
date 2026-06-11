@@ -24,21 +24,15 @@ const displayLimit = ref(PRODUCTS_PER_LOAD)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 let loadMoreObserver: IntersectionObserver | null = null
 
-const SERVICE_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit'])
-const TRACKING_QUERY_KEYS = new Set(['ysclid', 'yclid', 'gclid', 'fbclid', 'etext', 'ybaip'])
-const CATALOG_QUERY_KEYS_TO_DROP = new Set(['empty', 'page'])
-
-function isTrackingQueryKey(key: string) {
-  return TRACKING_QUERY_KEYS.has(key) || key.startsWith('utm_')
-}
-
-function isCatalogFilterQueryKey(key: string) {
-  if (SERVICE_QUERY_KEYS.has(key)) return false
-  if (isTrackingQueryKey(key)) return false
-  return true
-}
+const SERVICE_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit', 'no_total', 'for'])
 
 await catalogStore.fetchFilters()
+
+const allowedFilterSlugs = computed(() => new Set(catalogStore.filters.map((group) => group.slug)))
+
+function isCatalogFilterQueryKey(key: string) {
+  return allowedFilterSlugs.value.has(key)
+}
 
 const normalizedQuery = computed(() => {
   return Object.fromEntries(
@@ -80,7 +74,7 @@ const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD })
 function cleanupQuery(query: typeof route.query) {
   const nextQuery = { ...query }
 
-  for (const key of CATALOG_QUERY_KEYS_TO_DROP) {
+  for (const key of SERVICE_QUERY_KEYS) {
     delete nextQuery[key]
   }
 
@@ -88,7 +82,7 @@ function cleanupQuery(query: typeof route.query) {
 }
 
 function hasDeprecatedCatalogQuery(query: typeof route.query) {
-  return Object.keys(query).some((key) => CATALOG_QUERY_KEYS_TO_DROP.has(key))
+  return Object.keys(query).some((key) => SERVICE_QUERY_KEYS.has(key))
 }
 
 function buildCatalogCanonicalHref() {
@@ -104,7 +98,9 @@ function buildCatalogCanonicalHref() {
 }
 
 function applyQuickFilter(key: string, value: string) {
-  router.push({ query: { ...cleanupQuery(route.query), [key]: value } })
+  const query = cleanupQuery(route.query)
+  query[key] = value
+  router.push({ query, hash: route.hash })
 }
 
 function loadMoreProducts() {
@@ -210,9 +206,7 @@ watch(
 )
 
 useHead(() => {
-  const query = route.query
-  const filters = Object.entries(query)
-    .filter(([key]) => isCatalogFilterQueryKey(key))
+  const filters = Object.entries(normalizedQuery.value)
     .map(([key, value]) => `${key}: ${value}`)
     .join(', ')
 
@@ -357,7 +351,7 @@ watch(
             ]"
             :key="tag.value"
             class="flex-shrink-0 px-4 py-2 rounded-md"
-            :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
+            :class="normalizedQuery.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
             @click="applyQuickFilter('napravlennost', tag.value)"
             type="button"
           >

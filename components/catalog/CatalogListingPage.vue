@@ -101,6 +101,7 @@ let loadMoreObserver: IntersectionObserver | null = null
 await catalogStore.fetchFilters()
 
 const pagingQueryKeys = new Set(['empty', 'page', 'page_size', 'limit'])
+const trackingQueryKeys = new Set(['ysclid', 'yclid', 'gclid', 'fbclid', 'etext', 'ybaip'])
 const allowedFilterSlugs = computed(() => new Set(catalogStore.filters.map((group) => group.slug)))
 const filterOrder = computed(() => catalogStore.filters.map((group) => group.slug))
 
@@ -129,6 +130,12 @@ function hasPagingQueryParams() {
 
 function hasLegacyFilterQueryParams() {
   return Object.keys(cleanRouteQueryFilters()).length > 0
+}
+
+function getPreservedTrackingQuery() {
+  return Object.fromEntries(
+    Object.entries(route.query).filter(([key]) => trackingQueryKeys.has(key) || key.startsWith('utm_'))
+  )
 }
 
 function cloneFilters(filters: CatalogFilterValues): CatalogFilterValues {
@@ -233,7 +240,7 @@ watch(
 
     if (!shouldRedirectLegacyQuery && !shouldCleanPaging && !shouldNormalizeFilterPath) return
 
-    router.replace({ path: targetPath, query: {}, hash: route.hash })
+    router.replace({ path: targetPath, query: getPreservedTrackingQuery(), hash: route.hash })
   },
   { immediate: true, deep: true }
 )

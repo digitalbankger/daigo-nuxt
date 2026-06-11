@@ -1,9 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import CatalogListingPage from '~/components/catalog/CatalogListingPage.vue'
+await navigateTo('/catalog', { redirectCode: 301 })
 </script>
 
-<template>
-  <CatalogListingPage />
-</template>
+<template></template>
