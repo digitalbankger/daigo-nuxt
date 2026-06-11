@@ -53,8 +53,13 @@ export const useAuthStore = defineStore('auth', () => {
 
   // resend-блокировка (отсчёт 30 секунд)
   const resendLeft = ref(0) // сек до повторной отправки, 0 — можно отправлять
+  
+  // Сначала смс
+  // const resendCount = ref(0) // сколько раз пользователь нажимал «отправить код повторно»
+  // const lastSendMethod = ref<'sms' | 'call'>('sms')
+
   const resendCount = ref(0) // сколько раз пользователь нажимал «отправить код повторно»
-  const lastSendMethod = ref<'sms' | 'call'>('sms')
+  const lastSendMethod = ref<'sms' | 'call'>('call')
 
   log('[auth:init]', 'token=', mask(token.value), 'refresh=', mask(refreshToken.value), 'uid=', userId.value)
 
@@ -71,6 +76,23 @@ export const useAuthStore = defineStore('auth', () => {
     }, 1000)
   }
 
+  // Сначала смс
+  // async function requestCode(opts: { phone: string; name?: string; isRegister?: boolean }) {
+  //   const phone_number = opts.phone.replace(/\D/g, '')
+  //   if (phone_number.length < 11) throw new Error('Введите телефон полностью')
+
+  //   pendingPhone.value   = phone_number
+  //   pendingName.value    = (opts.name ?? '').trim() || null
+  //   isRegisterMode.value = Boolean(opts.isRegister)
+
+  //   resendCount.value = 0
+
+  //   await sendAuthCode(phone_number)
+  //   lastSendMethod.value = 'sms'
+  //   isCodeSent.value = true
+  //   startResendTimer(30) // блокируем повторную отправку на 30 секунд
+  // }
+
   async function requestCode(opts: { phone: string; name?: string; isRegister?: boolean }) {
     const phone_number = opts.phone.replace(/\D/g, '')
     if (phone_number.length < 11) throw new Error('Введите телефон полностью')
@@ -81,19 +103,33 @@ export const useAuthStore = defineStore('auth', () => {
 
     resendCount.value = 0
 
-    await sendAuthCode(phone_number)
-    lastSendMethod.value = 'sms'
+    // Первая отправка — звонок
+    await sendAuthFc(phone_number)
+
+    lastSendMethod.value = 'call'
     isCodeSent.value = true
-    startResendTimer(30) // блокируем повторную отправку на 30 секунд
+    startResendTimer(30)
   }
+
+  // Сначала смс
+  // async function resendCode() {
+  //   if (!pendingPhone.value || resendLeft.value > 0) return
+
+  //   // 1-я отправка — SMS (requestCode), повторная отправка — звонок (fallback)
+  //   await sendAuthFc(pendingPhone.value)
+  //   lastSendMethod.value = 'call'
+
+  //   resendCount.value += 1
+  //   startResendTimer(30)
+  // }
 
   async function resendCode() {
     if (!pendingPhone.value || resendLeft.value > 0) return
 
-    // 1-я отправка — SMS (requestCode), повторная отправка — звонок (fallback)
-    await sendAuthFc(pendingPhone.value)
-    lastSendMethod.value = 'call'
+    // Повторная отправка — SMS
+    await sendAuthCode(pendingPhone.value)
 
+    lastSendMethod.value = 'sms'
     resendCount.value += 1
     startResendTimer(30)
   }
@@ -128,8 +164,10 @@ export const useAuthStore = defineStore('auth', () => {
     isCodeSent.value     = false
     resendLeft.value     = 0
     resendCount.value    = 0
-    lastSendMethod.value = 'sms'
-
+    // Сначала смс
+    //lastSendMethod.value = 'sms'
+    lastSendMethod.value = 'call'
+    
     closeAuth()
     const target = redirectTo ?? redirectAfterAuth.value
     if (target) await navigateTo(target)
