@@ -1,7 +1,7 @@
 // server/api/feedback/callback.post.ts
 import { defineEventHandler, readBody } from 'h3'
 
-type CallbackReq = { fio: string; phone_number: string; message: string }
+type CallbackReq = { fio: string; phone_number: string; message: string; roistat?: string }
 type GoResp = { success: boolean; lead_id?: number; message?: string }
 
 export default defineEventHandler(async (event) => {

@@ -1,6 +1,7 @@
 // services/guestPreorder.ts
 import { useRuntimeConfig, useCookie } from '#imports'
 import { getLastUtm } from '@/composables/useUtmTracker'
+import { buildRoistatPayload } from '@/utils/roistat'
 
 function buildUtmPayload() {
   const last = getLastUtm()
@@ -35,11 +36,13 @@ export function sendGuestPreorderFireAndForget (params: {
   ;(async () => {
     try {
       const utm = buildUtmPayload()
+      const roistat = buildRoistatPayload()
       await $fetch(`${daigoApiBase}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
         method: 'POST',
         body: {
           fio: (fullName || '').trim(),
           phone_number: String(phone || '').replace(/\D/g, ''),
+          ...roistat,
           ...(utm ? { utm } : {}),
         }
       })

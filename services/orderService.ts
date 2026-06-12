@@ -3,6 +3,7 @@ import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '@/stores/authStore'
 import { unref } from 'vue'
 import type { OrderCancelReason } from '~/types/orders'
+import { appendRoistat } from '@/utils/roistat'
 
 /** Товар в заказе */
 export interface OrderItemPayload {
@@ -73,6 +74,7 @@ export interface OrderCreatePayload {
   currency?: 'RUB'
   coupon_code?: string
   bonuses_discount?: number
+  roistat?: string
   [k: string]: any
 }
 
@@ -120,7 +122,7 @@ export async function createOrder(orderData: OrderCreatePayload): Promise<Create
   try {
     return await $fetch<CreateOrderResponse>(`${daigoApiBase}/v1/shop/order`, {
       method: 'POST',
-      body: orderData,
+      body: appendRoistat(orderData),
       headers: authHeaders(),
     })
   } catch (e: any) {

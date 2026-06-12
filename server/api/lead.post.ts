@@ -1,7 +1,7 @@
 import { defineEventHandler, readBody, createError, getRequestIP } from 'h3'
 
 export default defineEventHandler(async (event) => {
-  const { name, phone, email, comment, source } = await readBody(event)
+  const { name, phone, email, comment, source, roistat } = await readBody(event)
 
   if (!name || !phone) {
     throw createError({ statusCode: 400, statusMessage: 'name and phone are required' })
@@ -34,6 +34,7 @@ const base = B24_WEBHOOK_BASE
     EMAIL: email ? [{ VALUE: email, VALUE_TYPE: 'WORK' }] : undefined,
     COMMENTS: comment || '',
     SOURCE_ID: 'WEB',
+    roistat: roistat || 'nocookie',
     UF_CRM_PROMO_SOURCE: source || 'PromoHero' // если есть доп. поле — замените на ваше
   }
 

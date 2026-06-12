@@ -1,0 +1,402 @@
+{
+  "id": 1000,
+  "slug": "leto-eto-ne-tolko-otdyh",
+  "title": "Лето — это не только отдых",
+  "preview": "Почему многие летние проблемы начинаются гораздо глубже, чем кажется: перелёты, жара, новая еда, аллергия и микробиом.",
+  "image": "/images/articles/summer/art-1.jpg",
+  "date": "2026-07-01",
+  "time": 8,
+  "views": 200,
+  "comments": 2,
+  "properties": {
+    "napravlennost": [
+      "kishechnik-i-immunitet",
+      "mozg-i-nervnaya-sistema"
+    ],
+    "pomogaet-pri": [
+      "vosstanovlenie-mikroflory",
+      "allergiya",
+      "utomlyaemost",
+      "emotsionalnaya-peregruzka"
+    ],
+    "klass-produkta": [
+      "metobiotiki"
+    ],
+    "produkty": [
+      "daigo-10ml",
+      "daigo-5ml"
+    ],
+    "sostav": []
+  },
+  "description": "Почему многие летние проблемы начинаются гораздо глубже, чем кажется",
+  "cover": "/images/articles/summer/art-1.jpg",
+  "breadcrumbs": [
+    {
+      "label": "Главная",
+      "to": "/"
+    },
+    {
+      "label": "Статьи",
+      "to": "/articles"
+    },
+    {
+      "label": "Лето — это не только отдых",
+      "to": "/articles/leto-eto-ne-tolko-otdyh"
+    }
+  ],
+  "tags": [
+    {
+      "id": 1,
+      "slug": "kishechnik-i-immunitet",
+      "label": "Кишечник и иммунитет"
+    },
+    {
+      "id": 2,
+      "slug": "mozg-i-nervnaya-sistema",
+      "label": "Нервная система и мозг"
+    },
+    {
+      "id": 3,
+      "slug": "kozha-i-volosy",
+      "label": "Кожа и волосы"
+    }
+  ],
+  "author": {
+    "id": 1,
+    "name": "Daigo",
+    "social": [
+      {
+        "type": "tg",
+        "url": "https://t.me/daigo"
+      },
+      {
+        "type": "vk",
+        "url": "https://vk.com/daigo"
+      }
+    ],
+    "position": "Главный врач",
+    "avatarUrl": "https://daigo.ru/images/mock/article/spec.jpg",
+    "about": "Материал подготовлен экспертной редакцией Daigo."
+  },
+  "contentTop": "\n<div class=\"article-summer-intro\">\n<h2>Памятка Daigo для тех, кто собирается в отпуск</h2>\n<h3>В новый часовой пояс прилетает не только человек</h3>\n<p>Перед поездкой мы обычно проверяем билеты, документы и багаж. Но редко задумываемся о том, как на перелёты, жару, новую еду и смену режима реагирует организм.</p>\n<p>Мы собрали несколько научных фактов, которые помогут подготовиться к летнему сезону немного осознаннее.</p>\n</div>\n<div class=\"article-summer-cases\">\n<div class=\"article-summer-pair\">\n<article class=\"article-summer-card\">\n<h3>Смена климата</h3>\n<img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/travel.png\"/>\n<p>После перелёта многие замечают не только усталость или сонливость. Появляются вздутие, тяжесть, изменения аппетита и нестабильное пищеварение. Сегодня учёные всё чаще используют термин «gut jet lag» — кишечный джетлаг.</p>\n<p>У микробиоты кишечника есть собственные циркадные ритмы. Некоторые кишечные бактерии меняют активность в зависимости от времени суток: днём и ночью отличается их метаболизм, поведение и набор производимых метаболитов.</p>\n<p>Это означает, что при резкой смене режима сна джетлаг испытывает не только мозг — джетлаг получает и микробиом.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/1.png\"/><strong>Источники</strong><p>Thaiss C.A. et al. Transkingdom control of microbiota diurnal oscillations promotes metabolic homeostasis.</p><p>Savvidis C. et al. The Gut Microbiota Axis in Social Jetlag.</p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/2.png\"/><strong>Знаете ли вы?</strong><p>После перелёта через 6–8 часовых поясов организму может потребоваться до недели для полной синхронизации биологических ритмов.</p></div>\n</div>\n<article class=\"article-summer-card\">\n<h3>Лето и пищеварение</h3>\n<img alt=\"Лето и пищеварение\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/food.png\"/>\n<p>Летом меняется не только климат. Меняется само пищевое поведение. Мы чаще едим вне дома, пробуем новые продукты, позже ужинаем, пьём холодные напитки и сталкиваемся с хранением пищи при высокой температуре.</p>\n<p>По данным ВОЗ, ежегодно сотни миллионов случаев кишечных инфекций связаны с пищевыми патогенами и загрязнённой водой.</p>\n<p>Но есть важный нюанс. Одни люди спокойно адаптируются к новой пище. Другие сталкиваются с выраженным дискомфортом уже в первые дни отпуска.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/3.png\"/><strong>Источник</strong><p>David L.A. et al. Diet rapidly and reproducibly alters the human gut microbiome.</p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/4.png\"/><strong>Знаете ли вы?</strong><p>Во время путешествий состав микробиоты может меняться уже в течение нескольких дней из-за новой воды, еды и режима питания.</p></div>\n</div>\n</div>\n<div class=\"article-summer-pair\">\n<article class=\"article-summer-card\">\n<h3>Жара — это стресс</h3>\n<img alt=\"Жара и стресс для организма\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/hot.png\"/>\n<p>Мы редко воспринимаем жару как серьёзную нагрузку.Но высокая температура заставляет организм постоянно перераспределять ресурсы для охлаждения тела. Во время жары меняется кровоток, активируется потоотделение, увеличивается потеря жидкости и электролитов.</p>\n<p>На этом фоне нагрузку получает и кишечник.<br>Исследования показывают, что тепловой стресс способен влиять на состояние кишечного барьера, локальные иммунные реакции и состав микробиоты.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/1.png\"/><strong>Источник</strong><p><a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC6897310/\">Karl J.P. et al. Effects of psychological, environmental and physical stressors on the gut microbiota.</a></p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/6.png\"/><strong>Знаете ли вы?</strong><p>Учёные рассматривают микробиоту как потенциальный биомаркер теплового стресса.<br>Жара влияет не только на самочувствие человека, но и на внутреннюю экосистему организма.</p></div>\n</div>\n<article class=\"article-summer-card\">\n<h3>Адаптация к жаре</h3>\n<img alt=\"Адаптация к жаре\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/sun.png\"/>\n<p>Особенно интересно, что адаптация к жаре может происходить и на уровне микробиоты.</p>\n<p>В одном из исследований после периода тепловой акклиматизации у участников наблюдалось снижение ряда потенциально патогенных бактерий и увеличение количества полезных микробных групп. Одновременно улучшалась переносимость жары.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/7.png\"/><strong>Источник</strong><p>Liu S. et al. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC9995595/\">Alteration of gut microbiota after heat acclimation may reduce organ damage.</a></p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/8.png\"/><strong>Знаете ли вы?</strong><p>К жаре адаптируется не только человек. К жаре адаптируется целая экосистема внутри него.</p></div>\n</div>\n</div>\n<div class=\"article-summer-pair\">\n<article class=\"article-summer-card\">\n<h3>Отпуск и выходные</h3>\n<img alt=\"Отпуск и выходные\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/otpusk.png\"/>\n<p>Даже отпуск на выходных может влиять на микробиом. <br><br>Исследователи King’s College London обнаружили, что разница всего в 90 минут между режимом сна в будни и выходные уже связана с изменениями состава кишечной микробиоты.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/3.png\"/><strong>Источник</strong><p>Bermingham K.M. et al. <a href=\"https://pubmed.ncbi.nlm.nih.gov/37528259/\">Exploring the relationship between social jetlag with gut microbial composition and diet.</a></p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/10.png\"/><strong>Знаете ли вы?</strong><p>Получается, что кишечник замечает ваш отпуск ещё до того, как вы успеваете добраться до аэропорта.</p></div>\n</div>\n<article class=\"article-summer-card\">\n<h3>Аллергия не в носу</h3>\n<img alt=\"Аллергия и кишечная микробиота\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/allergy.png\"/>\n<p>Когда мы говорим о сезонной аллергии, кажется, что проблема находится исключительно в дыхательных путях. Но современные иммунологические исследования показывают более сложную картину.</p>\n<p>Кишечная микробиота участвует в формировании иммунной толерантности — способности иммунной системы спокойно реагировать на безопасные сигналы окружающей среды.</p>\n</article>\n<div class=\"article-summer-note\">\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/1.png\"/><strong>Источники</strong><p>Pascal M. et al. <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC6056614/\">Microbiome and Allergic Diseases.</a></p><p>Wang C. et al. <a href=\"https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2025.1697226/full\">Microbiome-immune crosstalk in allergic rhinitis.</a></p></div>\n<div><img alt=\"Смена климата и микробиом\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/12.png\"/><strong>Знаете ли вы?</strong><p>Некоторые кишечные бактерии способны стимулировать образование регуляторных T-клеток (Treg). Именно эти клетки помогают иммунной системе не реагировать чрезмерно на безопасные раздражители</p></div>\n</div>\n</div>\n</div>\n<div class=\"article-summer-split\">\n<div>\n<h2>Что объединяет все летние сценарии</h2>\n<p>Смена климата. Жара. Аллергия. Пищевые отравления. Джетлаг. На первый взгляд это совершенно разные проблемы. Но на уровне организма все они связаны с одной задачей — адаптацией к изменяющейся среде.</p>\n<p>Именно поэтому летом особенно важно поддерживать не только внешний комфорт, но и внутреннюю устойчивость организма.</p>\n<p>Поддержка организма летом начинается не после появления симптомов. Гораздо важнее заранее помочь системам адаптации справляться с нагрузкой. В этот период особенно важно:</p>\n<ul>\n<li>поддерживать питьевой режим;</li>\n<li>избегать резкой перегрузки рациона;</li>\n<li>сохранять стабильный режим сна даже в путешествиях;</li>\n<li>поддерживать разнообразие питания;</li>\n<li>уделять внимание состоянию кишечной экосистемы.</li>\n</ul>\n</div>\n<img alt=\"Летняя поддержка организма\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/what.png\"/>\n</div>\n<h2>Daigo как часть летней поддержки организма</h2>\n<div class=\"article-summer-split\">\n<img alt=\"Daigo как часть летней поддержки организма\" decoding=\"async\" loading=\"lazy\" src=\"/images/articles/summer/daigo.png\"/>\n<div>\n<p>Daigo — японский метабиотик на основе многолетней ферментации 16 штаммов лактобактерий. В отличие от продуктов, содержащих живые бактерии, метабиотики содержат компоненты ферментации и микробные метаболиты, которые участвуют в поддержании микробиомной среды кишечника.</p>\n<p>Лето невозможно сделать полностью предсказуемым. Но можно помочь организму лучше адаптироваться к его нагрузкам. Потому что лето начинается не только с солнца и путешествий. Лето начинается внутри.</p>\n<p>Daigo — забота о здоровье начинается с микробиома.</p>\n</div>\n</div>\n",
+  "materials": {
+    "title": "Полезные материалы",
+    "text": "<p class=\"mb-2\">Рекомендации Daigo по поддержке организма летом</p>",
+    "files": [],
+    "downloadAllUrl": ""
+  },
+  "contentBottom": "",
+  "recommended": [
+    {
+      "id": 582,
+      "slug": "krasota-iznutri-kak-podgotovit-kozhu-k-plyazhnomu-sezonu-za-paru-nedel",
+      "title": "Красота изнутри: как подготовить кожу к пляжному сезону за пару недель?",
+      "preview": "Лето — это время, когда хочется жить ярко: чувствовать бархатный песок под ногами, вдыхать соленый бриз и ловить момент, глядя на закат. А отпуск у теплого моря — та самая долгожданная сказка, ради которой хочется выглядеть безупречно, чтобы перелистывая фотографии, видеть не просто счастливые моменты, а идеальную версию себя. Но что делать, если, несмотря на все старания, уход и походы к косметологу результат не радует? Кожа капризничает, ногти ломаются, а волосы больше напоминают солому, чем роскошную гриву из рекламы? В этой статье расскажем, как быстро вернуть себе идеальный вид, если на превентивные меры не было времени, а долгожданная поездка к морю уже близко!",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/f9a/840_471_1/1kt73irokiya0jn0mtl3o0eo753qicqy.jpg",
+      "date": "2025-06-03",
+      "time": 15,
+      "views": 69799,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "vypadenie-volos",
+          "utomlyaemost",
+          "sukhaya-kozha",
+          "allergiya",
+          "akne",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml",
+          "daigo-dermic",
+          "daigo-lux",
+          "daigo-shampoo"
+        ],
+        "sostav": [
+          "cink",
+          "peptid-khlorelly-iph-c",
+          "vitamin-b1",
+          "vitamin-h"
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "slug": "bez-nepriyatnostey-kak-sdelat-semeynoe-puteshestvie-komfortnym",
+      "title": "Без неприятностей: как сделать семейное путешествие комфортным?",
+      "preview": "Семейное путешествие — это возможность провести время вместе, открыть новые места и создать яркие воспоминания. Но что делать, если долгожданную поездку омрачают внезапные болезни? Насморк, расстройство желудка или температура могут не только испортить настроение, но и сорвать все планы. Как подготовиться к путешествию, чтобы минимизировать риски? Что положить в дорожную аптечку?",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/093/840_471_1/0w3j1bjjmeo2tj314e2w97cpqct0wvi1.jpg",
+      "date": "2025-06-19",
+      "time": 9,
+      "views": 27953,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "utomlyaemost",
+          "allergiya",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml"
+        ],
+        "sostav": [
+          "bor"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "slug": "allergicheskiy-rinit-simptomy-diagnoz-terapiya",
+      "title": "Аллергический ринит. Симптомы. Диагноз. Терапия.",
+      "preview": "",
+      "image": "https://mail.daigo.ru/upload/iblock/835/bxu6evin33n0xejgkd4e2upejvw3rx6r.png",
+      "date": "2025-04-03",
+      "time": 1,
+      "views": 51863,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "allergiya"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml"
+        ],
+        "sostav": []
+      }
+    }
+  ],
+  "popular": [
+    {
+      "id": 582,
+      "slug": "krasota-iznutri-kak-podgotovit-kozhu-k-plyazhnomu-sezonu-za-paru-nedel",
+      "title": "Красота изнутри: как подготовить кожу к пляжному сезону за пару недель?",
+      "preview": "Лето — это время, когда хочется жить ярко: чувствовать бархатный песок под ногами, вдыхать соленый бриз и ловить момент, глядя на закат. А отпуск у теплого моря — та самая долгожданная сказка, ради которой хочется выглядеть безупречно, чтобы перелистывая фотографии, видеть не просто счастливые моменты, а идеальную версию себя. Но что делать, если, несмотря на все старания, уход и походы к косметологу результат не радует? Кожа капризничает, ногти ломаются, а волосы больше напоминают солому, чем роскошную гриву из рекламы? В этой статье расскажем, как быстро вернуть себе идеальный вид, если на превентивные меры не было времени, а долгожданная поездка к морю уже близко!",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/f9a/840_471_1/1kt73irokiya0jn0mtl3o0eo753qicqy.jpg",
+      "date": "2025-06-03",
+      "time": 15,
+      "views": 69799,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "vypadenie-volos",
+          "utomlyaemost",
+          "sukhaya-kozha",
+          "allergiya",
+          "akne",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml",
+          "daigo-dermic",
+          "daigo-lux",
+          "daigo-shampoo"
+        ],
+        "sostav": [
+          "cink",
+          "peptid-khlorelly-iph-c",
+          "vitamin-b1",
+          "vitamin-h"
+        ]
+      }
+    },
+    {
+      "id": 34,
+      "slug": "bez-nepriyatnostey-kak-sdelat-semeynoe-puteshestvie-komfortnym",
+      "title": "Без неприятностей: как сделать семейное путешествие комфортным?",
+      "preview": "Семейное путешествие — это возможность провести время вместе, открыть новые места и создать яркие воспоминания. Но что делать, если долгожданную поездку омрачают внезапные болезни? Насморк, расстройство желудка или температура могут не только испортить настроение, но и сорвать все планы. Как подготовиться к путешествию, чтобы минимизировать риски? Что положить в дорожную аптечку?",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/093/840_471_1/0w3j1bjjmeo2tj314e2w97cpqct0wvi1.jpg",
+      "date": "2025-06-19",
+      "time": 9,
+      "views": 27953,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "utomlyaemost",
+          "allergiya",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml"
+        ],
+        "sostav": [
+          "bor"
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "slug": "allergicheskiy-rinit-simptomy-diagnoz-terapiya",
+      "title": "Аллергический ринит. Симптомы. Диагноз. Терапия.",
+      "preview": "",
+      "image": "https://mail.daigo.ru/upload/iblock/835/bxu6evin33n0xejgkd4e2upejvw3rx6r.png",
+      "date": "2025-04-03",
+      "time": 1,
+      "views": 51863,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kishechnik-i-immunitet"
+        ],
+        "pomogaet-pri": [
+          "vosstanovlenie-mikroflory",
+          "allergiya"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [
+          "daigo-10ml",
+          "daigo-5ml"
+        ],
+        "sostav": []
+      }
+    },
+    {
+      "id": 104,
+      "slug": "dzhetlag-bolshe-ne-problema-kak-peptidy-i-plazmalogeny-pomogayut-bystroy-adaptatsii",
+      "title": "Джетлаг больше не проблема: как пептиды и плазмалогены помогают быстрой адаптации?",
+      "preview": "Частые перелеты, смена часовых поясов и жесткий график командировок — привычная реальность для бизнесменов, топ-менеджеров, спикеров и т.д. Но даже самый выносливый организм не может бесконечно игнорировать последствия джетлага: снижение концентрации, усталость, раздражительность и потеря продуктивности в ключевые моменты. Но что, если существуют научно обоснованные способы не просто «пережить» смену часовых поясов, а адаптироваться к ней за считанные часы? Современные исследования в области биохакинга открыли два мощных инструмента для борьбы с джетлагом, которые на клеточном уровне ускоряют синхронизацию внутренних ритмов. В этой статье разберем, как быстро восстановиться после перелета, сохранить ясность мышления и оставаться в ресурсном состоянии, даже когда тело «по часам» находится на другом континенте. Готовы летать без последствий? Тогда читайте дальше.",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/feb/840_472_1/hgh92w1w223k1mb241m4d3nikqv8g9kg.jpg",
+      "date": "2025-06-09",
+      "time": 8,
+      "views": 51681,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "mozg-i-nervnaya-sistema"
+        ],
+        "pomogaet-pri": [
+          "utomlyaemost",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki",
+          "plazmalogeny"
+        ],
+        "produkty": [
+          "daigo-brainy",
+          "tamotsu"
+        ],
+        "sostav": [
+          "ekstrakt-grebeshek",
+          "koenzim-q10",
+          "peptid-khlorelly-iph-c",
+          "vitamin-b3"
+        ]
+      }
+    },
+    {
+      "id": 504,
+      "slug": "kak-pravilno-trenirovatsya-letom-na-otkrytom-vozdukhe-bez-vreda-dlya-zdorovya",
+      "title": "Как правильно тренироваться летом на открытом воздухе без вреда для здоровья?",
+      "preview": "Летние тренировки на свежем воздухе — отличный способ укрепить здоровье, повысить выносливость и зарядиться энергией. Однако жара, высокая влажность и нехватка кислорода могут превратить занятия спортом в серьезное испытание для организма. Перегрев, обезвоживание и повышенная нагрузка на сердечно-сосудистую систему способны не только снизить эффективность тренировок, но и нанести вред здоровью. Как же тренироваться летом безопасно и с максимальной пользой? Важно не только корректировать интенсивность нагрузок и соблюдать питьевой режим, но и поддерживать организм изнутри. В этой статье разберем, как тренироваться в жару без риска для здоровья и какие добавки могут помочь достичь лучших результатов.",
+      "image": "https://mail.daigo.ru/upload/resize_cache/iblock/87c/840_472_1/1duzekubgb97utye6enyvntevo2g8mu1.jpg",
+      "date": "2025-06-11",
+      "time": 7,
+      "views": 12566,
+      "comments": 0,
+      "properties": {
+        "napravlennost": [
+          "kosti-i-myshtsy"
+        ],
+        "pomogaet-pri": [
+          "yazva",
+          "utomlyaemost",
+          "emotsionalnaya-peregruzka"
+        ],
+        "klass-produkta": [
+          "metobiotiki"
+        ],
+        "produkty": [],
+        "sostav": [
+          "vitamin-b3"
+        ]
+      }
+    }
+  ],
+  "faq": [
+    {
+      "q": "Можно ли взять Daigo с собой в отпуск как часть дорожной аптечки?",
+      "a": "Да. Перелёты, жара, новая еда, алкоголь, смена воды и режима создают дополнительную нагрузку на кишечную экосистему. Поэтому многие берут Daigo в поездки как часть ежедневной поддержки микробиома в период адаптации. Но лучше подготовить организм к нагрузке заранее и начать курс Daigo еще готовясь к отпуску."
+    },
+    {
+      "q": "Почему Daigo может быть особенно актуален летом?",
+      "a": "Лето — это сезон повышенной нагрузки на системы адаптации организма: жара, обезвоживание, вечеринки, непривычная еда, путешествия и смена режима. Daigo помогает поддерживать микробиомную среду кишечника в период этих перемен"
+    },
+    {
+      "q": "Почему в материалах Daigo так много внимания уделяется микробиому?",
+      "a": "Потому что микробиота участвует не только в пищеварении, но и в иммунной регуляции, барьерной функции кишечника и адаптации организма к внешней среде. Летом эти системы особенно активно сталкиваются с нагрузкой."
+    },
+    {
+      "q": "Нужно ли ждать проблем с пищеварением, чтобы начать принимать Daigo?",
+      "a": "Нет. Логика Daigo — не экстренная помощь после перегрузки, а поддержка микробиомной среды и внутренней устойчивости организма в период повышенной нагрузки и перемен."
+    },
+    {
+      "q": "Можно ли принимать Daigo после алкоголя, тяжёлой еды или вечеринки?",
+      "a": "Daigo не является средством от похмелья. Но алкоголь, поздняя еда и нарушения режима создают нагрузку на пищеварение и кишечную среду, поэтому Daigo может быть частью мягкой ежедневной поддержки организма летом, а увеличенная дозировка способтвует облегчению ваших ощущений после вечеринки."
+    }
+  ],
+  "products": [
+    {
+      "product_id": "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+      "title": "Daigo Lux",
+      "image": "https://daigo.ru/images/mock/catalog/daigo-lux.png",
+      "price": 95700,
+      "url": "/catalog/daigo-lux",
+      "badge": "Хит"
+    },
+    {
+      "product_id": "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
+      "title": "Tamotsu",
+      "image": "https://daigo.ru/images/mock/catalog/tamotsu.png",
+      "price": 67500,
+      "url": "/catalog/tamotsu"
+    }
+  ],
+  "productsIds": [
+    "71700acb-3584-490b-a5f7-62e8cb57b3c9",
+    "cafac368-1074-417d-bb3e-4470b4e28190",
+    "8631769b-3431-4fa7-9e36-5a9fe0da2412",
+    "f4b6d734-7eea-4926-8bfa-dfe0969e19ee"
+  ]
+}

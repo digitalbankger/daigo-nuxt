@@ -1,3 +1,5 @@
+import { appendRoistat } from '@/utils/roistat'
+
 export type CallbackPayload = {
   fio: string
   phone_number: string
@@ -16,7 +18,7 @@ export const useFeedback = () => {
     try {
       const { data, error: fetchErr } = await useFetch<CallbackResult>('/api/feedback/callback', {
         method: 'POST',
-        body: payload
+        body: appendRoistat(payload)
       })
       if (fetchErr.value) throw new Error(fetchErr.value.statusMessage || 'Ошибка отправки')
       if (!data.value?.success) throw new Error('Не удалось отправить заявку')

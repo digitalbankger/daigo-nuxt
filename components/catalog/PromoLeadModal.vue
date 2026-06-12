@@ -85,6 +85,7 @@
 import { reactive, ref, computed, nextTick } from 'vue'
 import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
+import { buildRoistatPayload } from '@/utils/roistat'
 
 const emits = defineEmits<{(e:'update:open', v:boolean):void; (e:'done'):void }>()
 const props = withDefaults(defineProps<{
@@ -169,6 +170,7 @@ async function submit() {
         name: form.fullName.trim(),
         phone: normalizePhone(form.phone),
         source: 'PromoHero',
+        ...buildRoistatPayload(),
       }
     })
     ok.value = true

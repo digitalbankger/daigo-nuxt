@@ -1,6 +1,6 @@
 <template>
   <div v-if="ui.isHeadInformerVisible"
-       class="fixed top-0 left-0 right-0 z-[70] w-full bg-primary text-white rounded-b-xl sm:rounded-b-none shadow-lg shadow-primary/30"
+       class="fixed top-0 left-0 right-0 z-[70] w-full bg-[#1f8cb3] text-white rounded-b-xl sm:rounded-b-none shadow-lg shadow-primary/30"
        aria-label="Информер со ссылкой на каталог">
     <div class="relative flex items-center justify-center gap-4 px-3 sm:px-6 py-2 sm:py-2">
 

@@ -1,5 +1,6 @@
 import { useRuntimeConfig } from '#imports'
 import { getLastUtm } from '@/composables/useUtmTracker'
+import { buildRoistatPayload } from '@/utils/roistat'
 
 function buildUtmPayload() {
   const last = getLastUtm()
@@ -154,11 +155,13 @@ export const cartService = {
   /** Предварительное оформление заказа для авторизованного */
   async preOrderUser(userId: number | string, fio: string, phone: string) {
     const utm = buildUtmPayload()
+    const roistat = buildRoistatPayload()
     return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/pre-order`, {
       method: 'POST',
       body: {
         fio,
         phone_number: phone,
+        ...roistat,
         ...(utm ? { utm } : {}),
       },
       headers: { 'Content-Type': 'application/json' },
@@ -168,11 +171,13 @@ export const cartService = {
   /** Предварительное оформление заказа для гостя */
   async preOrderGuest(sessionId: string, fio: string, phone: string) {
     const utm = buildUtmPayload()
+    const roistat = buildRoistatPayload()
     return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/pre-order`, {
       method: 'POST',
       body: {
         fio,
         phone_number: phone,
+        ...roistat,
         ...(utm ? { utm } : {}),
       },
       headers: { 'Content-Type': 'application/json' },

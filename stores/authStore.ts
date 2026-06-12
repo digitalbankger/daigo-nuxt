@@ -2,8 +2,8 @@
 import { defineStore, skipHydrate } from 'pinia'
 import { ref, computed, watch } from 'vue'
 import {
+  sendAuthCode,
   sendAuthFc,
-  sendAuthVoice,
   verifyAuthCode,
   refreshAuthToken,
   type TokensResponse
@@ -55,7 +55,7 @@ export const useAuthStore = defineStore('auth', () => {
   const resendLeft = ref(0) // сек до повторной отправки, 0 — можно отправлять
   
   const resendCount = ref(0) // сколько раз пользователь нажимал «отправить код повторно»
-  const lastSendMethod = ref<'call' | 'voice'>('call')
+  const lastSendMethod = ref<'sms' | 'call'>('sms')
 
   log('[auth:init]', 'token=', mask(token.value), 'refresh=', mask(refreshToken.value), 'uid=', userId.value)
 
@@ -82,10 +82,10 @@ export const useAuthStore = defineStore('auth', () => {
 
     resendCount.value = 0
 
-    // Первая отправка — звонок
-    await sendAuthFc(phone_number)
+    // Первая отправка — SMS
+    await sendAuthCode(phone_number)
 
-    lastSendMethod.value = 'call'
+    lastSendMethod.value = 'sms'
     isCodeSent.value = true
     startResendTimer(30)
   }
@@ -93,10 +93,10 @@ export const useAuthStore = defineStore('auth', () => {
   async function resendCode() {
     if (!pendingPhone.value || resendLeft.value > 0) return
 
-    // Повторная отправка — голосовой звонок: робот диктует код
-    await sendAuthVoice(pendingPhone.value)
+    // Повторная отправка — flash-call: код в последних 4 цифрах входящего номера
+    await sendAuthFc(pendingPhone.value)
 
-    lastSendMethod.value = 'voice'
+    lastSendMethod.value = 'call'
     resendCount.value += 1
     startResendTimer(30)
   }
@@ -131,7 +131,7 @@ export const useAuthStore = defineStore('auth', () => {
     isCodeSent.value     = false
     resendLeft.value     = 0
     resendCount.value    = 0
-    lastSendMethod.value = 'call'
+    lastSendMethod.value = 'sms'
     
     closeAuth()
     const target = redirectTo ?? redirectAfterAuth.value
@@ -158,7 +158,7 @@ export const useAuthStore = defineStore('auth', () => {
     isCodeSent.value     = false
     resendLeft.value     = 0
     resendCount.value    = 0
-    lastSendMethod.value = 'call'
+    lastSendMethod.value = 'sms'
 
     closeAuth()
 
@@ -236,8 +236,8 @@ export const useAuthStore = defineStore('auth', () => {
 
 
   const deliveryHint = computed(() => {
-    if (lastSendMethod.value === 'voice') {
-      return 'Сейчас поступит звонок. Робот продиктует код подтверждения.'
+    if (lastSendMethod.value === 'sms') {
+      return 'Введите код из SMS.'
     }
 
     return 'Сейчас поступит звонок. Введите последние 4 цифры входящего номера.'

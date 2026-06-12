@@ -9,6 +9,7 @@ import SertificatSection from '~/components/sections/SertificatSection.vue'
 import PartnersSection from '~/components/sections/PartnersSection.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
+import HomeSummerBanner from '~/components/sections/HomeSummerBanner.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -68,7 +69,8 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <BannerSection :banners="banners" />
+      <!-- <BannerSection :banners="banners" /> -->
+      <HomeSummerBanner />
 
       <!-- <ClientOnly>
         <StoriesList v-model:stories="stories" @open="openStory" />
