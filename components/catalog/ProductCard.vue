@@ -332,7 +332,7 @@ function decrementHandler() {
 
 .product-card-dot.is-active {
   width: 80%;
-  background: #4f8eff;
+  background: #1f8cb3;
 }
 
 :deep(.product-card-swiper .swiper-wrapper) {

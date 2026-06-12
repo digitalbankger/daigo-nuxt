@@ -10,30 +10,27 @@
         class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
         @click="sendInformerGoal"
       >
-        <span class="text-sm sm:text-lg font-mont font-medium">10% скидка на первый заказ</span>
+        <span class="text-sm sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo – 15-19 Июня</span>
       </NuxtLink>
 
       <!-- DESKTOP BUTTON -->
       <button
         type="button"
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
-        :disabled="busy || isApplied"
-        @click="applyPromo()"
+        
       >
-        <span>{{ buttonLabel }}</span>
+        <span>Скидка -20% на ВСЕ!</span>
       </button>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-xs sm:text-lg font-mont font-medium">10% скидка на первый заказ</span>
+        <span class="text-xs sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
 
         <button
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
-          :disabled="busy || isApplied"
-          @click="applyPromo()"
         >
-          <span>{{ buttonLabel }}</span>
+          <span>Скидка -20% на ВСЕ! 15-19 Июня</span>
         </button>
       </div>
 
