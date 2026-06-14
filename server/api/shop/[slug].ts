@@ -291,7 +291,7 @@ images: {
 type: 'gallery',
 topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/brainy/prod-1.png',
+'https://products.s3.firstvds.ru/jointic/principles.png',
 'https://products.s3.firstvds.ru/brainy/prod-2.png',
 ]
 },
