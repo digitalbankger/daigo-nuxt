@@ -27,6 +27,465 @@ export default defineEventHandler((event) => {
   const { slug } = event.context.params!
 //https://products.s3.firstvds.ru/dent/
   const productsMock = [
+
+    // ==========================================
+// 1. Баланс на лето (Новый)
+// Состав: 2x Тамоцу, 1x Дайго 10 мл
+// ==========================================
+{
+product_id: "b1c2d3e4-f5a6-7b8c-9d0e-f1a2b3c4d5e6",
+slug: 'balance-summer',
+title: 'Набор «Баланс на лето»',
+subtitle: '',
+shortDescription: 'Идеальный летний набор для поддержания энергии, когнитивных функций и здоровья кишечника. В составе: 2 БАД Tamotsu и 1 курс метабиотика Daigo 10 мл.',
+descriptionSections: [],
+price: 125300,
+originalPrice: 162900,
+category: 'metabiotic',
+isActive: true,
+nabor: {
+title: 'Состав набора',
+image: 'https://s3.firstvds.ru/products/comp-new/balance-summer.png',
+text: `
+<p class="font-medium">Tamotsu (2 шт)</p>
+<p>Натуральный источник плазмалогенов из глубоководного морского гребешка и высококачественного коэнзима Q10. Поддерживает здоровье мозга, сердца и других энергозатратных органов.</p>
+<p class="font-medium">Daigo 10 мл (1 шт)</p>
+<p>Органический метабиотик для поддержки правильного баланса кишечной микробиоты и корректной работы оси «Кишечник—мозг».</p>
+`
+},
+combo: {
+title: 'Принцип действия',
+image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+text: `
+<p class="font-medium">Tamotsu</p>
+<p>Плазмалогены являются важнейшими структурными компонентами мембран нейронов, обеспечивая их гибкость и стабильность. Коэнзим Q10 усиливает энергетический обмен в клетках, защищая нейроны от окислительного стресса.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Органический метабиотик помогает восстановить правильный баланс кишечной микрофлоры, усилить барьерную функцию кишечника и иммунный ответ. Здоровая микробиота способствует выработке нейромедиаторов, влияющих на когнитивные функции.</p>
+`
+},
+effect: {
+title: 'Эффект',
+image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+content: `
+<p class="font-medium">Tamotsu</p>
+<p>Помогает избавиться от «тумана» в голове, усилить концентрацию и снизить умственную усталость. Противостоит развитию сердечно-сосудистых и нейродегенеративных заболеваний.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Способствует нормализации микрофлоры кишечника, укреплению иммунитета, повышению стрессоустойчивости и закреплению устойчивой энергии в течение дня.</p>
+`
+},
+composition: {
+title: 'Состав',
+content: `
+<p class="font-medium">Tamotsu</p>
+<p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты, соли кальция.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности: молочная и лимонная кислоты, витамин K2.</p>
+`,
+image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
+},
+usageInstructions: {
+combos: [
+{
+title: 'Tamotsu',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
+{ icon: '/icons/food.svg', text: 'Во время приема пищи' }
+]}]
+},
+{
+title: 'Daigo 10 мл',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'От 1 саше (10 мл) в сутки' },
+{ icon: '/icons/bottle.svg', text: 'Развести в чистой воде' }
+]}]
+}
+]
+},
+productionSection: {
+type: 'production',
+title: 'Производство революционных продуктов Daigo',
+subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
+images: {
+type: 'gallery',
+topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+bottomImages: [
+'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
+'https://products.s3.firstvds.ru/tamotsu/prod-2.png',
+]
+},
+},
+images: [
+{ image_url: "https://s3.firstvds.ru/products/comp-new/balance-summer.png", is_primary: true, display_order: 0 }
+],
+},
+
+// ==========================================
+// 2. Роскошный максимум твоих волос
+// Состав: 2x Шампунь, 3x Дайго 10 мл
+// ==========================================
+{
+product_id: "c2d3e4f5-a6b7-8c9d-0e1f-a2b3c4d5e6f7",
+slug: 'hair-max',
+title: 'Набор «Роскошный максимум твоих волос»',
+subtitle: '',
+shortDescription: 'Комплексный подход к здоровью ваших волос. Набор сочетает инновационный шампунь для восстановления микрофлоры кожи головы и метабиотик Daigo для поддержки здоровья изнутри.',
+descriptionSections: [],
+price: 91900,
+originalPrice: 120900,
+category: 'metabiotic',
+isActive: true,
+nabor: {
+title: 'Состав набора',
+image: 'https://s3.firstvds.ru/products/comp-new/hear-max.png',
+text: `
+<p class="font-medium">Daigo Shampoo Lux (2 шт)</p>
+<p>Шампунь для восстановления правильного баланса микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.</p>
+<p class="font-medium">Daigo 10 мл (3 шт)</p>
+<p>Органический метабиотик для поддержки правильного баланса кишечной микробиоты и корректной работы оси «Кишечник—мозг».</p>
+`
+},
+combo: {
+title: 'Принцип действия',
+image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+text: `
+<p class="font-medium">Daigo Shampoo Lux</p>
+<p>Содержит экстракт брожения лактобактерий и увлажняющий ингредиент a-EG из японского саке. a-EG усиливает выработку коллагена вокруг корней волос, а метаболиты восстанавливают микрофлору кожи головы.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Здоровье волос напрямую зависит от состояния кишечника. Daigo нормализует микрофлору, улучшая усвоение витаминов и минералов, необходимых для роста и силы волос.</p>
+`
+},
+effect: {
+title: 'Эффект',
+image: 'https://products.s3.firstvds.ru/shampo/effect.png',
+content: `
+<p class="font-medium">Daigo Shampoo Lux</p>
+<p>Восстанавливает микрофлору кожи головы, увеличивает содержание коллагена у корней волос, укрепляет волосяные луковицы, предотвращает выпадение и раннюю седину.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Укрепляет иммунитет, улучшает состояние кожи и волос изнутри, способствует нормализации обмена веществ и повышению уровня энергии.</p>
+`
+},
+composition: {
+title: 'Состав',
+content: `
+<p class="font-medium">Daigo Shampoo Lux</p>
+<p>Экстракт брожения риса a-EG, экстракт брожения 16 видов полезных лактобактерий, аминокислоты, масла и экстракты растений.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
+`,
+image: 'https://products.s3.firstvds.ru/shampo/sostav.png',
+},
+usageInstructions: {
+combos: [
+{
+title: 'Daigo Shampoo Lux',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/shampoo.svg', text: 'Нанести на влажные волосы и кожу головы' },
+{ icon: '/icons/massage.svg', text: 'Хорошо помассировать и смыть' }
+]}]
+},
+{
+title: 'Daigo 10 мл',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'От 1 саше (10 мл) в сутки' },
+{ icon: '/icons/bottle.svg', text: 'Развести в чистой воде' }
+]}]
+}
+]
+},
+productionSection: {
+type: 'production',
+title: 'Производство революционных продуктов Daigo',
+subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
+images: {
+type: 'gallery',
+topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+bottomImages: [
+'https://products.s3.firstvds.ru/shampo/prod-1.png',
+'https://products.s3.firstvds.ru/shampo/prod-2.png',
+]
+},
+},
+images: [
+{ image_url: "https://s3.firstvds.ru/products/comp-new/hear-max.png", is_primary: true, display_order: 0 }
+],
+},
+
+// ==========================================
+// 3. Активное лето
+// Состав: 3x Джоинтик, 2x Дайго 10 мл
+// ==========================================
+{
+product_id: "d3e4f5a6-b7c8-9d0e-1f2a-b3c4d5e6f7a8",
+slug: 'active-summer',
+title: 'Набор «Активное лето»',
+subtitle: '',
+shortDescription: 'Набор для тех, кто проводит лето в движении. Поддержка суставов, связок и общего тонуса организма с помощью пептидов хлореллы и метабиотиков.',
+descriptionSections: [],
+price: 93600,
+originalPrice: 123300,
+category: 'metabiotic',
+isActive: true,
+nabor: {
+title: 'Состав набора',
+image: 'https://s3.firstvds.ru/products/comp-new/active-summer.png',
+text: `
+<p class="font-medium">Daigo Jointic (3 шт)</p>
+<p>БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Оказывает поддержку суставов и укрепляет костно-мышечную систему.</p>
+<p class="font-medium">Daigo 10 мл (2 шт)</p>
+<p>Органический метабиотик для поддержки правильного баланса кишечной микробиоты и укрепления иммунитета.</p>
+`
+},
+combo: {
+title: 'Принцип действия',
+image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+text: `
+<p class="font-medium">Daigo Jointic</p>
+<p>Пептид хлореллы IPH снижает уровень скрытого воспаления в суставах и нервных структурах. Аминокислоты служат строительным материалом для регенерации соединительных тканей.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Здоровая микрофлора кишечника обеспечивает полноценное усвоение нутриентов, необходимых для восстановления суставов и поддержания высокой физической активности.</p>
+`
+},
+effect: {
+title: 'Эффект',
+image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+content: `
+<p class="font-medium">Daigo Jointic</p>
+<p>Улучшает работу суставов, укрепляет хрящевую и мышечную ткани, восстанавливает связки после травм. Повышает физическую выносливость.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Укрепляет иммунитет, улучшает пищеварение и усвоение питательных веществ, повышает общий энергетический тонус и устойчивость к нагрузкам.</p>
+`
+},
+composition: {
+title: 'Состав',
+content: `
+<p class="font-medium">Daigo Jointic</p>
+<p>Chlorella Peptid IPH, L-глутамин, L-изолейцин, L-лейцин, L-аргинин, Пальмитоилэтаноламид, Липолитические ферменты, Витамин С, Бор, Марганец, Хром.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
+`,
+image: 'https://products.s3.firstvds.ru/jointic/sostav.png',
+},
+usageInstructions: {
+combos: [
+{
+title: 'Daigo Jointic',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
+{ icon: '/icons/food.svg', text: 'Во время приема пищи' }
+]}]
+},
+{
+title: 'Daigo 10 мл',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'От 1 саше (10 мл) в сутки' },
+{ icon: '/icons/bottle.svg', text: 'Развести в чистой воде' }
+]}]
+}
+]
+},
+productionSection: {
+type: 'production',
+title: 'Производство революционных продуктов Daigo',
+subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
+images: {
+type: 'gallery',
+topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+bottomImages: [
+'https://products.s3.firstvds.ru/brainy/prod-1.png',
+'https://products.s3.firstvds.ru/brainy/prod-2.png',
+]
+},
+},
+images: [
+{ image_url: "https://s3.firstvds.ru/products/comp-new/active-summer.png", is_primary: true, display_order: 0 }
+],
+},
+
+// ==========================================
+// 4. Skin Set
+// Состав: 1x Люкс, 2x Дермик
+// ==========================================
+{
+product_id: "e4f5a6b7-c8d9-0e1f-2a3b-c4d5e6f7a8b9",
+slug: 'skin-set',
+title: 'Набор «Skin Set»',
+subtitle: '',
+shortDescription: 'Премиальный набор для глубокого омоложения и поддержки кожи. Сочетание метабиотика Daigo Lux и пептидного комплекса Daigo Dermic для эффекта «внутреннего лифтинга».',
+descriptionSections: [],
+price: 119700,
+originalPrice: 154700,
+category: 'metabiotic',
+isActive: true,
+nabor: {
+title: 'Состав набора',
+image: 'https://s3.firstvds.ru/products/comp-new/skin-set.png',
+text: `
+<p class="font-medium">Daigo Lux (1 шт)</p>
+<p>Японский органический метабиотик премиум-класса. Создает идеальную среду для роста родных полезных кишечных бактерий, влияя на чистоту и здоровье кожи изнутри.</p>
+<p class="font-medium">Daigo Dermic (2 шт)</p>
+<p>БАД с натуральным коротким пептидом хлореллы IPH. Перезапускает естественные механизмы регенерации кожи, активирует синтез коллагена.</p>
+`
+},
+combo: {
+title: 'Принцип действия',
+image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+text: `
+<p class="font-medium">Daigo Lux</p>
+<p>Здоровый микробиом кишечника — залог чистой и сияющей кожи. Daigo Lux снижает системное воспаление и улучшает усвоение нутриентов, необходимых для кожи.</p>
+<p class="font-medium">Daigo Dermic</p>
+<p>Пептид хлореллы IPH перепрограммирует клеточные процессы, стимулируя синтез нового коллагена и защищая существующие волокна от разрушения.</p>
+`
+},
+effect: {
+title: 'Эффект',
+image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+content: `
+<p class="font-medium">Daigo Lux</p>
+<p>Нейтрализация аллергических реакций, омоложение кожи, повышение работоспособности и выносливости, укрепление иммунитета.</p>
+<p class="font-medium">Daigo Dermic</p>
+<p>Улучшение текстуры и цвета кожи, сохранение упругости и свежести, профилактика преждевременного старения, ускорение заживления шрамов.</p>
+`
+},
+composition: {
+title: 'Состав',
+content: `
+<p class="font-medium">Daigo Lux</p>
+<p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
+<p class="font-medium">Daigo Dermic</p>
+<p>Chlorella Peptid IPH, L-глутамин, L-изолейцин, L-лейцин, L-аргинин, Пектиназа, Альфа-липоевая кислота, Цинк, Ниацинамид, Витамины В5, А, Н.</p>
+`,
+image: 'https://products.s3.firstvds.ru/dermic/sostav.png',
+},
+usageInstructions: {
+combos: [
+{
+title: 'Daigo Lux',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'По 1–2 миллилитра в сутки' },
+{ icon: '/icons/bottle.svg', text: 'Развести в чистой воде' }
+]}]
+},
+{
+title: 'Daigo Dermic',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
+{ icon: '/icons/food.svg', text: 'Во время приема пищи' }
+]}]
+}
+]
+},
+productionSection: {
+type: 'production',
+title: 'Производство революционных продуктов Daigo',
+subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
+images: {
+type: 'gallery',
+topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+bottomImages: [
+'https://products.s3.firstvds.ru/dermic/prod-1.png',
+'https://products.s3.firstvds.ru/dermic/prod-2.png',
+]
+},
+},
+images: [
+{ image_url: "https://s3.firstvds.ru/products/comp-new/skin-set.png", is_primary: true, display_order: 0 }
+],
+},
+
+// ==========================================
+// 5. Beauty Reserve
+// Состав: 3x Дермик, 2x Дайго 10 мл
+// ==========================================
+{
+product_id: "f5a6b7c8-d9e0-1f2a-3b4c-d5e6f7a8b9c0",
+slug: 'beauty-reserve',
+title: 'Набор «Beauty Reserve»',
+subtitle: '',
+shortDescription: 'Стратегический запас красоты и здоровья. Мощная поддержка кожи, волос и иммунитета благодаря сочетанию пептидов хлореллы и метабиотиков.',
+descriptionSections: [],
+price: 93600,
+originalPrice: 123300,
+category: 'metabiotic',
+isActive: true,
+nabor: {
+title: 'Состав набора',
+image: 'https://s3.firstvds.ru/products/comp-new/beauty-reserve.png',
+text: `
+<p class="font-medium">Daigo Dermic (3 шт)</p>
+<p>БАД с натуральным коротким пептидом хлореллы IPH. Улучшает защитную и эстетическую функции кожи, обеспечивает профилактику преждевременного старения.</p>
+<p class="font-medium">Daigo 10 мл (2 шт)</p>
+<p>Органический метабиотик для поддержки правильного баланса кишечной микробиоты и укрепления иммунитета.</p>
+`
+},
+combo: {
+title: 'Принцип действия',
+image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+text: `
+<p class="font-medium">Daigo Dermic</p>
+<p>Пептид хлореллы IPH воздействует на фундаментальные механизмы старения кожи, активируя синтез нового коллагена и защищая волокна от разрушения.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Восстанавливает микробиом кишечника, что напрямую влияет на чистоту кожи, снижает воспалительные процессы и улучшает усвоение витаминов.</p>
+`
+},
+effect: {
+title: 'Эффект',
+image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+content: `
+<p class="font-medium">Daigo Dermic</p>
+<p>Улучшение текстуры и цвета кожи, сохранение упругости, профилактика старения от УФ-излучения, улучшение здоровья ногтей и волос.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Укрепление иммунитета, нормализация пищеварения, повышение уровня энергии и стрессоустойчивости.</p>
+`
+},
+composition: {
+title: 'Состав',
+content: `
+<p class="font-medium">Daigo Dermic</p>
+<p>Chlorella Peptid IPH, L-глутамин, L-изолейцин, L-лейцин, L-аргинин, Пектиназа, Альфа-липоевая кислота, Цинк, Ниацинамид, Витамины В5, А, Н.</p>
+<p class="font-medium">Daigo 10 мл</p>
+<p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
+`,
+image: 'https://products.s3.firstvds.ru/dermic/sostav.png',
+},
+usageInstructions: {
+combos: [
+{
+title: 'Daigo Dermic',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'По 1 капсуле 2 раза в день' },
+{ icon: '/icons/food.svg', text: 'Во время приема пищи' }
+]}]
+},
+{
+title: 'Daigo 10 мл',
+groups: [{ title: 'Взрослым', steps: [
+{ icon: '/icons/drop.svg', text: 'От 1 саше (10 мл) в сутки' },
+{ icon: '/icons/bottle.svg', text: 'Развести в чистой воде' }
+]}]
+}
+]
+},
+productionSection: {
+type: 'production',
+title: 'Производство революционных продуктов Daigo',
+subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
+images: {
+type: 'gallery',
+topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+bottomImages: [
+'https://products.s3.firstvds.ru/dermic/prod-1.png',
+'https://products.s3.firstvds.ru/daigo-10/prod-1.png',
+]
+},
+},
+images: [
+{ image_url: "https://s3.firstvds.ru/products/comp-new/beauty-reserve.png", is_primary: true, display_order: 0 }
+],
+},
+
+
+
+    // Daigo Lux
     {
       product_id: "6dd5b27c-65fa-4de2-ada7-472f233cf60a",
       slug: 'lux-daigo-metabiotik',

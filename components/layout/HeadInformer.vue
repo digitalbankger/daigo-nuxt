@@ -7,10 +7,16 @@
       <!-- DESKTOP TEXT -->
       <NuxtLink
         to="/catalog"
-        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
+        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-200"
         @click="sendInformerGoal"
       >
-        <span class="text-sm sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo – 15-19 Июня</span>
+        <span class="text-sm sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
+        <span
+          class="inline-flex items-center rounded-md text-sm sm:text-lg font-mont font-semibold tabular-nums animate-pulse"
+          aria-live="polite"
+        >
+          {{ countdownLabel }}
+        </span>
       </NuxtLink>
 
       <!-- DESKTOP BUTTON -->
@@ -19,18 +25,26 @@
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
         
       >
-        <span>Скидка -20% на ВСЕ!</span>
+        <span>Скидки до -20% на ВСЕ!</span>
       </button>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-xs sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
+        <div class="flex flex-wrap items-center justify-center gap-2 text-center">
+          <span class="text-xs sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
+          <span
+            class="inline-flex items-center rounded-md bg-white/15 px-2 py-0.5 text-xs font-mont font-medium tabular-nums animate-pulse"
+            aria-live="polite"
+          >
+            {{ countdownLabel }}
+          </span>
+        </div>
 
         <button
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          <span>Скидка -20% на ВСЕ! 15-19 Июня</span>
+          <span>Скидки до -20% на ВСЕ!</span>
         </button>
       </div>
 
@@ -51,7 +65,7 @@
 
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRoute } from '#imports'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
@@ -88,6 +102,39 @@ const buttonLabel = computed(() => {
   if (isApplied.value) return 'ЛЕТО10 применён'
   return 'Применить ЛЕТО10'
 })
+const PROMO_END_AT = '2026-06-19T23:59:59+03:00'
+
+function getRemainingMs() {
+  return Math.max(0, new Date(PROMO_END_AT).getTime() - Date.now())
+}
+
+const remainingMs = ref(getRemainingMs())
+let countdownTimer: ReturnType<typeof setInterval> | undefined
+
+function pad(value: number) {
+  return String(value).padStart(2, '0')
+}
+
+const countdownLabel = computed(() => {
+  const totalMinutes = Math.max(0, Math.floor(remainingMs.value / 60000))
+  const days = Math.floor(totalMinutes / 1440)
+  const hours = Math.floor((totalMinutes % 1440) / 60)
+  const minutes = totalMinutes % 60
+
+  return `${pad(days)}д ${pad(hours)}ч ${pad(minutes)}м`
+})
+
+onMounted(() => {
+  remainingMs.value = getRemainingMs()
+  countdownTimer = window.setInterval(() => {
+    remainingMs.value = getRemainingMs()
+  }, 1000)
+})
+
+onUnmounted(() => {
+  if (countdownTimer) window.clearInterval(countdownTimer)
+})
+
 
 const sendInformerGoal = () => {
   reach('informer-click')

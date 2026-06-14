@@ -1,30 +1,48 @@
 import { defineEventHandler, createError, getRouterParam } from 'h3'
 import { ofetch } from 'ofetch'
 
-/** Адаптация ответа бэка к нашему типу Product (минимально необходимое) */
-function adaptToProduct(api: any) {
-  // TODO: при необходимости — дополни маппинг под точную схему бэка
+function normalizeNumber(value: unknown): number | undefined {
+  if (value === null || value === undefined || value === '') return undefined
+
+  const normalized = typeof value === 'string'
+    ? value.replace(/\s/g, '').replace(',', '.')
+    : value
+
+  const numberValue = Number(normalized)
+  return Number.isFinite(numberValue) ? numberValue : undefined
+}
+
+function pickPayload(response: any) {
+  return response?.product ?? response?.data?.product ?? response?.data ?? response
+}
+
+/**
+ * Возвращаем только безопасный минимальный набор для подмешивания в mock-деталку:
+ * название и цены должны быть актуальными с Go API, вся остальная богатая структура остаётся из mock.
+ */
+function adaptToProductPriceCard(response: any) {
+  const api = pickPayload(response) || {}
+  const details = api.details || api.detail || {}
+
+  const price = normalizeNumber(api.price ?? details.price)
+  const oldPrice = normalizeNumber(
+    api.old_price ??
+    api.oldPrice ??
+    api.original_price ??
+    api.originalPrice ??
+    details.old_price ??
+    details.oldPrice ??
+    details.original_price ??
+    details.originalPrice
+  )
+
   return {
-    product_id: api.id ?? api.product_id ?? api.uuid,
-    slug: api.slug,
-    title: api.title ?? api.name,
-    subtitle: api.subtitle ?? '',
-    shortDescription: api.short_description ?? api.shortDescription ?? '',
-    price: Number(api.price) || 0,
-    originalPrice: Number(api.original_price ?? api.originalPrice ?? api.price) || 0,
-    discount: api.discount ?? undefined,
-    image: api.image ?? api.cover ?? '',
-    images: (api.gallery ?? api.images ?? []).map((src: string) => ({ src, alt: api.title ?? api.name })),
-    properties: api.properties ?? {},
-    descriptionSections: api.descriptionSections ?? [],
-    faq: api.faq ?? undefined,
-    usageInstructions: api.usageInstructions ?? undefined,
-    productionSection: api.productionSection ?? undefined,
-    actionPrinciple: api.actionPrinciple ?? undefined,
-    effect: api.effect ?? undefined,
-    effectCombo: api.effectCombo ?? undefined,
-    usage: api.usage ?? undefined,
-    // добавь недостающее из своего типа Product при необходимости
+    product_id: api.product_id ?? api.id ?? api.uuid ?? details.product_id,
+    slug: api.slug ?? details.slug,
+    title: api.title ?? api.name ?? details.title ?? details.name,
+    price,
+    oldPrice,
+    originalPrice: oldPrice,
   }
 }
 
@@ -34,30 +52,30 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 400, statusMessage: 'Missing slug' })
   }
 
-  const { daigoApiBase } = useRuntimeConfig().public
-  const url = `${daigoApiBase}/v1/shop/products/${encodeURIComponent(slug)}/card`
+  const config = useRuntimeConfig(event)
+  const apiBase = String(config.public?.daigoApiBase || 'https://api.daigo.ru').replace(/\/+$/, '')
+  const url = `${apiBase}/v1/shop/products/${encodeURIComponent(slug)}/card`
 
   try {
-    // Можно включить простой кеш на сервере (десять минут)
-    // @ts-ignore
     event.node.res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600')
 
     const apiResp = await ofetch(url, {
-      // headers: { Authorization: `Bearer ${token}` }, // если потребуется
+      method: 'GET',
       retry: 1,
-      timeout: 10_000
+      timeout: 10_000,
     })
 
     if (!apiResp) throw new Error('Empty response')
 
-    const product = adaptToProduct(apiResp)
-    return product
+    return adaptToProductPriceCard(apiResp)
   } catch (e: any) {
-    // Если бэк вернул 404 — пробрасываем на фронт
-    if (e?.status === 404) {
+    if (e?.status === 404 || e?.statusCode === 404) {
       throw createError({ statusCode: 404, statusMessage: 'Product not found' })
     }
-    throw createError({ statusCode: 502, statusMessage: `Upstream error: ${e?.message || e}` })
+
+    throw createError({
+      statusCode: 502,
+      statusMessage: `Upstream error: ${e?.message || e}`,
+    })
   }
 })
-

@@ -5,7 +5,7 @@ type Props = {
 }
 
 withDefaults(defineProps<Props>(), {
-  link: '/catalog',
+  link: '/articles/leto-eto-ne-tolko-otdyh',
   image: '/images/promotions/leto10-popup-bg.jpg'
 })
 </script>

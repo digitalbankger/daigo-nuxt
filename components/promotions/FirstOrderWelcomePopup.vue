@@ -2,10 +2,10 @@
   <UiModal
     :show="isOpen"
     :closable="false"
-    panel-class="sm:max-w-[1120px] overflow-hidden !p-0 !bg-transparent !shadow-none"
+    panel-class="overflow-hidden !p-0 !bg-transparent !shadow-none"
     @close="closePopup"
   >
-    <section class="summer-popup" aria-label="Скидка на первую покупку">
+    <section class="summer-popup mx-auto" aria-label="Летняя акция Daigo">
       <button
         type="button"
         class="summer-popup__close"
@@ -16,59 +16,39 @@
       </button>
 
       <div class="summer-popup__content">
-        <h2 class="summer-popup__title font-haido font-bold">
-          ЛЕТО — ЭТО НЕ ТОЛЬКО ОТДЫХ
-        </h2>
-
-        <div class="summer-popup__tags" aria-label="Летние факторы нагрузки">
-          <span
-            v-for="item in summerReasons"
-            :key="item.label"
-            class="summer-popup__tag font-haido"
-          >
-            <img :src="item.img" alt="" class="summer-popup__tag-icon" aria-hidden="true" />
-
-            {{ item.label }}
+        <div class="summer-popup__top">
+          <h2 class="summer-popup__title font-haido">
+            Начните лето с заботы <span class="summer-popup__subtitle font-haido">
+            о здоровье!
           </span>
+          </h2>
+
+
+        <div class="mt-[10px] md:mt-[15px] pt-4 flex flex-wrap items-center gap-x-[1.4rem] md:gap-x-[1.9rem] gap-y-2 sm:mt-7">
+          <img src="localhost:3000/public/images/articles/summer/20.png" alt="Лето - это не только отдых" class="h-[60px] sm:h-[82px] w-auto" />
+
+          <div class="max-w-[190px] text-[clamp(24px,3vw,40px)] font-haido font-light uppercase leading-[1.05]">
+            на все<br />
+            заказы
+          </div>
         </div>
-
-        <p class="summer-popup__text font-haido">
-          Множество летних проблем начинается с микробиома. Поддержите его вместе с Daigo!
-        </p>
-
-        <div class="summer-popup__coupon" aria-label="Промокод">
-          -10% НА ПЕРВЫЙ ЗАКАЗ
+          <NuxtLink
+            to="/catalog"
+            class="summer-popup__button font-haido mt-7"
+            @click="markConverted"
+          >
+            Перейти к покупкам
+          </NuxtLink>
         </div>
+        
 
-        <p
-          v-if="message"
-          class="summer-popup__message font-haido"
-          :class="messageType === 'success' ? 'summer-popup__message--success' : 'summer-popup__message--error'"
-        >
-          {{ message }}
-        </p>
+        <div class="summer-popup__bottom">
+          <p class="summer-popup__period font-haido">
+            Акция действует в период с 15 по 19 июня
+          </p>
 
-        <div class="summer-popup__actions">
-          <button
-            type="button"
-            class="summer-popup__button"
-            :disabled="isProcessing"
-            @click="applyCode"
-          >
-            {{ isProcessing ? 'ПРИМЕНЯЕМ…' : 'ПРИМЕНИТЬ' }}
-          </button>
-
-          <button
-            type="button"
-            class="summer-popup__button"
-            :disabled="isProcessing"
-            @click="copyCode"
-          >
-            СКОПИРОВАТЬ
-          </button>
         </div>
       </div>
-
     </section>
   </UiModal>
 </template>
@@ -77,51 +57,21 @@
 import { nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import UiModal from '~/components/ui/UiModal.vue'
 import { useAuthStore } from '~/stores/authStore'
-import { useCartStore } from '~/stores/cartStore'
 import { useModalStore } from '~/stores/modalStore'
 
-const PROMO_CODE = 'ЛЕТО10'
-const MAIN_TRIGGER_KEY = 'leto10_popup_main_shown_v2'
-const EXIT_TRIGGER_KEY = 'leto10_popup_exit_shown_v2'
-const CONVERTED_KEY = 'leto10_popup_converted_v2'
+const MAIN_TRIGGER_KEY = 'leto20_popup_main_shown_v1'
+const EXIT_TRIGGER_KEY = 'leto20_popup_exit_shown_v1'
+const CONVERTED_KEY = 'leto20_popup_converted_v1'
 const OPEN_DELAY_MS = 7_000
 const REQUIRED_SCROLL_PROGRESS = 0.4
 
-const summerReasons = [
-  {
-    label: 'Смена климата',
-    img: '/images/promotions/1.svg',
-  },
-  {
-    label: 'Нарушение пищеварения',
-    img: '/images/promotions/2.svg',
-  },
-  {
-    label: 'Обезвоживание и жара',
-    img: '/images/promotions/3.svg',
-  },
-  {
-    label: 'Аллергия и пыльца',
-    img: '/images/promotions/4.svg',
-  },
-  {
-    label: 'Пищевые отравления',
-    img: '/images/promotions/5.svg',
-  },
-]
-
 const authStore = useAuthStore()
-const cartStore = useCartStore()
 const modalStore = useModalStore()
 
 const isOpen = ref(false)
-const isProcessing = ref(false)
-const message = ref('')
-const messageType = ref<'success' | 'error'>('success')
 const hasSpentEnoughTime = ref(false)
 const hasScrolledEnough = ref(false)
 const wasClosedByUser = ref(false)
-const pendingActionAfterAuth = ref<null | 'apply-code'>(null)
 
 let openDelayTimer: ReturnType<typeof window.setTimeout> | null = null
 
@@ -152,11 +102,6 @@ function isDesktopExitIntentAvailable() {
     && Boolean(window.matchMedia?.('(hover: hover) and (pointer: fine)').matches)
 }
 
-function resetPopupState() {
-  message.value = ''
-  messageType.value = 'success'
-}
-
 function canOpenPopup() {
   if (!import.meta.client) return false
   if (isOpen.value) return false
@@ -183,7 +128,6 @@ async function openPopup(source: 'main' | 'exit') {
   }
 
   await nextTick()
-  resetPopupState()
   isOpen.value = true
 }
 
@@ -202,7 +146,7 @@ function getScrollProgress() {
 function checkMainPopupTrigger() {
   if (!hasSpentEnoughTime.value || !hasScrolledEnough.value) return
 
-  openPopup('main')
+  void openPopup('main')
 }
 
 function handleScroll() {
@@ -215,87 +159,12 @@ function handleScroll() {
 function handleExitIntent(event: MouseEvent) {
   if (event.clientY > 0) return
 
-  openPopup('exit')
+  void openPopup('exit')
 }
 
 function markConverted() {
   setSessionFlag(CONVERTED_KEY)
   wasClosedByUser.value = false
-  pendingActionAfterAuth.value = null
-}
-
-function requestAuthBeforeApplyCode() {
-  pendingActionAfterAuth.value = 'apply-code'
-  message.value = ''
-  isProcessing.value = false
-  isOpen.value = false
-  authStore.openAuth()
-}
-
-async function resumePendingActionAfterAuth() {
-  if (!import.meta.client) return
-  if (pendingActionAfterAuth.value !== 'apply-code') return
-  if (!authStore.isAuthenticated) return
-  if (authStore.isAuthModalOpen) return
-
-  pendingActionAfterAuth.value = null
-  resetPopupState()
-  isOpen.value = true
-
-  await nextTick()
-  await applyCode()
-}
-
-async function copyCode() {
-  if (!import.meta.client) return
-
-  try {
-    if (!navigator.clipboard?.writeText) throw new Error('Clipboard API is unavailable')
-    await navigator.clipboard.writeText(PROMO_CODE)
-    markConverted()
-    messageType.value = 'success'
-    message.value = `Промокод ${PROMO_CODE} скопирован`
-  } catch {
-    markConverted()
-    messageType.value = 'error'
-    message.value = `Скопируйте промокод вручную: ${PROMO_CODE}`
-  }
-}
-
-async function applyCode() {
-  if (isProcessing.value) return
-
-  if (!authStore.isAuthenticated) {
-    requestAuthBeforeApplyCode()
-    return
-  }
-
-  isProcessing.value = true
-  message.value = ''
-
-  try {
-    await cartStore.ensureLoaded()
-    await cartStore.applyCoupon(PROMO_CODE)
-    markConverted()
-    messageType.value = 'success'
-    message.value = 'Промокод применён к корзине'
-
-    window.setTimeout(() => {
-      isOpen.value = false
-    }, 900)
-  } catch (error: any) {
-    const text = error?.message || 'Не удалось применить промокод'
-
-    if (text === 'AUTH_REQUIRED' || text.toLowerCase().includes('авториз')) {
-      requestAuthBeforeApplyCode()
-      return
-    }
-
-    messageType.value = 'error'
-    message.value = text
-  } finally {
-    isProcessing.value = false
-  }
 }
 
 function closePopup() {
@@ -304,13 +173,9 @@ function closePopup() {
 }
 
 watch(
-  () => [modalStore.isOpen, authStore.isAuthModalOpen, authStore.isAuthenticated] as const,
-  ([isMessageModalOpen, isAuthOpen, isAuthenticated]) => {
+  () => [modalStore.isOpen, authStore.isAuthModalOpen] as const,
+  ([isMessageModalOpen, isAuthOpen]) => {
     if (!isMessageModalOpen && !isAuthOpen) checkMainPopupTrigger()
-
-    if (isAuthenticated && !isAuthOpen) {
-      void resumePendingActionAfterAuth()
-    }
   }
 )
 
@@ -342,301 +207,185 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .summer-popup {
-  position: relative;
-  width: min(1120px, calc(100vw - 24px));
-  min-height: 490px;
-  overflow: hidden;
-  border-radius: 30px;
-  color: #fff;
-  /* background:
-    radial-gradient(circle at 14% 0%, rgba(255,255,255,0.34), transparent 36%),
-    linear-gradient(180deg, rgba(20, 168, 211, 0.98) 0%, rgba(66, 190, 214, 0.85) 50%, rgba(250, 236, 204, 0.95) 75%, rgba(244, 223, 189, 1) 100%);
-  */
-  background-image: url('/images/promotions/leto10-popup-bg.jpg');
-  background-size: cover;
-  background-position: center;
+position: relative;
+    width: min(840px, calc(100vw - 24px));
+    min-height: min(750px, calc(100vh - 24px));
+    overflow: hidden;
+    border-radius: 15px;
+    color: #fff;
+    background-image: linear-gradient(180deg, rgba(22, 166, 211, .22) 0%, rgba(22, 166, 211, .04) 44%, rgba(255, 255, 255, 0) 70%), url(/images/promotions/leto10-popup-bg.jpg);
+    background-size: cover;
+    background-position: center bottom;
+    background-position-x: 80%;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .25);
 }
 
 .summer-popup__close {
   position: absolute;
-  top: 16px;
-  right: 18px;
+  top: 12px;
+  right: 14px;
   z-index: 6;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   border: 0;
-  background: transparent;
+  background: rgba(15, 125, 170, .18);
   color: #fff;
-  font-size: 46px;
+  font-size: 40px;
   line-height: 1;
   font-weight: 200;
   cursor: pointer;
-  transition: opacity .2s ease;
+  transition: opacity .2s ease, background-color .2s ease;
 }
 
 .summer-popup__close:hover {
-  opacity: .75;
+  opacity: .82;
+  background: rgba(15, 125, 170, .28);
 }
 
 .summer-popup__content {
   position: relative;
   z-index: 4;
-  max-width: 90%;
-  padding: 20px 46px 74px;
+  display: flex;
+  min-height: inherit;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 34px 30px 24px;
 }
 
 .summer-popup__title {
   margin: 0;
-  font-size: clamp(38px, 5vw, 46px);
-  line-height: 1.03;
-  font-weight: 600;
-  font-style: italic;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  text-shadow: 0 4px 20px rgba(0,0,0,.12);
-}
-
-.summer-popup__tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  max-width: 930px;
-  margin-top: 24px;
-}
-
-.summer-popup__tag {
-  display: inline-flex;
-  gap: 10px;
-  min-height: 38px;
-  padding: 6px 16px;
-  border: 1px solid rgba(255,255,255,.9);
-  border-radius: 7px;
-  background: rgba(12, 146, 189, .18);
-  color: #fff;
-  font-size: clamp(14px, 1.7vw, 20px);
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: .02em;
-  backdrop-filter: blur(2px);
-}
-
-.summer-popup__tag-icon {
-  width: 26px;
-  height: 26px;
-  flex: 0 0 auto;
-}
-
-.summer-popup__text {
-  max-width: 470px;
-  margin: 26px 0 26px;
-  font-size: clamp(17px, 2vw, 18px);
-  line-height: 1.45;
-  font-weight: 500;
-  font-style: italic;
-  letter-spacing: .02em;
-  text-shadow: 0 2px 12px rgba(0,0,0,.16);
-}
-
-.summer-popup__coupon {
-  width: min(316px, 100%);
-  margin-top: 34px;
-  padding: 13px 18px;
-  border-radius: 7px;
-  background: rgba(255,255,255,.96);
-  color: #20A1C5;
-  text-align: center;
-  font-size: clamp(17px, 2vw, 21px);
+  font-size: clamp(28px, 5vw, 52px);
   line-height: 1.2;
-  font-weight: 500;
-  letter-spacing: .03em;
-  box-shadow: 0 12px 28px rgba(0,0,0,.08);
+  font-weight: 600;
+  letter-spacing: .01em;
+  text-transform: uppercase;
 }
 
-.summer-popup__message {
-  max-width: 420px;
-  margin: 14px 0 0;
-  padding: 8px 12px;
-  border-radius: 8px;
-  background: rgba(255,255,255,.92);
-  font-size: 15px;
-  line-height: 1.3;
+.summer-popup__subtitle {
+  margin: 2px 0 0;
+  font-size: clamp(28px, 5vw, 52px);
+  line-height: 1.2;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 18px rgba(0,0,0,.10);
 }
 
-.summer-popup__message--success {
-  color: #20A1C5;
-}
-
-.summer-popup__message--error {
-  color: #d92d20;
-}
-
-.summer-popup__actions {
+.summer-popup__discount {
   display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-top: 16px;
+  align-items: flex-start;
+  gap: 26px;
+  margin-top: 22px;
+}
+
+.summer-popup__discount-value {
+  font-size: clamp(72px, 13vw, 118px);
+  line-height: .82;
+  font-weight: 600;
+  letter-spacing: -.06em;
+  text-shadow: 0 4px 18px rgba(0,0,0,.10);
+}
+
+.summer-popup__discount-text {
+  padding-top: 12px;
+  font-size: clamp(28px, 5.2vw, 52px);
+  line-height: .92;
+  font-weight: 300;
+  font-style: italic;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  text-shadow: 0 4px 18px rgba(0,0,0,.10);
+}
+
+.summer-popup__bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.summer-popup__period {
+  margin: 0;
+  color: #1B96CE;
+  font-size: clamp(19px, 3.4vw, 32px);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: .01em;
+  text-transform: uppercase;
 }
 
 .summer-popup__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 150px;
-  height: 50px;
-  padding: 0 26px;
-  border: 1.5px solid #20A1C5;
-  border-radius: 7px;
-  background: rgba(255,255,255,.18);
-  color: #1597c1;
-  font-size: 18px;
+  min-height: 48px;
+  padding: 12px 28px;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #1991B7 0%, #86C4D7 100%);
+  color: #fff;
+  font-size: 17px;
   line-height: 1;
   font-weight: 500;
   letter-spacing: .01em;
   text-transform: uppercase;
-  cursor: pointer;
-  transition: background-color .2s ease, color .2s ease, opacity .2s ease;
+  box-shadow: 0 10px 22px rgba(0,0,0,.14);
+  transition: filter .2s ease, transform .2s ease;
 }
 
-.summer-popup__button:hover:not(:disabled) {
-  background: #20A1C5;
-  color: #fff;
-}
-
-.summer-popup__button:disabled {
-  opacity: .6;
-  cursor: not-allowed;
-}
-
-.summer-popup__media {
-  position: absolute;
-  right: 20px;
-  bottom: -6px;
-  z-index: 3;
-  width: min(50%, 560px);
-  height: 72%;
-  pointer-events: none;
-}
-
-.summer-popup__image {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: right bottom;
-  filter: drop-shadow(0 18px 32px rgba(0,0,0,.16));
+.summer-popup__button:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
 }
 
 @media (max-width: 767px) {
   .summer-popup {
-    min-height: auto;
-    border-radius: 22px;
-    background-position: center;
-    background-position-x: 66%;
-  }
-
-  .summer-popup::after {
-    height: 94px;
+    width: min(90%, calc(100vw - 20px));
+    min-height: min(500px, calc(100vh - 20px));
+    background-position: 55% bottom;
   }
 
   .summer-popup__close {
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
-    font-size: 36px;
+    top: 8px;
+    right: 8px;
+    width: 34px;
+    height: 34px;
+    font-size: 34px;
   }
 
   .summer-popup__content {
-    max-width: none;
-    padding: 20px 15px 30px 15px;
-  }
-  .summer-popup {
-    width: 100%;
-  }
-  .summer-popup__title {
-    max-width: 330px;
-    font-size: 31px;
-    letter-spacing: .02em;
+    padding: 24px 18px 18px;
   }
 
-  .summer-popup__tags {
-    gap: 4px;
+  .summer-popup__discount {
+    gap: 14px;
     margin-top: 18px;
   }
 
-  .summer-popup__tag {
-    min-height: 32px;
-    padding: 5px 9px;
-    font-size: 11px;
-    border-radius: 6px;
-    gap: 6px;
-    border: 2px solid rgba(255,255,255,.9);
-    align-items: center;
+  .summer-popup__discount-text {
+    padding-top: 8px;
   }
 
-  .summer-popup__tag-icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .summer-popup__text {
-        max-width: 100%;
-        margin-top: 26px;
-        font-size: 13px;
-        font-weight: bold;
-        font-style: normal;
-        width: 78%;
-        margin-bottom: 90px;
-  }
-
-  .summer-popup__coupon {
-        width: 212px;
-        margin-top: 20px;
-        padding: 11px 12px;
-        font-size: 15px;
-        font-weight: 400;
-        letter-spacing: .01em;
-        border-radius: 5px;
-  }
-
-  .summer-popup__actions {
-            gap: 6px;
-        width: 212px;
-        margin-top: 10px;
+  .summer-popup__bottom {
+    gap: 12px;
   }
 
   .summer-popup__button {
-    min-width: 0;
-    width: calc(50% - 5px);
-    height: 40px;
-    padding: 0 10px;
-    font-size: 12px;
-    font-weight: 400;
-    background: #fff;
-    border: 0;
-    border-radius: 5px;
+    min-height: 46px;
+    padding: 12px 20px;
+    font-size: 15px;
   }
-  .summer-popup__button:last-child {
-    background: #20A1C5;
-    color: #fff;
-  }
-  .summer-popup__button:last-child:hover {
-    background: #fff;
-    color: #20A1C5;
-  }
-
-  .summer-popup__message {
-    max-width: 285px;
-    font-size: 13px;
-  }
-
-  .summer-popup__media {
-    right: -14px;
-    bottom: -8px;
-    width: 74%;
-    height: 160px;
+  .summer-popup__period {
+    margin: 0;
+    color: #1B96CE;
+    font-size: clamp(16px, 2.4vw, 32px);
+    line-height: 1.05;
+    font-weight: 600;
+    letter-spacing: .01em;
+    text-transform: uppercase;
   }
 }
 </style>

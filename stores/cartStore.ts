@@ -5,7 +5,6 @@ import { useUserStore } from '~/stores/userStore'
 import { cartService } from '~/services/cartService'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
-import { getCouponApplyMessage, isCouponApplySuccess } from '~/utils/coupon'
 
 export interface CartItem {
   id: string | number
@@ -372,27 +371,31 @@ export const useCartStore = defineStore('cart', () => {
     coupons.value = []
   }
 
-  /** Применить промокод — используем ответ бэка целиком */
+  /** Применить промокод — временно отключено на фронте */
   async function applyCoupon(code: string) {
     const trimmed = (code || '').trim()
     if (!trimmed) return
 
-    // ⛔ Промокоды доступны только авторизованным пользователям
-    if (!isAuthenticated.value || !userId.value) {
-      throw new Error('Для применения промокода необходимо авторизоваться')
-    }
+    // Временно отключено: промокоды скрыты в интерфейсе и не должны применяться через старые UI-сценарии.
+    throw new Error('Промокоды временно недоступны')
 
-    const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
-
-    applyServerCartState(res)
-    // На случай асинхронных перерасчётов на бэке:
-    await loadCart()
-
-    if (!isCouponApplySuccess(res)) {
-      throw new Error(getCouponApplyMessage(res))
-    }
-
-    return res
+    // Старую реализацию оставляем ниже для быстрого возврата.
+    // // ⛔ Промокоды доступны только авторизованным пользователям
+    // if (!isAuthenticated.value || !userId.value) {
+    //   throw new Error('Для применения промокода необходимо авторизоваться')
+    // }
+    //
+    // const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
+    //
+    // applyServerCartState(res)
+    // // На случай асинхронных перерасчётов на бэке:
+    // await loadCart()
+    //
+    // if (!isCouponApplySuccess(res)) {
+    //   throw new Error(getCouponApplyMessage(res))
+    // }
+    //
+    // return res
   }
 
   /** Удалить промокод */
