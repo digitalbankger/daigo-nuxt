@@ -31,7 +31,7 @@
                 class="h-full"
               >
                 <div class="w-full h-full flex items-center justify-center select-none">
-                  <CatalogCardImage
+                  <!-- <CatalogCardImage
                     v-if="shouldRenderImage(imageIndex)"
                     :src="image"
                     :alt="`${product.name} ${imageIndex + 1}`"
@@ -39,6 +39,14 @@
                     :height="560"
                     :class="cardImageClass"
                     :eager="priority && imageIndex === 0"
+                  /> -->
+                  <CatalogCardImage
+                    v-if="shouldRenderImage(imageIndex)"
+                    :src="image"
+                    :alt="`${product.name} ${imageIndex + 1}`"
+                    :width="560"
+                    :height="560"
+                    :class="cardImageClass"
                   />
                   <div
                     v-else

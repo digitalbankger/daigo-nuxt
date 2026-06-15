@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <img
     :src="normalizedSrc"
     :alt="alt"
@@ -7,6 +7,15 @@
     :loading="eager ? 'eager' : 'lazy'"
     :fetchpriority="eager ? 'high' : 'auto'"
     decoding="async"
+    :class="class"
+  >
+</template> -->
+<template>
+  <img
+    :src="normalizedSrc"
+    :alt="alt"
+    :width="width"
+    :height="height"
     :class="class"
   >
 </template>
