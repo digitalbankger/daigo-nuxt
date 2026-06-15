@@ -33,7 +33,7 @@ export default defineEventHandler((event) => {
 // Состав: 2x Тамоцу, 1x Дайго 10 мл
 // ==========================================
 {
-product_id: "b1c2d3e4-f5a6-7b8c-9d0e-f1a2b3c4d5e6",
+product_id: "f6bc3d88-5c4a-482b-a5bf-8fd41b011c7c",
 slug: 'balance-summer',
 title: 'Набор «Баланс на лето»',
 subtitle: '',
@@ -124,7 +124,7 @@ images: [
 // Состав: 2x Шампунь, 3x Дайго 10 мл
 // ==========================================
 {
-product_id: "c2d3e4f5-a6b7-8c9d-0e1f-a2b3c4d5e6f7",
+product_id: "5b8b4169-e8cd-4703-9a45-a34a19eb8f00",
 slug: 'hair-max',
 title: 'Набор «Роскошный максимум твоих волос»',
 subtitle: '',
@@ -215,7 +215,7 @@ images: [
 // Состав: 3x Джоинтик, 2x Дайго 10 мл
 // ==========================================
 {
-product_id: "d3e4f5a6-b7c8-9d0e-1f2a-b3c4d5e6f7a8",
+product_id: "445b2738-d0cc-4963-a0d3-ab84f0eac90b",
 slug: 'active-summer',
 title: 'Набор «Активное лето»',
 subtitle: '',
@@ -306,7 +306,7 @@ images: [
 // Состав: 1x Люкс, 2x Дермик
 // ==========================================
 {
-product_id: "e4f5a6b7-c8d9-0e1f-2a3b-c4d5e6f7a8b9",
+product_id: "47324099-de09-4a5e-ac05-382f0931f5f4",
 slug: 'skin-set',
 title: 'Набор «Skin Set»',
 subtitle: '',
@@ -397,7 +397,7 @@ images: [
 // Состав: 3x Дермик, 2x Дайго 10 мл
 // ==========================================
 {
-product_id: "f5a6b7c8-d9e0-1f2a-3b4c-d5e6f7a8b9c0",
+product_id: "99ae0dc1-5a83-4348-b741-14d5b5e6ce87",
 slug: 'beauty-reserve',
 title: 'Набор «Beauty Reserve»',
 subtitle: '',
