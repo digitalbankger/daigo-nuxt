@@ -6,13 +6,17 @@
       </h2>
     </div>
 
-    <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
-      <RewardCard
+    <div class="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-5">
+      <div
         v-for="(reward, index) in rewards"
         :key="index"
-        :reward="reward"
-        @open="openReward"
-      />
+        class="w-[calc(50%_-_0.375rem)] sm:w-[calc(50%_-_0.5rem)] lg:w-[calc(20%_-_1rem)]"
+      >
+        <RewardCard
+          :reward="reward"
+          @open="openReward"
+        />
+      </div>
     </div>
   </div>
 
