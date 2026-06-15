@@ -3,6 +3,14 @@ export type OptimizedImageFormat = 'avif' | 'webp'
 const OPTIMIZED_PREFIX = '/images/optimized'
 const FALLBACK_PLACEHOLDER = '/images/placeholder-product.png'
 
+// Важно для каталога: большинство товарных изображений приходит с внешнего API/S3.
+// Для таких URL нельзя слепо строить статические /images/optimized/... ссылки,
+// потому что эти файлы существуют только после ручной предгенерации.
+// На iOS Safari/Chrome браузер может выбрать отсутствующий AVIF/WebP candidate
+// из <picture>/<srcset> и не показать fallback. Поэтому внешние изображения
+// выводим напрямую, а оптимизацию оставляем только для локальных /images/... файлов.
+const ENABLE_REMOTE_OPTIMIZED_IMAGES = false
+
 function safeSegment(value: string): string {
   return encodeURIComponent(value.trim())
 }
@@ -42,7 +50,11 @@ export function isOptimizableImageSrc(src?: string | null): boolean {
   if (!normalized) return false
   if (normalized.startsWith('data:') || normalized.startsWith('blob:')) return false
 
-  return /^(https?:\/\/|\/)/i.test(normalized)
+  if (/^https?:\/\//i.test(normalized)) {
+    return ENABLE_REMOTE_OPTIMIZED_IMAGES
+  }
+
+  return normalized.startsWith('/')
 }
 
 export function getOptimizedImageBasePath(src?: string | null): string | null {

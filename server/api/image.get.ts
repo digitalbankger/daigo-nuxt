@@ -124,32 +124,40 @@ export default defineEventHandler(async (event) => {
     return sourceBuffer
   }
 
-  let transformer = sharp(sourceBuffer, { failOn: 'none', animated: true }).rotate()
+  try {
+    let transformer = sharp(sourceBuffer, { failOn: 'none', animated: true }).rotate()
 
-  transformer = transformer.resize({
-    width,
-    height,
-    fit: 'inside',
-    withoutEnlargement: true,
-  })
+    transformer = transformer.resize({
+      width,
+      height,
+      fit: 'inside',
+      withoutEnlargement: true,
+    })
 
-  const outputBuffer = await (async () => {
-    switch (format) {
-      case 'avif':
-        return transformer.avif({ quality }).toBuffer()
-      case 'jpeg':
-        return transformer.jpeg({ quality, mozjpeg: true }).toBuffer()
-      case 'png':
-        return transformer.png({ quality }).toBuffer()
-      case 'webp':
-      default:
-        return transformer.webp({ quality }).toBuffer()
-    }
-  })()
+    const outputBuffer = await (async () => {
+      switch (format) {
+        case 'avif':
+          return transformer.avif({ quality }).toBuffer()
+        case 'jpeg':
+          return transformer.jpeg({ quality, mozjpeg: true }).toBuffer()
+        case 'png':
+          return transformer.png({ quality }).toBuffer()
+        case 'webp':
+        default:
+          return transformer.webp({ quality }).toBuffer()
+      }
+    })()
 
-  setHeader(event, 'Content-Type', CONTENT_TYPES[format])
-  setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
-  setHeader(event, 'Vary', 'Accept')
+    setHeader(event, 'Content-Type', CONTENT_TYPES[format])
+    setHeader(event, 'Cache-Control', 'public, max-age=31536000, immutable')
+    setHeader(event, 'Vary', 'Accept')
 
-  return outputBuffer
+    return outputBuffer
+  } catch {
+    // Если sharp не смог обработать конкретный исходник, не роняем картинку.
+    // Возвращаем оригинальный файл, чтобы карточка товара не оставалась пустой.
+    setHeader(event, 'Content-Type', detectContentType(src))
+    setHeader(event, 'Cache-Control', 'public, max-age=3600')
+    return sourceBuffer
+  }
 })
