@@ -9,7 +9,7 @@
       aria-label="Открыть страницу товара"
     >
       <div class="w-full overflow-hidden mb-2 md:mb-4 rounded-xl">
-        <div class="w-full h-[160px] sm:h-[315px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
+        <div class="w-full h-[160px] sm:h-[280px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
           <template v-if="hasGallery">
             <Swiper
               class="product-card-swiper h-full"
