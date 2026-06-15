@@ -33,12 +33,12 @@
           </div>
         </div>
           <NuxtLink
-            to="/catalog"
-            class="summer-popup__button font-haido mt-7"
-            @click="markConverted"
-          >
-            Перейти к покупкам
-          </NuxtLink>
+  to="/catalog"
+  class="summer-popup__button font-haido mt-7"
+  @click="handleCatalogClick"
+>
+  Перейти к покупкам
+</NuxtLink>
         </div>
         
 
@@ -166,7 +166,10 @@ function markConverted() {
   setSessionFlag(CONVERTED_KEY)
   wasClosedByUser.value = false
 }
-
+function handleCatalogClick() {
+  markConverted()
+  isOpen.value = false
+}
 function closePopup() {
   wasClosedByUser.value = true
   isOpen.value = false
