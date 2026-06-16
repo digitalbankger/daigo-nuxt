@@ -262,6 +262,8 @@ const faqJsonLd = computed(() => {
   }
 })
 
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
+
 const SITE_URL = 'https://daigo.ru'
 const shareImage = computed(() => {
   const fromEffect = product.value?.effect?.image
@@ -269,7 +271,7 @@ const shareImage = computed(() => {
     (product.value as any)?.hero?.image ||
     (product.value as any)?.images?.[0]?.image_url ||
     (product.value as any)?.images?.[0]
-  const src = fromEffect || fallback
+  const src = normalizeMediaUrl(fromEffect || fallback)
   if (!src) return null
   return src.startsWith('http') ? src : `${SITE_URL}${src}`
 })

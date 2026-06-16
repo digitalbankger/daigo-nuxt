@@ -100,7 +100,7 @@ const popularArticles = [
   { 
     id: 2,
     title: '1. По полочкам: принцип действия Daigo',
-    image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+    image: '/media-s3/products/daigo-5/instructions.png',
     date: '18.05.2025',
     views: 988,
     comments: 8,
@@ -109,7 +109,7 @@ const popularArticles = [
   {
     id: 3,
     title: '2. На что влияет микрофлора кишечника?',
-    image: 'https://s3.firstvds.ru/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
+    image: '/media-s3/articles/yhyqpieqe92gcppbxm8cfhwnu87vv79f.jpg',
     date: '2025-06-30',
     views: 612,
     comments: 5,

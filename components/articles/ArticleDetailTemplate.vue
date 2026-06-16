@@ -13,6 +13,7 @@ import type { ArticleDetail } from '~/types/articles'
 
 // берём товары по ids — как в отзывах
 import { useProductsByIds } from '~/composables/useProductsByIds'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 const props = defineProps<{ slug: string }>()
 const slug = computed(() => props.slug)
@@ -43,7 +44,7 @@ if (error.value) {
 // ===== SEO =====
 const title = article.value?.title ?? 'Статья'
 const description = article.value?.description ?? article.value?.preview ?? ''
-const cover = article.value?.cover || article.value?.image || '/og-default.jpg'
+const cover = normalizeMediaUrl(article.value?.cover || article.value?.image || '/og-default.jpg')
 const canonical = `https://daigo.ru/articles/${slug.value}`
 const metaImage = cover.startsWith('http') ? cover : `https://daigo.ru${cover}`
 

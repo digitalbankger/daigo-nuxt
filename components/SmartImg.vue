@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 const props = withDefaults(defineProps<{
   src: string
@@ -9,7 +10,7 @@ const props = withDefaults(defineProps<{
   class?: string
 }>(), { size: 500 })
 
-const normalizedSrc = computed(() => props.src?.replace(/^http:\/\//i, 'https://') || '')
+const normalizedSrc = computed(() => normalizeMediaUrl(props.src))
 const widths = computed(() => {
   const size = Math.max(1, Number(props.size) || 500)
   return Array.from(new Set([size, size * 2])).sort((a, b) => a - b)

@@ -1,4 +1,5 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
+import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
 import { CATALOG_FILTER_SLUGS } from '~/constants/catalogFilters'
 
 const RESPONSE_TTL_MS = 5 * 60 * 1000
@@ -57,9 +58,17 @@ function normalizeImgFactory(filesBase: string) {
     if (!src) return '/images/placeholder-product.png'
     const s = String(src).trim()
     if (!s) return '/images/placeholder-product.png'
-    if (s.startsWith('http') || s.startsWith('data:')) return s
+
+    if (/^(https?:)?\/\//i.test(s) || s.startsWith('data:') || s.startsWith('blob:')) {
+      return normalizeMediaUrlOrFallback(s, '/images/placeholder-product.png')
+    }
+
+    if (s.startsWith('/media-s3/') || s.startsWith('/images/') || s.startsWith('/icons/')) {
+      return normalizeMediaUrlOrFallback(s, '/images/placeholder-product.png')
+    }
+
     const base = filesBase.replace(/\/$/, '')
-    return base + (s.startsWith('/') ? s : `/${s}`)
+    return normalizeMediaUrlOrFallback(base + (s.startsWith('/') ? s : `/${s}`), '/images/placeholder-product.png')
   }
 }
 

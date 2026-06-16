@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CartItem } from '~/stores/cartOrderStore'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 // props
 const props = defineProps<{ items: CartItem[] }>()
@@ -20,9 +21,11 @@ const IMG_BASE = (daigoApiBase || '').replace(/\/$/, '')
  * - иначе аккуратно склеиваем с IMG_BASE
  */
 function abs(src?: string) {
-  if (!src) return ''
-  if (/^(https?:)?\/\//.test(src) || /^data:|^blob:/.test(src)) return src
-  const path = src.startsWith('/') ? src : `/${src}`
+  const normalized = normalizeMediaUrl(src)
+  if (!normalized) return ''
+  if (/^(https?:)?\/\//.test(normalized) || /^data:|^blob:/.test(normalized)) return normalized
+  if (normalized.startsWith('/media-s3/') || normalized.startsWith('/images/') || normalized.startsWith('/icons/')) return normalized
+  const path = normalized.startsWith('/') ? normalized : `/${normalized}`
   return `${IMG_BASE}${path}`
 }
 </script>

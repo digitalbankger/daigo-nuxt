@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRuntimeConfig } from '#imports'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 // Определяем пропсы
 const props = defineProps<{
@@ -27,8 +28,12 @@ const displayOriginalPrice = computed(() => {
 const { public: { daigoApiBase } } = useRuntimeConfig()
 
 const fullImage = computed(() => {
-  const url = props.item.image
-  return /^https?:\/\//.test(url) ? url : `${daigoApiBase}${url}`
+  const url = normalizeMediaUrl(props.item.image)
+
+  if (/^(https?:)?\/\//.test(url) || url.startsWith('data:') || url.startsWith('blob:')) return url
+  if (url.startsWith('/media-s3/') || url.startsWith('/images/') || url.startsWith('/icons/')) return url
+
+  return `${daigoApiBase}${url.startsWith('/') ? url : `/${url}`}`
 })
 </script>
 

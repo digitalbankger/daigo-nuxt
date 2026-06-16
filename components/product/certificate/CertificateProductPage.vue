@@ -2,6 +2,7 @@
 import ProductHero from '~/components/product/ProductHero.vue'
 import ProductFAQ from '~/components/product/ProductFAQ.vue'
 import RewardSection from '~/components/sections/RewardSection.vue'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 // новые секции
 import CertificateElectronic from './CertificateElectronic.vue'
@@ -12,7 +13,7 @@ const props = defineProps<{ product: any }>()
 // open-graph: картинка для шаринга
 const SITE_URL = 'https://daigo.ru'
 const shareImage = computed(() => {
-  const hero = (props.product as any)?.images?.[0]?.image_url
+  const hero = normalizeMediaUrl((props.product as any)?.images?.[0]?.image_url)
   if (!hero) return null
   return hero.startsWith('http') ? hero : `${SITE_URL}${hero}`
 })

@@ -17,7 +17,7 @@ export const mockProducts = [
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p class="">Уникальная комбинация плазмалогенов из глубоководного морского гребешка и коэнзима Q10 высокого качества. Поддерживает здоровье всех энергозатратных органов организма, в том числе головного мозга.</p>
@@ -27,7 +27,7 @@ export const mockProducts = [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -37,7 +37,7 @@ export const mockProducts = [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
+        image: '/media-s3/products/tamotsu/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -55,7 +55,7 @@ export const mockProducts = [
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -87,22 +87,22 @@ export const mockProducts = [
         subtitle: 'Метабиотик Daigo и БАД Tamotsu — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. Плазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка, который полностью усваивается человеческим организмом.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-2.png',
         ]
         },
       },
       images: [
             {
-              image_url: "https://products.s3.firstvds.ru/tamotsu/tamotsu-nabor.JPG",
+              image_url: "/media-s3/products/tamotsu/tamotsu-nabor.JPG",
               is_primary: true,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
@@ -129,7 +129,7 @@ export const mockProducts = [
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/omega/principles.png',
+        image: '/media-s3/products/omega/principles.png',
         text: `
           <p class="font-medium">COD Liver Oil</p>
           <p class="">COD Liver Oil — это ценный жир печени черной трески, природный источник наиболее биодоступных форм Омега-3 (EPA и DHA). Эти незаменимые кислоты критически важны для развития школьников. Регулярный прием способствует не только интеллектуальному развитию, но и правильному формированию нервной системы, зрения и иммунитета в период активного роста.</p>
@@ -139,7 +139,7 @@ export const mockProducts = [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">COD Liver Oil</p>
@@ -149,7 +149,7 @@ export const mockProducts = [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/omega/effect.png',
+        image: '/media-s3/products/omega/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">COD Liver Oil</p>
@@ -171,7 +171,7 @@ export const mockProducts = [
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -202,10 +202,10 @@ export const mockProducts = [
         subtitle: 'Метабиотик Daigo и добавка COD Liver Oil производятся на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. \n \nЖир печени трески (Омега-3) производится из тщательно отобранной, высококачественной трески, выловленной у берегов Вакканай (порт в Хоккайдо, Япония). В строго определенное время года: с декабря по февраль, когда рыба идет на нерест и ее печень наиболее богата питательными веществами, и добывается вручную традиционным способом, благодаря чему сохраняются все питательные вещества, а сам продукт не требует дополнительной очистки от попадания примесей. Благодаря натуральному, преимущественно ручному, способу производства удается сохранить все питательные вещества и витамины без разрушения, в их естественном состоянии.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/omega/prod-1.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/omega/prod-1.png',
         ]
         },
       },
@@ -217,7 +217,7 @@ export const mockProducts = [
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
@@ -244,7 +244,7 @@ export const mockProducts = [
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
         text: `
           <p class="font-medium">Daigo Brainy</p>
           <p class="">Daigo Brainy - первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Пептид выделен из микроводоросли Chlorella pyrenoidosa по уникальной технологии IPH (Германия), способствует улучшению когнитивных функций, усиливая концентрацию, память и скорость мышления. В сочетании с L-изолейцином, L-лейцином, L-глутамином и L-аргинином он поддерживает работу нейронов, повышает умственную выносливость и помогает мозгу эффективнее справляться с учебными нагрузками.</p>
@@ -254,7 +254,7 @@ export const mockProducts = [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Brainy</p>
@@ -264,7 +264,7 @@ export const mockProducts = [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/brainy/sostav.png',
+        image: '/media-s3/products/brainy/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo Brainy</p>
@@ -331,7 +331,7 @@ export const mockProducts = [
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -363,10 +363,10 @@ export const mockProducts = [
         subtitle: 'Метабиотик Daigo и добавка с натуральным коротким пептидом хлореллы Daigo Brainy — инновационные продукты, которые производятся на легендарном заводе B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. \n\nНатуральный короткий пептид хлореллы для Daigo Brainy получен по запатентованной немецкой технологии IPH, которая служит примером прозрачности и высокого стандарта качества. Ее эффективность подтверждена точной методикой контроля — высокоэффективной жидкостной хроматографией, а соответствие фармакопеям США, Великобритании, Европы и Японии (USP, BP, EP, JP) гарантирует стабильный и безопасный состав. Daigo Brainy создается по органической технологии, которая включает: ультразвуковую гомогенизацию, фильтрацию, гидролиз, деликатную экстракцию при температуре 60 градусов и повторную ферментацию, контролируемое охлаждение и крио заморозку, распылительную сушку. Это делает Daigo Brainy чистым комплексом с 98% биодоступностью, где каждый элемент синергично усиливает друг друга, давая максимальный эффект.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/brainy/prod-2.png',
         ]
         },
       },
@@ -378,7 +378,7 @@ export const mockProducts = [
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/faq-brainy.png',
+        image: '/media-s3/products/brainy/faq-brainy.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
@@ -405,7 +405,7 @@ export const mockProducts = [
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -415,7 +415,7 @@ export const mockProducts = [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo dent</p>
@@ -425,7 +425,7 @@ export const mockProducts = [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/dent/sostav.png',
+        image: '/media-s3/products/dent/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -443,7 +443,7 @@ export const mockProducts = [
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -464,10 +464,10 @@ export const mockProducts = [
         subtitle: 'Метабиотик Daigo и зубная паста Daigo dent — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/dent/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/dent/prod-2.png',
         ]
         },
       },
@@ -479,7 +479,7 @@ export const mockProducts = [
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
@@ -506,11 +506,11 @@ export const mockProducts = [
       oldPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/sport-box/principles.png',
+        image: '/media-s3/products/sport-box/principles.png',
         text: `
           <p class="font-medium">Daigo Brainy</p>
           <p>Короткий натуральный пептид хлореллы блокирует провоспалительные сигнальные пути, снижая уровень скрытого воспаления в нервной ткани. Это помогает защитить нейроны от повреждений и улучшить их функциональность. Незаменимые аминокислоты служат строительным материалом для нейромедиаторов и участвуют в энергетическом обмене, поддерживая стабильную работу мозга.</p>
@@ -520,7 +520,7 @@ export const mockProducts = [
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/principles-2.png',
+        image: '/media-s3/products/sport-box/principles-2.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Jointic</p>
@@ -531,7 +531,7 @@ export const mockProducts = [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/sport-box/effect.png',
+        image: '/media-s3/products/sport-box/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo Brainy</p>
@@ -544,7 +544,7 @@ export const mockProducts = [
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/effect-2.png',
+        image: '/media-s3/products/sport-box/effect-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -562,11 +562,11 @@ L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэт�
           <p class="font-medium">Daigo Jointic</p>
           <p class="">Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/sport-box/sostav.png',
+        image: '/media-s3/products/sport-box/sostav.png',
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/sport-box/sostav-2.png',
+        image: '/media-s3/products/sport-box/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Lux</p>
@@ -674,23 +674,23 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/sport-box/prod-1.png',
-          'https://products.s3.firstvds.ru/sport-box/prod-2.png',
+          '/media-s3/products/sport-box/prod-1.png',
+          '/media-s3/products/sport-box/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/sport-box/product-1.png",
+                image_url: "/media-s3/products/sport-box/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/beauty-box/faq-beauty-box.png',
+        image: '/media-s3/products/beauty-box/faq-beauty-box.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },
@@ -718,7 +718,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
               text: `Жир печени трески с идеальным соотношением полезных веществ. Жир печени трески с идеальным соотношением полезных веществ: жирных кислот EPA и DHA, витаминов A и D <br><br>Сбор происходит в период наибольшего накопления полезных веществ - нереста трески. <br><br>Не содержит синтетических добавок и лишних примесей.
               <p class="mt-2 text-primary font-medium">60 капсул в одной упаковке</p>
               `,
-              image: 'https://products.s3.firstvds.ru/omega/desc-1.png'
+              image: '/media-s3/products/omega/desc-1.png'
             },
             {
               title: 'Омега-3',
@@ -727,7 +727,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 Однако сам организм их не производит, они поступают только извне.</p>
 <p>Омега - 3 жирные кислоты необходимы для полноценного роста и развития, а также для функционирования нервной, иммунной и сердечно-сосудистой систем, улучшают вязкость крови, поддерживают активность лейкоцитов, снижают уровень холестерина.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/omega/desc-2.png'
+              image: '/media-s3/products/omega/desc-2.png'
             },
           ]
         }
@@ -740,7 +740,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/omega/principles.png',
+        image: '/media-s3/products/omega/principles.png',
         text: `
           <p>Благодаря натуральному, преимущественно ручному, способу производства удаётся сохранить все питательные вещества и витамины без разрушения, в их естественном состоянии.
 
@@ -752,7 +752,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/omega/effect.png',
+        image: '/media-s3/products/omega/effect.png',
         content: `
           <ul class="list-disc list-inside ml-5 space-y-1">
             <li>Снижает уровень плохого холестерина и артериальное давление;</li>
@@ -781,10 +781,10 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>О
 Оболочка капсулы - желатин (из рыбьего жира).</p>
         `,
-        image: 'https://products.s3.firstvds.ru/omega/sostav.png',
+        image: '/media-s3/products/omega/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/omega/instructions.png',
+        image: '/media-s3/products/omega/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -803,32 +803,32 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Жир печени трески COD Liver Oil — важная часть продуктовой линейки бренда Daigo, созданная с тем же вниманием к качеству, что и легендарный метабиотик Daigo. Этот ценный продукт производится на том же заводе компании B&S Corporation, расположенном в уникальном месте — заповедной зоне у подножия горы Фудзи, где чистота природы и современные технологии создают идеальные условия для производства. Каждая партия COD Liver Oil проходит строгий контроль и соответствует всем требованиям международных стандартов GMP, что гарантирует сохранение всех полезных свойств и высочайшее качество продукта. Выбирая COD Liver Oil от Daigo, вы получаете не просто добавку, а натуральный продукт, созданный с японской тщательностью и заботой о вашем здоровье.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/omega/prod-1.png',
-          'https://products.s3.firstvds.ru/omega/prod-2.png',
+          '/media-s3/products/omega/prod-1.png',
+          '/media-s3/products/omega/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/omega/product-1.png",
+                image_url: "/media-s3/products/omega/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/omega/product-2.png",
+                image_url: "/media-s3/products/omega/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/omega/product-3.png",
+                image_url: "/media-s3/products/omega/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/omega/faq-omega.png',
+        image: '/media-s3/products/omega/faq-omega.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           { q: 'Можно ли детям?', a: 'Да. Дозировка зависит от возраста — см. раздел «Инструкция по применению».' },

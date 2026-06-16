@@ -1,6 +1,6 @@
 <template>
   <img
-    :src="normalizedSrc"
+    :src="currentSrc"
     :alt="alt"
     :width="width"
     :height="height"
@@ -8,11 +8,13 @@
     :fetchpriority="fetchPriority"
     decoding="async"
     :class="class"
+    @error="handleImageError"
   >
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
 
 const props = withDefaults(defineProps<{
   src: string
@@ -28,9 +30,23 @@ const props = withDefaults(defineProps<{
   eager: false,
 })
 
+const fallbackSrc = '/images/placeholder-product.png'
+
 const normalizedSrc = computed(() =>
-  String(props.src || '').trim() || '/images/placeholder-product.png'
+  normalizeMediaUrlOrFallback(props.src, fallbackSrc)
 )
 
+const currentSrc = ref(normalizedSrc.value)
+
+watch(normalizedSrc, (src) => {
+  currentSrc.value = src || fallbackSrc
+})
+
 const fetchPriority = computed(() => props.eager ? 'high' : 'auto')
+
+function handleImageError() {
+  if (currentSrc.value !== fallbackSrc) {
+    currentSrc.value = fallbackSrc
+  }
+}
 </script>

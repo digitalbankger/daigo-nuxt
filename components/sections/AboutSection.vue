@@ -9,7 +9,7 @@ const props = withDefaults(defineProps<{ showReadButton?: boolean }>(), {
 })
 
 const aboutVideo = {
-  src: 'https://s3.firstvds.ru/materials/daigo-about.mp4',
+  src: '/media-s3/materials/daigo-about.mp4',
   poster: '/images/about/about.jpg',
 }
 

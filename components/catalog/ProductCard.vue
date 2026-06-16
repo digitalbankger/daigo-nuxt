@@ -121,6 +121,7 @@ import { computed } from 'vue'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import CatalogCardImage from '~/components/catalog/CatalogCardImage.vue'
+import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -140,10 +141,11 @@ const cardImageClass = computed(() =>
 
 const primaryImage = computed(() => {
   const images = [product.image, ...(product.detailImages || [])]
-
-  return images
+  const firstImage = images
     .map((image) => String(image || '').trim())
-    .find(Boolean) || '/images/placeholder-product.png'
+    .find(Boolean)
+
+  return normalizeMediaUrlOrFallback(firstImage, '/images/placeholder-product.png')
 })
 
 const cartStore = useCartStore()

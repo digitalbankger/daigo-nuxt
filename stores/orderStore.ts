@@ -5,8 +5,14 @@ import type { OrderHistoryApiItem, OrderListItem, OrderCancelReason } from '~/ty
 import { useUserStore } from '@/stores/userStore'
 import { useAuthStore } from '@/stores/authStore'
 import { useCatalogStore } from '@/stores/catalogStore'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
-const API_HOST = (path: string) => (path?.startsWith('http') ? path : `https://api.daigo.ru${path}`)
+const API_HOST = (path: string) => {
+  const url = normalizeMediaUrl(path)
+  if (/^(https?:)?\/\//.test(url) || url.startsWith('data:') || url.startsWith('blob:')) return url
+  if (url.startsWith('/media-s3/') || url.startsWith('/images/') || url.startsWith('/icons/')) return url
+  return `https://api.daigo.ru${url.startsWith('/') ? url : `/${url}`}`
+}
 
 export const useOrderStore = defineStore('orderStore', () => {
   const orders = ref<OrderListItem[]>([])

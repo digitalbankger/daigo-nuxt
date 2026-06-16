@@ -293,8 +293,8 @@ async function submitCallback() {
 
 
               <div class="flex flex-col gap-4 mt-4">
-                <a href="https://s3.firstvds.ru/materials/preza.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>
-                <a href="https://s3.firstvds.ru/materials/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Да́йго</span></a>
+                <a href="/media-s3/materials/preza.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>
+                <a href="/media-s3/materials/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Да́йго</span></a>
               </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import { createError, defineEventHandler, getQuery, setHeader } from 'h3'
 import { promises as fs } from 'node:fs'
 import { extname, join, normalize } from 'node:path'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 type OutputFormat = 'webp' | 'avif' | 'jpeg' | 'png'
 
@@ -103,7 +104,7 @@ async function fetchImageBuffer(event: any, src: string): Promise<Buffer> {
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
-  const src = String(query.src || '').trim()
+  const src = normalizeMediaUrl(String(query.src || '').trim())
 
   if (!src) {
     throw createError({ statusCode: 400, statusMessage: 'Image src is required' })

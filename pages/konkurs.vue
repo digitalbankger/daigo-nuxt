@@ -21,7 +21,7 @@ const promoProducts: ProductCard[] = [
     title: 'DAIGO Jointic',
     price: '22 500 ₽',
     bonus: '11 250',
-    image: 'https://products.s3.firstvds.ru/jointic/product-1.png',
+    image: '/media-s3/products/jointic/product-1.png',
     href: '/catalog'
   },
   {
@@ -29,7 +29,7 @@ const promoProducts: ProductCard[] = [
     title: 'DAIGO 10 ml',
     price: '27 900 ₽',
     bonus: '13 850',
-    image: 'https://products.s3.firstvds.ru/daigo-10/product-1.png',
+    image: '/media-s3/products/daigo-10/product-1.png',
     href: '/catalog'
   },
   {

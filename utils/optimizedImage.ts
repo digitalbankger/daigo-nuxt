@@ -1,3 +1,5 @@
+import { isProxiedS3MediaUrl, normalizeMediaUrlOrFallback } from './mediaUrl'
+
 export type OptimizedImageFormat = 'avif' | 'webp'
 
 const OPTIMIZED_PREFIX = '/images/optimized'
@@ -39,9 +41,7 @@ function splitBaseName(fileName: string): { name: string; ext: string } {
 }
 
 export function normalizeOptimizedImageSrc(src?: string | null): string {
-  const value = String(src || '').trim()
-  if (!value) return FALLBACK_PLACEHOLDER
-  return value.replace(/^http:\/\//i, 'https://')
+  return normalizeMediaUrlOrFallback(src, FALLBACK_PLACEHOLDER)
 }
 
 export function isOptimizableImageSrc(src?: string | null): boolean {
@@ -53,6 +53,8 @@ export function isOptimizableImageSrc(src?: string | null): boolean {
   if (/^https?:\/\//i.test(normalized)) {
     return ENABLE_REMOTE_OPTIMIZED_IMAGES
   }
+
+  if (isProxiedS3MediaUrl(normalized)) return false
 
   return normalized.startsWith('/')
 }

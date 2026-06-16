@@ -1,5 +1,6 @@
 import { promises as fs } from 'node:fs'
 import { resolve } from 'node:path'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 const BASE_DIR = resolve(process.cwd(), 'content/articles-json')
 
@@ -8,6 +9,17 @@ let cacheList: { ts: number; items: AnyJson[] } | null = null
 
 export type AnyJson = Record<string, any>
 
+function normalizeArticleMedia(value: any): any {
+  if (typeof value === 'string') return normalizeMediaUrl(value)
+  if (Array.isArray(value)) return value.map(normalizeArticleMedia)
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, normalizeArticleMedia(item)]),
+    )
+  }
+  return value
+}
+
 export async function readArticle(slug: string): Promise<AnyJson | null> {
   try {
     const file = resolve(BASE_DIR, `${slug}.json`)
@@ -15,7 +27,7 @@ export async function readArticle(slug: string): Promise<AnyJson | null> {
     const data = JSON.parse(buf)
     // страховка: если в json нет slug – добавим из имени файла
     if (!data.slug) data.slug = slug
-    return data
+    return normalizeArticleMedia(data)
   } catch {
     return null
   }

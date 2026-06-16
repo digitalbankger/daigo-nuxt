@@ -1,3 +1,5 @@
+import { normalizeMediaUrlOrFallback } from './mediaUrl'
+
 export type CatalogImageOptions = {
   width?: number
   height?: number
@@ -11,9 +13,7 @@ const DEFAULT_QUALITY = 78
 const DEFAULT_FORMAT = 'webp'
 
 export function normalizeCatalogImageSrc(src?: string | null): string {
-  const value = String(src || '').trim()
-  if (!value) return '/images/placeholder-product.png'
-  return value.replace(/^http:\/\//i, 'https://')
+  return normalizeMediaUrlOrFallback(src, '/images/placeholder-product.png')
 }
 
 export function isDirectCatalogImageSrc(src?: string | null): boolean {

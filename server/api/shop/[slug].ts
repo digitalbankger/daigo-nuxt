@@ -25,7 +25,7 @@
 
 export default defineEventHandler((event) => {
   const { slug } = event.context.params!
-//https://products.s3.firstvds.ru/dent/
+///media-s3/products/dent/
   const productsMock = [
 
     // ==========================================
@@ -45,7 +45,7 @@ category: 'metabiotic',
 isActive: true,
 nabor: {
 title: 'Состав набора',
-image: 'https://s3.firstvds.ru/products/comp-new/balance-summer.png',
+image: '/media-s3/products/comp-new/balance-summer.png',
 text: `
 <p class="font-medium">Tamotsu (2 шт)</p>
 <p>Натуральный источник плазмалогенов из глубоководного морского гребешка и высококачественного коэнзима Q10. Поддерживает здоровье мозга, сердца и других энергозатратных органов.</p>
@@ -55,7 +55,7 @@ text: `
 },
 combo: {
 title: 'Принцип действия',
-image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+image: '/media-s3/products/tamotsu/principles.png',
 text: `
 <p class="font-medium">Tamotsu</p>
 <p>Плазмалогены являются важнейшими структурными компонентами мембран нейронов, обеспечивая их гибкость и стабильность. Коэнзим Q10 усиливает энергетический обмен в клетках, защищая нейроны от окислительного стресса.</p>
@@ -65,7 +65,7 @@ text: `
 },
 effect: {
 title: 'Эффект',
-image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+image: '/media-s3/products/tamotsu/effect.png',
 content: `
 <p class="font-medium">Tamotsu</p>
 <p>Помогает избавиться от «тумана» в голове, усилить концентрацию и снизить умственную усталость. Противостоит развитию сердечно-сосудистых и нейродегенеративных заболеваний.</p>
@@ -81,7 +81,7 @@ content: `
 <p class="font-medium">Daigo 10 мл</p>
 <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности: молочная и лимонная кислоты, витамин K2.</p>
 `,
-image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
+image: '/media-s3/products/tamotsu/sostav.png',
 },
 usageInstructions: {
 combos: [
@@ -107,15 +107,15 @@ title: 'Производство революционных продуктов D
 subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
 images: {
 type: 'gallery',
-topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+topImage: '/media-s3/products/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
-'https://products.s3.firstvds.ru/tamotsu/prod-2.png',
+'/media-s3/products/tamotsu/prod-1.png',
+'/media-s3/products/tamotsu/prod-2.png',
 ]
 },
 },
 images: [
-{ image_url: "https://s3.firstvds.ru/products/comp-new/balance-summer.png", is_primary: true, display_order: 0 }
+{ image_url: "/media-s3/products/comp-new/balance-summer.png", is_primary: true, display_order: 0 }
 ],
 },
 
@@ -136,7 +136,7 @@ category: 'metabiotic',
 isActive: true,
 nabor: {
 title: 'Состав набора',
-image: 'https://s3.firstvds.ru/products/comp-new/hear-max.png',
+image: '/media-s3/products/comp-new/hear-max.png',
 text: `
 <p class="font-medium">Daigo Shampoo Lux (2 шт)</p>
 <p>Шампунь для восстановления правильного баланса микрофлоры кожи головы и выработки коллагена в глубоких слоях кожи.</p>
@@ -146,7 +146,7 @@ text: `
 },
 combo: {
 title: 'Принцип действия',
-image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+image: '/media-s3/products/shampo/principles.png',
 text: `
 <p class="font-medium">Daigo Shampoo Lux</p>
 <p>Содержит экстракт брожения лактобактерий и увлажняющий ингредиент a-EG из японского саке. a-EG усиливает выработку коллагена вокруг корней волос, а метаболиты восстанавливают микрофлору кожи головы.</p>
@@ -156,7 +156,7 @@ text: `
 },
 effect: {
 title: 'Эффект',
-image: 'https://products.s3.firstvds.ru/shampo/effect.png',
+image: '/media-s3/products/shampo/effect.png',
 content: `
 <p class="font-medium">Daigo Shampoo Lux</p>
 <p>Восстанавливает микрофлору кожи головы, увеличивает содержание коллагена у корней волос, укрепляет волосяные луковицы, предотвращает выпадение и раннюю седину.</p>
@@ -172,7 +172,7 @@ content: `
 <p class="font-medium">Daigo 10 мл</p>
 <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
 `,
-image: 'https://products.s3.firstvds.ru/shampo/sostav.png',
+image: '/media-s3/products/shampo/sostav.png',
 },
 usageInstructions: {
 combos: [
@@ -198,15 +198,15 @@ title: 'Производство революционных продуктов D
 subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
 images: {
 type: 'gallery',
-topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+topImage: '/media-s3/products/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/shampo/prod-1.png',
-'https://products.s3.firstvds.ru/shampo/prod-2.png',
+'/media-s3/products/shampo/prod-1.png',
+'/media-s3/products/shampo/prod-2.png',
 ]
 },
 },
 images: [
-{ image_url: "https://s3.firstvds.ru/products/comp-new/hear-max.png", is_primary: true, display_order: 0 }
+{ image_url: "/media-s3/products/comp-new/hear-max.png", is_primary: true, display_order: 0 }
 ],
 },
 
@@ -227,7 +227,7 @@ category: 'metabiotic',
 isActive: true,
 nabor: {
 title: 'Состав набора',
-image: 'https://s3.firstvds.ru/products/comp-new/active-summer.png',
+image: '/media-s3/products/comp-new/active-summer.png',
 text: `
 <p class="font-medium">Daigo Jointic (3 шт)</p>
 <p>БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Оказывает поддержку суставов и укрепляет костно-мышечную систему.</p>
@@ -237,7 +237,7 @@ text: `
 },
 combo: {
 title: 'Принцип действия',
-image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+image: '/media-s3/products/jointic/principles.png',
 text: `
 <p class="font-medium">Daigo Jointic</p>
 <p>Пептид хлореллы IPH снижает уровень скрытого воспаления в суставах и нервных структурах. Аминокислоты служат строительным материалом для регенерации соединительных тканей.</p>
@@ -247,7 +247,7 @@ text: `
 },
 effect: {
 title: 'Эффект',
-image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+image: '/media-s3/products/jointic/effect.png',
 content: `
 <p class="font-medium">Daigo Jointic</p>
 <p>Улучшает работу суставов, укрепляет хрящевую и мышечную ткани, восстанавливает связки после травм. Повышает физическую выносливость.</p>
@@ -263,7 +263,7 @@ content: `
 <p class="font-medium">Daigo 10 мл</p>
 <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
 `,
-image: 'https://products.s3.firstvds.ru/jointic/sostav.png',
+image: '/media-s3/products/jointic/sostav.png',
 },
 usageInstructions: {
 combos: [
@@ -289,15 +289,15 @@ title: 'Производство революционных продуктов D
 subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
 images: {
 type: 'gallery',
-topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+topImage: '/media-s3/products/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/jointic/principles.png',
-'https://products.s3.firstvds.ru/brainy/prod-2.png',
+'/media-s3/products/jointic/principles.png',
+'/media-s3/products/brainy/prod-2.png',
 ]
 },
 },
 images: [
-{ image_url: "https://s3.firstvds.ru/products/comp-new/active-summer.png", is_primary: true, display_order: 0 }
+{ image_url: "/media-s3/products/comp-new/active-summer.png", is_primary: true, display_order: 0 }
 ],
 },
 
@@ -318,7 +318,7 @@ category: 'metabiotic',
 isActive: true,
 nabor: {
 title: 'Состав набора',
-image: 'https://s3.firstvds.ru/products/comp-new/skin-set.png',
+image: '/media-s3/products/comp-new/skin-set.png',
 text: `
 <p class="font-medium">Daigo Lux (1 шт)</p>
 <p>Японский органический метабиотик премиум-класса. Создает идеальную среду для роста родных полезных кишечных бактерий, влияя на чистоту и здоровье кожи изнутри.</p>
@@ -328,7 +328,7 @@ text: `
 },
 combo: {
 title: 'Принцип действия',
-image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+image: '/media-s3/products/dermic/principles.png',
 text: `
 <p class="font-medium">Daigo Lux</p>
 <p>Здоровый микробиом кишечника — залог чистой и сияющей кожи. Daigo Lux снижает системное воспаление и улучшает усвоение нутриентов, необходимых для кожи.</p>
@@ -338,7 +338,7 @@ text: `
 },
 effect: {
 title: 'Эффект',
-image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+image: '/media-s3/products/dermic/effect.png',
 content: `
 <p class="font-medium">Daigo Lux</p>
 <p>Нейтрализация аллергических реакций, омоложение кожи, повышение работоспособности и выносливости, укрепление иммунитета.</p>
@@ -354,7 +354,7 @@ content: `
 <p class="font-medium">Daigo Dermic</p>
 <p>Chlorella Peptid IPH, L-глутамин, L-изолейцин, L-лейцин, L-аргинин, Пектиназа, Альфа-липоевая кислота, Цинк, Ниацинамид, Витамины В5, А, Н.</p>
 `,
-image: 'https://products.s3.firstvds.ru/dermic/sostav.png',
+image: '/media-s3/products/dermic/sostav.png',
 },
 usageInstructions: {
 combos: [
@@ -380,15 +380,15 @@ title: 'Производство революционных продуктов D
 subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
 images: {
 type: 'gallery',
-topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+topImage: '/media-s3/products/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/dermic/prod-1.png',
-'https://products.s3.firstvds.ru/dermic/prod-2.png',
+'/media-s3/products/dermic/prod-1.png',
+'/media-s3/products/dermic/prod-2.png',
 ]
 },
 },
 images: [
-{ image_url: "https://s3.firstvds.ru/products/comp-new/skin-set.png", is_primary: true, display_order: 0 }
+{ image_url: "/media-s3/products/comp-new/skin-set.png", is_primary: true, display_order: 0 }
 ],
 },
 
@@ -409,7 +409,7 @@ category: 'metabiotic',
 isActive: true,
 nabor: {
 title: 'Состав набора',
-image: 'https://s3.firstvds.ru/products/comp-new/beauty-reserve.png',
+image: '/media-s3/products/comp-new/beauty-reserve.png',
 text: `
 <p class="font-medium">Daigo Dermic (3 шт)</p>
 <p>БАД с натуральным коротким пептидом хлореллы IPH. Улучшает защитную и эстетическую функции кожи, обеспечивает профилактику преждевременного старения.</p>
@@ -419,7 +419,7 @@ text: `
 },
 combo: {
 title: 'Принцип действия',
-image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+image: '/media-s3/products/dermic/principles.png',
 text: `
 <p class="font-medium">Daigo Dermic</p>
 <p>Пептид хлореллы IPH воздействует на фундаментальные механизмы старения кожи, активируя синтез нового коллагена и защищая волокна от разрушения.</p>
@@ -429,7 +429,7 @@ text: `
 },
 effect: {
 title: 'Эффект',
-image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+image: '/media-s3/products/dermic/effect.png',
 content: `
 <p class="font-medium">Daigo Dermic</p>
 <p>Улучшение текстуры и цвета кожи, сохранение упругости, профилактика старения от УФ-излучения, улучшение здоровья ногтей и волос.</p>
@@ -445,7 +445,7 @@ content: `
 <p class="font-medium">Daigo 10 мл</p>
 <p>Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus, регуляторы кислотности, витамин K2.</p>
 `,
-image: 'https://products.s3.firstvds.ru/dermic/sostav.png',
+image: '/media-s3/products/dermic/sostav.png',
 },
 usageInstructions: {
 combos: [
@@ -471,15 +471,15 @@ title: 'Производство революционных продуктов D
 subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. Компания-производитель B&S Corporation. Производство соответствует стандартам GMP.',
 images: {
 type: 'gallery',
-topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+topImage: '/media-s3/products/tamotsu/prod-gen.png',
 bottomImages: [
-'https://products.s3.firstvds.ru/dermic/prod-1.png',
-'https://products.s3.firstvds.ru/daigo-10/prod-1.png',
+'/media-s3/products/dermic/prod-1.png',
+'/media-s3/products/daigo-10/prod-1.png',
 ]
 },
 },
 images: [
-{ image_url: "https://s3.firstvds.ru/products/comp-new/beauty-reserve.png", is_primary: true, display_order: 0 }
+{ image_url: "/media-s3/products/comp-new/beauty-reserve.png", is_primary: true, display_order: 0 }
 ],
 },
 
@@ -698,7 +698,7 @@ images: [
               title: 'Клинически доказано',
               text: `Снижение риска возникновения кариеса полости рта в результате использования Daigo Dent, благодаря улучшению слюной функции.
               `,
-              image: 'https://products.s3.firstvds.ru/dent/desc-1.png'
+              image: '/media-s3/products/dent/desc-1.png'
             },
             {
               title: '4 активных компонента',
@@ -724,11 +724,11 @@ images: [
       originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/dent/video-cover.png',
+      videoPoster: '/media-s3/products/dent/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p>Основной ингредиент японской зубной пасты Дайго дент - это ценные ферменты 
           от 16 видов полезных лактобактерий!
@@ -741,7 +741,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/dent/effect.png',
+        image: '/media-s3/products/dent/effect.png',
         content: `
           <h4 class="font-medium mb-4">Зубная паста Дайго Дент:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -763,10 +763,10 @@ images: [
           <p><strong>Состав</strong>: Карбонат кальция, вода, глицерин, морская соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
           <p>Паста не содержит фтора и ПАВ, парабенов, консервантов, ароматизаторов и пенообразующих веществ.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/dent/sostav.png',
+        image: '/media-s3/products/dent/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/dent/instructions.png',
+        image: '/media-s3/products/dent/instructions.png',
         text: `<h3 class="font-medium mt-3">Способы применения зубной пасты Дайго Дент:</h3>
         <p class="text-sm sm:text-base lg:text-lg leading-tight mt-3">Используйте ежедневно для гигиены полости рта и эффективной защиты от налёта на зубах, покраснения, кровоточивости дёсен и отёка дёсен, зубного камня, запаха изо рта, налёта на языке, кариеса, пародонтита и т.д.
         </p>
@@ -779,37 +779,37 @@ images: [
         subtitle: 'Daigo dent создают на том же высокотехнологичном производстве, что и легендарный метабиотик Daigo. Завод B&S Corporation, расположенный в одном из самых экологически чистых мест Японии — у подножия Фудзи, — гарантирует безукоризненное качество. Международные стандарты GMP, строгий контроль и японская скрупулёзность делают Daigo dent не просто пастой, а эталоном заботы о здоровье зубов.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/dent/prod-1.png',
-          'https://products.s3.firstvds.ru/dent/prod-2.png',
+          '/media-s3/products/dent/prod-1.png',
+          '/media-s3/products/dent/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/dent/product-1.png",
+                image_url: "/media-s3/products/dent/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/dent/product-2.png",
+                image_url: "/media-s3/products/dent/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/dent/product-3.png",
+                image_url: "/media-s3/products/dent/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/dent/product-4.png",
+                image_url: "/media-s3/products/dent/product-4.png",
                 is_primary: false,
                 display_order: 0
             }
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -837,27 +837,27 @@ images: [
               <p class="">Японские ученые выяснили, что a-EG при низких концентрациях и воздействии на кожу в течении 
 15 минут обладает высокой увлажняющей способностью и усиливает выработку коллагена вокруг корней волос.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/shampo/desc-1.png'
+              image: '/media-s3/products/shampo/desc-1.png'
             },
             {
               title: 'Улучшает состояние волос',
               text: `Шампунь повышает выработку коллагена в глубоких слоях кожи вокруг корней волос`,
-              image: 'https://products.s3.firstvds.ru/shampo/desc-2.png'
+              image: '/media-s3/products/shampo/desc-2.png'
             },
             {
               title: 'Повышает иммунитет',
               text: `Daigo Shampoo повышает иммунитет и инфекционный контроль`,
-              image: 'https://products.s3.firstvds.ru/shampo/desc-3.png'
+              image: '/media-s3/products/shampo/desc-3.png'
             },
             {
               title: 'Уменьшает проблемы с кожей',
               text: `Daigo Shampoo постепенно восстанавливает микрофлору кожи головы`,
-              image: 'https://products.s3.firstvds.ru/shampo/desc-4.png'
+              image: '/media-s3/products/shampo/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: `Увеличивает количество полезной микрофлоры, одновременно подавляя патогенные бактерии`,
-              image: 'https://products.s3.firstvds.ru/shampo/desc-5.png'
+              image: '/media-s3/products/shampo/desc-5.png'
             },
           ]
         }
@@ -870,7 +870,7 @@ images: [
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+        image: '/media-s3/products/shampo/principles.png',
         text: `
           <p class="font-medium">Экстракт брожения риса a-EG</p>
 
@@ -882,7 +882,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/shampo/effect.png',
+        image: '/media-s3/products/shampo/effect.png',
         content: `
           <ul class="list-disc list-inside ml-5 space-y-1">
             <li>Восстанавливает здоровый баланс микрофлоры кожи головы,</li>
@@ -902,10 +902,10 @@ images: [
         content: `
           <p>Экстракт брожения риса a-EG, экстракт брожения 16 видов полезных лактобактерий, экстракт цветков Адониса Палестинского, аминокислота (Аргинин), вытяжка из корня солодки, масла зёрен апельсина, семян подсолнуха, листьев эвкалипта, лаванды, вода, кокамидопропилбетаин, ТЕА-кокоил глутамат, кокамид ДЭА, натрия лауроил метиламинопропионат, пентиленгликоль, ПЭГ-150 дистеарат, дипропиленгликоль, гидролизованный кератин, глицерил глюкозид, бетаин, каприлилгликоль, глицерин, поликвартениум-10, аргинин, бутиленгликоль, феноксиэтанол.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/shampo/sostav.png',
+        image: '/media-s3/products/shampo/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/shampo/instructions.png',
+        image: '/media-s3/products/shampo/instructions.png',
         text: `<p>Нанести необходимое количество шампуня на влажные волосы и кожу головы, хорошо помассировать кожу головы и смыть, затем ещё раз нанести шампунь, помассировать и промыть.</p>
         <p>Можно использовать в качестве маски для волос, оставив шампунь на волосах на 5–10 минут.</p>
 
@@ -922,33 +922,33 @@ images: [
         subtitle: 'Daigo Lux Shampoo создаётся там же, где и легендарный метабиотик Daigo — в экологически чистой заповедной зоне у священной горы Фудзи. Это место, где традиции японского качества сочетаются с передовыми технологиями производства. Производство соответствует строгим международным стандартам GMP (Good Manufacturing Practice), что гарантирует безупречную чистоту и безопасность каждого компонента, точную дозировку активных веществ и стабильное качество каждой партии продукта. Как и метабиотик Daigo, шампунь Daigo Lux создаётся с заботой о здоровье и красоте. Благодаря уникальной формуле и чистоте производства он мягко ухаживает за волосами, сохраняя их силу и естественное сияние.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/shampo/prod-1.png',
-          'https://products.s3.firstvds.ru/shampo/prod-2.png',
+          '/media-s3/products/shampo/prod-1.png',
+          '/media-s3/products/shampo/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/shampo/product-1.png",
+                image_url: "/media-s3/products/shampo/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/shampo/product-2.png",
+                image_url: "/media-s3/products/shampo/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/shampo/product-3.png",
+                image_url: "/media-s3/products/shampo/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/shampo/faq-shampo.png',
+        image: '/media-s3/products/shampo/faq-shampo.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -975,7 +975,7 @@ images: [
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/lactis/principles.png',
+        image: '/media-s3/products/lactis/principles.png',
         text: `
           <p class="font-medium">Секреторные выделения лактобактерий</p>
 
@@ -987,7 +987,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/lactis/effect.png',
+        image: '/media-s3/products/lactis/effect.png',
         content: `
           <ul class="list-disc list-inside ml-5 space-y-1">
             <li>Восстанавливает полезную микрофлору во всём организме: кишечнике, всех слизистых, коже, шерсти</li>
@@ -1010,10 +1010,10 @@ images: [
         content: `
           <p>Вода, молочная кислота, подсластитель неотама, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: <br><br>L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016).</p>
         `,
-        image: 'https://products.s3.firstvds.ru/lactis/effect.png',
+        image: '/media-s3/products/lactis/effect.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/lactis/instructions.png',
+        image: '/media-s3/products/lactis/instructions.png',
         text: `<p class="font-medium">Внутренний прием</p>
         <p>1 способ: Наберите в шприц необходимое количество Lactis Zoo и, аккуратно придерживая голову животного, проведите впрыск препарата на корень языка.</p>
 
@@ -1032,37 +1032,37 @@ images: [
         subtitle: 'Lactis Zoo производится там же, где и легендарный метабиотик Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/Image.png',
+        topImage: '/media-s3/products/dent/Image.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/shampo/prod.png',
-          'https://products.s3.firstvds.ru/shampo/prod.png',
+          '/media-s3/products/shampo/prod.png',
+          '/media-s3/products/shampo/prod.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/lactis/product-1.png",
+                image_url: "/media-s3/products/lactis/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/lactis/product-2.png",
+                image_url: "/media-s3/products/lactis/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/lactis/product-3.png",
+                image_url: "/media-s3/products/lactis/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/lactis/product-4.png",
+                image_url: "/media-s3/products/lactis/product-4.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/lactis/principles.png',
+        image: '/media-s3/products/lactis/principles.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1091,38 +1091,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-1.png'
+              image: '/media-s3/products/daigo-10/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -1133,11 +1133,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/daigo-10/video-cover.png',
+      videoPoster: '/media-s3/products/daigo-10/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -1149,7 +1149,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/effect.png',
+        image: '/media-s3/products/daigo-10/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -1181,10 +1181,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-10/sostav.png',
+        image: '/media-s3/products/daigo-10/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-10/instructions.png',
+        image: '/media-s3/products/daigo-10/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -1208,7 +1208,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-10/prod-gen.png',
+          image: '/media-s3/products/daigo-10/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -1225,33 +1225,33 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-10/prod-1.png'
+          image: '/media-s3/products/daigo-10/prod-1.png'
         }
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-10/product-1.png",
+                image_url: "/media-s3/products/daigo-10/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-10/product-2.png",
+                image_url: "/media-s3/products/daigo-10/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-10/product-3.png",
+                image_url: "/media-s3/products/daigo-10/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-10/product-4.png",
+                image_url: "/media-s3/products/daigo-10/product-4.png",
                 is_primary: false,
                 display_order: 0
             }
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-10/faq-daigo.png',
+        image: '/media-s3/products/daigo-10/faq-daigo.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1281,38 +1281,38 @@ images: [
                 <p class="font-medium">Коэнзим Q10</p>
                 <p>Коэнзим Q10 - природный агент, принимающий участие в процессе клеточного дыхания. Омолаживает клетки и является антиоксидантом.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-1.png'
+              image: '/media-s3/products/tamotsu/desc-1.png'
             },
             {
               title: 'Борьба с когнитивной усталостью',
               text: 'Информационное истощение, хроническая утомляемость, психоэмоциональные перегрузки, рассеянность внимания, снижение памяти, нарушения сна, неустойчивость настроения',
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-2.png'
+              image: '/media-s3/products/tamotsu/desc-2.png'
             },
             {
               title: 'Противостоит нарушению обмена веществ',
               text: 'Сахарный диабет, заболевания печени, почек, щитовидной железы',
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-3.png'
+              image: '/media-s3/products/tamotsu/desc-3.png'
             },
             {
               title: 'Препятствует развитию возрастных нейродегенеративных заболеваний',
               text: 'Болезнь Альцгеймера, деменция с тельцами Леви, болезнь Паркинсона',
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-4.png'
+              image: '/media-s3/products/tamotsu/desc-4.png'
             },
             {
               title: 'Снижает развитие сердечных заболеваний ',
               text: 'Различные формы ишемической болезни сердца, артериальная гипертензия, миокардиодистрофия, нарушения сердечного ритма и проводимости',
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-5.png'
+              image: '/media-s3/products/tamotsu/desc-5.png'
             },
             {
               title: 'Ускоряет восстановление после операций и травм',
               text: `Тяжёлый физический труд, занятия спортом,
 ускорение выздоровления в постоперационный период и после перенесённых заболеваний`,
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-6.png'
+              image: '/media-s3/products/tamotsu/desc-6.png'
             },
             {
               title: 'Противостоит развитию сосудистых заболеваний ',
               text: `Инфаркт головного мозга в «стратегических зонах», хроническая ишемия головного мозга, мультинфарктное состояние, атеросклероз`,
-              image: 'https://products.s3.firstvds.ru/tamotsu/desc-7.png'
+              image: '/media-s3/products/tamotsu/desc-7.png'
             }
           ]
         }
@@ -1321,11 +1321,11 @@ images: [
       originalPrice: null,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/tamotsu/video-cover.png',
+      videoPoster: '/media-s3/products/tamotsu/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+        image: '/media-s3/products/tamotsu/principles.png',
         text: `
           <p>Плазмалогены — это отдельный класс липидов, их основной задачей является защита ПНЖК от агрессивного окисления, также они управляют выбросами холестерина клетками. Эти удивительные вещества вырабатываются в печени, затем они транспортируются с помощью липопротеидов в головной мозг, где выполняют регулирующие функции.</p>
 
@@ -1335,7 +1335,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         content: `
           <h4 class="font-medium mb-4">Продукт применяется для профилактики и реабилитации при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -1362,10 +1362,10 @@ images: [
             <li>Соли кальция (агент антислеживающий)</li>
           </ul>
         `,
-        image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
+        image: '/media-s3/products/tamotsu/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/tamotsu/instructions.png',
+        image: '/media-s3/products/tamotsu/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -1387,32 +1387,32 @@ images: [
         subtitle: 'Tamotsu производится на том же заводе, где и легендарный метабиотик Daigo. Завод-производитель B&S Corporation. Фабрика расположена в заповедной зоне у горы Фудзи и полностью соответствует Международным стандартам GMP. Плазмалогены добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка. \n\n1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген; \n\n2. Из обработанных морских гребешков получают липиды; \n\n3. Далее следует этап очистки жира. \n\nВ итоге получаются плазмалогены высочайшего качества, биодоступности, безопасности и эффективности. В комбинации с коэнзимом Q10 они приносят колоссальную пользу для организма в составе БАДа Tamotsu.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
-          'https://products.s3.firstvds.ru/tamotsu/prod-2.png',
+          '/media-s3/products/tamotsu/prod-1.png',
+          '/media-s3/products/tamotsu/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/tamotsu/product-1.png",
+                image_url: "/media-s3/products/tamotsu/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/tamotsu/product-2.png",
+                image_url: "/media-s3/products/tamotsu/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/tamotsu/product-3.png",
+                image_url: "/media-s3/products/tamotsu/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
+        image: '/media-s3/products/tamotsu/prod-1.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1439,27 +1439,27 @@ images: [
               text: `<p>Натуральный короткий пептид хлореллы в составе Daigo Brainy выделен из микроводоросли Chlorella pyrenoidosa по уникальной технологии IPH в Германии.</p>
               <p class="">Он обладает мощным регулирующим действием, а в сочетании с четырьмя ключевыми аминокислотами — L-изолейцином, L-лейцином, L-глутамином и L-аргинином образует основу для нового поколения препаратов, которые не просто временно решают проблемы, а помогают организму самостоятельно восстанавливать баланс</p>
               `,
-              image: 'https://products.s3.firstvds.ru/brainy/desc-1.png'
+              image: '/media-s3/products/brainy/desc-1.png'
             },
             {
               title: 'Уникальные капсулы',
               text: `60 уникальных пуллулановых капсул в одной упаковке`,
-              image: 'https://products.s3.firstvds.ru/brainy/desc-2.png'
+              image: '/media-s3/products/brainy/desc-2.png'
             },
             {
               title: 'Высокая усвояемость',
               text: `Усвояемость в 3 раза выше чем у других пептидов`,
-              image: 'https://products.s3.firstvds.ru/brainy/desc-3.png'
+              image: '/media-s3/products/brainy/desc-3.png'
             },
             {
               title: 'Восстановление на клеточном уровне',
               text: `Дайго Брейни убирает скрытое воспаление и очищает от межклеточного мусора`,
-              image: 'https://products.s3.firstvds.ru/brainy/desc-4.png'
+              image: '/media-s3/products/brainy/desc-4.png'
             },
             {
               title: 'Пептид Хлореллы',
               text: `Короткая молекулярная структуре, обеспечивает быстрое проникновение в клетки и высокую биодоступность.`,
-              image: 'https://products.s3.firstvds.ru/brainy/desc-5.png'
+              image: '/media-s3/products/brainy/desc-5.png'
             },
           ]
         }
@@ -1472,7 +1472,7 @@ images: [
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
         text: `
           <p class="">1 этап. Биоразнообразие – повышение функциональности полезных бактерий.</p>
 
@@ -1483,7 +1483,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/brainy/effect.png',
+        image: '/media-s3/products/brainy/effect.png',
         content: `
           <h4 class="font-medium mb-4">Daigo Brainy показан при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -1550,10 +1550,10 @@ images: [
             </div>
           </div>
         `,
-        image: 'https://products.s3.firstvds.ru/brainy/sostav.png',
+        image: '/media-s3/products/brainy/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/brainy/instructions.png',
+        image: '/media-s3/products/brainy/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -1571,33 +1571,33 @@ images: [
         subtitle: 'В основе Daigo Brainy лежит натуральный короткий пептид хлореллы, полученный путём ферментации белковых остатков зелёных водорослей Chlorella pyrenoidosa по запатентованной немецкой технологии IPH, которая служит примером прозрачности и высокого стандарта качества. Её эффективность подтверждена точной методикой контроля — высокоэффективной жидкостной хроматографией, а соответствие фармакопеям США, Великобритании, Европы и Японии (USP, BP, EP, JP) гарантирует стабильный и безопасный состав. \n\nDaigo Brainy создаётся по органической технологии, которая включает: ультразвуковую гомогенизацию, фильтрацию, гидролиз, деликатную экстракцию при температуре 60 градусов и повторную ферментацию, контролируемое охлаждение и крио заморозку, распылительную сушку. \n\nЭто делает Daigo Brainy чистым комплексом с 98% биодоступностью, где каждый элемент синергично усиливает друг друга, давая максимальный эффект.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-1.png',
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
+          '/media-s3/products/brainy/prod-1.png',
+          '/media-s3/products/brainy/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/brainy/product-1.png",
+                image_url: "/media-s3/products/brainy/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/brainy/product-2.png",
+                image_url: "/media-s3/products/brainy/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/brainy/product-3.png",
+                image_url: "/media-s3/products/brainy/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/faq-brainy.png',
+        image: '/media-s3/products/brainy/faq-brainy.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1624,27 +1624,27 @@ images: [
               text: `<p>Daigo Jointic — <span class="font-medium text-primary">это революция в лечении суставов</span>, сочетающая скорость НПВП и глубину действия усиленной пептидной терапии без побочных эффектов и противопоказаний.</p>
               <p class="">Натуральный короткий пептид хлореллы в составе Daigo Jointic выделен из микроводоросли Chlorella pyrenoidosa по уникальной технологии IPH в Германии. Он обладает мощным регулирующим действием, а в сочетании с четырьмя ключевыми аминокислотами — L-изолейцином, L-лейцином, L-глутамином и L-аргинином образует основу для нового поколения препаратов, которые не просто временно решают проблемы, а помогают организму самостоятельно восстанавливать баланс</p>
               `,
-              image: 'https://products.s3.firstvds.ru/jointic/desc-1.png'
+              image: '/media-s3/products/jointic/desc-1.png'
             },
             {
               title: 'Уникальные капсулы',
               text: `60 уникальных пуллулановых капсул в одной упаковке`,
-              image: 'https://products.s3.firstvds.ru/jointic/desc-2.png'
+              image: '/media-s3/products/jointic/desc-2.png'
             },
             {
               title: 'Высокая усвояемость',
               text: `Доставляемость питательных веществ в организм 98%. Превышает аналоги в 2-3 раза. Начинает действовать через 15 минут.`,
-              image: 'https://products.s3.firstvds.ru/jointic/desc-3.png'
+              image: '/media-s3/products/jointic/desc-3.png'
             },
             {
               title: 'Восстановление на клеточном уровне',
               text: `Борется с причиной болей в суставах, а не с их симптомами. Омолаживает организм регенирируя клетки, выводя токсины и снимая скрытые воспаления.`,
-              image: 'https://products.s3.firstvds.ru/jointic/desc-4.png'
+              image: '/media-s3/products/jointic/desc-4.png'
             },
             {
               title: 'Пептид Хлореллы',
               text: `Короткая молекулярная структуре, обеспечивает быстрое проникновение в клетки и высокую биодоступность.`,
-              image: 'https://products.s3.firstvds.ru/jointic/desc-5.png'
+              image: '/media-s3/products/jointic/desc-5.png'
             },
           ]
         }
@@ -1657,7 +1657,7 @@ images: [
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+        image: '/media-s3/products/jointic/principles.png',
         text: `
           <p class="">1 этап. Биоразнообразие – повышение функциональности полезных бактерий.</p>
           <p>2 этап. Устранение инфламэйджинга (снятие низкомолекулярного воспаления).
@@ -1667,7 +1667,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+        image: '/media-s3/products/jointic/effect.png',
         content: `
           <p>Улучшает работу суставов, укрепляет хрящевую, костную и мышечную ткани, восстанавливает суставы и связки после травм.</p> <p>Он также повышает физическую выносливость и эффективность тренировок. Также эффективен при седалищной, тазовой и других невропатических болях. Подходит в качестве дополнительного средства при реабилитации в части патологии суставов, для укрепления суставов у людей с избыточной массой тела.</p> <p>Его также можно использовать после периода вынужденной гиподинамии (например, вследствие травм, после инфекционных заболеваний и т.д.).</p>
         `
@@ -1723,10 +1723,10 @@ images: [
           </div>
 
         `,
-        image: 'https://products.s3.firstvds.ru/jointic/sostav.png',
+        image: '/media-s3/products/jointic/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+        image: '/media-s3/products/jointic/principles.png',
         groups: [
           {
             title: 'Взрослым',
@@ -1744,33 +1744,33 @@ images: [
         subtitle: 'В основе Daigo Jointic лежит натуральный короткий пептид хлореллы, полученный путём ферментации белковых остатков зелёных водорослей Chlorella pyrenoidosa по запатентованной немецкой технологии IPH, которая служит примером прозрачности и высокого стандарта качества. Её эффективность подтверждена точной методикой контроля — высокоэффективной жидкостной хроматографией, а соответствие фармакопеям США, Великобритании, Европы и Японии (USP, BP, EP, JP) гарантирует стабильный и безопасный состав.\n\nDaigo Jointic создаётся по органической технологии, которая включает: ультразвуковую гомогенизацию, фильтрацию, гидролиз, деликатную экстракцию при температуре 60 градусов и повторную ферментацию, контролируемое охлаждение и крио заморозку, распылительную сушку.\n\nЭто делает Daigo Jointic чистым комплексом с 98% биодоступностью, где каждый элемент синергично усиливает друг друга, давая максимальный эффект.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-1.png',
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
+          '/media-s3/products/brainy/prod-1.png',
+          '/media-s3/products/brainy/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/jointic/product-1.png",
+                image_url: "/media-s3/products/jointic/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/jointic/product-2.png",
+                image_url: "/media-s3/products/jointic/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/jointic/product-3.png",
+                image_url: "/media-s3/products/jointic/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/faq-brainy.png',
+        image: '/media-s3/products/brainy/faq-brainy.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1798,27 +1798,27 @@ images: [
               <p class="">Натуральный короткий пептид хлореллы, полученный в Германии по инновационной немецкой технологии IPH из микроводоросли Chlorella pyrenoidosa, не просто временно улучшает состояние кожи, а перепрограммирует клеточные процессы, стимулируя естественные механизмы омоложения: активирует синтез нового коллагена, защищает существующие волокна от разрушения и усиливает способность кожи к самовосстановлению, создавая эффект «внутреннего лифтинга».</p>
               <p class="">Незаменимые аминокислоты обеспечивают клетки всем необходимым для реализации этой программы».</p>
               `,
-              image: 'https://products.s3.firstvds.ru/dermic/desc-1.png'
+              image: '/media-s3/products/dermic/desc-1.png'
             },
             {
               title: 'Уникальные капсулы',
               text: `60 уникальных пуллулановых капсул в одной упаковке`,
-              image: 'https://products.s3.firstvds.ru/dermic/desc-2.png'
+              image: '/media-s3/products/dermic/desc-2.png'
             },
             {
               title: 'Высокая усвояемость',
               text: `Биодоступность активных компонентов — 98%. По эффективности превосходит аналоги в 3–5 раз`,
-              image: 'https://products.s3.firstvds.ru/dermic/desc-3.png'
+              image: '/media-s3/products/dermic/desc-3.png'
             },
             {
               title: 'Восстановление на клеточном уровне',
               text: `Daigo Dermic — революционный пептид для омоложения кожи на клеточном уровне`,
-              image: 'https://products.s3.firstvds.ru/dermic/desc-4.png'
+              image: '/media-s3/products/dermic/desc-4.png'
             },
             {
               title: 'Пептид Хлореллы',
               text: `Короткая молекулярная структуре, обеспечивает быстрое проникновение в клетки и высокую биодоступность.`,
-              image: 'https://products.s3.firstvds.ru/dermic/desc-5.png'
+              image: '/media-s3/products/dermic/desc-5.png'
             },
           ]
         }
@@ -1831,7 +1831,7 @@ images: [
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+        image: '/media-s3/products/dermic/principles.png',
         text: `
           <p class="">1 этап. Биоразнообразие – повышение функциональности полезных бактерий.</p>
           <p>2 этап. Устранение инфламэйджинга (снятие низкомолекулярного воспаления).
@@ -1841,7 +1841,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+        image: '/media-s3/products/dermic/effect.png',
         content: `
           <p>Улучшает защитную и эстетическую функции кожи, обеспечивает профилактику преждевременного старения кожи, в том числе от воздействия солнечных лучей, неблагоприятных климатических и экологических условий.</p> <p>Помогает более быстрому восстановлению кожи после травматических воздействий (например, заживлению шрамов).</p> <p>Также улучшает текстуру и цвет кожи, сохраняет её упругость и свежесть, повышает эффективность косметологических процедур, улучшает здоровье ногтей и волос.</p>
         `
@@ -1901,10 +1901,10 @@ images: [
           </div>
 
         `,
-        image: 'https://products.s3.firstvds.ru/dermic/sostav.png',
+        image: '/media-s3/products/dermic/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/dermic/instructions.png',
+        image: '/media-s3/products/dermic/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -1922,33 +1922,33 @@ images: [
         subtitle: 'В основе Daigo Dermic лежит натуральный короткий пептид хлореллы, полученный путём ферментации белковых остатков зелёных водорослей Chlorella pyrenoidosa по запатентованной немецкой технологии IPH, которая служит примером прозрачности и высокого стандарта качества. Её эффективность подтверждена точной методикой контроля — высокоэффективной жидкостной хроматографией, а соответствие фармакопеям США, Великобритании, Европы и Японии (USP, BP, EP, JP) гарантирует стабильный и безопасный состав.\n\nDaigo Dermic создаётся по органической технологии, которая включает: ультразвуковую гомогенизацию, фильтрацию, гидролиз, деликатную экстракцию при температуре 60 градусов и повторную ферментацию, контролируемое охлаждение и крио заморозку, распылительную сушку.\n\nЭто делает Daigo Dermic чистым комплексом с 98% биодоступностью, где каждый элемент синергично усиливает друг друга, давая максимальный эффект.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/dent/prod-gen.png',
+        topImage: '/media-s3/products/dent/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/dermic/prod-1.png',
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
+          '/media-s3/products/dermic/prod-1.png',
+          '/media-s3/products/brainy/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/dermic/product-1.png",
+                image_url: "/media-s3/products/dermic/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/dermic/product-2.png",
+                image_url: "/media-s3/products/dermic/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/dermic/product-3.png",
+                image_url: "/media-s3/products/dermic/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/faq-brainy.png',
+        image: '/media-s3/products/brainy/faq-brainy.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -1986,7 +1986,7 @@ images: [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -1997,7 +1997,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        image: '/media-s3/products/kishechnik-i-mozg/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -2021,7 +2021,7 @@ images: [
 
           <br><br>Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/sostav.png',
+        image: '/media-s3/products/kishechnik-i-mozg/sostav.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo Lux',
@@ -2053,32 +2053,32 @@ images: [
         subtitle: 'Метабиотик премиум-класса Daigo Lux и БАД Tamotsu — инновационные продукты, рождённые на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуюя самым высоким международным стандартам GMP.\n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo Lux. Полный цикл создания метабиотика занимает более двух лет. Плазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-1.png',
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-2.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-1.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-1.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-2.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-3.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/faq-kishechnik-i-mozg.png',
+        image: '/media-s3/products/kishechnik-i-mozg/faq-kishechnik-i-mozg.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -2107,38 +2107,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-5/desc-1.png'
+              image: '/media-s3/products/daigo-5/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -2149,11 +2149,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/video-cover.png',
+      videoPoster: '/media-s3/products/kishechnik-i-mozg/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -2165,7 +2165,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -2197,10 +2197,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/sostav.png',
+        image: '/media-s3/products/daigo-5/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -2225,7 +2225,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
+          image: '/media-s3/products/daigo-5/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -2242,28 +2242,28 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-5/details.png'
+          image: '/media-s3/products/daigo-5/details.png'
         }
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-1.png",
+                image_url: "/media-s3/products/daigo-5/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-2.png",
+                image_url: "/media-s3/products/daigo-5/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-3.png",
+                image_url: "/media-s3/products/daigo-5/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -2292,38 +2292,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-5/desc-1.png'
+              image: '/media-s3/products/daigo-5/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -2334,11 +2334,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/video-cover.png',
+      videoPoster: '/media-s3/products/kishechnik-i-mozg/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -2350,7 +2350,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -2382,10 +2382,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/sostav.png',
+        image: '/media-s3/products/daigo-5/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -2410,7 +2410,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
+          image: '/media-s3/products/daigo-5/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -2427,28 +2427,28 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-5/details.png'
+          image: '/media-s3/products/daigo-5/details.png'
         }
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/kurs-1.png",
+                image_url: "/media-s3/products/daigo-5/kurs-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-2.png",
+                image_url: "/media-s3/products/daigo-5/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-3.png",
+                image_url: "/media-s3/products/daigo-5/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -2476,38 +2476,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-5/desc-1.png'
+              image: '/media-s3/products/daigo-5/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -2518,11 +2518,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/video-cover.png',
+      videoPoster: '/media-s3/products/kishechnik-i-mozg/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -2534,7 +2534,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -2566,10 +2566,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/sostav.png',
+        image: '/media-s3/products/daigo-5/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -2594,7 +2594,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
+          image: '/media-s3/products/daigo-5/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -2611,7 +2611,7 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-5/details.png'
+          image: '/media-s3/products/daigo-5/details.png'
         }
       },
       images: [
@@ -2621,18 +2621,18 @@ images: [
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-2.png",
+                image_url: "/media-s3/products/daigo-5/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-3.png",
+                image_url: "/media-s3/products/daigo-5/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -2660,38 +2660,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-5/desc-1.png'
+              image: '/media-s3/products/daigo-5/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -2702,11 +2702,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/video-cover.png',
+      videoPoster: '/media-s3/products/kishechnik-i-mozg/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -2718,7 +2718,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -2750,10 +2750,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/sostav.png',
+        image: '/media-s3/products/daigo-5/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -2778,7 +2778,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
+          image: '/media-s3/products/daigo-5/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -2795,7 +2795,7 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-5/details.png'
+          image: '/media-s3/products/daigo-5/details.png'
         }
       },
       images: [
@@ -2805,18 +2805,18 @@ images: [
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-2.png",
+                image_url: "/media-s3/products/daigo-5/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-3.png",
+                image_url: "/media-s3/products/daigo-5/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -2844,38 +2844,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-5/desc-1.png'
+              image: '/media-s3/products/daigo-5/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -2886,11 +2886,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/video-cover.png',
+      videoPoster: '/media-s3/products/kishechnik-i-mozg/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -2902,7 +2902,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -2934,10 +2934,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/sostav.png',
+        image: '/media-s3/products/daigo-5/sostav.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -2962,7 +2962,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-5/prod-gen.png',
+          image: '/media-s3/products/daigo-5/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -2979,7 +2979,7 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://products.s3.firstvds.ru/daigo-5/details.png'
+          image: '/media-s3/products/daigo-5/details.png'
         }
       },
       images: [
@@ -2989,18 +2989,18 @@ images: [
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-2.png",
+                image_url: "/media-s3/products/daigo-5/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/daigo-5/product-3.png",
+                image_url: "/media-s3/products/daigo-5/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -3028,7 +3028,7 @@ images: [
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
         text: `
           <p class="font-medium">Daigo Brainy</p>
           <p>первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Создан для поддержки когнитивного здоровья.</p>
@@ -3038,7 +3038,7 @@ images: [
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/supermozg/principles.png',
+        image: '/media-s3/products/supermozg/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -3051,7 +3051,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/brainy/prod-2.png',
+        image: '/media-s3/products/brainy/prod-2.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -3070,10 +3070,10 @@ images: [
 
           </p>
         `,
-        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+        image: '/media-s3/products/tamotsu/principles.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         groups: [
           {
             title: 'Daigo Brainy',
@@ -3100,37 +3100,37 @@ images: [
         subtitle: 'Tamotsu и Daigo Brainy — важная часть продуктовой линейки бренда Daigo, созданная с тем же вниманием к качеству, что и легендарный метабиотик Daigo. Каждая партия добавок проходит строгий контроль и соответствует всемтребованиям международных стандартов GMP, что гарантирует сохранение всех полезных свойств и высочайшее качество продукта.\n\nПлазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка.\n\n  1. Гребешки обрабатываются с использованием специального фермента, который разлагает другие липидные компоненты и не разлагает плазмалоген;\n\n  2. Из обработанных морских гребешков получают липиды;\n  3. Далее следует этап очистки жира.\n\nВ основе Daigo Brainy лежит натуральный короткий пептид хлореллы, полученный путём ферментации белковых остатков зелёных водорослей Chlorella pyrenoidosa по запатентованной немецкой технологии IPH, обеспечивающей прозрачность и высокий стандарт качества. Эффективность контролируется методом высокоэффективной жидкостной хроматографии, соответствие фармакопеям США, Великобритании, Европы и Японии гарантирует стабильный и безопасный состав. Используется органическая технология с ультразвуковой гомогенизацией, фильтрацией, гидролизом, низкотемпературной экстракцией, ферментацией, контролируемым охлаждением и криозаморозкой, а также распылительной сушкой. Это обеспечивает 98% биодоступность и синергичный эффект компонентов.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/supermozg/prod-1.png',
-          'https://products.s3.firstvds.ru/supermozg/prod-2.png',
+          '/media-s3/products/supermozg/prod-1.png',
+          '/media-s3/products/supermozg/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/supermozg/product-1.png",
+                image_url: "/media-s3/products/supermozg/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             // {
-            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-2.png",
+            //     image_url: "/media-s3/products/supermozg/product-2.png",
             //     is_primary: false,
             //     display_order: 0
             // },
             // {
-            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-3.png",
+            //     image_url: "/media-s3/products/supermozg/product-3.png",
             //     is_primary: false,
             //     display_order: 0
             // },
             // {
-            //     image_url: "https://products.s3.firstvds.ru/supermozg/product-4.png",
+            //     image_url: "/media-s3/products/supermozg/product-4.png",
             //     is_primary: false,
             //     display_order: 0
             // },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/supermozg/faq-supermozg.png',
+        image: '/media-s3/products/supermozg/faq-supermozg.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -3154,11 +3154,11 @@ images: [
       originalPrice: 199500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        image: '/media-s3/products/kishechnik-i-mozg/effect.png',
         text: `
           <p class="font-medium">Daigo Lux</p>
           <p>Daigo Lux создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
@@ -3168,7 +3168,7 @@ images: [
       },
       naborCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+        image: '/media-s3/products/shampo/principles.png',
         text: `
           <p class="font-medium">Daigo Dent</p>
           <p>Это первая зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -3177,7 +3177,7 @@ images: [
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/principles.png',
+        image: '/media-s3/products/polnyy-nabor/principles.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p>В составе Tamotsu плазмалогены из глубоководного морского гребешка, которые полностью усваиваются человеческим организмом. Плазмалогены буквально «встраиваются» в мембраны повреждённых клеток, восстанавливая их работу, а антиоксидант коэнзим Q10 омолаживает клетки</p>
@@ -3187,7 +3187,7 @@ images: [
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+        image: '/media-s3/products/tamotsu/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -3198,7 +3198,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/effect.png',
+        image: '/media-s3/products/polnyy-nabor/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -3209,7 +3209,7 @@ images: [
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/effect-2.png',
+        image: '/media-s3/products/polnyy-nabor/effect-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -3237,7 +3237,7 @@ images: [
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav-2.png',
+        image: '/media-s3/products/polnyy-nabor/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Зубная паста Daigo dent</p>
@@ -3305,23 +3305,23 @@ images: [
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
-          'https://products.s3.firstvds.ru/polnyy-nabor/prod-2.png',
+          '/media-s3/products/tamotsu/prod-1.png',
+          '/media-s3/products/polnyy-nabor/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/polnyy-nabor/product-1.png",
+                image_url: "/media-s3/products/polnyy-nabor/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/faq-polnyy-nabor.png',
+        image: '/media-s3/products/polnyy-nabor/faq-polnyy-nabor.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -3345,11 +3345,11 @@ images: [
       originalPrice: 534000,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      //videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        image: '/media-s3/products/kishechnik-i-mozg/effect.png',
         text: `
           <p class="font-medium">Daigo Lux (2)</p>
           <p>Daigo Lux создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
@@ -3360,7 +3360,7 @@ images: [
       },
       naborCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+        image: '/media-s3/products/shampo/principles.png',
         text: `
           <p class="font-medium">Daigo Jointic (3)</p>
           <p>Первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Оказывает поддержку суставов и укрепляет костно-мышечную систему.</p>
@@ -3369,7 +3369,7 @@ images: [
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/principles.png',
+        image: '/media-s3/products/polnyy-nabor/principles.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p>В составе Tamotsu плазмалогены из глубоководного морского гребешка, которые полностью усваиваются человеческим организмом. Плазмалогены буквально «встраиваются» в мембраны повреждённых клеток, восстанавливая их работу, а антиоксидант коэнзим Q10 омолаживает клетки</p>
@@ -3379,7 +3379,7 @@ images: [
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+        image: '/media-s3/products/tamotsu/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -3392,7 +3392,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/effect.png',
+        image: '/media-s3/products/polnyy-nabor/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -3405,7 +3405,7 @@ images: [
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/effect-2.png',
+        image: '/media-s3/products/polnyy-nabor/effect-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -3433,7 +3433,7 @@ images: [
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/sostav-2.png',
+        image: '/media-s3/products/polnyy-nabor/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -3515,23 +3515,23 @@ images: [
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
-          'https://products.s3.firstvds.ru/polnyy-nabor/prod-2.png',
+          '/media-s3/products/tamotsu/prod-1.png',
+          '/media-s3/products/polnyy-nabor/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/pol-goda-zdorovya/product-1.png",
+                image_url: "/media-s3/products/pol-goda-zdorovya/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/faq-polnyy-nabor.png',
+        image: '/media-s3/products/polnyy-nabor/faq-polnyy-nabor.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -3555,11 +3555,11 @@ images: [
       originalPrice: 1152400,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      //videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/emperor/sostav-nabora.png',
+        image: '/media-s3/products/emperor/sostav-nabora.png',
         text: `
           <p class="font-medium">Daigo Lux(6)</p>
           <p>Daigo Lux создает идеальную среду для роста родных полезных кишечных бактерий, одновременно блокируя патогенную микрофлору, способствуя восстановлению здорового баланса кишечной микрофлоры и правильной работы ЖКТ.</p>
@@ -3569,7 +3569,7 @@ images: [
       },
       naborCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/emperor/sostav-nabora-2.png',
+        image: '/media-s3/products/emperor/sostav-nabora-2.png',
         text: `
           <p class="font-medium">Daigo Dent(4)</p>
           <p>Это первая зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -3578,7 +3578,7 @@ images: [
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/emperor/principles.png',
+        image: '/media-s3/products/emperor/principles.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p>В составе Tamotsu плазмалогены из глубоководного морского гребешка, которые полностью усваиваются человеческим организмом. Плазмалогены буквально «встраиваются» в мембраны повреждённых клеток, восстанавливая их работу, а антиоксидант коэнзим Q10 омолаживает клетки</p>
@@ -3588,7 +3588,7 @@ images: [
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/emperor/principles-2.png',
+        image: '/media-s3/products/emperor/principles-2.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -3599,7 +3599,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/emperor/effect.png',
+        image: '/media-s3/products/emperor/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -3610,7 +3610,7 @@ images: [
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/emperor/effect-2.png',
+        image: '/media-s3/products/emperor/effect-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -3634,11 +3634,11 @@ images: [
 
 <br><br>Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/emperor/sostav.png',
+        image: '/media-s3/products/emperor/sostav.png',
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/emperor/sostav-2.png',
+        image: '/media-s3/products/emperor/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Зубная паста Daigo dent</p>
@@ -3706,38 +3706,38 @@ images: [
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/emperor/prod-gen.png',
+        topImage: '/media-s3/products/emperor/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/emperor/prod-1.png',
-          'https://products.s3.firstvds.ru/emperor/prod-2.png',
+          '/media-s3/products/emperor/prod-1.png',
+          '/media-s3/products/emperor/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/emperor/product-1.png",
+                image_url: "/media-s3/products/emperor/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/emperor/product-2.png",
+                image_url: "/media-s3/products/emperor/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/emperor/product-3.png",
+                image_url: "/media-s3/products/emperor/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/emperor/product-4.png",
+                image_url: "/media-s3/products/emperor/product-4.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/emperor/faq-emperor.png',
+        image: '/media-s3/products/emperor/faq-emperor.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -3762,15 +3762,15 @@ images: [
       originalPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: '/media-s3/products/sert10/product-10.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert10/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert10/sec.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert10/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert10/four.png',
+        imgFirst: '/media-s3/products/sert10/first.png',
+        imgSec: '/media-s3/products/sert10/sec.png',
+        imgThirt: '/media-s3/products/sert10/thirt.png',
+        imgFour: '/media-s3/products/sert10/four.png',
       },
       faq: {
         items: [
@@ -3794,15 +3794,15 @@ images: [
       originalPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert20/	sert-product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
+        { image_url: '/media-s3/products/sert20/	sert-product-20.png', is_primary: true, display_order: 0, alt: 'Сертификат 10 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert20/first.webp',
-        imgSec: 'https://products.s3.firstvds.ru/sert20/second.webp',
-        imgThirt: 'https://products.s3.firstvds.ru/sert20/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert20/four.webp',
+        imgFirst: '/media-s3/products/sert20/first.webp',
+        imgSec: '/media-s3/products/sert20/second.webp',
+        imgThirt: '/media-s3/products/sert20/thirt.png',
+        imgFour: '/media-s3/products/sert20/four.webp',
       },
       faq: {
         items: [
@@ -3826,15 +3826,15 @@ images: [
       originalPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert50/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
+        { image_url: '/media-s3/products/sert50/product-50.png', is_primary: true, display_order: 0, alt: 'Сертификат 50 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert50/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert50/second.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert50/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert50/four.png',
+        imgFirst: '/media-s3/products/sert50/first.png',
+        imgSec: '/media-s3/products/sert50/second.png',
+        imgThirt: '/media-s3/products/sert50/thirt.png',
+        imgFour: '/media-s3/products/sert50/four.png',
       },
       faq: {
         items: [
@@ -3858,15 +3858,15 @@ images: [
       originalPrice: null,
 
       images: [
-        { image_url: 'https://products.s3.firstvds.ru/sert100/product-100.png', is_primary: true, display_order: 0, alt: 'Сертификат 100 000 ₽' },
+        { image_url: '/media-s3/products/sert100/product-100.png', is_primary: true, display_order: 0, alt: 'Сертификат 100 000 ₽' },
       ],
 
       // изображения для внутренних секций
       certImages: {
-        imgFirst: 'https://products.s3.firstvds.ru/sert100/first.png',
-        imgSec: 'https://products.s3.firstvds.ru/sert100/second.png',
-        imgThirt: 'https://products.s3.firstvds.ru/sert100/thirt.png',
-        imgFour: 'https://products.s3.firstvds.ru/sert100/four.png',
+        imgFirst: '/media-s3/products/sert100/first.png',
+        imgSec: '/media-s3/products/sert100/second.png',
+        imgThirt: '/media-s3/products/sert100/thirt.png',
+        imgFour: '/media-s3/products/sert100/four.png',
       },
       faq: {
         items: [
@@ -3898,38 +3898,38 @@ images: [
                 
                 <p>Эти секреторные выделения обладают удивительным свойством: они способствуют росту полезных бактерий и подавляют рост вредных.</p>
               `,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-1.png'
+              image: '/media-s3/products/daigo-10/desc-1.png'
             },
             {
               title: 'Восстанавливает иммунитет',
               text: 'Активируя пейеровы бляшки в кишечнике',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-2.png'
+              image: '/media-s3/products/daigo-10/desc-2.png'
             },
             {
               title: 'Повышает уровень энергии',
               text: 'Содержит витамин K2, необходимый для усвоения кальция, свертывания крови',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-3.png'
+              image: '/media-s3/products/daigo-10/desc-3.png'
             },
             {
               title: 'Подавляет Хеликобактер Пилори',
               text: 'Способствует подавлению Helicobacter pylori, не имеет побочных эффектов',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-4.png'
+              image: '/media-s3/products/daigo-10/desc-4.png'
             },
             {
               title: 'Восстанавливает родную микрофлору',
               text: 'Поддерживает полезные бактерии и способствует их росту',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-5.png'
+              image: '/media-s3/products/daigo-10/desc-5.png'
             },
             {
               title: 'Регулярный приём',
               text: `Курсовое или долговременное применение препарата Дайго приводит к уничтожению условно-патогенных и патогенных бактерий в кишечнике, вызывает рост полезной микрофлоры, активизирует иммунные клетки кишечника. Приём препарата Дайго вызывает улучшение самочувствия, нормализует сон и повышает трудоспособность.`,
               note: '© Парентеральное и энтеральное питание. Национальное руководство: Петриков, Хубутия, Попова',
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-6.png'
+              image: '/media-s3/products/daigo-10/desc-6.png'
             },
             {
               title: 'Эффективная работа с аутоиммунными заболеваниями',
               text: `Увеличение NKT (клетки врожденного иммунитета) при приеме Дайго доказывает эффективность действия препарата против аутоиммуных заболеваний и рака.`,
-              image: 'https://products.s3.firstvds.ru/daigo-10/desc-7.png'
+              image: '/media-s3/products/daigo-10/desc-7.png'
             }
           ]
         }
@@ -3940,11 +3940,11 @@ images: [
       actionMechanism: 'Активизирует действие родных лактобактерий кишечника...',
       productionDetails: 'Производится более двух лет с многоступенчатой ферментацией...',
       // videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      // videoPoster: 'https://products.s3.firstvds.ru/daigo-10/video-cover.png',
+      // videoPoster: '/media-s3/products/daigo-10/video-cover.png',
       isActive: true,
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.jpg',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-2.jpg',
         text: `
           <h4 class="font-semibold mb-2">Секреторные выделения лактобактерий</h4>
           <p>Активизируют действие родных лактобактерий кишечника и способствуют их размножению. Кроме того, ограничивают размножение патогенных бактерий и снижают их количество. Таким образом, патогенные бактерии замещаются полезными, и кишечная среда улучшается.</p>
@@ -3956,7 +3956,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-first.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-first.png',
         content: `
           <h4 class="font-medium mb-4">Способствует улучшению при:</h4>
           <ul class="list-disc list-inside ml-5 space-y-1">
@@ -3988,10 +3988,10 @@ images: [
           </p>
           <p>Регуляторы кислотности: молочная кислота, лимонная кислота, витамин K2.</p>
         `,
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-4.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-4.png',
       },
       usageInstructions: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
         groups: [
           {
             title: 'Взрослым',
@@ -4015,7 +4015,7 @@ images: [
         subtitle: 'На собственной фабрике у подножья горы Фудзи производится продукт Daigo. Компания-производитель B&S Corporation. Фабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo.',
         images: {
           type: 'single',
-          image: 'https://products.s3.firstvds.ru/daigo-10/prod-gen.png',
+          image: '/media-s3/products/daigo-10/prod-gen.png',
         },
         details: {
           soyBeansKg: 15,
@@ -4032,28 +4032,28 @@ images: [
             'В очищенной культурной жидкости не содержатся живые бактерии (не является пробиотиком). Экстракт не содержит питательную среду для микробов (не является пребиотиком).',
             'Метабиотик Daigo Lux — это экстракт брожения лактобактерий, представляет собой смесь секреторных выделений (метаболитов), бактериальных клеток и неживых микроорганизмов.'
           ],
-          image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-single.png'
+          image: '/media-s3/products/kishechnik-i-mozg/10x10-single.png'
         }
       },
       images: [
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-first.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/10x10-first.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.jpg",
+                image_url: "/media-s3/products/kishechnik-i-mozg/10x10-2.jpg",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-3.jpg",
+                image_url: "/media-s3/products/kishechnik-i-mozg/10x10-3.jpg",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-10/faq-daigo.png',
+        image: '/media-s3/products/daigo-10/faq-daigo.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4078,11 +4078,11 @@ images: [
       originalPrice: 154500,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/beauty-box/prinnciples.png',
+        image: '/media-s3/products/beauty-box/prinnciples.png',
         text: `
           <p class="font-medium">Daigo Dermic</p>
           <p>Натуральный короткий пептид хлореллы, полученный в Германии по инновационной немецкой технологии IPH из микроводоросли Chlorella pyrenoidosa, не просто временно улучшает состояние кожи, а перепрограммирует клеточные процессы, стимулируя естественные механизмы омоложения: активирует синтез нового коллагена, защищает существующие волокна от разрушения и усиливает способность кожи к самовосстановлению, создавая эффект «внутреннего лифтинга». Незаменимые аминокислоты обеспечивают клетки всем необходимым для реализации этой программы.</p>
@@ -4092,7 +4092,7 @@ images: [
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/beauty-box/principles-2.png',
+        image: '/media-s3/products/beauty-box/principles-2.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -4105,7 +4105,7 @@ images: [
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/beauty-box/effect.png',
+        image: '/media-s3/products/beauty-box/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo Dermic</p>
@@ -4116,7 +4116,7 @@ images: [
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/beauty-box/effect-2.png',
+        image: '/media-s3/products/beauty-box/effect-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Shampoo Lux</p>
@@ -4136,11 +4136,11 @@ L-глутамин 60 мг; L-изолейцин 60 мг; L-лейцин 60 мг
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p class="">Карбонат кальция, вода, глицерин, морская соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/beauty-box/sostav.png',
+        image: '/media-s3/products/beauty-box/sostav.png',
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/beauty-box/sostav-2.png',
+        image: '/media-s3/products/beauty-box/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Lux</p>
@@ -4212,27 +4212,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/beauty-box/prod-1.png',
-          'https://products.s3.firstvds.ru/beauty-box/prod-2.png',
+          '/media-s3/products/beauty-box/prod-1.png',
+          '/media-s3/products/beauty-box/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/beaty-1.jpg",
+                image_url: "/media-s3/products/kishechnik-i-mozg/beaty-1.jpg",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/beaty-2.jpg",
+                image_url: "/media-s3/products/kishechnik-i-mozg/beaty-2.jpg",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/beauty-box/faq-beauty-box.png',
+        image: '/media-s3/products/beauty-box/faq-beauty-box.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4256,7 +4256,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       originalPrice: 207100,
       category: 'metabiotic',
       videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       combo: {
         title: 'Принцип действия',
@@ -4270,7 +4270,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/dent/prod-2.png',
+        image: '/media-s3/products/dent/prod-2.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -4282,7 +4282,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/business-box/effect.png',
+        image: '/media-s3/products/business-box/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo Brainy</p>
@@ -4295,7 +4295,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -4314,11 +4314,11 @@ L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэт�
           <p class="">Жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий), коэнзим Q10, экстракт
 из морского гребешка.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/business-box/sostav-2.png',
+        image: '/media-s3/products/business-box/sostav-2.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Lux</p>
@@ -4392,28 +4392,28 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/business-box/sostav-2.png',
-          'https://products.s3.firstvds.ru/business-box/prod-2.png',
+          '/media-s3/products/business-box/sostav-2.png',
+          '/media-s3/products/business-box/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://products.s3.firstvds.ru/business-box/product-1.png",
+                image_url: "/media-s3/products/business-box/product-1.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/business-2.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/business-2.png",
                 is_primary: false,
                 display_order: 0
             },
 
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/business-box/faq-business-box.png',
+        image: '/media-s3/products/business-box/faq-business-box.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4452,7 +4452,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -4463,7 +4463,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        image: '/media-s3/products/kishechnik-i-mozg/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -4487,7 +4487,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
 
           <br><br>Регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/sostav.png',
+        image: '/media-s3/products/kishechnik-i-mozg/sostav.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo Lux',
@@ -4519,37 +4519,37 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Метабиотик премиум-класса Daigo Lux и БАД Tamotsu — инновационные продукты, рождённые на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуюя самым высоким международным стандартам GMP.\n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo Lux. Полный цикл создания метабиотика занимает более двух лет. Плазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-1.png',
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-2.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-1.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-2.png',
         ]
         },
       },
       images: [
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/kandm.jpg",
+                image_url: "/media-s3/products/kishechnik-i-mozg/kandm.jpg",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/kandm-2.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/kandm-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-2.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/product-2.png",
                 is_primary: false,
                 display_order: 0
             },
             {
-                image_url: "https://products.s3.firstvds.ru/kishechnik-i-mozg/product-3.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/product-3.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/faq-kishechnik-i-mozg.png',
+        image: '/media-s3/products/kishechnik-i-mozg/faq-kishechnik-i-mozg.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4577,7 +4577,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p class="">Уникальная комбинация плазмалогенов из глубоководного морского гребешка и коэнзима Q10 высокого качества. Поддерживает здоровье всех энергозатратных органов организма, в том числе головного мозга.</p>
@@ -4587,7 +4587,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Tamotsu</p>
@@ -4597,7 +4597,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/tamotsu/sostav.png',
+        image: '/media-s3/products/tamotsu/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -4615,7 +4615,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -4647,22 +4647,22 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Метабиотик Daigo и БАД Tamotsu — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. Помимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. Плазмалогены для Tamotsu добываются по сложной трехэтапной японской технологии из японского глубоководного морского гребешка, который полностью усваивается человеческим организмом.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/kishechnik-i-mozg/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/kishechnik-i-mozg/prod-2.png',
         ]
         },
       },
       images: [
             {
-              image_url: "https://products.s3.firstvds.ru/tamotsu/tamotsu-nabor.JPG",
+              image_url: "/media-s3/products/tamotsu/tamotsu-nabor.JPG",
               is_primary: true,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/daigo-5/faq-daigo5ml.png',
+        image: '/media-s3/products/daigo-5/faq-daigo5ml.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4689,7 +4689,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
         text: `
           <p class="font-medium">Daigo Brainy</p>
           <p class="">Daigo Brainy - первый в мире БАД с натуральным коротким пептидом хлореллы IPH и незаменимыми аминокислотами. Пептид выделен из микроводоросли Chlorella pyrenoidosa по уникальной технологии IPH (Германия), способствует улучшению когнитивных функций, усиливая концентрацию, память и скорость мышления. В сочетании с L-изолейцином, L-лейцином, L-глутамином и L-аргинином он поддерживает работу нейронов, повышает умственную выносливость и помогает мозгу эффективнее справляться с учебными нагрузками.</p>
@@ -4699,7 +4699,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Brainy</p>
@@ -4709,7 +4709,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/brainy/sostav.png',
+        image: '/media-s3/products/brainy/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo Brainy</p>
@@ -4776,7 +4776,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -4808,10 +4808,10 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Метабиотик Daigo и добавка с натуральным коротким пептидом хлореллы Daigo Brainy — инновационные продукты, которые производятся на легендарном заводе B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года. \n\nНатуральный короткий пептид хлореллы для Daigo Brainy получен по запатентованной немецкой технологии IPH, которая служит примером прозрачности и высокого стандарта качества. Ее эффективность подтверждена точной методикой контроля — высокоэффективной жидкостной хроматографией, а соответствие фармакопеям США, Великобритании, Европы и Японии (USP, BP, EP, JP) гарантирует стабильный и безопасный состав. Daigo Brainy создается по органической технологии, которая включает: ультразвуковую гомогенизацию, фильтрацию, гидролиз, деликатную экстракцию при температуре 60 градусов и повторную ферментацию, контролируемое охлаждение и крио заморозку, распылительную сушку. Это делает Daigo Brainy чистым комплексом с 98% биодоступностью, где каждый элемент синергично усиливает друг друга, давая максимальный эффект.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/brainy/prod-2.png',
         ]
         },
       },
@@ -4823,7 +4823,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/faq-brainy.png',
+        image: '/media-s3/products/brainy/faq-brainy.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4850,7 +4850,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       combo: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -4860,7 +4860,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-5/principles.png',
+        image: '/media-s3/products/daigo-5/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo dent</p>
@@ -4870,7 +4870,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/dent/sostav.png',
+        image: '/media-s3/products/dent/sostav.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -4888,7 +4888,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 5 мл. 30 саше в упаковке.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/effect.png',
+        image: '/media-s3/products/daigo-5/effect.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -4909,10 +4909,10 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Метабиотик Daigo и зубная паста Daigo dent — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/daigo-5/sostav.png',
-          'https://products.s3.firstvds.ru/dent/prod-2.png',
+          '/media-s3/products/daigo-5/sostav.png',
+          '/media-s3/products/dent/prod-2.png',
         ]
         },
       },
@@ -4924,7 +4924,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -4951,7 +4951,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -4963,7 +4963,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-10/effect.png',
+        image: '/media-s3/products/daigo-10/effect.png',
         text: `
           <p class="font-medium">Daigo dent</p>
           <p>Зубная паста, которая не просто очищает, но и работает на укрепление иммунитета, предотвращая множество заболеваний. Секрет — в уникальном действии ферментов 16 видов лактобактерий: они восстанавливают здоровый баланс микрофлоры полости рта, увеличивая число полезных бактерий и подавляя патогенные. Таким образом, паста создает надежный защитный барьер у «входных ворот» для инфекций, не позволяя вредным бактериям проникать дальше в организм. Дополняют формулу морская соль для укрепления дёсен и корень солодки, который подавляет вредные бактерии и защищает от кариеса, обеспечивая комплексную заботу и поддержку вашего здоровья.</p>
@@ -4973,7 +4973,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+        image: '/media-s3/products/jointic/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Jointic</p>
@@ -4982,7 +4982,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -4994,7 +4994,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+        image: '/media-s3/products/jointic/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5013,7 +5013,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
         
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-10/sostav.png',
+        image: '/media-s3/products/daigo-10/sostav.png',
       },
       usageInstructions: {
         comboTitle: 'Daigo',
@@ -5034,27 +5034,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://products.s3.firstvds.ru/daigo-10/instructions.png',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/daigo-10/instructions.png',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sila.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/sila.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sila-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/sila-2.png",
               is_primary: false,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5081,7 +5081,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">Daigo 10 ml</p>
           <p>Органический метабиотик, который создает идеальную среду для роста родных полезных бактерий и блокирует развитие патогенной микрофлоры, что способствует восстановлению здорового баланса, укреплению иммунитета.</p>
@@ -5092,7 +5092,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       naborCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/shampo/principles.png',
+        image: '/media-s3/products/shampo/principles.png',
         text: `
           <p class="font-medium">Daigo Dent</p>
           <p>Это первая зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -5101,7 +5101,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-10/effect.png',
+        image: '/media-s3/products/daigo-10/effect.png',
         text: `
           <p class="font-medium">Daigo</p>
           <p class="">Создает оптимальные условия для роста собственной полезной микрофлоры, которая напрямую определяет состояние кожи. Сбалансированный микробиом поддерживает целостность кишечного барьера, предотвращая попадание токсинов и продуктов воспаления в системный кровоток — это снижает хроническое воспаление, ведущее к преждевременному старению кожи. Кроме того, полезные бактерии синтезируют витамины группы B и короткоцепочечные жирные кислоты, улучшающие микроциркуляцию и питание кожи, а также регулируют выработку нейромедиаторов, влияющих на ее здоровый вид.</p>
@@ -5111,7 +5111,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+        image: '/media-s3/products/dermic/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Dermic</p>
@@ -5122,7 +5122,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo</p>
@@ -5135,7 +5135,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/shampo/sostav.png',
+        image: '/media-s3/products/shampo/sostav.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo dermic</p>
@@ -5159,7 +5159,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         <p>Вода, кокамидопропилбетаин, ТЕА-кокоил глутамат, кокамид ДЭА, натрия лауроил метиламинопропионат, пентиленгликоль, ПЭГ-150 дистеарат, дипропиленгликоль, ферментированный экстракт молочнокислых бактерий, экстракт ферментированного риса, экстракт цветков Adonis Palaestina, гидролизованный кератин, масло семян подсолнечника, глицерил глюкозид, бетаин, экстракт солодки гладкой, масло лаванды, масло листьев эвкалипта шаровидного, масло апельсина, каприлилгликоль, глицерин, поликвартениум-10, аргинин, бутиленгликоль, феноксиэтанол.</p>
         
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-10/sostav.png',
+        image: '/media-s3/products/daigo-10/sostav.png',
       },
       usageInstructions: {
         combos: [
@@ -5220,27 +5220,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://products.s3.firstvds.ru/daigo-10/instructions.png',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/daigo-10/instructions.png',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/she.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/she.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/she-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/she-2.png",
               is_primary: false,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5267,7 +5267,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/brainy/effect.png',
+        image: '/media-s3/products/brainy/effect.png',
         text: `
           <p class="font-medium">Daigo 10 ml</p>
           <p>Органический метабиотик, который создает идеальную среду для роста родных полезных бактерий и блокирует развитие патогенной микрофлоры, что способствует восстановлению здорового баланса, укреплению иммунитета.</p>
@@ -5280,7 +5280,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/daigo-10/effect.png',
+        image: '/media-s3/products/daigo-10/effect.png',
         text: `
           <p class="font-medium">Daigo</p>
           <p class="">Помогает восстановить и поддержать оптимальный баланс кишечной микрофлоры, усиливая барьерную функцию кишечника и естественные защитные механизмы организма. Daigo не содержит живых бактерий, а создает идеальные условия для роста и процветания ваших собственных полезных бактерий, одновременно подавляя развитие патогенной флоры. Клеточный материал бактерий в составе метабиотика помогает безопасно усилить иммунитет. Активные компоненты действуют на уровне кишечной иммунной системы, способствуя ее гармоничной работе, что является фундаментом для здоровья, активного долголетия и устойчивости организма.</p>
@@ -5288,7 +5288,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/brainy/principles.png',
+        image: '/media-s3/products/brainy/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5299,7 +5299,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo</p>
@@ -5309,7 +5309,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/sostav.png',
+        image: '/media-s3/products/jointic/sostav.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5330,7 +5330,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p class="font-medium">Daigo Brainy</p>
           <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 662,5 2 нг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 нг.</p>
         `,
-        image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+        image: '/media-s3/products/jointic/effect.png',
       },
       usageInstructions: {
         combos: [
@@ -5379,28 +5379,28 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://products.s3.firstvds.ru/daigo-10/instructions.png',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/daigo-10/instructions.png',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/family.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/family.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/family-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/family-2.png",
               is_primary: false,
               display_order: 0
             },
             
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/brainy/sostav.png',
+        image: '/media-s3/products/brainy/sostav.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5427,7 +5427,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -5439,7 +5439,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-first.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-first.png',
         text: `
           <p class="font-medium">Daigo dent</p>
           <p>Зубная паста, которая не просто очищает, но и работает на укрепление иммунитета, предотвращая множество заболеваний. Секрет — в уникальном действии ферментов 16 видов лактобактерий: они восстанавливают здоровый баланс микрофлоры полости рта, увеличивая число полезных бактерий и подавляя патогенные. Таким образом, паста создает надежный защитный барьер у «входных ворот» для инфекций, не позволяя вредным бактериям проникать дальше в организм. Дополняют формулу морская соль для укрепления дёсен и корень солодки, который подавляет вредные бактерии и защищает от кариеса, обеспечивая комплексную заботу и поддержку вашего здоровья.</p>
@@ -5449,7 +5449,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+        image: '/media-s3/products/jointic/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5458,7 +5458,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-2.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -5470,7 +5470,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/brainy/effect.png',
+        image: '/media-s3/products/brainy/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Brainy</p>
@@ -5489,7 +5489,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 662,5 2 нг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 нг.</p>
         
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
       },
       usageInstructions: {
         combos: [
@@ -5538,27 +5538,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.jpg',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/kishechnik-i-mozg/10x10-2.jpg',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/light.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/light.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/light-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/light-2.png",
               is_primary: false,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5585,7 +5585,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -5597,7 +5597,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-first.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-first.png',
         text: `
           <p class="font-medium">Daigo dent</p>
           <p>Зубная паста, которая не просто очищает, но и работает на укрепление иммунитета, предотвращая множество заболеваний. Секрет — в уникальном действии ферментов 16 видов лактобактерий: они восстанавливают здоровый баланс микрофлоры полости рта, увеличивая число полезных бактерий и подавляя патогенные. Таким образом, паста создает надежный защитный барьер у «входных ворот» для инфекций, не позволяя вредным бактериям проникать дальше в организм. Дополняют формулу морская соль для укрепления дёсен и корень солодки, который подавляет вредные бактерии и защищает от кариеса, обеспечивая комплексную заботу и поддержку вашего здоровья.</p>
@@ -5607,7 +5607,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/brainy/instructions.png',
+        image: '/media-s3/products/brainy/instructions.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Brainy</p>
@@ -5616,7 +5616,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -5628,7 +5628,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/effect.png',
+        image: '/media-s3/products/jointic/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5647,7 +5647,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
         
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
       },
       usageInstructions: {
         combos: [
@@ -5696,27 +5696,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.jpg',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/kishechnik-i-mozg/10x10-2.jpg',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/iskra.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/iskra.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/iskra-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/iskra-2.png",
               is_primary: false,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5743,7 +5743,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/dent/principles.png',
+        image: '/media-s3/products/dent/principles.png',
         text: `
           <p class="font-medium">1 Daigo dent</p>
           <p class="">1 Daigo dent - зубная паста, которая не просто очищает полость рта, но и предотвращает множество заболеваний в ротовой полости, благодаря восстановлению здорового баланса микрофлоры полости рта.</p>
@@ -5755,7 +5755,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-first.png',
+        image: '/media-s3/products/kishechnik-i-mozg/10x10-first.png',
         text: `
           <p class="font-medium">Daigo dent</p>
           <p>Зубная паста, которая не просто очищает, но и работает на укрепление иммунитета, предотвращая множество заболеваний. Секрет — в уникальном действии ферментов 16 видов лактобактерий: они восстанавливают здоровый баланс микрофлоры полости рта, увеличивая число полезных бактерий и подавляя патогенные. Таким образом, паста создает надежный защитный барьер у «входных ворот» для инфекций, не позволяя вредным бактериям проникать дальше в организм. Дополняют формулу морская соль для укрепления дёсен и корень солодки, который подавляет вредные бактерии и защищает от кариеса, обеспечивая комплексную заботу и поддержку вашего здоровья.</p>
@@ -5765,7 +5765,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/dermic/principles.png',
+        image: '/media-s3/products/dermic/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Dermic</p>
@@ -5774,7 +5774,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/daigo-10/principles.png',
+        image: '/media-s3/products/daigo-10/principles.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Daigo dent</p>
@@ -5786,7 +5786,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effectCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/dermic/effect.png',
+        image: '/media-s3/products/dermic/effect.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo dermic</p>
@@ -5805,7 +5805,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 910 нг, Витамин Н — 50 нг.</p>
         
         `,
-        image: 'https://products.s3.firstvds.ru/daigo-5/instructions.png',
+        image: '/media-s3/products/daigo-5/instructions.png',
       },
       usageInstructions: {
         combos: [
@@ -5854,27 +5854,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Продукты Daigo — инновационные продукты, рожденные на легендарном производстве компании B&S Corporation. Завод, расположенный в экологически чистой заповедной зоне у подножия величественной горы Фудзи, сочетает в себе силу природы и передовые научные технологии. Добавки создаются в условиях абсолютной стерильности и строжайшего контроля, соответствуя самым высоким международным стандартам GMP. \n\nПомимо собственной фабрики у компании есть собственные поля, на которых выращиваются соевые бобы для производства Daigo. Несколько важнейших этапов до сих пор осуществляются вручную. Полный цикл создания метабиотика занимает два года.',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/brainy/prod-2.png',
-          'https://s3.firstvds.ru/products/kishechnik-i-mozg/10x10-2.jpg',
+          '/media-s3/products/brainy/prod-2.png',
+          '/media-s3/products/kishechnik-i-mozg/10x10-2.jpg',
         ]
         },
       },
       images: [
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/krasota.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/krasota.png",
               is_primary: true,
               display_order: 0
             },
             {
-              image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/krasota-2.png",
+              image_url: "/media-s3/products/kishechnik-i-mozg/krasota-2.png",
               is_primary: false,
               display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/dent/faq-dent.png',
+        image: '/media-s3/products/dent/faq-dent.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
@@ -5899,11 +5899,11 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       originalPrice: 199700,
       category: 'metabiotic',
       //videoUrl: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
-      //videoPoster: 'https://products.s3.firstvds.ru/beauty-box/video-cover.png',
+      //videoPoster: '/media-s3/products/beauty-box/video-cover.png',
       isActive: true,
       nabor: {
         title: 'Состав набора',
-        image: 'https://products.s3.firstvds.ru/kishechnik-i-mozg/effect.png',
+        image: '/media-s3/products/kishechnik-i-mozg/effect.png',
         text: `
           <p class="font-medium">Daigo Lux</p>
           <p>Премиальный метабиотик для восстановления правильного баланса кишечной микрофлоры. Органический продукт для поддержки иммунного барьера и метаболизма</p>
@@ -5915,7 +5915,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       combo: {
         title: 'Принцип действия',
-        image: 'https://products.s3.firstvds.ru/polnyy-nabor/principles.png',
+        image: '/media-s3/products/polnyy-nabor/principles.png',
         text: `
           <p class="font-medium">Tamotsu</p>
           <p>Плазмалогены из морского гребешка и коэнзим Q10 работают синергично. Плазмалогены способны встраиваться в поврежденные клеточные мембраны, восстанавливая их целостность и повышая устойчивость к окислительному стрессу. Коэнзим Q10 при этом оптимизирует энергетический обмен в митохондриях. Вместе они обеспечивают глубокую клеточную поддержку, направленную на уменьшение воспаления, восстановление суставных тканей и повышение общей энергии для тренировок и восстановления.</p>
@@ -5925,7 +5925,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       actionPrinciple: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/tamotsu/principles.png',
+        image: '/media-s3/products/tamotsu/principles.png',
         imagePosition: 'left',
         text: `
           <p class="font-medium">Daigo Jointic</p>
@@ -5935,7 +5935,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       effect: {
         title: 'Эффект',
-        image: 'https://products.s3.firstvds.ru/tamotsu/effect.png',
+        image: '/media-s3/products/tamotsu/effect.png',
         imagePosition: 'right',
         content: `
           <p class="font-medium">Tamotsu</p>
@@ -5964,7 +5964,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
       },
       compositionCombo: {
         title: '',
-        image: 'https://products.s3.firstvds.ru/jointic/principles.png',
+        image: '/media-s3/products/jointic/principles.png',
         imagePosition: 'left',
         content: `
           <p class="font-medium">Daigo Jointic</p>
@@ -6021,27 +6021,27 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         subtitle: 'Все продукты производятся на собственной фабрике у подножья горы Фудзи. \nКомпания-производитель B&S Corporation. \n\nФабрика расположена в заповедном и экологичном районе, в который не доходят токсичные испарения города Токио. Производство соответствует стандартам GMP',
         images: {
         type: 'gallery',
-        topImage: 'https://products.s3.firstvds.ru/tamotsu/prod-gen.png',
+        topImage: '/media-s3/products/tamotsu/prod-gen.png',
         bottomImages: [
-          'https://products.s3.firstvds.ru/tamotsu/prod-1.png',
+          '/media-s3/products/tamotsu/prod-1.png',
           'https://daigo.ru/images/mock/product/lux/lux-faq.jpg',
         ]
         },
       },
       images: [
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sport.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/sport.png",
                 is_primary: true,
                 display_order: 0
             },
             {
-                image_url: "https://s3.firstvds.ru/products/kishechnik-i-mozg/sport-2.png",
+                image_url: "/media-s3/products/kishechnik-i-mozg/sport-2.png",
                 is_primary: false,
                 display_order: 0
             },
       ],
       faq: {
-        image: 'https://products.s3.firstvds.ru/tamotsu/prod-2.png',
+        image: '/media-s3/products/tamotsu/prod-2.png',
         items: [
           { q: 'Для чего нужен витамин K2?', a: 'Помогает усвоению кальция, поддерживает кости и сосуды.' },
           
