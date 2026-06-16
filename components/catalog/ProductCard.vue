@@ -10,82 +10,16 @@
     >
       <div class="w-full overflow-hidden mb-2 md:mb-4 rounded-xl">
         <div class="w-full h-[160px] sm:h-[280px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
-          <template v-if="hasGallery">
-            <Swiper
-              class="product-card-swiper h-full"
-              :slides-per-view="1"
-              :space-between="0"
-              :allow-touch-move="true"
-              :simulate-touch="true"
-              :grab-cursor="true"
-              :resistance-ratio="0.85"
-              :threshold="6"
-              :prevent-clicks="true"
-              :prevent-clicks-propagation="true"
-              @swiper="onSwiper"
-              @slideChange="onSlideChange"
-            >
-              <SwiperSlide
-                v-for="(image, imageIndex) in galleryImages"
-                :key="`${product.product_id}-${imageIndex}`"
-                class="h-full"
-              >
-                <div class="w-full h-full flex items-center justify-center select-none">
-                  <!-- <CatalogCardImage
-                    v-if="shouldRenderImage(imageIndex)"
-                    :src="image"
-                    :alt="`${product.name} ${imageIndex + 1}`"
-                    :width="560"
-                    :height="560"
-                    :class="cardImageClass"
-                    :eager="priority && imageIndex === 0"
-                  /> -->
-                  <CatalogCardImage
-                    v-if="shouldRenderImage(imageIndex)"
-                    :src="image"
-                    :alt="`${product.name} ${imageIndex + 1}`"
-                    :width="560"
-                    :height="560"
-                    :class="cardImageClass"
-                  />
-                  <div
-                    v-else
-                    class="h-[140px] sm:h-[280px] w-full"
-                    aria-hidden="true"
-                  />
-                </div>
-              </SwiperSlide>
-            </Swiper>
-          </template>
-
-          <template v-else>
-            <div class="w-full h-full flex items-center justify-center select-none">
-              <CatalogCardImage
-                :src="galleryImages[0] || product.image"
-                :alt="product.name"
-                :width="560"
-                :height="560"
-                :class="cardImageClass"
-                :eager="priority"
-              />
-            </div>
-          </template>
-        </div>
-
-        <div
-          v-if="hasGallery"
-          class="flex items-center justify-center gap-1.5 mt-2 px-2 sm:px-4"
-          @click.stop
-        >
-          <button
-            v-for="(_, imageIndex) in galleryImages"
-            :key="`dot-${product.product_id}-${imageIndex}`"
-            type="button"
-            class="product-card-dot"
-            :class="{ 'is-active': currentSlide === imageIndex }"
-            :aria-label="`Показать изображение ${imageIndex + 1}`"
-            @click.stop="setSlide(imageIndex)"
-          />
+          <div class="w-full h-full flex items-center justify-center select-none">
+            <CatalogCardImage
+              :src="primaryImage"
+              :alt="product.name"
+              :width="560"
+              :height="560"
+              :class="cardImageClass"
+              :eager="priority"
+            />
+          </div>
         </div>
       </div>
 
@@ -183,10 +117,7 @@
 <script setup lang="ts">
 import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
-import { computed, ref, watch } from 'vue'
-import { Swiper, SwiperSlide } from 'swiper/vue'
-import type { Swiper as SwiperClass } from 'swiper'
-import 'swiper/css'
+import { computed } from 'vue'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import CatalogCardImage from '~/components/catalog/CatalogCardImage.vue'
@@ -207,71 +138,18 @@ const cardImageClass = computed(() =>
   imageClass || 'h-[140px] sm:h-[280px] object-contain pointer-events-none'
 )
 
+const primaryImage = computed(() => {
+  const images = [product.image, ...(product.detailImages || [])]
+
+  return images
+    .map((image) => String(image || '').trim())
+    .find(Boolean) || '/images/placeholder-product.png'
+})
+
 const cartStore = useCartStore()
 
 const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
-
-const galleryImages = computed(() => {
-  const seen = new Set<string>()
-  const raw = [product.image, ...(product.detailImages || [])]
-
-  return raw
-    .map((image) => String(image || '').trim())
-    .filter(Boolean)
-    .filter((image) => {
-      if (seen.has(image)) return false
-      seen.add(image)
-      return true
-    })
-})
-
-const hasGallery = computed(() => galleryImages.value.length > 1)
-const currentSlide = ref(0)
-const swiperRef = ref<SwiperClass | null>(null)
-const renderedIndexes = ref<number[]>([0])
-
-watch(galleryImages, (images) => {
-  renderedIndexes.value = [0]
-
-  if (!images.length || !hasGallery.value) {
-    currentSlide.value = 0
-    swiperRef.value?.slideTo(0, 0)
-    return
-  }
-
-  if (currentSlide.value > images.length - 1) {
-    currentSlide.value = 0
-    swiperRef.value?.slideTo(0, 0)
-  }
-}, { immediate: true })
-
-function markSlideRendered(index: number) {
-  if (!renderedIndexes.value.includes(index)) {
-    renderedIndexes.value = [...renderedIndexes.value, index]
-  }
-}
-
-function shouldRenderImage(index: number) {
-  return renderedIndexes.value.includes(index)
-}
-
-function onSwiper(swiper: SwiperClass) {
-  swiperRef.value = swiper
-  currentSlide.value = swiper.activeIndex || 0
-  markSlideRendered(currentSlide.value)
-}
-
-function onSlideChange(swiper: SwiperClass) {
-  currentSlide.value = swiper.activeIndex || 0
-  markSlideRendered(currentSlide.value)
-}
-
-function setSlide(index: number) {
-  currentSlide.value = index
-  markSlideRendered(index)
-  swiperRef.value?.slideTo(index)
-}
 
 const quantityInCart = computed(() => {
   const item = cartStore.items.find(i => String(i.id) === String(product.product_id))
@@ -286,7 +164,7 @@ function addToCartHandler() {
     price: product.price,
     oldPrice: product.oldPrice,
     quantity: 1,
-    image: product.image,
+    image: primaryImage.value,
     tag: product.tag,
   })
 }
@@ -299,7 +177,7 @@ function onOpen(navigate: () => void) {
     position: (globalIndex ?? index ?? 0) + 1,
     category: product.tag ? [product.tag] : undefined,
     url: `/catalog/${product.slug}`,
-    image_url: product.image
+    image_url: primaryImage.value
   }
 
   ytm.productClick(productObj, route.path, 'Каталог')
@@ -313,7 +191,7 @@ function onOpen(navigate: () => void) {
       position: (globalIndex ?? index ?? 0) + 1,
       category: product.tag ? String(product.tag) : undefined,
       url: `/catalog/${product.slug}`,
-      image_url: product.image,
+      image_url: primaryImage.value,
       list: 'Каталог'
     },
     route.path
@@ -328,26 +206,3 @@ function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
 </script>
-
-<style scoped>
-.product-card-dot {
-  width: 80%;
-  height: 4px;
-  border-radius: 9999px;
-  background: #36486929;
-  transition: all 0.2s ease;
-}
-
-.product-card-dot.is-active {
-  width: 80%;
-  background: #1f8cb3;
-}
-
-:deep(.product-card-swiper .swiper-wrapper) {
-  height: 100%;
-}
-
-:deep(.product-card-swiper .swiper-slide) {
-  height: 100%;
-}
-</style>

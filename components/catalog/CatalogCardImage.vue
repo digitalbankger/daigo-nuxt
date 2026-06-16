@@ -1,21 +1,12 @@
-<!-- <template>
-  <img
-    :src="normalizedSrc"
-    :alt="alt"
-    :width="width"
-    :height="height"
-    :loading="eager ? 'eager' : 'lazy'"
-    :fetchpriority="eager ? 'high' : 'auto'"
-    decoding="async"
-    :class="class"
-  >
-</template> -->
 <template>
   <img
     :src="normalizedSrc"
     :alt="alt"
     :width="width"
     :height="height"
+    loading="eager"
+    :fetchpriority="fetchPriority"
+    decoding="async"
     :class="class"
   >
 </template>
@@ -40,4 +31,6 @@ const props = withDefaults(defineProps<{
 const normalizedSrc = computed(() =>
   String(props.src || '').trim() || '/images/placeholder-product.png'
 )
+
+const fetchPriority = computed(() => props.eager ? 'high' : 'auto')
 </script>
