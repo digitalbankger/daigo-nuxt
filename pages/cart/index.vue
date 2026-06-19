@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineAsyncComponent, watch } from 'vue'
+import { computed, defineAsyncComponent, watch } from 'vue'
 import { useSeoMeta, useHead, navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useCartStore } from '~/stores/cartStore'
@@ -22,11 +22,19 @@ definePageMeta({
 const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.vue'))
 const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
 const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
+const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
+const CartGiftSticky = defineAsyncComponent(() => import('~/components/cart/CartGiftSticky.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
 const authStore = useAuthStore()
 
+const CART_GIFT_THRESHOLD = 100000
+const DEFAULT_GIFT_IMAGE = '/media-s3/products/dent/product-1.png'
+
+const cartAmountForGift = computed(() => Number(cartStore.subtotal || cartStore.total || 0))
+const giftProgressImage = computed(() => String(cartStore.gifts?.[0]?.image || DEFAULT_GIFT_IMAGE))
+const shouldShowGiftProgress = computed(() => cartStore.items.length > 0)
 
 /* Мгновенно триггерим запрос корзины на клиенте, без ожидания mounted */
 if (import.meta.client) {
@@ -237,6 +245,14 @@ function onCartCta() {
         </span>
       </h1>
 
+      <CartGiftSticky
+        v-if="shouldShowGiftProgress"
+        :threshold="CART_GIFT_THRESHOLD"
+        :current-amount="cartAmountForGift"
+        :gift-image="giftProgressImage"
+        gift-name="Зубная паста Daigo"
+      />
+
       <div class="flex flex-col lg:flex-row gap-10 relative z-30">
         <div class="flex-1 flex flex-col gap-6 lg:w-8/12">
           <div
@@ -255,6 +271,14 @@ function onCartCta() {
               <img src="/icons/fire.svg" class="w-4 h-4" alt="🔥" /> {{ cartStore.daysLeft }} дня
             </div>
           </div>
+
+          <CartGiftProgress
+            v-if="shouldShowGiftProgress"
+            :threshold="CART_GIFT_THRESHOLD"
+            :current-amount="cartAmountForGift"
+            :gift-image="giftProgressImage"
+            gift-name="Зубная паста Daigo"
+          />
 
           <CartItem
             v-for="item in cartStore.items"
@@ -288,7 +312,7 @@ function onCartCta() {
 
 
 <!-- <script setup lang="ts">
-import { defineAsyncComponent, watch } from 'vue'
+import { computed, defineAsyncComponent, watch } from 'vue'
 import { useSeoMeta, useHead, navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 
@@ -308,6 +332,8 @@ definePageMeta({
 const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.vue'))
 const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
 const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
+const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
+const CartGiftSticky = defineAsyncComponent(() => import('~/components/cart/CartGiftSticky.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
@@ -422,6 +448,14 @@ function onCartCta() {
               <img src="/icons/fire.svg" class="w-4 h-4" alt="🔥" /> {{ cartStore.daysLeft }} дня
             </div>
           </div>
+
+          <CartGiftProgress
+            v-if="shouldShowGiftProgress"
+            :threshold="CART_GIFT_THRESHOLD"
+            :current-amount="cartAmountForGift"
+            :gift-image="giftProgressImage"
+            gift-name="Зубная паста Daigo"
+          />
 
           <CartItem
             v-for="item in cartStore.items"

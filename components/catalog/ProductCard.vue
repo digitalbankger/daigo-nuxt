@@ -1,7 +1,7 @@
 <template>
   <NuxtLink :to="`/catalog/${product.slug}`" custom v-slot="{ navigate }">
     <article
-      class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer h-full flex flex-col"
+      class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer h-full flex flex-col overflow-hidden bg-white"
       role="link"
       tabindex="0"
       @click="onOpen(navigate)"
@@ -36,8 +36,35 @@
           {{ product.subtitle }}
         </p>
 
-        <div class="mt-auto flex flex-col items-start gap-4">
-          <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-2 sm:mt-0">
+        <div class="mt-auto flex flex-col items-start gap-4 w-full">
+          <div v-if="hasSummerPromo" class="summer-ribbon relative w-full overflow-visible rounded-xl px-3 py-2.5 mb-1">
+            <img
+              v-if="showSummerDecor"
+              src="/images/summer-card-umbrella.png"
+              alt=""
+              class="pointer-events-none absolute -top-8 right-2 z-[2] w-14 sm:w-16 object-contain"
+              @error="showSummerDecor = false"
+            >
+
+            <div class="relative z-[1] flex items-start justify-between gap-3">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="inline-flex shrink-0 items-center rounded-full bg-white/20 px-2 py-1 text-xs sm:text-sm font-semibold text-white backdrop-blur-sm">
+                  -{{ discountPercent }}%
+                </span>
+                <span class="text-white/90 text-[11px] sm:text-xs uppercase tracking-[0.14em] leading-tight">
+                  Летняя скидка
+                </span>
+              </div>
+              <div class="text-right shrink-0">
+                <div class="text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/75">сгорит через</div>
+                <div class="summer-ribbon__timer text-sm sm:text-base font-semibold text-white tabular-nums">
+                  {{ promoCountdownLabel }}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-1 sm:mt-0">
             <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.4vw,0.98rem)] font-light">
               {{ product.originalPrice.toLocaleString() }} ₽
             </span>
@@ -117,11 +144,12 @@
 <script setup lang="ts">
 import type { ProductCard } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import CatalogCardImage from '~/components/catalog/CatalogCardImage.vue'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
+import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -147,6 +175,19 @@ const primaryImage = computed(() => {
 
   return normalizeMediaUrlOrFallback(firstImage, '/images/placeholder-product.png')
 })
+
+const discountPercent = computed(() => {
+  const current = Number(product.price || 0)
+  const original = Number(product.originalPrice || 0)
+
+  if (!original || original <= current) return 0
+  return Math.max(1, Math.round(((original - current) / original) * 100))
+})
+
+const hasSummerPromo = computed(() => discountPercent.value > 0)
+const showSummerDecor = ref(true)
+
+const { label: promoCountdownLabel } = useSummerPromoCountdown()
 
 const cartStore = useCartStore()
 
@@ -208,3 +249,39 @@ function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
 </script>
+
+<style scoped>
+.summer-ribbon {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.18), transparent 32%),
+    linear-gradient(135deg, rgba(30, 166, 210, 0.96) 0%, rgba(26, 142, 189, 0.97) 62%, rgba(18, 121, 167, 1) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.summer-ribbon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: linear-gradient(115deg, transparent 22%, rgba(255,255,255,0.16) 30%, transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 52%);
+  opacity: 0.95;
+}
+
+.summer-ribbon__timer {
+  animation: summer-ribbon-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes summer-ribbon-pulse {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.72; transform: translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summer-ribbon__timer {
+    animation: none;
+  }
+}
+</style>

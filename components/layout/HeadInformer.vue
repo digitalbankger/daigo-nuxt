@@ -65,7 +65,7 @@
 
 
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useRoute } from '#imports'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
@@ -73,6 +73,7 @@ import { useModalStore } from '~/stores/modalStore'
 import { useAuthStore } from '~/stores/authStore'
 import { useCartStore } from '~/stores/cartStore'
 import { getCouponApplyMessage, isCouponApplySuccess } from '~/utils/coupon'
+import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
 
 const ui = useUiStore()
 const route = useRoute()
@@ -102,38 +103,7 @@ const buttonLabel = computed(() => {
   if (isApplied.value) return 'ЛЕТО10 применён'
   return 'Применить ЛЕТО10'
 })
-const PROMO_END_AT = '2026-06-19T23:59:59+03:00'
-
-function getRemainingMs() {
-  return Math.max(0, new Date(PROMO_END_AT).getTime() - Date.now())
-}
-
-const remainingMs = ref(getRemainingMs())
-let countdownTimer: ReturnType<typeof setInterval> | undefined
-
-function pad(value: number) {
-  return String(value).padStart(2, '0')
-}
-
-const countdownLabel = computed(() => {
-  const totalMinutes = Math.max(0, Math.floor(remainingMs.value / 60000))
-  const days = Math.floor(totalMinutes / 1440)
-  const hours = Math.floor((totalMinutes % 1440) / 60)
-  const minutes = totalMinutes % 60
-
-  return `${pad(days)}д ${pad(hours)}ч ${pad(minutes)}м`
-})
-
-onMounted(() => {
-  remainingMs.value = getRemainingMs()
-  countdownTimer = window.setInterval(() => {
-    remainingMs.value = getRemainingMs()
-  }, 1000)
-})
-
-onUnmounted(() => {
-  if (countdownTimer) window.clearInterval(countdownTimer)
-})
+const { label: countdownLabel } = useSummerPromoCountdown()
 
 
 const sendInformerGoal = () => {

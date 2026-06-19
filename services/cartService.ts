@@ -1,6 +1,6 @@
 import { useRuntimeConfig } from '#imports'
 import { getLastUtm } from '@/composables/useUtmTracker'
-import { buildRoistatPayload } from '@/utils/roistat'
+import { buildRoistatPayload, getRoistatVisitId } from '@/utils/roistat'
 
 function buildUtmPayload() {
   const last = getLastUtm()
@@ -23,6 +23,37 @@ function buildUtmPayload() {
 
   return utm
 }
+
+function buildAddToCartUtmPayload() {
+  const last = getLastUtm()
+  const roistat = getRoistatVisitId('')
+
+  const utm: Record<string, string> = {
+    utm_source: last?.source || '',
+    utm_medium: last?.medium || '',
+    utm_campaign: last?.campaign || '',
+    utm_content: last?.content || '',
+    utm_term: last?.term || '',
+  }
+
+  if (roistat) {
+    utm.roistat = roistat
+  }
+
+  const hasMeaningful = Object.values(utm).some((value) => String(value || '').trim() !== '')
+  return hasMeaningful ? utm : undefined
+}
+
+function buildAddToCartBody(productId: number | string, quantity: number) {
+  const utm = buildAddToCartUtmPayload()
+
+  return {
+    product_id: String(productId),
+    quantity,
+    ...(utm ? { utm } : {}),
+  }
+}
+
 
 /**
  * Сервис для работы с корзиной. Для гостя используется sessionID
@@ -68,7 +99,7 @@ export const cartService = {
   async addUserItem(userId: number | string, productId: number | string, quantity: number) {
     return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}`, {
       method: 'POST',
-      body: { product_id: String(productId), quantity },
+      body: buildAddToCartBody(productId, quantity),
       headers: { 'Content-Type': 'application/json' },
     })
   },
@@ -77,7 +108,7 @@ export const cartService = {
   async addGuestItem(sessionId: string, productId: number | string, quantity: number) {
     return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}`, {
       method: 'POST',
-      body: { product_id: String(productId), quantity },
+      body: buildAddToCartBody(productId, quantity),
       headers: { 'Content-Type': 'application/json' },
     })
   },
