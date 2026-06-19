@@ -3,11 +3,24 @@ import type { Product } from '~/types/product'
 import Button from '~/components/ui/Button.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
+import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
 
 const { product } = defineProps<{ product: Product }>()
 const cartStore = useCartStore()
 
 const hasDiscount = computed(() => product.originalPrice && product.originalPrice > product.price)
+
+const discountPercent = computed(() => {
+  const current = Number(product.price || 0)
+  const original = Number(product.originalPrice || 0)
+
+  if (!original || original <= current) return 0
+  return Math.max(1, Math.round(((original - current) / original) * 100))
+})
+
+const hasSummerPromo = computed(() => discountPercent.value > 0)
+const showSummerDecor = ref(true)
+const { label: promoCountdownLabel } = useSummerPromoCountdown()
 
 // ✅ строковый ID (UUID)
 const productIdStr = computed(() => {
@@ -189,7 +202,71 @@ onMounted(ensureCartLoadedOnce)
           </NuxtLink>
         </div>
 
-        <div class="text-2xl mt-6 font-bold flex items-center gap-4">
+        <div v-if="hasSummerPromo" class="relative mt-6 w-full">
+          <img
+            v-if="showSummerDecor"
+            src="/images/articles/summer/summer-card-umbrella.png"
+            alt=""
+            class="pointer-events-none absolute -top-10 right-2 z-[0] hidden w-14 object-contain sm:block sm:w-16"
+            @error="showSummerDecor = false"
+          >
+
+          <img
+            v-if="showSummerDecor"
+            src="/images/articles/summer/summer-card-umbrella.png"
+            alt=""
+            class="pointer-events-none absolute -top-8 right-1 z-[0] block w-12 object-contain sm:hidden"
+            @error="showSummerDecor = false"
+          >
+
+          <!-- DESKTOP -->
+          <div class="summer-ribbon relative hidden sm:block w-full overflow-visible rounded-lg px-4 py-3 mb-1">
+            <div class="relative z-[1] flex flex-row gap-x-4 gap-y-1 items-center">
+              <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-lg font-medium text-white backdrop-blur-sm">
+                -{{ discountPercent }}%
+              </span>
+
+              <div class="flex flex-col items-start text-left leading-tight my-auto w-[42%]">
+                <span class="text-white/95 text-[16px] uppercase tracking-[0.1em]">
+                  Летняя скидка
+                </span>
+
+                <span class="text-white/75 text-[14px] uppercase tracking-[0.06em]">
+                  сгорит через
+                </span>
+              </div>
+
+              <div class="summer-ribbon__timer col-span-2 text-right text-2xl font-medium text-white tabular-nums leading-none w-[38%] ms-auto">
+                {{ promoCountdownLabel }}
+              </div>
+            </div>
+          </div>
+
+          <!-- MOBILE -->
+          <div class="summer-ribbon relative block w-full overflow-visible rounded-lg px-2 py-2.5 mb-1 sm:hidden">
+            <div class="relative z-[1] flex flex-row gap-x-1 gap-y-1 items-center">
+              <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-sm font-medium text-white backdrop-blur-sm">
+                -{{ discountPercent }}%
+              </span>
+
+              <div class="flex flex-col items-start text-left leading-tight my-auto w-[42%]">
+                <span class="text-white/95 text-[9px] uppercase tracking-[0.1em]">
+                  Летняя скидка
+                </span>
+
+                <span class="text-white/75 text-[10px] uppercase tracking-[0.16em]">
+                  сгорит через
+                </span>
+              </div>
+
+              <div class="summer-ribbon__timer col-span-2 text-right text-sm font-medium text-white tabular-nums leading-none w-[38%]">
+                {{ promoCountdownLabel }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-2xl mt-4 font-bold flex items-center gap-4">
           <span v-if="hasDiscount" class="text-primary line-through text-base sm:text-2xl xl:text-cardhead font-normal">
             {{ product.originalPrice?.toLocaleString() }} ₽
           </span>
@@ -268,3 +345,40 @@ onMounted(ensureCartLoadedOnce)
   </section>
 </template>
 
+
+<style scoped>
+.summer-ribbon {
+  background:
+    radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 30%),
+    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.18), transparent 32%),
+    linear-gradient(135deg, rgba(30, 166, 210, 0.96) 0%, rgba(26, 142, 189, 0.97) 62%, rgba(18, 121, 167, 1) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
+}
+
+.summer-ribbon::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image:
+    linear-gradient(115deg, transparent 22%, rgba(255,255,255,0.16) 30%, transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 52%);
+  opacity: 0.95;
+}
+
+.summer-ribbon__timer {
+  animation: summer-ribbon-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes summer-ribbon-pulse {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  50% { opacity: 0.72; transform: translateY(-1px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .summer-ribbon__timer {
+    animation: none;
+  }
+}
+</style>
