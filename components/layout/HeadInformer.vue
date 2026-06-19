@@ -1,50 +1,39 @@
 <template>
   <div v-if="ui.isHeadInformerVisible"
-       class="fixed top-0 left-0 right-0 z-[70] w-full bg-[#1f8cb3] text-white rounded-b-xl sm:rounded-b-none shadow-lg shadow-primary/30"
+       class="fixed top-0 left-0 right-0 z-[70] w-full bg-primary text-white rounded-b-xl sm:rounded-b-none shadow-lg shadow-primary/30"
        aria-label="Информер со ссылкой на каталог">
     <div class="relative flex items-center justify-center gap-4 px-3 sm:px-6 py-2 sm:py-2">
 
       <!-- DESKTOP TEXT -->
       <NuxtLink
         to="/catalog"
-        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-200"
+        class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
         @click="sendInformerGoal"
       >
-        <span class="text-sm sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
-        <span
-          class="inline-flex items-center rounded-md text-sm sm:text-lg font-mont font-semibold tabular-nums animate-pulse"
-          aria-live="polite"
-        >
-          {{ countdownLabel }}
-        </span>
+        <span class="text-sm sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
       </NuxtLink>
 
       <!-- DESKTOP BUTTON -->
       <button
         type="button"
         class="hidden sm:inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1.5 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
-        
+        :disabled="busy"
+        @click="applyWelcome()"
       >
-        <span>Скидки до -20% на ВСЕ!</span>
+        <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
       </button>
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <div class="flex flex-wrap items-center justify-center gap-2 text-center">
-          <span class="text-xs sm:text-lg font-mont font-medium">Готовьтесь к лету вместе с Daigo</span>
-          <span
-            class="inline-flex items-center rounded-md bg-white/15 px-2 py-0.5 text-xs font-mont font-medium tabular-nums animate-pulse"
-            aria-live="polite"
-          >
-            {{ countdownLabel }}
-          </span>
-        </div>
+        <span class="text-xs sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
 
         <button
           type="button"
           class="inline-flex items-center justify-center gap-2 bg-[#9AFF9F] text-black rounded-lg py-1 px-4 text-sm uppercase transition hover:bg-[#7EFF7E] disabled:opacity-60 disabled:cursor-not-allowed"
+          :disabled="busy"
+          @click="applyWelcome()"
         >
-          <span>Скидки до -20% на ВСЕ!</span>
+          <span>{{ busy ? (isApplied ? 'Отмена…' : 'Применение…') : (isApplied ? 'Отменить WELCOME5' : 'Применить WELCOME5') }}</span>
         </button>
       </div>
 
@@ -66,60 +55,76 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoute } from '#imports'
 import { useUiStore } from '@/stores/ui'
 import { useAnalytics } from '@/composables/useAnalytics'
+import { usePromoStore } from '~/stores/promotionStore'
 import { useModalStore } from '~/stores/modalStore'
 import { useAuthStore } from '~/stores/authStore'
-import { useCartStore } from '~/stores/cartStore'
-import { getCouponApplyMessage, isCouponApplySuccess } from '~/utils/coupon'
-import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
+import { useYtm } from '@/composables/useYtm'
+import { isCouponApplySuccess } from '~/utils/coupon'
+
+type PromoType = 'discount' | 'gift' | 'code' | '2plus1' | 'notice' | string
+interface Promotion {
+  id: number | string
+  title: string
+  description?: string
+  image?: string
+  coupon?: string | null
+  promo_type: PromoType
+  is_applied?: boolean
+  link?: string | null
+}
 
 const ui = useUiStore()
 const route = useRoute()
 const authStore = useAuthStore()
-const cartStore = useCartStore()
 const { reach } = useAnalytics()
+const promoStore = usePromoStore()
 const modalStore = useModalStore()
+const ytm = useYtm()
 
-const PROMO_CODE = 'ЛЕТО10'
-const shouldOfferPromoReapply = ref(false)
-const isProcessing = ref(false)
+const { promotions, pendingId } = storeToRefs(promoStore)
 
-const isApplied = computed(() => {
-  const currentCode = String(cartStore.couponInfo?.code || '').trim().toUpperCase()
-  if (currentCode === PROMO_CODE) return true
+const WELCOME_CODE = 'WELCOME5'
+const shouldOfferWelcomeReapply = ref(false)
 
-  return (cartStore.coupons || []).some((coupon: any) => {
-    const code = String(coupon?.code || '').trim().toUpperCase()
-    return code === PROMO_CODE && coupon?.applied !== false
-  })
+const welcomePromo = computed<Promotion | null>(() => {
+  const list = (promotions.value || []) as Promotion[]
+  return list.find(p => (p.coupon || '').trim().toUpperCase() === WELCOME_CODE) || null
 })
 
-const busy = computed(() => isProcessing.value)
+const isApplied = computed(() => Boolean(welcomePromo.value?.is_applied))
 
-const buttonLabel = computed(() => {
-  if (busy.value) return 'Применяем…'
-  if (isApplied.value) return 'ЛЕТО10 применён'
-  return 'Применить ЛЕТО10'
+const busy = computed(() => {
+  const p = welcomePromo.value
+  if (!p) return false
+  return pendingId.value === p.id
 })
-const { label: countdownLabel } = useSummerPromoCountdown()
-
 
 const sendInformerGoal = () => {
   reach('informer-click')
 }
 
-function isAuthRequiredError(error: any) {
-  const text = String(error?.message || '').toLowerCase()
-  return error?.code === 'AUTH_REQUIRED' || text.includes('авториз')
+function toYtmPromo(p: Promotion) {
+  return {
+    id: String(p.id),
+    name: p.title,
+    creative: 'head_informer', // отдельный носитель, чтобы отличать от grid
+    position: '1',
+  }
 }
 
-function showPromoAuthModal() {
-  shouldOfferPromoReapply.value = true
+function isAuthRequiredError(error: any) {
+  return error?.code === 'AUTH_REQUIRED' || String(error?.message || '').toLowerCase().includes('необходимо авторизоваться')
+}
+
+function showWelcomeAuthModal() {
+  shouldOfferWelcomeReapply.value = true
   modalStore.show({
-    title: 'Для применения промокода нужна авторизация',
-    message: 'Авторизуйтесь, и мы применим ЛЕТО10 к вашей корзине.',
+    title: 'Что-то пошло не так',
+    message: 'Для применения акции необходимо авторизоваться',
     buttonText: 'Авторизоваться',
     onConfirm: async () => {
       modalStore.close()
@@ -131,50 +136,66 @@ function showPromoAuthModal() {
 watch(
   () => authStore.isAuthenticated,
   (isAuthenticated) => {
-    if (!isAuthenticated || !shouldOfferPromoReapply.value) return
+    if (!isAuthenticated || !shouldOfferWelcomeReapply.value) return
 
-    shouldOfferPromoReapply.value = false
+    shouldOfferWelcomeReapply.value = false
     modalStore.show({
-      title: 'Готово, можно применить промокод',
-      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить ЛЕТО10.',
-      buttonText: 'Применить ЛЕТО10',
+      title: 'Ура, теперь вы можете применить промокод',
+      message: 'Авторизация прошла успешно. Нажмите кнопку ниже, чтобы применить WELCOME5 ещё раз.',
+      buttonText: 'Применить ещё раз',
       onConfirm: async () => {
         modalStore.close()
-        await applyPromo({ skipGoal: true })
+        await applyWelcome({ skipGoal: true })
       },
     })
   }
 )
 
-async function applyPromo(opts: { skipGoal?: boolean } = {}) {
-  if (!import.meta.client || isProcessing.value) return
+async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
+  if (!import.meta.client) return
 
   if (!opts.skipGoal) {
     sendInformerGoal()
   }
 
-  if (isApplied.value) {
+  // гарантируем, что промки есть (как на акциях: если SSR не дал — подгрузить)
+  if (!promotions.value?.length) {
+    try { await promoStore.loadPromotions() } catch {}
+  }
+
+  const promo = welcomePromo.value
+  if (!promo) {
     modalStore.show({
-      title: 'Промокод уже применён',
-      message: 'ЛЕТО10 уже активен в вашей корзине.',
+      title: 'Промокод не найден',
+      message: `Промокод ${WELCOME_CODE} сейчас недоступен`,
     })
     return
   }
 
-  isProcessing.value = true
+  if (busy.value) return
+
+  // YTM promoClick — как на карточках
+  ytm.promoClick([toYtmPromo(promo)])
 
   try {
-    await cartStore.ensureLoaded()
-    const res: any = await cartStore.applyCoupon(PROMO_CODE)
+    if (isApplied.value) {
+      await promoStore.cancelActive()
+      modalStore.show({ title: 'Готово', message: 'Акция отменена' })
+      return
+    }
+
+    const res: any = await promoStore.apply(promo as any)
+
+    // логика success — 1 в 1 как у тебя на странице акций
     const success = isCouponApplySuccess(res)
 
     modalStore.show({
       title: success ? '✅ Успешно' : 'Что-то пошло не так',
-      message: res?.message || (success ? 'Промокод применён к корзине' : getCouponApplyMessage(res)),
+      message: res?.message || (success ? 'Промокод применён' : 'Не удалось применить промокод'),
     })
   } catch (e: any) {
     if (isAuthRequiredError(e)) {
-      showPromoAuthModal()
+      showWelcomeAuthModal()
       return
     }
 
@@ -182,8 +203,6 @@ async function applyPromo(opts: { skipGoal?: boolean } = {}) {
       title: 'Что-то пошло не так',
       message: e?.message || 'Не удалось применить промокод',
     })
-  } finally {
-    isProcessing.value = false
   }
 }
 

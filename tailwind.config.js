@@ -11,8 +11,8 @@ export default {
   theme: { 
     extend: {
       colors: {
-        //primary: '#4F8EFF',
-        primary: '#1f8cb3',
+        primary: '#4F8EFF',
+        //primary: '#1f8cb3',
         cur: '#4C51BD',
         hoverbtn:  '#F7F7F7',
         textbtnhover: '#49454F',

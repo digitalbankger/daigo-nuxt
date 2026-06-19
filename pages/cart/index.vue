@@ -22,18 +22,18 @@ definePageMeta({
 const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.vue'))
 const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
 const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
-const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
+// const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
 const authStore = useAuthStore()
 
-const CART_GIFT_THRESHOLD = 100000
-const DEFAULT_GIFT_IMAGE = '/media-s3/products/dent/product-1.png'
+// const CART_GIFT_THRESHOLD = 100000
+// const DEFAULT_GIFT_IMAGE = '/media-s3/products/dent/product-1.png'
 
-const cartAmountForGift = computed(() => Number(cartStore.subtotal || cartStore.total || 0))
-const giftProgressImage = computed(() => String(cartStore.gifts?.[0]?.image || DEFAULT_GIFT_IMAGE))
-const shouldShowGiftProgress = computed(() => cartStore.items.length > 0)
+// const cartAmountForGift = computed(() => Number(cartStore.subtotal || cartStore.total || 0))
+// const giftProgressImage = computed(() => String(cartStore.gifts?.[0]?.image || DEFAULT_GIFT_IMAGE))
+// const shouldShowGiftProgress = computed(() => cartStore.items.length > 0)
 
 /* Мгновенно триггерим запрос корзины на клиенте, без ожидания mounted */
 if (import.meta.client) {
@@ -262,14 +262,6 @@ function onCartCta() {
               <img src="/icons/fire.svg" class="w-4 h-4" alt="🔥" /> {{ cartStore.daysLeft }} дня
             </div>
           </div>
-
-          <CartGiftProgress
-            v-if="shouldShowGiftProgress"
-            :threshold="CART_GIFT_THRESHOLD"
-            :current-amount="cartAmountForGift"
-            :gift-image="giftProgressImage"
-            gift-name="Зубная паста Daigo"
-          />
 
           <CartItem
             v-for="item in cartStore.items"

@@ -69,8 +69,8 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <!-- <BannerSection :banners="banners" /> -->
-      <HomeSummerBanner />
+      <BannerSection :banners="banners" />
+      <!-- <HomeSummerBanner /> -->
 
       <!-- <ClientOnly>
         <StoriesList v-model:stories="stories" @open="openStory" />
