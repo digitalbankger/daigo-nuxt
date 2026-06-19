@@ -12,6 +12,14 @@
       <MessageModal />
       <ClientOnly>
         <FirstOrderWelcomePopup />
+
+<CartGiftSticky
+  v-if="shouldShowCartGiftSticky"
+  :threshold="CART_GIFT_THRESHOLD"
+  :current-amount="cartAmountForGift"
+  :gift-image="giftProgressImage"
+  gift-name="Зубная паста Daigo"
+/>
       </ClientOnly>
     </main>
     <BaseContainer v-if="!route.meta.hideFooter">
@@ -67,7 +75,8 @@ import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
 import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
 import MobileNav from '~/components/MobileNav.vue'
-import { defineAsyncComponent, watch } from 'vue'
+import { computed, defineAsyncComponent, watch } from 'vue'
+import { useCartStore } from '~/stores/cartStore'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
 const { public: { carrotId = '65310-79e35206a74ce38752218d816a' } } = useRuntimeConfig()
@@ -88,7 +97,31 @@ useHead({
 import { useRoute } from 'vue-router'
 const route = useRoute()
 
+const cartStore = useCartStore()
+
+const CART_GIFT_THRESHOLD = 100000
+const DEFAULT_GIFT_IMAGE = '/images/articles/summer/gift-pasta.png'
+
+const cartAmountForGift = computed(() =>
+  Number(cartStore.subtotal || cartStore.total || 0)
+)
+
+const giftProgressImage = computed(() =>
+  String(cartStore.gifts?.[0]?.image || DEFAULT_GIFT_IMAGE)
+)
+
+const shouldShowCartGiftSticky = computed(() => {
+  const hiddenPaths = ['/order', '/thanks']
+
+  if (hiddenPaths.some((path) => route.path.startsWith(path))) {
+    return false
+  }
+
+  return true
+})
+
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
+const CartGiftSticky = defineAsyncComponent(() => import('~/components/cart/CartGiftSticky.vue'))
 
 const auth = useAuthStore()
 const { isAuthModalOpen } = storeToRefs(auth)

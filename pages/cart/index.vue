@@ -23,7 +23,6 @@ const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.v
 const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
 const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
 const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
-const CartGiftSticky = defineAsyncComponent(() => import('~/components/cart/CartGiftSticky.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
@@ -244,14 +243,6 @@ function onCartCta() {
           {{ cartStore.items.length }} {{ cartStore.items.length === 1 ? 'товар' : 'товара' }}
         </span>
       </h1>
-
-      <CartGiftSticky
-        v-if="shouldShowGiftProgress"
-        :threshold="CART_GIFT_THRESHOLD"
-        :current-amount="cartAmountForGift"
-        :gift-image="giftProgressImage"
-        gift-name="Зубная паста Daigo"
-      />
 
       <div class="flex flex-col lg:flex-row gap-10 relative z-30">
         <div class="flex-1 flex flex-col gap-6 lg:w-8/12">

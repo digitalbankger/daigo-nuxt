@@ -37,32 +37,71 @@
         </p>
 
         <div class="mt-auto flex flex-col items-start gap-4 w-full">
-          <div v-if="hasSummerPromo" class="summer-ribbon relative w-full overflow-visible rounded-xl px-3 py-2.5 mb-1">
-            <img
-              v-if="showSummerDecor"
-              src="/images/summer-card-umbrella.png"
-              alt=""
-              class="pointer-events-none absolute -top-8 right-2 z-[2] w-14 sm:w-16 object-contain"
-              @error="showSummerDecor = false"
-            >
+          <div v-if="hasSummerPromo" class="relative">
+  <img
+    v-if="showSummerDecor"
+    src="/images/articles/summer/summer-card-umbrella.png"
+    alt=""
+    class="pointer-events-none absolute -top-10 right-2 z-[0] hidden w-14 object-contain sm:block sm:w-16"
+    @error="showSummerDecor = false"
+  >
 
-            <div class="relative z-[1] flex items-start justify-between gap-3">
-              <div class="flex items-center gap-2 min-w-0">
-                <span class="inline-flex shrink-0 items-center rounded-full bg-white/20 px-2 py-1 text-xs sm:text-sm font-semibold text-white backdrop-blur-sm">
-                  -{{ discountPercent }}%
-                </span>
-                <span class="text-white/90 text-[11px] sm:text-xs uppercase tracking-[0.14em] leading-tight">
-                  Летняя скидка
-                </span>
-              </div>
-              <div class="text-right shrink-0">
-                <div class="text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/75">сгорит через</div>
-                <div class="summer-ribbon__timer text-sm sm:text-base font-semibold text-white tabular-nums">
-                  {{ promoCountdownLabel }}
-                </div>
-              </div>
-            </div>
-          </div>
+  <img
+    v-if="showSummerDecor"
+    src="/images/articles/summer/summer-card-umbrella.png"
+    alt=""
+    class="pointer-events-none absolute -top-8 right-1 z-[0] block w-12 object-contain sm:hidden"
+    @error="showSummerDecor = false"
+  >
+
+  <!-- DESKTOP -->
+  <div class="summer-ribbon relative hidden w-full overflow-visible rounded-xl sm:px-3 py-2.5 mb-1 sm:block">
+    <div class="relative z-[1] flex items-start justify-between gap-3">
+      <div class="flex items-center gap-2 min-w-0">
+        <span class="inline-flex shrink-0 items-center rounded-lg bg-white/20 px-2 py-1 text-xs sm:text-sm font-medium text-white backdrop-blur-sm">
+          -{{ discountPercent }}%
+        </span>
+
+        <span class="text-white/90 text-[11px] sm:text-xs uppercase tracking-[0.14em] leading-tight">
+          Летняя скидка
+        </span>
+      </div>
+
+      <div class="text-right shrink-0">
+        <div class="text-[10px] sm:text-xs uppercase tracking-[0.16em] text-white/75">
+          сгорит через
+        </div>
+
+        <div class="summer-ribbon__timer text-sm sm:text-base font-semibold text-white tabular-nums">
+          {{ promoCountdownLabel }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOBILE -->
+  <div class="summer-ribbon relative block w-full overflow-visible rounded-lg px-2 py-2.5 mb-1 sm:hidden">
+    <div class="relative z-[1] grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 items-start">
+      <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-sm font-medium text-white backdrop-blur-sm">
+        -{{ discountPercent }}%
+      </span>
+
+      <div class="flex flex-col items-end text-right leading-tight my-auto">
+        <span class="text-white/95 text-[10px] uppercase tracking-[0.1em]">
+          Летняя скидка
+        </span>
+
+        <span class="text-white/75 text-[10px] uppercase tracking-[0.16em]">
+          сгорит через
+        </span>
+      </div>
+
+      <div class="summer-ribbon__timer col-span-2 text-right text-base font-medium text-white tabular-nums leading-none">
+        {{ promoCountdownLabel }}
+      </div>
+    </div>
+  </div>
+</div>
 
           <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-1 sm:mt-0">
             <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.4vw,0.98rem)] font-light">
@@ -276,7 +315,7 @@ function decrementHandler() {
 
 @keyframes summer-ribbon-pulse {
   0%, 100% { opacity: 1; transform: translateY(0); }
-  50% { opacity: 0.72; transform: translateY(-1px); }
+  50% { opacity: 0.62; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
