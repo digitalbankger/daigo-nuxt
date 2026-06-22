@@ -36,8 +36,8 @@
           {{ product.subtitle }}
         </p>
 
-        <!-- <div class="mt-auto flex flex-col items-start gap-4 w-full">
-          <div v-if="hasSummerPromo" class="relative">
+        <div class="mt-auto flex flex-col items-start gap-4 w-full">
+          <!-- <div v-if="hasSummerPromo" class="relative">
   <img
     v-if="showSummerDecor"
     src="/images/articles/summer/summer-card-umbrella.png"
@@ -317,7 +317,7 @@ function decrementHandler() {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .summer-ribbon__timer {
+  .summer-ribbon__timer { 
     animation: none;
   }
 }
