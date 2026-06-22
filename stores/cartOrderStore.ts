@@ -5,7 +5,7 @@ import { useCartStore } from '~/stores/cartStore'
 // Типы для различных сущностей, используемых при оформлении заказа.
 export type LoyaltyStatus = 'none' | 'bronze' | 'silver' | 'gold' | 'platinum'
 export type DeliveryKind = 'courier' | 'pvz' | 'pickup'
-export type PaymentMethod = 'installments' | 'card_online' | 'card_courier' | 'cash_courier' | 'credit'
+export type PaymentMethod = 'installments' | 'card_online' | 'tpay_card' | 'tpay_qr' | 'card_courier' | 'cash_courier' | 'credit'
 
 /**
  * Описание товара в процессе оформления заказа. id строковый, чтобы

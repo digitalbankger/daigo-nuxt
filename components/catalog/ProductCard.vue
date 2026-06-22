@@ -36,7 +36,7 @@
           {{ product.subtitle }}
         </p>
 
-        <div class="mt-auto flex flex-col items-start gap-4 w-full">
+        <!-- <div class="mt-auto flex flex-col items-start gap-4 w-full">
           <div v-if="hasSummerPromo" class="relative">
   <img
     v-if="showSummerDecor"
@@ -54,7 +54,6 @@
     @error="showSummerDecor = false"
   >
 
-  <!-- DESKTOP -->
   <div class="summer-ribbon relative hidden w-full overflow-visible rounded-xl sm:px-3 py-2.5 mb-1 sm:block">
     <div class="relative z-[1] flex items-start justify-between gap-3">
       <div class="flex items-center gap-2 min-w-0">
@@ -79,7 +78,6 @@
     </div>
   </div>
 
-  <!-- MOBILE -->
   <div class="summer-ribbon relative block w-full overflow-visible rounded-lg px-2 py-2.5 mb-1 sm:hidden">
     <div class="relative z-[1] grid grid-cols-[auto_1fr] gap-x-2 gap-y-1 items-start">
       <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-sm font-medium text-white backdrop-blur-sm">
@@ -174,7 +172,7 @@
               <img src="/icons/increment.svg" alt="Увеличить количество" class="w-5 h-5" />
             </button>
           </div>
-        </div>
+        </div> -->
       </div>
     </article>
   </NuxtLink>

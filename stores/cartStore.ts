@@ -5,6 +5,7 @@ import { useUserStore } from '~/stores/userStore'
 import { cartService } from '~/services/cartService'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
+import { getCouponApplyMessage, isCouponApplySuccess } from '@/utils/coupon'
 
 export interface CartItem {
   id: string | number
@@ -371,31 +372,35 @@ export const useCartStore = defineStore('cart', () => {
     coupons.value = []
   }
 
-  /** Применить промокод — временно отключено на фронте */
+  /** Применить промокод */
   async function applyCoupon(code: string) {
     const trimmed = (code || '').trim()
     if (!trimmed) return
 
-    // Временно отключено: промокоды скрыты в интерфейсе и не должны применяться через старые UI-сценарии.
-    throw new Error('Промокоды временно недоступны')
+    // ⛔ Промокоды доступны только авторизованным пользователям
+    if (!isAuthenticated.value || !userId.value) {
+      throw new Error('Для применения промокода необходимо авторизоваться')
+    }
 
-    // Старую реализацию оставляем ниже для быстрого возврата.
-    // // ⛔ Промокоды доступны только авторизованным пользователям
-    // if (!isAuthenticated.value || !userId.value) {
-    //   throw new Error('Для применения промокода необходимо авторизоваться')
-    // }
-    //
-    // const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
-    //
-    // applyServerCartState(res)
-    // // На случай асинхронных перерасчётов на бэке:
-    // await loadCart()
-    //
-    // if (!isCouponApplySuccess(res)) {
-    //   throw new Error(getCouponApplyMessage(res))
-    // }
-    //
-    // return res
+    const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
+
+    applyServerCartState(res)
+    // На случай асинхронных перерасчётов на бэке:
+    await loadCart()
+
+    if (!isCouponApplySuccess(res)) {
+      throw new Error(getCouponApplyMessage(res))
+    }
+
+    if (process.client) {
+      try {
+        ytm.promoApply(trimmed)
+      } catch {
+        // no-op
+      }
+    }
+
+    return res
   }
 
   /** Удалить промокод */

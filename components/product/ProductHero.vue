@@ -202,7 +202,7 @@ onMounted(ensureCartLoadedOnce)
           </NuxtLink>
         </div>
 
-        <div v-if="hasSummerPromo" class="relative mt-6 w-full">
+        <!-- <div v-if="hasSummerPromo" class="relative mt-6 w-full">
           <img
             v-if="showSummerDecor"
             src="/images/articles/summer/summer-card-umbrella.png"
@@ -219,7 +219,6 @@ onMounted(ensureCartLoadedOnce)
             @error="showSummerDecor = false"
           >
 
-          <!-- DESKTOP -->
           <div class="summer-ribbon relative hidden sm:block w-full overflow-visible rounded-lg px-4 py-3 mb-1">
             <div class="relative z-[1] flex flex-row gap-x-4 gap-y-1 items-center">
               <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-lg font-medium text-white backdrop-blur-sm">
@@ -242,7 +241,6 @@ onMounted(ensureCartLoadedOnce)
             </div>
           </div>
 
-          <!-- MOBILE -->
           <div class="summer-ribbon relative block w-full overflow-visible rounded-lg px-2 py-2.5 mb-1 sm:hidden">
             <div class="relative z-[1] flex flex-row gap-x-1 gap-y-1 items-center">
               <span class="inline-flex shrink-0 items-center justify-center rounded-lg bg-white/20 px-2 py-1 text-sm font-medium text-white backdrop-blur-sm">
@@ -264,7 +262,7 @@ onMounted(ensureCartLoadedOnce)
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="text-2xl mt-4 font-bold flex items-center gap-4">
           <span v-if="hasDiscount" class="text-primary line-through text-base sm:text-2xl xl:text-cardhead font-normal">

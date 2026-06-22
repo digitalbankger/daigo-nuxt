@@ -29,6 +29,8 @@ function buildUtmPayload() {
 export type DeliveryKind = 'courier' | 'pvz' | 'pickup' | 'todoor'
 export type PaymentMethod =
   | 'sbp'
+  | 'tpay_card'
+  | 'tpay_qr'
   | 'tbank'
   | 'dolyame'
   | 'bank_card'
@@ -485,7 +487,7 @@ try {
   const pm = state.paymentMethod
 
   const goal =
-    (pm === 'sbp' || pm === 'bank_card')
+    (pm === 'sbp' || pm === 'bank_card' || pm === 'tpay_card' || pm === 'tpay_qr')
       ? 'onlinepay'
       : (pm === 'courier_card' || pm === 'cash')
         ? 'offlinepay'

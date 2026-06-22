@@ -354,7 +354,7 @@ async function applyCoupon() {
 
   // ⛔ В гостевом режиме промокоды недоступны — предлагаем авторизацию
   if (!authStore.isAuthenticated) {
-    authStore.openAuth('/cart')
+    authStore.openAuth(props.mode === 'checkout' ? '/order' : '/cart')
     return
   }
 
@@ -607,10 +607,6 @@ async function removeCoupon() {
       </div>
     </div> -->
 
-    <!--
-      Временно отключено: поле промокода скрыто, чтобы пользователи не могли применять промокоды.
-      Чтобы вернуть — раскомментировать блок ниже.
-
     <div v-if="props.mode === 'checkout'" class="flex flex-row gap-2 md:gap-3 items-start">
       <UiInput
         v-model="coupon"
@@ -655,7 +651,6 @@ async function removeCoupon() {
         {{ couponInfo?.applied ? 'Удалить' : 'Применить' }}
       </Button>
     </div>
-    -->
 
     <PaymentWarning v-if="props.mode === 'checkout'"/>
 

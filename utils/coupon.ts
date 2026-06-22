@@ -1,5 +1,11 @@
 export function isCouponApplySuccess(res: any): boolean {
-  return res === true || res?.success === true || res?.applied === true
+  return (
+    res === true ||
+    res?.success === true ||
+    res?.applied === true ||
+    res?.coupon_info?.applied === true ||
+    (Array.isArray(res?.coupons) && res.coupons.some((coupon: any) => coupon?.applied === true))
+  )
 }
 
 export function getCouponApplyMessage(res: any): string {

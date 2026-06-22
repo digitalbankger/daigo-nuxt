@@ -7,6 +7,8 @@ export type DeliveryKind =
 
 export type PaymentMethod =
   | 'sbp'
+  | 'tpay_card'
+  | 'tpay_qr'
   | 'tbank'
   | 'dolyame'
   | 'bank_card'

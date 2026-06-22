@@ -32,6 +32,8 @@ export interface DeliveryOption {
 export type PaymentMethod =
   | 'installments' // Оплата покупок частями
   | 'card_online'
+  | 'tpay_card'
+  | 'tpay_qr'
   | 'card_courier'
   | 'cash_courier'
   | 'credit'
