@@ -99,7 +99,7 @@
       </div>
     </div>
   </div>
-</div>
+</div>-->
 
           <div class="flex flex-row sm:flex-row gap-2 sm:gap-3 items-start sm:items-center mt-1 sm:mt-0">
             <span v-if="product.originalPrice > product.price" class="text-primary line-through text-[clamp(0.8rem,3.4vw,0.98rem)] font-light">
@@ -172,7 +172,7 @@
               <img src="/icons/increment.svg" alt="Увеличить количество" class="w-5 h-5" />
             </button>
           </div>
-        </div> -->
+        </div>
       </div>
     </article>
   </NuxtLink>
