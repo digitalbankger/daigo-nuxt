@@ -56,6 +56,9 @@
       </Transition>
     </Teleport>
     <CookieConsentBanner />
+    <ClientOnly>
+      <LazyMicrobiomeGameSticky />
+    </ClientOnly>
   </div>
 </template>
 
@@ -89,6 +92,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
+const LazyMicrobiomeGameSticky = defineAsyncComponent(() => import('@/components/promotions/MicrobiomeGameSticky.vue'))
 
 const auth = useAuthStore()
 const { isAuthModalOpen } = storeToRefs(auth)

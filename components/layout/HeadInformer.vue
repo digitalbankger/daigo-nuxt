@@ -208,3 +208,10 @@ async function applyWelcome(opts: { skipGoal?: boolean } = {}) {
 
 const close = () => ui.closeHeadInformer()
 </script>
+
+<style scoped>
+.shadow-primary\/30 {
+    --tw-shadow-color: #f65b7836;
+    --tw-shadow: var(--tw-shadow-colored);
+}
+</style>

@@ -9,6 +9,7 @@ export const useContentStore = defineStore('content', () => {
   const stories = ref<StoryLite[]>([])     // <— теперь только «кружки»
   const reviews = ref<Review[]>([])
   const isLoaded = ref(false)
+  const areReviewsLoaded = ref(false)
 
   async function load() {
     if (isLoaded.value) return
@@ -22,7 +23,21 @@ export const useContentStore = defineStore('content', () => {
     banners.value = bannersRes.data.value || []
     stories.value = storiesRes.data.value || []
     reviews.value = reviewsRes.data.value || []
+    areReviewsLoaded.value = true
     isLoaded.value = true
+  }
+
+  async function loadReviewsOnly() {
+    if (areReviewsLoaded.value) return
+
+    const { data } = await useFetch<Review[]>('/api/content/reviews', {
+      server: true,
+      lazy: false,
+      default: () => [],
+    })
+
+    reviews.value = data.value || []
+    areReviewsLoaded.value = true
   }
 
   async function fetchStory(id: string | number): Promise<StoryDetail> {
@@ -30,5 +45,5 @@ export const useContentStore = defineStore('content', () => {
     return (data.value as StoryDetail) || { id, slides: [], products: [] }
   }
 
-  return { banners, stories, reviews, load, isLoaded, fetchStory }
+  return { banners, stories, reviews, load, loadReviewsOnly, isLoaded, areReviewsLoaded, fetchStory }
 })
