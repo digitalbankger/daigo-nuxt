@@ -282,7 +282,7 @@ const isReviewOpen = ref(false)
 
   .micro-hero h1 {
     max-width: 850px;
-    font-size: 54px;
+    font-size: 45px;
   }
 
   .micro-hero__lead {
