@@ -14,7 +14,7 @@ const isReviewOpen = ref(false)
       </h1>
 
       <p class="micro-hero__lead">
-        Оставьте отзыв о любом продукте Daigo <br>ко Дню микробиома
+        Оставьте отзыв о любом продукте Daigo <br class="hidden md:block">ко Дню микробиома
       </p>
 
       <div class="micro-hero__offers" aria-label="Форматы отзыва">
@@ -342,13 +342,13 @@ const isReviewOpen = ref(false)
 
   .micro-hero h1 {
         margin-top: 24px;
-        font-size: clamp(26px, 6.2vw, 38px);
+        font-size: clamp(20px, 6.2vw, 38px);
         letter-spacing: -.045em;
   }
 
   .micro-hero__lead {
     margin-top: 18px;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.45;
   }
 
@@ -380,7 +380,7 @@ const isReviewOpen = ref(false)
     font-size: 15px;
   }
 
-  .micro-hero__offer-text strong[data-v-ef2385a4][data-v-ef2385a4] {
+  .micro-hero__offer-text strong {
     font-size: 12px;
   }
 
@@ -394,18 +394,41 @@ const isReviewOpen = ref(false)
   }
 
   .micro-hero__button {
-    width: 100%;
-    min-width: 0;
-    min-height: 64px;
-    gap: 16px;
-    border-radius: 16px;
-    padding: 17px 22px;
-    font-size: 20px;
+        min-height: 50px;
+        gap: 16px;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-size: 18px;
   }
 
   .micro-hero__button svg {
     width: 26px;
     height: 26px;
+  }
+}
+@media (max-width: 420px) { 
+  .micro-hero__offer-text {
+    font-size: 14px;
+  }
+    .micro-hero__offer-text strong {
+        margin-top: 3px;
+        font-size: 12px !important;
+    }
+  .micro-hero__offer-icon svg {
+    width: 24px;
+    height: 24px;
+  }
+  .micro-hero__offer-icon {
+      width: 38px;
+      height: 38px;
+  }
+  .micro-hero__offer {
+    padding: 8px;
+            gap: 6px;
+  }
+  .micro-hero__offers {
+      gap: 8px;
+      
   }
 }
 </style>

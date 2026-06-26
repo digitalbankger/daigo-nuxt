@@ -17,6 +17,15 @@ type ReviewRewardResponse = {
   already_issued: boolean
 }
 
+type UploadPreview = {
+  id: string
+  file: File
+  name: string
+  size: string
+  url: string
+  type: 'photo' | 'video'
+}
+
 const props = defineProps<{
   show: boolean
 }>()
@@ -46,6 +55,8 @@ const title = ref('')
 const text = ref('')
 const photos = ref<File[]>([])
 const videos = ref<File[]>([])
+const photoPreviews = ref<UploadPreview[]>([])
+const videoPreviews = ref<UploadPreview[]>([])
 const isSubmitting = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
@@ -59,8 +70,8 @@ const selectedProductName = computed(() => selectedProduct.value?.name || 'Вы�
 const hasVideo = computed(() => videos.value.length > 0)
 const hasPhoto = computed(() => photos.value.length > 0)
 const rewardText = computed(() => {
-  if (hasVideo.value) return 'Видеоотзыв выбран: после отправки откроем Dent-бонус.'
-  if (hasPhoto.value) return 'Фотоотзыв выбран: после отправки откроем Daigo-бонус.'
+  if (hasVideo.value) return 'Видеоотзыв выбран: после отправки откроем Ваш подарок.'
+  if (hasPhoto.value) return 'Фотоотзыв выбран: после отправки откроем Ваш подарок.'
   return 'Добавьте фото или видео — после отправки откроем подарок участника акции.'
 })
 
@@ -97,6 +108,52 @@ async function prefillAuthorFromProfile() {
   } catch (error) {
     console.warn('[microbiome-review] profile prefill failed', error)
   }
+}
+
+
+function formatFileSize(bytes: number) {
+  if (!Number.isFinite(bytes) || bytes <= 0) return '0 Б'
+  if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} КБ`
+  return `${(bytes / 1024 / 1024).toFixed(bytes >= 10 * 1024 * 1024 ? 0 : 1)} МБ`
+}
+
+function revokePreviews(items: UploadPreview[]) {
+  if (!import.meta.client) return
+  items.forEach((item) => URL.revokeObjectURL(item.url))
+}
+
+function buildPreviews(files: File[], type: 'photo' | 'video') {
+  if (!import.meta.client) return []
+
+  return files.map((file, index) => ({
+    id: `${type}-${file.name}-${file.size}-${file.lastModified}-${index}`,
+    file,
+    name: file.name,
+    size: formatFileSize(file.size),
+    url: URL.createObjectURL(file),
+    type,
+  }))
+}
+
+function refreshPhotoPreviews(files: File[]) {
+  revokePreviews(photoPreviews.value)
+  photoPreviews.value = buildPreviews(files, 'photo')
+}
+
+function refreshVideoPreviews(files: File[]) {
+  revokePreviews(videoPreviews.value)
+  videoPreviews.value = buildPreviews(files, 'video')
+}
+
+function removeUploadedFile(type: 'photo' | 'video', index: number) {
+  if (type === 'photo') {
+    photos.value = photos.value.filter((_, itemIndex) => itemIndex !== index)
+    refreshPhotoPreviews(photos.value)
+    return
+  }
+
+  videos.value = videos.value.filter((_, itemIndex) => itemIndex !== index)
+  refreshVideoPreviews(videos.value)
 }
 
 
@@ -138,8 +195,12 @@ function resetFields() {
   rating.value = 5
   title.value = ''
   text.value = ''
+  revokePreviews(photoPreviews.value)
+  revokePreviews(videoPreviews.value)
   photos.value = []
   videos.value = []
+  photoPreviews.value = []
+  videoPreviews.value = []
 }
 
 function resetForm() {
@@ -195,6 +256,8 @@ async function loadProducts() {
 function onPhotoChange(event: Event) {
   const input = event.target as HTMLInputElement
   photos.value = Array.from(input.files || [])
+  refreshPhotoPreviews(photos.value)
+  input.value = ''
   reward.value = null
   successMessage.value = ''
 }
@@ -202,6 +265,8 @@ function onPhotoChange(event: Event) {
 function onVideoChange(event: Event) {
   const input = event.target as HTMLInputElement
   videos.value = Array.from(input.files || [])
+  refreshVideoPreviews(videos.value)
+  input.value = ''
   reward.value = null
   successMessage.value = ''
 }
@@ -348,10 +413,10 @@ onBeforeUnmount(() => {
   <UiModal
     :show="show"
     :closable="false"
-    panel-class="micro-review-modal-panel"
+    panel-class="micro-review-modal-panel z-[9999999998]"
     @close="close"
   >
-    <section class="micro-review" aria-label="Форма отзыва ко Дню микробиома">
+    <section class="micro-review" aria-label="Форма отзыва ко Дню микробиома" @wheel.stop @touchmove.stop>
       <button
         type="button"
         class="micro-review__close"
@@ -366,7 +431,6 @@ onBeforeUnmount(() => {
         <h2>Ваш отзыв — это подарок для нас обоих</h2>
         <p>
           Выберите продукт, приложите фото или видео и расскажите о своём опыте.
-          На смартфоне можно выбрать файл из галереи или снять его сразу.
         </p>
       </div>
 
@@ -418,7 +482,7 @@ onBeforeUnmount(() => {
             </button>
 
             <Transition name="micro-review-select">
-              <div v-if="isProductDropdownOpen" class="micro-review__select-menu" role="listbox">
+              <div v-if="isProductDropdownOpen" class="micro-review__select-menu" role="listbox" @wheel.stop @touchmove.stop>
                 <button
                   v-for="product in products"
                   :key="product.slug"
@@ -543,9 +607,38 @@ onBeforeUnmount(() => {
           </label>
         </div>
 
-        <div v-if="photos.length || videos.length" class="micro-review__files micro-review__field_full">
-          <p v-if="photos.length">Фото: {{ photos.map(file => file.name).join(', ') }}</p>
-          <p v-if="videos.length">Видео: {{ videos.map(file => file.name).join(', ') }}</p>
+        <div v-if="photoPreviews.length || videoPreviews.length" class="micro-review__files micro-review__field_full">
+          <div v-if="photoPreviews.length" class="micro-review__preview-section">
+            <p>Загруженные фото</p>
+            <div class="micro-review__preview-grid">
+              <article
+                v-for="(item, index) in photoPreviews"
+                :key="item.id"
+                class="micro-review__preview-card"
+              >
+                <img :src="item.url" :alt="item.name" loading="lazy">
+                <button type="button" aria-label="Удалить фото" @click="removeUploadedFile('photo', index)">×</button>
+                <span>{{ item.name }}</span>
+                <small>{{ item.size }}</small>
+              </article>
+            </div>
+          </div>
+
+          <div v-if="videoPreviews.length" class="micro-review__preview-section">
+            <p>Загруженные видео</p>
+            <div class="micro-review__preview-grid">
+              <article
+                v-for="(item, index) in videoPreviews"
+                :key="item.id"
+                class="micro-review__preview-card micro-review__preview-card_video"
+              >
+                <video :src="item.url" muted playsinline preload="metadata" />
+                <button type="button" aria-label="Удалить видео" @click="removeUploadedFile('video', index)">×</button>
+                <span>{{ item.name }}</span>
+                <small>{{ item.size }}</small>
+              </article>
+            </div>
+          </div>
         </div>
 
         <div class="micro-review__reward micro-review__field_full">
@@ -588,6 +681,12 @@ onBeforeUnmount(() => {
   --micro-primary-dark: #d9307a;
   --micro-primary-soft: rgba(242, 67, 145, .12);
   position: relative;
+  box-sizing: border-box;
+  max-height: min(92vh, 920px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable;
   padding: clamp(22px, 4vw, 38px);
   background:
     radial-gradient(circle at 12% 0%, rgba(242, 67, 145, .18), transparent 28%),
@@ -623,7 +722,7 @@ onBeforeUnmount(() => {
 .micro-review__eyebrow {
   margin-bottom: 8px;
   color: var(--micro-primary) !important;
-  font-size: 12px;
+  font-size: 12px !important;
   font-weight: 500;
   letter-spacing: .18em;
   text-transform: uppercase;
@@ -632,7 +731,7 @@ onBeforeUnmount(() => {
 .micro-review__head h2 {
   margin: 0 0 10px;
   color: #111827;
-  font-size: clamp(28px, 5vw, 46px);
+  font-size: clamp(24px, 5vw, 46px);
   font-weight: 500;
   line-height: 1.04;
 }
@@ -769,12 +868,12 @@ onBeforeUnmount(() => {
   font-weight: 500;
   line-height: 1.2;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .micro-review__select-copy small {
   color: rgba(17, 24, 39, .50);
   font-size: 12px;
+  font-weight: 500;
   line-height: 1.2;
 }
 
@@ -799,6 +898,9 @@ onBeforeUnmount(() => {
   left: 0;
   max-height: 286px;
   overflow: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
   border: 1px solid rgba(242, 67, 145, .18);
   border-radius: 18px;
   background: rgba(255, 255, 255, .98);
@@ -1013,12 +1115,111 @@ margin-top: 6px;
 }
 
 .micro-review__files {
-  border-radius: 16px;
+  display: grid;
+  gap: 14px;
+  border-radius: 18px;
   background: rgba(242, 67, 145, .08);
-  padding: 12px 14px;
+  padding: 14px;
   color: rgba(17, 24, 39, .70);
   font-size: 13px;
   line-height: 1.45;
+}
+
+.micro-review__preview-section {
+  display: grid;
+  gap: 10px;
+}
+
+.micro-review__preview-section p {
+  margin: 0;
+  color: rgba(17, 24, 39, .70);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.micro-review__preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(118px, 1fr));
+  gap: 10px;
+}
+
+.micro-review__preview-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(242, 67, 145, .16);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, .86);
+  box-shadow: 0 12px 26px rgba(93, 52, 105, .08);
+}
+
+.micro-review__preview-card img,
+.micro-review__preview-card video {
+  display: block;
+  width: 100%;
+  height: 92px;
+  background: rgba(255,255,255,.72);
+  object-fit: cover;
+}
+
+.micro-review__preview-card_video::before {
+  content: '▶';
+  position: absolute;
+  left: 50%;
+  top: 46px;
+  z-index: 1;
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: rgba(255,255,255,.86);
+  color: var(--micro-primary-dark);
+  font-size: 13px;
+  box-shadow: 0 8px 18px rgba(17,24,39,.14);
+  transform: translate(-50%, -50%);
+}
+
+.micro-review__preview-card button {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  z-index: 2;
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, .70);
+  color: #fff;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.micro-review__preview-card span,
+.micro-review__preview-card small {
+  display: block;
+  overflow: hidden;
+  padding: 0 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.micro-review__preview-card span {
+  margin-top: 9px;
+  color: #111827;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.micro-review__preview-card small {
+  margin: 2px 0 10px;
+  color: rgba(17, 24, 39, .50);
+  font-size: 11px;
+  font-weight: 600;
 }
 
 .micro-review__reward {
@@ -1134,6 +1335,11 @@ margin-top: 6px;
 }
 
 @media (max-width: 640px) {
+  :global(.micro-review-modal-panel),
+  .micro-review {
+    max-height: calc(100vh - 24px);
+  }
+
   .micro-review__form,
   .micro-review__upload-grid {
     grid-template-columns: 1fr;

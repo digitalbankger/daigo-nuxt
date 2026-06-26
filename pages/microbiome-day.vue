@@ -261,7 +261,7 @@ const facts = [
   max-width: 540px;
   margin-top: 20px;
   color: rgb(17 24 39 / 79%);
-  font-size: clamp(16px, 1.6vw, 21px);
+  font-size: clamp(15px, 1.6vw, 21px);
   line-height: 1.5;
 }
 
@@ -433,7 +433,7 @@ const facts = [
 .micro-page__reward-card strong {
   display: block;
   color: var(--micro-text);
-  font-size: clamp(34px, 4vw, 54px);
+  font-size: clamp(28px, 4vw, 54px);
   font-weight: 500;
   letter-spacing: -.04em;
   line-height: .96;
@@ -575,7 +575,7 @@ const facts = [
 .micro-page h1[data-v-78735475] {
     max-width: 378px;
     color: var(--micro-text);
-    font-size: clamp(38px, 6vw, 37px);
+    font-size: clamp(30px, 6vw, 37px);
 }
 .micro-page__hero[data-v-78735475] {
     display: flex;

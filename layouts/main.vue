@@ -36,7 +36,7 @@
       <Transition name="sheet">
         <div
           v-if="isAuthModalOpen"
-          class="fixed right-0 top-0 z-[101] h-full w-11/12 sm:w-[500px]
+          class="fixed right-0 top-0 z-[9999999999] h-full w-11/12 sm:w-[500px]
                 bg-white rounded-l-2xl shadow-xl p-4 md:px-12 py-12 sm:py-28 overflow-y-auto"
           role="dialog" aria-modal="true"
         >

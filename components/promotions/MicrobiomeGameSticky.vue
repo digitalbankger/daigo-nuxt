@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 
@@ -13,6 +13,8 @@ type Bacteria = {
   vy: number
   r: number
   kind: BacteriaKind
+  variant: number
+  points: number
   rotation: number
   spin: number
   alive: boolean
@@ -35,16 +37,32 @@ type TrailPoint = {
   life: number
 }
 
-const GAME_DURATION_MS = 25_000
+const GAME_DURATION_MS = 30_000
 const ENERGY_MAX = 100
+const TARGET_BAD_KILLS_FOR_MAX_DISCOUNT = 36
+const GOOD_BACTERIA_PENALTY = 3
+
+const BAD_BACTERIA_SPRITES = [
+  '/images/promotions/game/bad-bacteria-1.png',
+  '/images/promotions/game/bad-bacteria-2.png',
+  '/images/promotions/game/bad-bacteria-3.png',
+]
+
+const GOOD_BACTERIA_SPRITES = [
+  '/images/promotions/game/good-bacteria-1.png',
+  '/images/promotions/game/good-bacteria-2.png',
+  '/images/promotions/game/good-bacteria-3.png',
+]
 
 const isOpen = ref(false)
 const isPlaying = ref(false)
 const isFinished = ref(false)
 const isWon = ref(false)
 const score = ref(0)
+const badKilled = ref(0)
+const goodTouched = ref(0)
 const energy = ref(0)
-const timeLeft = ref(25)
+const timeLeft = ref(Math.round(GAME_DURATION_MS / 1000))
 const isRewardSubmitting = ref(false)
 const gameError = ref('')
 const discountWon = ref<number | null>(null)
@@ -55,6 +73,91 @@ const canvasRef = ref<HTMLCanvasElement | null>(null)
 const authStore = useAuthStore()
 const userStore = useUserStore()
 const route = useRoute()
+
+let isPageScrollLockedByThisComponent = false
+
+function getPageScrollLockCount() {
+  if (!import.meta.client) return 0
+  return Number(document.documentElement.dataset.daigoScrollLockCount || 0)
+}
+
+function lockPageScroll() {
+  if (!import.meta.client || isPageScrollLockedByThisComponent) return
+
+  const html = document.documentElement
+  const body = document.body
+  const currentLockCount = getPageScrollLockCount()
+
+  if (currentLockCount === 0) {
+    const scrollY = window.scrollY || window.pageYOffset || 0
+
+    html.dataset.daigoScrollY = String(scrollY)
+    html.dataset.daigoScrollHtmlOverflow = html.style.overflow
+    html.dataset.daigoScrollBodyPosition = body.style.position
+    html.dataset.daigoScrollBodyTop = body.style.top
+    html.dataset.daigoScrollBodyLeft = body.style.left
+    html.dataset.daigoScrollBodyRight = body.style.right
+    html.dataset.daigoScrollBodyWidth = body.style.width
+    html.dataset.daigoScrollBodyOverflow = body.style.overflow
+
+    html.classList.add('daigo-page-scroll-locked')
+    body.classList.add('daigo-page-scroll-locked', 'daigo-modal-open')
+
+    html.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = '0'
+    body.style.right = '0'
+    body.style.width = '100%'
+    body.style.overflow = 'hidden'
+  } else {
+    body.classList.add('daigo-modal-open')
+  }
+
+  html.dataset.daigoScrollLockCount = String(currentLockCount + 1)
+  isPageScrollLockedByThisComponent = true
+}
+
+function unlockPageScroll() {
+  if (!import.meta.client || !isPageScrollLockedByThisComponent) return
+
+  const html = document.documentElement
+  const body = document.body
+  const nextLockCount = Math.max(0, getPageScrollLockCount() - 1)
+
+  isPageScrollLockedByThisComponent = false
+
+  if (nextLockCount > 0) {
+    html.dataset.daigoScrollLockCount = String(nextLockCount)
+    return
+  }
+
+  const scrollY = Number(html.dataset.daigoScrollY || 0)
+
+  html.classList.remove('daigo-page-scroll-locked')
+  body.classList.remove('daigo-page-scroll-locked', 'daigo-modal-open')
+
+  html.style.overflow = html.dataset.daigoScrollHtmlOverflow || ''
+  body.style.position = html.dataset.daigoScrollBodyPosition || ''
+  body.style.top = html.dataset.daigoScrollBodyTop || ''
+  body.style.left = html.dataset.daigoScrollBodyLeft || ''
+  body.style.right = html.dataset.daigoScrollBodyRight || ''
+  body.style.width = html.dataset.daigoScrollBodyWidth || ''
+  body.style.overflow = html.dataset.daigoScrollBodyOverflow || ''
+
+  delete html.dataset.daigoScrollLockCount
+  delete html.dataset.daigoScrollY
+  delete html.dataset.daigoScrollHtmlOverflow
+  delete html.dataset.daigoScrollBodyPosition
+  delete html.dataset.daigoScrollBodyTop
+  delete html.dataset.daigoScrollBodyLeft
+  delete html.dataset.daigoScrollBodyRight
+  delete html.dataset.daigoScrollBodyWidth
+  delete html.dataset.daigoScrollBodyOverflow
+
+  window.scrollTo(0, scrollY)
+}
+
 
 let ctx: CanvasRenderingContext2D | null = null
 let animationFrame = 0
@@ -71,12 +174,60 @@ const bacteria: Bacteria[] = []
 const particles: Particle[] = []
 const trail: TrailPoint[] = []
 
-const energyPercent = computed(() => Math.min(100, Math.max(0, Math.round(energy.value))))
+const bacteriaSprites: Record<BacteriaKind, HTMLImageElement[]> = {
+  bad: [],
+  good: [],
+}
+let bacteriaSpritesPromise: Promise<void> | null = null
+
+const effectiveBadKills = computed(() => Math.max(0, badKilled.value - goodTouched.value * GOOD_BACTERIA_PENALTY))
+const currentDiscount = computed(() => calculateDiscountByKills(effectiveBadKills.value))
+const energyPercent = computed(() => Math.min(100, Math.max(0, Math.round((effectiveBadKills.value / TARGET_BAD_KILLS_FOR_MAX_DISCOUNT) * 100))))
 const panelTitle = computed(() => {
   if (discountWon.value !== null) return discountApplied.value ? 'Скидка применена' : 'Игра завершена'
   if (isPlaying.value) return 'Ловите бактерии'
   return 'Игра на скидку'
 })
+
+function calculateDiscountByKills(kills: number) {
+  if (kills >= 36) return 15
+  if (kills >= 30) return 12
+  if (kills >= 24) return 10
+  if (kills >= 18) return 7
+  if (kills >= 12) return 5
+  if (kills >= 6) return 3
+  return 0
+}
+
+function preloadSprite(src: string) {
+  return new Promise<HTMLImageElement | null>((resolve) => {
+    if (!import.meta.client) {
+      resolve(null)
+      return
+    }
+
+    const image = new Image()
+    image.onload = () => resolve(image)
+    image.onerror = () => resolve(null)
+    image.src = src
+  })
+}
+
+function preloadBacteriaSprites() {
+  if (!import.meta.client) return Promise.resolve()
+  if (bacteriaSpritesPromise) return bacteriaSpritesPromise
+
+  bacteriaSpritesPromise = Promise.all([
+    ...BAD_BACTERIA_SPRITES.map((src) => preloadSprite(src)),
+    ...GOOD_BACTERIA_SPRITES.map((src) => preloadSprite(src)),
+  ]).then((images) => {
+    bacteriaSprites.bad = images.slice(0, BAD_BACTERIA_SPRITES.length).filter(Boolean) as HTMLImageElement[]
+    bacteriaSprites.good = images.slice(BAD_BACTERIA_SPRITES.length).filter(Boolean) as HTMLImageElement[]
+  })
+
+  return bacteriaSpritesPromise
+}
+
 
 function authHeaders() {
   const headers: Record<string, string> = {}
@@ -112,12 +263,21 @@ function toggle() {
 
 function close() {
   isOpen.value = false
+  unlockPageScroll()
   stopLoop()
   isPlaying.value = false
 }
 
+async function goToCatalog() {
+  close()
+  await nextTick()
+  await router.push('/catalog')
+}
+
 function resetGameState() {
   score.value = 0
+  badKilled.value = 0
+  goodTouched.value = 0
   energy.value = 0
   timeLeft.value = Math.round(GAME_DURATION_MS / 1000)
   isRewardSubmitting.value = false
@@ -132,15 +292,16 @@ function resetGameState() {
 }
 
 async function startGame() {
-  if (!await ensureGameAuthenticated()) return
-
+  await preloadBacteriaSprites()
   resetGameState()
   isPlaying.value = true
 
-  try {
-    await userStore.loadProfile()
-  } catch (error) {
-    console.warn('[microbiome-game] profile prefetch failed', error)
+  if (authStore.isAuthenticated) {
+    try {
+      await userStore.loadProfile()
+    } catch (error) {
+      console.warn('[microbiome-game] profile prefetch failed', error)
+    }
   }
 
   await nextTick()
@@ -165,13 +326,15 @@ function finishGame(won: boolean) {
   isWon.value = won
   stopLoop()
 
-  const filling = Math.max(0, Math.min(15, Math.round((energyPercent.value / 100) * 15)))
+  const filling = currentDiscount.value
   void sendGameResult(filling)
 }
 
 async function sendGameResult(filling: number) {
   if (!authStore.isAuthenticated || !authStore.userId) {
-    gameError.value = 'Сначала авторизуйтесь, чтобы сохранить результат игры.'
+    gameError.value = 'Вы выиграли скидку. Авторизуйтесь, чтобы мы смогли её применить.'
+    discountWon.value = filling
+    authStore.openAuth(route.fullPath)
     return
   }
 
@@ -229,47 +392,58 @@ function resizeCanvas() {
 }
 
 function spawnBacteria(now: number) {
-  if (now - lastSpawnAt < 340) return
+  const progress = Math.min(1, Math.max(0, (now - startedAt) / GAME_DURATION_MS))
+  const spawnInterval = 440 - progress * 140
+  if (now - lastSpawnAt < spawnInterval) return
   lastSpawnAt = now
 
-  const radius = 18 + Math.random() * 12
-  const spawnType = Math.random()
-  let x = 0
-  let y = 0
-  let targetX = 0
-  let targetY = 0
+  const spawnCount = Math.random() < progress * .22 ? 2 : 1
 
-  if (spawnType < .72) {
-    x = canvasWidth * (.10 + Math.random() * .80)
-    y = canvasHeight + radius + Math.random() * 84
-    targetX = Math.min(canvasWidth * .92, Math.max(canvasWidth * .08, x + (Math.random() - .5) * canvasWidth * .46))
-    targetY = canvasHeight * (.08 + Math.random() * .58)
-  } else if (spawnType < .86) {
-    x = -radius - Math.random() * 42
-    y = canvasHeight * (.22 + Math.random() * .58)
-    targetX = canvasWidth * (.42 + Math.random() * .46)
-    targetY = canvasHeight * (.08 + Math.random() * .70)
-  } else {
-    x = canvasWidth + radius + Math.random() * 42
-    y = canvasHeight * (.22 + Math.random() * .58)
-    targetX = canvasWidth * (.10 + Math.random() * .46)
-    targetY = canvasHeight * (.08 + Math.random() * .70)
+  for (let count = 0; count < spawnCount; count++) {
+    const isBad = Math.random() > .42
+    const radius = isBad ? 20 + Math.random() * 12 : 18 + Math.random() * 10
+    const spawnType = Math.random()
+    let x = 0
+    let y = 0
+    let targetX = 0
+    let targetY = 0
+
+    if (spawnType < .58) {
+      x = canvasWidth * (.08 + Math.random() * .84)
+      y = canvasHeight + radius + Math.random() * 90
+      targetX = Math.min(canvasWidth * .94, Math.max(canvasWidth * .06, x + (Math.random() - .5) * canvasWidth * .54))
+      targetY = canvasHeight * (.06 + Math.random() * .62)
+    } else if (spawnType < .79) {
+      x = -radius - Math.random() * 52
+      y = canvasHeight * (.14 + Math.random() * .68)
+      targetX = canvasWidth * (.38 + Math.random() * .52)
+      targetY = canvasHeight * (.06 + Math.random() * .76)
+    } else {
+      x = canvasWidth + radius + Math.random() * 52
+      y = canvasHeight * (.14 + Math.random() * .68)
+      targetX = canvasWidth * (.08 + Math.random() * .50)
+      targetY = canvasHeight * (.06 + Math.random() * .76)
+    }
+
+    const flight = 980 - progress * 360 + Math.random() * 460
+    const variant = Math.floor(Math.random() * (isBad ? BAD_BACTERIA_SPRITES.length : GOOD_BACTERIA_SPRITES.length))
+    const points = isBad && Math.random() < .06 + progress * .06 ? 2 : 1
+
+    bacteria.push({
+      id: bacteriaSeed++,
+      x,
+      y,
+      vx: (targetX - x) / flight,
+      vy: (targetY - y) / flight,
+      r: radius * (points === 2 ? 1.15 : 1),
+      kind: isBad ? 'bad' : 'good',
+      variant,
+      points,
+      rotation: Math.random() * Math.PI * 2,
+      spin: (Math.random() - .5) * (.010 + progress * .006),
+      alive: true,
+    })
   }
-
-  const flight = 850 + Math.random() * 650
-
-  bacteria.push({
-    id: bacteriaSeed++,
-    x,
-    y,
-    vx: (targetX - x) / flight,
-    vy: (targetY - y) / flight,
-    r: radius,
-    kind: Math.random() > .22 ? 'bad' : 'good',
-    rotation: Math.random() * Math.PI * 2,
-    spin: (Math.random() - .5) * .008,
-    alive: true,
-  })
 }
 
 function tick(now: number) {
@@ -279,15 +453,8 @@ function tick(now: number) {
   const elapsed = now - startedAt
   timeLeft.value = Math.max(0, Math.ceil((GAME_DURATION_MS - elapsed) / 1000))
 
-  if (energy.value >= ENERGY_MAX) {
-    energy.value = ENERGY_MAX
-    finishGame(true)
-    drawScene()
-    return
-  }
-
   if (elapsed >= GAME_DURATION_MS) {
-    finishGame(false)
+    finishGame(currentDiscount.value > 0)
     drawScene()
     return
   }
@@ -308,7 +475,7 @@ function updateEntities(dt: number) {
       continue
     }
 
-    item.vy += .00008 * dt
+    item.vy += .000045 * dt
     item.x += item.vx * dt
     item.y += item.vy * dt
     item.rotation += item.spin * dt
@@ -358,18 +525,18 @@ function hitBacteria(x: number, y: number) {
     if (!item.alive) continue
 
     const distance = Math.hypot(item.x - x, item.y - y)
-    if (distance > item.r + 18) continue
+    if (distance > item.r + 10) continue
 
     item.alive = false
     item.hitAt = performance.now()
     addParticles(item.x, item.y, item.kind)
 
     if (item.kind === 'bad') {
-      score.value += 10
-      energy.value = Math.min(ENERGY_MAX, energy.value + 10)
+      badKilled.value += item.points
+      score.value += item.points * 10
     } else {
-      score.value = Math.max(0, score.value - 5)
-      energy.value = Math.max(0, energy.value - 8)
+      goodTouched.value += 1
+      score.value = Math.max(0, score.value - 15)
     }
   }
 }
@@ -463,6 +630,36 @@ function drawBacteria(item: Bacteria) {
   ctx.rotate(item.rotation)
   ctx.globalAlpha = item.alive ? 1 : .25
 
+  const sprite = bacteriaSprites[item.kind]?.[item.variant]
+
+  if (sprite?.complete && sprite.naturalWidth > 0 && sprite.naturalHeight > 0) {
+    const height = item.r * (item.points === 2 ? 3.6 : 3.2)
+    const width = height * (sprite.naturalWidth / sprite.naturalHeight)
+
+    ctx.shadowColor = item.kind === 'bad' ? 'rgba(242, 67, 145, .30)' : 'rgba(52, 211, 153, .26)'
+    ctx.shadowBlur = item.alive ? 16 : 0
+    ctx.drawImage(sprite, -width / 2, -height / 2, width, height)
+
+    if (item.points === 2 && item.alive) {
+      ctx.shadowBlur = 0
+      ctx.fillStyle = 'rgba(255,255,255,.88)'
+      ctx.strokeStyle = item.kind === 'bad' ? '#f24391' : '#22c55e'
+      ctx.lineWidth = 2
+      ctx.beginPath()
+      ctx.arc(width * .30, -height * .28, 12, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.stroke()
+      ctx.fillStyle = item.kind === 'bad' ? '#d9307a' : '#15803d'
+      ctx.font = '700 12px sans-serif'
+      ctx.textAlign = 'center'
+      ctx.textBaseline = 'middle'
+      ctx.fillText('×2', width * .30, -height * .28)
+    }
+
+    ctx.restore()
+    return
+  }
+
   const isBad = item.kind === 'bad'
   const fill = isBad ? '#ff6c8f' : '#70e7a3'
   const stroke = isBad ? '#ba2f58' : '#159866'
@@ -488,22 +685,6 @@ function drawBacteria(item: Bacteria) {
   ctx.ellipse(0, 0, item.r * 1.04, item.r * .82, 0, 0, Math.PI * 2)
   ctx.fill()
   ctx.stroke()
-
-  ctx.globalAlpha = item.alive ? .85 : .2
-  ctx.fillStyle = '#fff'
-  ctx.beginPath()
-  ctx.arc(-item.r * .28, -item.r * .22, item.r * .12, 0, Math.PI * 2)
-  ctx.arc(item.r * .25, -item.r * .18, item.r * .10, 0, Math.PI * 2)
-  ctx.fill()
-
-  if (isBad) {
-    ctx.strokeStyle = '#fff'
-    ctx.lineWidth = 2
-    ctx.beginPath()
-    ctx.moveTo(-item.r * .35, item.r * .24)
-    ctx.lineTo(item.r * .35, item.r * .24)
-    ctx.stroke()
-  }
 
   ctx.restore()
 }
@@ -588,11 +769,24 @@ function drawTrail() {
   ctx.restore()
 }
 
+watch(isOpen, async (value) => {
+  if (value) {
+    lockPageScroll()
+    await nextTick()
+    resizeCanvas()
+    return
+  }
+
+  unlockPageScroll()
+})
+
 onMounted(() => {
   window.addEventListener('resize', resizeCanvas, { passive: true })
+  void preloadBacteriaSprites()
 })
 
 onBeforeUnmount(() => {
+  unlockPageScroll()
   stopLoop()
   window.removeEventListener('resize', resizeCanvas)
 })
@@ -638,23 +832,28 @@ onBeforeUnmount(() => {
                   Готово! Ваша скидка {{ discountWon }}% применена.
                 </p>
                 <p v-else-if="discountWon !== null" class="micro-game__status">
-                  Поздравляем. Ваша скидка: {{ discountWon }}%.
+                  Игра завершена. Ваша скидка: {{ discountWon }}%.
                 </p>
                 <p v-else-if="isFinished" class="micro-game__status">
                   Время вышло. Сохраняем результат.
                 </p>
                 <p v-else>
-                  Авторизуйтесь, водите каплей по вредным бактериям и наполняйте баночку энергии. Полезные зелёные бактерии лучше не задевать.
+                  Авторизуйтесь и ловите вредные бактерии каплей Daigo. Игра длится {{ Math.round(GAME_DURATION_MS / 1000) }} секунд: чем больше вредных бактерий поймано, тем выше итоговая скидка. Полезные зелёные бактерии лучше не задевать.
                 </p>
 
                 <p v-if="gameError" class="micro-game__error">{{ gameError }}</p>
 
                 <button v-if="discountWon === null" type="button" class="micro-game__start" @click="startGame">
-                  Начать борьбу
+                  Играть {{ Math.round(GAME_DURATION_MS / 1000) }} секунд
                 </button>
-                <NuxtLink v-else to="/catalog" class="micro-game__start">
+                <button
+                  v-else
+                  type="button"
+                  class="micro-game__start"
+                  @click="goToCatalog"
+                >
                   Перейти к товарам
-                </NuxtLink>
+                </button>
               </div>
             </template>
 
@@ -677,14 +876,15 @@ onBeforeUnmount(() => {
             </div>
             <div class="micro-game__stats">
               <p><span>Время</span><strong>{{ timeLeft }}с</strong></p>
-              <p><span>Очки</span><strong>{{ score }}</strong></p>
-              <p><span>Макс.</span><strong>15%</strong></p>
+              <p><span>Вредные</span><strong>{{ badKilled }}</strong></p>
+              <p><span>Штраф</span><strong>-{{ goodTouched * GOOD_BACTERIA_PENALTY }}</strong></p>
+              <p><span>Сейчас</span><strong>{{ currentDiscount }}%</strong></p>
             </div>
           </div>
         </div>
 
         <p class="micro-game__note">
-          Результат сохраняется после игры. Чем больше заполнена баночка, тем выше скидка.
+          Расчёт прозрачный: 6 вредных бактерий — 3%, 12 — 5%, 18 — 7%, 24 — 10%, 30 — 12%, 36 и больше — 15%. Каждая задетая полезная бактерия уменьшает зачёт на 3.
         </p>
       </aside>
     </Transition>
@@ -692,6 +892,22 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+:global(html.daigo-page-scroll-locked),
+:global(body.daigo-page-scroll-locked) {
+  overflow: hidden !important;
+  overscroll-behavior: none;
+}
+
+:global(body.daigo-modal-open [id*="carrot"]),
+:global(body.daigo-modal-open [class*="carrot"]),
+:global(body.daigo-modal-open [id*="Carrot"]),
+:global(body.daigo-modal-open [class*="Carrot"]),
+:global(body.daigo-modal-open iframe[src*="carrot"]),
+:global(body.daigo-modal-open iframe[src*="Carrot"]) {
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+
 .micro-game {
   --game-primary: #f24391;
   --game-primary-end: #ff8550;
@@ -700,7 +916,7 @@ onBeforeUnmount(() => {
   position: fixed;
   right: 0;
   top: 50%;
-  z-index: 100;
+  z-index: 9999999998;
   transform: translateY(-50%);
   pointer-events: none;
 }
