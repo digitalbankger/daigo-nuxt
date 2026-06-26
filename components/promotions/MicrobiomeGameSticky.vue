@@ -354,7 +354,7 @@ async function sendGameResult(filling: number) {
       method: 'POST',
       headers: authHeaders(),
       body: {
-        phone_number: Number(phoneDigits),
+        phone_number: phoneDigits,
         filling,
       },
     })
