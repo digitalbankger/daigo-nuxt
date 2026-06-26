@@ -188,6 +188,7 @@ const facts = [
   align-items: center;
   background:
     url('/images/promotions/microbiome-day-hero.png') right center / 100% no-repeat;
+  background-size: cover;
   padding: clamp(20px, 5vw, 30px);
 }
 
@@ -259,8 +260,8 @@ const facts = [
 .micro-page__cta p {
   max-width: 540px;
   margin-top: 20px;
-  color: rgba(17, 24, 39, .68);
-  font-size: clamp(16px, 2vw, 21px);
+  color: rgb(17 24 39 / 79%);
+  font-size: clamp(16px, 1.6vw, 21px);
   line-height: 1.5;
 }
 
@@ -570,23 +571,20 @@ const facts = [
   50% { height: 88%; }
 }
 
-@media (max-width: 1023px) {
-  .micro-page__hero {
-    min-height: 720px;
-    align-items: flex-start;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, .99) 0%,
-        rgba(255, 255, 255, .97) 48%,
-        rgba(255, 255, 255, .22) 100%
-      ),
-      url('/images/promotions/microbiome-day-hero-mobile.png') center bottom / auto 400px no-repeat,
-      url('/images/promotions/microbiome-day-hero.png') center bottom / auto 400px no-repeat,
-      linear-gradient(135deg, #fff7f2 0%, #fff 45%, #f1efff 100%);
-    padding: 34px 34px 360px;
-  }
-
+@media (max-width: 992px) {
+.micro-page h1[data-v-78735475] {
+    max-width: 378px;
+    color: var(--micro-text);
+    font-size: clamp(38px, 6vw, 37px);
+}
+.micro-page__hero[data-v-78735475] {
+    display: flex;
+    min-height: 420px;
+}
+.micro-page__hero-content > p:not(.micro-page__eyebrow), .micro-page__info p, .micro-page__game-block p, .micro-page__cta p {
+    max-width: 400px;
+    margin-top: 20px;
+}
   .micro-page__info,
   .micro-page__game-block,
   .micro-page__reward-grid,
@@ -595,30 +593,23 @@ const facts = [
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 767px) {
   .micro-page__hero,
   .micro-page__info,
   .micro-page__game-block,
   .micro-page__cta {
-    border-radius: 24px;
+    border-radius: 15px;
   }
 
   .micro-page__hero {
-    min-height: 760px;
-    align-items: flex-start;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, .99) 0%,
-        rgba(255, 255, 255, .97) 54%,
-        rgba(255, 255, 255, .24) 100%
-      ),
-      url('/images/promotions/microbiome-day-hero-mobile.png') center bottom / auto 360px no-repeat,
-      url('/images/promotions/microbiome-day-hero.png') center bottom / auto 360px no-repeat,
-      linear-gradient(135deg, #fff7f2 0%, #fff 45%, #f1efff 100%);
-    padding: 24px 20px 330px;
+    min-height: 770px;
+    padding: 22px 18px 400px;
+    background: url('/images/promotions/microbiome-day-hero-mobile.png') center bottom / cover no-repeat;
   }
-
+  .micro-page h1 {
+        color: var(--micro-text);
+        font-size: clamp(28px, 6vw, 37px);
+  }
   .micro-page__actions {
     flex-direction: column;
   }

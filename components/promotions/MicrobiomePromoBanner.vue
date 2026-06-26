@@ -302,23 +302,25 @@ const isReviewOpen = ref(false)
   }
 }
 
-@media (max-width: 1180px) {
-  .micro-hero {
-    min-height: 720px;
-    align-items: flex-start;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, .99) 0%,
-        rgba(255, 255, 255, .97) 47%,
-        rgba(255, 255, 255, .22) 100%
-      ),
-      url('/images/promotions/microbiome-day-hero-mobile.png') center bottom / auto 390px no-repeat,
-      url('/images/promotions/microbiome-day-hero.png') center bottom / auto 390px no-repeat,
-      linear-gradient(135deg, #fff7f2 0%, #fff 45%, #f1efff 100%);
-    padding: 34px 34px 340px;
-  }
-
+@media (max-width: 992px) {
+.micro-hero h1{
+    font-size: clamp(36px, 3.4vw, 66px);
+}
+.micro-hero__lead {
+    font-size: 18px;
+}
+.micro-hero__offer {
+      padding: 10px 14px 10px 14px;
+          gap: 10px;
+              min-width: 176px;
+}
+.micro-hero__offer-text {
+    font-size: 16px;
+}
+.micro-hero__offer-text strong[data-v-ef2385a4] {
+    margin-top: 3px;
+    font-size: 14px;
+}
   .micro-hero__content {
     max-width: 760px;
   }
@@ -332,22 +334,16 @@ const isReviewOpen = ref(false)
   .micro-hero {
     min-height: 770px;
     padding: 22px 18px 300px;
-    background:
-      linear-gradient(
-        180deg,
-        rgba(255, 255, 255, .99) 0%,
-        rgba(255, 255, 255, .97) 56%,
-        rgba(255, 255, 255, .25) 100%
-      ),
-      url('/images/promotions/microbiome-day-hero-mobile.png') 62% bottom / auto 330px no-repeat,
-      url('/images/promotions/microbiome-day-hero.png') 62% bottom / auto 330px no-repeat,
-      linear-gradient(135deg, #fff7f2 0%, #fff 45%, #f1efff 100%);
+    background: url('/images/promotions/microbiome-day-hero-mobile.png') center bottom / cover no-repeat;
+  }
+  .micro-hero{
+    align-items: flex-start;
   }
 
   .micro-hero h1 {
-    margin-top: 24px;
-    font-size: clamp(34px, 10.2vw, 46px);
-    letter-spacing: -.045em;
+        margin-top: 24px;
+        font-size: clamp(26px, 6.2vw, 38px);
+        letter-spacing: -.045em;
   }
 
   .micro-hero__lead {
@@ -362,17 +358,17 @@ const isReviewOpen = ref(false)
   }
 
   .micro-hero__offer {
-    width: 100%;
+    width: auto;
     min-width: 0;
-    min-height: 82px;
-    gap: 16px;
-    border-radius: 20px;
-    padding: 14px 16px;
+    min-height: 62px;
+    gap: 10px;
+    border-radius: 15px;
+    padding: 10px;
   }
 
   .micro-hero__offer-icon {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
   }
 
   .micro-hero__offer-icon svg {
@@ -381,7 +377,11 @@ const isReviewOpen = ref(false)
   }
 
   .micro-hero__offer-text {
-    font-size: 16px;
+    font-size: 15px;
+  }
+
+  .micro-hero__offer-text strong[data-v-ef2385a4][data-v-ef2385a4] {
+    font-size: 12px;
   }
 
   .micro-hero__offer-text strong {

@@ -630,7 +630,7 @@ onBeforeUnmount(() => {
           <div class="micro-game__playground">
             <template v-if="!isPlaying">
               <div class="micro-game__intro">
-                <div class="micro-game__intro-drop"></div>
+                <img src="/logo.svg" alt="daigo logo" class="h-10 md:h-12 xl:h-16" />
                 <p v-if="isRewardSubmitting" class="micro-game__status">
                   Сохраняем результат игры...
                 </p>
@@ -638,7 +638,7 @@ onBeforeUnmount(() => {
                   Готово! Ваша скидка {{ discountWon }}% применена.
                 </p>
                 <p v-else-if="discountWon !== null" class="micro-game__status">
-                  Игра завершена. Ваш результат: {{ discountWon }}%.
+                  Поздравляем. Ваша скидка: {{ discountWon }}%.
                 </p>
                 <p v-else-if="isFinished" class="micro-game__status">
                   Время вышло. Сохраняем результат.
@@ -650,7 +650,7 @@ onBeforeUnmount(() => {
                 <p v-if="gameError" class="micro-game__error">{{ gameError }}</p>
 
                 <button v-if="discountWon === null" type="button" class="micro-game__start" @click="startGame">
-                  Играть 25 секунд
+                  Начать борьбу
                 </button>
                 <NuxtLink v-else to="/catalog" class="micro-game__start">
                   Перейти к товарам
@@ -939,6 +939,7 @@ onBeforeUnmount(() => {
   flex-direction: column;
   padding: 24px;
   text-align: center;
+  gap: 15px;
 }
 
 .micro-game__intro p {
@@ -983,8 +984,8 @@ onBeforeUnmount(() => {
 }
 
 .micro-game__status {
-  color: #a16207 !important;
-  font-weight: 600;
+  color: #45bc68 !important;
+  font-weight: 500;
 }
 
 .micro-game__status_success {
@@ -1013,7 +1014,7 @@ onBeforeUnmount(() => {
   padding: 12px 18px;
   color: #fff;
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   text-decoration: none;
   cursor: pointer;
   box-shadow: 0 14px 32px rgba(242, 67, 145, .24);
@@ -1036,9 +1037,9 @@ onBeforeUnmount(() => {
 .micro-game__code span {
   flex: 1;
   padding: 12px;
-  color: var(--game-text);
+  color: #263149;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 500;
   letter-spacing: .08em;
 }
 
@@ -1103,7 +1104,7 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #263149;
   font-size: 18px;
   font-weight: 800;
   text-shadow: 0 1px 0 rgba(255,255,255,.70);
