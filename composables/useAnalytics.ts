@@ -60,6 +60,11 @@ export function useAnalytics() {
 
   function reach(goal: string, params?: Record<string, any>) {
     if (!counterId) return
+
+    if (process.client && typeof window !== 'undefined') {
+      ;(window as any).__daigoSendRoistatEvent?.(goal, { params: params || {} }, 'yandex_metrika')
+    }
+
     ymCall(counterId, 'reachGoal', goal, params || {})
   }
 
