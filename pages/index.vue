@@ -96,13 +96,6 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
     </div>
   </BaseContainer>
 
-  <div class="flex flex-col gap-10">
-    <ReviewSlider
-      v-if="reviews"
-      :reviews="reviews"
-    />
-  </div>
-
   <BaseContainer>
     <div class="flex flex-col gap-10">
       <PartnersSection />
