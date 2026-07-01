@@ -97,7 +97,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
   </BaseContainer>
 
   <BaseContainer>
-    <div class="flex flex-col gap-10">
+    <div class="flex flex-col gap-10 mt-10">
       <PartnersSection />
       <ClientOnly>
         <RewardSection />
