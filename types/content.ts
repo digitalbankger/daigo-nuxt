@@ -1,20 +1,33 @@
 export interface Banner {
-  id: number
+  id: number | string
   image: string
   imageDesktop?: string
   imageMobile?: string
   mobileHeight?: string
   imageTablet?: string
+  imageClass?: string
   tabletHeight?: string
   title: string
-  titleSize: string
+  titleSize?: string
+  titleSizeMobile?: string
   descWidth: string
   html: string
   buttonText: string
   mobileButtonText?: string
   buttonLink: string
   tags?: BannerTag[]
+  /** Вариант отображения баннера. Используется для локальных промо/медицинских баннеров. */
+  variant?: 'default' | 'medical'
+  /** Если true — слайд рисуется как готовая картинка без наложения текста/кнопки. */
+  imageOnly?: boolean
+  /** Alt/aria-label для imageOnly-баннера. */
+  alt?: string
+  /** Позиция фоновой картинки для обычных баннеров. */
+  backgroundPosition?: string
+  /** Открывать ссылку в новой вкладке. */
+  external?: boolean
 }
+
 
 export interface BannerTag {
   label: string

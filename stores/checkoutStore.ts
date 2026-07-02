@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { reactive, ref } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
@@ -50,6 +50,22 @@ export interface DeliveryOption {
   method?: string
 }
 
+export interface SavedCheckoutAddress {
+  index: number
+  label: string
+  city: string
+  street: string
+  house: string
+  apartment?: string
+  entrance?: string
+  floor?: string
+  intercom?: string
+  block?: string
+  postal_code?: string
+  address_line?: string
+  raw: any
+}
+
 interface StateShape {
   recipient: {
     first_name: string
@@ -82,6 +98,10 @@ interface StateShape {
     address_line?: string // ⬅️ CHANGED: пояснение, поле используется как общий текст адреса
     block?: string        // ⬅️ CHANGED
     postal_code?: string  // ⬅️ CHANGED
+    city_fias_id?: string | null
+    region?: string | null
+    geo_lat?: number | null
+    geo_lon?: number | null
   }
 
   orderForAnotherPerson: boolean // оставляю для обратной совместимости с текущим UI (чекбокс)
@@ -201,6 +221,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
   const pvzAddress = ref<string>('') // историческое поле — оставляю для совместимости
   const pickupAddress = ref<string>(state.address.pickupAddress || '')
   const pickupSchedule = ref<string>(state.address.pickupSchedule || '')
+  const isApplyingSavedAddress = ref(false)
+  let savedAddressApplyTimer: ReturnType<typeof setTimeout> | undefined
 
   // ---- Ошибки формы + баннер ----
   const errors = reactive({
@@ -250,6 +272,190 @@ export const useCheckoutStore = defineStore('checkout', () => {
   }
   function normalizePhoneDigits(s: string) {
     return (s || '').replace(/\D/g, '')
+  }
+
+  function cleanAddressPart(value: any): string {
+    return String(value ?? '').replace(/\s+/g, ' ').trim()
+  }
+
+  function pickAddressField(raw: any, keys: string[]): string {
+    if (!raw || typeof raw !== 'object') return ''
+    for (const key of keys) {
+      const value = cleanAddressPart(raw[key])
+      if (value) return value
+    }
+    return ''
+  }
+
+  function stripAddressPrefix(value: string, prefixes: string[]): string {
+    let result = cleanAddressPart(value)
+    for (const prefix of prefixes) {
+      result = result.replace(new RegExp(`^${prefix}\\.?\\s*`, 'i'), '')
+    }
+    return cleanAddressPart(result)
+  }
+
+  function parseStreet(raw: string): string {
+    return stripAddressPrefix(raw, [
+      'ул', 'улица', 'проспект', 'пр-кт', 'пр\\.', 'пер', 'переулок',
+      'шоссе', 'бульвар', 'бул', 'наб', 'набережная', 'проезд', 'мкр', 'микрорайон'
+    ])
+  }
+
+  function parseCity(raw: string): string {
+    return stripAddressPrefix(raw, ['г', 'город', 'пос', 'поселок', 'посёлок', 'д', 'деревня', 'с', 'село', 'рп', 'пгт'])
+  }
+
+  function parseHouseBlock(raw: string) {
+    const text = cleanAddressPart(raw)
+    const houseMatch = text.match(/(?:^|\s)(?:д|дом|вл|владение)\.?\s*([^,;]+)/i)
+    const value = houseMatch?.[1] || text
+    const house = cleanAddressPart(value)
+      .replace(/\s*(?:к|корп|корпус|стр|строение)\.?\s*.*$/i, '')
+      .replace(/^№\s*/, '')
+    const blockMatch = text.match(/(?:к|корп|корпус|стр|строение)\.?\s*([^,;]+)/i)
+    return {
+      house: cleanAddressPart(house),
+      block: cleanAddressPart(blockMatch?.[1] || ''),
+    }
+  }
+
+  function parseSavedAddress(raw: any, index: number): SavedCheckoutAddress | null {
+    if (!raw) return null
+
+    const rawString = typeof raw === 'string'
+      ? raw
+      : pickAddressField(raw, ['address', 'address_line', 'addressLine', 'full_address', 'fullAddress', 'value', 'label', 'title', 'street'])
+
+    const parts = cleanAddressPart(rawString)
+      .split(',')
+      .map(part => cleanAddressPart(part))
+      .filter(Boolean)
+
+    let postal = pickAddressField(raw, ['postal_code', 'postalCode', 'zip'])
+    let city = pickAddressField(raw, ['city', 'town', 'settlement', 'locality'])
+    let street = pickAddressField(raw, ['street', 'street_name', 'streetName'])
+    let house = pickAddressField(raw, ['house', 'building', 'home'])
+    let block = pickAddressField(raw, ['block', 'corpus', 'building_block'])
+    let apartment = pickAddressField(raw, ['apartment', 'flat', 'office', 'apt'])
+    let entrance = pickAddressField(raw, ['entrance', 'porch'])
+    let floor = pickAddressField(raw, ['floor'])
+    let intercom = pickAddressField(raw, ['intercom', 'doorphone'])
+
+    for (const part of parts) {
+      if (!postal && /^\d{5,6}$/.test(part)) {
+        postal = part
+        continue
+      }
+
+      if (!city && /^(г\.?|город|пос\.?|поселок|посёлок|д\.?|деревня|с\.?|село|рп\.?|пгт\.?)/i.test(part)) {
+        city = parseCity(part)
+        continue
+      }
+
+      if (!street && /(ул\.?|улица|проспект|пр-кт|пер\.?|переулок|шоссе|бульвар|бул\.?|наб\.?|набережная|проезд|мкр|микрорайон)/i.test(part)) {
+        street = parseStreet(part)
+        continue
+      }
+
+      if (!house && /^(д\.?|дом|вл\.?|владение)\s*/i.test(part)) {
+        const parsed = parseHouseBlock(part)
+        house = parsed.house
+        if (!block) block = parsed.block
+        continue
+      }
+
+      if (!apartment && /^(кв\.?|квартира|оф\.?|офис|пом\.?|помещение|апарт)/i.test(part)) {
+        apartment = stripAddressPrefix(part, ['кв', 'квартира', 'оф', 'офис', 'пом', 'помещение', 'апарт'])
+        continue
+      }
+
+      if (!entrance && /подъезд/i.test(part)) {
+        entrance = stripAddressPrefix(part, ['подъезд'])
+        continue
+      }
+
+      if (!floor && /этаж/i.test(part)) {
+        floor = stripAddressPrefix(part, ['этаж'])
+        continue
+      }
+
+      if (!intercom && /домофон/i.test(part)) {
+        intercom = stripAddressPrefix(part, ['домофон'])
+      }
+    }
+
+    // Если город явно не найден, берём первую часть, которая не похожа на область/индекс/улицу/дом.
+    if (!city) {
+      const candidate = parts.find(part =>
+        !/^\d{5,6}$/.test(part) &&
+        !/(обл|край|район|р-н|ул\.?|улица|проспект|пр-кт|пер\.?|шоссе|д\.?|дом|кв\.?)/i.test(part)
+      )
+      city = parseCity(candidate || '')
+    }
+
+    const addressLine = [street, house ? `д. ${house}` : ''].filter(Boolean).join(', ')
+    const label = pickAddressField(raw, ['label', 'title']) || [city, street, house ? `д. ${house}` : '', apartment ? `кв. ${apartment}` : '']
+      .filter(Boolean)
+      .join(', ') || rawString
+
+    if (!label && !city && !street && !house) return null
+
+    return {
+      index,
+      label,
+      city,
+      street,
+      house,
+      apartment: apartment || undefined,
+      entrance: entrance || undefined,
+      floor: floor || undefined,
+      intercom: intercom || undefined,
+      block: block || undefined,
+      postal_code: postal || undefined,
+      address_line: addressLine || street || rawString,
+      raw,
+    }
+  }
+
+  const savedAddresses = computed<SavedCheckoutAddress[]>(() => {
+    const rawAddresses = Array.isArray(user.profile?.addresses) ? user.profile.addresses : []
+    return rawAddresses
+      .map((address, index) => parseSavedAddress(address, index))
+      .filter(Boolean) as SavedCheckoutAddress[]
+  })
+
+  function applySavedAddress(index: number) {
+    const selected = savedAddresses.value.find(address => address.index === index)
+    if (!selected) return
+
+    isApplyingSavedAddress.value = true
+    if (savedAddressApplyTimer) clearTimeout(savedAddressApplyTimer)
+
+    const current = deliveryOptions.value.find(option => option.id === state.deliveryId)
+    if (!current || current.kind === 'pickup') {
+      const firstCourier = deliveryOptions.value.find(option => option.kind === 'courier' || option.kind === 'todoor')
+      if (firstCourier) state.deliveryId = firstCourier.id
+    }
+
+    setAddress({
+      city: selected.city || state.address.city || '',
+      city_fias_id: null,
+      street: selected.street || '',
+      house: selected.house || '',
+      block: selected.block || '',
+      postal_code: selected.postal_code || '',
+      apartment: selected.apartment || '',
+      entrance: selected.entrance || '',
+      floor: selected.floor || '',
+      intercom: selected.intercom || '',
+      address_line: selected.address_line || selected.street || '',
+      private_house: false,
+    })
+
+    savedAddressApplyTimer = setTimeout(() => {
+      isApplyingSavedAddress.value = false
+    }, 350)
   }
 
   // ---- Mutations ----
@@ -592,6 +798,8 @@ try {
     // state
     state,
     deliveryOptions,
+    savedAddresses,
+    isApplyingSavedAddress,
     pvzAddress,
     pickupAddress,
     pickupSchedule,
@@ -603,6 +811,7 @@ try {
     // methods
     setAddress,
     setDelivery,
+    applySavedAddress,
     loadOptions,
     submit
   }

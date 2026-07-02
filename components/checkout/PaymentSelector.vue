@@ -8,8 +8,8 @@ const store = useCheckoutStore()
 // Значения в UI (как у тебя в массиве methods)
 type UiValue =
   | 'sbp'
-  // | 'tpay_qr'
-  // | 'tpay_card'
+  | 'tpay_qr'
+  | 'tpay_card'
   | 'installments'
   | 'credit'
   | 'card_online'
@@ -28,8 +28,8 @@ type MethodCard = {
 // Соответствие UI → значениям, которые ждёт стор/бэкенд
 const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
   sbp: 'sbp',
-  // tpay_qr: 'tpay_qr',
-  // tpay_card: 'tpay_card',
+  tpay_qr: 'tpay_qr',
+  tpay_card: 'tpay_card',
   installments: 'dolyame',
   credit: 'tbank',
   card_online: 'bank_card',
@@ -40,8 +40,8 @@ const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
 // Обратное соответствие (для удобной проверки активной карточки)
 const STORE_TO_UI: Record<PaymentMethod, UiValue> = {
   sbp: 'sbp',
-  // tpay_qr: 'tpay_qr',
-  // tpay_card: 'tpay_card',
+  tpay_qr: 'tpay_qr',
+  tpay_card: 'tpay_card',
   dolyame: 'installments',
   tbank: 'credit',
   bank_card: 'card_online',
@@ -57,21 +57,21 @@ const methods: MethodCard[] = [
     img: 'https://daigo.ru/images/oplata/sbp.png',
     layout: 'logo-only',
   },
-  // {
-  //   value: 'tpay_qr',
-  //   label: 'QR СБП Т-Банк',
-  //   description: 'Оплата по QR от Т-Банка',
-  //   img: 'https://daigo.ru/images/oplata/tbank.png',
-  //   layout: 'text',
-  //   badge: 'Самый удобный',
-  // },
-  // {
-  //   value: 'tpay_card',
-  //   label: 'Картой Т-Банк',
-  //   description: 'Банковской картой онлайн',
-  //   img: 'https://daigo.ru/images/oplata/tbank.png',
-  //   layout: 'text',
-  // },
+  {
+    value: 'tpay_qr',
+    label: 'QR СБП Т-Банк',
+    description: 'Оплата по QR от Т-Банка',
+    img: 'https://daigo.ru/images/oplata/tbank.png',
+    layout: 'text',
+    badge: 'Самый удобный',
+  },
+  {
+    value: 'tpay_card',
+    label: 'Картой Т-Банк',
+    description: 'Банковской картой онлайн',
+    img: 'https://daigo.ru/images/oplata/tbank.png',
+    layout: 'text',
+  },
   {
     value: 'card_online',
     label: 'Банковская карта',

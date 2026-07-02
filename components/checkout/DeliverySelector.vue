@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
@@ -13,6 +13,9 @@ const courierOptions = computed(() => store.deliveryOptions.filter(o => o.kind =
 const pvzOptions     = computed(() => store.deliveryOptions.filter(o => o.kind === 'pvz'))
 const pickupOptions  = computed(() => store.deliveryOptions.filter(o => o.kind === 'pickup'))
 const toDoorOptions = computed(() => store.deliveryOptions.filter(o => o.kind === 'todoor'))
+const savedAddresses = computed(() => store.savedAddresses || [])
+const savedAddressSelectValue = ref('')
+const dadataSuggestionsDisabled = computed(() => Boolean((store as any).isApplyingSavedAddress))
 
 /** Активный вид доставки и переключение между видами */
 const selectedKind = computed<'courier' | 'pvz' | 'pickup'>({
@@ -132,6 +135,37 @@ const shippingAddressPayload = computed(() => ({
   delivery_id  : store.state.deliveryId,
 }))
 
+function formatSavedAddressOption(address: any) {
+  return address?.label || [
+    address?.city,
+    address?.street,
+    address?.house ? `д. ${address.house}` : '',
+    address?.apartment ? `кв. ${address.apartment}` : '',
+  ].filter(Boolean).join(', ') || 'Сохранённый адрес'
+}
+
+function applySavedAddress(index: number) {
+  const selected = savedAddresses.value.find((address: any) => Number(address.index) === Number(index))
+  if (!selected) return
+
+  savedAddressSelectValue.value = String(selected.index)
+  store.applySavedAddress?.(selected.index)
+}
+
+function onSavedAddressChange(event: Event) {
+  const value = (event.target as HTMLSelectElement)?.value || ''
+  savedAddressSelectValue.value = value
+
+  if (!value) return
+  applySavedAddress(Number(value))
+}
+
+watch(savedAddresses, (addresses) => {
+  if (!savedAddressSelectValue.value) return
+  const exists = addresses.some((address: any) => String(address.index) === savedAddressSelectValue.value)
+  if (!exists) savedAddressSelectValue.value = ''
+})
+
 function saveAddress() {
   // Здесь можно вызвать API/валидацию/предрасчёт
   // Пример: store.saveAddress(shippingAddressPayload.value)
@@ -162,6 +196,32 @@ function saveAddress() {
         :class="selectedKind === 'pickup' ? 'bg-[#EEF4FF] text-black border-primary' : 'bg-white border-gray-300'"
         @click="selectedKind = 'pickup'"
       >Самовывоз</button>
+    </div>
+
+    <!-- Сохранённые адреса пользователя -->
+    <div
+      v-if="selectedKind !== 'pickup' && savedAddresses.length"
+      class="space-y-2"
+    >
+      <label class="block text-sm font-medium text-black/70" for="saved-checkout-address">
+        Сохранённый адрес
+      </label>
+
+      <select
+        id="saved-checkout-address"
+        :value="savedAddressSelectValue"
+        class="w-full h-[52px] rounded-lg border border-gray-300 bg-white px-4 text-sm font-light tracking-wide outline-none transition hover:border-primary/50 focus:border-primary focus:ring-1 focus:ring-primary"
+        @change="onSavedAddressChange"
+      >
+        <option value="">Выберите сохранённый адрес</option>
+        <option
+          v-for="address in savedAddresses"
+          :key="address.index"
+          :value="String(address.index)"
+        >
+          {{ formatSavedAddressOption(address) }}
+        </option>
+      </select>
     </div>
 
     <!-- Курьерская доставка -->
@@ -198,6 +258,7 @@ function saveAddress() {
               v-model="addressLine"
               :cityFiasId="cityFiasId"
               @select="onAddressSelectCourier"
+              :suggestions-disabled="dadataSuggestionsDisabled"
               placeholder="Улица"
               background="bg-white"
             />
@@ -272,6 +333,7 @@ function saveAddress() {
               v-model="addressLine"
               :cityFiasId="cityFiasId"
               @select="onAddressSelectPvz"
+              :suggestions-disabled="dadataSuggestionsDisabled"
               background="bg-white"
               placeholder="Адрес пункта выдачи (улица)"
             />
@@ -330,7 +392,7 @@ function saveAddress() {
 
 
 <!-- <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
@@ -535,6 +597,7 @@ function saveAddress() {
               v-model="pvzAddr"
               :cityFiasId="cityFiasId"
               @select="onAddressSelectPvz"
+              :suggestions-disabled="dadataSuggestionsDisabled"
               background="bg-white"
               placeholder="Адрес пункта выдачи (улица, дом)"
             />

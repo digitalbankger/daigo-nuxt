@@ -43,20 +43,18 @@ export interface UserForm {
 export interface CouponInfo {
   id?: number
   code?: string
+  type?: string
   applied?: boolean
+  auto_applied?: boolean
   discount_percent?: number
   discount_amount?: number
+  discount_type?: string
+  is_stackable?: boolean
+  validation_error?: string
+  applied_at?: string
 }
 
-export interface CartCoupon {
-  id?: number
-  code?: string
-  applied?: boolean
-  discount_percent?: number
-  discount_amount?: number
-  is_stackable?: boolean
-  type?: string
-}
+export interface CartCoupon extends CouponInfo {}
 
 export const useCartStore = defineStore('cart', () => {
   const analytics = useAnalytics()
@@ -112,6 +110,54 @@ export const useCartStore = defineStore('cart', () => {
       }
     }
     return guestSessionId.value!
+  }
+
+  function normalizeCoupon(raw: any): CartCoupon | null {
+    if (!raw || typeof raw !== 'object') return null
+
+    const hasCouponShape =
+      raw.code != null ||
+      raw.applied != null ||
+      raw.discount_percent != null ||
+      raw.discount_amount != null ||
+      raw.validation_error != null
+
+    if (!hasCouponShape) return null
+
+    return {
+      id: raw.id != null ? Number(raw.id) : undefined,
+      code: raw.code != null ? String(raw.code) : undefined,
+      type: raw.type != null ? String(raw.type) : undefined,
+      applied: raw.applied === true,
+      auto_applied: raw.auto_applied === true,
+      discount_percent: raw.discount_percent != null ? Number(raw.discount_percent) : undefined,
+      discount_amount: raw.discount_amount != null ? Number(raw.discount_amount) : undefined,
+      discount_type: raw.discount_type != null ? String(raw.discount_type) : undefined,
+      is_stackable: raw.is_stackable != null ? raw.is_stackable === true : undefined,
+      validation_error: raw.validation_error != null ? String(raw.validation_error) : undefined,
+      applied_at: raw.applied_at != null ? String(raw.applied_at) : undefined,
+    }
+  }
+
+  function extractSingleCoupon(data: any): CartCoupon | null {
+    return normalizeCoupon(data?.coupon) || normalizeCoupon(data?.coupon_info) || normalizeCoupon(data)
+  }
+
+  function applyCouponResponseState(data: any) {
+    const single = extractSingleCoupon(data)
+    if (single) {
+      couponInfo.value = single
+      coupons.value = [single]
+      return
+    }
+
+    if (Array.isArray(data?.coupons)) {
+      const normalized = data.coupons
+        .map((coupon: any) => normalizeCoupon(coupon))
+        .filter(Boolean) as CartCoupon[]
+      coupons.value = normalized
+      couponInfo.value = normalized.find(coupon => coupon.applied) || normalized[0] || null
+    }
   }
 
   function mapApiItem(i: any): CartItem {
@@ -177,23 +223,28 @@ export const useCartStore = defineStore('cart', () => {
     total.value =
       srvTotal != null ? Number(srvTotal) : Math.max(0, subtotal.value - discountAmount.value)
 
-    // Купон (если есть)
-    couponInfo.value = data?.coupon_info || null
-    coupons.value = Array.isArray(data?.coupons) ? data.coupons : []
+    // Купон (если есть). Поддерживаем оба формата ответа:
+    // 1) старый: { coupon_info, coupons }
+    // 2) новый: { coupon: { code, applied, validation_error, ... } }
+    const singleCoupon = extractSingleCoupon(data)
+    const normalizedCoupons = Array.isArray(data?.coupons)
+      ? data.coupons.map((coupon: any) => normalizeCoupon(coupon)).filter(Boolean) as CartCoupon[]
+      : []
+
+    couponInfo.value = singleCoupon || normalizedCoupons.find(coupon => coupon.applied) || normalizedCoupons[0] || null
+    coupons.value = normalizedCoupons.length ? normalizedCoupons : (singleCoupon ? [singleCoupon] : [])
 
     // 🆕 VIP discount: ищем среди coupons
     vipDiscountAmount.value = 0
     vipDiscountPercent.value = null
-    if (Array.isArray(data?.coupons)) {
-      for (const c of data.coupons) {
-        if (!c?.applied) continue
-        const t = String(c.type || '').toLowerCase()
-        // vip type
-        if (t === 'vip') {
-          vipDiscountAmount.value += Number(c.discount_amount || 0)
-          if (c.discount_percent != null && vipDiscountPercent.value == null) {
-            vipDiscountPercent.value = Number(c.discount_percent)
-          }
+    for (const c of coupons.value) {
+      if (!c?.applied) continue
+      const t = String(c.type || '').toLowerCase()
+      // vip type
+      if (t === 'vip') {
+        vipDiscountAmount.value += Number(c.discount_amount || 0)
+        if (c.discount_percent != null && vipDiscountPercent.value == null) {
+          vipDiscountPercent.value = Number(c.discount_percent)
         }
       }
     }
@@ -382,9 +433,26 @@ export const useCartStore = defineStore('cart', () => {
       throw new Error('Для применения промокода необходимо авторизоваться')
     }
 
-    const res: any = await cartService.applyUserCoupon(userId.value, trimmed)
+    let res: any
+    try {
+      res = await cartService.applyUserCoupon(userId.value, trimmed)
+    } catch (e: any) {
+      const body = e?.data || e?.response?._data || null
+      if (body?.coupon || body?.coupon_info || body?.validation_error) {
+        applyCouponResponseState(body)
+        throw new Error(getCouponApplyMessage(body))
+      }
+      throw e
+    }
 
-    applyServerCartState(res)
+    // Новый endpoint может вернуть только объект купона:
+    // { coupon: { code, applied, validation_error, ... } }
+    // Старый endpoint мог вернуть полное состояние корзины. Поддерживаем оба варианта.
+    applyCouponResponseState(res)
+    if (Array.isArray(res?.items)) {
+      applyServerCartState(res)
+    }
+
     // На случай асинхронных перерасчётов на бэке:
     await loadCart()
 

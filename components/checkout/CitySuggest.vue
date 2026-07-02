@@ -32,6 +32,8 @@ const props = defineProps<{
   background?: string
   /** глушить автофилл и менеджеры паролей */
   suppressAutofill?: boolean
+  /** временно отключить запросы DaData при программной подстановке адреса */
+  suggestionsDisabled?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -66,6 +68,23 @@ const lastSelected = ref<string>('')
 
 const { city, cancel } = useDadata()
 
+let t: number | undefined
+
+function stopSuggestions() {
+  if (t) { clearTimeout(t); t = undefined }
+  cancel()
+  loading.value = false
+  open.value = false
+  items.value = []
+  hovered.value = -1
+}
+
+watch(() => props.suggestionsDisabled, (disabled) => {
+  if (!disabled) return
+  lastSelected.value = String(input.value || '').trim()
+  stopSuggestions()
+})
+
 onMounted(() => {
   if (props.autofocus && inputEl.value) inputEl.value.focus()
 })
@@ -76,10 +95,15 @@ watch(() => props.modelValue, v => {
 })
 
 // --- дебаунс 200ms + отмена предыдущего запроса ---
-let t: number | undefined
 watch(input, (q) => {
   emit('update:modelValue', (q as string) ?? '')
   const trimmed = String(q || '').trim()
+
+  if (props.suggestionsDisabled) {
+    lastSelected.value = trimmed
+    stopSuggestions()
+    return
+  }
 
   if (t) { clearTimeout(t); t = undefined }
   if (!trimmed) { items.value = []; open.value = false; return }
@@ -132,11 +156,18 @@ function onKeydown(e: KeyboardEvent) {
 function onFocus() {
   isFocused.value = true
   emit('focus')
-  if (items.value.length && input.value.trim() !== lastSelected.value) open.value = true
+  if (!props.suggestionsDisabled && items.value.length && input.value.trim() !== lastSelected.value) open.value = true
 }
 function onBlur() {
   isFocused.value = false
   emit('blur')
+
+  if (props.suggestionsDisabled) {
+    lastSelected.value = String(input.value || '').trim()
+    stopSuggestions()
+    return
+  }
+
   // даём время выбрать мышкой
   setTimeout(() => { open.value = false }, 120)
 }

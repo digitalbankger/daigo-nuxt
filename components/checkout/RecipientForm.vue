@@ -6,6 +6,7 @@ import CitySuggest from '@/components/checkout/CitySuggest.vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 
 const store = useCheckoutStore()
+const dadataSuggestionsDisabled = computed(() => Boolean((store as any).isApplyingSavedAddress))
 
 onMounted(async () => {
   if (typeof store.loadOptions === 'function') {
@@ -188,6 +189,7 @@ watch(() => lastName.value, (v) => {
       <CitySuggest
         v-model="city"
         @select="onCitySelect"
+        :suggestions-disabled="dadataSuggestionsDisabled"
         background="bg-white"
         placeholder="Город*"
       />

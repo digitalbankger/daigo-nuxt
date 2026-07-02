@@ -17,11 +17,37 @@ export default defineEventHandler((): Banner[] => {
       title: 'DAIGO — натуральные БАДы из Японии ',
       titleSize: '5em',
       descWidth: '550px',
-      html: '<p class="text-[clamp(0.875rem,4vw,1.5rem)] ">Для всех систем организма',
+      html: '<p class="text-[clamp(0.875rem,4vw,1.5rem)] ">Для всех систем организма</p>',
       buttonText: 'Узнать больше о Дайго',
       mobileButtonText: 'Больше о Дайго',
       buttonLink: '/catalog'
     },
+    {
+      id: 'observational-program',
+      image: '/images/mock/banners/observational-program.jpg',
+      imageDesktop: '/images/mock/banners/observational-program.jpg',
+      imageTablet: '/images/mock/banners/observational-program.jpg',
+      imageMobile: '/images/mock/banners/ob-mob.jpg',
+      mobileHeight: '420px',
+      tabletHeight: '360px',
+
+      title: 'Наблюдательная программа',
+      titleSize: '3.5em',
+      titleSizeMobile: '1.55rem',
+
+      descWidth: '550px',
+      html: '<p class="text-[clamp(0.875rem,4vw,1.5rem)] py-3">Применение метабиотика Daigo в реальной практике врачей амбулаторного звена</p>',
+
+      buttonText: 'Принять участие',
+      mobileButtonText: 'Принять участие',
+      buttonLink: 'https://res.daigo.ru',
+
+      external: true,
+      imageOnly: false,
+
+      alt: 'Наблюдательная программа. Применение метабиотика Daigo в реальной практике врачей амбулаторного звена',
+      variant: 'medical'
+    }
     // {
     //   id: 2,
     //   image: '/images/mock/main.webp',

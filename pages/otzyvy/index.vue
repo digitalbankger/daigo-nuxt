@@ -5,7 +5,6 @@ import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
 import { useHead } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ReviewCard from '~/components/reviews/ReviewCard.vue'
-import ReviewStoryModal from '~/components/reviews/ReviewStoryModal.vue'
 import { useReviewsStore } from '~/stores/reviewsStore'
 import type { Review } from '~/types/content'
 
@@ -34,22 +33,6 @@ onMounted(async () => {
 
 // Данные
 const reviews = computed<Review[]>(() => reviewsStore.allReviews ?? [])
-const celebrityReviews = computed(() => reviews.value.filter(r => r.type === 'celebrity'))
-
-// Модалки: сторис «известных»
-const isCelebModalOpen = ref(false)
-const modalReviews = ref<Review[]>([])
-
-function openStory(review: Review) {
-  const list = celebrityReviews.value
-  const index = list.findIndex(r => r.id === review.id)
-  if (index !== -1) {
-    modalReviews.value = [...list.slice(index), ...list.slice(0, index)]
-    isCelebModalOpen.value = true
-  }
-}
-
-
 // Модалка: полный текст отзыва
 const selectedTextReview = ref<Review | null>(null)
 const isTextModalOpen = computed(() => !!selectedTextReview.value)
@@ -95,24 +78,6 @@ useHead(() => {
       <p v-else-if="loadError" class="text-center text-red-500">Не удалось загрузить отзывы</p>
 
       <template v-else-if="reviews.length">
-        <!-- Сторис от известных людей -->
-        <div class="flex justify-between items-center mb-4">
-          <h2 class="font-medium text-[clamp(1.2rem,4vw,2.8rem)] leading-tight">
-            Отзывы от известных людей
-          </h2>
-        </div>
-
-        <div class="overflow-x-auto scrollbar-hidden mb-10 md:mb-16 py-6 border-b border-black/20">
-          <div class="flex gap-4 md:gap-8 min-w-full">
-            <ReviewCard
-              v-for="review in celebrityReviews"
-              :key="review.id"
-              :review="review"
-              @open-story="openStory(review)"
-            />
-          </div>
-        </div>
-
         <!-- Видео отзывы --> 
         <div class="flex justify-between items-center mb-6">
           <h2 class="font-medium text-[clamp(1.6rem,6vw,3.2rem)] leading-tight">
@@ -170,15 +135,6 @@ useHead(() => {
       </template>
 
       <p v-else class="text-center text-gray-500">Пока нет отзывов.</p>
-
-      <!-- Модалка сторис «известных» -->
-      <ClientOnly>
-        <ReviewStoryModal
-          :isOpen="isCelebModalOpen"
-          :reviews="modalReviews"
-          @close="isCelebModalOpen = false"
-        />
-      </ClientOnly>
 
       <!-- Модалка полного текста -->
       <ClientOnly>
