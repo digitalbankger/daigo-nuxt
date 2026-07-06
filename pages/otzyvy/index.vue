@@ -7,6 +7,10 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ReviewCard from '~/components/reviews/ReviewCard.vue'
 import { useReviewsStore } from '~/stores/reviewsStore'
 import type { Review } from '~/types/content'
+import ReviewFormModal from '~/components/reviews/ReviewFormModal.vue'
+import { useAuthStore } from '~/stores/authStore'
+import { useCatalogStore } from '~/stores/catalogStore'
+import { createProductReview } from '~/services/reviewService'
 
 // Ленивая модалка полного текстового отзыва
 const ReviewTextModal = defineAsyncComponent(
@@ -14,6 +18,8 @@ const ReviewTextModal = defineAsyncComponent(
 )
 
 const reviewsStore = useReviewsStore()
+const authStore = useAuthStore()
+const catalogStore = useCatalogStore()
 
 // Состояния загрузки
 const isLoading = ref(true)
@@ -22,7 +28,7 @@ const loadError = ref<unknown>(null)
 // Загрузка данных
 onMounted(async () => {
   try {
-    await Promise.allSettled([reviewsStore.loadAllReviews()])
+    await Promise.allSettled([reviewsStore.loadAllReviews(), catalogStore.ensureAllLoaded?.()])
   } catch (e) {
     loadError.value = e
     console.error('[otzyvy] load error', e)
@@ -38,6 +44,46 @@ const selectedTextReview = ref<Review | null>(null)
 const isTextModalOpen = computed(() => !!selectedTextReview.value)
 function openText(review: Review) { selectedTextReview.value = review }
 function closeText() { selectedTextReview.value = null }
+
+
+const isReviewFormOpen = ref(false)
+const reviewSubmitting = ref(false)
+const reviewError = ref('')
+const reviewFormRef = ref<InstanceType<typeof ReviewFormModal> | null>(null)
+const productOptions = computed(() => (catalogStore.allProducts || []).filter((p: any) => p?.slug || p?.product_id || p?.id))
+
+function openReviewForm() {
+  if (!authStore.isAuthenticated || !authStore.userId) {
+    authStore.openAuth('/otzyvy')
+    return
+  }
+  reviewError.value = ''
+  isReviewFormOpen.value = true
+}
+
+async function submitSiteReview(payload: any) {
+  if (!authStore.userId) {
+    authStore.openAuth('/otzyvy')
+    return
+  }
+  reviewSubmitting.value = true
+  reviewError.value = ''
+  try {
+    const product = payload.product
+    const slug = String(product?.slug || '').trim()
+    if (!slug) throw new Error('Выберите товар для отзыва')
+
+    const formData = payload.formData instanceof FormData ? payload.formData : new FormData()
+    formData.set('daigo_id', String(authStore.userId))
+    await createProductReview(slug, formData)
+
+    reviewFormRef.value?.markSent()
+  } catch (e: any) {
+    reviewError.value = e?.data?.message || e?.statusMessage || e?.message || 'Не удалось отправить отзыв'
+  } finally {
+    reviewSubmitting.value = false
+  }
+}
 
 // SEO мета
 useHead(() => {
@@ -71,7 +117,10 @@ useHead(() => {
 <template>
   <BaseContainer>
     <section class="relative w-full">
-      <h1 class="text-[clamp(2.4rem,6vw,4rem)] font-medium mb-4 md:mb-10">Отзывы</h1>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4 md:mb-10">
+        <h1 class="text-[clamp(2.4rem,6vw,4rem)] font-medium">Отзывы</h1>
+        <button type="button" class="h-12 rounded-lg bg-primary px-5 text-sm md:text-base font-medium text-white hover:bg-hoverbtn hover:text-black transition" @click="openReviewForm">Оставить отзыв</button>
+      </div>
 
       <!-- Скелет / состояния -->
       <p v-if="isLoading" class="text-center text-gray-500">Отзывы загружаются...</p>
@@ -135,6 +184,19 @@ useHead(() => {
       </template>
 
       <p v-else class="text-center text-gray-500">Пока нет отзывов.</p>
+
+      <ClientOnly>
+        <ReviewFormModal
+          ref="reviewFormRef"
+          :show="isReviewFormOpen"
+          title="Оставить отзыв о Daigo"
+          :products="productOptions"
+          :submitting="reviewSubmitting"
+          :error="reviewError"
+          @close="isReviewFormOpen = false"
+          @submit="submitSiteReview"
+        />
+      </ClientOnly>
 
       <!-- Модалка полного текста -->
       <ClientOnly>

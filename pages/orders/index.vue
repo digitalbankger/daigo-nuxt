@@ -6,8 +6,12 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useOrderStore } from '@/stores/orderStore'
 import { statusLabel, normalizeStatus } from '@/composables/useOrderStatus'
 import { ORDER_CANCEL_REASONS, type OrderCancelReason } from '~/types/orders'
+import ReviewFormModal from '~/components/reviews/ReviewFormModal.vue'
+import { useAuthStore } from '~/stores/authStore'
+import { createOrderReview } from '~/services/reviewService'
 
 const store = useOrderStore()
+const authStore = useAuthStore()
 const busyId = ref<number | string | null>(null)
 
 onMounted(() => { store.loadOrderHistory() })
@@ -15,6 +19,55 @@ onMounted(() => { store.loadOrderHistory() })
 const orders = computed(() => store.orders)
 const isLoading = computed(() => store.isLoading)
 const hasData = computed(() => !isLoading.value && orders.value.length > 0)
+
+
+// ---- отзыв по заказу ----
+const showReviewModal = ref(false)
+const reviewOrder = ref<any | null>(null)
+const reviewSubmitting = ref(false)
+const reviewError = ref('')
+const reviewFormRef = ref<InstanceType<typeof ReviewFormModal> | null>(null)
+
+function orderItemsAsProducts(o: any) {
+  return Array.isArray(o?.items)
+    ? o.items.map((it: any) => ({
+        id: it.id || it.product_id,
+        product_id: it.product_id || it.id,
+        slug: it.slug,
+        title: it.name || it.title,
+      })).filter((it: any) => it.id || it.slug || it.title)
+    : []
+}
+
+function openReviewModal(o: any) {
+  if (!authStore.isAuthenticated || !authStore.userId) {
+    authStore.openAuth('/orders')
+    return
+  }
+  reviewOrder.value = o
+  reviewError.value = ''
+  showReviewModal.value = true
+}
+
+async function submitOrderReview(payload: any) {
+  if (!authStore.userId || !reviewOrder.value) return
+  reviewSubmitting.value = true
+  reviewError.value = ''
+  try {
+    const product = payload.product
+    const formData = payload.formData instanceof FormData ? payload.formData : new FormData()
+    formData.set('daigo_id', String(authStore.userId))
+    formData.set('order_id', String(reviewOrder.value.order_id ?? reviewOrder.value.id ?? reviewOrder.value.number))
+    if (product?.slug) formData.set('product_slug', String(product.slug))
+    if (product?.product_id || product?.id) formData.set('product_id', String(product.product_id || product.id))
+    await createOrderReview(formData)
+    reviewFormRef.value?.markSent()
+  } catch (e: any) {
+    reviewError.value = e?.data?.message || e?.statusMessage || e?.message || 'Не удалось отправить отзыв'
+  } finally {
+    reviewSubmitting.value = false
+  }
+}
 
 // ---- состояние модалки отмены ----
 const showCancelModal = ref(false)
@@ -39,6 +92,19 @@ const orderNo = (o: any): number => {
 const sortedOrders = computed(() =>
   [...orders.value].sort((a, b) => orderNo(b) - orderNo(a))
 )
+
+
+function orderItemsCount(o: any) {
+  return Array.isArray(o?.items) ? o.items.length : Number(o?.item_count || 0)
+}
+
+function orderTotal(o: any) {
+  return Number(o?.total ?? o?.total_amount ?? 0)
+}
+
+function orderConfirmationUrl(o: any) {
+  return o?.confirmationUrl || o?.confirmation_url || ''
+}
 
 function fmtPrice(n: number) {
   return new Intl.NumberFormat('ru-RU').format(n) + ' ₽'
@@ -119,8 +185,8 @@ function closeCancelModal() {
 
           <div class="flex flex-col gap-4">
             <div class="text-lg">№ {{ o.number ?? o.order_id }}</div>
-            <div class="text-lg">Товаров: {{ Array.isArray(o.items) ? o.items.length : (o.item_count ?? 0) }}</div>
-            <div class="text-2xl font-medium">Сумма {{ fmtPrice(o.total ?? o.total_amount) }}</div>
+            <div class="text-lg">Товаров: {{ orderItemsCount(o) }}</div>
+            <div class="text-2xl font-medium">Сумма {{ fmtPrice(orderTotal(o)) }}</div>
             <div v-if="o.bonus != null" class="text-primary">Бонусов начислено: {{ o.bonus }}</div>
           </div>
 
@@ -136,12 +202,19 @@ function closeCancelModal() {
 
           <div class="flex flex-wrap gap-3">
             <NuxtLink
-              v-if="o.confirmationUrl || o.confirmation_url"
-              :to="o.confirmationUrl || o.confirmation_url"
+              v-if="orderConfirmationUrl(o)"
+              :to="orderConfirmationUrl(o)"
               class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50"
             >
               Оплатить / Подтвердить
             </NuxtLink>
+
+            <button
+              class="px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-50"
+              @click="openReviewModal(o)"
+            >
+              Оценить заказ
+            </button>
 
             <button
               class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-50"
@@ -155,6 +228,19 @@ function closeCancelModal() {
         </article>
       </div>
     </section>
+
+    <ClientOnly>
+      <ReviewFormModal
+        ref="reviewFormRef"
+        :show="showReviewModal"
+        title="Оценить заказ"
+        :products="orderItemsAsProducts(reviewOrder)"
+        :submitting="reviewSubmitting"
+        :error="reviewError"
+        @close="showReviewModal = false"
+        @submit="submitOrderReview"
+      />
+    </ClientOnly>
 
     <!-- Модалка отмены заказа -->
     <div

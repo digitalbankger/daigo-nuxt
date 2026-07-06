@@ -93,6 +93,18 @@ interface StateShape {
     pvzId?: string
     pickupAddress?: string
     pickupSchedule?: string
+    cdekPvz?: {
+      code: string
+      uuid?: string
+      city_code?: number
+      city?: string
+      address: string
+      work_time?: string
+      nearest_station?: string
+      latitude?: number
+      longitude?: number
+      address_comment?: string
+    } | null
 
     // ⬇️ Дополнительно: базовая строка адреса (единая для всех видов)
     address_line?: string // ⬅️ CHANGED: пояснение, поле используется как общий текст адреса
@@ -184,6 +196,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       pvzId: '',
       pickupAddress: 'г. Москва, Большой Сухаревский пер., д. 21, стр. 2',
       pickupSchedule: 'пн–пт, с 9:00 до 18:00',
+      cdekPvz: null,
 
       // ⬇️ Единый адрес для всех видов
       address_line: '',   // ⬅️ CHANGED: используется и курьером, и ПВЗ
@@ -466,6 +479,35 @@ export const useCheckoutStore = defineStore('checkout', () => {
     state.deliveryId = optionId
   }
 
+  function setCdekPvz(office: any | null) {
+    if (!office) {
+      state.address.cdekPvz = null
+      state.address.pvzId = ''
+      state.address.pvzAddress = ''
+      return
+    }
+
+    const location = office.location || {}
+    state.address.cdekPvz = {
+      code: String(office.code || ''),
+      uuid: office.uuid || undefined,
+      city_code: Number(location.city_code || office.city_code || 0) || undefined,
+      city: String(location.city || office.city || state.address.city || ''),
+      address: String(location.address || office.address || ''),
+      work_time: office.work_time || undefined,
+      nearest_station: office.nearest_station || undefined,
+      latitude: Number(location.latitude || office.latitude || 0) || undefined,
+      longitude: Number(location.longitude || office.longitude || 0) || undefined,
+      address_comment: office.address_comment || undefined,
+    }
+    state.address.pvzId = state.address.cdekPvz.code
+    state.address.pvzAddress = state.address.cdekPvz.address
+    state.address.address_line = state.address.cdekPvz.address
+    state.address.street = state.address.cdekPvz.address
+    state.address.house = state.address.house || '-'
+    state.address.city = state.address.cdekPvz.city || state.address.city
+  }
+
   // ---- Prefill из профиля/корзины ----
   async function loadOptions() {
     try {
@@ -544,6 +586,16 @@ export const useCheckoutStore = defineStore('checkout', () => {
         type: 'pvz',
         provider: 'cdek',
         ...baseAddress,
+        pvz_id: state.address.cdekPvz?.code || state.address.pvzId || '',
+        pvz_code: state.address.cdekPvz?.code || state.address.pvzId || '',
+        pvz_uuid: state.address.cdekPvz?.uuid || undefined,
+        pvz_address: state.address.cdekPvz?.address || state.address.pvzAddress || baseAddress.address_line,
+        cdek_city_code: state.address.cdekPvz?.city_code || undefined,
+        work_time: state.address.cdekPvz?.work_time || undefined,
+        location: state.address.cdekPvz ? {
+          latitude: state.address.cdekPvz.latitude,
+          longitude: state.address.cdekPvz.longitude,
+        } : undefined,
         is_private: false 
       }
     }
@@ -586,20 +638,17 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
 
     const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
-    if (opt?.kind === 'courier' || opt?.kind === 'pvz') { // ⬅️ единые правила для курьера и ПВЗ
-      // Требуем хотя бы улицу или address_line
+    if (opt?.kind === 'courier' || opt?.kind === 'todoor') {
       const line = (state.address.address_line || '').trim()
       const street = (state.address.street || '').trim()
-      if (!line && !street) {
-        errors.address.street = 'Укажите улицу'
-      }
-      // Отдельно требуем дом (из отдельного поля)
+      if (!line && !street) errors.address.street = 'Укажите улицу'
       const house = (state.address.house || '').trim()
-      if (!house) {
-        errors.address.house = 'Укажите дом'
-      }
-      // ПВЗ-специфичную проверку pvzAddress убираем
+      if (!house) errors.address.house = 'Укажите дом'
       errors.address.pvzAddress = ''
+    } else if (opt?.kind === 'pvz') {
+      if (!state.address.cdekPvz?.code && !(state.address.pvzId || '').trim()) {
+        errors.address.pvzAddress = 'Выберите пункт выдачи СДЭК'
+      }
     } else if (opt?.kind === 'pickup') {
       if (!(state.address.pickupAddress || pickupAddress.value)?.trim()) {
         errors.address.pickupAddress = 'Укажите адрес самовывоза'
@@ -811,6 +860,7 @@ try {
     // methods
     setAddress,
     setDelivery,
+    setCdekPvz,
     applySavedAddress,
     loadOptions,
     submit

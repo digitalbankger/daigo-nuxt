@@ -211,6 +211,8 @@ export const useCatalogStore = defineStore('catalog', () => {
     perPageDisplayed,
     totalPages,
     totalProducts,
+    allProducts,
+    ensureAllLoaded,
     setPage,
     fetchFilters,
     fetchProducts,

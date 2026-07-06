@@ -21,6 +21,8 @@ import { useAnalytics } from '@/composables/useAnalytics'
 import { onMounted, computed, ref } from 'vue'
 import ReviewsBlock from '@/components/product/ProductReviews.vue'
 import UiModal from '@/components/ui/UiModal.vue'
+import ReviewFormModal from '~/components/reviews/ReviewFormModal.vue'
+import { createProductReview } from '~/services/reviewService'
 import DaigoSpecialSections from '@/components/product/special/DaigoSpecialSections.vue'
 
 // Отзыв
@@ -56,17 +58,9 @@ type ProductReviewsData = {
 }
 
 const isWriteReviewOpen = ref(false)
-const isWriteReviewSuccess = ref(false)
 const isSubmittingReview = ref(false)
-
-const reviewForm = ref({
-  author: '',
-  rating: 5,
-  title: '',
-  text: '',
-})
-
-const reviewErrors = ref<{ author?: string; text?: string; form?: string }>({})
+const reviewError = ref('')
+const reviewFormRef = ref<InstanceType<typeof ReviewFormModal> | null>(null)
 
 const authStore = useAuthStore()
 
@@ -77,76 +71,53 @@ const openWriteReview = () => {
   }
 
   isWriteReviewOpen.value = true
-  isWriteReviewSuccess.value = false
-  reviewErrors.value = {}
+  reviewError.value = ''
 }
 
 const closeWriteReview = () => {
   isWriteReviewOpen.value = false
-  isWriteReviewSuccess.value = false
-  reviewErrors.value = {}
+  reviewError.value = ''
   isSubmittingReview.value = false
-  reviewForm.value = { author: '', rating: 5, title: '', text: '' }
 }
 
-const submitReview = async () => {
+const submitReview = async (payload: any) => {
   if (isSubmittingReview.value) return
 
-  const e: typeof reviewErrors.value = {}
-  if (!reviewForm.value.author.trim()) e.author = 'Введите имя'
-  if (reviewForm.value.text.trim().length < 10) e.text = 'Отзыв слишком короткий (минимум 10 символов)'
-
-  if (!authStore.isAuthenticated || !authStore.userId || !authStore.token) {
-    e.form = 'Чтобы оставить отзыв, авторизуйтесь.'
-    reviewErrors.value = e
+  if (!authStore.isAuthenticated || !authStore.userId) {
+    reviewError.value = 'Чтобы оставить отзыв, авторизуйтесь.'
     authStore.openAuth(route.fullPath)
     return
   }
 
-  reviewErrors.value = e
-  if (Object.keys(e).length) return
+  const slug = String(product.value?.slug || route.params.slug || '').trim()
+  if (!slug) {
+    reviewError.value = 'Не удалось определить товар для отзыва.'
+    return
+  }
 
   isSubmittingReview.value = true
+  reviewError.value = ''
 
   try {
-    const slug = String(product.value?.slug || route.params.slug || '')
-
-    await $fetch(`/api/shop/reviews/${encodeURIComponent(slug)}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${authStore.token}`,
-      },
-      body: {
-        author: reviewForm.value.author.trim(),
-        rating: Number(reviewForm.value.rating),
-        title: reviewForm.value.title.trim(),
-        text: reviewForm.value.text.trim(),
-        tags: [],
-        media: [],
-        daigo_id: authStore.userId,
-      },
-    })
-
-    isWriteReviewSuccess.value = true
+    const formData = payload.formData instanceof FormData ? payload.formData : new FormData()
+    formData.set('daigo_id', String(authStore.userId))
+    await createProductReview(slug, formData)
+    reviewFormRef.value?.markSent()
   } catch (err: any) {
     const status = Number(err?.statusCode || err?.response?.status || err?.status || 0)
 
     if (status === 401 || status === 403) {
-      reviewErrors.value = {
-        form: 'Сессия авторизации истекла. Авторизуйтесь еще раз, чтобы оставить отзыв.',
-      }
+      reviewError.value = 'Сессия авторизации истекла. Авторизуйтесь еще раз, чтобы оставить отзыв.'
       authStore.openAuth(route.fullPath)
       return
     }
 
-    reviewErrors.value = {
-      form:
-        err?.data?.message ||
-        err?.data?.statusMessage ||
-        err?.statusMessage ||
-        err?.message ||
-        'Не удалось отправить отзыв. Попробуйте еще раз.',
-    }
+    reviewError.value =
+      err?.data?.message ||
+      err?.data?.statusMessage ||
+      err?.statusMessage ||
+      err?.message ||
+      'Не удалось отправить отзыв. Попробуйте еще раз.'
   } finally {
     isSubmittingReview.value = false
   }
@@ -177,6 +148,13 @@ const { data: productReviewsResponse } = await useFetch<ProductReviewsData>(`/ap
 })
 
 const product = computed(() => productStore.product)
+const fixedReviewProduct = computed(() => product.value ? {
+  id: (product.value as any).id || product.value.product_id,
+  product_id: product.value.product_id || (product.value as any).id,
+  slug: product.value.slug || String(route.params.slug || ''),
+  title: product.value.title || (product.value as any).name || 'Товар',
+  image: (product.value as any).images?.[0]?.image_url,
+} : null)
 const productReviews = computed<ProductReviewsData>(() => {
   const value = productReviewsResponse.value
   return value && Array.isArray(value.items) ? value : { items: [] }
@@ -357,7 +335,19 @@ useHead(() => {
           @write="openWriteReview"
           class="mt-10 md:mt-20"
           id="reviews"
-        /> -->
+        />
+
+        <section v-else id="reviews" class="mt-10 md:mt-20 rounded-2xl border border-[#E5E7EB] bg-white p-5 sm:p-7">
+          <h2 class="text-product leading-tight font-medium">Отзывы</h2>
+          <p class="mt-3 text-sm md:text-base text-[#6B7280]">Станьте первым, кто оставит отзыв об этом товаре.</p>
+          <button
+            type="button"
+            class="mt-5 h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
+            @click="openWriteReview"
+          >
+            Написать отзыв
+          </button>
+        </section> -->
 
         <ProductDescription :product="product" />
 
@@ -452,6 +442,18 @@ useHead(() => {
           id="reviews"
         />
 
+        <section v-else id="reviews" class="mt-10 md:mt-20 rounded-2xl border border-[#E5E7EB] bg-white p-5 sm:p-7">
+          <h2 class="text-product leading-tight font-medium">Отзывы</h2>
+          <p class="mt-3 text-sm md:text-base text-[#6B7280]">Станьте первым, кто оставит отзыв об этом товаре.</p>
+          <button
+            type="button"
+            class="mt-5 h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
+            @click="openWriteReview"
+          >
+            Написать отзыв
+          </button>
+        </section>
+
         <UiModal
           :show="isMediaModalOpen"
           @close="closeMedia"
@@ -479,124 +481,18 @@ useHead(() => {
           </div>
         </UiModal>
 
-        <UiModal
-          :show="isWriteReviewOpen"
-          @close="closeWriteReview"
-          :panelClass="'sm:max-w-2xl p-0 overflow-hidden'"
-        >
-          <div class="flex items-center justify-between px-4 py-3 border-b border-[#E5E7EB]">
-            <div class="text-lg font-medium">Написать отзыв</div>
-            <button class="text-sm text-[#6B7280] hover:text-[#111]" @click="closeWriteReview">Закрыть</button>
-          </div>
-
-          <div class="p-5">
-            <!-- SUCCESS -->
-            <div v-if="isWriteReviewSuccess" class="rounded-2xl border border-[#E5E7EB] bg-white p-5">
-              <div class="text-lg font-semibold mb-2">Отзыв отправлен успешно</div>
-              <p class="text-sm text-[#6B7280]">
-                Мы опубликуем его после модерации.
-              </p>
-
-              <button
-                type="button"
-                class="mt-5 h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition"
-                @click="closeWriteReview"
-              >
-                Понятно
-              </button>
-            </div>
-
-            <!-- FORM -->
-            <form v-else class="space-y-4" @submit.prevent="submitReview">
-              <div>
-                <label class="block text-sm font-medium mb-1">Ваше имя</label>
-                <input
-                  v-model="reviewForm.author"
-                  type="text"
-                  class="w-full h-11 rounded-lg border border-[#E5E7EB] px-3 outline-none focus:border-[#111] transition"
-                  placeholder="Например: Татьяна"
-                />
-                <div v-if="reviewErrors.author" class="mt-1 text-xs text-red-600">
-                  {{ reviewErrors.author }}
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-1">Оценка</label>
-                <div class="flex items-center gap-2">
-                  <button
-                    v-for="i in 5"
-                    :key="i"
-                    type="button"
-                    class="h-10 w-10 rounded-lg border border-[#E5E7EB] grid place-items-center transition"
-                    :class="i <= reviewForm.rating ? 'bg-[#FFF7E0] border-[#e3c97b]' : 'bg-white'"
-                    @click="reviewForm.rating = i"
-                    aria-label="set rating"
-                  >
-                    <svg
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      :class="i <= reviewForm.rating ? 'text-[#e3c97b]' : 'text-[#E5E7EB]'"
-                    >
-                      <path
-                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.286 3.957a1 1 0 00.95.69h4.159c.969 0 1.371 1.24.588 1.81l-3.366 2.447a1 1 0 00-.363 1.118l1.286 3.957c.3.921-.755 1.688-1.539 1.118L10.59 15.77a1 1 0 00-1.176 0L6.943 17.999c-.784.57-1.838-.197-1.539-1.118l1.286-3.957a1 1 0 00-.363-1.118L2.96 9.384c-.783-.57-.38-1.81.588-1.81h4.159a1 1 0 00.95-.69l1.286-3.957z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-1">Заголовок (необязательно)</label>
-                <input
-                  v-model="reviewForm.title"
-                  type="text"
-                  class="w-full h-11 rounded-lg border border-[#E5E7EB] px-3 outline-none focus:border-[#111] transition"
-                  placeholder="Коротко о главном"
-                />
-              </div>
-
-              <div>
-                <label class="block text-sm font-medium mb-1">Текст отзыва</label>
-                <textarea
-                  v-model="reviewForm.text"
-                  rows="6"
-                  class="w-full rounded-lg border border-[#E5E7EB] px-3 py-2 outline-none focus:border-[#111] transition resize-none"
-                  placeholder="Поделитесь вашим опытом…"
-                />
-                <div v-if="reviewErrors.text" class="mt-1 text-xs text-red-600">
-                  {{ reviewErrors.text }}
-                </div>
-              </div>
-
-              <div class="flex items-center justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  class="h-11 rounded-lg border border-[#E5E7EB] bg-white px-4 text-sm font-medium text-[#111] hover:border-[#111] transition"
-                  @click="closeWriteReview"
-                >
-                  Отмена
-                </button>
-                <button
-                  type="submit"
-                  :disabled="isSubmittingReview"
-                  class="h-11 rounded-lg bg-primary px-4 text-sm font-medium text-white hover:bg-hoverbtn hover:text-black transition disabled:cursor-not-allowed disabled:opacity-60"
-                >
-                  {{ isSubmittingReview ? 'Отправляем…' : 'Отправить отзыв' }}
-                </button>
-              </div>
-
-              <div v-if="reviewErrors.form" class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
-                {{ reviewErrors.form }}
-              </div>
-
-              <p class="text-xs text-[#6B7280]">
-                Мы опубликуем отзыв после модерации.
-              </p>
-            </form>
-          </div>
-        </UiModal>
+        <ClientOnly>
+          <ReviewFormModal
+            ref="reviewFormRef"
+            :show="isWriteReviewOpen"
+            title="Написать отзыв"
+            :fixed-product="fixedReviewProduct"
+            :submitting="isSubmittingReview"
+            :error="reviewError"
+            @close="closeWriteReview"
+            @submit="submitReview"
+          />
+        </ClientOnly>
 
         <ProductProductionSection
           v-if="product.productionSection"

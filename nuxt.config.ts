@@ -37,6 +37,7 @@ export default defineNuxtConfig({
       roistatEventIdMap: parsePublicJsonRecord(process.env.NUXT_PUBLIC_ROISTAT_EVENT_ID_MAP),
       roistatBridgeYmGoals: process.env.NUXT_PUBLIC_ROISTAT_BRIDGE_YM_GOALS !== 'false',
       roistatBridgeDataLayerEvents: process.env.NUXT_PUBLIC_ROISTAT_BRIDGE_DATALAYER_EVENTS !== 'false',
+      yandexMapsApiKey: process.env.NUXT_PUBLIC_YANDEX_MAPS_API_KEY || '6740c47c-f45a-4ec8-8a1e-4d219917b4fc',
     }
   },
 
