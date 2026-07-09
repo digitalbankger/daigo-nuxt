@@ -69,10 +69,9 @@ onMounted(() => {
       >
         <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-4 rounded-[24px] border border-black/10 bg-white p-4 shadow-[0_12px_40px_rgba(17,17,17,0.16)] sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <div class="max-w-[860px] text-sm leading-relaxed text-[#49454F] sm:text-base">
-            <p class="font-semibold text-[#222]">Мы используем данные о посещениях</p>
-            <p class="mt-1">
-              Это помогает обеспечивать работу сайта, улучшать сервис и анализировать посещаемость.
-              Нажимая «Принять», вы соглашаетесь на обработку данных о посещениях в соответствии с
+            <p>
+              Продолжая использовать сайт, вы соглашаетесь на обработку данных о посещениях,
+              необходимых для работы сайта, улучшения сервиса и анализа посещаемости, в соответствии с
               <NuxtLink to="/privacy" class="text-primary underline underline-offset-2 hover:text-textbtnhover">
                 политикой конфиденциальности
               </NuxtLink>.
@@ -80,14 +79,8 @@ onMounted(() => {
           </div>
 
           <div class="flex shrink-0 items-center gap-3">
-            <NuxtLink
-              to="/privacy"
-              class="hidden rounded-lg px-4 py-3 text-sm font-medium text-[#49454F] transition hover:text-primary sm:inline-flex"
-            >
-              Подробнее
-            </NuxtLink>
             <Button class="w-full sm:w-auto" type="button" @click="acceptCookies">
-              Принять
+              Закрыть
             </Button>
           </div>
         </div>

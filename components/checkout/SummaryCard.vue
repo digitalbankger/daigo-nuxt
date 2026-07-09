@@ -51,6 +51,10 @@ const vipDiscountAmount = computed(() => cartStore.vipDiscountAmount)
 const vipDiscountPercent = computed(() => cartStore.vipDiscountPercent)
 
 const itemCount = computed(() => cartStore.items.reduce((s, i) => s + i.quantity, 0))
+const isAuthorizedEmptyCart = computed(() => (
+  props.mode === 'cart' && authStore.isAuthenticated && itemCount.value <= 0
+))
+const cartEmptyMessage = 'Сначала добавьте товары в корзину'
 
 // === Бонусы ===
 // 1) В корзине: начисление 30% от итоговой суммы.
@@ -270,6 +274,11 @@ async function verifyAndContinue() {
 
 // ===== старый флоу под капотом: preOrder → navigate ====
 async function proceedPreOrderAndGo() {
+  if (isAuthorizedEmptyCart.value) {
+    ctaError.value = cartEmptyMessage
+    return
+  }
+
   if (preOrderLoading.value) return
   try {
     preOrderLoading.value = true
@@ -311,6 +320,11 @@ async function handleCta() {
   if (props.mode === 'checkout') { emit('cta'); return }
 
   ctaError.value = ''
+
+  if (isAuthorizedEmptyCart.value) {
+    ctaError.value = cartEmptyMessage
+    return
+  }
 
   const ok = validateFields()
   if (!ok) {
@@ -485,15 +499,16 @@ async function removeCoupon() {
         v-else
         variant="solid"
         class="w-full hover:!bg-hoverbtn hover:text-black  !text-sm md:!text-base text-white py-3 rounded-lg transition"
-        :disabled="preOrderLoading"
+        :disabled="preOrderLoading || isAuthorizedEmptyCart"
+        :class="isAuthorizedEmptyCart ? 'opacity-50 cursor-not-allowed hover:!bg-primary hover:!text-white' : ''"
         @click="handleCta"
       >
         <span v-if="preOrderLoading">Готовим заказ…</span>
         <span v-else>Перейти к оформлению</span>
       </Button>
 
-      <div v-if="ctaError" class="text-red-500 text-xs md:text-sm">
-        {{ ctaError }}
+      <div v-if="isAuthorizedEmptyCart || ctaError" class="text-red-500 text-xs md:text-sm">
+        {{ isAuthorizedEmptyCart ? cartEmptyMessage : ctaError }}
       </div>
       
     </div>

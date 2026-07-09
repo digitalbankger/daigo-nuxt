@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
+import { useRuntimeConfig } from '#imports'
 import { useAuthStore } from '~/stores/authStore'
 import { useUserStore } from '~/stores/userStore'
 import { useCartStore } from '~/stores/cartStore'
@@ -235,6 +236,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
   const pickupAddress = ref<string>(state.address.pickupAddress || '')
   const pickupSchedule = ref<string>(state.address.pickupSchedule || '')
   const isApplyingSavedAddress = ref(false)
+  const saveAddressLoading = ref(false)
+  const saveAddressMessage = ref('')
+  const saveAddressError = ref('')
   let savedAddressApplyTimer: ReturnType<typeof setTimeout> | undefined
 
   // ---- Ошибки формы + баннер ----
@@ -608,6 +612,115 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
   }
 
+  function getAuthHeaders() {
+    const token = auth.token
+    return token ? { Authorization: `Bearer ${token}` } : undefined
+  }
+
+  function getCurrentDeliveryOption() {
+    return deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
+  }
+
+  function buildSaveAddressPayload() {
+    const opt = getCurrentDeliveryOption()
+
+    if (opt?.kind === 'pvz') {
+      const pvz = state.address.cdekPvz
+      return {
+        address_type: 'pvz',
+        pvz_code: pvz?.code || state.address.pvzId || '',
+        pvz_name: pvz?.nearest_station || (pvz?.code ? `СДЭК ${pvz.code}` : 'СДЭК Пункт'),
+        pvz_address: pvz?.address || state.address.pvzAddress || state.address.address_line || '',
+        is_default: false,
+      }
+    }
+
+    return {
+      address_type: 'personal',
+      city: state.address.city || '',
+      street: state.address.address_line || state.address.street || '',
+      house: state.address.house || '',
+      apartment: state.address.private_house ? '' : (state.address.apartment || ''),
+      entrance: state.address.private_house ? '' : (state.address.entrance || ''),
+      floor: state.address.private_house ? '' : (state.address.floor || ''),
+      intercom: state.address.private_house ? '' : (state.address.intercom || ''),
+      is_default: true,
+    }
+  }
+
+  function validateAddressForSave() {
+    saveAddressError.value = ''
+
+    if (!auth.userId || !auth.token) {
+      saveAddressError.value = 'Авторизуйтесь, чтобы сохранить адрес.'
+      return false
+    }
+
+    const opt = getCurrentDeliveryOption()
+
+    if (opt?.kind === 'pvz') {
+      if (!state.address.cdekPvz?.code && !(state.address.pvzId || '').trim()) {
+        saveAddressError.value = 'Сначала выберите пункт выдачи СДЭК.'
+        return false
+      }
+      return true
+    }
+
+    if (opt?.kind === 'pickup') {
+      saveAddressError.value = 'Адрес самовывоза сохранять не нужно.'
+      return false
+    }
+
+    if (!(state.address.city || '').trim()) {
+      saveAddressError.value = 'Сначала укажите город.'
+      return false
+    }
+
+    if (!(state.address.address_line || state.address.street || '').trim()) {
+      saveAddressError.value = 'Сначала укажите улицу.'
+      return false
+    }
+
+    if (!(state.address.house || '').trim()) {
+      saveAddressError.value = 'Сначала укажите дом.'
+      return false
+    }
+
+    return true
+  }
+
+  async function saveCurrentAddress() {
+    saveAddressMessage.value = ''
+    saveAddressError.value = ''
+
+    if (!validateAddressForSave()) return false
+
+    const { public: { daigoApiBase } } = useRuntimeConfig()
+    const payload = buildSaveAddressPayload()
+
+    try {
+      saveAddressLoading.value = true
+      await $fetch(`${daigoApiBase}/v1/auth/user/${auth.userId}/addresses`, {
+        method: 'POST',
+        body: payload,
+        headers: getAuthHeaders(),
+      })
+
+      saveAddressMessage.value = 'Адрес сохранён.'
+      try {
+        await user.loadProfile()
+      } catch {
+        // Сохранение уже прошло успешно; обновление профиля не блокируем.
+      }
+      return true
+    } catch (e: any) {
+      saveAddressError.value = e?.data?.message || e?.message || 'Не удалось сохранить адрес.'
+      return false
+    } finally {
+      saveAddressLoading.value = false
+    }
+  }
+
   // ---- Валидация ----
   function validate(): boolean {
     clearErrors()
@@ -849,6 +962,9 @@ try {
     deliveryOptions,
     savedAddresses,
     isApplyingSavedAddress,
+    saveAddressLoading,
+    saveAddressMessage,
+    saveAddressError,
     pvzAddress,
     pickupAddress,
     pickupSchedule,
@@ -862,6 +978,7 @@ try {
     setDelivery,
     setCdekPvz,
     applySavedAddress,
+    saveCurrentAddress,
     loadOptions,
     submit
   }

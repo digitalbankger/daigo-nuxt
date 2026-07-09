@@ -49,14 +49,12 @@ export default defineNuxtConfig({
     '/_nuxt/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
     '/images/**': { headers: { 'cache-control': 'public, max-age=31536000, immutable' } },
 
-    // IPX-трансформации (для @nuxt/image) — кэш для CDN + SWR
     '/_ipx/**': {
       headers: {
         'cache-control': 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800'
       }
     },
 
-    // Пример серверного API с кэш-заголовками (под ISR)
     '/api/home': {
       headers: {
         'cache-control': 'public, max-age=0, s-maxage=600, stale-while-revalidate=86400'
@@ -65,7 +63,7 @@ export default defineNuxtConfig({
 
     '/api/shop/products': {
       headers: {
-        'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=3600'
+        'cache-control': 'public, max-age=0, s-maxage=300, stale-while-revalidate=600'
       }
     }
   },

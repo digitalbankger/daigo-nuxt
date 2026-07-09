@@ -181,10 +181,8 @@ watch(savedAddresses, (addresses) => {
   if (!exists) savedAddressSelectValue.value = ''
 })
 
-function saveAddress() {
-  // Здесь можно вызвать API/валидацию/предрасчёт
-  // Пример: store.saveAddress(shippingAddressPayload.value)
-  console.info('[address] saved', shippingAddressPayload.value)
+async function saveAddress() {
+  await store.saveCurrentAddress?.()
 }
 </script>
 
@@ -318,8 +316,17 @@ function saveAddress() {
           <BaseCheckbox v-model="privateHouse">Частный дом</BaseCheckbox>
         </div>
 
-        <div class="flex justify-start">
-          <Button variant="solid" type="button" @click="saveAddress">Сохранить</Button>
+        <div class="flex flex-col items-start gap-2">
+          <Button
+            variant="solid"
+            type="button"
+            :disabled="store.saveAddressLoading"
+            @click="saveAddress"
+          >
+            {{ store.saveAddressLoading ? 'Сохраняем…' : 'Сохранить' }}
+          </Button>
+          <p v-if="store.saveAddressMessage" class="text-sm text-cgreen">{{ store.saveAddressMessage }}</p>
+          <p v-if="store.saveAddressError" class="text-sm text-red-600">{{ store.saveAddressError }}</p>
         </div>
       </div>
     </div>
@@ -348,6 +355,19 @@ function saveAddress() {
         <p v-if="store.errors.address.pvzAddress" class="text-xs text-red-600">
           {{ store.errors.address.pvzAddress }}
         </p>
+
+        <div class="flex flex-col items-start gap-2">
+          <Button
+            variant="solid"
+            type="button"
+            :disabled="store.saveAddressLoading"
+            @click="saveAddress"
+          >
+            {{ store.saveAddressLoading ? 'Сохраняем…' : 'Сохранить ПВЗ' }}
+          </Button>
+          <p v-if="store.saveAddressMessage" class="text-sm text-cgreen">{{ store.saveAddressMessage }}</p>
+          <p v-if="store.saveAddressError" class="text-sm text-red-600">{{ store.saveAddressError }}</p>
+        </div>
       </div>
     </div>
 

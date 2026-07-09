@@ -16,6 +16,7 @@ import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 import {
   buildCatalogFilterPath,
   catalogFiltersToApiQuery,
@@ -119,6 +120,7 @@ const normalizedFilters = computed<CatalogFilterValues>(() => {
 
 const normalizedQuery = computed(() => catalogFiltersToApiQuery(normalizedFilters.value))
 const normalizedQueryKey = computed(() => stableCatalogFiltersKey(normalizedFilters.value))
+
 
 function getFilterPath(filters: CatalogFilterValues = normalizedFilters.value) {
   return buildCatalogFilterPath(filters, filterOrder.value)
@@ -349,6 +351,7 @@ useHead(() => {
 })
 
 const isFilterModalOpen = ref(false)
+useBodyScrollLock(isFilterModalOpen)
 
 function openFilters() {
   isFilterModalOpen.value = true

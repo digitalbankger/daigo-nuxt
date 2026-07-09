@@ -9,6 +9,7 @@ import ProductCard from '~/components/catalog/ProductCard.vue'
 import Button from '~/components/ui/Button.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 
 const ytm = useYtm()
 const route = useRoute()
@@ -44,6 +45,10 @@ const normalizedQuery = computed(() => {
       ])
   ) as Record<string, string>
 })
+
+// Initial SSR/catalog fetch: товары должны попасть в HTML, а не появляться только после hydration.
+await catalogStore.fetchProducts(normalizedQuery.value)
+isCatalogLoading.value = false
 
 const visibleProducts = computed(() => {
   const products = catalogStore.products.filter(p => (p.price ?? 0) > 0)
@@ -147,7 +152,7 @@ watch(
       setupLoadMoreObserver()
     }
   },
-  { immediate: true, deep: true }
+  { immediate: false, deep: true }
 )
 
 watch(
@@ -252,6 +257,7 @@ useHead(() => {
 })
 
 const isFilterModalOpen = ref(false)
+useBodyScrollLock(isFilterModalOpen)
 
 function openFilters() {
   isFilterModalOpen.value = true

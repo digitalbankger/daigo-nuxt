@@ -67,9 +67,10 @@ import FooterDesctop from '~/components/layout/FooterDesctop.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'
 // import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
 import MobileNav from '~/components/MobileNav.vue'
-import { defineAsyncComponent, watch } from 'vue'
+import { defineAsyncComponent } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 const { public: { carrotId = '65310-79e35206a74ce38752218d816a' } } = useRuntimeConfig()
 useHead({
   script: [
@@ -94,9 +95,7 @@ const auth = useAuthStore()
 const { isAuthModalOpen } = storeToRefs(auth)
 const { closeAuth } = auth
 
-watch(isAuthModalOpen, (open) => {
-  if (process.client) document.documentElement.style.overflow = open ? 'hidden' : ''
-}, { immediate: true })
+useBodyScrollLock(isAuthModalOpen)
 </script>
 
 <style scoped>

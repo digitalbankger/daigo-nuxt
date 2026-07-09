@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 const props = defineProps<{
   show: boolean
   closable?: boolean
@@ -9,13 +11,16 @@ const props = defineProps<{
 const emit = defineEmits<{
   (e: 'close'): void
 }>()
+
+const isScrollLocked = computed(() => Boolean(props.show))
+useBodyScrollLock(isScrollLocked)
 </script>
 
 <template>
   <transition name="fade">
     <div
       v-if="show"
-      class="fixed inset-0 z-[99999] bg-black/40 flex items-center justify-center px-4"
+      class="fixed inset-0 z-[99999] overflow-y-auto bg-black/40 flex items-start justify-center px-4 py-6 sm:items-center"
       @click.self="props.closeOnOverlay !== false && emit('close')"
     >
       <div
