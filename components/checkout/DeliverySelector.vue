@@ -356,7 +356,7 @@ async function saveAddress() {
           {{ store.errors.address.pvzAddress }}
         </p>
 
-        <div class="flex flex-col items-start gap-2">
+        <!-- <div class="flex flex-col items-start gap-2">
           <Button
             variant="solid"
             type="button"
@@ -367,7 +367,7 @@ async function saveAddress() {
           </Button>
           <p v-if="store.saveAddressMessage" class="text-sm text-cgreen">{{ store.saveAddressMessage }}</p>
           <p v-if="store.saveAddressError" class="text-sm text-red-600">{{ store.saveAddressError }}</p>
-        </div>
+        </div> -->
       </div>
     </div>
 
