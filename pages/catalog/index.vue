@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, watch, computed, ref, onMounted, onBeforeUnmount, nextTick } from '#imports'
+import { useRoute, useRouter, useHead, useAsyncData, watch, computed, ref, onMounted, onBeforeUnmount, nextTick } from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
 import { useDeviceStore } from '~/stores/deviceStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
@@ -17,7 +17,7 @@ const router = useRouter()
 const catalogStore = useCatalogStore()
 const deviceStore = useDeviceStore()
 const analytics = useAnalytics()
-const isCatalogLoading = ref(true)
+const isCatalogLoading = ref(false)
 
 const PRODUCTS_PER_LOAD = 12
 const PIVOT = 15
@@ -47,7 +47,40 @@ const normalizedQuery = computed(() => {
 })
 
 // Initial SSR/catalog fetch: товары должны попасть в HTML, а не появляться только после hydration.
-await catalogStore.fetchProducts(normalizedQuery.value)
+// useAsyncData дополнительно сериализует результат в payload Nuxt, поэтому карточки не теряются
+// между серверным рендером и клиентской гидрацией.
+const initialCatalogQuery = normalizedQuery.value
+const { data: initialCatalogPayload } = await useAsyncData(
+  `catalog-products:${JSON.stringify(initialCatalogQuery)}`,
+  async () => {
+    await catalogStore.fetchProducts(initialCatalogQuery)
+
+    return {
+      products: catalogStore.products,
+      totalProducts: catalogStore.totalProducts,
+      totalPages: catalogStore.totalPages,
+      page: catalogStore.page,
+    }
+  },
+  {
+    server: true,
+    lazy: false,
+    default: () => ({
+      products: [],
+      totalProducts: 0,
+      totalPages: 1,
+      page: 1,
+    }),
+  }
+)
+
+if (initialCatalogPayload.value) {
+  catalogStore.products = initialCatalogPayload.value.products
+  catalogStore.totalProducts = initialCatalogPayload.value.totalProducts
+  catalogStore.totalPages = initialCatalogPayload.value.totalPages
+  catalogStore.page = initialCatalogPayload.value.page
+}
+
 isCatalogLoading.value = false
 
 const visibleProducts = computed(() => {
@@ -142,7 +175,7 @@ async function setupLoadMoreObserver() {
 watch(
   normalizedQuery,
   async () => {
-    isCatalogLoading.value = true
+    if (import.meta.client) isCatalogLoading.value = true
     displayLimit.value = PRODUCTS_PER_LOAD
 
     try {

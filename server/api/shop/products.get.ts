@@ -104,6 +104,55 @@ function unique(values: string[]) {
   return Array.from(new Set(values))
 }
 
+function getRawProductList(raw: any): any[] {
+  const candidates = [
+    raw?.products,
+    raw?.items,
+    raw?.data,
+    raw?.data?.products,
+    raw?.data?.items,
+    raw?.data?.data,
+    raw?.result,
+    raw?.result?.products,
+    raw?.result?.items,
+    raw?.payload,
+    raw?.payload?.products,
+    raw?.payload?.items,
+    raw?.list,
+    raw?.rows,
+  ]
+
+  for (const candidate of candidates) {
+    if (Array.isArray(candidate)) return candidate
+  }
+
+  return []
+}
+
+function getPrimaryImageSource(p: any) {
+  if (p?.image || p?.image_url || p?.preview_image || p?.picture) {
+    return p.image || p.image_url || p.preview_image || p.picture
+  }
+
+  const images = Array.isArray(p?.images)
+    ? p.images
+    : Array.isArray(p?.detail_images)
+      ? p.detail_images
+      : []
+
+  const primary = images.find((img: any) => img?.is_primary) || images[0]
+  return typeof primary === 'string' ? primary : primary?.image_url || primary?.url || primary?.src || primary?.path
+}
+
+function getDetailImageSources(p: any) {
+  const detailImages = Array.isArray(p?.detail_images) ? p.detail_images : []
+  const images = Array.isArray(p?.images) ? p.images : []
+
+  return [...detailImages, ...images]
+    .map((img: any) => typeof img === 'string' ? img : img?.image_url || img?.url || img?.src || img?.path)
+    .filter(Boolean)
+}
+
 function buildParamsFromQuery(q: Record<string, any>, page: number, pageSize: number, withFilters = true) {
   const params = new URLSearchParams()
   params.set('page', String(page))
@@ -183,7 +232,7 @@ async function collectRawProducts(base: string, q: Record<string, any>, withFilt
       firstRaw = raw
     }
 
-    const rawProducts = Array.isArray(raw?.products) ? raw.products : []
+    const rawProducts = getRawProductList(raw)
     if (!rawProducts.length) break
 
     let added = 0
@@ -229,7 +278,7 @@ function addPropertyValue(properties: Record<string, any>, key: string, value: s
 }
 
 function mapProducts(raw: any, normalizeImg: (src: any) => string) {
-  return (Array.isArray(raw?.products) ? raw.products : []).map((p: any) => {
+  return getRawProductList(raw).map((p: any) => {
     const price = Number(p.price) || 0
     const slug = String(p.slug || '')
     const baseProps = p.properties || {}
@@ -258,15 +307,13 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
       id: p.product_id ?? p.id,
       product_id: p.product_id ?? p.id,
       slug,
-      name: p.name_ru || p.name,
+      name: p.name_ru || p.name || p.title || p.name_en || '',
       subtitle: p.subtitle || '',
-      image: normalizeImg(p.image),
-      detailImages: Array.isArray(p.detail_images)
-        ? p.detail_images.map((img: any) => normalizeImg(img)).filter(Boolean)
-        : [],
+      image: normalizeImg(getPrimaryImageSource(p)),
+      detailImages: getDetailImageSources(p).map((img: any) => normalizeImg(img)).filter(Boolean),
       price,
-      originalPrice: Number(p.original_price) || 0,
-      sort: p.sort_order === 0 ? 16 : p.sort_order,
+      originalPrice: Number(p.original_price ?? p.old_price ?? p.oldPrice ?? p.originalPrice) || 0,
+      sort: p.sort_order === 0 ? 16 : (p.sort_order ?? p.sort ?? 0),
       properties: enrichedProps,
     }
   })

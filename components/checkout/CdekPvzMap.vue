@@ -34,7 +34,25 @@ let scriptPromise: Promise<any> | null = null
 
 const canLoadMap = computed(() => !!yandexKey.value)
 const cityLabel = (c: CdekCity) => [c.city, c.region, c.country_code].filter(Boolean).join(', ')
-const officeAddress = (o: CdekOffice) => o.location?.address || o.code
+const officeAddress = (o: CdekOffice | null | undefined) => {
+  if (!o) return ''
+
+  const address = String(o.location?.address || '').trim()
+
+  return address || `Код ПВЗ: ${o.code}`
+}
+
+const selectedOffice = computed(() => {
+  if (!selected.value) return null
+
+  const selectedCode = String(selected.value.code || '')
+
+  return offices.value.find(o => String(o.code) === selectedCode) || selected.value
+})
+
+const selectedOfficeAddress = computed(() => {
+  return officeAddress(selectedOffice.value)
+})
 
 watch(() => props.city, (value) => {
   const next = String(value || '').trim()
@@ -178,7 +196,7 @@ onBeforeUnmount(() => {
     </div>
 
     <div v-if="error" class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{{ error }}</div>
-    <div v-if="!canLoadMap" class="rounded-lg bg-yellow-50 px-3 py-2 text-sm text-yellow-800">Добавьте ключ Яндекс.Карт в NUXT_PUBLIC_YANDEX_MAPS_API_KEY, тогда карта отобразится. Список ПВЗ будет работать и без карты.</div>
+    <div v-if="!canLoadMap" class="rounded-lg bg-yellow-50 px-3 py-2 text-sm text-yellow-800">Карта временно недоступна.</div>
     <div v-if="loadingOffices" class="text-sm text-gray-500">Загружаем ПВЗ…</div>
 
     <div v-if="offices.length" class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
@@ -193,10 +211,20 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
-    <div v-if="selected" class="rounded-2xl border border-primary bg-primary/10 p-4">
+    <div v-if="selectedOffice" class="rounded-2xl border border-primary bg-primary/10 p-4">
       <div class="font-medium">Выбран ПВЗ СДЭК</div>
-      <div class="text-sm mt-1">{{ officeAddress(selected) }}</div>
-      <div class="text-xs text-gray-600 mt-1">{{ selected.work_time }}</div>
+
+      <div class="text-sm mt-1">
+        {{ selectedOfficeAddress }}
+      </div>
+
+      <div v-if="selectedOffice.work_time" class="text-xs text-gray-600 mt-1">
+        {{ selectedOffice.work_time }}
+      </div>
+
+      <div class="text-xs text-primary mt-1">
+        Код ПВЗ: {{ selectedOffice.code }}
+      </div>
     </div>
   </div>
 </template>
