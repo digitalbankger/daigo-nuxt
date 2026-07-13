@@ -7,8 +7,8 @@ const store = useCheckoutStore()
 
 type UiValue =
   | 'sbp'
-  | 'tpay_qr'
-  | 'tpay_card'
+  // | 'tpay_qr'
+  // | 'tpay_card'
   | 'installments'
   | 'credit'
   | 'card_online'
@@ -26,8 +26,8 @@ type MethodCard = {
 
 const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
   sbp: 'sbp',
-  tpay_qr: 'tpay_qr',
-  tpay_card: 'tpay_card',
+  // tpay_qr: 'tpay_qr',
+  // tpay_card: 'tpay_card',
   installments: 'dolyame',
   credit: 'tbank',
   card_online: 'bank_card',
@@ -37,8 +37,8 @@ const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
 
 const STORE_TO_UI: Record<PaymentMethod, UiValue> = {
   sbp: 'sbp',
-  tpay_qr: 'tpay_qr',
-  tpay_card: 'tpay_card',
+  // tpay_qr: 'tpay_qr',
+  // tpay_card: 'tpay_card',
   dolyame: 'installments',
   tbank: 'credit',
   bank_card: 'card_online',
@@ -46,24 +46,25 @@ const STORE_TO_UI: Record<PaymentMethod, UiValue> = {
   cash: 'cash_courier',
 }
 
-const defaultPaymentUiValue: UiValue = 'tpay_qr'
+// const defaultPaymentUiValue: UiValue = 'tpay_qr'
+const defaultPaymentUiValue: UiValue = 'sbp'
 
 const methods: MethodCard[] = [
-  {
-    value: 'tpay_qr',
-    label: 'QR СБП Т-Банк',
-    description: 'Оплата по QR от Т-Банка',
-    img: './images/oplata/t-sbp.png',
-    layout: 'text',
-    badge: 'Самый удобный',
-  },
-  {
-    value: 'tpay_card',
-    label: 'Картой Т-Банк',
-    description: 'Банковской картой онлайн',
-    img: './images/oplata/t-bank-card.png',
-    layout: 'text',
-  },
+  // {
+  //   value: 'tpay_qr',
+  //   label: 'QR СБП Т-Банк',
+  //   description: 'Оплата по QR от Т-Банка',
+  //   img: './images/oplata/t-sbp.png',
+  //   layout: 'text',
+  //   badge: 'Самый удобный',
+  // },
+  // {
+  //   value: 'tpay_card',
+  //   label: 'Картой Т-Банк',
+  //   description: 'Банковской картой онлайн',
+  //   img: './images/oplata/t-bank-card.png',
+  //   layout: 'text',
+  // },
   {
     value: 'sbp',
     label: 'СБП',
@@ -127,13 +128,13 @@ function isActive(v: UiValue) {
   return activeUiValue.value === v
 }
 
-function isTpayQr(v: UiValue) {
-  return v === 'tpay_qr'
-}
+// function isTpayQr(v: UiValue) {
+//   return v === 'tpay_qr'
+// }
 
 function cardClass(method: MethodCard) {
   const active = isActive(method.value)
-  const tpayQr = isTpayQr(method.value)
+  // const tpayQr = isTpayQr(method.value)
 
   return [
     'relative overflow-hidden rounded-2xl border transition',
@@ -145,16 +146,16 @@ function cardClass(method: MethodCard) {
     'flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2',
 
     // tpay_qr на мобильном жёлтый, на desktop как раньше белый
-    tpayQr
-      ? 'bg-[#ffde25] sm:bg-white'
-      : 'bg-white',
+    // tpayQr
+    //   ? 'bg-[#ffde25] sm:bg-white'
+    //   : 'bg-white',
 
     // активность без нижней линии
-    active && tpayQr
-      ? 'border-transparent shadow-[0_0_0_3px_rgba(194,92,0,0.34),0_8px_22px_rgba(122,60,0,0.24)] sm:border-primary sm:ring-1 sm:ring-primary sm:shadow-none'
-      : active
-        ? 'border-primary ring-1 ring-primary ring-offset-0'
-        : 'border-black/15 hover:border-primary/60',
+    // active && tpayQr
+      // ? 'border-transparent shadow-[0_0_0_3px_rgba(194,92,0,0.34),0_8px_22px_rgba(122,60,0,0.24)] sm:border-primary sm:ring-1 sm:ring-primary sm:shadow-none'
+      // : active
+      //   ? 'border-primary ring-1 ring-primary ring-offset-0'
+      //   : 'border-black/15 hover:border-primary/60',
   ]
 }
 
@@ -163,13 +164,13 @@ function imageClass(method: MethodCard) {
     'object-contain max-h-12 sm:max-h-11 mx-auto sm:w-auto',
 
     // Т-Банк СБП: было 80%, делаем +20% = 96%
-    method.value === 'tpay_qr'
-      ? 'w-[96%]'
+    // method.value === 'tpay_qr'
+    //   ? 'w-[96%]'
 
-      // Долями: было 80%, делаем на 40% меньше = 48%
-      : method.value === 'installments'
-        ? 'w-[48%]'
-        : 'w-[80%]',
+    // Долями: было 80%, делаем на 40% меньше = 48%
+    // : method.value === 'installments'
+    //   ? 'w-[48%]'
+        // : 'w-[80%]',
   ]
 }
 </script>
