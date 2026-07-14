@@ -7,8 +7,7 @@ const store = useCheckoutStore()
 
 type UiValue =
   | 'sbp'
-  // | 'tpay_qr'
-  // | 'tpay_card'
+  | 'tpay_card'
   | 'installments'
   | 'credit'
   | 'card_online'
@@ -26,8 +25,7 @@ type MethodCard = {
 
 const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
   sbp: 'sbp',
-  // tpay_qr: 'tpay_qr',
-  // tpay_card: 'tpay_card',
+  tpay_card: 'tpay_card',
   installments: 'dolyame',
   credit: 'tbank',
   card_online: 'bank_card',
@@ -35,10 +33,14 @@ const UI_TO_STORE: Record<UiValue, PaymentMethod> = {
   cash_courier: 'cash',
 }
 
-const STORE_TO_UI: Record<PaymentMethod, UiValue> = {
+/**
+ * Partial используется специально:
+ * PaymentMethod может всё ещё содержать tpay_qr,
+ * но в интерфейсе этот способ оплаты больше не показывается.
+ */
+const STORE_TO_UI: Partial<Record<PaymentMethod, UiValue>> = {
   sbp: 'sbp',
-  // tpay_qr: 'tpay_qr',
-  // tpay_card: 'tpay_card',
+  tpay_card: 'tpay_card',
   dolyame: 'installments',
   tbank: 'credit',
   bank_card: 'card_online',
@@ -46,25 +48,16 @@ const STORE_TO_UI: Record<PaymentMethod, UiValue> = {
   cash: 'cash_courier',
 }
 
-// const defaultPaymentUiValue: UiValue = 'tpay_qr'
 const defaultPaymentUiValue: UiValue = 'sbp'
 
 const methods: MethodCard[] = [
-  // {
-  //   value: 'tpay_qr',
-  //   label: 'QR СБП Т-Банк',
-  //   description: 'Оплата по QR от Т-Банка',
-  //   img: './images/oplata/t-sbp.png',
-  //   layout: 'text',
-  //   badge: 'Самый удобный',
-  // },
-  // {
-  //   value: 'tpay_card',
-  //   label: 'Картой Т-Банк',
-  //   description: 'Банковской картой онлайн',
-  //   img: './images/oplata/t-bank-card.png',
-  //   layout: 'text',
-  // },
+  {
+    value: 'tpay_card',
+    label: 'Картой Т-Банк',
+    description: 'Банковской картой онлайн',
+    img: 'https://daigo.ru/images/oplata/t-bank-card.png',
+    layout: 'text',
+  },
   {
     value: 'sbp',
     label: 'СБП',
@@ -110,52 +103,62 @@ const methods: MethodCard[] = [
 ]
 
 const activeUiValue = computed<UiValue>(() => {
-  const curr = store.state.paymentMethod
-  return STORE_TO_UI[curr] ?? defaultPaymentUiValue
+  const paymentMethod = store.state.paymentMethod
+
+  if (!paymentMethod) {
+    return defaultPaymentUiValue
+  }
+
+  return STORE_TO_UI[paymentMethod] ?? defaultPaymentUiValue
 })
 
 onMounted(() => {
-  if (!store.state.paymentMethod || store.state.paymentMethod === 'sbp') {
+  const paymentMethod = store.state.paymentMethod
+  const currentUiValue = paymentMethod
+    ? STORE_TO_UI[paymentMethod]
+    : undefined
+
+  /**
+   * Сбрасываем старый tpay_qr или другое значение,
+   * для которого больше нет карточки в интерфейсе.
+   */
+  if (!currentUiValue) {
     store.state.paymentMethod = UI_TO_STORE[defaultPaymentUiValue]
   }
 })
 
-function select(v: UiValue) {
-  store.state.paymentMethod = UI_TO_STORE[v]
+function select(value: UiValue) {
+  store.state.paymentMethod = UI_TO_STORE[value]
 }
 
-function isActive(v: UiValue) {
-  return activeUiValue.value === v
+function isActive(value: UiValue) {
+  return activeUiValue.value === value
 }
-
-// function isTpayQr(v: UiValue) {
-//   return v === 'tpay_qr'
-// }
 
 function cardClass(method: MethodCard) {
   const active = isActive(method.value)
-  // const tpayQr = isTpayQr(method.value)
 
   return [
-    'relative overflow-hidden rounded-2xl border transition',
+    'relative overflow-hidden rounded-2xl border transition-all duration-200',
     'text-center',
-
-    // mobile: одна строка на всю ширину
-    // desktop: старая карточка
-    'min-h-[64px] sm:min-h-[136px] px-4 sm:px-4 py-3',
+    'min-h-[64px] sm:min-h-[136px] px-4 py-3',
     'flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2',
 
-    // tpay_qr на мобильном жёлтый, на desktop как раньше белый
-    // tpayQr
-    //   ? 'bg-[#ffde25] sm:bg-white'
-    //   : 'bg-white',
-
-    // активность без нижней линии
-    // active && tpayQr
-      // ? 'border-transparent shadow-[0_0_0_3px_rgba(194,92,0,0.34),0_8px_22px_rgba(122,60,0,0.24)] sm:border-primary sm:ring-1 sm:ring-primary sm:shadow-none'
-      // : active
-      //   ? 'border-primary ring-1 ring-primary ring-offset-0'
-      //   : 'border-black/15 hover:border-primary/60',
+    active
+      ? [
+          'border-primary',
+          'bg-primary/5',
+          'ring-2',
+          'ring-primary',
+          'ring-offset-0',
+          'shadow-sm',
+        ]
+      : [
+          'border-black/15',
+          'bg-white',
+          'hover:border-primary/60',
+          'hover:shadow-sm',
+        ],
   ]
 }
 
@@ -163,59 +166,66 @@ function imageClass(method: MethodCard) {
   return [
     'object-contain max-h-12 sm:max-h-11 mx-auto sm:w-auto',
 
-    // Т-Банк СБП: было 80%, делаем +20% = 96%
-    // method.value === 'tpay_qr'
-    //   ? 'w-[96%]'
-
-    // Долями: было 80%, делаем на 40% меньше = 48%
-    // : method.value === 'installments'
-    //   ? 'w-[48%]'
-        // : 'w-[80%]',
+    method.value === 'installments'
+      ? 'w-[48%]'
+      : method.value === 'tpay_card'
+        ? 'w-[80%]'
+        : 'w-[80%]',
   ]
 }
 </script>
 
 <template>
   <div class="mt-12 space-y-4">
-    <h3 class="text-slider font-medium">Способ оплаты</h3>
+    <h3 class="text-slider font-medium">
+      Способ оплаты
+    </h3>
 
-    <div class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-8 gap-3 sm:gap-4">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4"
+      role="radiogroup"
+      aria-label="Способ оплаты"
+    >
       <button
-        v-for="m in methods"
-        :key="m.value"
+        v-for="method in methods"
+        :key="method.value"
         type="button"
-        :class="cardClass(m)"
+        :class="cardClass(method)"
         role="radio"
-        :aria-checked="isActive(m.value)"
-        @click="select(m.value)"
-        @keyup.enter.space="select(m.value)"
+        :aria-checked="isActive(method.value)"
+        @click="select(method.value)"
       >
         <span
-          v-if="m.badge"
+          v-if="method.badge"
           class="absolute left-4 top-2 sm:left-2 sm:right-2 sm:top-2 rounded-full bg-cgreen px-2 py-1 text-[10px] font-medium leading-none text-white"
         >
-          {{ m.badge }}
+          {{ method.badge }}
         </span>
 
-        <div class="w-full flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2">
+        <div
+          class="w-full flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2"
+        >
           <img
-            v-if="m.img"
-            :src="m.img"
-            :alt="m.label"
+            v-if="method.img"
+            :src="method.img"
+            :alt="method.label"
             width="140"
             height="64"
-            :class="imageClass(m)"
+            :class="imageClass(method)"
             loading="lazy"
             decoding="async"
           >
 
           <div class="hidden sm:block space-y-0.5 text-center">
             <div class="text-xs sm:text-sm font-medium leading-tight text-black">
-              {{ m.label }}
+              {{ method.label }}
             </div>
 
-            <div v-if="m.description" class="text-[11px] leading-tight text-black/50">
-              {{ m.description }}
+            <div
+              v-if="method.description"
+              class="text-[11px] leading-tight text-black/50"
+            >
+              {{ method.description }}
             </div>
           </div>
         </div>
