@@ -700,7 +700,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
 
     try {
       saveAddressLoading.value = true
-      await $fetch(`${daigoApiBase}/v1/auth/user/${auth.userId}/addresses`, {
+      await $fetch(`${daigoApiBase}/v1/shop/user/${auth.userId}/addresses`, {
         method: 'POST',
         body: payload,
         headers: getAuthHeaders(),
