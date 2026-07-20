@@ -143,7 +143,7 @@ async function submitCallback() {
             <div class="w-1/2 flex flex-col gap-1 items-start">
               <img src="/logo.svg" alt="daigo logo" class="md:h-6" />
               <div class="font-medium">Москва</div>
-              <div class="text-sm mb-3 text-black/60">Головной офис компании Да́йго</div>
+              <div class="text-sm mb-3 text-black/60">Головной офис компании Дайго</div>
             </div>
           </div>
           <div class="text-sm">Большой сухаревский переулок 21 строение 2</div>
@@ -196,7 +196,7 @@ async function submitCallback() {
                 <source :src="videoUrl" type="video/mp4" />
                 Ваш браузер не поддерживает видео.
               </video> -->
-              <img src="/images/office.jpg" alt="Офис Да́йго" class="w-full h-auto rounded-xl md:rounded-4xl"/> 
+              <img src="/images/office.jpg" alt="Офис Дайго" class="w-full h-auto rounded-xl md:rounded-4xl"/> 
               <div>
                 <p class="text-lg font-medium mb-2 mt-4">Мы в социальных сетях</p>
                 <div class="flex gap-4 md:gap-6">
@@ -294,7 +294,7 @@ async function submitCallback() {
 
               <div class="flex flex-col gap-4 mt-4">
                 <a href="/media-s3/materials/preza.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Презентация</span></a>
-                <a href="/media-s3/materials/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Да́йго</span></a>
+                <a href="/media-s3/materials/journal.pdf" class="text-primary flex flex-row gap-2 items-center" download><img src="/icons/download.svg" /> <span>Журнал Дайго</span></a>
               </div>
             </div>
         </div>

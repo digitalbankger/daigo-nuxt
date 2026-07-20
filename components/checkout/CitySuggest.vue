@@ -65,6 +65,7 @@ const loading = ref(false)
 const items = ref<CityItem[]>([])
 const hovered = ref(-1)
 const lastSelected = ref<string>('')
+const isUserEditing = ref(false)
 
 const { city, cancel } = useDadata()
 
@@ -91,7 +92,14 @@ onMounted(() => {
 
 watch(() => props.modelValue, v => {
   const val = (v ?? '') as string
-  if (val !== input.value) input.value = val
+  if (val !== input.value) {
+    isUserEditing.value = false
+    input.value = val
+  }
+
+  // Программное изменение города (например, после выбора ПВЗ)
+  // не должно открывать DaData поверх оформления заказа.
+  if (!isFocused.value) stopSuggestions()
 })
 
 // --- дебаунс 200ms + отмена предыдущего запроса ---
@@ -101,6 +109,14 @@ watch(input, (q) => {
 
   if (props.suggestionsDisabled) {
     lastSelected.value = trimmed
+    isUserEditing.value = false
+    stopSuggestions()
+    return
+  }
+
+  // Запросы DaData запускаются только из активного поля и только после
+  // реального ввода пользователя, а не при программной подстановке города.
+  if (!isFocused.value || !isUserEditing.value) {
     stopSuggestions()
     return
   }
@@ -133,6 +149,7 @@ function select(i: number) {
   if (!item) return
   cancel()
   lastSelected.value = String(item.value).trim()
+  isUserEditing.value = false
 
   input.value = item.value
   emit('update:modelValue', item.value)
@@ -140,6 +157,11 @@ function select(i: number) {
 
   open.value = false
   items.value = []
+}
+
+function onInput(event: Event) {
+  isUserEditing.value = true
+  input.value = (event.target as HTMLInputElement).value
 }
 
 function onKeydown(e: KeyboardEvent) {
@@ -156,10 +178,10 @@ function onKeydown(e: KeyboardEvent) {
 function onFocus() {
   isFocused.value = true
   emit('focus')
-  if (!props.suggestionsDisabled && items.value.length && input.value.trim() !== lastSelected.value) open.value = true
 }
 function onBlur() {
   isFocused.value = false
+  isUserEditing.value = false
   emit('blur')
 
   if (props.suggestionsDisabled) {
@@ -174,6 +196,7 @@ function onBlur() {
 
 function clear() {
   if (props.readonly || props.disabled) return
+  isUserEditing.value = true
   input.value = ''
   lastSelected.value = ''
   items.value = []
@@ -228,7 +251,7 @@ function handleFocus() {
         :class="bgClass"
         :placeholder="placeholder || 'Город'"
         :value="input"
-        @input="(e:any)=> input = e.target.value"
+        @input="onInput"
         :readonly="readonly || antiReadonly"
         :disabled="disabled"
         :autocomplete="safeAutocomplete"
@@ -273,7 +296,7 @@ function handleFocus() {
 
     <!-- дропдаун -->
     <ul
-      v-if="open && items.length"
+      v-if="isFocused && open && items.length"
       :id="listboxId"
       class="absolute left-0 right-0 mt-1 max-h-64 overflow-auto rounded-lg border border-gray-200 bg-white shadow-lg z-[2147483647] pointer-events-auto"
       role="listbox"

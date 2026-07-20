@@ -201,7 +201,14 @@ onBeforeUnmount(() => {
 
     <div v-if="offices.length" class="grid grid-cols-1 lg:grid-cols-[1fr_360px] gap-4">
       <div ref="mapEl" class="min-h-[420px] rounded-2xl border border-[#E5E7EB] bg-[#F7F7F7] overflow-hidden"></div>
-      <div class="max-h-[420px] overflow-y-auto rounded-2xl border border-[#E5E7EB] bg-white divide-y">
+      <div
+        class="cdek-office-list max-h-[420px] overflow-y-auto overscroll-contain rounded-2xl border border-[#E5E7EB] bg-white divide-y"
+        data-lenis-prevent
+        tabindex="0"
+        aria-label="Список пунктов выдачи СДЭК"
+        @wheel.stop
+        @touchmove.stop
+      >
         <button v-for="o in offices" :key="o.code" type="button" class="w-full text-left p-4 hover:bg-[#F7F7F7] transition" :class="selected?.code === o.code ? 'bg-primary/10' : ''" @click="selectOffice(o)">
           <div class="font-medium">{{ officeAddress(o) }}</div>
           <div class="mt-1 text-xs text-gray-500">{{ o.work_time }}</div>
@@ -228,3 +235,10 @@ onBeforeUnmount(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.cdek-office-list {
+  scrollbar-gutter: stable;
+  -webkit-overflow-scrolling: touch;
+}
+</style>

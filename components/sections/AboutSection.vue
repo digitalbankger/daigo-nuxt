@@ -22,7 +22,7 @@ const bottomCardForUi = computed(() => ({
 
 const topCards = [
   {
-    title: 'Японский производитель',
+    title: 'Эксклюзивный представитель',
     imageSrc: '/images/japan-flag.png',
     lazy: true,
     styles: {

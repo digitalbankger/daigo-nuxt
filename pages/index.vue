@@ -15,7 +15,7 @@ definePageMeta({ layout: 'main' })
 
 useSeoMeta({
   ogTitle: 'Официальный сайт Daigo (Дайго) в России и СНГ',
-  ogDescription: 'Купить Daigo (Daigo) с бесплатной доставкой у официальныго дистрибьютора в РФ и СНГ. Программа лояльности. Консультация экспертов.',
+  ogDescription: 'Купить Daigo (Daigo) с бесплатной доставкой у официального дистрибьютора в РФ и СНГ. Программа лояльности. Консультация экспертов.',
   ogType: 'website',
   ogUrl: 'https://daigo.ru/',
 
@@ -86,7 +86,7 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 
       <CategorySection />
       <h2 class="text-slider md:text-product lg:text-slider font-medium mt-8">
-        О компании Да́йго
+        О компании Дайго
       </h2>
       <AboutSection />
       <InfoSection />

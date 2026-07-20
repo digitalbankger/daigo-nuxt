@@ -62,23 +62,6 @@ const publicationCards = [
         <p class="mb-4 sm:mb-6 text-[clamp(1rem,3vw,1.5rem)] flex flex-col gap-4 font-normal w-full sm:max-w-[80%] sm:max-w-full lg:max-w-[550px]">
           Подборка статей, чтобы вы могли познакомиться с продуктами Дайго и подробнее узнать об их применении
         </p>
-        <NuxtLink
-          to="/articles"
-          class="hidden sm:inline-flex relative z-20 justify-center items-center gap-2 py-3 px-3 sm:px-5
-                 text-[#FA458A] text-lg sm:text-xl font-normal transition duration-300
-                 border border-[#FA458A] rounded-lg tracking-wide w-56 sm:w-72
-                 hover:bg-[#FA458A] hover:text-white"
-        >
-          Перейти к статьям
-        </NuxtLink>
-
-        <NuxtLink
-          to="/articles"
-          class="relative z-20 text-[#FA458A] inline-flex sm:hidden items-center gap-2 text-base sm:text-2xl font-normal transition duration-300 group"
-        >
-          Перейти к статьям
-          <img src="/icons/arrow-pink.svg" alt="→" class="w-6 h-6 pt-0.5 transition-transform duration-300 transform group-hover:translate-x-1" />
-        </NuxtLink>
       </div>
 
       <picture class="w-full sm:w-3/5 absolute bottom-0 right-0 sm:right-6 sm:bottom-0">

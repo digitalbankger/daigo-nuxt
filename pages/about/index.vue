@@ -10,7 +10,7 @@ import RewardSection from '~/components/sections/RewardSection.vue'
 import type { link } from 'fs'
 
 useHead({
-  title: 'О компании Daigo – Производитель продукции для здоровья',
+  title: 'О компании Daigo — эксклюзивный представитель B&S Corporation',
   meta: [
     {
       name: 'description',
@@ -44,7 +44,7 @@ useHead({
           'https://vk.com/daigo',
         ],
         description:
-          'Daigo — эксклюзивный представитель B&S Corporation в России. Производитель продукции для здоровья на основе японских исследований.',
+          'Daigo — эксклюзивный представитель B&S Corporation в России и дистрибьютор японской продукции для здоровья.',
       }),
     },
   ],
@@ -62,7 +62,7 @@ const people = [
 const cards = [
   {
     title: '>5 лет',
-    subtitle: 'Да́йго поддерживает благотворительные фонды и организации, общественные инициативы',
+    subtitle: 'Дайго поддерживает благотворительные фонды и организации, общественные инициативы',
     imageSrc: '/logo.svg',
     lazy: true,
     styles: {
