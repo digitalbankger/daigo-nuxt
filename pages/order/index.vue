@@ -273,7 +273,14 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
               </ul>
             </template>
             <template v-else>
-              Что-то пошло не так, свяжитесь с менеджером магазина
+              Что-то пошло не так, свяжитесь с менеджером магазина по телефону 
+              <a
+                href="tel:88005552043"
+                data-ym="header-phone"
+                class="text-sm md:text-lg flex flex-row items-center gap-2 me-0 lg:me-3 transition duration-300 text-black hover:text-primary"
+              >
+                <span>8 800 555 20 43</span>
+              </a>
             </template>
           </div>
         </div>
