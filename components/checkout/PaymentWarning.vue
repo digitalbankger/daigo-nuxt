@@ -37,13 +37,14 @@ const dismiss = () => {
 
 <style scoped>
 .payment-warning {
-  background: linear-gradient(135deg, #fff5cf 0%, #ffeb9d 100%);
-  border: 1px solid #FBBF24;
+  background: linear-gradient(135deg, #fffae5 0%, #fff1ba 100%);
+  border: 1px solid #ffe195;
   border-radius: 12px;
   padding: 10px;
   padding-right: 20px;
   margin: 20px 0;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07);
 }
 
 .warning-content {

@@ -1,0 +1,53 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="200"
+  height="200"
+  viewBox="0 0 200 200"
+  fill="none"
+>
+  <path
+    fill="currentColor"
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="
+      M75 2
+      C35.2 2 3 34.2 3 74
+      C3 109.4 43.8 155.8 63.8 172.6
+      C70.3 178.1 79.7 178.1 86.2 172.6
+      C106.2 155.8 147 109.4 147 74
+      C147 34.2 114.8 2 75 2
+      Z
+
+      M75 48
+      C60.6 48 49 59.6 49 74
+      C49 88.4 60.6 100 75 100
+      C89.4 100 101 88.4 101 74
+      C101 59.6 89.4 48 75 48
+      Z
+    "
+  />
+
+  <path
+    d="M172 6V22"
+    stroke="currentColor"
+    stroke-width="9"
+    stroke-linecap="round"
+  />
+
+  <path
+    d="
+      M172 53
+      V92
+      C172 103.5 176.1 108.3 185.2 114.9
+      C197.1 123.5 184.5 128.6 162.5 133.2
+      C143.1 137.3 140.6 145.7 152.1 154
+      C160.9 160.4 181.2 162 191.1 169.4
+      C205.7 180.2 190.4 187 173 189.4
+      C145.2 193.2 103.9 194 66 194
+    "
+    stroke="currentColor"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>

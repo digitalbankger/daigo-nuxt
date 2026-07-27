@@ -8,9 +8,11 @@ import { bonusService, type BonusCalculateResponse } from '@/services/bonusServi
 import Button from '../ui/Button.vue'
 import UiInput from '../ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
+import UiIcon from '~/components/ui/UiIcon.vue'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { sendGuestPreorderFireAndForget, ensureGuestSessionId } from '@/services/guestPreorder'
 import PaymentWarning from './PaymentWarning.vue'
+import { normalizeMediaUrl } from '~/utils/mediaUrl'
 
 const analytics = useAnalytics()
 const cartStore = useCartStore()
@@ -18,10 +20,49 @@ const authStore = useAuthStore()
 const userStore = useUserStore()
 const checkoutStore = useCheckoutStore()
 
-const props = defineProps<{ mode?: 'cart' | 'checkout' }>()
-const emit = defineEmits(['cta'])
+const props = withDefaults(defineProps<{
+  mode?: 'cart' | 'checkout'
+  consent?: boolean
+  consentError?: string
+}>(), {
+  mode: 'cart',
+  consent: false,
+  consentError: '',
+})
+
+const emit = defineEmits<{
+  (e: 'cta'): void
+  (e: 'update:consent', value: boolean): void
+}>()
 
 const form = cartStore.userForm
+const detailsOpen = ref(true)
+const runtimeConfig = useRuntimeConfig()
+const imageBase = String(runtimeConfig.public.daigoApiBase || '').replace(/\/$/, '')
+
+const checkoutConsent = computed({
+  get: () => props.consent,
+  set: (value: boolean) => emit('update:consent', value),
+})
+
+function productImage(src?: string) {
+  const normalized = normalizeMediaUrl(src)
+  if (!normalized) return ''
+  if (/^(https?:)?\/\//.test(normalized) || /^data:|^blob:/.test(normalized)) return normalized
+  if (
+    normalized.startsWith('/media-s3/')
+    || normalized.startsWith('/images/')
+    || normalized.startsWith('/icons/')
+  ) {
+    return normalized
+  }
+  const path = normalized.startsWith('/') ? normalized : `/${normalized}`
+  return `${imageBase}${path}`
+}
+
+function formatMoney(value: number) {
+  return Number(value || 0).toLocaleString('ru-RU')
+}
 
 // промокод в поле
 const coupon = ref('')
@@ -393,7 +434,219 @@ async function removeCoupon() {
 </script>
 
 <template>
-  <div class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
+  <div
+    v-if="props.mode === 'checkout'"
+    class="flex w-full flex-col gap-5 rounded-[10px] bg-[#F7F7F7] p-5 sm:p-[30px]"
+  >
+    <button
+      type="button"
+      class="flex w-full items-center justify-between gap-4 text-left"
+      :aria-expanded="detailsOpen"
+      aria-controls="checkout-order-details"
+      @click="detailsOpen = !detailsOpen"
+    >
+      <span class="flex min-w-0 items-center gap-2.5">
+        <span class="text-lg font-medium leading-tight sm:text-[32px]">
+          Детали заказа
+        </span>
+        <UiIcon
+          name="chevron-down"
+          :size="24"
+          class="shrink-0 transition-transform duration-200"
+          :class="{ 'rotate-180': detailsOpen }"
+        />
+      </span>
+      <span class="shrink-0 text-lg font-medium sm:text-xl">
+        {{ formatMoney(finalTotal) }} ₽
+      </span>
+    </button>
+
+    <Transition name="summary-details">
+      <div
+        v-if="!detailsOpen"
+        class="flex gap-2.5 overflow-x-auto pb-1"
+        aria-label="Товары в заказе"
+      >
+        <div
+          v-for="item in cartStore.items"
+          :key="`collapsed-${item.id}`"
+          class="relative flex size-[60px] shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-white bg-white shadow-productcard"
+          :title="item.title"
+        >
+          <img
+            v-if="item.image"
+            :src="productImage(item.image)"
+            :alt="item.title"
+            width="60"
+            height="60"
+            class="size-full object-contain p-1.5"
+            loading="lazy"
+            decoding="async"
+          >
+          <UiIcon v-else name="box" :size="24" class="text-black/30" />
+
+          <span
+            v-if="item.quantity > 1"
+            class="absolute bottom-0.5 right-0.5 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-white px-0.5 text-[10px] leading-none shadow-productcard"
+          >
+            ×{{ item.quantity }}
+          </span>
+        </div>
+      </div>
+    </Transition>
+
+    <Transition name="summary-details">
+      <div v-show="detailsOpen" id="checkout-order-details" class="space-y-5">
+        <div class="h-px bg-black/10" />
+
+        <div class="space-y-3">
+          <article
+            v-for="item in cartStore.items"
+            :key="item.id"
+            class="grid grid-cols-[80px_minmax(0,1fr)_auto] items-center gap-3 sm:grid-cols-[96px_minmax(0,1fr)_auto] sm:gap-4"
+          >
+            <div class="relative flex size-20 items-center justify-center overflow-hidden rounded-[10px] border-[3px] border-white bg-[#F7F7F7] shadow-productcard sm:size-24">
+              <img
+                v-if="item.image"
+                :src="productImage(item.image)"
+                :alt="item.title"
+                width="96"
+                height="96"
+                class="size-full object-contain p-2"
+                loading="lazy"
+                decoding="async"
+              >
+              <UiIcon v-else name="box" :size="32" class="text-black/30" />
+
+              <span
+                v-if="item.quantity > 1"
+                class="absolute bottom-1 right-1 flex min-h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-xs shadow-productcard"
+              >
+                ×{{ item.quantity }}
+              </span>
+            </div>
+
+            <p class="min-w-0 text-sm leading-snug sm:text-base">
+              {{ item.title }}
+            </p>
+
+            <p class="shrink-0 text-right text-base font-medium sm:text-xl">
+              {{ formatMoney(item.price * item.quantity) }} ₽
+            </p>
+          </article>
+        </div>
+
+        <div class="flex items-start gap-3 md:gap-4">
+          <UiInput
+            v-model="coupon"
+            name="coupon"
+            type="text"
+            placeholder="Промокод"
+            background="bg-white !border-cgreen !text-cgreen focus:outline-none"
+          >
+            <template #right>
+              <button
+                type="button"
+                class="pl-2 transition"
+                :class="couponInfo?.applied ? 'cursor-not-allowed text-gray-300' : 'text-cgreen hover:text-cgreen/80'"
+                :disabled="!!couponInfo?.applied"
+                aria-label="Применить промокод"
+                @click="applyCoupon"
+              >
+                <UiIcon name="arrow-right" :size="20" />
+              </button>
+            </template>
+          </UiInput>
+
+          <Button
+            variant="outline"
+            class="h-[52px] !border-cgreen px-4 sm:min-w-[130px]"
+            :class="couponInfo?.applied
+              ? '!border-red-500 !text-red-500 hover:!bg-red-500 hover:!text-white'
+              : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
+            :disabled="!couponInfo?.applied && !coupon.trim()"
+            @click="couponInfo?.applied ? removeCoupon() : applyCoupon()"
+          >
+            {{ couponInfo?.applied ? 'Удалить' : 'Применить' }}
+          </Button>
+        </div>
+
+        <div class="space-y-[15px] text-sm sm:text-base">
+          <div class="flex justify-between gap-4">
+            <span>Товаров в корзине</span>
+            <span class="shrink-0">{{ itemCount }} шт</span>
+          </div>
+          <div class="flex justify-between gap-4">
+            <span>Стоимость продуктов</span>
+            <span class="shrink-0">{{ formatMoney(subtotal) }} ₽</span>
+          </div>
+          <div class="flex justify-between gap-4">
+            <span>Доставка</span>
+            <span class="shrink-0">Бесплатно</span>
+          </div>
+          <div class="flex justify-between gap-4 font-medium text-cgreen">
+            <span>Скидка</span>
+            <span class="shrink-0">
+              {{ formatMoney(Math.max(0, Number(subtotal) - Number(grandTotal))) }} ₽
+            </span>
+          </div>
+
+          <div v-if="vipDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+            <span>VIP-скидка</span>
+            <span class="shrink-0">−{{ formatMoney(vipDiscountAmount) }} ₽</span>
+          </div>
+          <div v-if="remarketingDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+            <span>Персональная скидка</span>
+            <span class="shrink-0">−{{ formatMoney(remarketingDiscountAmount) }} ₽</span>
+          </div>
+          <div v-if="exhibitionDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+            <span>Скидка участника выставки</span>
+            <span class="shrink-0">−{{ formatMoney(exhibitionDiscountAmount) }} ₽</span>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between gap-4 text-xl font-medium">
+          <span>Итого</span>
+          <span class="flex items-center gap-4">
+            <span
+              v-if="Number(subtotal) > Number(finalTotal)"
+              class="text-sm font-normal text-black/40 line-through sm:text-base"
+            >
+              {{ formatMoney(subtotal) }} ₽
+            </span>
+            <span>{{ formatMoney(finalTotal) }} ₽</span>
+          </span>
+        </div>
+      </div>
+    </Transition>
+
+    <PaymentWarning />
+
+    <div class="space-y-1 border-t border-black/10 pt-5" data-checkout-consent>
+      <BaseCheckbox v-model="checkoutConsent" :error="!!props.consentError">
+        <span class="text-xs leading-relaxed text-black/55 sm:text-sm">
+          Я согласен с
+          <NuxtLink to="/privacy" class="underline hover:text-black" target="_blank" rel="noopener">
+            политикой конфиденциальности
+          </NuxtLink>
+          и
+          <NuxtLink
+            to="/soglasie-na-obrabotku-personalnykh-dannykh"
+            class="underline hover:text-black"
+            target="_blank"
+            rel="noopener"
+          >
+            обработкой персональных данных
+          </NuxtLink>
+        </span>
+      </BaseCheckbox>
+      <p v-if="props.consentError" class="text-xs text-red-500">
+        {{ props.consentError }}
+      </p>
+    </div>
+  </div>
+
+  <div v-else class="bg-white rounded-2xl shadow-none md:shadow-productcard p-0 md:p-6 w-full md:w-[416px] flex flex-col gap-4">
     <!-- Блок полей (как было) -->
     <div v-if="props.mode !== 'checkout'" class="space-y-4">
       <div class="flex flex-col md:flex-row gap-4">
@@ -679,4 +932,15 @@ async function removeCoupon() {
 
 <style scoped>
 input:focus { outline: none !important; box-shadow: none !important; }
+
+.summary-details-enter-active,
+.summary-details-leave-active {
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.summary-details-enter-from,
+.summary-details-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
 </style>

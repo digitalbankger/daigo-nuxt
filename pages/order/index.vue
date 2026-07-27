@@ -2,12 +2,17 @@
 import { defineAsyncComponent, onMounted, watch, ref, onUnmounted, computed } from 'vue'
 import { navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import Button from '~/components/ui/Button.vue'
+import UiIcon from '~/components/ui/UiIcon.vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import { useCartOrderStore } from '~/stores/cartOrderStore'
-import OrderItemsStrip from '@/components/checkout/OrderItemsStrip.vue'
 import { useYtm } from '@/composables/useYtm'
 
 definePageMeta({ layout: 'main', ssr: false })
+useSeoMeta({
+  title: 'Оформление заказа — Daigo',
+  robots: 'noindex, nofollow',
+})
 
 // --- сторы и аналитика ---
 const ytm = useYtm()
@@ -20,11 +25,10 @@ if (!cart.state.items.length) {
 }
 await store.loadOptions()
 
-// best practice: если корзина пуста — нечего оформлять
+// Если корзина пуста — возвращаемся в корзину.
 if (process.client && !cart.state.items.length) {
   await navigateTo('/cart')
 }
-
 
 // begin_checkout — при заходе на страницу
 onMounted(() => {
@@ -82,7 +86,13 @@ const showPaymentModal = ref(false)
 const paymentUrl = ref<string | null>(null)
 const createdOrderId = ref<string | null>(null)
 const paySecondsLeft = ref(5)
+const checkoutConsent = ref(false)
+const checkoutConsentError = ref('')
 let payTimer: ReturnType<typeof setInterval> | null = null
+
+watch(checkoutConsent, (isChecked) => {
+  if (isChecked) checkoutConsentError.value = ''
+})
 
 function redirectToPayment(url: string) {
   if (!process.client) return
@@ -143,6 +153,17 @@ onUnmounted(() => {
 
 // --- отправка заказа ---
 async function submit() {
+  if (!checkoutConsent.value) {
+    checkoutConsentError.value = 'Подтвердите согласие с условиями оформления заказа'
+    if (process.client) {
+      document.querySelector('[data-checkout-consent]')?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      })
+    }
+    return
+  }
+
   const res = await store.submit()
   if (!res) {
     // Если ошибка из-за незаполненных/некорректных полей — скроллим к первому проблемному полю
@@ -242,51 +263,63 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
 
 <template>
   <BaseContainer>
-    <section class="py-8">
+    <section class="py-6 lg:py-10">
+      <h1 class="sr-only">Оформление заказа</h1>
 
-      <NuxtLink to="/" class="inline-flex gap-2 mb-4 text-lg">
-        <img src="/icons/arrow-right-pag.svg" class="w-2 rotate-180" /> Вернуться назад
+      <NuxtLink
+        to="/cart"
+        class="mb-8 inline-flex items-center gap-2 text-base transition-colors hover:text-primary sm:text-lg"
+      >
+        <UiIcon name="arrow-left" :size="16" />
+        Назад в корзину
       </NuxtLink>
 
-      <div class="w-full flex items-center justify-between gap-8 mb-6">
-        <h1 class="text-[clamp(1.8rem,6vw,4.8rem)] font-medium">Оформление заказа</h1>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div class="lg:col-span-2 space-y-10 md:w-10/12">
-          <OrderItemsStrip :items="cart.state.items" />
+      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,752px)_minmax(0,528px)] lg:gap-8">
+        <div class="min-w-0">
           <RecipientForm />
           <DeliverySelector />
-          <PaymentSelector class="block lg:hidden" />
-        </div>
+          <PaymentSelector />
 
-        <div class="lg:col-span-1">
-          <SummaryCard mode="checkout" @cta="submit" class="lg:sticky top-8" />
+          <Button
+            variant="solid"
+            class="mt-8 !h-[54px] w-full !text-lg"
+            type="button"
+            @click="submit"
+          >
+            Оформить заказ
+          </Button>
+
           <div
             v-if="store.lastError"
-            class="mt-4 rounded-lg border border-red-200 bg-red-50 text-red-700 px-4 py-3"
+            class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700"
           >
             <template v-if="isValidationError">
-              <div class="font-medium mb-1">Заполните обязательные поля:</div>
+              <div class="mb-1 font-medium">Заполните обязательные поля:</div>
               <ul class="list-disc pl-5 text-sm">
                 <li v-for="(x, i) in validationIssues" :key="i">{{ x }}</li>
               </ul>
             </template>
             <template v-else>
-              Что-то пошло не так, свяжитесь с менеджером магазина по телефону 
+              Что-то пошло не так, свяжитесь с менеджером магазина по телефону
               <a
                 href="tel:88005552043"
                 data-ym="header-phone"
-                class="text-sm md:text-lg flex flex-row items-center gap-2 me-0 lg:me-3 transition duration-300 text-black hover:text-primary"
+                class="mt-1 inline-flex items-center gap-2 text-black transition duration-300 hover:text-primary"
               >
-                <span>8 800 555 20 43</span>
+                8 800 555 20 43
               </a>
             </template>
           </div>
         </div>
-      </div>
 
-      <PaymentSelector class="hidden lg:block" />
+        <div class="min-w-0 lg:sticky lg:top-8">
+          <SummaryCard
+            v-model:consent="checkoutConsent"
+            mode="checkout"
+            :consent-error="checkoutConsentError"
+          />
+        </div>
+      </div>
 
       <PaymentModal
         :show="showPaymentModal"
@@ -296,7 +329,6 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
         @close="closePaymentModal"
         @pay="goToPayment"
       />
-
     </section>
   </BaseContainer>
 </template>

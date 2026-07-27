@@ -57,6 +57,7 @@ export interface PvzAddress {
 
 export interface PickupAddress {
   type: 'pickup';
+  city: string;
   address: string;           // адрес самовывоза
   schedule?: string;         // график работы
 }

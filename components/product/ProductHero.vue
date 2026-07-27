@@ -22,7 +22,7 @@ const hasSummerPromo = computed(() => discountPercent.value > 0)
 const showSummerDecor = ref(true)
 const { label: promoCountdownLabel } = useSummerPromoCountdown()
 
-// ✅ строковый ID (UUID)
+// строковый ID (UUID)
 const productIdStr = computed(() => {
   const p: any = product
   const id = p?.product_id ?? p?.id ?? p?.uuid ?? p?.productId
@@ -30,7 +30,7 @@ const productIdStr = computed(() => {
 })
 
 /** список товаров с предзаказом (можно расширять) через '3232-3232-2323' */
-const PREORDER_IDS = new Set<string>([])
+const PREORDER_IDS = new Set<string>(['1e2585ab-8523-4638-bff5-d15fa3be21cb'])
 const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
 
 const adding = ref(false)
@@ -73,7 +73,7 @@ async function addToCartHandler() {
       originalPrice: product.originalPrice,
       quantity: 1,
       image: coverImageUrl.value ?? '',
-      // можно передать маркер в корзину, если нужно:
+      // можно передать маркер в корзину:
       // meta: { preorder: isPreorder.value }
     })
   } catch (e) {

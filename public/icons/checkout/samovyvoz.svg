@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="200"
+     height="200"
+     viewBox="0 0 200 200"
+     fill="none"
+     color="#000000">
+  <title>Пункт самовывоза</title>
+
+  <path
+    d="M46 189 38 193.5H6.5V74L100 6l93.5 68v119.5H162"
+    stroke="currentColor"
+    stroke-width="9"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+
+  <path
+    d="M84.5 64h30a5 5 0 0 1 0 10h-30a5 5 0 0 1 0-10Z"
+    fill="currentColor"
+  />
+
+  <path
+    fill="currentColor"
+    fill-rule="evenodd"
+    d="
+      M40 93h120a7 7 0 0 1 7 7v89H33v-89a7 7 0 0 1 7-7Z
+
+      M64 142h7v7a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3v-7h6a7 7 0 0 1 7 7v24a7 7 0 0 1-7 7H64a7 7 0 0 1-7-7v-24a7 7 0 0 1 7-7Z
+
+      M111 142h7v7a3 3 0 0 0 3 3h5a3 3 0 0 0 3-3v-7h6a7 7 0 0 1 7 7v24a7 7 0 0 1-7 7h-24a7 7 0 0 1-7-7v-24a7 7 0 0 1 7-7Z
+    "
+    clip-rule="evenodd"
+  />
+</svg>

@@ -23,6 +23,8 @@
 
 
 
+import { mockProducts } from './products/mockProducts'
+
 export default defineEventHandler((event) => {
   const { slug } = event.context.params!
 ///media-s3/products/dent/
@@ -6055,6 +6057,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
   ]
 
   const product = productsMock.find(p => p.slug === slug)
+    || mockProducts.find(p => p.slug === slug)
   if (!product) {
     throw createError({ statusCode: 404, statusMessage: 'Product not found' })
   }

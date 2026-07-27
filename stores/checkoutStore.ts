@@ -9,6 +9,8 @@ import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
 import { getLastUtm } from '@/composables/useUtmTracker'
 
+const PICKUP_CITY = 'Москва'
+
 function buildUtmPayload() {
   const last = getLastUtm()
   if (!last) return undefined
@@ -73,6 +75,7 @@ interface StateShape {
     last_name: string
     phone_number: string
     email: string
+    birth_day: string
   }
   // другой получатель
   otherRecipientEnabled: boolean
@@ -137,21 +140,21 @@ export const useCheckoutStore = defineStore('checkout', () => {
     {
       id: 'courier_daigo',
       kind: 'courier',
-      title: 'Курьером Daigo',
+      title: 'Курьером Daigo — бесплатная доставка по городу',
       subtitle: 'Бесплатная доставка по городу',
       provider: 'daigo'
     },
     {
       id: 'courier_major',
       kind: 'courier',
-      title: 'Курьером Major',
+      title: 'Курьером Major — доставка партнёром',
       subtitle: 'Доставка партнёром',
       provider: 'major'
     },
     {
       id: 'todoor_cdek',
       kind: 'todoor',
-      title: 'СДЭК до двери',
+      title: 'Курьером СДЭК до двери',
       subtitle: 'Курьерская доставка до вашей двери',
       provider: 'cdek'
     },
@@ -159,7 +162,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
       id: 'pvz_cdek',
       kind: 'pvz',
       title: 'ПВЗ СДЭК',
-      subtitle: 'Выбрать пункт выдачи на карте'
+      subtitle: 'Выбрать пункт выдачи на карте',
+      provider: 'cdek'
     },
     {
       id: 'pickup_office',
@@ -176,7 +180,8 @@ export const useCheckoutStore = defineStore('checkout', () => {
       first_name: '',
       last_name: '',
       phone_number: '',
-      email: ''
+      email: '',
+      birth_day: ''
     },
 
     otherRecipientEnabled: false,
@@ -289,6 +294,18 @@ export const useCheckoutStore = defineStore('checkout', () => {
   }
   function normalizePhoneDigits(s: string) {
     return (s || '').replace(/\D/g, '')
+  }
+
+  function normalizeBirthDay(value: unknown): string {
+    const raw = String(value ?? '').trim()
+    if (!raw || ['0001-01-01', '01-01-0001', '1-1-1'].includes(raw)) return ''
+    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw
+
+    const match = raw.match(/^(\d{2})[.-](\d{2})[.-](\d{4})$/)
+    if (!match) return ''
+
+    const [, day, month, year] = match
+    return `${year}-${month}-${day}`
   }
 
   function cleanAddressPart(value: any): string {
@@ -530,6 +547,9 @@ export const useCheckoutStore = defineStore('checkout', () => {
         if (!state.recipient.email && p.email) {
           state.recipient.email = p.email
         }
+        if (!state.recipient.birth_day && p.birth_day) {
+          state.recipient.birth_day = normalizeBirthDay(p.birth_day)
+        }
         if (!state.address.city && (p as any).city) {
           state.address.city = (p as any).city
         }
@@ -607,6 +627,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     // pickup
     return {
       type: 'pickup',
+      city: PICKUP_CITY,
       address: state.address.pickupAddress || pickupAddress.value,
       schedule: state.address.pickupSchedule || pickupSchedule.value
     }
@@ -725,6 +746,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
   function validate(): boolean {
     clearErrors()
 
+    const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
     const fn = (state.recipient.first_name || '').trim()
     const ln = (state.recipient.last_name || '').trim()
     const ph = normalizePhoneDigits(state.recipient.phone_number || '')
@@ -739,7 +761,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
     if (!ph || ph.length !== 11) errors.recipient.phone_number = 'Укажите телефон (11 цифр)'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
-    if (!city) errors.recipient.city = 'Укажите город'
+    if (opt?.kind !== 'pickup' && !city) errors.recipient.city = 'Укажите город'
 
     if (state.otherRecipientEnabled) {
       const on = (state.otherRecipientName || '').trim()
@@ -750,7 +772,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
       if (oe && !isEmail(oe)) errors.other.email = 'Email другого получателя некорректен'
     }
 
-    const opt = deliveryOptions.value.find(o => o.id === state.deliveryId) || deliveryOptions.value[0]
     if (opt?.kind === 'courier' || opt?.kind === 'todoor') {
       const line = (state.address.address_line || '').trim()
       const street = (state.address.street || '').trim()
@@ -826,6 +847,23 @@ export const useCheckoutStore = defineStore('checkout', () => {
       }
 
       const utm = buildUtmPayload()
+      const currentDelivery = getCurrentDeliveryOption()
+      const deliveryCity = currentDelivery?.kind === 'pickup'
+        ? PICKUP_CITY
+        : (state.address.city || '')
+
+      const birthDay = normalizeBirthDay(state.recipient.birth_day)
+      const profileBirthDay = normalizeBirthDay(user.profile?.birth_day)
+
+      if (birthDay && birthDay !== profileBirthDay) {
+        try {
+          await user.saveProfile({ birth_day: birthDay })
+        } catch (error) {
+          // Дата рождения нужна для персонализации, но ошибка её сохранения
+          // не должна блокировать создание уже заполненного заказа.
+          console.warn('[checkout] birth_day update failed', error)
+        }
+      }
 
       const payload = {
         daigo_id: auth.userId,
@@ -834,7 +872,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
           name: [state.recipient.first_name, state.recipient.last_name].filter(Boolean).join(' ').trim(),
           phone: state.recipient.phone_number.replace(/\D/g, ''),
           email: state.recipient.email,
-          city: state.address.city
+          city: deliveryCity
         },
         other_recipient: state.otherRecipientEnabled ? {
           enabled: true,
@@ -849,7 +887,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
         ...(utm ? { utm } : {})
       }
 
-// === YM goals: payment type (fires only when user clicked "Оформить заказ" and validation passed) ===
 try {
   const analytics = useAnalytics()
   const pm = state.paymentMethod

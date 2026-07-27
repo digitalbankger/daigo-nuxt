@@ -50,54 +50,58 @@ const STORE_TO_UI: Partial<Record<PaymentMethod, UiValue>> = {
 
 const defaultPaymentUiValue: UiValue = 'sbp'
 
+const paymentImagesBase = import.meta.dev
+  ? '/images/oplata'
+  : 'https://daigo.ru/images/oplata'
+
 const methods: MethodCard[] = [
-  {
-    value: 'tpay_card',
-    label: 'Картой Т-Банк',
-    description: 'Банковской картой онлайн',
-    img: 'https://daigo.ru/images/oplata/t-bank-card.png',
-    layout: 'text',
-  },
   {
     value: 'sbp',
     label: 'СБП',
     description: 'Система быстрых платежей',
-    img: 'https://daigo.ru/images/oplata/sbp.png',
+    img: `${paymentImagesBase}/sbp-pay.png`,
     layout: 'logo-only',
+  },
+  {
+    value: 'tpay_card',
+    label: 'Картой Т-Банк',
+    description: 'Банковской картой онлайн',
+    img: `${paymentImagesBase}/t-pay.png`,
+    layout: 'text',
   },
   {
     value: 'card_online',
     label: 'Банковская карта',
     description: 'Оплата картой онлайн',
-    img: 'https://daigo.ru/images/oplata/bankcard.png',
+    img: `${paymentImagesBase}/card-online.svg`,
     layout: 'text',
   },
   {
     value: 'card_courier',
     label: 'Картой курьеру',
     description: 'Оплата картой при получении',
-    img: 'https://daigo.ru/images/oplata/couriercard.png',
+    img: `${paymentImagesBase}/bank-card.svg`,
     layout: 'text',
   },
   {
     value: 'cash_courier',
     label: 'Наличными курьеру',
     description: 'Оплата наличными',
-    img: 'https://daigo.ru/images/oplata/couriercash.png',
+    img: `${paymentImagesBase}/cash-in-hand.svg`,
     layout: 'text',
   },
   {
     value: 'installments',
     label: 'Долями',
-    description: 'Оплата покупок частями',
-    img: 'https://daigo.ru/images/oplata/dolyame.png',
+    description: 'Оплата частями',
+    img: `${paymentImagesBase}/dolyame-pay.png`,
     layout: 'text',
   },
   {
     value: 'credit',
-    label: 'Т-Банк',
+    label: 'Т-Банк рассрочка',
     description: 'Рассрочка',
-    img: 'https://daigo.ru/images/oplata/tbank.png',
+    img: `${paymentImagesBase}/t-pay.png`,
     layout: 'text',
   },
 ]
@@ -135,54 +139,26 @@ function isActive(value: UiValue) {
   return activeUiValue.value === value
 }
 
-function cardClass(method: MethodCard) {
-  const active = isActive(method.value)
-
-  return [
-    'relative overflow-hidden rounded-2xl border transition-all duration-200',
-    'text-center',
-    'min-h-[64px] sm:min-h-[136px] px-4 py-3',
-    'flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2',
-
-    active
-      ? [
-          'border-primary',
-          'bg-primary/5',
-          'ring-2',
-          'ring-primary',
-          'ring-offset-0',
-          'shadow-sm',
-        ]
-      : [
-          'border-black/15',
-          'bg-white',
-          'hover:border-primary/60',
-          'hover:shadow-sm',
-        ],
-  ]
-}
-
 function imageClass(method: MethodCard) {
   return [
-    'object-contain max-h-12 sm:max-h-11 mx-auto sm:w-auto',
-
-    method.value === 'installments'
-      ? 'w-[48%]'
-      : method.value === 'tpay_card'
-        ? 'w-[80%]'
-        : 'w-[80%]',
+    'h-8 shrink-0 object-contain object-left',
+    method.value === 'installments' && 'w-auto',
+    method.value === 'credit' && 'w-auto',
+    method.value === 'sbp' && 'w-auto',
+    method.value === 'tpay_card' && 'w-auto',
+    ['card_online', 'card_courier', 'cash_courier'].includes(method.value) && 'w-auto',
   ]
 }
 </script>
 
 <template>
   <div class="mt-12 space-y-4">
-    <h3 class="text-slider font-medium">
+    <h3 class="text-[clamp(24px,4vw,36px)] font-medium">
       Способ оплаты
     </h3>
 
     <div
-      class="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-7 gap-3 sm:gap-4"
+      class="space-y-3"
       role="radiogroup"
       aria-label="Способ оплаты"
     >
@@ -190,45 +166,49 @@ function imageClass(method: MethodCard) {
         v-for="method in methods"
         :key="method.value"
         type="button"
-        :class="cardClass(method)"
+        class="flex min-h-[54px] w-full items-center gap-3 overflow-hidden rounded-lg border px-4 py-2.5 text-left transition-colors duration-200 sm:px-5"
+        :class="isActive(method.value)
+          ? 'border-primary bg-[#EEF4FF]'
+          : 'border-[#D1D5DB] bg-white hover:border-primary/60'"
         role="radio"
         :aria-checked="isActive(method.value)"
         @click="select(method.value)"
       >
         <span
-          v-if="method.badge"
-          class="absolute left-4 top-2 sm:left-2 sm:right-2 sm:top-2 rounded-full bg-cgreen px-2 py-1 text-[10px] font-medium leading-none text-white"
+          class="flex size-[17px] shrink-0 items-center justify-center rounded-full border"
+          :class="isActive(method.value) ? 'border-primary' : 'border-black/20'"
+          aria-hidden="true"
         >
-          {{ method.badge }}
+          <span
+            v-if="isActive(method.value)"
+            class="size-[9px] rounded-full bg-primary"
+          />
         </span>
 
-        <div
-          class="w-full flex flex-row sm:flex-col items-center justify-center gap-3 sm:gap-2"
+        <img
+          v-if="method.img"
+          :src="method.img"
+          :alt="method.label"
+          width="112"
+          height="32"
+          :class="imageClass(method)"
+          loading="lazy"
+          decoding="async"
         >
-          <img
-            v-if="method.img"
-            :src="method.img"
-            :alt="method.label"
-            width="140"
-            height="64"
-            :class="imageClass(method)"
-            loading="lazy"
-            decoding="async"
-          >
 
-          <div class="hidden sm:block space-y-0.5 text-center">
-            <div class="text-xs sm:text-sm font-medium leading-tight text-black">
-              {{ method.label }}
-            </div>
+        <span class="min-w-0 flex-1 text-base font-normal leading-tight sm:text-lg">
+          {{ method.label }}
+        </span>
 
-            <div
-              v-if="method.description"
-              class="text-[11px] leading-tight text-black/50"
-            >
-              {{ method.description }}
-            </div>
-          </div>
-        </div>
+        <span
+          v-if="method.description"
+          class="shrink-0 text-sm text-black/45"
+          :class="method.value === 'installments'
+            ? 'block'
+            : 'hidden md:block'"
+        >
+          {{ method.description }}
+        </span>
       </button>
     </div>
   </div>

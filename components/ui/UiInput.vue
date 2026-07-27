@@ -6,7 +6,7 @@ const props = defineProps<{
   placeholder?: string
   label?: string
   error?: string | boolean
-  type?: 'text' | 'tel' | 'email' | 'number' | 'password'
+  type?: 'text' | 'tel' | 'email' | 'number' | 'password' | 'date'
   editable?: boolean
   mask?: 'ru-phone' | string
   disabled?: boolean
@@ -16,6 +16,7 @@ const props = defineProps<{
   autocomplete?: string
   inputmode?: 'text' | 'tel' | 'numeric' | 'email' | 'search' | 'url'
   maxlength?: number
+  max?: string
   id?: string
   /** динамический фон, по умолчанию hoverbtn */
   background?: string
@@ -134,6 +135,7 @@ defineExpose({
         :autocomplete="autocomplete"
         :inputmode="inputmode || (type === 'tel' ? 'tel' : undefined)"
         :maxlength="maxlength || (type === 'tel' ? 18 : undefined)"
+        :max="max"
         :aria-invalid="showError ? 'true' : 'false'"
         :aria-errormessage="showError ? (id ? id + '-error' : undefined) : undefined"
         @focus="isFocused = true; emit('focus')"

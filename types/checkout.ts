@@ -5,6 +5,7 @@ export interface Recipient {
   last_name: string
   phone_number: string
   email: string
+  birth_day?: string
 }
 
 export interface Address {

@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
     public: {
       apiBase: process.env.API_BASE || '/api',
-      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
+      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://tg.daigo.ru',
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
       // Все маркетинговые идентификаторы держим здесь.
       // При необходимости маркетолог может дать новые значения для .env:
@@ -135,7 +135,10 @@ export default defineNuxtConfig({
     }
   },
 
-  css: ['@/assets/styles/fonts.css', '@/assets/styles/main.css' ],
+  css: [
+    '@/assets/styles/fonts.css',
+    '@/assets/styles/main.css'
+  ],
 
   plugins: ['~/plugins/directives.ts', '~/plugins/auth-init.client.ts', '~/plugins/bitrix-tracker.client.ts', '~/plugins/ytm.client.ts', '~/plugins/roistat-events.client.ts', '~/plugins/ytm-route.client.ts', '~/plugins/mango.client.ts', '~/plugins/utm-tracker.client.ts', '~/plugins/api.client.ts' ],
 
@@ -144,7 +147,7 @@ export default defineNuxtConfig({
   image: {
     provider: 'ipx',
     // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
-    domains: ['daigo.ru', 'api.daigo.ru', 's3.firstvds.ru', 'products.s3.firstvds.ru'],
+    domains: ['daigo.ru', 'tg.daigo.ru', 's3.firstvds.ru', 'products.s3.firstvds.ru'],
     ipx: {
       // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
     },

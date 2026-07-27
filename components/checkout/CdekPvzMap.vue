@@ -12,7 +12,13 @@ type CdekOffice = {
   location: { city_code: number; city: string; address: string; latitude: number; longitude: number }
 }
 
-const props = defineProps<{ city?: string | null; modelValue?: CdekOffice | null }>()
+const props = withDefaults(defineProps<{
+  city?: string | null
+  modelValue?: CdekOffice | null
+  showCityInput?: boolean
+}>(), {
+  showCityInput: true,
+})
 const emit = defineEmits<{ (e: 'update:modelValue', value: CdekOffice | null): void; (e: 'select', value: CdekOffice): void }>()
 
 const config = useRuntimeConfig()
@@ -56,11 +62,23 @@ const selectedOfficeAddress = computed(() => {
 
 watch(() => props.city, (value) => {
   const next = String(value || '').trim()
-  if (next && next !== cityQuery.value) cityQuery.value = next
+  if (next !== cityQuery.value) cityQuery.value = next
 }, { immediate: true })
 
 watch(() => props.modelValue, (value) => { selected.value = value || null })
-watch(cityQuery, () => scheduleCitySearch(), { immediate: true })
+watch(cityQuery, (value, previousValue) => {
+  if (
+    previousValue !== undefined
+    && normalizeCityName(value) !== normalizeCityName(previousValue)
+  ) {
+    selectedCityCode.value = null
+    offices.value = []
+    selected.value = null
+    emit('update:modelValue', null)
+  }
+
+  scheduleCitySearch()
+}, { immediate: true })
 watch(selectedCityCode, async (code) => {
   if (!code) return
   await loadOffices(code)
@@ -82,13 +100,29 @@ async function loadCities(q: string) {
   try {
     const data = await $fetch<CdekCity[]>('/api/shop/order/cdek/cities', { query: { city: q } })
     cities.value = Array.isArray(data) ? data : []
-    if (cities.value.length === 1) selectedCityCode.value = Number(cities.value[0].code)
+    const normalizedQuery = normalizeCityName(q)
+    const exactCity = cities.value.find(city => normalizeCityName(city.city) === normalizedQuery)
+    const autoSelectedCity = exactCity || (cities.value.length === 1 ? cities.value[0] : null)
+
+    if (autoSelectedCity) {
+      selectedCityCode.value = Number(autoSelectedCity.code)
+    }
   } catch (e: any) {
     error.value = e?.message || 'Не удалось загрузить города СДЭК'
     cities.value = []
   } finally {
     loadingCities.value = false
   }
+}
+
+function normalizeCityName(value: string | null | undefined) {
+  return String(value || '')
+    .toLocaleLowerCase('ru-RU')
+    .replace(/ё/g, 'е')
+    .replace(/[.,]/g, ' ')
+    .replace(/^(?:г|город)\s+/u, '')
+    .replace(/\s+/g, ' ')
+    .trim()
 }
 
 async function loadOffices(code: number) {
@@ -184,7 +218,10 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="space-y-4">
-    <div class="rounded-2xl border border-[#E5E7EB] bg-white p-4 space-y-3">
+    <div
+      v-if="showCityInput"
+      class="space-y-3 rounded-2xl border border-[#E5E7EB] bg-white p-4"
+    >
       <label class="block text-sm font-medium">Город для поиска ПВЗ СДЭК</label>
       <input v-model="cityQuery" type="text" class="w-full h-11 rounded-lg border border-[#E5E7EB] px-3 outline-none focus:border-primary transition" placeholder="Например: Москва" />
       <div v-if="loadingCities" class="text-sm text-gray-500">Ищем город…</div>
@@ -192,6 +229,39 @@ onBeforeUnmount(() => {
         <button v-for="c in cities" :key="c.code" type="button" class="rounded-lg border px-3 py-2 text-sm transition" :class="selectedCityCode === c.code ? 'border-primary bg-primary/10' : 'border-[#E5E7EB] bg-white hover:border-primary'" @click="chooseCity(c)">
           {{ cityLabel(c) }}
         </button>
+      </div>
+    </div>
+
+    <div
+      v-else
+      class="space-y-3 rounded-xl border border-[#E5E7EB] bg-white p-4"
+    >
+      <div v-if="!cityQuery.trim()" class="text-sm text-black/55">
+        Сначала укажите город доставки в поле выше.
+      </div>
+      <div v-else-if="loadingCities" class="text-sm text-gray-500">
+        Ищем ПВЗ в городе «{{ cityQuery }}»…
+      </div>
+      <div v-else-if="selectedCityCode" class="flex items-center gap-2 text-sm">
+        <span class="size-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+        <span>Пункты выдачи для города «{{ cityQuery }}»</span>
+      </div>
+      <div v-else-if="cities.length" class="space-y-2">
+        <p class="text-sm font-medium">Уточните город для поиска ПВЗ</p>
+        <div class="flex flex-wrap gap-2">
+          <button
+            v-for="cityItem in cities"
+            :key="cityItem.code"
+            type="button"
+            class="rounded-lg border border-[#E5E7EB] bg-white px-3 py-2 text-sm transition hover:border-primary"
+            @click="chooseCity(cityItem)"
+          >
+            {{ cityLabel(cityItem) }}
+          </button>
+        </div>
+      </div>
+      <div v-else class="text-sm text-black/55">
+        ПВЗ для этого города не найдены. Проверьте название города.
       </div>
     </div>
 

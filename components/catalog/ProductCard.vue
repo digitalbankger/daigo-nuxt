@@ -228,7 +228,7 @@ const { label: promoCountdownLabel } = useSummerPromoCountdown()
 
 const cartStore = useCartStore()
 
-const PREORDER_IDS = new Set<string>([''])
+const PREORDER_IDS = new Set<string>(['1e2585ab-8523-4638-bff5-d15fa3be21cb'])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
 const quantityInCart = computed(() => {
