@@ -22,10 +22,12 @@ const checkoutStore = useCheckoutStore()
 
 const props = withDefaults(defineProps<{
   mode?: 'cart' | 'checkout'
+  checkoutView?: 'all' | 'items' | 'summary'
   consent?: boolean
   consentError?: string
 }>(), {
   mode: 'cart',
+  checkoutView: 'all',
   consent: false,
   consentError: '',
 })
@@ -36,9 +38,16 @@ const emit = defineEmits<{
 }>()
 
 const form = cartStore.userForm
-const detailsOpen = ref(true)
+const detailsOpen = ref(props.checkoutView !== 'items')
 const runtimeConfig = useRuntimeConfig()
 const imageBase = String(runtimeConfig.public.daigoApiBase || '').replace(/\/$/, '')
+const checkoutDetailsId = computed(() => `checkout-order-details-${props.checkoutView}`)
+const showCheckoutItems = computed(() => props.checkoutView !== 'summary')
+const showCheckoutSummary = computed(() => props.checkoutView !== 'items')
+const showCheckoutConsent = computed(() => props.checkoutView === 'all')
+const checkoutCalculationsEnabled = computed(() => (
+  props.mode === 'checkout' && showCheckoutSummary.value
+))
 
 const checkoutConsent = computed({
   get: () => props.consent,
@@ -165,7 +174,7 @@ const finalTotal = computed(() => {
 const cartTotalForBonusCalc = computed(() => Number(grandTotal.value || 0))
 
 async function refreshBonusCalc() {
-  if (props.mode !== 'checkout') return
+  if (!checkoutCalculationsEnabled.value) return
 
   const total = Math.max(0, Math.floor(cartTotalForBonusCalc.value || 0))
   bonusCalcLoading.value = true
@@ -184,7 +193,7 @@ async function refreshBonusCalc() {
 // при заходе на чек-аут и при изменении итоговой суммы — пересчитываем лимит
 watch(cartTotalForBonusCalc, () => {
   // debounce на случай серии быстрых обновлений
-  if (props.mode !== 'checkout') return
+  if (!checkoutCalculationsEnabled.value) return
   refreshBonusCalc()
 }, { immediate: true })
 
@@ -194,7 +203,7 @@ watch(maxBonusesAvailable, (max) => {
   if (appliedBonuses.value > lim) {
     appliedBonuses.value = lim
     bonusToSpend.value = String(lim)
-    if (props.mode === 'checkout') {
+    if (checkoutCalculationsEnabled.value) {
       ;(checkoutStore.state as any).bonuses_to_use = lim
     }
   }
@@ -205,7 +214,7 @@ watch(hasNonStackableCoupon, (blocked) => {
 
   appliedBonuses.value = 0
   bonusToSpend.value = ''
-  if (props.mode === 'checkout') {
+  if (checkoutCalculationsEnabled.value) {
     ;(checkoutStore.state as any).bonuses_to_use = 0
   }
 }, { immediate: true })
@@ -434,84 +443,107 @@ async function removeCoupon() {
 </script>
 
 <template>
-  <div
-    v-if="props.mode === 'checkout'"
-    class="flex w-full flex-col gap-5 rounded-[10px] bg-[#F7F7F7] p-5 sm:p-[30px]"
-  >
-    <button
-      type="button"
-      class="flex w-full items-center justify-between gap-4 text-left"
-      :aria-expanded="detailsOpen"
-      aria-controls="checkout-order-details"
-      @click="detailsOpen = !detailsOpen"
-    >
-      <span class="flex min-w-0 items-center gap-2.5">
-        <span class="text-lg font-medium leading-tight sm:text-[32px]">
-          Детали заказа
-        </span>
-        <UiIcon
-          name="chevron-down"
-          :size="24"
-          class="shrink-0 transition-transform duration-200"
-          :class="{ 'rotate-180': detailsOpen }"
-        />
-      </span>
-      <span class="shrink-0 text-lg font-medium sm:text-xl">
-        {{ formatMoney(finalTotal) }} ₽
-      </span>
-    </button>
-
-    <Transition name="summary-details">
-      <div
-        v-if="!detailsOpen"
-        class="flex gap-2.5 overflow-x-auto pb-1"
-        aria-label="Товары в заказе"
+<div
+  v-if="props.mode === 'checkout'"
+  class="
+    relative isolate flex w-full flex-col
+    before:pointer-events-none
+    before:absolute
+    before:inset-y-0
+    before:left-1/2
+    before:-z-10
+    before:w-dvw
+    before:-translate-x-1/2
+    before:content-['']
+    md:before:hidden
+  "
+  :class="props.checkoutView === 'summary'
+    ? 'gap-4 bg-white before:bg-white'
+    : 'gap-5 rounded-[10px] bg-[#F7F7F7] before:bg-[#F7F7F7] p-5 px-3 sm:p-[30px] sm:px-[30px]'"
+>
+    <template v-if="showCheckoutItems">
+      <button
+        type="button"
+        class="flex w-full items-center justify-between gap-4 text-left"
+        :aria-expanded="detailsOpen"
+        :aria-controls="checkoutDetailsId"
+        @click="detailsOpen = !detailsOpen"
       >
-        <div
-          v-for="item in cartStore.items"
-          :key="`collapsed-${item.id}`"
-          class="relative flex size-[60px] shrink-0 items-center justify-center overflow-hidden rounded-lg border-2 border-white bg-white shadow-productcard"
-          :title="item.title"
-        >
-          <img
-            v-if="item.image"
-            :src="productImage(item.image)"
-            :alt="item.title"
-            width="60"
-            height="60"
-            class="size-full object-contain p-1.5"
-            loading="lazy"
-            decoding="async"
-          >
-          <UiIcon v-else name="box" :size="24" class="text-black/30" />
-
-          <span
-            v-if="item.quantity > 1"
-            class="absolute bottom-0.5 right-0.5 flex min-h-5 min-w-5 items-center justify-center rounded-full bg-white px-0.5 text-[10px] leading-none shadow-productcard"
-          >
-            ×{{ item.quantity }}
+        <span class="flex min-w-0 items-center gap-2">
+          <span class="text-lg font-medium leading-tight sm:text-[32px]">
+            Детали заказа
           </span>
-        </div>
-      </div>
-    </Transition>
+          <UiIcon
+            name="chevron-down"
+            :size="22"
+            class="shrink-0 transition-transform duration-200"
+            :class="{ 'rotate-180': detailsOpen }"
+          />
+        </span>
+        <span class="shrink-0 text-lg font-medium sm:text-xl">
+          {{ formatMoney(finalTotal) }} ₽
+        </span>
+      </button>
 
-    <Transition name="summary-details">
-      <div v-show="detailsOpen" id="checkout-order-details" class="space-y-5">
-        <div class="h-px bg-black/10" />
-
-        <div class="space-y-3">
+      <Transition name="summary-details">
+        <div
+          v-if="!detailsOpen"
+          class="checkout-items-strip flex gap-2 overflow-x-auto pb-1"
+          aria-label="Товары в заказе"
+        >
           <article
             v-for="item in cartStore.items"
-            :key="item.id"
-            class="grid grid-cols-[80px_minmax(0,1fr)_auto] items-center gap-3 sm:grid-cols-[96px_minmax(0,1fr)_auto] sm:gap-4"
+            :key="`collapsed-${item.id}`"
+            class="w-[calc((100%_-_24px)/4)] min-w-[79px] shrink-0"
+            :title="item.title"
           >
-            <div class="relative flex size-20 items-center justify-center overflow-hidden rounded-[10px] border-[3px] border-white bg-[#F7F7F7] shadow-productcard sm:size-24">
+            <div class="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-[8px] sm:rounded-[10px] border-2 border-white bg-[#f7f7f7] shadow-productcard">
               <img
                 v-if="item.image"
                 :src="productImage(item.image)"
                 :alt="item.title"
-                width="96"
-                height="96"
+                width="79"
+                height="79"
+                class="size-full object-contain p-1.5"
+                loading="lazy"
+                decoding="async"
+              >
+              <UiIcon v-else name="box" :size="24" class="text-black/30" />
+
+              <span
+                v-if="item.quantity > 1"
+                class="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 flex min-h-[25px] sm:min-h-[35px] min-w-[25px] sm:min-w-[35px] items-center justify-center rounded-full bg-[#EBEBEB]/75 px-0.5 text-[12px] sm:text-[16px] leading-none shadow-productcard"
+              >
+                X{{ item.quantity }}
+              </span>
+            </div>
+
+            <p class="mt-1.5 truncate text-sm font-medium leading-tight">
+              <span v-if="item.price === 0" class="font-normal">Бесплатно</span>
+              <span v-else>{{ formatMoney(item.price * item.quantity) }} ₽</span>
+            </p>
+          </article>
+        </div>
+      </Transition>
+
+      <Transition name="summary-details">
+        <div
+          v-show="detailsOpen"
+          :id="checkoutDetailsId"
+          class="space-y-3"
+        >
+          <article
+            v-for="item in cartStore.items"
+            :key="item.id"
+            class="grid grid-cols-[79px_minmax(0,1fr)_auto] items-center gap-3 sm:grid-cols-[110px_minmax(0,1fr)_auto] sm:gap-4"
+          >
+            <div class="relative flex size-[79px] items-center justify-center overflow-hidden rounded-[8px] sm:rounded-[10px] border-[3px] border-white bg-[#F7F7F7] shadow-productcard sm:size-[110px]">
+              <img
+                v-if="item.image"
+                :src="productImage(item.image)"
+                :alt="item.title"
+                width="108"
+                height="108"
                 class="size-full object-contain p-2"
                 loading="lazy"
                 decoding="async"
@@ -520,9 +552,9 @@ async function removeCoupon() {
 
               <span
                 v-if="item.quantity > 1"
-                class="absolute bottom-1 right-1 flex min-h-7 min-w-7 items-center justify-center rounded-full bg-white px-1 text-xs shadow-productcard"
+                class="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 flex min-h-[25px] sm:min-h-[35px] min-w-[25px] sm:min-w-[35px] items-center justify-center rounded-full bg-[#EBEBEB]/75 px-0.5 text-[12px] sm:text-[16px] leading-none shadow-productcard"
               >
-                ×{{ item.quantity }}
+                X{{ item.quantity }}
               </span>
             </div>
 
@@ -530,99 +562,106 @@ async function removeCoupon() {
               {{ item.title }}
             </p>
 
-            <p class="shrink-0 text-right text-base font-medium sm:text-xl">
-              {{ formatMoney(item.price * item.quantity) }} ₽
+            <p class="shrink-0 text-right text-sm font-medium sm:text-xl">
+              <span v-if="item.price === 0" class="font-normal">Бесплатно</span>
+              <span v-else>{{ formatMoney(item.price * item.quantity) }} ₽</span>
             </p>
           </article>
         </div>
+      </Transition>
+    </template>
 
-        <div class="flex items-start gap-3 md:gap-4">
-          <UiInput
-            v-model="coupon"
-            name="coupon"
-            type="text"
-            placeholder="Промокод"
-            background="bg-white !border-cgreen !text-cgreen focus:outline-none"
-          >
-            <template #right>
-              <button
-                type="button"
-                class="pl-2 transition"
-                :class="couponInfo?.applied ? 'cursor-not-allowed text-gray-300' : 'text-cgreen hover:text-cgreen/80'"
-                :disabled="!!couponInfo?.applied"
-                aria-label="Применить промокод"
-                @click="applyCoupon"
-              >
-                <UiIcon name="arrow-right" :size="20" />
-              </button>
-            </template>
-          </UiInput>
-
-          <Button
-            variant="outline"
-            class="h-[52px] !border-cgreen px-4 sm:min-w-[130px]"
-            :class="couponInfo?.applied
-              ? '!border-red-500 !text-red-500 hover:!bg-red-500 hover:!text-white'
-              : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
-            :disabled="!couponInfo?.applied && !coupon.trim()"
-            @click="couponInfo?.applied ? removeCoupon() : applyCoupon()"
-          >
-            {{ couponInfo?.applied ? 'Удалить' : 'Применить' }}
-          </Button>
-        </div>
-
-        <div class="space-y-[15px] text-sm sm:text-base">
-          <div class="flex justify-between gap-4">
-            <span>Товаров в корзине</span>
-            <span class="shrink-0">{{ itemCount }} шт</span>
-          </div>
-          <div class="flex justify-between gap-4">
-            <span>Стоимость продуктов</span>
-            <span class="shrink-0">{{ formatMoney(subtotal) }} ₽</span>
-          </div>
-          <div class="flex justify-between gap-4">
-            <span>Доставка</span>
-            <span class="shrink-0">Бесплатно</span>
-          </div>
-          <div class="flex justify-between gap-4 font-medium text-cgreen">
-            <span>Скидка</span>
-            <span class="shrink-0">
-              {{ formatMoney(Math.max(0, Number(subtotal) - Number(grandTotal))) }} ₽
-            </span>
-          </div>
-
-          <div v-if="vipDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
-            <span>VIP-скидка</span>
-            <span class="shrink-0">−{{ formatMoney(vipDiscountAmount) }} ₽</span>
-          </div>
-          <div v-if="remarketingDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
-            <span>Персональная скидка</span>
-            <span class="shrink-0">−{{ formatMoney(remarketingDiscountAmount) }} ₽</span>
-          </div>
-          <div v-if="exhibitionDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
-            <span>Скидка участника выставки</span>
-            <span class="shrink-0">−{{ formatMoney(exhibitionDiscountAmount) }} ₽</span>
-          </div>
-        </div>
-
-        <div class="flex items-center justify-between gap-4 text-xl font-medium">
-          <span>Итого</span>
-          <span class="flex items-center gap-4">
-            <span
-              v-if="Number(subtotal) > Number(finalTotal)"
-              class="text-sm font-normal text-black/40 line-through sm:text-base"
+    <template v-if="showCheckoutSummary">
+      <div class="flex items-start gap-2.5 md:gap-4">
+        <UiInput
+          v-model="coupon"
+          name="coupon"
+          type="text"
+          placeholder="Промокод"
+          background="bg-white !border-cgreen !text-cgreen focus:outline-none"
+        >
+          <template #right>
+            <button
+              type="button"
+              class="pl-2 transition"
+              :class="couponInfo?.applied ? 'cursor-not-allowed text-gray-300' : 'text-cgreen hover:text-cgreen/80'"
+              :disabled="!!couponInfo?.applied"
+              aria-label="Применить промокод"
+              @click="applyCoupon"
             >
-              {{ formatMoney(subtotal) }} ₽
-            </span>
-            <span>{{ formatMoney(finalTotal) }} ₽</span>
+              <UiIcon name="arrow-right" :size="20" />
+            </button>
+          </template>
+        </UiInput>
+
+        <Button
+          variant="outline"
+          class="h-[52px] shrink-0 !border-cgreen px-3 sm:min-w-[130px] sm:px-4"
+          :class="couponInfo?.applied
+            ? '!border-red-500 !text-red-500 hover:!bg-red-500 hover:!text-white'
+            : '!text-cgreen hover:!bg-cgreen hover:!text-white'"
+          :disabled="!couponInfo?.applied && !coupon.trim()"
+          @click="couponInfo?.applied ? removeCoupon() : applyCoupon()"
+        >
+          {{ couponInfo?.applied ? 'Удалить' : 'Применить' }}
+        </Button>
+      </div>
+
+      <div class="space-y-3 text-sm sm:space-y-[15px] sm:text-base">
+        <div class="flex justify-between gap-4">
+          <span>Товаров в корзине</span>
+          <span class="shrink-0">{{ itemCount }} шт</span>
+        </div>
+        <div class="flex justify-between gap-4">
+          <span>Стоимость продуктов</span>
+          <span class="shrink-0">{{ formatMoney(subtotal) }} ₽</span>
+        </div>
+        <div class="flex justify-between gap-4">
+          <span>Доставка</span>
+          <span class="shrink-0">Бесплатно</span>
+        </div>
+        <div class="flex justify-between gap-4 font-medium text-cgreen">
+          <span>Скидка</span>
+          <span class="shrink-0">
+            {{ formatMoney(Math.max(0, Number(subtotal) - Number(grandTotal))) }} ₽
           </span>
         </div>
+
+        <div v-if="vipDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+          <span>VIP-скидка</span>
+          <span class="shrink-0">−{{ formatMoney(vipDiscountAmount) }} ₽</span>
+        </div>
+        <div v-if="remarketingDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+          <span>Персональная скидка</span>
+          <span class="shrink-0">−{{ formatMoney(remarketingDiscountAmount) }} ₽</span>
+        </div>
+        <div v-if="exhibitionDiscountAmount > 0" class="flex justify-between gap-4 font-medium text-cgreen">
+          <span>Скидка участника выставки</span>
+          <span class="shrink-0">−{{ formatMoney(exhibitionDiscountAmount) }} ₽</span>
+        </div>
       </div>
-    </Transition>
 
-    <PaymentWarning />
+      <div class="flex items-center justify-between gap-4 border-t border-black/10 pt-4 text-xl font-medium">
+        <span>Итого</span>
+        <span class="flex items-center gap-3 sm:gap-4">
+          <span
+            v-if="Number(subtotal) > Number(finalTotal)"
+            class="text-sm font-normal text-black/40 line-through sm:text-base"
+          >
+            {{ formatMoney(subtotal) }} ₽
+          </span>
+          <span>{{ formatMoney(finalTotal) }} ₽</span>
+        </span>
+      </div>
 
-    <div class="space-y-1 border-t border-black/10 pt-5" data-checkout-consent>
+      <PaymentWarning />
+    </template>
+
+    <div
+      v-if="showCheckoutConsent"
+      class="space-y-1 border-t border-black/10 pt-5"
+      data-checkout-consent
+    >
       <BaseCheckbox v-model="checkoutConsent" :error="!!props.consentError">
         <span class="text-xs leading-relaxed text-black/55 sm:text-sm">
           Я согласен с
@@ -942,5 +981,13 @@ input:focus { outline: none !important; box-shadow: none !important; }
 .summary-details-leave-to {
   opacity: 0;
   transform: translateY(-4px);
+}
+
+.checkout-items-strip {
+  scrollbar-width: none;
+}
+
+.checkout-items-strip::-webkit-scrollbar {
+  display: none;
 }
 </style>

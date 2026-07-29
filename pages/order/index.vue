@@ -3,6 +3,7 @@ import { defineAsyncComponent, onMounted, watch, ref, onUnmounted, computed } fr
 import { navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import Button from '~/components/ui/Button.vue'
+import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import UiIcon from '~/components/ui/UiIcon.vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import { useCartOrderStore } from '~/stores/cartOrderStore'
@@ -156,7 +157,11 @@ async function submit() {
   if (!checkoutConsent.value) {
     checkoutConsentError.value = 'Подтвердите согласие с условиями оформления заказа'
     if (process.client) {
-      document.querySelector('[data-checkout-consent]')?.scrollIntoView({
+      const consentBlock = Array.from(
+        document.querySelectorAll<HTMLElement>('[data-checkout-consent]')
+      ).find(element => element.offsetParent !== null)
+
+      consentBlock?.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       })
@@ -184,11 +189,9 @@ async function submit() {
     return
   }
 
-  // ожидаем, что checkoutStore.submit() вернёт order_id и (опционально) confirmationUrl
   const orderId = (res as any)?.order_id ? String((res as any).order_id) : null
   if (orderId) {
     createdOrderId.value = orderId
-    // сохраняем «квитанцию» для страницы спасибо (на случай, если история заказов ещё не подтянулась)
     if (process.client) {
       try {
         const receipt = {
@@ -268,13 +271,17 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
 
       <NuxtLink
         to="/cart"
-        class="mb-8 inline-flex items-center gap-2 text-base transition-colors hover:text-primary sm:text-lg"
+        class="mb-5 inline-flex items-center gap-2 text-base transition-colors hover:text-primary sm:text-lg lg:mb-8"
       >
         <UiIcon name="arrow-left" :size="16" />
         Назад в корзину
       </NuxtLink>
 
-      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,752px)_minmax(0,528px)] lg:gap-8">
+      <div class="mb-8 lg:hidden">
+        <SummaryCard mode="checkout" checkout-view="items" />
+      </div>
+
+      <div class="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,752px)_minmax(0,528px)] lg:gap-8">
         <div class="min-w-0">
           <RecipientForm />
           <DeliverySelector />
@@ -282,7 +289,7 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
 
           <Button
             variant="solid"
-            class="mt-8 !h-[54px] w-full !text-lg"
+            class="mt-8 hidden !h-[54px] w-full !text-lg lg:inline-flex"
             type="button"
             @click="submit"
           >
@@ -291,7 +298,7 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
 
           <div
             v-if="store.lastError"
-            class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700"
+            class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700 lg:block"
           >
             <template v-if="isValidationError">
               <div class="mb-1 font-medium">Заполните обязательные поля:</div>
@@ -310,9 +317,75 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
               </a>
             </template>
           </div>
+
+          <div class="mt-8 lg:hidden">
+            <SummaryCard mode="checkout" checkout-view="summary" />
+
+            <Button
+              variant="solid"
+              class="mt-5 !h-[54px] w-full !text-base"
+              type="button"
+              @click="submit"
+            >
+              Оформить заказ
+            </Button>
+
+            <div
+              v-if="store.lastError"
+              class="mt-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-red-700"
+            >
+              <template v-if="isValidationError">
+                <div class="mb-1 font-medium">Заполните обязательные поля:</div>
+                <ul class="list-disc pl-5 text-sm">
+                  <li v-for="(x, i) in validationIssues" :key="i">{{ x }}</li>
+                </ul>
+              </template>
+              <template v-else>
+                Что-то пошло не так, свяжитесь с менеджером магазина по телефону
+                <a
+                  href="tel:88005552043"
+                  data-ym="header-phone"
+                  class="mt-1 inline-flex items-center gap-2 text-black transition duration-300 hover:text-primary"
+                >
+                  8 800 555 20 43
+                </a>
+              </template>
+            </div>
+
+            <div
+              class="mt-5 space-y-1 border-t border-black/10 pt-5"
+              data-checkout-consent
+            >
+              <BaseCheckbox v-model="checkoutConsent" :error="!!checkoutConsentError">
+                <span class="text-xs leading-relaxed text-black/55">
+                  Я согласен с
+                  <NuxtLink
+                    to="/privacy"
+                    class="underline hover:text-black"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    политикой конфиденциальности
+                  </NuxtLink>
+                  и
+                  <NuxtLink
+                    to="/soglasie-na-obrabotku-personalnykh-dannykh"
+                    class="underline hover:text-black"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    обработкой персональных данных
+                  </NuxtLink>
+                </span>
+              </BaseCheckbox>
+              <p v-if="checkoutConsentError" class="text-xs text-red-500">
+                {{ checkoutConsentError }}
+              </p>
+            </div>
+          </div>
         </div>
 
-        <div class="min-w-0 lg:sticky lg:top-8">
+        <div class="hidden min-w-0 lg:sticky lg:top-8 lg:block">
           <SummaryCard
             v-model:consent="checkoutConsent"
             mode="checkout"

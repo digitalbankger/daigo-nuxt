@@ -22,7 +22,7 @@ export default defineNuxtConfig({
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
     public: {
       apiBase: process.env.API_BASE || '/api',
-      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://tg.daigo.ru',
+      daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://api.daigo.ru',
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || 'https://daigo.ru',
       // Все маркетинговые идентификаторы держим здесь.
       // При необходимости маркетолог может дать новые значения для .env:
@@ -147,7 +147,7 @@ export default defineNuxtConfig({
   image: {
     provider: 'ipx',
     // Добавлены все возможные источники, чтобы IPX не отбрасывал редиректнувшиеся картинки
-    domains: ['daigo.ru', 'tg.daigo.ru', 's3.firstvds.ru', 'products.s3.firstvds.ru'],
+    domains: ['daigo.ru', 'api.daigo.ru', 's3.firstvds.ru', 'products.s3.firstvds.ru'],
     ipx: {
       // при необходимости можно включить TTL: maxAge: 60 * 60 * 24
     },
