@@ -2,14 +2,22 @@
   <NuxtLink :to="`/catalog/${product.slug}`" custom v-slot="{ navigate }">
     <article
       class="relative transition rounded-xl md:rounded-2xl shadow-pc cursor-pointer h-full flex flex-col overflow-hidden bg-white"
+      :class="isWeeklyVariant ? 'rounded-[14px] md:rounded-[14px]' : ''"
       role="link"
       tabindex="0"
       @click="onOpen(navigate)"
       @keydown.enter.space="onOpen(navigate)"
       aria-label="Открыть страницу товара"
     >
-      <div class="w-full overflow-hidden mb-2 md:mb-4 rounded-xl">
-        <div class="w-full h-[160px] sm:h-[280px] bg-hoverbtn overflow-hidden rounded-xl" @click.stop="onOpen(navigate)">
+      <div
+        class="w-full overflow-hidden rounded-xl"
+        :class="isWeeklyVariant ? 'mb-1.5' : 'mb-2 md:mb-4'"
+      >
+        <div
+          class="relative w-full bg-hoverbtn overflow-hidden rounded-xl"
+          :class="isWeeklyVariant ? 'h-[185px] sm:h-[215px] lg:h-[205px]' : 'h-[160px] sm:h-[280px]'"
+          @click.stop="onOpen(navigate)"
+        >
           <div class="w-full h-full flex items-center justify-center select-none">
             <CatalogCardImage
               :src="primaryImage"
@@ -20,23 +28,40 @@
               :eager="priority"
             />
           </div>
+
+          <span
+            v-if="isWeeklyVariant && discountPercent > 0"
+            class="absolute bottom-2 left-2 inline-flex items-center rounded-md bg-cgreen px-2 py-1 text-[11px] font-medium leading-none text-white sm:text-xs"
+          >
+            Выгода {{ discountPercent }}%
+          </span>
         </div>
       </div>
 
-      <div class="p-2 md:p-4 flex flex-col flex-1">
+      <div
+        class="flex flex-1 flex-col"
+        :class="isWeeklyVariant ? 'p-2.5 sm:p-3' : 'p-2 md:p-4'"
+      >
         <h3
           class="font-normal md:font-medium leading-tight mb-0.5 sm:mb-2 text-sm sm:text-base
-                 md:text-[1.4rem]
+                 md:text-[1.6rem]
                  line-clamp-3 sm:line-clamp-2 xs-max:min-h-[3.2rem] min-h-[3rem] md:min-h-[3.2rem]"
+          :class="isWeeklyVariant ? '!text-base sm:!text-xl !min-h-[2.5rem] sm:!min-h-[3rem]' : ''"
         >
           {{ product.name }}
         </h3>
 
-        <p class="block text-[clamp(0.8rem,3.2vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem] whitespace-pre-line">
+        <p
+          v-if="!isWeeklyVariant && product.subtitle"
+          class="block text-[clamp(0.8rem,3.2vw,1rem)] mb-4 text-black/70 line-clamp-2 min-h-[3rem] whitespace-pre-line"
+        >
           {{ product.subtitle }}
         </p>
 
-        <div class="mt-auto flex flex-col items-start gap-4 w-full">
+        <div
+          class="mt-auto flex w-full flex-col items-start"
+          :class="isWeeklyVariant ? 'gap-2.5' : 'gap-4'"
+        >
           <!-- <div v-if="hasSummerPromo" class="relative">
   <img
     v-if="showSummerDecor"
@@ -192,16 +217,23 @@ const route = useRoute()
 const ytm = useYtm()
 const analytics = useAnalytics()
 
-const { product, index, globalIndex, priority, imageClass } = defineProps<{
+const { product, index, globalIndex, priority, imageClass, variant } = defineProps<{
   product: ProductCard
   index?: number
   globalIndex?: number
   priority?: boolean
   imageClass?: string
+  variant?: 'default' | 'weekly'
 }>()
 
+const isWeeklyVariant = computed(() => variant === 'weekly')
+
 const cardImageClass = computed(() =>
-  imageClass || 'h-[140px] sm:h-[280px] object-contain pointer-events-none'
+  imageClass || (
+    isWeeklyVariant.value
+      ? 'h-full w-full object-contain pointer-events-none'
+      : 'h-[140px] sm:h-[280px] object-contain pointer-events-none'
+  )
 )
 
 const primaryImage = computed(() => {

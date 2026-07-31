@@ -2,10 +2,13 @@
 import { computed, ref } from 'vue'
 import type { ProductImage } from '~/types/product'
 
-const { images, hasDiscount } = defineProps<{
+const { images, hasDiscount, fill } = withDefaults(defineProps<{
   images: ProductImage[]
   hasDiscount: boolean
-}>()
+  fill?: boolean
+}>(), {
+  fill: false,
+})
 
 const sortedImages = computed(() =>
   [...images].sort((a, b) => {
@@ -22,7 +25,8 @@ const activeIndex = ref(0)
   <section>
     <div class="flex flex-col sm:flex-col gap-4 sm:gap-6">
       <div
-        class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn p-10"
+        class="relative flex-1 aspect-[1/1] sm:aspect-[6/5] rounded-2xl sm:rounded-3xl flex items-center justify-center overflow-hidden bg-hoverbtn"
+        :class="fill ? 'p-0' : 'p-10'"
       >
         <img
           v-if="sortedImages[activeIndex]?.image_url"
@@ -32,7 +36,8 @@ const activeIndex = ref(0)
           height="640"
           loading="eager"
           fetchpriority="high"
-          class="max-w-full max-h-full object-contain aspect-[1/1] transition-all duration-300"
+          class="h-full w-full transition-all duration-300"
+          :class="fill ? 'object-cover' : 'object-contain'"
         >
 
         <div
@@ -59,7 +64,8 @@ const activeIndex = ref(0)
             width="128"
             height="128"
             loading="lazy"
-            class="w-full h-full object-contain"
+            class="h-full w-full"
+            :class="fill ? 'object-cover' : 'object-contain'"
           >
         </button>
       </div>

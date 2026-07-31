@@ -1,13 +1,28 @@
-import { promises as fs } from 'node:fs'
-import { resolve } from 'node:path'
 import { normalizeMediaUrl } from '~/utils/mediaUrl'
-
-const BASE_DIR = resolve(process.cwd(), 'content/articles-json')
 
 const CACHE_TTL = 60_000
 let cacheList: { ts: number; items: AnyJson[] } | null = null
 
 export type AnyJson = Record<string, any>
+
+function articleStorage() {
+  return useStorage('assets:articles')
+}
+
+function parseArticle(value: unknown): AnyJson | null {
+  if (!value) return null
+
+  if (typeof value === 'string') {
+    try {
+      const parsed = JSON.parse(value)
+      return parsed && typeof parsed === 'object' ? parsed as AnyJson : null
+    } catch {
+      return null
+    }
+  }
+
+  return typeof value === 'object' ? value as AnyJson : null
+}
 
 function normalizeArticleMedia(value: any): any {
   if (typeof value === 'string') return normalizeMediaUrl(value)
@@ -22,9 +37,10 @@ function normalizeArticleMedia(value: any): any {
 
 export async function readArticle(slug: string): Promise<AnyJson | null> {
   try {
-    const file = resolve(BASE_DIR, `${slug}.json`)
-    const buf = await fs.readFile(file, 'utf8')
-    const data = JSON.parse(buf)
+    const raw = await articleStorage().getItem<AnyJson | string>(`${slug}.json`)
+    const data = parseArticle(raw)
+    if (!data) return null
+
     // страховка: если в json нет slug – добавим из имени файла
     if (!data.slug) data.slug = slug
     return normalizeArticleMedia(data)
@@ -35,10 +51,10 @@ export async function readArticle(slug: string): Promise<AnyJson | null> {
 
 export async function listSlugs(): Promise<string[]> {
   try {
-    const files = await fs.readdir(BASE_DIR)
-    return files
-      .filter(f => f.endsWith('.json'))
-      .map(f => f.replace(/\.json$/,''))
+    const keys = await articleStorage().getKeys()
+    return keys
+      .filter(key => key.endsWith('.json'))
+      .map(key => key.replace(/\.json$/, ''))
   } catch {
     return []
   }

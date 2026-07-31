@@ -6,10 +6,15 @@ import { useCatalogStore } from '~/stores/catalogStore'
 import { useDeviceStore } from '~/stores/deviceStore'
 import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
+import WeeklyProducts from '~/components/catalog/WeeklyProducts.vue'
 import Button from '~/components/ui/Button.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
 import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
+import {
+  getOmegaBundleSort,
+  isOmegaBundleSlug,
+} from '~/constants/omegaBundles'
 
 const ytm = useYtm()
 const route = useRoute()
@@ -101,12 +106,31 @@ const visibleProducts = computed(() => {
   })
 })
 
-const renderedProducts = computed(() => visibleProducts.value.slice(0, displayLimit.value))
+const weekProducts = computed(() => {
+  return visibleProducts.value
+    .filter((product) => isOmegaBundleSlug(product.slug))
+    .sort((a, b) => getOmegaBundleSort(a.slug) - getOmegaBundleSort(b.slug))
+})
+
+const regularProducts = computed(() => {
+  return visibleProducts.value.filter((product) => !isOmegaBundleSlug(product.slug))
+})
+
+const renderedProducts = computed(() => regularProducts.value.slice(0, displayLimit.value))
+const analyticsProducts = computed(() => [...weekProducts.value, ...renderedProducts.value])
 const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3))
-const featuredProducts = computed(() => renderedProducts.value.slice(0, featuredCount.value))
-const otherProducts = computed(() => renderedProducts.value.slice(featuredCount.value))
-const hasMoreProducts = computed(() => renderedProducts.value.length < visibleProducts.value.length)
-const remainingProductsCount = computed(() => Math.max(0, visibleProducts.value.length - renderedProducts.value.length))
+const featuredProducts = computed(() => {
+  return weekProducts.value.length
+    ? []
+    : renderedProducts.value.slice(0, featuredCount.value)
+})
+const otherProducts = computed(() => {
+  return weekProducts.value.length
+    ? renderedProducts.value
+    : renderedProducts.value.slice(featuredCount.value)
+})
+const hasMoreProducts = computed(() => renderedProducts.value.length < regularProducts.value.length)
+const remainingProductsCount = computed(() => Math.max(0, regularProducts.value.length - renderedProducts.value.length))
 const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD })
 
 function cleanupQuery(query: typeof route.query) {
@@ -143,7 +167,7 @@ function applyQuickFilter(key: string, value: string) {
 
 function loadMoreProducts() {
   if (!hasMoreProducts.value) return
-  displayLimit.value = Math.min(displayLimit.value + PRODUCTS_PER_LOAD, visibleProducts.value.length)
+  displayLimit.value = Math.min(displayLimit.value + PRODUCTS_PER_LOAD, regularProducts.value.length)
 }
 
 function disconnectLoadMoreObserver() {
@@ -198,9 +222,9 @@ watch(
 )
 
 watch(
-  [renderedProducts, visibleProducts],
+  [analyticsProducts, visibleProducts],
   () => {
-    const list = renderedProducts.value
+    const list = analyticsProducts.value
     if (!list.length || isCatalogLoading.value) return
 
     ytm.viewListing({
@@ -450,7 +474,12 @@ watch(
           </div>
         </div>
 
-        <div v-else-if="renderedProducts.length" class="w-full lg:w-3/4">
+        <div v-else-if="analyticsProducts.length" class="w-full lg:w-3/4">
+          <WeeklyProducts
+            v-if="weekProducts.length"
+            :products="weekProducts"
+          />
+
           <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20">
             <ProductCard
               v-for="(product, idx) in featuredProducts"

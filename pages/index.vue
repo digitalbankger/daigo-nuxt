@@ -10,6 +10,7 @@ import PartnersSection from '~/components/sections/PartnersSection.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import AboutSection from '~/components/sections/AboutSection.vue'
 import HomeSummerBanner from '~/components/sections/HomeSummerBanner.vue'
+import HomeOmegaSetsBanner from '~/components/sections/HomeOmegaSetsBanner.vue'
 
 definePageMeta({ layout: 'main' })
 
@@ -69,7 +70,9 @@ const RewardSection = defineAsyncComponent(() => import('@/components/sections/R
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
-      <BannerSection :banners="banners" />
+      <!-- Временный API-баннер. Вывод сохранён для быстрого возврата. -->
+      <!-- <BannerSection :banners="banners" /> -->
+      <HomeOmegaSetsBanner />
       <!-- <HomeSummerBanner /> -->
 
       <!-- <ClientOnly>

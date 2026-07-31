@@ -5,6 +5,7 @@ import { useProductStore } from '~/stores/productStore'
 import { useAuthStore } from '~/stores/authStore'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ProductHero from '~/components/product/ProductHero.vue'
+import BundleProductHero from '~/components/product/bundle/BundleProductHero.vue'
 import ProductDescription from '~/components/product/ProductDescription.vue'
 import ProductUsageInstructions from '~/components/product/ProductUsageInstructions.vue'
 import ProductVideo from '~/components/product/ProductVideo.vue'
@@ -18,12 +19,67 @@ import CertificateProductPage from '~/components/product/certificate/Certificate
 import { useBreadcrumbs } from '@/composables/useBreadcrumbs'
 import { useYtm } from '@/composables/useYtm'
 import { useAnalytics } from '@/composables/useAnalytics'
-import { onMounted, computed, ref } from 'vue'
+import { onMounted, computed, defineAsyncComponent, ref } from 'vue'
 import ReviewsBlock from '@/components/product/ProductReviews.vue'
 import UiModal from '@/components/ui/UiModal.vue'
 import ReviewFormModal from '~/components/reviews/ReviewFormModal.vue'
 import { createProductReview } from '~/services/reviewService'
 import DaigoSpecialSections from '@/components/product/special/DaigoSpecialSections.vue'
+import { getOmegaBundlePageContent } from '~/data/omegaBundlePageContent'
+import {
+  isOmegaBundleSlug,
+  type OmegaBundleSlug,
+} from '~/constants/omegaBundles'
+import type { BundleContentSection } from '~/types/product'
+
+const OMEGA_PRODUCT_SLUG = 'zhir-pecheni-treski-omega-3'
+
+const relatedOmegaBundles: BundleContentSection[] = [{
+  type: 'related-products',
+  products: [
+    {
+      product_id: '8dea5513-5c3a-4350-9ad4-35edf8696f0c',
+      variant_id: '16908f72-d05e-4e48-8174-881d9d33ec0b',
+      slug: 'obnovlenie-kozhi',
+      title: 'Обновление кожи. Омега-3 и аминобиотик Dermic',
+      image: '/images/omega-bundle/omega-dermic.jpg',
+      price: 31025,
+      originalPrice: 36500,
+    },
+    {
+      product_id: '6bc6d4f7-2c7e-47b8-a7f4-59cfdf9b1002',
+      variant_id: '3184d090-3f98-4c64-9e59-195785af2001',
+      slug: 'svoboda-dyhaniya',
+      title: 'Свобода движения. Омега-3 и аминобиотик Jointic',
+      image: '/images/omega-bundle/omega-jointic.jpg',
+      price: 31025,
+      originalPrice: 36500,
+    },
+    {
+      product_id: '42a6bb34-a1a0-4a50-8c10-bf6c5e3a1001',
+      variant_id: '67fbbda5-f3f0-41bf-b1ea-0e6f74cf3001',
+      slug: 'dvizhenie-mysli',
+      title: 'Движение мысли. Омега-3 и аминобиотик Brainy',
+      image: '/images/omega-bundle/omega-brainy.jpg',
+      price: 31025,
+      originalPrice: 36500,
+    },
+  ],
+}]
+
+const bundlePageContent = computed(() => {
+  const slug = product.value?.slug || String(route.params.slug || '')
+
+  if (!isOmegaBundleSlug(slug)) {
+    return null
+  }
+
+  return getOmegaBundlePageContent(slug as OmegaBundleSlug)
+})
+
+const BundleProductSections = defineAsyncComponent(
+  () => import('~/components/product/bundle/BundleProductSections.vue'),
+)
 
 // Отзыв
 type ReviewMedia = {
@@ -166,8 +222,21 @@ const isCertificate = computed(() =>
   product.value?.category === 'certificate'
 )
 
+const isOmegaBundlePage = computed(() =>
+  isOmegaBundleSlug(product.value?.slug || route.params.slug),
+)
+
+const isOmegaProductPage = computed(() =>
+  String(product.value?.slug || route.params.slug || '') === OMEGA_PRODUCT_SLUG,
+)
+
+const bundleSectionsWithoutRelated = computed(() =>
+  product.value?.bundleSections?.filter((section) => section.type !== 'related-products') || [],
+)
+
 const shouldShowProductFaq = computed(() => {
   if (!product.value) return false
+  if (isOmegaBundlePage.value) return true
 
   const { faq: _faq, ...productWithoutFaq } = product.value as any
   const rawText = JSON.stringify(productWithoutFaq)
@@ -254,8 +323,59 @@ const shareImage = computed(() => {
   return src.startsWith('http') ? src : `${SITE_URL}${src}`
 })
 
+const productJsonLd = computed(() => {
+  const currentProduct = product.value
+  if (!currentProduct) return null
+
+  const images = (currentProduct.images || [])
+    .map((image) => normalizeMediaUrl(image.image_url))
+    .filter(Boolean)
+    .map((image) => image!.startsWith('http') ? image! : `${SITE_URL}${image}`)
+
+  const variants = currentProduct.variants || []
+  const offers = variants.length
+    ? variants.map((variant) => ({
+        '@type': 'Offer',
+        sku: `${currentProduct.product_id}:${variant.variant_id}`,
+        name: variant.label,
+        price: Number(variant.price || 0),
+        priceCurrency: 'RUB',
+        availability: currentProduct.isActive
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+        url: `${SITE_URL}/catalog/${currentProduct.slug}`,
+      }))
+    : [{
+        '@type': 'Offer',
+        sku: String(currentProduct.product_id),
+        price: Number(currentProduct.price || 0),
+        priceCurrency: 'RUB',
+        availability: currentProduct.isActive
+          ? 'https://schema.org/InStock'
+          : 'https://schema.org/OutOfStock',
+        url: `${SITE_URL}/catalog/${currentProduct.slug}`,
+      }]
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: currentProduct.title,
+    description: currentProduct.shortDescription,
+    sku: String(currentProduct.product_id),
+    brand: {
+      '@type': 'Brand',
+      name: 'Daigo',
+    },
+    ...(images.length ? { image: images } : {}),
+    offers,
+  }
+})
+
 useHead(() => {
   const scripts: any[] = [{ type: 'application/ld+json', children: JSON.stringify(jsonLd.value) }]
+  if (productJsonLd.value) {
+    scripts.push({ type: 'application/ld+json', children: JSON.stringify(productJsonLd.value) })
+  }
   if (faqJsonLd.value) {
     scripts.push({ type: 'application/ld+json', children: JSON.stringify(faqJsonLd.value) })
   }
@@ -313,9 +433,14 @@ useHead(() => {
 
       <!-- Иначе — стандартная карточка товара -->
       <template v-else>
-        <ProductHero :product="product" />
+        <BundleProductHero
+          v-if="isOmegaBundlePage && bundlePageContent"
+          :product="product"
+          :name="bundlePageContent.name"
+        />
+        <ProductHero v-else :product="product" />
 
-        <ClientOnly>
+        <ClientOnly v-if="!isOmegaBundlePage">
           <ProductStickyCartPopup :product="product" observe-target="#product-cta" />
         </ClientOnly>
 
@@ -327,7 +452,7 @@ useHead(() => {
         />
 
         <ReviewsBlock
-          v-if="productReviews?.items?.length"
+          v-if="!isOmegaBundlePage && productReviews?.items?.length"
           :reviews="productReviews"
           :show-actions="true"
           title="Отзывы"
@@ -337,7 +462,7 @@ useHead(() => {
           id="reviews"
         />
 
-        <section v-else id="reviews" class="mt-10 md:mt-20 rounded-2xl border border-[#E5E7EB] bg-white p-5 sm:p-7">
+        <section v-else-if="!isOmegaBundlePage" id="reviews" class="mt-10 md:mt-20 rounded-2xl border border-[#E5E7EB] bg-white p-5 sm:p-7">
           <h2 class="text-product leading-tight font-medium">Отзывы</h2>
           <p class="mt-3 text-sm md:text-base text-[#6B7280]">Станьте первым, кто оставит отзыв об этом товаре.</p>
           <button
@@ -349,86 +474,98 @@ useHead(() => {
           </button>
         </section> -->
 
-        <ProductDescription :product="product" />
-
-        <ProductInfoBlock
-          v-if="product.nabor"
-          :title="product.nabor.title"
-          :image="product.nabor.image"
-          :content="product.nabor.text"
-          image-position="left"
-          class="mt-6 md:mt-12"
+        <BundleProductSections
+          v-if="isOmegaBundlePage && bundleSectionsWithoutRelated.length"
+          :sections="bundleSectionsWithoutRelated"
         />
 
-        <ProductInfoBlock
-          v-if="product.naborCombo"
-          :title="product.naborCombo.title"
-          :image="product.naborCombo.image"
-          :content="product.naborCombo.text"
-          image-position="right"
-          class="mt-6 md:mt-12"
-        />
+        <template v-else>
+          <ProductDescription :product="product" />
 
-        <ProductInfoBlock
-          v-if="product.combo"
-          :title="product.combo.title"
-          :image="product.combo.image"
-          :content="product.combo.text"
-          image-position="right"
-          class="mt-6 md:mt-12"
-        />
+          <ProductInfoBlock
+            v-if="product.nabor"
+            :title="product.nabor.title"
+            :image="product.nabor.image"
+            :content="product.nabor.text"
+            image-position="left"
+            class="mt-6 md:mt-12"
+          />
 
-        <ProductInfoBlock
-          v-if="product.actionPrinciple"
-          :title="product.actionPrinciple.title"
-          :image="product.actionPrinciple.image"
-          :content="product.actionPrinciple.text"
-          :image-position="product.actionPrinciple.imagePosition || 'right'"
-          class="mt-6 md:mt-12"
-        />
+          <ProductInfoBlock
+            v-if="product.naborCombo"
+            :title="product.naborCombo.title"
+            :image="product.naborCombo.image"
+            :content="product.naborCombo.text"
+            image-position="right"
+            class="mt-6 md:mt-12"
+          />
 
-        <ProductInfoBlock
-          v-if="product.effect"
-          :title="product.effect.title"
-          :image="product.effect.image"
-          :content="product.effect.content"
-          :image-position="product.effect.imagePosition || 'left'"
-          class="mt-6 md:mt-12"
-        />
+          <ProductInfoBlock
+            v-if="product.combo"
+            :title="product.combo.title"
+            :image="product.combo.image"
+            :content="product.combo.text"
+            image-position="right"
+            class="mt-6 md:mt-12"
+          />
 
-        <ProductInfoBlock
-          v-if="product.effectCombo"
-          :title="product.effectCombo.title"
-          :image="product.effectCombo.image"
-          :content="product.effectCombo.content"
-          :image-position="product.effectCombo.imagePosition || 'right'"
-          class="mt-6 md:mt-12"
-        />
+          <ProductInfoBlock
+            v-if="product.actionPrinciple"
+            :title="product.actionPrinciple.title"
+            :image="product.actionPrinciple.image"
+            :content="product.actionPrinciple.text"
+            :image-position="product.actionPrinciple.imagePosition || 'right'"
+            class="mt-6 md:mt-12"
+          />
 
-        <!-- <ProductVideo :video-url="product.videoUrl" :video-poster="product.videoPoster" /> -->
+          <ProductInfoBlock
+            v-if="product.effect"
+            :title="product.effect.title"
+            :image="product.effect.image"
+            :content="product.effect.content"
+            :image-position="product.effect.imagePosition || 'left'"
+            class="mt-6 md:mt-12"
+          />
 
-        <ProductInfoBlock
-          v-if="product.composition"
-          :title="product.composition.title"
-          :image="product.composition.image"
-          :content="product.composition.content"
-          image-position="right"
-          class="mt-6 md:mt-12"
-        />
+          <ProductInfoBlock
+            v-if="product.effectCombo"
+            :title="product.effectCombo.title"
+            :image="product.effectCombo.image"
+            :content="product.effectCombo.content"
+            :image-position="product.effectCombo.imagePosition || 'right'"
+            class="mt-6 md:mt-12"
+          />
 
-        <ProductInfoBlock
-          v-if="product.compositionCombo"
-          :title="product.compositionCombo.title"
-          :image="product.compositionCombo.image"
-          :content="product.compositionCombo.content"
-          image-position="left"
-          class="mt-6 md:mt-12"
-        />
+          <!-- <ProductVideo :video-url="product.videoUrl" :video-poster="product.videoPoster" /> -->
 
-        <ProductUsageInstructions
-          v-if="product?.usageInstructions"
-          :data="product.usageInstructions"
-          class="mt-6 md:mt-12"
+          <ProductInfoBlock
+            v-if="product.composition"
+            :title="product.composition.title"
+            :image="product.composition.image"
+            :content="product.composition.content"
+            image-position="right"
+            class="mt-6 md:mt-12"
+          />
+
+          <ProductInfoBlock
+            v-if="product.compositionCombo"
+            :title="product.compositionCombo.title"
+            :image="product.compositionCombo.image"
+            :content="product.compositionCombo.content"
+            image-position="left"
+            class="mt-6 md:mt-12"
+          />
+
+          <ProductUsageInstructions
+            v-if="product?.usageInstructions"
+            :data="product.usageInstructions"
+            class="mt-6 md:mt-12"
+          />
+        </template>
+
+        <BundleProductSections
+          v-if="isOmegaBundlePage || isOmegaProductPage"
+          :sections="relatedOmegaBundles"
         />
 
         <ReviewsBlock
@@ -481,7 +618,7 @@ useHead(() => {
           </div>
         </UiModal>
 
-        <ClientOnly>
+        <ClientOnly v-if="!isOmegaBundlePage">
           <ReviewFormModal
             ref="reviewFormRef"
             :show="isWriteReviewOpen"
@@ -500,7 +637,7 @@ useHead(() => {
           class="mt-6 md:mt-12"
         />
 
-        <ClientOnly>
+        <ClientOnly v-if="!isOmegaBundlePage">
           <RewardSection class="mt-12 md:mt-16 md:mt-12" />
         </ClientOnly>
 

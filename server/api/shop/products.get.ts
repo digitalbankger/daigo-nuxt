@@ -319,6 +319,10 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
   })
 }
 
+function prepareCatalogProducts(raw: any, normalizeImg: (src: any) => string) {
+  return mapProducts(raw, normalizeImg)
+}
+
 function propValues(product: any, slug: string): string[] {
   const aliases = PROPERTY_ALIASES[slug] || [slug]
   const values: string[] = []
@@ -361,7 +365,7 @@ async function resolveTotalViaLargeFetch(base: string, q: Record<string, any>, n
   if (cached != null) return cached
 
   const { raw } = await collectRawProducts(base, q, false)
-  const mapped = mapProducts(raw, normalizeImg)
+  const mapped = prepareCatalogProducts(raw, normalizeImg)
   const total = applyLocalFilters(mapped, q).length
 
   setCachedValue(totalCache, totalKey, total, TOTAL_TTL_MS)
@@ -370,12 +374,15 @@ async function resolveTotalViaLargeFetch(base: string, q: Record<string, any>, n
 
 export default defineEventHandler(async (event) => {
   const q = getQuery(event) as Record<string, any>
-  const base = useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru'
-  const filesBase =
+  const base = String(
+    useRuntimeConfig(event).public.daigoApiBase || 'https://api.daigo.ru',
+  )
+  const filesBase = String(
     useRuntimeConfig(event).public.daigoFilesBase ||
     useRuntimeConfig(event).public.daigoApiBase ||
     base ||
-    ''
+    '',
+  )
 
   const normalizeImg = normalizeImgFactory(filesBase)
 
@@ -383,7 +390,7 @@ export default defineEventHandler(async (event) => {
     const ids = toStringArray(q.product_ids)
     const { raw } = await collectRawProducts(base, {}, false)
 
-    const items = mapProducts(raw, normalizeImg)
+    const items = prepareCatalogProducts(raw, normalizeImg)
       .filter((product: any) => ids.includes(String(product.product_id)))
 
     return { items, total: items.length }
@@ -402,7 +409,7 @@ export default defineEventHandler(async (event) => {
   try {
     if (noTotalMode || pageSize >= 999) {
       const { raw } = await collectRawProducts(base, q, false)
-      const items = applyLocalFilters(mapProducts(raw, normalizeImg), q)
+      const items = applyLocalFilters(prepareCatalogProducts(raw, normalizeImg), q)
       const payload = { items, total: items.length }
 
       setCachedValue(responseCache, responseKey, payload, RESPONSE_TTL_MS)
@@ -411,7 +418,7 @@ export default defineEventHandler(async (event) => {
 
     const params = buildParamsFromQuery(q, page, pageSize, true)
     const { res, raw } = await fetchRawProducts(base, params)
-    const items = applyLocalFilters(mapProducts(raw, normalizeImg), q)
+    const items = applyLocalFilters(prepareCatalogProducts(raw, normalizeImg), q)
 
     let total = items.length
 

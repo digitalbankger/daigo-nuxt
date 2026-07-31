@@ -11,6 +11,7 @@ const props = defineProps<{
   mask?: 'ru-phone' | string
   disabled?: boolean
   readonly?: boolean
+  required?: boolean
   autofocus?: boolean
   name?: string
   autocomplete?: string
@@ -132,11 +133,13 @@ defineExpose({
         v-model="inner"
         :readonly="readonly"
         :disabled="disabled"
+        :required="required"
         :autocomplete="autocomplete"
         :inputmode="inputmode || (type === 'tel' ? 'tel' : undefined)"
         :maxlength="maxlength || (type === 'tel' ? 18 : undefined)"
         :max="max"
         :aria-invalid="showError ? 'true' : 'false'"
+        :aria-required="required ? 'true' : undefined"
         :aria-errormessage="showError ? (id ? id + '-error' : undefined) : undefined"
         @focus="isFocused = true; emit('focus')"
         @blur="isFocused = false; emit('blur')"

@@ -1,7 +1,7 @@
 export interface ProductCard {
   tag: string | undefined
   oldPrice: number | undefined
-  product_id: number
+  product_id: string | number
   slug: string
   name: string
   subtitle: string
@@ -35,11 +35,89 @@ export interface ProductUsage {
 }
 
 export interface ProductImage {
-  src: any
+  src?: string
   image_url: string
   is_primary: boolean
   display_order: number
 }
+
+export interface ProductVariantItem {
+  component_product_id: string
+  quantity: number
+  /** UI-поля необязательны: Go API может отдавать только id и quantity. */
+  name?: string
+  image?: string
+}
+
+export interface ProductVariant {
+  variant_id: string
+  label: string
+  price: number
+  is_default: boolean
+  sort_order: number
+  items: ProductVariantItem[]
+  /** Дополнительные необязательные UI-поля варианта. */
+  title?: string
+  originalPrice?: number
+  oldPrice?: number
+  image?: string
+  giftLabel?: string
+  benefitLabel?: string
+}
+
+export interface BundleFeatureCard {
+  title: string
+  text: string
+  image?: string
+}
+
+export interface BundleRelatedProduct {
+  product_id: string | number
+  variant_id?: string
+  slug: string
+  title: string
+  image: string
+  price: number
+  originalPrice?: number
+}
+
+export type BundleContentSection =
+  | {
+      type: 'feature-grid'
+      title?: string
+      cards: BundleFeatureCard[]
+    }
+  | {
+      type: 'split'
+      title: string
+      content: string
+      image: string
+      imageAlt?: string
+      imagePosition?: 'left' | 'right'
+      noteTitle?: string
+      noteContent?: string
+      linkLabel?: string
+      linkHref?: string
+    }
+  | {
+      type: 'wide-image'
+      image: string
+      imageAlt?: string
+    }
+  | {
+      type: 'checklist'
+      title: string
+      content?: string
+      image: string
+      imageAlt?: string
+      imagePosition?: 'left' | 'right'
+      items: string[]
+    }
+  | {
+      type: 'related-products'
+      title?: string
+      products: BundleRelatedProduct[]
+    }
 
 export interface ProductActionPrinciple {
   title: string
@@ -123,7 +201,7 @@ export interface ProductProductionSection {
 export interface Product {
   originalPrice: number | undefined
   sort: number
-  product_id: number
+  product_id: string | number
   slug: string
   title: string
   subtitle?: string
@@ -132,6 +210,7 @@ export interface Product {
   price: number
   oldPrice?: number
   category: string
+  properties?: Record<string, string | string[]>
   actionMechanism?: string
   productionDetails?: string
   composition?: ProductComposition[]
@@ -162,5 +241,7 @@ export interface Product {
   productionSection?: ProductProductionSection
   images?: ProductImage[]
   descriptionSections?: ProductDescriptionSection[]
+  variants?: ProductVariant[]
+  bundleSections?: BundleContentSection[]
   faq?: ProductFaq
 }

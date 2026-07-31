@@ -19,6 +19,7 @@ export interface OrderRecipient {
   name: string
   phone: string                 // уже очищенный номер (только цифры) — см. checkoutStore
   email?: string
+  birth_day: string             // дата рождения в формате YYYY-MM-DD
   city?: string
 }
 

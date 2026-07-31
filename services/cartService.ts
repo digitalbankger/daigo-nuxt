@@ -44,11 +44,16 @@ function buildAddToCartUtmPayload() {
   return hasMeaningful ? utm : undefined
 }
 
-function buildAddToCartBody(productId: number | string, quantity: number) {
+function buildAddToCartBody(
+  productId: number | string,
+  quantity: number,
+  variantId?: string,
+) {
   const utm = buildAddToCartUtmPayload()
 
   return {
     product_id: String(productId),
+    ...(variantId ? { variant_id: variantId } : {}),
     quantity,
     ...(utm ? { utm } : {}),
   }
@@ -96,19 +101,29 @@ export const cartService = {
   },
 
   /** Добавить товар в корзину пользователя */
-  async addUserItem(userId: number | string, productId: number | string, quantity: number) {
+  async addUserItem(
+    userId: number | string,
+    productId: number | string,
+    quantity: number,
+    variantId?: string,
+  ) {
     return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}`, {
       method: 'POST',
-      body: buildAddToCartBody(productId, quantity),
+      body: buildAddToCartBody(productId, quantity, variantId),
       headers: { 'Content-Type': 'application/json' },
     })
   },
 
   /** Добавить товар в гостевую корзину */
-  async addGuestItem(sessionId: string, productId: number | string, quantity: number) {
+  async addGuestItem(
+    sessionId: string,
+    productId: number | string,
+    quantity: number,
+    variantId?: string,
+  ) {
     return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}`, {
       method: 'POST',
-      body: buildAddToCartBody(productId, quantity),
+      body: buildAddToCartBody(productId, quantity, variantId),
       headers: { 'Content-Type': 'application/json' },
     })
   },

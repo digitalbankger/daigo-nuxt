@@ -8,6 +8,7 @@ import { createOrder } from '~/services/orderService'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
 import { getLastUtm } from '@/composables/useUtmTracker'
+import { normalizeBirthDay } from '~/utils/birthDay'
 
 const PICKUP_CITY = 'Москва'
 
@@ -253,6 +254,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       last_name: '' as string,
       phone_number: '' as string,
       email: '' as string,
+      birth_day: '' as string,
       city: '' as string, // город сейчас задаётся как часть address, но ошибка удобнее тут
     },
     other: {
@@ -276,6 +278,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     errors.recipient.last_name = ''
     errors.recipient.phone_number = ''
     errors.recipient.email = ''
+    errors.recipient.birth_day = ''
     errors.recipient.city = ''
     errors.other.name = ''
     errors.other.phone = ''
@@ -294,18 +297,6 @@ export const useCheckoutStore = defineStore('checkout', () => {
   }
   function normalizePhoneDigits(s: string) {
     return (s || '').replace(/\D/g, '')
-  }
-
-  function normalizeBirthDay(value: unknown): string {
-    const raw = String(value ?? '').trim()
-    if (!raw || ['0001-01-01', '01-01-0001', '1-1-1'].includes(raw)) return ''
-    if (/^\d{4}-\d{2}-\d{2}$/.test(raw)) return raw
-
-    const match = raw.match(/^(\d{2})[.-](\d{2})[.-](\d{4})$/)
-    if (!match) return ''
-
-    const [, day, month, year] = match
-    return `${year}-${month}-${day}`
   }
 
   function cleanAddressPart(value: any): string {
@@ -751,6 +742,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
     const ln = (state.recipient.last_name || '').trim()
     const ph = normalizePhoneDigits(state.recipient.phone_number || '')
     const em = (state.recipient.email || '').trim()
+    const birthDay = normalizeBirthDay(state.recipient.birth_day)
     const city = (state.address.city || '').trim()
 
     if (!fn) {
@@ -761,6 +753,20 @@ export const useCheckoutStore = defineStore('checkout', () => {
     }
     if (!ph || ph.length !== 11) errors.recipient.phone_number = 'Укажите телефон (11 цифр)'
     if (!em || !isEmail(em)) errors.recipient.email = 'Введите корректный email'
+    if (!birthDay) {
+      errors.recipient.birth_day = 'Укажите корректную дату рождения'
+    } else {
+      const today = new Date()
+      const todayIso = [
+        String(today.getFullYear()).padStart(4, '0'),
+        String(today.getMonth() + 1).padStart(2, '0'),
+        String(today.getDate()).padStart(2, '0'),
+      ].join('-')
+
+      if (birthDay > todayIso) {
+        errors.recipient.birth_day = 'Дата рождения не может быть в будущем'
+      }
+    }
     if (opt?.kind !== 'pickup' && !city) errors.recipient.city = 'Укажите город'
 
     if (state.otherRecipientEnabled) {
@@ -799,6 +805,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
       !!errors.recipient.last_name ||
       !!errors.recipient.phone_number ||
       !!errors.recipient.email ||
+      !!errors.recipient.birth_day ||
       !!errors.recipient.city ||
       !!errors.other.name ||
       !!errors.other.phone ||
@@ -854,6 +861,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
 
       const birthDay = normalizeBirthDay(state.recipient.birth_day)
       const profileBirthDay = normalizeBirthDay(user.profile?.birth_day)
+      state.recipient.birth_day = birthDay
 
       if (birthDay && birthDay !== profileBirthDay) {
         try {
@@ -872,6 +880,7 @@ export const useCheckoutStore = defineStore('checkout', () => {
           name: [state.recipient.first_name, state.recipient.last_name].filter(Boolean).join(' ').trim(),
           phone: state.recipient.phone_number.replace(/\D/g, ''),
           email: state.recipient.email,
+          birth_day: birthDay,
           city: deliveryCity
         },
         other_recipient: state.otherRecipientEnabled ? {

@@ -160,6 +160,9 @@ watch(() => lastName.value, (v) => {
       v-model="birthDay"
       type="date"
       :max="today"
+      name="birth_day"
+      required
+      :error="store.errors.recipient.birth_day"
       background="bg-white"
       autocomplete="bday"
     >
@@ -178,7 +181,7 @@ watch(() => lastName.value, (v) => {
             class="birth-help__tooltip"
             role="tooltip"
           >
-            Укажите дату рождения для индивидуальных предложений и подарков
+            Дата рождения обязательна. Она нужна для индивидуальных предложений и подарков
           </span>
         </span>
       </template>

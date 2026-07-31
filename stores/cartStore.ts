@@ -9,6 +9,7 @@ import { getCouponApplyMessage, isCouponApplySuccess } from '@/utils/coupon'
 
 export interface CartItem {
   id: string | number
+  variantId?: string
   title: string
   subtitle?: string
   price: number
@@ -171,6 +172,11 @@ export const useCartStore = defineStore('cart', () => {
 
     return {
       id: productId,
+      variantId: i.variant_id != null
+        ? String(i.variant_id)
+        : i.variantId != null
+          ? String(i.variantId)
+          : undefined,
       title: i.title || i.name || i.name_ru || '',
       subtitle: i.subtitle || '',
       price,
@@ -299,7 +305,11 @@ export const useCartStore = defineStore('cart', () => {
 
   /** Добавление товара (оптимистично) */
   async function addToCart(item: CartItem) {
-    const existing = items.value.find(i => String(i.id) === String(item.id))
+    const existing = items.value.find(
+      (existingItem) =>
+        String(existingItem.id) === String(item.id) &&
+        String(existingItem.variantId || '') === String(item.variantId || ''),
+    )
     if (existing) existing.quantity += item.quantity
     else items.value.push({ ...item })
 
@@ -307,10 +317,20 @@ export const useCartStore = defineStore('cart', () => {
 
     try {
       if (isAuthenticated.value && userId.value) {
-        await cartService.addUserItem(userId.value, item.id, item.quantity)
+        await cartService.addUserItem(
+          userId.value,
+          item.id,
+          item.quantity,
+          item.variantId,
+        )
       } else {
         const sid = ensureGuestSession()
-        await cartService.addGuestItem(sid, item.id, item.quantity)
+        await cartService.addGuestItem(
+          sid,
+          item.id,
+          item.quantity,
+          item.variantId,
+        )
       }
       ok = true
     } finally {

@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import type { Product } from '~/types/product'
+import type { Product, ProductVariant, ProductVariantItem } from '~/types/product'
+import {
+  isOmegaBundleSlug,
+  type OmegaBundleSlug,
+} from '~/constants/omegaBundles'
+import { getOmegaBundlePageContent } from '~/data/omegaBundlePageContent'
 
 type ProductPriceCard = Partial<Product> & {
   name?: string
@@ -25,10 +30,107 @@ function normalizeNumber(value: unknown): number | undefined {
   return Number.isFinite(numberValue) ? numberValue : undefined
 }
 
+function mergeVariantItems(
+  baseItems: ProductVariantItem[] = [],
+  backendItems: unknown,
+): ProductVariantItem[] {
+  if (!Array.isArray(backendItems)) return baseItems
+
+  return backendItems
+    .map((rawItem: any) => {
+      const componentProductId = String(
+        rawItem?.component_product_id ?? rawItem?.product_id ?? rawItem?.id ?? '',
+      )
+      if (!componentProductId) return null
+
+      const baseItem = baseItems.find(
+        (item) => String(item.component_product_id) === componentProductId,
+      )
+
+      return {
+        ...baseItem,
+        ...rawItem,
+        component_product_id: componentProductId,
+        quantity: Math.max(1, Number(rawItem?.quantity ?? baseItem?.quantity ?? 1)),
+      } satisfies ProductVariantItem
+    })
+    .filter((item): item is ProductVariantItem => Boolean(item))
+}
+
+function mergeProductVariants(
+  baseVariants: ProductVariant[] = [],
+  backendVariants: unknown,
+): ProductVariant[] {
+  if (!Array.isArray(backendVariants) || backendVariants.length === 0) {
+    return baseVariants
+  }
+
+  return backendVariants
+    .map((rawVariant: any, index) => {
+      const backendVariantId = String(rawVariant?.variant_id ?? rawVariant?.id ?? '')
+      const backendSortOrder = Number(rawVariant?.sort_order ?? index)
+
+      const baseVariant =
+        baseVariants.find(
+          (variant) =>
+            backendVariantId &&
+            String(variant.variant_id) === backendVariantId,
+        ) ||
+        baseVariants.find(
+          (variant) => Number(variant.sort_order) === backendSortOrder,
+        ) ||
+        baseVariants[index]
+
+      const variantId = backendVariantId || baseVariant?.variant_id || ''
+      if (!variantId) return null
+
+      const price =
+        normalizeNumber(rawVariant?.price) ??
+        normalizeNumber(baseVariant?.price) ??
+        0
+
+      const originalPrice = normalizeNumber(
+        rawVariant?.originalPrice ??
+          rawVariant?.original_price ??
+          rawVariant?.oldPrice ??
+          rawVariant?.old_price ??
+          baseVariant?.originalPrice ??
+          baseVariant?.oldPrice,
+      )
+
+      return {
+        ...baseVariant,
+        ...rawVariant,
+        variant_id: variantId,
+        label: String(rawVariant?.label || baseVariant?.label || `Вариант ${index + 1}`),
+        price,
+        originalPrice:
+          originalPrice !== undefined && originalPrice > price
+            ? originalPrice
+            : undefined,
+        oldPrice:
+          originalPrice !== undefined && originalPrice > price
+            ? originalPrice
+            : undefined,
+        is_default:
+          typeof rawVariant?.is_default === 'boolean'
+            ? rawVariant.is_default
+            : Boolean(baseVariant?.is_default ?? index === 0),
+        sort_order: backendSortOrder,
+        items: mergeVariantItems(baseVariant?.items, rawVariant?.items),
+      } satisfies ProductVariant
+    })
+    .filter((variant): variant is ProductVariant => Boolean(variant))
+}
+
 function mergeProductWithBackendCard(baseProduct: Product | null, backendCard: ProductPriceCard | null): Product | null {
   if (!backendCard) return baseProduct
 
   const merged: any = { ...(baseProduct || {}) }
+  const mergedVariants = mergeProductVariants(
+    baseProduct?.variants,
+    backendCard.variants,
+  )
   const backendTitle = String(backendCard.title || backendCard.name || '').trim()
   const backendPrice = normalizeNumber(backendCard.price)
   const backendOldPrice = normalizeNumber(
@@ -52,6 +154,20 @@ function mergeProductWithBackendCard(baseProduct: Product | null, backendCard: P
     merged.price = backendPrice
   }
 
+  if (mergedVariants.length) {
+    merged.variants = mergedVariants
+
+    if (backendPrice === undefined) {
+      const defaultVariant =
+        mergedVariants.find((variant) => variant.is_default) ||
+        mergedVariants[0]
+
+      if (defaultVariant) {
+        merged.price = defaultVariant.price
+      }
+    }
+  }
+
   const currentPrice = backendPrice ?? normalizeNumber(merged.price) ?? 0
 
   // Название и актуальную цену берём с Go API.
@@ -73,6 +189,68 @@ function mergeProductWithBackendCard(baseProduct: Product | null, backendCard: P
   return merged as Product
 }
 
+function buildOmegaBundleProduct(
+  backendCard: ProductPriceCard,
+  slug: OmegaBundleSlug,
+): Product | null {
+  const productId = backendCard.product_id
+  if (productId === null || productId === undefined || productId === '') {
+    return null
+  }
+
+  const variants = mergeProductVariants([], backendCard.variants)
+  const defaultVariant =
+    variants.find((variant) => variant.is_default) ||
+    variants[0]
+  const price =
+    normalizeNumber(backendCard.price) ??
+    normalizeNumber(defaultVariant?.price) ??
+    0
+  const oldPrice = normalizeNumber(
+    backendCard.oldPrice ??
+    backendCard.old_price ??
+    backendCard.originalPrice ??
+    backendCard.original_price ??
+    backendCard.details?.oldPrice ??
+    backendCard.details?.old_price ??
+    backendCard.details?.originalPrice ??
+    backendCard.details?.original_price,
+  )
+  const effectiveOldPrice =
+    oldPrice !== undefined && oldPrice > price
+      ? oldPrice
+      : undefined
+  const pageContent = getOmegaBundlePageContent(slug)
+
+  return {
+    ...backendCard,
+    product_id: productId,
+    slug,
+    title: String(backendCard.title || backendCard.name || ''),
+    subtitle: String(backendCard.subtitle || ''),
+    shortDescription: String(
+      backendCard.shortDescription || pageContent.fallbackShortDescription,
+    ),
+    fullDescription: String(
+      backendCard.fullDescription ||
+      backendCard.shortDescription ||
+      pageContent.fallbackFullDescription,
+    ),
+    price,
+    oldPrice: effectiveOldPrice,
+    originalPrice: effectiveOldPrice,
+    sort: Number(backendCard.sort || 0),
+    category: String(backendCard.category || 'bundle'),
+    isActive: backendCard.isActive !== false,
+    // Для специальных страниц наборов галерея полностью локальная.
+    // Так карточка не зависит от доступности внешних URL изображений Go API.
+    images: pageContent.galleryImages,
+    variants,
+    bundleSections: pageContent.bundleSections,
+    faq: pageContent.faq,
+  }
+}
+
 export const useProductStore = defineStore('product', () => {
   const product = ref<Product | null>(null)
   const pending = ref(false)
@@ -92,6 +270,31 @@ export const useProductStore = defineStore('product', () => {
     error.value = null
 
     try {
+      if (isOmegaBundleSlug(normalizedSlug)) {
+        const backendResult = await useFetch<ProductPriceCard>(
+          `/api/shop/products/${encodeURIComponent(normalizedSlug)}/card`,
+          {
+            key: `omega-bundle-card:${normalizedSlug}`,
+            server: true,
+          },
+        )
+
+        if (backendResult.error.value) {
+          throw backendResult.error.value
+        }
+
+        const backendProduct = backendResult.data.value
+          ? buildOmegaBundleProduct(backendResult.data.value, normalizedSlug)
+          : null
+
+        if (!backendProduct) {
+          throw new Error('Бэкенд не вернул карточку товара')
+        }
+
+        product.value = backendProduct
+        return
+      }
+
       const [mockResult, backendCardResult] = await Promise.allSettled([
         useFetch<Product>(`/api/shop/${encodeURIComponent(normalizedSlug)}`, {
           key: `product-detail-mock:${normalizedSlug}`,
