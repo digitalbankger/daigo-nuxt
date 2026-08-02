@@ -18,11 +18,16 @@ const banner: StaticBanner = {
 </script>
 
 <template>
-  <section
-    class="omega-sets-banner"
-    aria-labelledby="omega-sets-banner-title"
+  <NuxtLink
+    to="/articles/tri-formy-dvizheniya-pochemu-daigo-omega-3-sostavlyaet-s-aminobiotikami-edinuyu-sistemu"
+    class="omega-sets-banner-link"
+    aria-label="Открыть статью: Три формы движения"
   >
-    <picture class="omega-sets-banner__picture">
+    <section
+      class="omega-sets-banner"
+      aria-labelledby="omega-sets-banner-title"
+    >
+      <picture class="omega-sets-banner__picture">
       <source
         :srcset="banner.mobileImage"
         media="(max-width: 767px)"
@@ -39,14 +44,14 @@ const banner: StaticBanner = {
         decoding="async"
         fetchpriority="high"
       />
-    </picture>
+      </picture>
 
-    <div
-      class="omega-sets-banner__shade"
-      aria-hidden="true"
-    />
+      <div
+        class="omega-sets-banner__shade"
+        aria-hidden="true"
+      />
 
-    <div class="omega-sets-banner__content">
+      <div class="omega-sets-banner__content">
       <p class="omega-sets-banner__period">
         {{ banner.period }}
       </p>
@@ -61,11 +66,24 @@ const banner: StaticBanner = {
       <p class="omega-sets-banner__description">
         {{ banner.description }}
       </p>
-    </div>
-  </section>
+      </div>
+    </section>
+  </NuxtLink>
 </template>
 
 <style scoped>
+.omega-sets-banner-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.omega-sets-banner-link:focus-visible {
+  border-radius: 20px;
+  outline: 3px solid #508cff;
+  outline-offset: 3px;
+}
+
 .omega-sets-banner {
   position: relative;
   width: 100%;

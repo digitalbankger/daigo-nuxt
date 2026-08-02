@@ -10,7 +10,11 @@ import type { ProductVariant } from '~/types/product'
 type BundleCard = { product_id: string | number; slug: OmegaBundleSlug; category?: string; variants: ProductVariant[] }
 type Direction = { slug: OmegaBundleSlug; label: string }
 
-const props = withDefaults(defineProps<{ mode?: 'all' | 'upgrade'; compact?: boolean }>(), { mode: 'all', compact: false })
+const props = withDefaults(defineProps<{
+  mode?: 'all' | 'upgrade'
+  compact?: boolean
+  bundleSlug?: OmegaBundleSlug
+}>(), { mode: 'all', compact: false })
 const cartStore = useCartStore()
 const products = ref<BundleCard[]>([])
 const pending = ref(true)
@@ -30,7 +34,9 @@ const omegaQuantity = (variant: ProductVariant) => {
   return /(?:^|\D)2\s*[xх×]|2\s*(?:упаков|омег)/i.test(`${variant.title || ''} ${variant.label || ''}`) ? 2 : 1
 }
 
-const offers = computed(() => products.value.flatMap((product) => {
+const offers = computed(() => products.value
+  .filter((product) => !props.bundleSlug || product.slug === props.bundleSlug)
+  .flatMap((product) => {
   const ui = OMEGA_BUNDLE_UI[product.slug]
   return [...(product.variants || [])]
     .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0))
@@ -53,7 +59,8 @@ const selectDirection = async (slug: OmegaBundleSlug) => {
 async function loadOffers() {
   pending.value = true
   try {
-    const result = await Promise.all(OMEGA_BUNDLE_SLUGS.map(async (slug) => {
+    const slugs = props.bundleSlug ? [props.bundleSlug] : OMEGA_BUNDLE_SLUGS
+    const result = await Promise.all(slugs.map(async (slug) => {
       try { return { ...await $fetch<BundleCard>(`/api/shop/products/${slug}/card`), slug } }
       catch { return null }
     }))
@@ -77,7 +84,7 @@ onMounted(loadOffers)
 
 <template>
   <div class="min-w-0">
-    <div v-if="mode === 'all' && !pending" class="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Направление набора">
+    <div v-if="mode === 'all' && !bundleSlug && !pending" class="mb-4 flex flex-wrap gap-2" role="tablist" aria-label="Направление набора">
       <button v-for="direction in directions" :key="direction.slug" type="button" role="tab" :aria-selected="activeDirection === direction.slug" class="rounded-md sm:rounded-lg border px-2 py-1 sm:py-2 text-xs transition sm:px-4 sm:text-base" :class="activeDirection === direction.slug ? 'border-primary bg-primary text-white' : 'border-[#D8E3F0] bg-white text-black/65 hover:border-primary hover:text-primary'" @click="selectDirection(direction.slug)">{{ direction.label }}</button>
     </div>
 

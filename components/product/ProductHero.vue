@@ -5,11 +5,19 @@ import { computed, onMounted, ref } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
 import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
 import OmegaBundleOfferPanel from '~/components/cart/OmegaBundleOfferPanel.vue'
-import { OMEGA_PRODUCT_SLUG } from '~/constants/omegaBundles'
+import {
+  OMEGA_PRODUCT_SLUG,
+  type OmegaBundleSlug,
+} from '~/constants/omegaBundles'
 
 const { product } = defineProps<{ product: Product }>()
 const cartStore = useCartStore()
 const isStandaloneOmega = computed(() => product.slug === OMEGA_PRODUCT_SLUG)
+const aminoBundleSlug = computed<OmegaBundleSlug | undefined>(() => ({
+  'daigo-brainy': 'dvizhenie-mysli',
+  'daigo-dermic': 'obnovlenie-kozhi',
+  'daigo-jointic': 'svoboda-dvizheniya',
+}[product.slug] as OmegaBundleSlug | undefined))
 
 const hasDiscount = computed(() => product.originalPrice && product.originalPrice > product.price)
 
@@ -273,6 +281,14 @@ onMounted(ensureCartLoadedOnce)
             <p class="mt-1 text-xs text-black/55 sm:text-sm">Наборы для мозга, кожи, костей и мышц.</p>
           </div>
           <OmegaBundleOfferPanel mode="all" />
+        </div>
+
+        <div v-else-if="aminoBundleSlug" class="mt-4">
+          <div class="mb-3">
+            <p class="text-lg font-medium sm:text-xl">Выгоднее с Омега-3</p>
+            <p class="mt-1 text-xs text-black/55 sm:text-sm">Выберите подходящий вариант набора.</p>
+          </div>
+          <OmegaBundleOfferPanel mode="all" :bundle-slug="aminoBundleSlug" />
         </div>
 
         <div class="text-2xl mt-4 font-bold flex items-center gap-4">
