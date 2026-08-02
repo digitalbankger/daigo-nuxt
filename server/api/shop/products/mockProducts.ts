@@ -789,7 +789,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           {
             title: 'Взрослым',
             steps: [
-              { icon: '/icons/drop.svg', text: '2 капсулы в день во время еды' },
+              { icon: '/icons/drop.svg', text: '4 капсулы в день во время еды' },
               { icon: '/icons/bottle.svg', text: 'Запивать водой' },
               { icon: '/icons/calendar.svg', text: 'Продолжительность приема 1 месяц' },
             ]

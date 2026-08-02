@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useRuntimeConfig } from '#imports'
 import { normalizeMediaUrl } from '~/utils/mediaUrl'
+import OmegaBundleOfferPanel from '~/components/cart/OmegaBundleOfferPanel.vue'
 
 // Определяем пропсы
 const props = defineProps<{
   item: {
-    id: number
+    id: string | number
     title: string
     subtitle?: string
     price: number
@@ -15,9 +16,11 @@ const props = defineProps<{
     quantity: number
     image: string
   }
+  showBundleOffer?: boolean
 }>()
 
 const emit = defineEmits(['update', 'remove'])
+const isBundleOfferOpen = ref(false)
 
 const displayOriginalPrice = computed(() => {
   if (!props.item.originalPrice) return null
@@ -38,14 +41,28 @@ const fullImage = computed(() => {
 </script>
 
 <template>
-  <div class="flex gap-4 md:gap-8 border-b pb-4 w-full lg:w-4/5">
+  <div class="w-full border-b pb-4 lg:w-4/5">
+    <div class="flex w-full gap-4 md:gap-8">
     <img
       :src="fullImage"
       alt=""
       class="w-4/12 md:w-[304px] h-[125px] md:h-[217px] object-contain bg-hoverbtn rounded-lg md:rounded-2xl"
     />
-    <div class="flex-1 h-[120px] md:h-[210px] flex flex-col justify-between">
+    <div class="flex h-auto min-h-[120px] flex-1 flex-col justify-between md:min-h-[210px]">
       <h3 class="text-sm md:text-2xl leading-tight">{{ props.item.title }}</h3>
+      <button
+        v-if="showBundleOffer"
+        type="button"
+        class="mt-2 inline-flex w-fit items-center gap-1 sm:gap-1.5 rounded-full bg-[#16B819] px-2 sm:px-3 py-1.5 text-[10px] font-normal sm:font-medium text-white transition hover:bg-[#16B819]/80 sm:text-base"
+        :aria-expanded="isBundleOfferOpen"
+        @click="isBundleOfferOpen = !isBundleOfferOpen"
+      >
+        <span aria-hidden="true" class="size-3 sm:size-5"><img src="/public/icons/fire.svg" /></span>
+        В наборе выгоднее
+        <svg class="h-1.5 sm:h-3 w-1.5 sm:w-3 transition" :class="{ 'rotate-180': isBundleOfferOpen }" viewBox="0 0 12 8" fill="none" aria-hidden="true">
+          <path d="m1 1 5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
       <div class="flex flex-col gap-4 mt-auto">
         <p class="mt-4 flex items-center gap-2">
   <span
@@ -80,5 +97,28 @@ const fullImage = computed(() => {
     <button @click="emit('remove', props.item.id)" class="w-6 md:w-8 mt-auto mb-2 md:mt-0 md:mb-auto">
       <img src="/icons/trash.svg" alt="Удалить" />
     </button>
+    </div>
+
+    <Transition name="bundle-offer">
+      <div
+        v-if="showBundleOffer && isBundleOfferOpen"
+        class="mt-4 rounded-2xl"
+      >
+        <OmegaBundleOfferPanel mode="all" />
+      </div>
+    </Transition>
   </div>
 </template>
+
+<style scoped>
+.bundle-offer-enter-active,
+.bundle-offer-leave-active {
+  transition: opacity .2s ease, transform .2s ease;
+}
+
+.bundle-offer-enter-from,
+.bundle-offer-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+</style>

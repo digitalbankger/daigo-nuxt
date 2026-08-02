@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineAsyncComponent, watch } from 'vue'
+import { computed, defineAsyncComponent, ref, watch } from 'vue'
 import { useSeoMeta, useHead, navigateTo } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useCartStore } from '~/stores/cartStore'
@@ -10,6 +10,11 @@ import { useAuthStore } from '@/stores/authStore'
 import { useUtmTracker } from '@/composables/useUtmTracker'
 import { sendRemarketing, type RemarketingPercent } from '@/services/remarketingService'
 import { ensureGuestSessionId } from '@/services/guestPreorder'
+import {
+  isOmegaProductTitle,
+  OMEGA_BUNDLE_SLUGS,
+  OMEGA_PRODUCT_SLUG,
+} from '~/constants/omegaBundles'
 const ytm = useYtm()
 
 
@@ -22,11 +27,78 @@ definePageMeta({
 const CartItem = defineAsyncComponent(() => import('~/components/cart/CartItem.vue'))
 const CartGift = defineAsyncComponent(() => import('~/components/cart/CartGift.vue'))
 const OrderSummary = defineAsyncComponent(() => import('~/components/checkout/SummaryCard.vue'))
+const OmegaBundleOfferPanel = defineAsyncComponent(() => import('~/components/cart/OmegaBundleOfferPanel.vue'))
 // const CartGiftProgress = defineAsyncComponent(() => import('~/components/cart/CartGiftProgress.vue'))
 
 const cartStore = useCartStore()
 const orderStore = useCartOrderStore()
 const authStore = useAuthStore()
+const bundleProductIds = ref(new Set<string>())
+const oneOmegaVariantIds = ref(new Set<string>())
+const twoOmegaVariantIds = ref(new Set<string>())
+const standaloneOmegaProductIds = ref(new Set<string>())
+
+const isStandaloneOmegaItem = (item: { id?: string | number; title?: string }) =>
+  standaloneOmegaProductIds.value.has(String(item.id || '')) || isOmegaProductTitle(item.title)
+
+const hasTwoOmegaBundle = computed(() =>
+  cartStore.items.some((item) =>
+    bundleProductIds.value.has(String(item.id)) &&
+    twoOmegaVariantIds.value.has(String(item.variantId || '')),
+  ),
+)
+
+const shouldShowOmegaBundleChaser = computed(() =>
+  !hasTwoOmegaBundle.value && cartStore.items.some((item) => {
+    if (isStandaloneOmegaItem(item)) return true
+    return bundleProductIds.value.has(String(item.id)) &&
+      oneOmegaVariantIds.value.has(String(item.variantId || ''))
+  }),
+)
+
+function variantOmegaQuantity(variant: any) {
+  const omegaItem = Array.isArray(variant?.items)
+    ? variant.items.find((item: any) => /(?:омега|omega)/i.test(String(item?.name || '')))
+    : null
+  if (omegaItem) return Math.max(1, Number(omegaItem.quantity || 1))
+
+  const text = `${variant?.title || ''} ${variant?.label || ''}`
+  return /(?:^|\D)2\s*[xх×]|2\s*(?:упаков|омег)/i.test(text) ? 2 : 1
+}
+
+async function loadOmegaBundleCartMeta() {
+  try {
+    const [omegaCard, ...cards] = await Promise.all(
+      [OMEGA_PRODUCT_SLUG, ...OMEGA_BUNDLE_SLUGS].map((slug) =>
+        $fetch<any>(`/api/shop/products/${slug}/card`).catch(() => null),
+      ),
+    )
+
+    if (omegaCard?.product_id) {
+      standaloneOmegaProductIds.value = new Set([String(omegaCard.product_id)])
+    }
+
+    const productIds = new Set<string>()
+    const oneOmegaIds = new Set<string>()
+    const twoOmegaIds = new Set<string>()
+    for (const card of cards) {
+      if (!card?.product_id) continue
+      productIds.add(String(card.product_id))
+      for (const variant of card.variants || []) {
+        if (!variant?.variant_id) continue
+
+        const variantId = String(variant.variant_id)
+        if (variantOmegaQuantity(variant) >= 2) twoOmegaIds.add(variantId)
+        else oneOmegaIds.add(variantId)
+      }
+    }
+    bundleProductIds.value = productIds
+    oneOmegaVariantIds.value = oneOmegaIds
+    twoOmegaVariantIds.value = twoOmegaIds
+  } catch {
+    // При недоступности карточек корзина продолжает работать без промоблока.
+  }
+}
 
 // const CART_GIFT_THRESHOLD = 100000
 // const DEFAULT_GIFT_IMAGE = '/media-s3/products/dent/product-1.png'
@@ -41,6 +113,7 @@ if (import.meta.client) {
 
   onMounted(async () => {
     await cartStore.ensureLoaded?.()
+    await loadOmegaBundleCartMeta()
 
     // сначала ремаркетинг (если заход с utm remarketing3/5)
     await handleRemarketingOnCartVisit()
@@ -263,10 +336,32 @@ function onCartCta() {
             </div>
           </div>
 
+          <section
+            v-if="shouldShowOmegaBundleChaser"
+            class="overflow-hidden mb-4"
+          >
+            <div class="mb-3 flex items-center gap-3">
+              <div class="flex h-14 sm:h-20 w-14 sm:w-20 shrink-0 items-center justify-center text-base bg-hoverbtn rounded-lg" aria-hidden="true">
+                <img src="/images/articles/summer/gift-pasta.png" alt="дент" class="h-14 sm:h-20">
+              </div>
+              <div>
+                <p class="text-[10px] sm:text-xs font-medium uppercase tracking-[0.12em] text-cgreen">Специальное предложение</p>
+                <h2 class="hidden md:block mt-1 text-base font-medium leading-tight sm:text-xl">
+                  Daigo Dent в подарок в расширенном наборе
+                </h2>
+                <h2 class="block md:hidden mt-1 text-[15px] font-medium leading-tight sm:text-xl">
+                  Daigo Dent в подарок
+                </h2>
+              </div>
+            </div>
+            <OmegaBundleOfferPanel mode="upgrade" />
+          </section>
+
           <CartItem
             v-for="item in cartStore.items"
-            :key="String(item.id)"
+            :key="`${String(item.id)}:${String(item.variantId || '')}`"
             :item="item"
+            :show-bundle-offer="isStandaloneOmegaItem(item)"
             @update="cartStore.updateItem"
             @remove="cartStore.removeItem"
           />

@@ -232,7 +232,7 @@ const cardImageClass = computed(() =>
   imageClass || (
     isWeeklyVariant.value
       ? 'h-full w-full object-contain pointer-events-none'
-      : 'h-[140px] sm:h-[280px] object-contain pointer-events-none'
+      : 'h-[140px] sm:h-auto aspect-[1/1] object-cover pointer-events-none'
   )
 )
 
@@ -260,7 +260,7 @@ const { label: promoCountdownLabel } = useSummerPromoCountdown()
 
 const cartStore = useCartStore()
 
-const PREORDER_IDS = new Set<string>(['1e2585ab-8523-4638-bff5-d15fa3be21cb'])
+const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
 const quantityInCart = computed(() => {

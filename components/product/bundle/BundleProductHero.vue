@@ -4,6 +4,7 @@ import type { Product, ProductVariant, ProductVariantItem } from '~/types/produc
 import Button from '~/components/ui/Button.vue'
 import ProductGallery from '~/components/product/ProductGallery.vue'
 import { useCartStore } from '~/stores/cartStore'
+import { isOmegaBundleSlug, OMEGA_BUNDLE_UI } from '~/constants/omegaBundles'
 
 const props = defineProps<{
   product: Product
@@ -86,31 +87,23 @@ const formatMoney = (value: number) =>
 const itemName = (item: ProductVariantItem) =>
   String(item.name || '').trim()
 
-const expandedImages = (variant: ProductVariant) => {
-  const images: Array<{ key: string; src: string; alt: string }> = []
+const bundleUi = computed(() =>
+  isOmegaBundleSlug(props.product.slug) ? OMEGA_BUNDLE_UI[props.product.slug] : null,
+)
 
-  for (const item of variant.items || []) {
-    if (!item.image) continue
+const omegaQuantity = (variant: ProductVariant) => {
+  const omegaItem = (variant.items || []).find((item) =>
+    /(?:омега|omega)/i.test(itemName(item)),
+  )
+  if (omegaItem) return Math.max(1, Number(omegaItem.quantity || 1))
 
-    const visibleQuantity = Math.min(Math.max(Number(item.quantity || 1), 1), 3)
-    for (let index = 0; index < visibleQuantity; index += 1) {
-      images.push({
-        key: `${item.component_product_id}-${index}`,
-        src: item.image,
-        alt: itemName(item),
-      })
-    }
-  }
+  const variantText = `${variant.title || ''} ${variant.label || ''}`
+  return /(?:^|\D)2\s*[xх×]|2\s*(?:упаков|омег)/i.test(variantText) ? 2 : 1
+}
 
-  if (!images.length && variant.image) {
-    images.push({
-      key: variant.variant_id,
-      src: variant.image,
-      alt: variant.label,
-    })
-  }
-
-  return images.slice(0, 4)
+const variantImage = (variant: ProductVariant) => {
+  if (!bundleUi.value) return variant.image || coverImage.value
+  return omegaQuantity(variant) >= 2 ? bundleUi.value.twoImage : bundleUi.value.oneImage
 }
 
 const coverImage = computed(() => {
@@ -235,11 +228,11 @@ onMounted(ensureCartLoadedOnce)
         <fieldset v-if="variants.length" class="mt-6">
           <legend class="text-lg font-medium sm:text-xl">Выберите набор:</legend>
 
-          <div class="mt-3 grid gap-3 sm:grid-cols-2">
+          <div class="mt-3 grid gap-3 sm:grid-cols-2 sm:gap-4">
             <label
               v-for="variant in variants"
               :key="variant.variant_id"
-              class="relative cursor-pointer overflow-hidden rounded-2xl border-2 bg-[#F7F7F7] p-4 transition"
+              class="relative min-h-[220px] cursor-pointer overflow-hidden rounded-2xl border-2 bg-[#F7F7F7] p-4 transition sm:min-h-[220px] sm:p-5"
               :class="
                 selectedVariantId === variant.variant_id
                   ? 'border-primary shadow-[0_0_0_1px_#4F8EFF]'
@@ -254,58 +247,58 @@ onMounted(ensureCartLoadedOnce)
                 class="sr-only"
               >
 
-              <span class="block pr-20 text-base font-medium leading-tight sm:text-lg">
-                {{ variant.title || variant.label }}
+              <span class="block text-xl font-medium leading-tight sm:text-2xl">
+                {{ variant.title || `${bundleUi?.title || 'Набор'} ${omegaQuantity(variant)}` }}
               </span>
 
-              <span class="mt-3 block min-h-[44px] pr-20 text-sm leading-snug">
-                <span
-                  v-for="item in variant.items"
-                  :key="item.component_product_id"
-                  v-show="itemName(item)"
-                  class="block"
-                >
-                  {{ item.quantity }} × {{ itemName(item) }}
-                </span>
+              <span class="mt-3 block w-[calc(100%-118px)] border-t border-black/15" aria-hidden="true" />
+
+              <span class="mt-3 block min-h-[48px] pr-[112px] text-sm leading-snug sm:text-base">
+                <span class="block">{{ omegaQuantity(variant) }} × Омега-3</span>
+                <span class="block">1 × Daigo {{ bundleUi?.partnerName }}</span>
               </span>
 
               <span
-                v-if="variant.giftLabel"
+                v-if="variant.giftLabel || omegaQuantity(variant) >= 2"
                 class="mt-2 block pr-16 text-xs text-red-500"
               >
-                {{ variant.giftLabel }}
+                {{ variant.giftLabel || '1 × Daigo Dent в подарок' }}
               </span>
 
               <span
                 v-if="variant.benefitLabel || variantDiscountPercent(variant) > 0"
-                class="mt-3 inline-flex rounded-md bg-[#0DBD27] px-2 py-1 text-xs font-medium text-white"
+                class="mt-3 inline-flex items-center gap-1 rounded-md bg-[#0DBD27] px-2 py-1 text-xs font-medium text-white sm:text-sm"
               >
+                <span aria-hidden="true">🔥</span>
                 {{ variant.benefitLabel || `Выгода ${variantDiscountPercent(variant)}%` }}
               </span>
-
-              <span class="mt-2 flex flex-wrap items-baseline gap-2">
-                <span
-                  v-if="Number(variant.originalPrice || variant.oldPrice || 0) > Number(variant.price)"
-                  class="text-sm text-black/45 line-through"
-                >
-                  {{ formatMoney(Number(variant.originalPrice || variant.oldPrice)) }} ₽
+              
+              <div class="mt-2 flex flex-col gap-1 absolute bottom-1">
+                <div class="mt-2 flex flex-row items-center justify-center text-white gap-1.5 bg-[#16B819] rounded-md px-3 py-0.5">
+                  <img src="/public/icons/fire.svg" />
+                  <span>Выгода 15%</span>
+                </div>
+                <span class="flex flex-wrap items-baseline gap-2">
+                  <span
+                    v-if="Number(variant.originalPrice || variant.oldPrice || 0) > Number(variant.price)"
+                    class="text-sm text-black/45 line-through"
+                  >
+                    {{ formatMoney(Number(variant.originalPrice || variant.oldPrice)) }} ₽
+                  </span>
+                  <span class="text-lg font-medium text-cgreen">
+                    {{ formatMoney(Number(variant.price || 0)) }} ₽
+                  </span>
                 </span>
-                <span class="text-lg font-medium text-cgreen">
-                  {{ formatMoney(Number(variant.price || 0)) }} ₽
-                </span>
-              </span>
+              </div>
 
               <span
-                class="pointer-events-none absolute bottom-4 right-2 flex h-[100px] w-[96px] items-end justify-end"
+                class="pointer-events-none absolute right-2 top-10 flex h-[142px] w-[132px] items-center justify-center sm:right-2 sm:top-11 sm:h-[154px] sm:w-[142px]"
                 aria-hidden="true"
               >
                 <img
-                  v-for="(image, imageIndex) in expandedImages(variant)"
-                  :key="image.key"
-                  :src="image.src"
-                  :alt="image.alt"
-                  class="absolute bottom-0 h-[90px] w-[58px] object-contain"
-                  :style="{ right: `${imageIndex * 14}px`, zIndex: imageIndex + 1 }"
+                  :src="variantImage(variant)"
+                  :alt="variant.title || variant.label"
+                  class="h-full w-full object-contain"
                   loading="lazy"
                   decoding="async"
                 >

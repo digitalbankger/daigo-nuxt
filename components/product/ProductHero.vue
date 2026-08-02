@@ -4,9 +4,12 @@ import Button from '~/components/ui/Button.vue'
 import { computed, onMounted, ref } from 'vue'
 import { useCartStore } from '~/stores/cartStore'
 import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
+import OmegaBundleOfferPanel from '~/components/cart/OmegaBundleOfferPanel.vue'
+import { OMEGA_PRODUCT_SLUG } from '~/constants/omegaBundles'
 
 const { product } = defineProps<{ product: Product }>()
 const cartStore = useCartStore()
+const isStandaloneOmega = computed(() => product.slug === OMEGA_PRODUCT_SLUG)
 
 const hasDiscount = computed(() => product.originalPrice && product.originalPrice > product.price)
 
@@ -30,7 +33,7 @@ const productIdStr = computed(() => {
 })
 
 /** список товаров с предзаказом (можно расширять) через '3232-3232-2323' */
-const PREORDER_IDS = new Set<string>(['1e2585ab-8523-4638-bff5-d15fa3be21cb'])
+const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
 
 const adding = ref(false)
@@ -263,6 +266,14 @@ onMounted(ensureCartLoadedOnce)
             </div>
           </div>
         </div> -->
+
+        <div v-if="isStandaloneOmega" class="mt-4 ">
+          <div class="mb-3">
+            <p class="text-lg font-medium sm:text-xl">Выгоднее в наборе</p>
+            <p class="mt-1 text-xs text-black/55 sm:text-sm">Наборы для мозга, кожи, костей и мышц.</p>
+          </div>
+          <OmegaBundleOfferPanel mode="all" />
+        </div>
 
         <div class="text-2xl mt-4 font-bold flex items-center gap-4">
           <span v-if="hasDiscount" class="text-primary line-through text-base sm:text-2xl xl:text-cardhead font-normal">
