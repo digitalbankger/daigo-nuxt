@@ -129,33 +129,42 @@ export const cartService = {
   },
 
   /** Изменить количество товара пользователя */
-  async updateUserItem(userId: number | string, productId: number | string, quantity: number) {
+  async updateUserItem(userId: number | string, productId: number | string, quantity: number, variantId?: string) {
     return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(productId))}`, {
       method: 'PUT',
-      body: { quantity },
+      body: { quantity, ...(variantId ? { variant_id: variantId } : {}) },
       headers: { 'Content-Type': 'application/json' },
     })
   },
 
   /** Изменить количество товара гостя */
-  async updateGuestItem(sessionId: string, productId: number | string, quantity: number) {
+  async updateGuestItem(sessionId: string, productId: number | string, quantity: number, variantId?: string) {
     return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/${encodeURIComponent(String(productId))}`, {
       method: 'PUT',
-      body: { quantity },
+      body: { quantity, ...(variantId ? { variant_id: variantId } : {}) },
       headers: { 'Content-Type': 'application/json' },
     })
   },
 
   /** Удалить товар пользователя */
-  async removeUserItem(userId: number | string, productId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(productId))}`, {
+  async removeUserItem(userId: number | string, productId: number | string, variantId?: string) {
+    const query = variantId ? `?variant_id=${encodeURIComponent(variantId)}` : ''
+    return await $fetch(`${this._base()}/v1/shop/cart/${encodeURIComponent(String(userId))}/${encodeURIComponent(String(productId))}${query}`, {
       method: 'DELETE'
     })
   },
 
   /** Удалить товар гостя */
-  async removeGuestItem(sessionId: string, productId: number | string) {
-    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/${encodeURIComponent(String(productId))}`, {
+  async removeGuestItem(
+    sessionId: string,
+    productId: number | string,
+    variantId?: string,
+  ) {
+    const query = variantId
+      ? `?variant_id=${encodeURIComponent(variantId)}`
+      : ''
+
+    return await $fetch(`${this._base()}/v1/shop/guest-cart/${encodeURIComponent(sessionId)}/${encodeURIComponent(String(productId))}${query}`, {
       method: 'DELETE'
     })
   },

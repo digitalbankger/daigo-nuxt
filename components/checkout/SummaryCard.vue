@@ -616,10 +616,6 @@ async function removeCoupon() {
           <span>Стоимость продуктов</span>
           <span class="shrink-0">{{ formatMoney(subtotal) }} ₽</span>
         </div>
-        <div class="flex justify-between gap-4">
-          <span>Доставка</span>
-          <span class="shrink-0">Бесплатно</span>
-        </div>
         <div class="flex justify-between gap-4 font-medium text-cgreen">
           <span>Скидка</span>
           <span class="shrink-0">
@@ -810,7 +806,6 @@ async function removeCoupon() {
 
       <div class="flex justify-between"><span>Товаров в корзине</span><span>{{ itemCount }} шт</span></div>
       <div class="flex justify-between"><span>Стоимость продуктов</span><span>{{ subtotal.toLocaleString() }} ₽</span></div>
-      <div class="flex justify-between"><span>Доставка</span><span>Бесплатно</span></div>
 
       <div class="flex justify-between font-medium text-cgreen">
         <span>Скидка</span>

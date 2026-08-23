@@ -26,7 +26,7 @@ function scrollToDelivery() {
           Бесплатная доставка
         </h1>
         <p class="mb-6 text-[clamp(0.875rem,4vw,1.5rem)] sm:text-lg lg:text-[clamp(0.875rem,4vw,1.5rem)] font-normal max-w-[82%] sm:max-w-[80%] lg:max-w-[560px] !leading-tight">
-          Бесплатная доставка по всей России и странам СНГ при покупке от 10 000 руб.
+          По России — от 10 000 ₽, по Москве — от 6 000 ₽. Для отдельных регионов и стран СНГ действуют другие пороги — подробнее ниже.
         </p>
         <button
             class="w-content border-none bg-white hover:bg-gray-100 text-black sm:w-72

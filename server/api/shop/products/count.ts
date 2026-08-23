@@ -139,7 +139,7 @@ export default defineEventHandler((event) => {
     },
     {
       id: 11,
-      name: 'Daigo 5 ml 2 страница',
+      name: 'Daigo 5 мл 2 страница',
       subtitle: 'Для кишечника и иммунитета',
       image: 'http://localhost:3000/images/mock/catalog/daigo-5ml.png',
       price: 13100,
@@ -147,7 +147,7 @@ export default defineEventHandler((event) => {
     },
     {
       id: 12,
-      name: 'Daigo 10 ml 2 страница',
+      name: 'Daigo 10 мл 2 страница',
       subtitle: 'Для кишечника и иммунитета',
       image: 'http://localhost:3000/images/mock/catalog/daigo-10ml.png',
       price: 24100,

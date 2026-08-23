@@ -313,7 +313,7 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
                 data-ym="header-phone"
                 class="mt-1 inline-flex items-center gap-2 text-black transition duration-300 hover:text-primary"
               >
-                8 800 555 20 43
+                8 (800) 555-20-43
               </a>
             </template>
           </div>
@@ -347,7 +347,7 @@ const isValidationError = computed(() => validationIssues.value.length > 0)
                   data-ym="header-phone"
                   class="mt-1 inline-flex items-center gap-2 text-black transition duration-300 hover:text-primary"
                 >
-                  8 800 555 20 43
+                  8 (800) 555-20-43
                 </a>
               </template>
             </div>

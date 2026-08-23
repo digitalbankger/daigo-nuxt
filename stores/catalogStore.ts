@@ -3,6 +3,7 @@ import { ref, computed } from 'vue'
 import type { ProductCard } from '~/types/product'
 import type { FilterGroup } from '~/types/filter'
 import type { CatalogBanner } from '~/types/catalog'
+import { EVOLUTION_CANONICAL_SLUG, EVOLUTION_LEGACY_SLUG } from '~/constants/evolution'
 
 type BaseQuery = Record<string, string[]>
 
@@ -91,7 +92,13 @@ export const useCatalogStore = defineStore('catalog', () => {
         }
       })
 
-      allProducts.value = Array.isArray(res?.items) ? res.items : []
+      allProducts.value = Array.isArray(res?.items)
+        ? res.items.map((product) =>
+            product.slug === EVOLUTION_LEGACY_SLUG
+              ? { ...product, slug: EVOLUTION_CANONICAL_SLUG }
+              : product,
+          )
+        : []
       allLoaded.value = true
       allLoadingPromise = null
     })().catch((error) => {
@@ -134,6 +141,26 @@ export const useCatalogStore = defineStore('catalog', () => {
     return unique(values)
   }
 
+  function strictDirectionMatch(product: ProductCard, direction: string): boolean | null {
+    const identity = [
+      String(product.slug || ''),
+      String(product.name || ''),
+      ...propValues(product, 'produkty'),
+    ]
+      .join(' ')
+      .toLowerCase()
+
+    if (direction === 'zuby-i-desna') {
+      return identity.includes('dent') || identity.includes('zubnaya-pasta') || identity.includes('зубн')
+    }
+
+    if (direction === 'kosti-i-myshtsy') {
+      return identity.includes('jointic')
+    }
+
+    return null
+  }
+
   function matchesBaseFilters(
     product: ProductCard,
     base: BaseQuery,
@@ -146,9 +173,16 @@ export const useCatalogStore = defineStore('catalog', () => {
       const productValues = propValues(product, key)
       const normalizedValues = values.map(normalizeFilterValue)
 
-      if (!normalizedValues.some((value) => productValues.includes(value))) {
-        return false
-      }
+      const matches = normalizedValues.some((value) => {
+        if (key === 'napravlennost') {
+          const strictMatch = strictDirectionMatch(product, value)
+          if (strictMatch != null) return strictMatch
+        }
+
+        return productValues.includes(value)
+      })
+
+      if (!matches) return false
     }
 
     return true
@@ -191,6 +225,10 @@ export const useCatalogStore = defineStore('catalog', () => {
         const value = normalizeFilterValue(option.value)
         const count = allProducts.value.filter((product) => {
           if (!matchesBaseFilters(product, baseQuery, slug)) return false
+          if (slug === 'napravlennost') {
+            const strictMatch = strictDirectionMatch(product, value)
+            if (strictMatch != null) return strictMatch
+          }
           return propValues(product, slug).includes(value)
         }).length
 

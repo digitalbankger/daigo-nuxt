@@ -1,0 +1,162 @@
+# image: docker:27
+#
+# services:
+#   - docker:27-dind
+
+stages:
+  - build
+  - deploy-staging
+  - deploy-production
+
+variables:
+  IMAGE_NAME: "daigo-front"
+  SERVICE_NAME: "front-service"
+  PROD_COMPOSE: "/opt/daigo/prod/docker-compose.yml"
+  PROD_ENV_FILE: "/opt/daigo/prod/.env"
+  STAGING_COMPOSE: "/opt/daigo/staging/docker-compose.yml"
+  STAGING_ENV_FILE: "/opt/daigo/staging/.env"
+
+.healthcheck: &healthcheck
+  - |
+    for i in $(seq 1 30); do
+      if curl -sf -o /dev/null ${HEALTH_URL}/; then
+        echo "Healthcheck passed (attempt $i)"
+        exit 0
+      fi
+      echo "Attempt $i/30..."
+      sleep 3
+    done
+    echo "Healthcheck failed — rolling back"
+    PREV=$(cat prev_tag.txt)
+    sed -i "s|^${ENV_KEY}=.*|${ENV_KEY}=${PREV}|" ${ENV_FILE}
+    docker compose -f ${COMPOSE_FILE} up -d --no-deps ${SERVICE_NAME}
+    exit 1
+
+build:staging:
+  stage: build
+  script:
+    - docker build
+      --build-arg NUXT_PUBLIC_API_BASE=${STAGING_NUXT_PUBLIC_API_BASE}
+      --build-arg NUXT_PUBLIC_TEST_API_BASE=${STAGING_NUXT_PUBLIC_TEST_API_BASE}
+      -t ${IMAGE_NAME}:staging-${CI_COMMIT_SHORT_SHA} .
+    - echo "staging-${CI_COMMIT_SHORT_SHA}" > build_tag.txt
+  artifacts:
+    paths:
+      - build_tag.txt
+    expire_in: 1 day
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+build:production:
+  stage: build
+  script:
+    - docker build
+      --build-arg NUXT_PUBLIC_API_BASE=${PROD_NUXT_PUBLIC_API_BASE}
+      --build-arg NUXT_PUBLIC_TEST_API_BASE=${PROD_NUXT_PUBLIC_TEST_API_BASE}
+      -t ${IMAGE_NAME}:prod-${CI_COMMIT_SHORT_SHA} .
+    - echo "prod-${CI_COMMIT_SHORT_SHA}" > build_tag.txt
+  artifacts:
+    paths:
+      - build_tag.txt
+    expire_in: 1 week
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+deploy:staging:
+  stage: deploy-staging
+  needs: [build:staging]
+  variables:
+    ENV_KEY: "FRONT_IMAGE_TAG"
+    ENV_FILE: "/opt/daigo/staging/.env"
+    COMPOSE_FILE: "/opt/daigo/staging/docker-compose.yml"
+    HEALTH_URL: "http://localhost:3003"
+  script:
+    - NEW_TAG=$(cat build_tag.txt)
+    - grep "^FRONT_IMAGE_TAG=" ${STAGING_ENV_FILE} | cut -d= -f2 > prev_tag.txt
+    - sed -i "s|^FRONT_IMAGE_TAG=.*|FRONT_IMAGE_TAG=${NEW_TAG}|" ${STAGING_ENV_FILE}
+    - docker compose -f ${STAGING_COMPOSE} up -d --no-deps ${SERVICE_NAME}
+    - sleep 10
+    - *healthcheck
+  artifacts:
+    paths:
+      - prev_tag.txt
+    expire_in: 1 day
+  environment:
+    name: staging
+    url: http://$CI_SERVER_HOST:3003
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+rollback:staging:
+  stage: deploy-staging
+  needs: [deploy:staging]
+  variables:
+    ENV_FILE: "/opt/daigo/staging/.env"
+    COMPOSE_FILE: "/opt/daigo/staging/docker-compose.yml"
+  script:
+    - |
+      if [ ! -f prev_tag.txt ]; then
+        echo "Нет сохранённого тега для отката"
+        exit 1
+      fi
+    - PREV=$(cat prev_tag.txt)
+    - 'echo "Откат staging front к: ${PREV}"'
+    - sed -i "s|^FRONT_IMAGE_TAG=.*|FRONT_IMAGE_TAG=${PREV}|" ${STAGING_ENV_FILE}
+    - docker compose -f ${STAGING_COMPOSE} up -d --no-deps ${SERVICE_NAME}
+    - sleep 5
+    - curl -sf -o /dev/null http://localhost:3003/
+  environment:
+    name: staging
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+
+deploy:production:
+  stage: deploy-production
+  needs: [build:production]
+  variables:
+    ENV_KEY: "FRONT_IMAGE_TAG"
+    ENV_FILE: "/opt/daigo/prod/.env"
+    COMPOSE_FILE: "/opt/daigo/prod/docker-compose.yml"
+    HEALTH_URL: "http://localhost:3002"
+  script:
+    - NEW_TAG=$(cat build_tag.txt)
+    - grep "^FRONT_IMAGE_TAG=" ${PROD_ENV_FILE} | cut -d= -f2 > prev_tag.txt
+    - sed -i "s|^FRONT_IMAGE_TAG=.*|FRONT_IMAGE_TAG=${NEW_TAG}|" ${PROD_ENV_FILE}
+    - docker compose -f ${PROD_COMPOSE} up -d --no-deps ${SERVICE_NAME}
+    - sleep 10
+    - *healthcheck
+  artifacts:
+    paths:
+      - prev_tag.txt
+    expire_in: 1 week
+  environment:
+    name: production
+    url: http://$CI_SERVER_HOST:3002
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+rollback:production:
+  stage: deploy-production
+  needs: [deploy:production]
+  variables:
+    ENV_FILE: "/opt/daigo/prod/.env"
+    COMPOSE_FILE: "/opt/daigo/prod/docker-compose.yml"
+  script:
+    - |
+      if [ ! -f prev_tag.txt ]; then
+        echo "Нет сохранённого тега для отката"
+        exit 1
+      fi
+    - PREV=$(cat prev_tag.txt)
+    - 'echo "Откат production front к: ${PREV}"'
+    - sed -i "s|^FRONT_IMAGE_TAG=.*|FRONT_IMAGE_TAG=${PREV}|" ${PROD_ENV_FILE}
+    - docker compose -f ${PROD_COMPOSE} up -d --no-deps ${SERVICE_NAME}
+    - sleep 10
+    - curl -sf -o /dev/null http://localhost:3002/
+  environment:
+    name: production
+  when: manual
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"

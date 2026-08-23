@@ -21,7 +21,7 @@
           <div class="space-y-4">
             <div class="flex items-start gap-3">
               <div>
-                <p class="text-lg lg:text-2xl my-2 font-normal">г.Москва Большой Сухаревский переулок 21 стр.2</p>
+                <p class="text-lg lg:text-2xl my-2 font-normal">г. Москва, Большой Сухаревский переулок, д. 21, стр. 2</p>
               </div>
             </div>
 
@@ -30,7 +30,7 @@
               <a
                 href="tel:88005552043"
               >
-              <span>8 800 555 20 43</span>
+              <span>8 (800) 555-20-43</span>
               </a>
             </div>
             <div class="text-sm lg:text-lg flex flex-row items-center gap-2">

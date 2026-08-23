@@ -56,8 +56,8 @@ export const CATALOG_FILTERS: FilterGroup[] = [
       label: 'Продукты',
       slug: 'produkty',
       options: [
-        { label: 'Daigo 5ml', value: 'daigo-5ml' },
-        { label: 'Daigo 10ml', value: 'daigo-10ml' },
+        { label: 'Daigo 5 мл', value: 'daigo-5ml' },
+        { label: 'Daigo 10 мл', value: 'daigo-10ml' },
         { label: 'Daigo Lux', value: 'daigo-lux' },
         { label: 'Tamotsu', value: 'tamotsu' },
         { label: 'Daigo Dent', value: 'daigo-dent' },

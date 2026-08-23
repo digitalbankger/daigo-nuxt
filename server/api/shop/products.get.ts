@@ -104,6 +104,15 @@ function unique(values: string[]) {
   return Array.from(new Set(values))
 }
 
+function normalizeProductName(value: unknown) {
+  const name = String(value || '').trim()
+
+  if (/^(?:daigo|дайго)\s*5\s*(?:ml|мл)$/i.test(name)) return 'Daigo 5 мл'
+  if (/^(?:daigo|дайго)\s*10\s*(?:ml|мл)$/i.test(name)) return 'Daigo 10 мл'
+
+  return name
+}
+
 function getRawProductList(raw: any): any[] {
   const candidates = [
     raw?.products,
@@ -307,7 +316,7 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
       id: p.product_id ?? p.id,
       product_id: p.product_id ?? p.id,
       slug,
-      name: p.name_ru || p.name || p.title || p.name_en || '',
+      name: normalizeProductName(p.name_ru || p.name || p.title || p.name_en || ''),
       subtitle: p.subtitle || '',
       image: normalizeImg(getPrimaryImageSource(p)),
       detailImages: getDetailImageSources(p).map((img: any) => normalizeImg(img)).filter(Boolean),
@@ -341,6 +350,26 @@ function propValues(product: any, slug: string): string[] {
   return unique(values)
 }
 
+function strictDirectionMatch(product: any, direction: string): boolean | null {
+  const identity = [
+    String(product?.slug || ''),
+    String(product?.name || ''),
+    ...propValues(product, 'produkty'),
+  ]
+    .join(' ')
+    .toLowerCase()
+
+  if (direction === 'zuby-i-desna') {
+    return identity.includes('dent') || identity.includes('zubnaya-pasta') || identity.includes('зубн')
+  }
+
+  if (direction === 'kosti-i-myshtsy') {
+    return identity.includes('jointic')
+  }
+
+  return null
+}
+
 function matchesLocalFilters(product: any, q: Record<string, any>) {
   for (const [key, rawValue] of Object.entries(q)) {
     if (!isCatalogFilterKey(key)) continue
@@ -349,7 +378,16 @@ function matchesLocalFilters(product: any, q: Record<string, any>) {
     if (!selectedValues.length) continue
 
     const productValues = propValues(product, key)
-    if (!selectedValues.some((value) => productValues.includes(value))) return false
+    const matches = selectedValues.some((value) => {
+      if (key === 'napravlennost') {
+        const strictMatch = strictDirectionMatch(product, value)
+        if (strictMatch != null) return strictMatch
+      }
+
+      return productValues.includes(value)
+    })
+
+    if (!matches) return false
   }
 
   return true

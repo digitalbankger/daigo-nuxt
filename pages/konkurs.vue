@@ -26,7 +26,7 @@ const promoProducts: ProductCard[] = [
   },
   {
     product_id: "cafac368-1074-417d-bb3e-4470b4e28190",
-    title: 'DAIGO 10 ml',
+    title: 'Daigo 10 мл',
     price: '27 900 ₽',
     bonus: '13 850',
     image: '/media-s3/products/daigo-10/product-1.png',

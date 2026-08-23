@@ -10,6 +10,20 @@ import { onMounted, computed } from 'vue'
 
 definePageMeta({ layout: 'main' })
 
+
+useSeoMeta({
+  title: 'Акции и специальные предложения — Daigo',
+  description: 'Актуальные акции и специальные предложения Daigo, включая скидку на первый заказ.',
+  ogTitle: 'Акции и специальные предложения — Daigo',
+  ogDescription: 'Актуальные акции и специальные предложения Daigo, включая скидку на первый заказ.',
+  ogType: 'website',
+  ogUrl: 'https://daigo.ru/akcii',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://daigo.ru/akcii' }],
+})
+
 const promoStore = usePromoStore()
 await useAsyncData('promotions:list', () => promoStore.loadPromotions())
 

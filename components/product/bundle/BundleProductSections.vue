@@ -1,21 +1,33 @@
 <script setup lang="ts">
-import type { BundleContentSection, BundleRelatedProduct } from '~/types/product'
-import { useCartStore } from '~/stores/cartStore'
+import type {
+  BundleContentSection,
+  BundleRelatedProduct,
+} from "~/types/product";
+import { useCartStore } from "~/stores/cartStore";
 
 defineProps<{
-  sections: BundleContentSection[]
-}>()
+  sections: BundleContentSection[];
+}>();
 
 const formatMoney = (value: number) =>
-  new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 0 }).format(value)
+  new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(value);
 
-const cartStore = useCartStore()
-const addingProductId = ref<string | null>(null)
+const cartStore = useCartStore();
+const addingProductId = ref<string | null>(null);
+
+const quantityInCart = (product: BundleRelatedProduct) => {
+  const item = cartStore.items.find(
+    (i) =>
+      String(i.id) === String(product.product_id) &&
+      String(i.variantId || "") === String(product.variant_id || ""),
+  );
+  return item?.quantity ?? 0;
+};
 
 const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
-  const productId = String(product.product_id)
-  if (addingProductId.value || !product.variant_id) return
-  addingProductId.value = productId
+  const productId = String(product.product_id);
+  if (addingProductId.value || !product.variant_id) return;
+  addingProductId.value = productId;
   try {
     await cartStore.addToCart({
       id: productId,
@@ -25,19 +37,41 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
       originalPrice: product.originalPrice,
       quantity: 1,
       image: product.image,
-      tag: 'bundle',
-    })
+      tag: "bundle",
+    });
   } finally {
-    addingProductId.value = null
+    addingProductId.value = null;
   }
-}
+};
+
+const incrementRelatedProduct = (product: BundleRelatedProduct) => {
+  cartStore.updateItem(
+    String(product.product_id),
+    quantityInCart(product) + 1,
+    product.variant_id,
+  );
+};
+
+const decrementRelatedProduct = (product: BundleRelatedProduct) => {
+  cartStore.updateItem(
+    String(product.product_id),
+    quantityInCart(product) - 1,
+    product.variant_id,
+  );
+};
 </script>
 
 <template>
   <div id="bundle-description" class="space-y-8 py-4 sm:space-y-12 sm:py-10">
-    <template v-for="(section, sectionIndex) in sections" :key="`${section.type}-${sectionIndex}`">
+    <template
+      v-for="(section, sectionIndex) in sections"
+      :key="`${section.type}-${sectionIndex}`"
+    >
       <section v-if="section.type === 'feature-grid'" class="space-y-5">
-        <h2 v-if="section.title" class="text-3xl font-medium sm:text-product xl:text-slider mb-4">
+        <h2
+          v-if="section.title"
+          class="text-3xl font-medium sm:text-product xl:text-slider mb-4"
+        >
           {{ section.title }}
         </h2>
 
@@ -47,9 +81,14 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
             class="relative min-h-[260px] overflow-hidden rounded-2xl bg-[#F7F7F7] p-5 sm:min-h-[320px] sm:p-7"
           >
             <div class="relative z-10 max-w-[74%]">
-              <h3 class="text-xl font-medium sm:text-4xl">{{ section.cards[0].title }}</h3>
-              <hr class="my-4 border-black/10">
-              <div class="space-y-3 text-sm leading-relaxed sm:text-base" v-html="section.cards[0].text" />
+              <h3 class="text-xl font-medium sm:text-4xl">
+                {{ section.cards[0].title }}
+              </h3>
+              <hr class="my-4 border-black/10" />
+              <div
+                class="space-y-3 text-sm leading-relaxed sm:text-base"
+                v-html="section.cards[0].text"
+              />
             </div>
             <img
               v-if="section.cards[0].image"
@@ -58,7 +97,7 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
               class="absolute bottom-20 right-0 h-[78%] w-[42%] object-contain object-bottom"
               loading="lazy"
               decoding="async"
-            >
+            />
           </article>
 
           <div class="grid gap-4 sm:grid-cols-2 lg:gap-6">
@@ -68,9 +107,14 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
               class="relative min-h-[190px] overflow-hidden rounded-2xl bg-[#F7F7F7] p-5"
             >
               <div class="relative z-10 max-w-full">
-                <h3 class="text-base font-medium leading-tight sm:text-lg">{{ card.title }}</h3>
-                <hr class="my-3 border-black/10">
-                <div class="text-sm leading-relaxed max-w-[78%]" v-html="card.text" />
+                <h3 class="text-base font-medium leading-tight sm:text-lg">
+                  {{ card.title }}
+                </h3>
+                <hr class="my-3 border-black/10" />
+                <div
+                  class="text-sm leading-relaxed max-w-[78%]"
+                  v-html="card.text"
+                />
               </div>
               <img
                 v-if="card.image"
@@ -79,12 +123,12 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
                 class="absolute bottom-2 right-2 h-[150px] w-[160px] object-contain object-right-bottom"
                 loading="lazy"
                 decoding="async"
-              >
+              />
             </article>
           </div>
         </div>
 
-                <div
+        <div
           v-if="section.cards.length > 5"
           class="grid gap-4 lg:grid-cols-2 lg:gap-6"
         >
@@ -101,7 +145,7 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
                 {{ card.title }}
               </h3>
 
-              <hr class="my-4 border-black/10">
+              <hr class="my-4 border-black/10" />
 
               <div
                 class="space-y-3 text-sm leading-relaxed sm:text-base"
@@ -116,7 +160,7 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
               class="absolute bottom-0 right-0 h-[70%] w-[38%] object-contain object-right-bottom"
               loading="lazy"
               decoding="async"
-            >
+            />
           </article>
         </div>
       </section>
@@ -135,20 +179,31 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
             class="h-full min-h-[280px] w-full object-cover"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
 
         <div class="flex flex-col justify-center">
-          <h2 class="text-2xl font-medium leading-tight sm:text-4xl">{{ section.title }}</h2>
-          <div class="mt-4 space-y-3 text-sm leading-relaxed sm:text-base" v-html="section.content" />
+          <h2 class="text-2xl font-medium leading-tight sm:text-4xl">
+            {{ section.title }}
+          </h2>
+          <div
+            class="mt-4 space-y-3 text-sm leading-relaxed sm:text-base"
+            v-html="section.content"
+          />
 
           <div
             v-if="section.noteTitle || section.noteContent"
             class="mt-5 rounded-2xl bg-[#F7F7F7] p-5"
           >
-            <h3 v-if="section.noteTitle" class="text-2xl font-medium">{{ section.noteTitle }}</h3>
-            <hr class="mb-2 mt-3 w-7/12"/>
-            <div v-if="section.noteContent" class="mt-2 text-base leading-relaxed" v-html="section.noteContent" />
+            <h3 v-if="section.noteTitle" class="text-2xl font-medium">
+              {{ section.noteTitle }}
+            </h3>
+            <hr class="mb-2 mt-3 w-7/12" />
+            <div
+              v-if="section.noteContent"
+              class="mt-2 text-base leading-relaxed"
+              v-html="section.noteContent"
+            />
             <a
               v-if="section.linkHref && section.linkLabel"
               :to="section.linkHref"
@@ -160,14 +215,17 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
         </div>
       </section>
 
-      <section v-else-if="section.type === 'wide-image'" class="overflow-hidden rounded-[18px] sm:rounded-[44px] bg-[#EEF4FF]">
+      <section
+        v-else-if="section.type === 'wide-image'"
+        class="overflow-hidden rounded-[18px] sm:rounded-[44px] bg-[#EEF4FF]"
+      >
         <img
           :src="section.image"
           :alt="section.imageAlt || ''"
           class="h-auto w-full object-cover"
           loading="lazy"
           decoding="async"
-        >
+        />
       </section>
 
       <section
@@ -184,22 +242,34 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
             class="aspect-[4/3] w-full object-cover"
             loading="lazy"
             decoding="async"
-          >
+          />
         </div>
 
         <div>
-          <h2 class="text-2xl font-medium leading-tight sm:text-3xl">{{ section.title }}</h2>
-          <div v-if="section.content" class="mt-4 text-sm leading-relaxed sm:text-base" v-html="section.content" />
+          <h2 class="text-2xl font-medium leading-tight sm:text-3xl">
+            {{ section.title }}
+          </h2>
+          <div
+            v-if="section.content"
+            class="mt-4 text-sm leading-relaxed sm:text-base"
+            v-html="section.content"
+          />
           <ul class="mt-4 space-y-3 text-sm leading-relaxed sm:text-base">
             <li v-for="item in section.items" :key="item" class="flex gap-3">
-              <span class="mt-[0.55em] size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+              <span
+                class="mt-[0.55em] size-1.5 shrink-0 rounded-full bg-primary"
+                aria-hidden="true"
+              />
               <span>{{ item }}</span>
             </li>
           </ul>
         </div>
       </section>
 
-      <section v-else-if="section.type === 'related-products'" class="space-y-5">
+      <section
+        v-else-if="section.type === 'related-products'"
+        class="space-y-5"
+      >
         <h2 v-if="section.title" class="text-2xl font-medium sm:text-3xl">
           {{ section.title }}
         </h2>
@@ -210,35 +280,93 @@ const addRelatedProductToCart = async (product: BundleRelatedProduct) => {
             :key="relatedProduct.product_id"
             class="grid min-h-[230px] grid-cols-[minmax(0,1.08fr)_minmax(140px,0.92fr)] overflow-hidden rounded-2xl bg-white shadow-productcard"
           >
-            <NuxtLink :to="`/catalog/${relatedProduct.slug}`" class="block min-h-0 overflow-hidden">
+            <NuxtLink
+              :to="`/catalog/${relatedProduct.slug}`"
+              class="block min-h-0 overflow-hidden"
+            >
               <img
                 :src="relatedProduct.image"
                 :alt="relatedProduct.title"
                 class="h-full min-h-[230px] w-full object-cover"
                 loading="lazy"
                 decoding="async"
-              >
+              />
             </NuxtLink>
             <div class="flex min-w-0 flex-col p-4">
-              <NuxtLink :to="`/catalog/${relatedProduct.slug}`" class="text-base font-normal leading-[1.15] hover:text-primary">
+              <NuxtLink
+                :to="`/catalog/${relatedProduct.slug}`"
+                class="text-base font-normal leading-[1.15] hover:text-primary"
+              >
                 {{ relatedProduct.title }}
               </NuxtLink>
               <div class="mt-auto pt-4">
                 <div class="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                  <span v-if="relatedProduct.originalPrice && relatedProduct.originalPrice > relatedProduct.price" class="text-sm text-black/40 line-through">
+                  <span
+                    v-if="
+                      relatedProduct.originalPrice &&
+                      relatedProduct.originalPrice > relatedProduct.price
+                    "
+                    class="text-sm text-black/40 line-through"
+                  >
                     {{ formatMoney(relatedProduct.originalPrice) }} ₽
                   </span>
-                  <span class="text-lg font-medium text-cgreen">{{ formatMoney(relatedProduct.price) }} ₽</span>
+                  <span class="text-lg font-medium text-cgreen"
+                    >{{ formatMoney(relatedProduct.price) }} ₽</span
+                  >
                 </div>
                 <button
+                  v-if="quantityInCart(relatedProduct) === 0"
                   type="button"
                   class="mt-3 flex h-11 w-full items-center justify-center rounded-lg bg-primary px-3 text-sm text-white transition hover:bg-hoverbtn hover:text-black disabled:cursor-wait disabled:opacity-70"
-                  :disabled="addingProductId === String(relatedProduct.product_id)"
+                  :disabled="
+                    addingProductId === String(relatedProduct.product_id)
+                  "
                   @click="addRelatedProductToCart(relatedProduct)"
                 >
-                  <img src="/icons/add-to-cart.svg" alt="" class="mr-2 size-5 shrink-0">
-                  {{ addingProductId === String(relatedProduct.product_id) ? 'Добавляем…' : 'В корзину' }}
+                  <img
+                    src="/icons/add-to-cart.svg"
+                    alt=""
+                    class="mr-2 size-5 shrink-0"
+                  />
+                  {{
+                    addingProductId === String(relatedProduct.product_id)
+                      ? "Добавляем…"
+                      : "В корзину"
+                  }}
                 </button>
+
+                <div
+                  v-else
+                  class="mt-3 flex h-11 w-full items-center justify-between gap-2 rounded-lg bg-primary px-2"
+                >
+                  <button
+                    type="button"
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white"
+                    aria-label="Уменьшить количество"
+                    @click="decrementRelatedProduct(relatedProduct)"
+                  >
+                    <img
+                      src="/icons/decrement.svg"
+                      alt="Уменьшить количество"
+                      class="size-5"
+                    />
+                  </button>
+                  <span class="min-w-[2rem] text-center text-white">
+                    {{ quantityInCart(relatedProduct) }} шт
+                  </span>
+                  <button
+                    type="button"
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white"
+                    aria-label="Увеличить количество"
+                    @click="incrementRelatedProduct(relatedProduct)"
+                  >
+                    <img
+                      src="/icons/increment.svg"
+                      alt="Увеличить количество"
+                      class="size-5"
+                    />
+                  </button>
+                </div>
               </div>
             </div>
           </article>

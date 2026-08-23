@@ -173,7 +173,7 @@
           class="mobile-catalog-menu__link"
           @click="$emit('close')"
         >
-          Партнерская программа
+          Партнёрская программа
         </a>
       </div>
     </div>
