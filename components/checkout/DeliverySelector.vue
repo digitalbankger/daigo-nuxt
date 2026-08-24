@@ -515,7 +515,7 @@ async function saveAddress() {
                   </span>
                 </BaseCheckbox>
                 <p class="text-base leading-relaxed sm:text-lg">
-                  {{ opt.subtitle || 'г. Москва, Большой Сухаревский переулок, дом 21, стр. 2' }}
+                  {{ opt.subtitle || 'г. Москва, Большой Сухаревский переулок, д. 21, стр. 2' }}
                 </p>
                 <p v-if="opt.eta" class="flex items-center gap-2 text-sm text-black/65 sm:text-base">
                   <UiIcon name="clock" :size="18" />

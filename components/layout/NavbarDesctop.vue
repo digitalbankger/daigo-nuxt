@@ -1,11 +1,11 @@
 <template>
   <HeadInformer v-if="ui.isHeadInformerVisible" @close="ui.closeHeadInformer" />
-  <StickyHeader />
-
   <!-- nav оборачиваем в relative, чтобы позиционировать попап -->
   <nav
-    class="py-6 relative transition-[margin] duration-200"
-    :class="ui.isHeadInformerVisible ? 'mt-[72px] sm:mt-[56px]' : 'mt-2 sm:mt-0'"
+    class="py-6 sticky z-[60] bg-white transition-[margin,top] duration-200"
+    :class="ui.isHeadInformerVisible
+      ? 'mt-[72px] sm:mt-[56px] top-[72px] sm:top-[56px]'
+      : 'mt-2 sm:mt-0 top-0'"
   >
     <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
       <div class="flex items-center gap-7 shrink-0">
@@ -41,7 +41,7 @@
 
       <div class="flex flex-row items-center gap-2 sm:gap-6 shrink-0 text-xl text-black">
         <a
-          href="tel:88005552043"
+          :href="companyContacts.mainPhone.href"
           data-ym="header-phone"
           class="text-sm md:text-lg flex flex-row items-center gap-2 me-0 lg:me-3 transition duration-300 text-black hover:text-primary"
         >
@@ -64,7 +64,7 @@
               </clipPath>
             </defs>
           </svg>
-          <span>8 800 555 20 43</span>
+          <span>{{ companyContacts.mainPhone.display }}</span>
         </a>
 
         <!-- <button
@@ -261,7 +261,7 @@
             rel="noopener"
             class="block px-2 py-1 rounded hover:bg-gray-100"
           >
-            Партнерская программа
+            Партнёрская программа
           </a>
         </li>
       </ul>
@@ -322,15 +322,16 @@ import { ref, onBeforeUnmount, watch, defineAsyncComponent } from 'vue'
 import { navigateTo, useRoute } from '#imports'
 import { storeToRefs } from 'pinia'
 import CartBadge from '@/components/ui/CartBadge.vue'
-import StickyHeader from '@/components/layout/StickyHeader.vue'
 import { useAuthStore } from '@/stores/authStore'
 import HeadInformer from '@/components/layout/HeadInformer.vue'
 import { useUiStore } from '@/stores/ui'
+import { COMPANY_CONTACTS } from '~/constants/company'
 
 const CatalogHoverMenu = defineAsyncComponent(() => import('@/components/layout/CatalogHoverMenu.vue'))
 const MobileCatalogMenu = defineAsyncComponent(() => import('@/components/layout/MobileCatalogMenu.vue'))
 
 const ui = useUiStore()
+const companyContacts = COMPANY_CONTACTS
 const auth = useAuthStore()
 const { isAuthenticated } = storeToRefs(auth)
 

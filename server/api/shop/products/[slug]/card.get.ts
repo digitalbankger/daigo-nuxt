@@ -1,5 +1,10 @@
 import { defineEventHandler, createError, getRouterParam } from 'h3'
 import { ofetch } from 'ofetch'
+import {
+  EVOLUTION_CANONICAL_SLUG,
+  EVOLUTION_LEGACY_SLUG,
+  EVOLUTION_SINGLE_SLUG,
+} from '~/constants/evolution'
 
 function normalizeNumber(value: unknown): number | undefined {
   if (value === null || value === undefined || value === '') return undefined
@@ -196,28 +201,60 @@ export default defineEventHandler(async (event) => {
 
   const config = useRuntimeConfig(event)
   const apiBase = String(config.public?.daigoApiBase || 'https://api.daigo.ru').replace(/\/+$/, '')
-  const url = `${apiBase}/v1/shop/products/${encodeURIComponent(slug)}/card`
+  const requestedSlug = String(slug).trim()
+  const isEvolutionAlias =
+    requestedSlug === EVOLUTION_CANONICAL_SLUG ||
+    requestedSlug === EVOLUTION_SINGLE_SLUG
+  const upstreamSlugs = isEvolutionAlias
+    ? [EVOLUTION_CANONICAL_SLUG, EVOLUTION_LEGACY_SLUG]
+    : [requestedSlug]
 
-  try {
-    event.node.res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600')
+  event.node.res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600')
 
-    const apiResp = await ofetch(url, {
-      method: 'GET',
-      retry: 1,
-      timeout: 10_000,
-    })
+  let lastError: any = null
 
-    if (!apiResp) throw new Error('Empty response')
+  for (const upstreamSlug of upstreamSlugs) {
+    const url = `${apiBase}/v1/shop/products/${encodeURIComponent(upstreamSlug)}/card`
 
-    return adaptToProductCard(apiResp)
-  } catch (e: any) {
-    if (e?.status === 404 || e?.statusCode === 404) {
-      throw createError({ statusCode: 404, statusMessage: 'Product not found' })
+    try {
+      const apiResp = await ofetch(url, {
+        method: 'GET',
+        retry: 1,
+        timeout: 10_000,
+      })
+
+      if (!apiResp) throw new Error('Empty response')
+
+      const adapted = adaptToProductCard(apiResp)
+
+      // Evolution может иметь отдельные frontend URL для 1 и 12 банок,
+      // при этом Go API по-прежнему хранит один товар и его variants.
+      if (isEvolutionAlias) {
+        adapted.slug = requestedSlug
+      }
+
+      return adapted
+    } catch (e: any) {
+      lastError = e
+
+      const isNotFound = e?.status === 404 || e?.statusCode === 404 || e?.response?.status === 404
+      if (isNotFound && upstreamSlug !== upstreamSlugs[upstreamSlugs.length - 1]) {
+        continue
+      }
+
+      if (isNotFound) {
+        throw createError({ statusCode: 404, statusMessage: 'Product not found' })
+      }
+
+      throw createError({
+        statusCode: 502,
+        statusMessage: `Upstream error: ${e?.message || e}`,
+      })
     }
-
-    throw createError({
-      statusCode: 502,
-      statusMessage: `Upstream error: ${e?.message || e}`,
-    })
   }
+
+  throw createError({
+    statusCode: 502,
+    statusMessage: `Upstream error: ${lastError?.message || lastError || 'Unknown error'}`,
+  })
 })

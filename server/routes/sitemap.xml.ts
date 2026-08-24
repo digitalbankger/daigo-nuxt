@@ -2,6 +2,11 @@ import { defineEventHandler, setResponseHeader } from 'h3'
 import { $fetch } from 'ofetch'
 import { promises as fs } from 'node:fs'
 import { join, resolve } from 'node:path'
+import {
+  EVOLUTION_CANONICAL_SLUG,
+  EVOLUTION_LEGACY_SLUG,
+  EVOLUTION_SINGLE_SLUG,
+} from '~/constants/evolution'
 
 type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
 
@@ -190,7 +195,10 @@ async function fetchProducts(apiBase: string): Promise<ProductLike[]> {
 
     return extractArray(raw)
       .map((p: any) => ({
-        slug: String(p.slug || '').trim(),
+        slug: (() => {
+          const slug = String(p.slug || '').trim()
+          return slug === EVOLUTION_LEGACY_SLUG ? EVOLUTION_CANONICAL_SLUG : slug
+        })(),
         price: p.price,
         properties: p.properties || {},
         updated_at: p.updated_at,
@@ -367,6 +375,18 @@ export default defineEventHandler(async (event) => {
       lastmod: toIsoDate(product.updated_at || product.updatedAt),
       changefreq: 'weekly',
       priority: 0.9,
+    })
+  }
+
+  const evolutionProduct = products.find(
+    (product) => product.slug === EVOLUTION_CANONICAL_SLUG,
+  )
+  if (evolutionProduct) {
+    addEntry(entries, {
+      loc: `/catalog/${EVOLUTION_SINGLE_SLUG}`,
+      lastmod: toIsoDate(evolutionProduct.updated_at || evolutionProduct.updatedAt),
+      changefreq: 'weekly',
+      priority: 0.88,
     })
   }
 

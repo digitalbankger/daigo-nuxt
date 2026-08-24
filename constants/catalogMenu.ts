@@ -14,7 +14,7 @@ export const catalogMenuProducts: CatalogMenuProduct[] = [
     id: 'daigo-5',
     product_id: 'daigo',
     code: 'Метабиотик',
-    title: 'Метабиотик Daigo 5мл',
+    title: 'Метабиотик Daigo 5 мл',
     badge: 'Хит',
     image: '/media-s3/products/daigo-5/product-1.png',
     href: '/catalog/metabiotik-daigo',
@@ -24,7 +24,7 @@ export const catalogMenuProducts: CatalogMenuProduct[] = [
     id: 'daigo-10',
     product_id: 'daigo',
     code: 'Метабиотик',
-    title: 'Метабиотик Daigo 10мл',
+    title: 'Метабиотик Daigo 10 мл',
     image: '/media-s3/products/daigo-10/product-1.png',
     href: '/catalog/metabiotik-daigo',
     description: 'Поддержка микробиома, пищеварения и общего баланса организма.'

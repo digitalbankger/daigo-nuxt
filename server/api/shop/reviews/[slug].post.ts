@@ -7,6 +7,7 @@ import {
   readMultipartFormData,
 } from "h3";
 import { ofetch } from "ofetch";
+import { getEvolutionUpstreamSlug } from "~/constants/evolution";
 
 function normalizeBase(value: unknown) {
   return String(value || "https://api.daigo.ru").replace(/\/+$/, "");
@@ -57,7 +58,8 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const url = `${base}/v1/shop/reviews/${encodeURIComponent(String(slug))}`;
+  const upstreamSlug = getEvolutionUpstreamSlug(slug);
+  const url = `${base}/v1/shop/reviews/${encodeURIComponent(upstreamSlug)}`;
 
   if (contentType.includes("multipart/form-data")) {
     const parts = await readMultipartFormData(event);

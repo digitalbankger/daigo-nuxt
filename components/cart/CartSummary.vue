@@ -25,10 +25,6 @@ const discount = computed(() => Math.round(total.value * 0.15))
         <span>Стоимость продуктов</span>
         <span>{{ total }} ₽</span>
       </div>
-      <div class="flex justify-between">
-        <span>Доставка</span>
-        <span>Бесплатно</span>
-      </div>
       <div class="flex justify-between text-pink-500">
         <span>Скидка</span>
         <span>−{{ discount }} ₽</span>

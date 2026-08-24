@@ -51,8 +51,24 @@
 
 @font-face {
   font-family: "TG Haido Grotesk";
+  src: url("../fonts/TGHaidoGrotesk-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TG Haido Grotesk";
   src: url("../fonts/TGHaidoGrotesk-Bold.woff2") format("woff2");
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TG Haido Grotesk";
+  src: url("../fonts/TGHaidoGrotesk-Semibold.woff2") format("woff2");
+  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }

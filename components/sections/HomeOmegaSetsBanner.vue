@@ -1,25 +1,25 @@
 <script setup lang="ts">
 type StaticBanner = {
-  image: string
-  mobileImage: string
-  period: string
-  title: string
-  description: string
-}
+  image: string;
+  mobileImage: string;
+  period: string;
+  title: string;
+  description: string;
+};
 
 const banner: StaticBanner = {
-  image: '/images/banners/omega-sets-august.jpg',
-  mobileImage: '/images/banners/omega-sets-august-mob.png',
-  period: '3–8 августа',
-  title: 'Супервыгода на наборы с Омега-3',
+  image: "/images/banners/omega-sets-august.jpg",
+  mobileImage: "/images/banners/omega-sets-august-mob.png",
+  period: "3–8 августа",
+  title: "Супервыгода на наборы с Омега-3",
   description:
-    'Омега-3 в усиленных комплексах направленной поддержки с аминобиотиками Daigo',
-}
+    "Омега-3 в усиленных комплексах направленной поддержки с аминобиотиками Daigo",
+};
 </script>
 
 <template>
   <NuxtLink
-    to="/articles/tri-formy-dvizheniya-pochemu-daigo-omega-3-sostavlyaet-s-aminobiotikami-edinuyu-sistemu"
+    to="/articles/tri-formy-dvizheniya-daigo-omega-3"
     class="omega-sets-banner-link"
     aria-label="Открыть статью: Три формы движения"
   >
@@ -28,44 +28,35 @@ const banner: StaticBanner = {
       aria-labelledby="omega-sets-banner-title"
     >
       <picture class="omega-sets-banner__picture">
-      <source
-        :srcset="banner.mobileImage"
-        media="(max-width: 767px)"
-      />
+        <source :srcset="banner.mobileImage" media="(max-width: 767px)" />
 
-      <img
-        :src="banner.image"
-        width="1312"
-        height="500"
-        alt=""
-        aria-hidden="true"
-        class="omega-sets-banner__image"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+        <img
+          :src="banner.image"
+          width="1312"
+          height="500"
+          alt=""
+          aria-hidden="true"
+          class="omega-sets-banner__image"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
       </picture>
 
-      <div
-        class="omega-sets-banner__shade"
-        aria-hidden="true"
-      />
+      <div class="omega-sets-banner__shade" aria-hidden="true" />
 
       <div class="omega-sets-banner__content">
-      <p class="omega-sets-banner__period">
-        {{ banner.period }}
-      </p>
+        <p class="omega-sets-banner__period">
+          {{ banner.period }}
+        </p>
 
-      <h1
-        id="omega-sets-banner-title"
-        class="omega-sets-banner__title"
-      >
-        {{ banner.title }}
-      </h1>
+        <h1 id="omega-sets-banner-title" class="omega-sets-banner__title">
+          {{ banner.title }}
+        </h1>
 
-      <p class="omega-sets-banner__description">
-        {{ banner.description }}
-      </p>
+        <p class="omega-sets-banner__description">
+          {{ banner.description }}
+        </p>
       </div>
     </section>
   </NuxtLink>

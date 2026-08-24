@@ -1,0 +1,9 @@
+node_modules
+.nuxt
+.output
+.git
+.gitlab-ci.yml
+Dockerfile
+docs
+*.log
+.env*

@@ -138,8 +138,7 @@ useHead(() => {
 })
 
 
-const PINNED_SLUG =
-  'kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota'
+const PINNED_SLUG = 'tri-formy-dvizheniya-daigo-omega-3'
 
 const displayArticles = computed(() => {
   const list = (articlesStore.articles ?? articlesStore.list ?? []) as any[]

@@ -20,7 +20,7 @@ const bundles = [
   {
     id: 102,
     name: 'Курсовой набор',
-    subtitle: 'Курс: 6 месяцев приема Daigo 5ml (18 коробок)',
+    subtitle: 'Курс: 6 месяцев приема Daigo 5 мл (18 коробок)',
     image: '/placeholder.svg?height=315&width=315',
     price: 268200,
     originalPrice: 335250,
@@ -40,7 +40,7 @@ const bundles = [
   {
     id: 104,
     name: 'Курсовой набор',
-    subtitle: 'Курс: 1 месяц приема Daigo 5ml (3 коробки)',
+    subtitle: 'Курс: 1 месяц приема Daigo 5 мл (3 коробки)',
     image: '/placeholder.svg?height=315&width=315',
     price: 44700,
     originalPrice: 55875,

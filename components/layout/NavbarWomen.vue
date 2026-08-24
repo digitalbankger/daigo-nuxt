@@ -67,7 +67,7 @@
 
             <!-- phone -->
             <a
-              href="tel:88005552043"
+              :href="companyContacts.mainPhone.href"
               data-ym="header-phone"
               class="mt-4 w-full inline-flex items-center gap-2 text-black hover:text-primary transition"
               @click="closeMenu"
@@ -78,7 +78,7 @@
                   fill="currentColor"
                 />
               </svg>
-              <span class="text-base font-medium">8 800 555 20 43</span>
+              <span class="text-base font-medium">{{ companyContacts.mainPhone.display }}</span>
             </a>
 
             <!-- quick actions -->
@@ -188,12 +188,15 @@
 </template>
 
 <script setup lang="ts">
+import { COMPANY_CONTACTS } from '~/constants/company'
 import { ref, watch, onBeforeUnmount, onMounted } from 'vue'
 import { navigateTo, useRouter } from '#imports'
 import { storeToRefs } from 'pinia'
 import CartBadge from '@/components/ui/CartBadge.vue'
 import { useAuthStore } from '@/stores/authStore'
 import { useUiStore } from '@/stores/ui'
+
+const companyContacts = COMPANY_CONTACTS
 
 const ui = useUiStore()
 const auth = useAuthStore()

@@ -4,6 +4,7 @@ import { useHead } from '@unhead/vue'
 import { computed, ref } from 'vue'
 import { useFeedback } from '~/composables/useFeedback'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
+import { COMPANY_CONTACTS } from '~/constants/company'
 
 definePageMeta({ layout: 'main' })
 
@@ -35,7 +36,7 @@ useHead({
         contactPoint: [
           {
             '@type': 'ContactPoint',
-            telephone: '+7-800-555-20-43',
+            telephone: COMPANY_CONTACTS.mainPhone.schema,
             contactType: 'customer service',
             areaServed: 'RU'
           }
@@ -43,8 +44,8 @@ useHead({
         address: {
           '@type': 'PostalAddress',
           addressLocality: 'Москва',
-          streetAddress: 'Большой Сухаревский переулок 21 стр.2',
-          postalCode: '101000',
+          streetAddress: COMPANY_CONTACTS.address,
+          postalCode: '127051',
           addressCountry: 'RU'
         }
       })
@@ -146,7 +147,7 @@ async function submitCallback() {
               <div class="text-sm mb-3 text-black/60">Головной офис компании Дайго</div>
             </div>
           </div>
-          <div class="text-sm">Большой сухаревский переулок 21 строение 2</div>
+          <div class="text-sm">{{ COMPANY_CONTACTS.address }}</div>
           <a
             href="https://yandex.ru/maps/?rtext=~55.770816,37.631017"
             target="_blank"
@@ -160,16 +161,16 @@ async function submitCallback() {
       <div class="flex flex-col md:flex-row justify-start gap-10 md:gap-24 lg:gap-32">
         <div class="flex flex-col gap-4 md:gap-5">
           <div class="text-xl sm:text-2xl lg:text-3xl font-medium mb-0 md:mb-2">Москва</div>
-          <div class="text-sm sm:text-base lg:text-xl font-normal md:font-medium">Большой сухаревский переулок 21 строение 2
+          <div class="text-sm sm:text-base lg:text-xl font-normal md:font-medium">{{ COMPANY_CONTACTS.address }}
           </div>
 
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/phone.svg" class="w-5 md:w-6"/>
-            <span>Телефон: 8 800 555 20 43</span>
+            <span>Телефон: {{ COMPANY_CONTACTS.mainPhone.display }}</span>
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/phone.svg" class="w-5 md:w-6"/>
-            <span>Телефон отдела кадров: 8 903 599 20 63</span>
+            <span>Телефон отдела кадров: {{ COMPANY_CONTACTS.hrPhone.display }}</span>
           </div>
           <div class="text-sm sm:text-sm lg:text-lg flex flex-row items-center gap-2">
             <img src="/icons/bi_mailbox.svg" class="w-5 md:w-6"/> 
@@ -303,7 +304,7 @@ async function submitCallback() {
       <div class="text-xl md:text-3xl font-medium mb-0 md:mt-4 md:-mb-6">Реквизиты</div>
       <ul class="text-sm md:text-xl flex flex-col gap-3 md:gap-2">
         <li class="">ООО «МЕТАБИОТИК»;</li>
-        <li class="">127051, г. Москва, вн. тер. г. муниципальный округ Мещанский, пер. Большой Сухаревский,  д. 21, стр. 2;</li>
+        <li class="">127051, г. Москва, вн. тер. г. муниципальный округ Мещанский, Большой Сухаревский переулок, д. 21, стр. 2;</li>
         <li class="">ИНН: 9718234724;</li>
         <li class="">ОГРН: 1237700627988 от 21.09.2023;</li>
         <li class="">Расчетный счет: 40702 810 8027 8000 6158 в АО "АЛЬФА-БАНК";</li>

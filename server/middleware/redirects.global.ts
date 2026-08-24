@@ -111,6 +111,14 @@ export default defineEventHandler((event) => {
   const url = getRequestURL(event)
   const pathname = decodeURI(url.pathname)
 
+  // Evolution: старый slug всегда ведём на новый SEO URL.
+  // Правило не зависит от MODE, чтобы не инвертировалось вместе с общей картой редиректов.
+  const evolutionPath = pathname.replace(/\/+$/, '')
+  if (evolutionPath === '/catalog/evolution-mg') {
+    const target = `/catalog/meta-napitok-daigo-evolution-mg10${url.search}`
+    return sendRedirect(event, target, 301)
+  }
+
   //      (не зависит от MODE, работает для /WD, /WD/, /wd, /wd/)
   // 0.1) /WD → /womens-day?utm_source=share&utm_campaign=080326&utm_content=landing
   const pNorm = pathname.replace(/\/+$/, '')

@@ -12,7 +12,7 @@ const categories: Category[] = [
   { id: 2, title: 'Кожа и волосы', image: '/images/categories/hair.png', slug: 'kozha-i-volosy' },
   { id: 3, title: 'Зубы и десны', image: '/images/categories/zuby.png', slug: 'zuby-i-desna' },
   { id: 4, title: 'Кости и мышцы', image: '/images/categories/kosti.png', slug: 'kosti-i-myshtsy' },
-  { id: 5, title: 'Нервная система и мозг', image: '/images/categories/brain.png', slug: 'mozg-i-nervnaya-sistema' },
+  { id: 5, title: 'Мозг и нервная система', image: '/images/categories/brain.png', slug: 'mozg-i-nervnaya-sistema' },
 ]
 
 const doctorsProgramUrl = 'https://res.daigo.ru'

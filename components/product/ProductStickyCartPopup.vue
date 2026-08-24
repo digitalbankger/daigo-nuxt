@@ -4,7 +4,7 @@ import type { Product } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
 
-const props = defineProps<{ product: Product; observeTarget?: string }>()
+const props = defineProps<{ product: Product; observeTarget?: string; variantId?: string }>()
 const cartStore = useCartStore()
 
 const isVisible = ref(false)
@@ -13,6 +13,7 @@ const adding = ref(false)
 
 const hasDiscount = computed(() => props.product.oldPrice && props.product.oldPrice > props.product.price)
 const productIdStr = computed(() => String(props.product.product_id))
+const variantIdStr = computed(() => String(props.variantId || ''))
 
 /** список товаров с предзаказом */
 const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
@@ -42,7 +43,11 @@ const coverImageUrl = computed<string | null>(() => {
 // Суммарное количество по String(id) — совместимо со стором и API
 const quantityInCart = computed(() =>
   cartStore.items
-    .filter(i => String(i.id) === productIdStr.value)
+    .filter(
+      i =>
+        String(i.id) === productIdStr.value &&
+        (!variantIdStr.value || String(i.variantId || '') === variantIdStr.value),
+    )
     .reduce((sum, i) => sum + i.quantity, 0)
 )
 
@@ -65,7 +70,8 @@ async function addToCartHandler() {
       price: props.product.price,
       oldPrice: props.product.oldPrice,
       quantity: 1,
-      image: coverImageUrl.value ?? ''
+      image: coverImageUrl.value ?? '',
+      variantId: props.variantId,
     })
   } catch (e) {
     console.warn('addToCart failed, syncing cart...', e)
@@ -79,7 +85,11 @@ async function incrementHandler() {
   if (adding.value) return
   adding.value = true
   try {
-    await cartStore.updateItem(productIdStr.value as unknown as any, (quantityInCart.value || 0) + 1)
+    await cartStore.updateItem(
+      productIdStr.value as unknown as any,
+      (quantityInCart.value || 0) + 1,
+      props.variantId,
+    )
   } catch (e) {
     console.warn('updateItem(+1) failed, syncing cart...', e)
     await cartStore.loadCart()
@@ -94,7 +104,8 @@ async function decrementHandler() {
   try {
     await cartStore.updateItem(
       productIdStr.value as unknown as any,
-      Math.max(0, (quantityInCart.value || 0) - 1)
+      Math.max(0, (quantityInCart.value || 0) - 1),
+      props.variantId,
     )
   } catch (e) {
     console.warn('updateItem(-1) failed, syncing cart...', e)

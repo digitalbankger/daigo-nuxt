@@ -33,7 +33,7 @@ const ytm = useYtm()
 const ctaText = computed(() => {
   if (props.promotion.link) return 'Перейти'
   if (props.isApplied) return 'Отменить акцию'
-  if (props.promotion.promo_type === 'code') return 'Промокоды временно недоступны'
+  if (props.promotion.promo_type === 'code') return props.promotion.coupon ? `Применить ${props.promotion.coupon}` : 'Применить промокод'
   if (props.promotion.promo_type === 'gift') return 'Получить подарок'
   return 'Смотреть предложение'
 })
@@ -67,9 +67,6 @@ async function onPrimaryClick() {
 
   if (await goLinkIfNeed()) return
   if (props.busy) return
-
-  // Временно отключено: промокоды не применяем из карточек акций.
-  if (props.promotion.promo_type === 'code') return
 
   ytm.promoClick([toYtmPromo()])
 
@@ -106,16 +103,12 @@ function onImgError(e: Event) {
 
       <p v-if="promotion.description" class="text-base text-black/70 mb-4" v-html="promotion.description" />
 
-      <!--
-        Временно отключено: не показываем и не копируем промокоды в карточках акций.
-        <div v-if="promotion.coupon" class="mb-4">
-          <div class="text-sm text-black/70">Промокод:</div>
-          <div class="mt-1 flex items-center gap-2">
-            <span class="font-medium text-base text-primary tracking-wide select-all">{{ promotion.coupon }}</span>
-            <button type="button" class="text-xs text-black/60 hover:text-black underline" @click="copyCoupon">Скопировать</button>
-          </div>
+      <div v-if="promotion.promo_type === 'code' && promotion.coupon" class="mb-4">
+        <div class="text-sm text-black/70">Промокод:</div>
+        <div class="mt-1 font-medium text-base text-primary tracking-wide select-all">
+          {{ promotion.coupon }}
         </div>
-      -->
+      </div>
 
       <div class="mt-auto">
         <Button
@@ -124,7 +117,7 @@ function onImgError(e: Event) {
           :class="isApplied
             ? '!border-red-500 !text-red-500 hover:!bg-red-50 focus:!ring-red-200'
             : ''"
-          :disabled="busy || promotion.promo_type === 'code'"
+          :disabled="busy"
           @click="onPrimaryClick"
         >
           {{ busy ? (promotion.link ? 'Переход…' : (isApplied ? 'Отмена…' : 'Применение…')) : ctaText }}

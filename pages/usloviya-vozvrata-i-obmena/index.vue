@@ -4,6 +4,20 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 definePageMeta({ layout: 'main' })
 
 
+useSeoMeta({
+  title: 'Условия возврата и обмена — Daigo',
+  description: 'Условия возврата и обмена товаров Daigo: порядок обращения, сроки и контактная информация.',
+  ogTitle: 'Условия возврата и обмена — Daigo',
+  ogDescription: 'Условия возврата и обмена товаров Daigo: порядок обращения, сроки и контактная информация.',
+  ogType: 'website',
+  ogUrl: 'https://daigo.ru/usloviya-vozvrata-i-obmena',
+})
+
+useHead({
+  link: [{ rel: 'canonical', href: 'https://daigo.ru/usloviya-vozvrata-i-obmena' }],
+})
+
+
 
 </script>
 
@@ -57,7 +71,7 @@ definePageMeta({ layout: 'main' })
 <br><br>
 Это позволит провести часть предварительной работы удаленно и сэкономить время на оформление документов.
 <br><br>
-Самостоятельно возврат товара можно осуществить по адресу: г. Москва, Большой Сухаревский переулок, д.21, строение 2, этаж 2. В будние дни с 09:00 до 18:00. 
+Самостоятельно возврат товара можно осуществить по адресу: г. Москва, Большой Сухаревский переулок, д. 21, стр. 2, этаж 2. В будние дни с 09:00 до 18:00. 
         </p>
       </div>
     </section>

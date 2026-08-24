@@ -1,5 +1,6 @@
 import { defineEventHandler, getRouterParam } from 'h3'
 import { ofetch } from 'ofetch'
+import { getEvolutionUpstreamSlug } from '~/constants/evolution'
 
 function toArray<T = any>(value: any): T[] {
   return Array.isArray(value) ? value : []
@@ -104,7 +105,8 @@ export default defineEventHandler(async (event) => {
     // @ts-ignore
     event.node.res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600')
 
-    const response = await ofetch(`${base}/v1/shop/reviews/${encodeURIComponent(String(slug))}`, {
+    const upstreamSlug = getEvolutionUpstreamSlug(slug)
+    const response = await ofetch(`${base}/v1/shop/reviews/${encodeURIComponent(upstreamSlug)}`, {
       retry: 1,
       timeout: 10000,
     })
