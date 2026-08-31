@@ -1,5 +1,7 @@
 <script setup lang="ts">
-definePageMeta({ layout: false })
+definePageMeta({
+  layout: 'daigo5ml',
+})
 
 const canonical = 'https://daigo.ru/catalog/5ml-test'
 
