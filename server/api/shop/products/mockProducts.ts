@@ -1,6 +1,6 @@
 export const mockProducts = [
   {
-    product_id: "evolution-mg-local",
+    product_id: "78b98d37-8283-406b-8b03-cce570ac4654",
     slug: "meta-napitok-daigo-evolution-mg10",
     title: "Метанапиток Daigo Evolution 10 + MG (12 банок)",
     subtitle: "Функциональная поддержка до и во время насыщенного дня",

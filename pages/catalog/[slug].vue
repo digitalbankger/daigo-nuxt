@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: "main" });
+definePageMeta({ layout: "main", key: (route) => route.fullPath });
 
 import { useProductStore } from "~/stores/productStore";
 import { useAuthStore } from "~/stores/authStore";
@@ -36,6 +36,7 @@ import type { BundleContentSection } from "~/types/product";
 import {
   findEvolutionVariant,
   getEvolutionPackSizeFromSlug,
+  isEvolutionProductId,
   isEvolutionProductSlug,
   presentEvolutionProduct,
 } from "~/constants/evolution";
@@ -247,6 +248,7 @@ const reviewHref = computed(() =>
 
 const activeEvolutionVariantId = computed(() => {
   if (!product.value || !isEvolutionProductSlug(route.params.slug)) return undefined;
+  if (isEvolutionProductId(product.value.product_id)) return undefined;
 
   return findEvolutionVariant(
     product.value.variants,
@@ -256,9 +258,11 @@ const activeEvolutionVariantId = computed(() => {
 
 const canUseStickyCart = computed(() => {
   if (!isEvolutionProductSlug(route.params.slug)) return true;
-  if (getEvolutionPackSizeFromSlug(route.params.slug) === 12) return true;
 
-  return Boolean(activeEvolutionVariantId.value && Number(product.value?.price || 0) > 0);
+  // В новой модели Evolution 1 банка и 12 банок — отдельные товары.
+  // Для sticky-cart достаточно реального product_id и цены; variant_id нужен
+  // только как legacy fallback для старой модели одного товара с variants.
+  return Boolean(product.value?.product_id && Number(product.value?.price || 0) > 0);
 });
 
 const isCertificate = computed(

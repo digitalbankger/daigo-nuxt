@@ -4,14 +4,60 @@ export const EVOLUTION_CANONICAL_SLUG = 'meta-napitok-daigo-evolution-mg10'
 export const EVOLUTION_SINGLE_SLUG = 'meta-napitok-daigo-evolution-mg10-1-banka'
 export const EVOLUTION_LEGACY_SLUG = 'evolution-mg'
 
+export const EVOLUTION_SINGLE_PRODUCT_ID = 'c715839e-2854-4929-9e4e-6061c93605a0'
+export const EVOLUTION_X12_PRODUCT_ID = '78b98d37-8283-406b-8b03-cce570ac4654'
+
 export const EVOLUTION_PACK_SIZES = [1, 12] as const
 export type EvolutionPackSize = (typeof EVOLUTION_PACK_SIZES)[number]
+
+export type EvolutionProductConfig = {
+  packSize: EvolutionPackSize
+  productId: string
+  slug: string
+  backendName: string
+  label: string
+}
+
+export const EVOLUTION_PRODUCTS: Record<EvolutionPackSize, EvolutionProductConfig> = {
+  1: {
+    packSize: 1,
+    productId: EVOLUTION_SINGLE_PRODUCT_ID,
+    slug: EVOLUTION_SINGLE_SLUG,
+    backendName: 'Evolution',
+    label: '1 банка',
+  },
+  12: {
+    packSize: 12,
+    productId: EVOLUTION_X12_PRODUCT_ID,
+    slug: EVOLUTION_CANONICAL_SLUG,
+    backendName: 'Evolution x12',
+    label: '12 банок',
+  },
+}
+
+export function getEvolutionProductConfig(packSize: EvolutionPackSize): EvolutionProductConfig {
+  return EVOLUTION_PRODUCTS[packSize]
+}
+
+export function findEvolutionProductConfig(value: unknown): EvolutionProductConfig | null {
+  const normalized = String(value || '').trim().toLowerCase()
+  if (!normalized) return null
+
+  return Object.values(EVOLUTION_PRODUCTS).find((item) =>
+    item.slug.toLowerCase() === normalized ||
+    item.productId.toLowerCase() === normalized,
+  ) || null
+}
 
 export function isEvolutionProductSlug(value: unknown): boolean {
   const slug = String(value || '').trim().toLowerCase()
   if (!slug) return false
 
-  return slug.includes('evolution')
+  return slug === EVOLUTION_LEGACY_SLUG || Boolean(findEvolutionProductConfig(slug))
+}
+
+export function isEvolutionProductId(value: unknown): boolean {
+  return Boolean(findEvolutionProductConfig(value))
 }
 
 export function getEvolutionPackSizeFromSlug(value: unknown): EvolutionPackSize {
@@ -20,8 +66,22 @@ export function getEvolutionPackSizeFromSlug(value: unknown): EvolutionPackSize 
     : 12
 }
 
+export function getEvolutionPackSizeFromProduct(product: Partial<Product> | null | undefined): EvolutionPackSize {
+  const byId = findEvolutionProductConfig(product?.product_id)
+  if (byId) return byId.packSize
+
+  const bySlug = findEvolutionProductConfig(product?.slug)
+  if (bySlug) return bySlug.packSize
+
+  return getEvolutionPackSizeFromSlug(product?.slug)
+}
+
 export function getEvolutionSlugForPackSize(packSize: EvolutionPackSize): string {
-  return packSize === 1 ? EVOLUTION_SINGLE_SLUG : EVOLUTION_CANONICAL_SLUG
+  return EVOLUTION_PRODUCTS[packSize].slug
+}
+
+export function getEvolutionProductIdForPackSize(packSize: EvolutionPackSize): string {
+  return EVOLUTION_PRODUCTS[packSize].productId
 }
 
 export function getEvolutionTitle(packSize: EvolutionPackSize): string {
@@ -59,6 +119,11 @@ function itemsPackSize(variant: ProductVariant): EvolutionPackSize | null {
   return null
 }
 
+/**
+ * Legacy fallback: раньше Evolution был одним товаром с variants.
+ * Оставляем распознавание на переходный период, но новые товары определяются
+ * по отдельным product_id + slug из EVOLUTION_PRODUCTS.
+ */
 export function getEvolutionVariantPackSize(variant: ProductVariant): EvolutionPackSize | null {
   return textPackSize(variant) ?? itemsPackSize(variant)
 }
@@ -74,8 +139,6 @@ export function findEvolutionVariant(
   const exact = list.find((variant) => getEvolutionVariantPackSize(variant) === packSize)
   if (exact) return exact
 
-  // Фолбэк для API, где label/title ещё не содержат количество:
-  // для двух вариантов дешёвый считаем 1 банкой, дорогой — 12 банками.
   if (list.length === 2) {
     const byPrice = [...list].sort(
       (left, right) => Number(left.price || 0) - Number(right.price || 0),
@@ -93,15 +156,44 @@ export function presentEvolutionProduct(
   if (!isEvolutionProductSlug(requestedSlug)) return product
 
   const packSize = getEvolutionPackSizeFromSlug(requestedSlug)
+  const config = getEvolutionProductConfig(packSize)
+  const productIdentity =
+    findEvolutionProductConfig(product.product_id) || findEvolutionProductConfig(product.slug)
+  const isNewSeparateProduct = String(product.product_id || '') === config.productId
+
+  // Если mock-контент от 12 банок используется как визуальный fallback для URL 1 банки,
+  // не разрешаем случайно купить другой товар. Реальный product_id известен, но цену
+  // ждём строго от карточки соответствующего товара Go API.
+  if (productIdentity && productIdentity.packSize !== packSize) {
+    return {
+      ...product,
+      product_id: config.productId,
+      slug: config.slug,
+      title: getEvolutionTitle(packSize),
+      price: 0,
+      originalPrice: undefined,
+      oldPrice: undefined,
+    }
+  }
+
+  // Новая модель: 1 банка и 12 банок — два самостоятельных товара в БД.
+  // Цена/product_id приходят непосредственно из карточки соответствующего товара.
+  if (isNewSeparateProduct) {
+    return {
+      ...product,
+      slug: config.slug,
+      title: getEvolutionTitle(packSize),
+    }
+  }
+
+  // Переходный fallback для старого API, где Evolution был одним товаром с variants.
   const variant = findEvolutionVariant(product.variants, packSize)
   const variantPrice = Number(variant?.price || 0)
   const variantOldPrice = Number(variant?.originalPrice || variant?.oldPrice || 0)
 
-  const fallbackPrice = packSize === 12 ? Number(product.price || 0) : 0
+  const fallbackPrice = Number(product.price || 0)
   const currentPrice = variantPrice > 0 ? variantPrice : fallbackPrice
-  const fallbackOldPrice = packSize === 12
-    ? Number(product.originalPrice || product.oldPrice || 0)
-    : 0
+  const fallbackOldPrice = Number(product.originalPrice || product.oldPrice || 0)
   const oldPrice = variantOldPrice > currentPrice
     ? variantOldPrice
     : fallbackOldPrice > currentPrice
@@ -110,7 +202,7 @@ export function presentEvolutionProduct(
 
   return {
     ...product,
-    slug: getEvolutionSlugForPackSize(packSize),
+    slug: config.slug,
     title: getEvolutionTitle(packSize),
     price: currentPrice,
     originalPrice: oldPrice,
@@ -118,6 +210,9 @@ export function presentEvolutionProduct(
   }
 }
 
+/**
+ * Отзывы Evolution оставляем общими для обеих упаковок, как было согласовано ранее.
+ */
 export function getEvolutionUpstreamSlug(value: unknown): string {
   return isEvolutionProductSlug(value) ? EVOLUTION_LEGACY_SLUG : String(value || '')
 }

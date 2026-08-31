@@ -8,6 +8,7 @@ import UiIcon from '~/components/ui/UiIcon.vue'
 import { useCheckoutStore } from '~/stores/checkoutStore'
 import { useCartOrderStore } from '~/stores/cartOrderStore'
 import { useYtm } from '@/composables/useYtm'
+import { isEvolutionSingleOnlyCart } from '~/utils/evolutionCart'
 
 definePageMeta({ layout: 'main', ssr: false })
 useSeoMeta({
@@ -24,11 +25,16 @@ const store = useCheckoutStore()
 if (!cart.state.items.length) {
   await cart.loadCart()
 }
-await store.loadOptions()
 
-// Если корзина пуста — возвращаемся в корзину.
-if (process.client && !cart.state.items.length) {
+// Если корзина пуста или в ней осталась только одиночная банка Evolution —
+// возвращаемся в корзину. Оформлять такую корзину нельзя по условиям доставки.
+if (
+  process.client &&
+  (!cart.state.items.length || isEvolutionSingleOnlyCart(cart.state.items))
+) {
   await navigateTo('/cart')
+} else {
+  await store.loadOptions()
 }
 
 // begin_checkout — при заходе на страницу

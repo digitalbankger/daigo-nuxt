@@ -148,7 +148,14 @@ function mergeProductWithBackendCard(baseProduct: Product | null, backendCard: P
   if (backendCard.slug) merged.slug = backendCard.slug
   if (backendTitle) merged.title = backendTitle
 
-  const fallbackOldPrice = normalizeNumber(merged.oldPrice ?? merged.originalPrice)
+  const backendProductId = String(backendCard.product_id ?? '').trim()
+  const baseProductId = String(baseProduct?.product_id ?? '').trim()
+  const isDifferentBackendProduct = Boolean(
+    backendProductId && baseProductId && backendProductId !== baseProductId,
+  )
+  const fallbackOldPrice = isDifferentBackendProduct
+    ? undefined
+    : normalizeNumber(merged.oldPrice ?? merged.originalPrice)
 
   if (backendPrice !== undefined) {
     merged.price = backendPrice

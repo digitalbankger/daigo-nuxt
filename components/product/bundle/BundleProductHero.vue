@@ -11,13 +11,10 @@ import ProductGallery from "~/components/product/ProductGallery.vue";
 import { useCartStore } from "~/stores/cartStore";
 import { isOmegaBundleSlug, OMEGA_BUNDLE_UI } from "~/constants/omegaBundles";
 
-const props = withDefaults(defineProps<{
+const props = defineProps<{
   product: Product;
   name?: string;
-  reviewHref?: string;
-}>(), {
-  reviewHref: "/otzyvy",
-});
+}>();
 const cartStore = useCartStore();
 
 const variants = computed(() =>
@@ -296,7 +293,7 @@ onMounted(ensureCartLoadedOnce);
           </NuxtLink>
 
           <NuxtLink
-            :to="props.reviewHref"
+            to="/otzyvy"
             class="text-sm xl:text-base text-primary border border-primary rounded-lg sm:rounded-xl px-2 sm:px-3 xl:px-4 py-2 sm:py-3 xl:py-2 hover:bg-hoverbtn hover:border-hoverbtn transition flex flex-row items-center gap-1 sm:gap-2"
           >
             <img src="/icons/star-gold.svg" alt="fire" />
@@ -487,12 +484,13 @@ onMounted(ensureCartLoadedOnce);
               ＋
             </button>
           </div>
+
         </div>
 
         <div class="mt-3 grid gap-3 sm:grid-cols-2">
           <ProductConsultationCard
-            :product-id="productId"
-            :product-title="props.product.title"
+            :product-id="product.product_id"
+            :product-title="product.title"
           />
           <!-- Второй слот оставлен под будущий баннер с тестом. -->
         </div>

@@ -1,0 +1,7 @@
+:root{
+--shadow-card:0px 1px 5px 0px rgba(0,0,0,.08);
+--shadow-hairline:inset 0 0 0 1px rgba(0,0,0,.15);
+--divider-color:rgba(0,0,0,.15);
+--glass-blur:blur(30px); /* @kind other */
+--glass-fill:rgba(255,255,255,.4);
+}

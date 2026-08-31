@@ -59,6 +59,18 @@ export interface ArticleSideNote {
   icon?: string;
 }
 
+export interface ArticleSectionBanner {
+  title: string;
+  image: string;
+  products: ArticleProductMini[];
+  /** nested — карточки товаров лежат прямо на баннере (золотая кнопка); separate — баннер сам по себе, карточки отдельным рядом ниже (синяя кнопка) */
+  style?: "nested" | "separate";
+}
+
+export interface ArticleSideProduct extends ArticleProductMini {
+  subtitle?: string;
+}
+
 export interface ArticleSection {
   id: string;
   heading: string;
@@ -66,6 +78,10 @@ export interface ArticleSection {
   image?: { src: string; alt?: string };
   sideNote?: ArticleSideNote;
   infographic?: { src: string; alt?: string };
+  /** промо-баннер с товарами, показывается под секцией на всю ширину (лонгриды типа "longevity") */
+  banner?: ArticleSectionBanner;
+  /** карточка одного товара в сайдбаре секции (вместо sideNote) */
+  sideProduct?: ArticleSideProduct;
 }
 
 export interface ArticleListItem {
@@ -107,7 +123,7 @@ export interface ArticleDetail extends ArticleListItem {
   productsIds?: string[];
 
   // альтернативная (авторская, не-wysiwyg) вёрстка статьи — см. ArticleDetailTemplate.vue
-  layout?: "default" | "summer" | "omega3-system";
+  layout?: "default" | "summer" | "omega3-system" | "longevity";
   sections?: ArticleSection[];
   outro?: { heading: string; html: string };
   recommendedProducts?: ArticleProductMini[];

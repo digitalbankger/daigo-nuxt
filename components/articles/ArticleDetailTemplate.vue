@@ -8,6 +8,7 @@ import AccordionItem from "~/components/ui/AccordionItem.vue";
 import PopularArticles from "~/components/articles/PopularArticles.vue";
 import ProductsCarousel from "~/components/articles/ProductsCarousel.vue";
 import OmegaSystemArticle from "~/components/articles/omega/OmegaSystemArticle.vue";
+import LongevityArticle from "~/components/articles/longevity/LongevityArticle.vue";
 
 import { useArticlesStore } from "~/stores/articlesStore";
 import type { ArticleDetail } from "~/types/articles";
@@ -23,6 +24,9 @@ const isSummerArticle = computed(
 );
 const isOmegaArticle = computed(
   () => article.value?.layout === "omega3-system",
+);
+const isLongevityArticle = computed(
+  () => article.value?.layout === "longevity",
 );
 
 const articles = useArticlesStore();
@@ -354,6 +358,13 @@ const summerWideHtml = computed(() =>
 
       <OmegaSystemArticle
         v-if="isOmegaArticle && article"
+        :article="article"
+        :slug="slug"
+        class="mt-6 md:mt-8"
+      />
+
+      <LongevityArticle
+        v-else-if="isLongevityArticle && article"
         :article="article"
         :slug="slug"
         class="mt-6 md:mt-8"
@@ -747,9 +758,9 @@ const summerWideHtml = computed(() =>
             </section>
 
             <!-- Комментарии -->
-            <section v-if="!isSummerArticle" id="comments" class="mt-12">
+            <!-- <section v-if="!isSummerArticle" id="comments" class="mt-12">
               <ClientComments :slug="slug" :can-post="false" />
-            </section>
+            </section> -->
           </main>
 
           <!-- sidebar -->

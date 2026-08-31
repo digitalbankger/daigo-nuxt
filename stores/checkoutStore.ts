@@ -9,6 +9,10 @@ import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '@/composables/useYtm'
 import { getLastUtm } from '@/composables/useUtmTracker'
 import { normalizeBirthDay } from '~/utils/birthDay'
+import {
+  EVOLUTION_SINGLE_DELIVERY_MESSAGE,
+  isEvolutionSingleOnlyCart,
+} from '~/utils/evolutionCart'
 
 const PICKUP_CITY = 'Москва'
 
@@ -831,6 +835,11 @@ export const useCheckoutStore = defineStore('checkout', () => {
       if (!auth.userId) {
         lastError.value = 'Необходима авторизация'
         throw new Error('AUTH_REQUIRED')
+      }
+
+      if (isEvolutionSingleOnlyCart(cart.items || [])) {
+        lastError.value = EVOLUTION_SINGLE_DELIVERY_MESSAGE
+        throw new Error('EVOLUTION_SINGLE_DELIVERY_RESTRICTION')
       }
 
       if (!validate()) {

@@ -202,12 +202,14 @@ export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig(event)
   const apiBase = String(config.public?.daigoApiBase || 'https://api.daigo.ru').replace(/\/+$/, '')
   const requestedSlug = String(slug).trim()
-  const isEvolutionAlias =
-    requestedSlug === EVOLUTION_CANONICAL_SLUG ||
-    requestedSlug === EVOLUTION_SINGLE_SLUG
-  const upstreamSlugs = isEvolutionAlias
-    ? [EVOLUTION_CANONICAL_SLUG, EVOLUTION_LEGACY_SLUG]
-    : [requestedSlug]
+  const isEvolutionCanonical = requestedSlug === EVOLUTION_CANONICAL_SLUG
+  const isEvolutionSingle = requestedSlug === EVOLUTION_SINGLE_SLUG
+  const isEvolutionAlias = isEvolutionCanonical || isEvolutionSingle
+  const upstreamSlugs = isEvolutionSingle
+    ? [EVOLUTION_SINGLE_SLUG]
+    : isEvolutionCanonical
+      ? [EVOLUTION_CANONICAL_SLUG, EVOLUTION_LEGACY_SLUG]
+      : [requestedSlug]
 
   event.node.res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=600')
 
@@ -227,8 +229,8 @@ export default defineEventHandler(async (event) => {
 
       const adapted = adaptToProductCard(apiResp)
 
-      // Evolution может иметь отдельные frontend URL для 1 и 12 банок,
-      // при этом Go API по-прежнему хранит один товар и его variants.
+      // Для Evolution frontend slug должен совпадать с реально запрошенным товаром.
+      // В новой модели 1 банка и 12 банок — отдельные product_id в Go API.
       if (isEvolutionAlias) {
         adapted.slug = requestedSlug
       }

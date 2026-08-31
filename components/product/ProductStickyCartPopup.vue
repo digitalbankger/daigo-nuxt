@@ -3,8 +3,13 @@ import { onMounted, onBeforeUnmount, ref, computed } from 'vue'
 import type { Product } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
+import {
+  EVOLUTION_SINGLE_DELIVERY_MESSAGE,
+  canAddEvolutionSingle,
+  isEvolutionSingleProduct,
+} from '~/utils/evolutionCart'
 
-const props = defineProps<{ product: Product; observeTarget?: string; variantId?: string }>()
+const props = defineProps<{ product: Product; observeTarget?: string }>()
 const cartStore = useCartStore()
 
 const isVisible = ref(false)
@@ -13,10 +18,14 @@ const adding = ref(false)
 
 const hasDiscount = computed(() => props.product.oldPrice && props.product.oldPrice > props.product.price)
 const productIdStr = computed(() => String(props.product.product_id))
-const variantIdStr = computed(() => String(props.variantId || ''))
+const isEvolutionSingle = computed(() => isEvolutionSingleProduct(props.product))
+const evolutionSingleBlocked = computed(() =>
+  isEvolutionSingle.value && !canAddEvolutionSingle(cartStore.items),
+)
+const evolutionSingleDeliveryMessage = EVOLUTION_SINGLE_DELIVERY_MESSAGE
 
 /** список товаров с предзаказом */
-const PREORDER_IDS = new Set<string>(['f5d348fc-bc07-4936-9f1e-0521dd6fc712'])
+const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
 
 const truncatedTitle = computed(() => {
@@ -43,11 +52,7 @@ const coverImageUrl = computed<string | null>(() => {
 // Суммарное количество по String(id) — совместимо со стором и API
 const quantityInCart = computed(() =>
   cartStore.items
-    .filter(
-      i =>
-        String(i.id) === productIdStr.value &&
-        (!variantIdStr.value || String(i.variantId || '') === variantIdStr.value),
-    )
+    .filter(i => String(i.id) === productIdStr.value)
     .reduce((sum, i) => sum + i.quantity, 0)
 )
 
@@ -63,6 +68,8 @@ async function addToCartHandler() {
   adding.value = true
   try {
     await ensureCartLoadedOnce()
+    if (evolutionSingleBlocked.value) return
+
     await cartStore.addToCart({
       id: productIdStr.value as unknown as any, // строковый UUID
       title: props.product.title,
@@ -70,8 +77,7 @@ async function addToCartHandler() {
       price: props.product.price,
       oldPrice: props.product.oldPrice,
       quantity: 1,
-      image: coverImageUrl.value ?? '',
-      variantId: props.variantId,
+      image: coverImageUrl.value ?? ''
     })
   } catch (e) {
     console.warn('addToCart failed, syncing cart...', e)
@@ -82,14 +88,10 @@ async function addToCartHandler() {
 }
 
 async function incrementHandler() {
-  if (adding.value) return
+  if (adding.value || evolutionSingleBlocked.value) return
   adding.value = true
   try {
-    await cartStore.updateItem(
-      productIdStr.value as unknown as any,
-      (quantityInCart.value || 0) + 1,
-      props.variantId,
-    )
+    await cartStore.updateItem(productIdStr.value as unknown as any, (quantityInCart.value || 0) + 1)
   } catch (e) {
     console.warn('updateItem(+1) failed, syncing cart...', e)
     await cartStore.loadCart()
@@ -104,8 +106,7 @@ async function decrementHandler() {
   try {
     await cartStore.updateItem(
       productIdStr.value as unknown as any,
-      Math.max(0, (quantityInCart.value || 0) - 1),
-      props.variantId,
+      Math.max(0, (quantityInCart.value || 0) - 1)
     )
   } catch (e) {
     console.warn('updateItem(-1) failed, syncing cart...', e)
@@ -215,18 +216,31 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      <button
+      <div
         v-else-if="quantityInCart === 0"
-        type="button"
-        :disabled="adding"
-        @click="addToCartHandler"
-        class="shrink-0 inline-flex items-center gap-2 px-4 md:px-5 h-10 md:h-12
-               rounded-lg sm:rounded-lg bg-primary text-white text-sm md:text-base
-               hover:opacity-90 transition focus:outline-none focus:ring-none disabled:opacity-60"
+        class="group/evolution-sticky relative shrink-0"
       >
-        <svg width="20" height="20" viewBox="0 0 32 32" class="fill-current"><path d="M0 5c0-.265.105-.52.293-.707C0.48 4.105.735 4 1 4h3c.223 0 .44.074.615.212.176.137.3.33.354.546L5.78 8H29c.152 0 .302.035.438.101.137.067.256.163.35.283.093.119.158.259.19.407.031.149.029.302-.007.45L26.97 21.242A1 1 0 0 1 26 22H8a1 1 0 0 1-.97-.758L3.22 6H1a1 1 0 0 1-1-1Zm6.28 5 2.5 10h16.44l2.5-10H6.28ZM10 26a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm14 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
-        В корзину
-      </button>
+        <button
+          type="button"
+          :disabled="adding || evolutionSingleBlocked"
+          @click="addToCartHandler"
+          class="inline-flex items-center gap-2 px-4 md:px-5 h-10 md:h-12
+                 rounded-lg sm:rounded-lg bg-primary text-white text-sm md:text-base
+                 hover:opacity-90 transition focus:outline-none focus:ring-none disabled:cursor-not-allowed disabled:opacity-45"
+        >
+          <svg width="20" height="20" viewBox="0 0 32 32" class="fill-current"><path d="M0 5c0-.265.105-.52.293-.707C0.48 4.105.735 4 1 4h3c.223 0 .44.074.615.212.176.137.3.33.354.546L5.78 8H29c.152 0 .302.035.438.101.137.067.256.163.35.283.093.119.158.259.19.407.031.149.029.302-.007.45L26.97 21.242A1 1 0 0 1 26 22H8a1 1 0 0 1-.97-.758L3.22 6H1a1 1 0 0 1-1-1Zm6.28 5 2.5 10h16.44l2.5-10H6.28ZM10 26a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm14 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"/></svg>
+          В корзину
+        </button>
+
+        <div
+          v-if="evolutionSingleBlocked"
+          role="tooltip"
+          class="pointer-events-none absolute bottom-[calc(100%+8px)] right-0 z-40 w-[260px] rounded-lg bg-black px-3 py-2 text-center text-xs leading-snug text-white opacity-0 shadow-lg transition-opacity group-hover/evolution-sticky:opacity-100 group-focus-within/evolution-sticky:opacity-100"
+        >
+          {{ evolutionSingleDeliveryMessage }}
+          <span class="absolute right-8 top-full h-0 w-0 border-x-[5px] border-t-[5px] border-x-transparent border-t-black" />
+        </div>
+      </div>
 
       <!-- Если есть — компактный + / − -->
       <div class="flex flex-col gap-2"
@@ -237,7 +251,7 @@ onBeforeUnmount(() => {
         >
           <button type="button" :disabled="adding" @click="decrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 disabled:opacity-60" aria-label="Уменьшить количество">−</button>
           <span class="min-w-[2rem] text-center">{{ quantityInCart }} шт</span>
-          <button type="button" :disabled="adding" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 disabled:opacity-60" aria-label="Увеличить количество">＋</button>
+          <button type="button" :disabled="adding || evolutionSingleBlocked" :title="evolutionSingleBlocked ? evolutionSingleDeliveryMessage : undefined" @click="incrementHandler" class="w-8 h-8 flex items-center justify-center rounded-full bg-white/20 disabled:cursor-not-allowed disabled:opacity-40" aria-label="Увеличить количество">＋</button>
         </div>
       </div>
       </div>

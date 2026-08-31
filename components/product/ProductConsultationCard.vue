@@ -4,12 +4,14 @@ import UiInput from "~/components/ui/UiInput.vue";
 import BaseCheckbox from "~/components/ui/BaseCheckbox.vue";
 import expertImage from "~/assets/images/consultation/expert-reference.png";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
+import { useAnalytics } from "~/composables/useAnalytics";
 
 const props = defineProps<{
   productId: string | number;
   productTitle?: string;
 }>();
 
+const analytics = useAnalytics();
 const isOpen = ref(false);
 const isSubmitting = ref(false);
 const isSuccess = ref(false);
@@ -125,6 +127,12 @@ async function submit() {
       },
     });
 
+    analytics.reach("product_consultation_submit", {
+      form: "product_consultation",
+      product_id: normalizedProductId.value,
+      ...(props.productTitle ? { product_title: props.productTitle } : {}),
+    });
+
     isSuccess.value = true;
     form.name = "";
     form.phone = "";
@@ -228,12 +236,12 @@ onBeforeUnmount(() => {
                 <div class="mt-5 space-y-2 text-xs text-black/60 sm:text-[13px]">
                   <div class="flex items-center gap-2">
                     <span class="flex size-5 items-center justify-center rounded-full bg-[#EEF4FF] text-[11px]">◷</span>
-                    <span>Консультирование: по будням с 9:30 до 17:30</span>
+                    <span>Консультирование: по будням с 9:00 до 18:00</span>
                   </div>
-                  <div class="flex items-center gap-2">
+                  <!-- <div class="flex items-center gap-2">
                     <span class="flex size-5 items-center justify-center rounded-full bg-[#EEF4FF] text-[11px]">▢</span>
                     <span>Продолжительность: около 15 минут</span>
-                  </div>
+                  </div> -->
                 </div>
 
                 <form class="mt-5 space-y-3" @submit.prevent="submit">
@@ -254,7 +262,7 @@ onBeforeUnmount(() => {
                     name="consultation_phone"
                     type="tel"
                     inputmode="tel"
-                    mask="international"
+                    mask="ru-phone"
                     autocomplete="tel"
                     placeholder="+7 ___ ___-__-__"
                     background="bg-white"

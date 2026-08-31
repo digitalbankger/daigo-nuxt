@@ -1932,7 +1932,7 @@ export default defineEventHandler((event) => {
             </div>
             <div class="flex justify-between">
               <span>Витамин B3</span>
-              <span>662,5 2 нг</span>
+              <span>18 мг</span>
             </div>
             <div class="flex justify-between">
               <span>Нервоновая кислота (омега 9)</span>
@@ -2125,7 +2125,7 @@ export default defineEventHandler((event) => {
             </div>
             <div class="flex justify-between">
               <span>Бор</span>
-              <span>662,5 нг</span>
+              <span>0,662 мг</span>
             </div>
             <div class="flex justify-between">
               <span>Марганец</span>
@@ -2133,7 +2133,7 @@ export default defineEventHandler((event) => {
             </div>
             <div class="flex justify-between">
               <span>Хром</span>
-              <span>50 нг</span>
+              <span>0,05 мг</span>
             </div>
           </div>
 
@@ -2323,11 +2323,11 @@ export default defineEventHandler((event) => {
             </div>
             <div class="flex justify-between">
               <span>Витамин A</span>
-              <span>910 нг</span>
+              <span>0,9 мг</span>
             </div>
             <div class="flex justify-between">
               <span>Витамин H</span>
-              <span>50 нг</span>
+              <span>0,05 мг</span>
             </div>
           </div>
 
@@ -3638,7 +3638,7 @@ export default defineEventHandler((event) => {
           <p class="font-medium">Tamotsu</p>
           <p>Экстракт из морского гребешка, коэнзим Q10, жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), соли кальция (агент антислеживающий)</p>
           <p class="font-medium">Daigo Brainy</p>
-          <p class=""Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.
+          <p class=""Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 0,662 мг; Марганец 2 мг; Хром 0,05 мг.
 
           </p>
         `,
@@ -4049,7 +4049,7 @@ export default defineEventHandler((event) => {
         imagePosition: "left",
         content: `
           <p class="font-medium">Daigo Jointic</p>
-          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.</p>
+          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 0,662 мг; Марганец 2 мг; Хром 0,05 мг.</p>
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p>Карбонат кальция, вода, глицерин, морская соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
           <p class="font-medium">Daigo шампунь</p>
@@ -4877,7 +4877,7 @@ export default defineEventHandler((event) => {
           <p>Состав аминопептидобиотика «Дермик» Chlorella Peptid IPH 160 мг; 
 L-глутамин 60 мг; L-изолейцин 60 мг; L-лейцин 60 мг; L-аргинин 60 мг; 
 Пектиназа 20 000 МЕ; Альфа-липоевая кислота 90 мг; Цинк 15 мг; 
-Ниацинамид 50 мг;  Витамин В5 9,2 мг;  Витамин А 910 нг; Витамин Н 50 нг.</p>
+Ниацинамид 50 мг;  Витамин В5 9,2 мг;  Витамин А 0,9 мг; Витамин Н 0,05 мг.</p>
           <p class="font-medium">Зубная паста Daigo dent</p>
           <p class="">Карбонат кальция, вода, глицерин, морская соль с острова Идзуосимо, сорбитол, целлюлозная камедь, ксилит, экстракт брожения 16 видов молочнокислых бактерий, молочная кислота, корень солодки.</p>
         `,
@@ -5083,7 +5083,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         content: `
           <p class="font-medium">Daigo Brainy</p>
           <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг;  
-L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг;  Хром 50 нг.</p>
+L-лейцин 52,5 мг;  L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 0,662 мг; Марганец 2 мг;  Хром 0,05 мг.</p>
           <p class="font-medium">Tamotsu</p>
           <p class="">Жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий), коэнзим Q10, экстракт
 из морского гребешка.</p>
@@ -5586,7 +5586,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
             </div>
             <div class="flex justify-between">
               <span>Витамин B3</span>
-              <span>662,5 2 нг</span>
+              <span>18 мг</span>
             </div>
             <div class="flex justify-between">
               <span>Нервоновая кислота (омега 9)</span>
@@ -5872,7 +5872,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Jointic</p>
-        <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
+        <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 0,662 мг; Марганец - 2 мг; Хром - 0,05 мг.</p>
         
         `,
         image: "/media-s3/products/daigo-10/sostav.png",
@@ -6030,7 +6030,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Dermic</p>
-        <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 910 нг, Витамин Н — 50 нг.</p>
+        <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 0,9 мг, Витамин Н — 0,05 мг.</p>
         <p class="font-medium">Daigo Shampoo</p>
         <p>Вода, кокамидопропилбетаин, ТЕА-кокоил глутамат, кокамид ДЭА, натрия лауроил метиламинопропионат, пентиленгликоль, ПЭГ-150 дистеарат, дипропиленгликоль, ферментированный экстракт молочнокислых бактерий, экстракт ферментированного риса, экстракт цветков Adonis Palaestina, гидролизованный кератин, масло семян подсолнечника, глицерил глюкозид, бетаин, экстракт солодки гладкой, масло лаванды, масло листьев эвкалипта шаровидного, масло апельсина, каприлилгликоль, глицерин, поликвартениум-10, аргинин, бутиленгликоль, феноксиэтанол.</p>
         
@@ -6231,9 +6231,9 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
           Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
           <p class="font-medium">Daigo Jointic</p>
-          <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
+          <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 0,662 мг; Марганец - 2 мг; Хром - 0,05 мг.</p>
           <p class="font-medium">Daigo Brainy</p>
-          <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 662,5 2 нг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 нг.</p>
+          <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 18 мг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 мг.</p>
         `,
         image: "/media-s3/products/jointic/effect.png",
       },
@@ -6410,7 +6410,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Brainy</p>
-        <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 662,5 2 нг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 нг.</p>
+        <p>Chlorella Peptid IPH - 100 мг; L-глутамин - 37,5 мг, L-изолейцин - 37,5 мг, L-лейцин 37,5 мг, L-аргинин - 37,5 мг, Целлюлаза - 20 000 МЕ, Диметиламиноэтанол - 100 мг. Витамн В14 - 20 мг, Витамин В3 - 18 мг, Нервоновая кислота (омега 9) - 10 мг, Витамин В1 - 1,6 мг, Витамин В6 - 1,65 мг.</p>
         
         `,
         image: "/media-s3/products/daigo-5/instructions.png",
@@ -6591,7 +6591,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Jointic</p>
-        <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 662,5 нг; Марганец - 2 мг; Хром - 50 нг.</p>
+        <p>Chlorella Peptid IPH - 140 мг; L-глутамин - 52,5 мг; L-изолейцин - 52,5 мг; L-лейцин - 52,5 мг; L-аргинин - 52,5 мг; Пальмитоилэтаноламид - 325 мг; Липолитические ферменты (липазы) - 20 000 МЕ; Витамин С - 50 мг; Бор - 0,662 мг; Марганец - 2 мг; Хром - 0,05 мг.</p>
         
         `,
         image: "/media-s3/products/daigo-5/instructions.png",
@@ -6772,7 +6772,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
           <p>Жидкость в саше-пакетиках по 10 мл.
 Вода, метаболиты 16 штаммов молочнокислых бактерий рода Lactobacillus: L. curvatus (BSC 001), L. curvatus (BSC 002), L. casei (BSC 003), L. casei (BSC 004), L. acidophilus (BSC 005), L. acidophilus (BSC 006), L. plantarum (BSC 007), L. plantarum (BSC 008), L. plantarum (BSC 009), L. fermentum (BSC 010), L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis (BSC 014), L. rhamnosus (BSC 015), L. rhamnosus (BSC 016); регуляторы кислотности: молочная кислота и лимонная кислота; витамин K2.</p>
         <p class="font-medium">Daigo Dermic</p>
-        <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 910 нг, Витамин Н — 50 нг.</p>
+        <p>Chlorella Peptid IPH — 160 мг, L-глутамин — 60 мг, L-изолейцин — 60 мг, L-лейцин — 60 мг, L-аргинин — 60 мг, Пектиназа — 20 000 МЕ, Альфа-липоевая кислота — 90 мг, Цинк — 15 мг, Ниацинамид — 50 мг, Витамин В5 — 9,2 мг, Витамин А — 0,9 мг, Витамин Н — 0,05 мг.</p>
         
         `,
         image: "/media-s3/products/daigo-5/instructions.png",
@@ -6961,7 +6961,7 @@ L. salivarius (BSC 011), L. salivarius (BSC 012), L. brevis (BSC 013), L. brevis
         imagePosition: "left",
         content: `
           <p class="font-medium">Daigo Jointic</p>
-          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 662,5 нг; Марганец 2 мг; Хром 50 нг.</p>
+          <p>Chlorella Peptid IPH 140 мг; L-глутамин 52,5 мг; L-изолейцин 52,5 мг; L-лейцин 52,5 мг; L-аргинин 52,5 мг; Пальмитоилэтаноламид 325 мг; Липолитические ферменты (липазы) 20 000 МЕ; Витамин С 50 мг; Бор 0,662 мг; Марганец 2 мг; Хром 0,05 мг.</p>
            <p class="font-medium">Tamotsu</p>
           <p>Жирные кислоты (миристиновая, олеиновая, пальмитиновая, стеариновая и их смеси), cоли кальция (агент антислеживающий), коэнзим Q10, экстракт
 из морского гребешка.</p>

@@ -6,6 +6,12 @@ import { cartService } from "~/services/cartService";
 import { useAnalytics } from "~/composables/useAnalytics";
 import { useYtm } from "@/composables/useYtm";
 import { getCouponApplyMessage, isCouponApplySuccess } from "@/utils/coupon";
+import {
+  EVOLUTION_SINGLE_DELIVERY_MESSAGE,
+  EVOLUTION_SINGLE_PRODUCT_ID,
+  canAddEvolutionSingle,
+  isEvolutionSingleOnlyCart,
+} from "~/utils/evolutionCart";
 
 export interface CartItem {
   id: string | number;
@@ -359,6 +365,16 @@ export const useCartStore = defineStore("cart", () => {
 
   /** Добавление товара (оптимистично) */
   async function addToCart(item: CartItem) {
+    if (String(item.id) === EVOLUTION_SINGLE_PRODUCT_ID) {
+      if (!isLoaded.value) {
+        await loadCart();
+      }
+
+      if (!canAddEvolutionSingle(items.value)) {
+        throw new Error(EVOLUTION_SINGLE_DELIVERY_MESSAGE);
+      }
+    }
+
     const existing = items.value.find(
       (existingItem) =>
         String(existingItem.id) === String(item.id) &&
@@ -417,6 +433,10 @@ export const useCartStore = defineStore("cart", () => {
       return;
     }
 
+    if (String(id) === EVOLUTION_SINGLE_PRODUCT_ID && !isLoaded.value) {
+      await loadCart();
+    }
+
     // запомним предыдущее количество ДО локального изменения
     const before = items.value.find(
       (i) =>
@@ -424,6 +444,14 @@ export const useCartStore = defineStore("cart", () => {
         String(i.variantId || "") === String(variantId || ""),
     );
     const beforeQty = Number(before?.quantity ?? 0);
+
+    if (
+      String(id) === EVOLUTION_SINGLE_PRODUCT_ID &&
+      quantity > beforeQty &&
+      !canAddEvolutionSingle(items.value)
+    ) {
+      throw new Error(EVOLUTION_SINGLE_DELIVERY_MESSAGE);
+    }
 
     // локально обновим
     if (before) before.quantity = quantity;
@@ -586,6 +614,10 @@ export const useCartStore = defineStore("cart", () => {
    * preOrder — ТОЛЬКО для авторизованного.
    */
   async function preOrder() {
+    if (isEvolutionSingleOnlyCart(items.value)) {
+      throw new Error(EVOLUTION_SINGLE_DELIVERY_MESSAGE);
+    }
+
     if (!isAuthenticated.value || !userId.value) {
       throw new Error("AUTH_REQUIRED");
     }

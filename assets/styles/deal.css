@@ -1,19 +1,21 @@
 /* Primary palette */
-.text-primary {
+
+/* .text-primary {
   color: #C2A271 !important;
 }
 
 .bg-primary {
 
   background: #C2A271 !important;
-}
+} */
 
 /*
  * Мягкий световой блик.
  * Это отдельный слой, поэтому его transform
  * нормально и плавно анимируется.
- */
-button.bg-primary::before,
+*/
+
+/* button.bg-primary::before,
 a.bg-primary::before,
 .btn.bg-primary::before {
   content: '';
@@ -46,11 +48,12 @@ a.bg-primary::before,
     opacity 500ms ease;
 
   opacity: 0.85;
-}
+} */
 
 
 /* Общая анимация кнопки */
-button.bg-primary,
+
+/* button.bg-primary,
 a.bg-primary,
 .btn.bg-primary {
   transition:
@@ -60,21 +63,24 @@ a.bg-primary,
       position: relative;
   isolation: isolate;
   overflow: hidden;
-}
+} */
 
 
 /* Блик движется вправо + вниз */
+
+/* 
 button.bg-primary:hover::before,
 a.bg-primary:hover::before,
 .btn.bg-primary:hover::before {
   transform:
     translate3d(95%, 55%, 0)
     rotate(-12deg);
-}
+} */
 
 
 /* Очень небольшой подъём самой кнопки */
-button.bg-primary:hover,
+
+/* button.bg-primary:hover,
 a.bg-primary:hover,
 .btn.bg-primary:hover {
 
@@ -91,4 +97,4 @@ a.bg-primary:active,
 .btn.bg-primary:active {
   transform: translateY(0);
   filter: brightness(0.98);
-}
+} */

@@ -138,7 +138,7 @@ useHead(() => {
 })
 
 
-const PINNED_SLUG = 'tri-formy-dvizheniya-daigo-omega-3'
+const PINNED_SLUG = 'iskusstvo-dolgoletiya-filosofiya-zdorovogo-dolgoletiya-daigo'
 
 const displayArticles = computed(() => {
   const list = (articlesStore.articles ?? articlesStore.list ?? []) as any[]

@@ -24,9 +24,9 @@ import BaseContainer from "~/components/layout/BaseContainer.vue";
 import { useYtm } from "@/composables/useYtm";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
 import {
-  getOmegaBundleSort,
-  isOmegaBundleSlug,
-} from "~/constants/omegaBundles";
+  getWeeklyProductSort,
+  isWeeklyProductSlug,
+} from "~/constants/weeklyProducts";
 
 const ytm = useYtm();
 const route = useRoute();
@@ -161,18 +161,26 @@ const visibleProducts = computed(() => {
 
 const weekProducts = computed(() => {
   return visibleProducts.value
-    .filter((product) => isOmegaBundleSlug(product.slug))
-    .sort((a, b) => getOmegaBundleSort(a.slug) - getOmegaBundleSort(b.slug));
+    .filter((product) =>
+      isWeeklyProductSlug(product.slug),
+    )
+    .sort(
+      (a, b) =>
+        getWeeklyProductSort(a.slug) -
+        getWeeklyProductSort(b.slug),
+    );
 });
 
 // const regularProducts = computed(() => {
 //   return visibleProducts.value.filter(
-//     (product) => !isOmegaBundleSlug(product.slug),
+//     (product) =>
+//       !isWeeklyProductSlug(product.slug),
 //   );
 // });
-const regularProducts = computed(() => {
-  return visibleProducts.value;
-});
+
+ const regularProducts = computed(() => {
+   return visibleProducts.value;
+ });
 
 const renderedProducts = computed(() =>
   regularProducts.value.slice(0, displayLimit.value),
@@ -181,17 +189,28 @@ const analyticsProducts = computed(() => [
   ...weekProducts.value,
   ...renderedProducts.value,
 ]);
+//const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3));
+// const featuredProducts = computed(() => {
+//   return weekProducts.value.length
+//     ? []
+//     : renderedProducts.value.slice(0, featuredCount.value);
+// });
+// const otherProducts = computed(() => {
+//   return weekProducts.value.length
+//     ? renderedProducts.value
+//     : renderedProducts.value.slice(featuredCount.value);
+// });
+
 const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3));
-const featuredProducts = computed(() => {
-  return weekProducts.value.length
-    ? []
-    : renderedProducts.value.slice(0, featuredCount.value);
-});
-const otherProducts = computed(() => {
-  return weekProducts.value.length
-    ? renderedProducts.value
-    : renderedProducts.value.slice(featuredCount.value);
-});
+
+const featuredProducts = computed(() =>
+  renderedProducts.value.slice(0, featuredCount.value),
+);
+
+const otherProducts = computed(() =>
+  renderedProducts.value.slice(featuredCount.value),
+);
+
 const hasMoreProducts = computed(
   () => renderedProducts.value.length < regularProducts.value.length,
 );
@@ -468,12 +487,6 @@ watch(
       <div class="flex flex-row items-centr justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
       </div>
-<!-- 
-      <CatalogBanner
-        v-if="catalogStore.catalogBanner"
-        :banner="catalogStore.catalogBanner"
-        class="mb-6 md:mb-10"
-      /> -->
 
       <div class="flex items-center gap-4 mb-6 relative z-10">
         <div

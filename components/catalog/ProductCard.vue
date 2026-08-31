@@ -15,7 +15,7 @@
       >
         <div
           class="relative w-full bg-hoverbtn overflow-hidden rounded-xl"
-          :class="isWeeklyVariant ? 'h-[185px] sm:h-[215px] lg:h-[205px]' : 'h-[160px] sm:h-[280px]'"
+          :class="isWeeklyVariant ? 'h-[160px] sm:h-[280px]' : 'h-[160px] sm:h-[280px]'"
           @click.stop="onOpen(navigate)"
         >
           <div class="w-full h-full flex items-center justify-center select-none">
@@ -154,24 +154,41 @@
             </div>
           </div>
 
-          <button
+          <div
             v-else-if="quantityInCart === 0"
-            type="button"
-            @click.stop="addToCartHandler"
-            aria-label="В корзину"
-            class="bg-primary hover:bg-hoverbtn hover:text-black  w-full h-10 sm:h-12 flex items-center justify-center
-                   xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
-                   rounded-lg whitespace-nowrap relative overflow-hidden"
+            class="group/evolution-add relative w-full"
+            @click.stop
           >
-            <img
-              src="/icons/add-to-cart.svg"
-              alt=""
-              class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
-            />
-            <span class="whitespace-nowrap relative z-10">
-              В корзину
-            </span>
-          </button>
+            <button
+              type="button"
+              :disabled="evolutionSingleBlocked"
+              @click.stop="addToCartHandler"
+              aria-label="В корзину"
+              :aria-describedby="showEvolutionSingleHint ? `evolution-catalog-hint-${product.product_id}` : undefined"
+              class="bg-primary hover:bg-hoverbtn hover:text-black w-full h-10 sm:h-12 flex items-center justify-center
+                     xs-max:text-xs text-sm sm:text-base text-white px-2 md:px-4
+                     rounded-lg whitespace-nowrap relative overflow-hidden disabled:cursor-not-allowed disabled:opacity-45 disabled:hover:bg-primary disabled:hover:text-white"
+            >
+              <img
+                src="/icons/add-to-cart.svg"
+                alt=""
+                class="w-4 md:w-5 h-4 md:h-5 mr-2 shrink-0 relative z-10"
+              />
+              <span class="whitespace-nowrap relative z-10">
+                В корзину
+              </span>
+            </button>
+
+            <div
+              v-if="showEvolutionSingleHint"
+              :id="`evolution-catalog-hint-${product.product_id}`"
+              role="tooltip"
+              class="pointer-events-none absolute bottom-[calc(100%+8px)] left-1/2 z-40 w-[240px] -translate-x-1/2 rounded-lg bg-black px-3 py-2 text-center text-[11px] leading-snug text-white opacity-0 shadow-lg transition-opacity duration-150 group-hover/evolution-add:opacity-100 group-focus-within/evolution-add:opacity-100"
+            >
+              {{ evolutionSingleDeliveryMessage }}
+              <span class="absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 border-x-[5px] border-t-[5px] border-x-transparent border-t-black" />
+            </div>
+          </div>
 
           <div
             v-else
@@ -190,8 +207,10 @@
             </span>
             <button
               type="button"
+              :disabled="evolutionSingleBlocked"
+              :title="showEvolutionSingleHint ? evolutionSingleDeliveryMessage : undefined"
               @click.stop="incrementHandler"
-              class="w-8 h-8 flex items-center justify-center bg-white/20 text-white rounded-full"
+              class="w-8 h-8 flex items-center justify-center bg-white/20 text-white rounded-full disabled:cursor-not-allowed disabled:opacity-40"
               aria-label="Увеличить количество"
             >
               <img src="/icons/increment.svg" alt="Увеличить количество" class="w-5 h-5" />
@@ -212,6 +231,11 @@ import { useRoute } from '#imports'
 import CatalogCardImage from '~/components/catalog/CatalogCardImage.vue'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
 import { useSummerPromoCountdown } from '~/composables/useSummerPromoCountdown'
+import {
+  EVOLUTION_SINGLE_DELIVERY_MESSAGE,
+  canAddEvolutionSingle,
+  isEvolutionSingleProduct,
+} from '~/utils/evolutionCart'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -231,7 +255,7 @@ const isWeeklyVariant = computed(() => variant === 'weekly')
 const cardImageClass = computed(() =>
   imageClass || (
     isWeeklyVariant.value
-      ? 'h-full w-full object-contain pointer-events-none'
+      ? 'h-full w-full object-cover pointer-events-none'
       : 'h-[140px] sm:h-auto aspect-[1/1] object-cover pointer-events-none'
   )
 )
@@ -263,13 +287,26 @@ const cartStore = useCartStore()
 const PREORDER_IDS = new Set<string>([''])
 const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
 
+const isEvolutionSingle = computed(() => isEvolutionSingleProduct(product))
+const evolutionSingleBlocked = computed(() =>
+  isEvolutionSingle.value &&
+  (!cartStore.isLoaded || !canAddEvolutionSingle(cartStore.items)),
+)
+const showEvolutionSingleHint = computed(() =>
+  isEvolutionSingle.value && cartStore.isLoaded && !canAddEvolutionSingle(cartStore.items),
+)
+const evolutionSingleDeliveryMessage = EVOLUTION_SINGLE_DELIVERY_MESSAGE
+
 const quantityInCart = computed(() => {
   const item = cartStore.items.find(i => String(i.id) === String(product.product_id))
   return item?.quantity ?? 0
 })
 
-function addToCartHandler() {
-  cartStore.addToCart({
+async function addToCartHandler() {
+  await cartStore.ensureLoaded?.()
+  if (isEvolutionSingle.value && !canAddEvolutionSingle(cartStore.items)) return
+
+  await cartStore.addToCart({
     id: String(product.product_id),
     title: product.name,
     subtitle: product.subtitle,
@@ -311,8 +348,10 @@ function onOpen(navigate: () => void) {
   navigate()
 }
 
-function incrementHandler() {
-  cartStore.updateItem(String(product.product_id), quantityInCart.value + 1)
+async function incrementHandler() {
+  await cartStore.ensureLoaded?.()
+  if (isEvolutionSingle.value && !canAddEvolutionSingle(cartStore.items)) return
+  await cartStore.updateItem(String(product.product_id), quantityInCart.value + 1)
 }
 function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)

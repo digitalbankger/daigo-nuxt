@@ -1,6 +1,7 @@
 import { defineEventHandler, getQuery, createError } from 'h3'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
 import { CATALOG_FILTER_SLUGS } from '~/constants/catalogFilters'
+import { findEvolutionProductConfig, getEvolutionTitle } from '~/constants/evolution'
 
 const RESPONSE_TTL_MS = 5 * 60 * 1000
 const TOTAL_TTL_MS = 10 * 60 * 1000
@@ -289,7 +290,11 @@ function addPropertyValue(properties: Record<string, any>, key: string, value: s
 function mapProducts(raw: any, normalizeImg: (src: any) => string) {
   return getRawProductList(raw).map((p: any) => {
     const price = Number(p.price) || 0
-    const slug = String(p.slug || '')
+    const productId = String(p.product_id ?? p.id ?? '')
+    const rawSlug = String(p.slug || '')
+    const evolutionConfig =
+      findEvolutionProductConfig(productId) || findEvolutionProductConfig(rawSlug)
+    const slug = evolutionConfig?.slug || rawSlug
     const baseProps = p.properties || {}
     const enrichedProps: Record<string, any> = { ...baseProps }
 
@@ -312,13 +317,19 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
       addPropertyValue(enrichedProps, 'podarochnye', 'nabory')
     }
 
+    const primaryImage =
+      getPrimaryImageSource(p) ||
+      (evolutionConfig ? '/images/evolution/hero-main.webp' : '')
+
     return {
       id: p.product_id ?? p.id,
       product_id: p.product_id ?? p.id,
       slug,
-      name: normalizeProductName(p.name_ru || p.name || p.title || p.name_en || ''),
+      name: evolutionConfig
+        ? getEvolutionTitle(evolutionConfig.packSize)
+        : normalizeProductName(p.name_ru || p.name || p.title || p.name_en || ''),
       subtitle: p.subtitle || '',
-      image: normalizeImg(getPrimaryImageSource(p)),
+      image: normalizeImg(primaryImage),
       detailImages: getDetailImageSources(p).map((img: any) => normalizeImg(img)).filter(Boolean),
       price,
       originalPrice: Number(p.original_price ?? p.old_price ?? p.oldPrice ?? p.originalPrice) || 0,
