@@ -1,0 +1,9 @@
+/* Daigo — Webfonts
+   Brand face is **Mont** (Fontfabric), a geometric premium sans used at
+   SemiBold for nearly all UI/headlines, with Regular for body.
+   Mont is a licensed font and not on Google Fonts — we substitute
+   **Montserrat** (geometric, closest free match) until the real Mont
+   binaries are supplied. Secondary face seen in places: Inter.
+   >>> SUBSTITUTION FLAGGED: Mont → Montserrat. Replace with licensed Mont .woff2 to be pixel-true. */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');

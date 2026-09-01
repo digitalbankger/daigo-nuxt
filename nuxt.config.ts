@@ -58,6 +58,21 @@ export default defineNuxtConfig({
   routeRules: {
     "/": { isr: 600 },
 
+    // Изолированная тестовая карточка 5 мл: не должна попадать в индекс.
+    "/catalog/5ml-test": {
+      headers: { "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet" },
+    },
+    "/__isolated/5ml-test/**": {
+      headers: {
+        "X-Robots-Tag": "noindex, nofollow, noarchive, nosnippet",
+        "cache-control": "public, max-age=300",
+        "X-Content-Type-Options": "nosniff",
+        "Referrer-Policy": "strict-origin-when-cross-origin",
+        "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://daigoworld.com https://img.youtube.com; media-src 'self' https://daigoworld.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+      },
+    },
+
     // Долгий кэш статики Nuxt
     "/_nuxt/**": {
       headers: { "cache-control": "public, max-age=31536000, immutable" },

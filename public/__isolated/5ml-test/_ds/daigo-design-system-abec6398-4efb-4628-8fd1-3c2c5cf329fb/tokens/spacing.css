@@ -1,0 +1,49 @@
+/* Daigo — Spacing, radii, shadows, motion
+   The brand reads premium through generous whitespace and large section
+   rhythm. Corners are mostly crisp; controls are pill-shaped. */
+
+:root {
+  /* Spacing scale (px) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --space-11: 160px;
+
+  /* Layout */
+  --container-max: 1680px;
+  --gutter: 80px;        /* desktop page gutter (1920 frame) */
+  --gutter-md: 40px;
+  --gutter-sm: 20px;
+
+  /* Radii — crisp brand; pills for controls, soft cards */
+  --radius-none: 0px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-hairline: 1px;   /* @kind spacing */
+  --border-regular: 1.5px;  /* @kind spacing */
+
+  /* Shadows — subtle, premium; never heavy */
+  --shadow-card: 0 8px 30px rgba(0, 0, 0, 0.06);
+  --shadow-card-hover: 0 16px 48px rgba(0, 0, 0, 0.10);
+  --shadow-pop: 0 24px 70px rgba(0, 0, 0, 0.18);
+  --shadow-inset: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+
+  /* Motion — clean fades + ease, no bounce */
+  --ease-standard: cubic-bezier(0.22, 0.61, 0.36, 1);  /* @kind other */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);           /* @kind other */
+  --dur-fast: 140ms;   /* @kind other */
+  --dur: 240ms;        /* @kind other */
+  --dur-slow: 420ms;   /* @kind other */
+}

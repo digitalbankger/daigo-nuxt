@@ -1,0 +1,91 @@
+/* Daigo — Color tokens
+   Extracted from the Daigo Figma ([Presentation] Daigo.fig). Premium supplement brand.
+   Base palette + semantic aliases. Light theme is default on :root;
+   dark theme via [data-theme="dark"]. */
+
+:root {
+  /* ---- Base neutrals ---- */
+  --ink: rgb(27, 27, 27);          /* #1B1B1B primary text + dark surfaces */
+  --ink-2: rgb(40, 40, 40);        /* #282828 raised dark surface */
+  --ink-3: rgb(60, 60, 60);        /* #3C3C3C muted dark / secondary text */
+  --black: rgb(0, 0, 0);
+  --white: rgb(255, 255, 255);
+  --paper: rgb(252, 252, 252);     /* #FCFCFC page background (light) */
+  --mist: rgb(240, 240, 240);      /* #F0F0F0 alt section background */
+  --line: rgb(217, 217, 217);      /* #D9D9D9 hairline / disabled */
+  --line-2: rgb(207, 207, 207);    /* #CFCFCF */
+
+  /* ---- Sand / premium warm neutrals ---- */
+  --sand: rgb(224, 221, 216);      /* #E0DDD8 warm tile / card */
+  --sand-2: rgb(232, 227, 225);    /* #E8E3E1 */
+  --sand-3: rgb(237, 231, 226);    /* #EDE7E2 */
+  --gold: rgb(174, 157, 126);      /* #AE9D7E premium accent text */
+  --gold-2: rgb(182, 163, 128);    /* #B6A380 */
+
+  /* ---- Brand spectrum (the colorful "daigo" wordmark) ---- */
+  --brand-magenta: rgb(228, 0, 136);  /* #E40088 */
+  --brand-pink: rgb(245, 78, 180);    /* #F54EB4 */
+  --brand-blue: rgb(0, 154, 205);     /* #009ACD */
+  --brand-cyan: rgb(0, 175, 209);     /* #00AFD1 */
+  --brand-amber: rgb(255, 180, 35);   /* #FFB423 */
+  --brand-yellow: rgb(255, 241, 82);  /* #FFF152 */
+  --brand-green: rgb(34, 177, 76);    /* #22B14C */
+  --brand-lime: rgb(128, 218, 41);    /* #80DA29 */
+  --brand-violet: rgb(116, 119, 197); /* #7477C5 */
+
+  /* ---- Accents ---- */
+  --coral: rgb(255, 113, 113);     /* #FF7171 hero gradient / sale tag */
+  --blue: rgb(17, 101, 235);       /* #1165EB link / info */
+
+  /* ---- Gift-card brights ---- */
+  --gift-blue: rgb(0, 174, 239);   /* #00AEEF */
+  --gift-yellow: rgb(255, 200, 0); /* #FFC800 */
+  --gift-green: rgb(45, 197, 94);  /* #2DC55E */
+
+  /* ---- Semantic aliases (light theme) ---- */
+  --bg-page: var(--paper);
+  --bg-alt: var(--mist);
+  --surface-card: var(--white);
+  --surface-card-warm: var(--sand);
+  --surface-inset: var(--mist);
+
+  --text-primary: var(--ink);
+  --text-secondary: var(--ink-3);
+  --text-muted: rgb(120, 120, 120);
+  --text-inverse: var(--white);
+  --text-premium: var(--gold);
+
+  --border-subtle: var(--line);
+  --border-strong: var(--ink);
+
+  --accent: var(--coral);
+  --link: var(--blue);
+
+  --btn-fill-bg: var(--ink);
+  --btn-fill-fg: var(--white);
+  --btn-stroke-fg: var(--ink);
+  --btn-stroke-border: var(--ink);
+}
+
+/* ---- Dark theme ---- */
+[data-theme="dark"] {
+  --bg-page: var(--ink);
+  --bg-alt: var(--ink-2);
+  --surface-card: var(--ink-2);
+  --surface-card-warm: var(--sand);
+  --surface-inset: rgb(33, 33, 33);
+
+  --text-primary: var(--white);
+  --text-secondary: var(--line);
+  --text-muted: rgb(150, 150, 150);
+  --text-inverse: var(--ink);
+  --text-premium: var(--gold-2);
+
+  --border-subtle: rgb(60, 60, 60);
+  --border-strong: var(--white);
+
+  --btn-fill-bg: var(--white);
+  --btn-fill-fg: var(--ink);
+  --btn-stroke-fg: var(--white);
+  --btn-stroke-border: var(--white);
+}

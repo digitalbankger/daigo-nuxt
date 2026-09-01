@@ -1,0 +1,62 @@
+/* Daigo — Typography tokens
+   Brand face: Mont (substituted by Montserrat). Headlines are SemiBold/Bold,
+   often UPPERCASE for display titles (e.g. "КАТАЛОГ"), tight letter-spacing.
+   Body is Regular at comfortable measure. */
+
+:root {
+  --font-brand: 'Montserrat', 'Mont', system-ui, -apple-system, sans-serif;
+  --font-body: 'Montserrat', 'Mont', system-ui, sans-serif;
+  --font-ui: 'Inter', 'Montserrat', system-ui, sans-serif;
+
+  /* Weights */
+  --fw-light: 300;       /* @kind font */
+  --fw-regular: 400;     /* @kind font */
+  --fw-medium: 500;      /* @kind font */
+  --fw-semibold: 600;    /* @kind font */
+  --fw-bold: 700;        /* @kind font */
+  --fw-extrabold: 800;   /* @kind font */
+
+  /* Display / headline scale (px) */
+  --fs-hero: 120px;      /* giant wordmark / cover */
+  --fs-display: 80px;    /* page title КАТАЛОГ */
+  --fs-h1: 56px;
+  --fs-h2: 40px;
+  --fs-h3: 28px;
+  --fs-h4: 24px;
+  --fs-title: 20px;
+  --fs-body-lg: 18px;
+  --fs-body: 16px;
+  --fs-sm: 14px;
+  --fs-xs: 12px;
+  --fs-overline: 11px;   /* uppercase eyebrow / labels */
+
+  /* Line heights */
+  --lh-tight: 1.02;     /* @kind other */
+  --lh-snug: 1.12;      /* @kind other */
+  --lh-heading: 1.18;   /* @kind other */
+  --lh-body: 1.5;       /* @kind other */
+  --lh-relaxed: 1.65;   /* @kind other */
+
+  /* Letter spacing */
+  --ls-tight: -0.02em;     /* @kind other */
+  --ls-display: -0.01em;   /* @kind other */
+  --ls-normal: 0;          /* @kind other */
+  --ls-overline: 0.14em;   /* wide tracked uppercase eyebrows @kind other */
+  --ls-button: 0.04em;     /* @kind other */
+}
+
+/* Convenience text classes (optional, used in specimens/kits) */
+.daigo-overline {
+  font-family: var(--font-brand);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-overline);
+  letter-spacing: var(--ls-overline);
+  text-transform: uppercase;
+}
+.daigo-display {
+  font-family: var(--font-brand);
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}

@@ -6,15 +6,6 @@ import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
  */
 const MODE: 'oldToNew' | 'newToOld' = 'newToOld'
 
-// Daigo 5 мл: новый лендинг должен быть конечной страницей независимо от MODE.
-const DAIGO_5ML_TARGET = '/catalog/5ml-test/'
-const DAIGO_5ML_LEGACY_PATHS = new Set([
-  '/catalog/metabiotik-daigo',
-  '/catalog/metabiotik-daigo/',
-  '/catalog/metabiotik/metabiotik-daigo',
-  '/catalog/metabiotik/metabiotik-daigo/',
-])
-
 // --- 1) БАЗОВАЯ КАРТА (СТАРЫЕ → НОВЫЕ) ---
 const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/catalog/': '/novinki/',
@@ -119,12 +110,6 @@ const QUERY_REDIRECTS = MODE === 'oldToNew' ? RAW_QUERY_REDIRECTS : invert(RAW_Q
 export default defineEventHandler((event) => {
   const url = getRequestURL(event)
   const pathname = decodeURI(url.pathname)
-
-  // Приоритетный редирект старых URL Daigo 5 мл на новый лендинг.
-  // Не зависит от MODE и выполняется до общей SEO-карты.
-  if (DAIGO_5ML_LEGACY_PATHS.has(pathname)) {
-    return sendRedirect(event, `${DAIGO_5ML_TARGET}${url.search}`, 301)
-  }
 
   // Evolution: старый slug всегда ведём на новый SEO URL.
   // Правило не зависит от MODE, чтобы не инвертировалось вместе с общей картой редиректов.
