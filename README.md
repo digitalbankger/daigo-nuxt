@@ -73,3 +73,9 @@ bun run preview
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+
+## 5ml isolated runtime fix (2026-09-01)
+
+- The CSP for `/__isolated/5ml-test/**` allows `https://unpkg.com` only for scripts because the exported DC runtime loads pinned React/ReactDOM 18.3.1 UMD files with SRI.
+- Dynamic YouTube iframe bindings use `sc-camel-src` instead of raw `src="{{ ... }}"`, so the browser does not request encoded template placeholders before the DC runtime mounts.
+- `frame-src` remains restricted to `https://www.youtube-nocookie.com`.

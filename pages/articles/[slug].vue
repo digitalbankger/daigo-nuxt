@@ -10,5 +10,5 @@ const slug = computed(() => String(route.params.slug))
 </script>
 
 <template>
-  <ArticleDetailTemplate :slug="slug" />
+  <ArticleDetailTemplate :key="slug" :slug="slug" />
 </template>

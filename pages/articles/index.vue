@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, computed, ref, watch } from '#imports'
+import { useRoute, useRouter, useHead, useAsyncData, computed, ref, watch } from '#imports'
 import { useArticlesStore } from '~/stores/articlesStore'
 import ArticleCard from '~/components/articles/ArticleCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
@@ -35,8 +35,22 @@ watch(searchInput, (val) => {
   }, 1500)
 })
 
+function buildCleanQuery(q: Record<string, any>) {
+  return Object.fromEntries(
+    Object.entries(q)
+      .map(([key, value]) => [key, Array.isArray(value) ? (value[0] ?? '') : (value ?? '')])
+      .filter(([key, val]) => key === 'page' || (typeof val === 'string' && val.trim() !== ''))
+  ) as Record<string, string>
+}
 
-await articlesStore.fetchFilters()
+const initialQuery = buildCleanQuery(route.query as Record<string, any>)
+
+// В SSR/prerender обязательно ждём список и фильтры.
+// useAsyncData переносит результат в Nuxt payload, поэтому при hydration запрос повторно не выполняется.
+await Promise.all([
+  useAsyncData('articles:filters', () => articlesStore.fetchFilters()),
+  useAsyncData(`articles:list:${route.fullPath}`, () => articlesStore.fetchArticles(initialQuery)),
+])
 
 const page = computed(() => Number(route.query.page || 1))
 
@@ -70,15 +84,7 @@ function clearAllFilters() {
 }
 
 
-function buildCleanQuery(q: Record<string, any>) {
-  return Object.fromEntries(
-    Object.entries(q)
-      .map(([key, value]) => [key, Array.isArray(value) ? (value[0] ?? '') : (value ?? '')])
-      .filter(([key, val]) => key === 'page' || (typeof val === 'string' && val.trim() !== ''))
-  ) as Record<string, string>
-}
-
-// реакция на изменение query
+// После первого SSR/prerender обновляем список только при клиентской смене query.
 watch(
   () => route.query,
   async () => {
@@ -86,7 +92,7 @@ watch(
     const normalizedQuery = buildCleanQuery(route.query as Record<string, any>)
     await articlesStore.fetchArticles(normalizedQuery)
   },
-  { immediate: true, deep: true }
+  { deep: true }
 )
 
 function updateFilters(selected: Record<string, string[]>) {
@@ -109,7 +115,7 @@ useHead(() => {
   const title = isEmpty ? 'Статьи не найдены — Daigo' : (filters ? `Статьи по фильтрам: ${filters} — Daigo` : 'Статьи — Daigo')
   const description = isEmpty
     ? 'По вашему запросу статьи не найдены.'
-    : (filters ? `Фильтрованные статьи по темам: ${filters}` : 'Подборка статей Daigo.')
+    : (filters ? `Статьи Daigo по выбранным темам: ${filters}.` : 'Статьи Daigo о микробиоте, пищеварении, иммунитете, питании и долголетии: исследования, рекомендации экспертов и практические материалы.')
 
   return {
     title,

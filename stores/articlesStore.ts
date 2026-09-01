@@ -72,8 +72,10 @@ export const useArticlesStore = defineStore('articles', () => {
       list.value = Array.isArray(items) ? items : []
       totalPages.value = Math.max(1, Math.ceil(Number(total) / perPage))
       setError(key, null)
+      return { items: list.value, total: Number(total), totalPages: totalPages.value }
     } catch (e: any) {
       setError(key, e?.message || 'Failed to fetch articles')
+      return { items: [], total: 0, totalPages: 1 }
     } finally {
       setLoading(key, false)
     }
@@ -87,8 +89,10 @@ export const useArticlesStore = defineStore('articles', () => {
       const result = await $fetch<FilterGroup[]>('/api/shop/filters')
       filters.value = result || []
       setError(key, null)
+      return filters.value
     } catch (e: any) {
       setError(key, e?.message || 'Failed to fetch filters')
+      return []
     } finally {
       setLoading(key, false)
     }

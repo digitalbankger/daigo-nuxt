@@ -4,6 +4,7 @@ import { useProductStore } from '~/stores/productStore'
 import { useCartStore } from '~/stores/cartStore'
 import { useAnalytics } from '~/composables/useAnalytics'
 import { useYtm } from '~/composables/useYtm'
+import ProductConsultationCard from '~/components/product/ProductConsultationCard.vue'
 
 const PRODUCT_SLUG = 'metabiotik-daigo'
 const EMBED_SOURCE = 'daigo-5ml-embed'
@@ -31,6 +32,7 @@ const cartStore = useCartStore()
 const analytics = useAnalytics()
 const ytm = useYtm()
 const frame = ref<HTMLIFrameElement | null>(null)
+const consultationCard = ref<InstanceType<typeof ProductConsultationCard> | null>(null)
 const bridgeReady = ref(false)
 const adding = ref(false)
 const errorMessage = ref('')
@@ -136,6 +138,11 @@ function onFrameMessage(event: MessageEvent) {
 
   if (data.type === 'add-to-cart') {
     void addRealProduct(data.quantity)
+    return
+  }
+
+  if (data.type === 'open-consultation') {
+    consultationCard.value?.openModal()
   }
 }
 
@@ -219,5 +226,13 @@ watch(
     >
       {{ errorMessage }}
     </div>
+
+    <ProductConsultationCard
+      v-if="product"
+      ref="consultationCard"
+      :product-id="product.product_id"
+      :product-title="product.title"
+      :show-banner="false"
+    />
   </div>
 </template>

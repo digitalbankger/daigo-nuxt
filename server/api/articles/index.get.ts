@@ -1,81 +1,81 @@
 import { defineEventHandler, getQuery, setResponseHeader } from 'h3'
-import { fetchArticlesFromGo } from '~/server/utils/articlesApi'
-import { listArticlesLite } from '~/server/utils/articlesFs'
+import { ARTICLE_CARDS } from '~/content/articles-json/articles.cards'
 
-export default defineEventHandler(async (event) => {
-  // Основной источник статей — Go API.
-  // Актуальный endpoint Go API:
-  // GET /v1/shop/articles
-  try {
-    const result = await fetchArticlesFromGo(event)
+const PINNED_SLUG = 'iskusstvo-dolgoletiya-filosofiya-zdorovogo-dolgoletiya-daigo'
 
-    // Не кешируем список на стороне браузера/CDN: новые статьи должны
-    // появляться сразу после публикации в Go.
-    setResponseHeader(event, 'Cache-Control', 'no-store, max-age=0')
-    setResponseHeader(event, 'X-Articles-Source', 'go')
-    return result
-  } catch (error: any) {
-    // Локальные JSON оставляем только аварийным fallback, чтобы раздел
-    // не становился полностью пустым при временной недоступности Go API.
-    console.error(
-      '[articles/index] Go API unavailable, using local fallback:',
-      error?.statusCode || error?.status || '',
-      error?.statusMessage || error?.message || error,
-    )
+function normalizeValues(raw: unknown): string[] {
+  if (typeof raw === 'string') {
+    return raw.split(',').map(value => value.trim()).filter(Boolean)
+  }
 
-    const query = getQuery(event)
-    const page = Math.max(1, Number(query.page ?? 1))
-    const perPage = 15
-    const search = String(query.q ?? '').trim().toLowerCase()
+  if (Array.isArray(raw)) {
+    return raw
+      .flatMap(value => String(value).split(','))
+      .map(value => value.trim())
+      .filter(Boolean)
+  }
 
-    const activeFilters = Object.entries(query).reduce<Record<string, string[]>>(
-      (filters, [key, raw]) => {
-        if (key === 'page' || key === 'q' || key === 'page_size' || key === 'per_page') return filters
+  return []
+}
 
-        const values =
-          typeof raw === 'string'
-            ? raw.split(',').map(value => value.trim()).filter(Boolean)
-            : Array.isArray(raw)
-              ? raw.flatMap(value => String(value).split(',')).map(value => value.trim()).filter(Boolean)
-              : []
+export default defineEventHandler((event) => {
+  const query = getQuery(event)
+  const page = Math.max(1, Number(query.page ?? 1))
+  const perPage = Math.max(1, Math.min(100, Number(query.page_size ?? query.per_page ?? 15)))
+  const search = String(query.q ?? '').trim().toLowerCase()
 
-        if (values.length) filters[key] = values
-        return filters
-      },
-      {},
-    )
+  const activeFilters = Object.entries(query).reduce<Record<string, string[]>>(
+    (filters, [key, raw]) => {
+      if (key === 'page' || key === 'q' || key === 'page_size' || key === 'per_page') return filters
+      const values = normalizeValues(raw)
+      if (values.length) filters[key] = values
+      return filters
+    },
+    {},
+  )
 
-    const all = await listArticlesLite()
-    const filtered = all.filter((article) => {
-      if (search) {
-        const haystack = `${String(article.title ?? '')} ${String(article.preview ?? '')}`.toLowerCase()
-        if (!haystack.includes(search)) return false
-      }
-
-      for (const [key, values] of Object.entries(activeFilters)) {
-        const property = article?.properties?.[key]
-        if (property == null) return false
-
-        if (Array.isArray(property)) {
-          if (!property.some(value => values.includes(String(value)))) return false
-        } else if (!values.includes(String(property))) {
-          return false
-        }
-      }
-
-      return true
-    })
-
-    const total = filtered.length
-    const start = (page - 1) * perPage
-
-    setResponseHeader(event, 'Cache-Control', 'no-store, max-age=0')
-    setResponseHeader(event, 'X-Articles-Source', 'local-fallback')
-    return {
-      items: filtered.slice(start, start + perPage),
-      total,
-      page,
-      perPage,
+  const filtered = ARTICLE_CARDS.filter((article: any) => {
+    if (search) {
+      const haystack = `${String(article.title ?? '')} ${String(article.preview ?? '')}`.toLowerCase()
+      if (!haystack.includes(search)) return false
     }
+
+    for (const [key, values] of Object.entries(activeFilters)) {
+      const property = article?.properties?.[key]
+      if (property == null) return false
+
+      if (Array.isArray(property)) {
+        if (!property.some(value => values.includes(String(value)))) return false
+      } else if (!values.includes(String(property))) {
+        return false
+      }
+    }
+
+    return true
+  })
+
+  // Сначала закреплённая статья, затем новые по дате.
+  filtered.sort((a: any, b: any) => {
+    if (a.slug === PINNED_SLUG) return -1
+    if (b.slug === PINNED_SLUG) return 1
+    return String(b.date ?? '').localeCompare(String(a.date ?? ''))
+  })
+
+  const total = filtered.length
+  const start = (page - 1) * perPage
+
+  // Контент меняется только вместе с деплоем. Запросы фильтров можно безопасно кешировать.
+  setResponseHeader(
+    event,
+    'Cache-Control',
+    'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400',
+  )
+  setResponseHeader(event, 'X-Articles-Source', 'build-content')
+
+  return {
+    items: filtered.slice(start, start + perPage),
+    total,
+    page,
+    perPage,
   }
 })

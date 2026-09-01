@@ -6,10 +6,13 @@ import expertImage from "~/assets/images/consultation/expert-reference.png";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
 import { useAnalytics } from "~/composables/useAnalytics";
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   productId: string | number;
   productTitle?: string;
-}>();
+  showBanner?: boolean;
+}>(), {
+  showBanner: true,
+});
 
 const analytics = useAnalytics();
 const isOpen = ref(false);
@@ -83,6 +86,10 @@ function openModal() {
     window.addEventListener("keydown", onKeydown);
   }
 }
+
+defineExpose({
+  openModal,
+});
 
 function closeModal() {
   if (isSubmitting.value) return;
@@ -158,6 +165,7 @@ onBeforeUnmount(() => {
   <div>
     <!-- Баннер под CTA. Второй баннер с тестом пока намеренно не добавляем. -->
     <button
+      v-if="showBanner"
       type="button"
       class="group relative flex min-h-[132px] w-full overflow-hidden rounded-2xl bg-[#F5F0E8] text-left transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(58,45,29,0.10)] disabled:cursor-not-allowed disabled:opacity-60 sm:min-h-[142px]"
       :disabled="!normalizedProductId"

@@ -1,3 +1,4 @@
+import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const parsePublicJsonRecord = (value?: string): Record<string, string> => {
@@ -17,6 +18,15 @@ const roistatProjectId =
   process.env.NUXT_PUBLIC_ROISTAT_PROJECT_ID ||
   "8d6f3bc978e0a498604ac6d0377f7a8b";
 const roistatHost = process.env.NUXT_PUBLIC_ROISTAT_HOST || "cloud.roistat.com";
+
+const articlesContentDir = fileURLToPath(
+  new URL("./content/articles-json", import.meta.url),
+);
+
+const articlePrerenderRoutes = readdirSync(articlesContentDir, { withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith(".json"))
+  .map((entry) => `/articles/${entry.name.replace(/\.json$/, "")}`)
+  .sort();
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
@@ -69,7 +79,20 @@ export default defineNuxtConfig({
         "X-Content-Type-Options": "nosniff",
         "Referrer-Policy": "strict-origin-when-cross-origin",
         "Permissions-Policy": "camera=(), microphone=(), geolocation=(), payment=()",
-        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://daigoworld.com https://img.youtube.com; media-src 'self' https://daigoworld.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-eval' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: https://daigoworld.com https://img.youtube.com; media-src 'self' https://daigoworld.com; font-src 'self' data: https://fonts.gstatic.com; connect-src 'self'; frame-src https://www.youtube-nocookie.com; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'self'",
+      },
+    },
+
+    // Статьи собираются заранее в отдельные HTML + Nuxt payload.
+    // HTML остаётся быстро обновляемым после деплоя, а не живёт в браузерном кеше неделями.
+    "/articles": {
+      headers: {
+        "cache-control": "public, max-age=0, s-maxage=300, stale-while-revalidate=3600",
+      },
+    },
+    "/articles/**": {
+      headers: {
+        "cache-control": "public, max-age=0, s-maxage=300, stale-while-revalidate=3600",
       },
     },
 
@@ -106,12 +129,19 @@ export default defineNuxtConfig({
   nitro: {
     devErrorHandler: true,
     logLevel: 5,
+    prerender: {
+      // /articles + каждый JSON из content/articles-json превращаются в статический HTML
+      // во время pnpm build. Новый JSON автоматически попадёт в следующий деплой.
+      routes: ["/articles", ...articlePrerenderRoutes],
+      crawlLinks: false,
+      failOnError: true,
+    },
     // Локальные JSON-статьи включаются в production-сборку Nitro.
     // Благодаря этому страницы /articles не зависят от Go API и от cwd процесса PM2.
     serverAssets: [
       {
         baseName: "articles",
-        dir: fileURLToPath(new URL("./content/articles-json", import.meta.url)),
+        dir: articlesContentDir,
       },
     ],
     storage: {

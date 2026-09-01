@@ -8,7 +8,8 @@ export default defineEventHandler(async (event) => {
   const data = await readArticle(slug)
   if (!data) throw createError({ statusCode: 404, statusMessage: 'Article not found' })
 
-  // кэш на минуту
-  setResponseHeader(event, 'Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=120')
+  // JSON статьи меняется только вместе с деплоем. Для SPA-переходов держим API горячим.
+  setResponseHeader(event, 'Cache-Control', 'public, max-age=300, s-maxage=86400, stale-while-revalidate=604800')
+  setResponseHeader(event, 'X-Articles-Source', 'build-content')
   return data
 })

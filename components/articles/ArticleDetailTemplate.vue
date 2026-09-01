@@ -16,6 +16,7 @@ import type { ArticleDetail } from "~/types/articles";
 // берём товары по ids — как в отзывах
 import { useProductsByIds } from "~/composables/useProductsByIds";
 import { normalizeMediaUrl } from "~/utils/mediaUrl";
+import { getArticleSeoDescription } from "~/utils/articleSeo";
 
 const props = defineProps<{ slug: string }>();
 const slug = computed(() => props.slug);
@@ -47,20 +48,13 @@ const { data: article, error } = await useAsyncData<ArticleDetail>(
   },
 );
 
-// параллельные виджеты (SSR – если нужны в будущем)
-await Promise.all([
-  articles.fetchRelated(slug.value),
-  articles.fetchFaq(slug.value),
-  articles.fetchTop(),
-]);
-
 if (error.value) {
   throw createError({ statusCode: 404, statusMessage: "Статья не найдена" });
 }
 
 // ===== SEO =====
 const title = article.value?.title ?? "Статья";
-const description = article.value?.description ?? article.value?.preview ?? "";
+const description = getArticleSeoDescription(article.value);
 const cover = normalizeMediaUrl(
   article.value?.cover || article.value?.image || "/og-default.jpg",
 );
@@ -73,6 +67,7 @@ useSeoMeta({
   description,
   ogDescription: description,
   ogType: "article",
+  ogUrl: canonical,
   ogImage: metaImage,
   twitterCard: "summary_large_image",
   twitterTitle: title,
@@ -93,9 +88,15 @@ const articleJsonLd = {
   headline: title,
   image: [metaImage],
   datePublished: article.value?.date,
+  mainEntityOfPage: canonical,
   author: article.value?.author?.name
     ? { "@type": "Person", name: article.value.author.name }
-    : undefined,
+    : { "@type": "Organization", name: "Daigo" },
+  publisher: {
+    "@type": "Organization",
+    name: "Daigo",
+    url: "https://daigo.ru",
+  },
   description,
 };
 useHead({

@@ -3,12 +3,13 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
+    "build": "node scripts/generate-articles-cards.mjs && nuxt build",
+    "dev": "node scripts/generate-articles-cards.mjs && nuxt dev",
+    "generate": "node scripts/generate-articles-cards.mjs && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "images:generate": "node scripts/generate-optimized-images.mjs"
+    "images:generate": "node scripts/generate-optimized-images.mjs",
+    "articles:prepare": "node scripts/generate-articles-cards.mjs"
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",

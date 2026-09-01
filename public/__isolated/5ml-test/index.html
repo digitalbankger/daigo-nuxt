@@ -520,8 +520,25 @@
     </div>
     </div>
 
-    <div style="margin-top:26px; border-radius:16px; overflow:hidden; width:320px; max-width:100%;" data-om-label="Баннер консультации">
-      <image-slot id="promo-banner" src="uploads/Снимок экрана - 2026-08-30 в 11.08.20.png" shape="rect" fit="cover" placeholder="Баннер — консультация специалиста" style="display:block; width:100%; aspect-ratio:320/160;"></image-slot>
+    <div style="margin-top:26px; width:320px; max-width:100%;" data-om-label="Баннер консультации">
+      <button
+        type="button"
+        data-daigo-consultation
+        aria-label="Записаться на бесплатную консультацию специалиста"
+        style="position:relative; display:flex; width:100%; min-height:142px; overflow:hidden; border:0; border-radius:16px; padding:0; background:#F5F0E8; color:#1B1B1B; text-align:left; cursor:pointer; font-family:'Montserrat',sans-serif; transition:transform .3s ease, box-shadow .3s ease;"
+      >
+        <span style="position:relative; z-index:2; display:flex; width:62%; flex-direction:column; padding:20px; box-sizing:border-box;">
+          <span style="font-size:16px; font-weight:500; line-height:1.2;">Бесплатная консультация<br>специалиста</span>
+          <span style="display:flex; align-items:center; gap:8px; margin-top:auto; padding-top:16px; font-size:12px; line-height:1.35; color:rgba(27,27,27,.65);">
+            <span style="display:flex; width:28px; height:28px; flex:0 0 28px; align-items:center; justify-content:center; border:1px solid rgba(27,27,27,.2); border-radius:50%; font-size:14px;">↗</span>
+            <span>Закажите звонок специалиста</span>
+          </span>
+        </span>
+        <span style="position:absolute; top:0; right:0; bottom:0; width:43%; overflow:hidden;">
+          <img src="./expert-reference.png" alt="" loading="lazy" decoding="async" style="display:block; width:100%; height:100%; object-fit:cover; object-position:center;">
+          <span aria-hidden="true" style="position:absolute; top:0; bottom:0; left:0; width:40px; background:linear-gradient(90deg,#F5F0E8 0%,rgba(245,240,232,0) 100%);"></span>
+        </span>
+      </button>
     </div>
 
   </div>
@@ -736,7 +753,7 @@
       <div style="display:flex; flex-direction:column; gap:16px;">
         <div style="position:relative; aspect-ratio:16/10; border-radius:18px; overflow:hidden; background:#000000;">
           <sc-if value="{{ videoEmbedUrl }}" hint-placeholder-val="">
-            <iframe src="{{ videoEmbedUrl }}" title="Видео о Daigo" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            <iframe sc-camel-src="{{ videoEmbedUrl }}" title="Видео о Daigo" style="position:absolute; inset:0; width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </sc-if>
           <sc-if value="{{ noVideoEmbed }}" hint-placeholder-val="{{ true }}">
             <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="daigo-bt-video" shape="rect" fit="cover" placeholder="Видео о Daigo" hint-size="100%,100%"></x-import>
@@ -1105,7 +1122,7 @@
         <div>
           <div style="position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#000000;">
             <sc-if value="{{ vr.embed }}" hint-placeholder-val="">
-              <iframe src="{{ vr.embed }}" title="{{ vr.name }}" style="width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+              <iframe sc-camel-src="{{ vr.embed }}" title="{{ vr.name }}" style="width:100%; height:100%; border:0;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </sc-if>
             <sc-if value="{{ vr.noEmbed }}" hint-placeholder-val="{{ true }}">
               <div style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:#EDE9E2; color:#9A9A9A; font-size:13px; text-align:center; padding:0 20px;">Ссылка на видео появится здесь</div>
@@ -1611,6 +1628,26 @@ class Component extends DCLogic {
       }
     };
     window.addEventListener('message', this._onParentMessage);
+    document.querySelectorAll('[data-daigo-consultation]').forEach(function(button){
+      button.addEventListener('click', function(){
+        try {
+          window.parent.postMessage({
+            source:'daigo-5ml-embed',
+            type:'open-consultation'
+          }, window.location.origin);
+        } catch(e) {}
+      });
+
+      button.addEventListener('mouseenter', function(){
+        button.style.transform = 'translateY(-2px)';
+        button.style.boxShadow = '0 12px 32px rgba(58,45,29,.10)';
+      });
+      button.addEventListener('mouseleave', function(){
+        button.style.transform = 'translateY(0)';
+        button.style.boxShadow = 'none';
+      });
+    });
+
     try { window.parent.postMessage({ source:'daigo-5ml-embed', type:'ready' }, window.location.origin); } catch(e) {}
     this.applyViewport();
     this.wireSwipe();
