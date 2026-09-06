@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
-import { buildOptimizedImageUrl } from '~/utils/optimizedImage'
+import { buildOptimizedImageCandidates } from '~/utils/optimizedImage'
 
 const props = withDefaults(defineProps<{
   src: string
@@ -40,34 +40,37 @@ const originalSrc = computed(() =>
 // generate-optimized-images.mjs создаёт только 480/640. Для карточки используем
 // один заранее известный WebP. Если скрипт не запускался или конкретное фото
 // не смогло сгенерироваться, @error мгновенно откатывается на исходный URL.
-const prerenderedSrc = computed(() => {
+const optimizedCandidates = computed(() => {
   const targetWidth = Number(props.width) <= 480 ? 480 : 640
-  // ВАЖНО: путь строим из исходного src ровно так же, как build-time скрипт.
-  // originalSrc может быть уже переписан в /media-s3/... для браузерного fallback,
-  // тогда его hash/path не совпадёт с файлом, созданным из исходного S3 URL.
-  return buildOptimizedImageUrl(props.src, targetWidth, 'webp')
+  return buildOptimizedImageCandidates(props.src, targetWidth, 'webp')
 })
 
-const currentSrc = ref(prerenderedSrc.value || originalSrc.value)
-let fallbackStage = 0
+const currentCandidates = computed(() => [
+  ...optimizedCandidates.value,
+  originalSrc.value,
+  placeholderSrc,
+].filter((value, index, array) => Boolean(value) && array.indexOf(value) === index))
 
-watch([prerenderedSrc, originalSrc], ([optimized, original]) => {
-  fallbackStage = 0
-  currentSrc.value = optimized || original || placeholderSrc
+let candidateIndex = 0
+const currentSrc = ref(currentCandidates.value[0] || placeholderSrc)
+
+watch(currentCandidates, (candidates) => {
+  candidateIndex = 0
+  currentSrc.value = candidates[0] || placeholderSrc
 })
 
 const fetchPriority = computed(() => props.eager ? 'high' : 'auto')
 
 function handleImageError() {
-  if (fallbackStage === 0 && currentSrc.value !== originalSrc.value) {
-    fallbackStage = 1
-    currentSrc.value = originalSrc.value
+  const candidates = currentCandidates.value
+  const nextIndex = candidateIndex + 1
+
+  if (nextIndex < candidates.length) {
+    candidateIndex = nextIndex
+    currentSrc.value = candidates[nextIndex] || placeholderSrc
     return
   }
 
-  if (currentSrc.value !== placeholderSrc) {
-    fallbackStage = 2
-    currentSrc.value = placeholderSrc
-  }
+  currentSrc.value = placeholderSrc
 }
 </script>

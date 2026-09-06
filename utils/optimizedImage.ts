@@ -100,6 +100,48 @@ export function buildOptimizedImageUrl(
   return `${base}/w-${Math.round(width)}.${format}`
 }
 
+
+export function buildOptimizedImageCandidates(
+  src: string | null | undefined,
+  width: number,
+  format: OptimizedImageFormat,
+): string[] {
+  const normalized = normalizeOptimizedImageSrc(src)
+  const roundedWidth = Math.round(width)
+  const candidates: string[] = []
+
+  const push = (value: string | null) => {
+    if (value && !candidates.includes(value)) candidates.push(value)
+  }
+
+  // Точный путь для исходного URL. Для абсолютного S3 URL это полностью
+  // совпадает с generate-optimized-images.mjs.
+  push(buildOptimizedImageUrl(src, roundedWidth, format))
+
+  // После normalizeMediaUrl два разных FirstVDS URL становятся одинаковыми:
+  // https://products.s3.firstvds.ru/a.png -> /media-s3/products/a.png
+  // https://s3.firstvds.ru/products/a.png -> /media-s3/products/a.png
+  // Генератор же сохраняет их в разные каталоги. Для проксированного URL
+  // пробуем оба варианта, а также относительный вариант API.
+  if (isProxiedS3MediaUrl(normalized)) {
+    const localParts = getLocalPathParts(normalized.replace(/^\/media-s3\//, '/'))
+    const bucket = localParts.shift()
+
+    if (bucket && localParts.length) {
+      const fileName = localParts.pop() || 'image'
+      const { name } = splitBaseName(fileName)
+      const tail = [...localParts, name].map(safeSegment).filter(Boolean).join('/')
+      const safeBucket = safeSegment(bucket)
+
+      push(`${OPTIMIZED_PREFIX}/remote/${safeBucket}.s3.firstvds.ru/${tail}/w-${roundedWidth}.${format}`)
+      push(`${OPTIMIZED_PREFIX}/remote/s3.firstvds.ru/${safeBucket}/${tail}/w-${roundedWidth}.${format}`)
+      push(`${OPTIMIZED_PREFIX}/local/${safeBucket}/${tail}/w-${roundedWidth}.${format}`)
+    }
+  }
+
+  return candidates
+}
+
 export function buildOptimizedImageSrcSet(
   src: string | null | undefined,
   widths: number[],
