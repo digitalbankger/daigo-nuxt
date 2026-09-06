@@ -35,7 +35,7 @@ defineProps<{
             :product="product"
             :index="index"
             :global-index="index"
-            :priority="true"
+            :priority="false"
             variant="weekly"
           />
         </div>

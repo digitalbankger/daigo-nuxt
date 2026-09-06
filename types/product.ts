@@ -6,7 +6,11 @@ export interface ProductCard {
   name: string
   subtitle: string
   image: string
+  /** Исходный URL изображения из API до преобразования в /media-s3/. Нужен для точного сопоставления build-time optimized-файла. */
+  imageSource?: string
   detailImages?: string[]
+  /** Исходные URL дополнительных изображений до нормализации. */
+  detailImageSources?: string[]
   price: number
   originalPrice?: number
   discount?: number

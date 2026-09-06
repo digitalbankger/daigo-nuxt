@@ -511,7 +511,7 @@ watch(
               :product="product"
               :index="idx"
               :global-index="idx"
-              :priority="idx < 4"
+              :priority="idx < 3"
             />
           </div>
 

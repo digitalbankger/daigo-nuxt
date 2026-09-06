@@ -1,93 +1,43 @@
-import { isProxiedS3MediaUrl, normalizeMediaUrlOrFallback } from './mediaUrl'
+import { optimizedImageManifest } from '~/generated/optimized-image-manifest'
+import { normalizeMediaUrlOrFallback } from './mediaUrl'
 
 export type OptimizedImageFormat = 'avif' | 'webp'
 
-const OPTIMIZED_PREFIX = '/images/optimized'
+export interface OptimizedImageManifestEntry {
+  base: string
+  widths: readonly number[]
+}
+
 const FALLBACK_PLACEHOLDER = '/images/placeholder-product.png'
+const manifest = optimizedImageManifest as Record<string, OptimizedImageManifestEntry>
 
-// Скрипт generate-optimized-images.mjs сохраняет локальные варианты и для внешних
-// API/S3 URL. Каталожная карточка использует один WebP candidate и умеет откатиться
-// на исходный URL при 404, поэтому remote prerender можно включить без <picture>-ловушек.
-const ENABLE_REMOTE_OPTIMIZED_IMAGES = true
-
-function safeSegment(value: string): string {
-  return encodeURIComponent(value.trim())
-}
-
-function stripQueryAndHash(value: string): string {
-  return value.split('#')[0]?.split('?')[0] || value
-}
-
-function getLocalPathParts(src: string): string[] {
-  const clean = stripQueryAndHash(src).replace(/^\/+/, '')
-  return clean.split('/').filter(Boolean)
-}
-
-function getRemotePathParts(src: string): string[] {
-  const url = new URL(src)
-  const pathname = stripQueryAndHash(url.pathname).replace(/^\/+/, '')
-  return [url.host, ...pathname.split('/').filter(Boolean)]
-}
-
-function splitBaseName(fileName: string): { name: string; ext: string } {
-  const match = fileName.match(/^(.*?)(\.[^.]+)?$/)
-  return {
-    name: match?.[1] || fileName,
-    ext: match?.[2] || '',
-  }
+function canonicalSource(value?: string | null): string {
+  return String(value || '').trim().replace(/^http:\/\//i, 'https://').split('#')[0].split('?')[0]
 }
 
 export function normalizeOptimizedImageSrc(src?: string | null): string {
   return normalizeMediaUrlOrFallback(src, FALLBACK_PLACEHOLDER)
 }
 
+/**
+ * Возвращает запись только если build-time генератор действительно создал
+ * optimized-файлы для этого исходного URL. Это исключает лишние 404-запросы
+ * к "угадываемым" путям на странице каталога.
+ */
+export function getOptimizedImageManifestEntry(
+  src?: string | null,
+): OptimizedImageManifestEntry | null {
+  const key = canonicalSource(src)
+  if (!key) return null
+  return manifest[key] || null
+}
+
 export function isOptimizableImageSrc(src?: string | null): boolean {
-  const normalized = normalizeOptimizedImageSrc(src)
-
-  if (!normalized) return false
-  if (normalized.startsWith('data:') || normalized.startsWith('blob:')) return false
-
-  if (/^https?:\/\//i.test(normalized)) {
-    return ENABLE_REMOTE_OPTIMIZED_IMAGES
-  }
-
-  // /media-s3/... — это браузерная форма FirstVDS S3 URL.
-  // Скрипт оптимизации сохраняет эти же файлы как remote/s3.firstvds.ru/...
-  // Поэтому такие URL тоже можно сопоставить с build-time вариантами.
-  if (isProxiedS3MediaUrl(normalized)) return true
-
-  return normalized.startsWith('/')
+  return Boolean(getOptimizedImageManifestEntry(src))
 }
 
 export function getOptimizedImageBasePath(src?: string | null): string | null {
-  const normalized = normalizeOptimizedImageSrc(src)
-
-  if (!isOptimizableImageSrc(normalized)) {
-    return null
-  }
-
-  const absolute = /^https?:\/\//i.test(normalized)
-  const proxiedS3 = isProxiedS3MediaUrl(normalized)
-
-  const parts = proxiedS3
-    ? [
-        'remote',
-        's3.firstvds.ru',
-        ...getLocalPathParts(normalized.replace(/^\/media-s3\//, '/')),
-      ]
-    : absolute
-      ? ['remote', ...getRemotePathParts(normalized)]
-      : ['local', ...getLocalPathParts(normalized)]
-
-  if (!parts.length) return null
-
-  const fileName = parts.pop() || 'image'
-  const { name } = splitBaseName(fileName)
-  const finalParts = [...parts, name]
-    .map(safeSegment)
-    .filter(Boolean)
-
-  return `${OPTIMIZED_PREFIX}/${finalParts.join('/')}`
+  return getOptimizedImageManifestEntry(src)?.base || null
 }
 
 export function buildOptimizedImageUrl(
@@ -95,51 +45,27 @@ export function buildOptimizedImageUrl(
   width: number,
   format: OptimizedImageFormat,
 ): string | null {
-  const base = getOptimizedImageBasePath(src)
-  if (!base) return null
-  return `${base}/w-${Math.round(width)}.${format}`
+  const entry = getOptimizedImageManifestEntry(src)
+  if (!entry) return null
+
+  const requestedWidth = Math.round(width)
+  if (!entry.widths.includes(requestedWidth)) return null
+
+  return `${entry.base}/w-${requestedWidth}.${format}`
 }
 
-
+/**
+ * Оставлено как совместимый API для компонентов с последовательным fallback.
+ * В отличие от старой реализации возвращает только физически известный по
+ * manifest путь и не перебирает варианты host/bucket.
+ */
 export function buildOptimizedImageCandidates(
   src: string | null | undefined,
   width: number,
   format: OptimizedImageFormat,
 ): string[] {
-  const normalized = normalizeOptimizedImageSrc(src)
-  const roundedWidth = Math.round(width)
-  const candidates: string[] = []
-
-  const push = (value: string | null) => {
-    if (value && !candidates.includes(value)) candidates.push(value)
-  }
-
-  // Точный путь для исходного URL. Для абсолютного S3 URL это полностью
-  // совпадает с generate-optimized-images.mjs.
-  push(buildOptimizedImageUrl(src, roundedWidth, format))
-
-  // После normalizeMediaUrl два разных FirstVDS URL становятся одинаковыми:
-  // https://products.s3.firstvds.ru/a.png -> /media-s3/products/a.png
-  // https://s3.firstvds.ru/products/a.png -> /media-s3/products/a.png
-  // Генератор же сохраняет их в разные каталоги. Для проксированного URL
-  // пробуем оба варианта, а также относительный вариант API.
-  if (isProxiedS3MediaUrl(normalized)) {
-    const localParts = getLocalPathParts(normalized.replace(/^\/media-s3\//, '/'))
-    const bucket = localParts.shift()
-
-    if (bucket && localParts.length) {
-      const fileName = localParts.pop() || 'image'
-      const { name } = splitBaseName(fileName)
-      const tail = [...localParts, name].map(safeSegment).filter(Boolean).join('/')
-      const safeBucket = safeSegment(bucket)
-
-      push(`${OPTIMIZED_PREFIX}/remote/${safeBucket}.s3.firstvds.ru/${tail}/w-${roundedWidth}.${format}`)
-      push(`${OPTIMIZED_PREFIX}/remote/s3.firstvds.ru/${safeBucket}/${tail}/w-${roundedWidth}.${format}`)
-      push(`${OPTIMIZED_PREFIX}/local/${safeBucket}/${tail}/w-${roundedWidth}.${format}`)
-    }
-  }
-
-  return candidates
+  const url = buildOptimizedImageUrl(src, width, format)
+  return url ? [url] : []
 }
 
 export function buildOptimizedImageSrcSet(
@@ -147,12 +73,13 @@ export function buildOptimizedImageSrcSet(
   widths: number[],
   format: OptimizedImageFormat,
 ): string {
-  return widths
-    .map((width) => ({
-      width: Math.round(width),
-      url: buildOptimizedImageUrl(src, width, format),
-    }))
-    .filter((item): item is { width: number; url: string } => Boolean(item.url))
-    .map((item) => `${item.url} ${item.width}w`)
+  const entry = getOptimizedImageManifestEntry(src)
+  if (!entry) return ''
+
+  const requested = new Set(widths.map((width) => Math.round(width)))
+
+  return entry.widths
+    .filter((width) => requested.has(width))
+    .map((width) => `${entry.base}/w-${width}.${format} ${width}w`)
     .join(', ')
 }

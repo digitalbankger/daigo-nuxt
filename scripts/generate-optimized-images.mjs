@@ -203,11 +203,24 @@ async function writeVariant(baseRelativePath, width, format, buffer) {
   return outputPath
 }
 
+async function hasAllGeneratedVariants(baseRelativePath) {
+  for (const width of WIDTHS) {
+    for (const format of ['avif', 'webp']) {
+      const outputPath = path.join(OUTPUT_DIR, baseRelativePath, `w-${width}.${format}`)
+      if (!(await exists(outputPath))) return false
+    }
+  }
+  return true
+}
+
 async function processImage(src, manifest) {
   const baseRelativePath = getBaseRelativePath(src)
   if (!baseRelativePath) return { src, skipped: true, reason: 'unsupported' }
 
-  if (manifest[src]?.done) {
+  // Manifest сам по себе не считается доказательством наличия файлов.
+  // Если директорию чистили или переносили между окружениями, отсутствующие
+  // варианты будут автоматически восстановлены на следующем images:generate.
+  if (manifest[src]?.done && await hasAllGeneratedVariants(baseRelativePath)) {
     return { src, skipped: true, reason: 'manifest' }
   }
 

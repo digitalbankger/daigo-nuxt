@@ -3,14 +3,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/generate-articles-cards.mjs && nuxt build",
-    "dev": "node scripts/generate-articles-cards.mjs && nuxt dev",
-    "generate": "node scripts/generate-articles-cards.mjs && nuxt generate",
+    "build": "node scripts/generate-articles-cards.mjs && node scripts/generate-optimized-image-manifest.mjs && nuxt build",
+    "dev": "node scripts/generate-articles-cards.mjs && node scripts/generate-optimized-image-manifest.mjs && nuxt dev",
+    "generate": "node scripts/generate-articles-cards.mjs && node scripts/generate-optimized-image-manifest.mjs && nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "images:generate": "node scripts/generate-optimized-images.mjs",
+    "images:generate": "node scripts/generate-optimized-images.mjs && node scripts/generate-optimized-image-manifest.mjs",
     "articles:prepare": "node scripts/generate-articles-cards.mjs",
-    "build:optimized": "node scripts/generate-optimized-images.mjs && node scripts/generate-articles-cards.mjs && nuxt build"
+    "build:optimized": "node scripts/generate-optimized-images.mjs && node scripts/generate-optimized-image-manifest.mjs && node scripts/generate-articles-cards.mjs && nuxt build",
+    "images:manifest": "node scripts/generate-optimized-image-manifest.mjs"
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",

@@ -27,8 +27,8 @@ const failed = ref(false)
 
 const normalizedSrc = computed(() => normalizeOptimizedImageSrc(props.src))
 const sortedWidths = computed(() => [...props.widths].map((v) => Math.round(v)).filter(Boolean).sort((a, b) => a - b))
-const avifSrcset = computed(() => buildOptimizedImageSrcSet(normalizedSrc.value, sortedWidths.value, 'avif'))
-const webpSrcset = computed(() => buildOptimizedImageSrcSet(normalizedSrc.value, sortedWidths.value, 'webp'))
+const avifSrcset = computed(() => buildOptimizedImageSrcSet(props.src, sortedWidths.value, 'avif'))
+const webpSrcset = computed(() => buildOptimizedImageSrcSet(props.src, sortedWidths.value, 'webp'))
 
 watch(() => props.src, () => {
   failed.value = false

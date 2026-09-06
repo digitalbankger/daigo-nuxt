@@ -320,6 +320,7 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
     const primaryImage =
       getPrimaryImageSource(p) ||
       (evolutionConfig ? '/images/evolution/hero-main.webp' : '')
+    const detailImageSources = getDetailImageSources(p)
 
     return {
       id: p.product_id ?? p.id,
@@ -329,8 +330,14 @@ function mapProducts(raw: any, normalizeImg: (src: any) => string) {
         ? getEvolutionTitle(evolutionConfig.packSize)
         : normalizeProductName(p.name_ru || p.name || p.title || p.name_en || ''),
       subtitle: p.subtitle || '',
+      // Сохраняем исходные значения из API: генератор optimized-изображений
+      // строит путь именно из них. Нормализованная /media-s3/ форма теряет
+      // исходный FirstVDS host/bucket и не всегда позволяет восстановить
+      // физический путь build-time файла однозначно.
+      imageSource: String(primaryImage || ''),
       image: normalizeImg(primaryImage),
-      detailImages: getDetailImageSources(p).map((img: any) => normalizeImg(img)).filter(Boolean),
+      detailImageSources: detailImageSources.map((img: any) => String(img || '')).filter(Boolean),
+      detailImages: detailImageSources.map((img: any) => normalizeImg(img)).filter(Boolean),
       price,
       originalPrice: Number(p.original_price ?? p.old_price ?? p.oldPrice ?? p.originalPrice) || 0,
       sort: p.sort_order === 0 ? 16 : (p.sort_order ?? p.sort ?? 0),

@@ -20,7 +20,7 @@
         >
           <div class="w-full h-full flex items-center justify-center select-none">
             <CatalogCardImage
-              :src="primaryImage"
+              :src="primaryImageSource"
               :alt="product.name"
               :width="560"
               :height="560"
@@ -260,14 +260,26 @@ const cardImageClass = computed(() =>
   )
 )
 
-const primaryImage = computed(() => {
-  const images = [product.image, ...(product.detailImages || [])]
-  const firstImage = images
-    .map((image) => String(image || '').trim())
-    .find(Boolean)
+// Для optimized-файла важно сохранить именно исходный URL из API.
+// generate-optimized-images.mjs строит директорию из исходного host/path,
+// а normalizeMediaUrl() сводит разные FirstVDS URL к одному /media-s3/...
+// и тем самым теряет информацию, необходимую для точного совпадения пути.
+const primaryImageSource = computed(() => {
+  const images = [
+    product.imageSource,
+    ...(product.detailImageSources || []),
+    product.image,
+    ...(product.detailImages || []),
+  ]
 
-  return normalizeMediaUrlOrFallback(firstImage, '/images/placeholder-product.png')
+  return images
+    .map((image) => String(image || '').trim())
+    .find(Boolean) || '/images/placeholder-product.png'
 })
+
+const primaryImage = computed(() =>
+  normalizeMediaUrlOrFallback(primaryImageSource.value, '/images/placeholder-product.png')
+)
 
 const discountPercent = computed(() => {
   const current = Number(product.price || 0)
