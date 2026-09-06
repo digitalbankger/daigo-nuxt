@@ -32,6 +32,8 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 interface Crumb {
   title: string
   to: string
@@ -41,8 +43,8 @@ const props = defineProps<{
   crumbs: Crumb[]
 }>()
 
-const withHome = [
+const withHome = computed(() => [
   { title: 'Главная', to: '/' },
   ...props.crumbs
-]
+])
 </script>

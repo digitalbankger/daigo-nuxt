@@ -6,6 +6,7 @@ import { cartService } from "~/services/cartService";
 import { useAnalytics } from "~/composables/useAnalytics";
 import { useYtm } from "@/composables/useYtm";
 import { getCouponApplyMessage, isCouponApplySuccess } from "@/utils/coupon";
+import { createGuestSessionId, getGuestSessionId, removeGuestSessionId, setGuestSessionId } from "~/utils/guestSession";
 import {
   EVOLUTION_SINGLE_DELIVERY_MESSAGE,
   EVOLUTION_SINGLE_PRODUCT_ID,
@@ -91,7 +92,7 @@ export const useCartStore = defineStore("cart", () => {
 
   // sessionID гостя (храним только на клиенте)
   const guestSessionId = ref<string | null>(
-    process.client ? localStorage.getItem("guest_session_id") : null,
+    process.client ? getGuestSessionId() : null,
   );
 
   // форма для гостя (для старта авторизации из корзины)
@@ -114,9 +115,9 @@ export const useCartStore = defineStore("cart", () => {
   function ensureGuestSession() {
     if (!guestSessionId.value) {
       if (process.client) {
-        const id = crypto.randomUUID();
+        const id = createGuestSessionId();
         guestSessionId.value = id;
-        localStorage.setItem("guest_session_id", id);
+        setGuestSessionId(id);
       }
     }
     return guestSessionId.value!;
@@ -353,7 +354,7 @@ export const useCartStore = defineStore("cart", () => {
         exhibitionDiscountAmount.value = 0;
         couponInfo.value = null;
         coupons.value = [];
-        if (process.client) localStorage.removeItem("guest_session_id");
+        if (process.client) removeGuestSessionId();
         guestSessionId.value = null;
       } else {
         console.warn("Ошибка при загрузке корзины", e);
@@ -525,7 +526,7 @@ export const useCartStore = defineStore("cart", () => {
     } else {
       const sid = ensureGuestSession();
       await cartService.clearGuestCart(sid);
-      if (process.client) localStorage.removeItem("guest_session_id");
+      if (process.client) removeGuestSessionId();
       guestSessionId.value = null;
     }
     items.value = [];
@@ -648,7 +649,7 @@ export const useCartStore = defineStore("cart", () => {
     }
     await cartService.migrateGuestToUser(sid, uid);
     // после успешной миграции — чистим гостевую сессию
-    localStorage.removeItem("guest_session_id");
+    removeGuestSessionId();
     guestSessionId.value = null;
     await loadCart();
   }

@@ -11,7 +11,12 @@ import BannerSection from "~/components/sections/BannerSection.vue";
 
 definePageMeta({ layout: "main" });
 
+useHead({
+  link: [{ rel: "canonical", href: "https://daigo.ru/" }],
+});
+
 useSeoMeta({
+  title: "Официальный сайт Daigo (Дайго) в России и СНГ",
   ogTitle: "Официальный сайт Daigo (Дайго) в России и СНГ",
   ogDescription:
     "Купить Daigo (Daigo) с бесплатной доставкой у официального дистрибьютора в РФ и СНГ. Программа лояльности. Консультация экспертов.",
@@ -36,6 +41,7 @@ const { banners } = storeToRefs(contentStore)
 <template>
   <BaseContainer>
     <div class="flex flex-col gap-10">
+      <h1 class="sr-only">Официальный сайт Daigo в России и СНГ</h1>
       <BannerSection :banners="banners" />
 
       <CategorySection />

@@ -43,15 +43,17 @@ export const CATALOG_FILTERS: FilterGroup[] = [
         { label: 'Восстановление микрофлоры', value: 'vosstanovlenie-mikroflory' },
       ]
     },
-    {
-      label: 'Класс продукта',
-      slug: 'klass-produkta',
-      options: [
-        { label: 'Аминобиотики', value: 'aminobiotiki' },
-        { label: 'Метабиотики', value: 'metobiotiki' },
-        { label: 'Плазмалогены', value: 'plazmalogeny' },
-      ]
-    },
+    // Класс продукта отключён в каталоге. Старые URL с klass-produkta
+    // нормализуются отдельным временным 307-редиректом в redirects.global.ts.
+    // {
+    //   label: 'Класс продукта',
+    //   slug: 'klass-produkta',
+    //   options: [
+    //     { label: 'Аминобиотики', value: 'aminobiotiki' },
+    //     { label: 'Метабиотики', value: 'metobiotiki' },
+    //     { label: 'Плазмалогены', value: 'plazmalogeny' },
+    //   ]
+    // },
     {
       label: 'Продукты',
       slug: 'produkty',

@@ -46,7 +46,10 @@ export function useBreadcrumbs(productRef: any, baseCatalogPath = '/catalog') {
       '@type': 'ListItem',
       position: i + 1,
       item: c.to
-        ? { '@id': c.to, name: c.label }
+        ? {
+            '@id': c.to.startsWith('http') ? c.to : `https://daigo.ru${c.to}`,
+            name: c.label,
+          }
         : { name: c.label },
     }))
     return {

@@ -5,13 +5,10 @@ export type OptimizedImageFormat = 'avif' | 'webp'
 const OPTIMIZED_PREFIX = '/images/optimized'
 const FALLBACK_PLACEHOLDER = '/images/placeholder-product.png'
 
-// Важно для каталога: большинство товарных изображений приходит с внешнего API/S3.
-// Для таких URL нельзя слепо строить статические /images/optimized/... ссылки,
-// потому что эти файлы существуют только после ручной предгенерации.
-// На iOS Safari/Chrome браузер может выбрать отсутствующий AVIF/WebP candidate
-// из <picture>/<srcset> и не показать fallback. Поэтому внешние изображения
-// выводим напрямую, а оптимизацию оставляем только для локальных /images/... файлов.
-const ENABLE_REMOTE_OPTIMIZED_IMAGES = false
+// Скрипт generate-optimized-images.mjs сохраняет локальные варианты и для внешних
+// API/S3 URL. Каталожная карточка использует один WebP candidate и умеет откатиться
+// на исходный URL при 404, поэтому remote prerender можно включить без <picture>-ловушек.
+const ENABLE_REMOTE_OPTIMIZED_IMAGES = true
 
 function safeSegment(value: string): string {
   return encodeURIComponent(value.trim())

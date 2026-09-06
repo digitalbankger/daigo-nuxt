@@ -1,4 +1,6 @@
 import { defineEventHandler, getRequestURL, sendRedirect } from 'h3'
+import { CATALOG_SEO_FILTER_KEYS, getCatalogSeoFilterKey, isCatalogSeoFilterValue } from '~/constants/catalogSeoFilters'
+import { buildCatalogFilterLocation, parseCatalogFilterValues, type CatalogFilterValues } from '~/utils/catalogFilterRoute'
 
 /** РЕЖИМ КАРТ:
  * 'oldToNew' — слева→направо (как в списке ниже)
@@ -41,9 +43,32 @@ const RAW_PATH_REDIRECTS: Record<string, string> = {
 
 // --- 2) ПРАВИЛА С QUERY (СТАРЫЕ → НОВЫЕ)
 // формат ключа: '/path?key1=val1&key2=val2'
-const RAW_QUERY_REDIRECTS: Record<string, string> = {
-  '/catalog?napravlennost=kishechnik-i-immunitet': '/catalog/kishechnik-i-immunitet/',
-}
+// Старые query->path SEO-переезды вынесены ниже в отдельный временный блок 307.
+// Не добавлять их в инвертируемую карту MODE: иначе новый ЧПУ снова уедет в query.
+const RAW_QUERY_REDIRECTS: Record<string, string> = {}
+
+
+// Старый Bitrix-каталог использовал вложенность
+// /catalog/<раздел>/<slug-товара>/, тогда как текущие карточки живут на
+// /catalog/<slug-товара>. Берём только уже проверенные пары из базовой карты,
+// чтобы не перенаправлять произвольные двухуровневые URL на несуществующие товары.
+const LEGACY_PRODUCT_TEST_REDIRECTS: Record<string, string> = Object.fromEntries(
+  Object.entries(RAW_PATH_REDIRECTS)
+    .filter(([currentPath, legacyPath]) => {
+      const currentSegments = currentPath.split('/').filter(Boolean)
+      const legacySegments = legacyPath.split('/').filter(Boolean)
+      return (
+        currentSegments.length === 2 &&
+        currentSegments[0] === 'catalog' &&
+        legacySegments.length >= 3 &&
+        legacySegments[0] === 'catalog'
+      )
+    })
+    .map(([currentPath, legacyPath]) => [
+      legacyPath.replace(/\/+$/, ''),
+      currentPath.replace(/\/+$/, ''),
+    ]),
+)
 
 // ===== УТИЛИТЫ =====
 const withSlash = (p: string) => (p === '/' ? '/' : p.endsWith('/') ? p : `${p}/`)
@@ -86,7 +111,132 @@ function buildRedirectLocation(pathname: string, params: URLSearchParams) {
   return qs ? `${pathname}?${qs}` : pathname
 }
 
+// ===== ВРЕМЕННЫЕ SEO-РЕДИРЕКТЫ: ТОЛЬКО 307 ДЛЯ ТЕСТА =====
+// После проверки этот блок можно механически переключить на 301.
+const SEO_TEST_REDIRECT_CODE = 307
+const REMOVED_CATALOG_FILTER_KEYS = new Set(['klass-produkta'])
+const CATALOG_SERVICE_KEYS = new Set(['page', 'empty', 'page_size', 'limit', 'no_total', 'for'])
 
+function collectSeoFilters(params: URLSearchParams): CatalogFilterValues {
+  const result: CatalogFilterValues = {}
+
+  for (const key of CATALOG_SEO_FILTER_KEYS) {
+    const values = params.getAll(key)
+      .flatMap(value => parseCatalogFilterValues(value))
+      .filter(value => isCatalogSeoFilterValue(key, value))
+
+    if (values.length) result[key] = Array.from(new Set(values))
+  }
+
+  return result
+}
+
+function buildCatalogQueryRedirect(url: URL, pathname: string) {
+  if (pathname !== '/catalog' && pathname !== '/catalog/') return null
+
+  const hasSeoQuery = CATALOG_SEO_FILTER_KEYS.some(key => url.searchParams.has(key))
+  const hasRemovedFilter = [...REMOVED_CATALOG_FILTER_KEYS].some(key => url.searchParams.has(key))
+  const hasServiceQuery = [...CATALOG_SERVICE_KEYS].some(key => url.searchParams.has(key))
+  if (!hasSeoQuery && !hasRemovedFilter && !hasServiceQuery) return null
+
+  const seoFilters = collectSeoFilters(url.searchParams)
+  const location = buildCatalogFilterLocation(seoFilters)
+  const kept = new URLSearchParams(url.searchParams)
+
+  for (const key of CATALOG_SEO_FILTER_KEYS) kept.delete(key)
+  for (const key of REMOVED_CATALOG_FILTER_KEYS) kept.delete(key)
+  for (const key of CATALOG_SERVICE_KEYS) kept.delete(key)
+
+  // Не теряем остальные UX-фильтры и рекламные метки.
+  for (const [key, value] of Object.entries(location.query)) kept.set(key, value)
+  return buildRedirectLocation(location.path, kept)
+}
+
+function buildLegacyCatalogFilterRedirect(url: URL, pathname: string) {
+  if (!pathname.startsWith('/catalog/filter/')) return null
+
+  const segments = pathname.slice('/catalog/filter/'.length).split('/').filter(Boolean)
+  const filters: CatalogFilterValues = {}
+
+  for (let i = 0; i < segments.length; i += 2) {
+    const key = decodeURIComponent(segments[i] || '')
+    const rawValue = decodeURIComponent(segments[i + 1] || '')
+    if (!key || !rawValue || REMOVED_CATALOG_FILTER_KEYS.has(key)) continue
+    filters[key] = parseCatalogFilterValues(rawValue)
+  }
+
+  const location = buildCatalogFilterLocation(filters)
+  const kept = new URLSearchParams(url.searchParams)
+  for (const [key, value] of Object.entries(location.query)) kept.set(key, value)
+  return buildRedirectLocation(location.path, kept)
+}
+
+function canonicalCatalogSeoLocation(pathname: string) {
+  const clean = pathname.replace(/\/+$/, '')
+  if (!clean.startsWith('/catalog/')) return null
+
+  const segments = clean.slice('/catalog/'.length).split('/').filter(Boolean)
+  if (!segments.length) return null
+
+  const filters: CatalogFilterValues = {}
+  for (const segment of segments) {
+    const value = decodeURIComponent(segment)
+    const key = getCatalogSeoFilterKey(value)
+    if (!key || !isCatalogSeoFilterValue(key, value)) return null
+    filters[key] = Array.from(new Set([...(filters[key] || []), value]))
+  }
+
+  const location = buildCatalogFilterLocation(filters)
+  const hasExtraPathSegments = segments.length > 1
+  const pathChanged = location.path !== clean
+
+  // Один корректный /catalog/<seo-slug> уже каноничен.
+  if (!hasExtraPathSegments && !pathChanged) return null
+
+  return location
+}
+
+
+function buildLegacyProductRedirect(url: URL, pathname: string) {
+  const cleanPath = pathname.replace(/\/+$/, '')
+  const target = LEGACY_PRODUCT_TEST_REDIRECTS[cleanPath]
+  if (!target) return null
+  return `${target}${url.search || ''}`
+}
+
+function buildArticleTrailingSlashRedirect(url: URL, pathname: string) {
+  if (!pathname.endsWith('/')) return null
+  if (pathname !== '/articles/' && !pathname.startsWith('/articles/')) return null
+
+  const cleanPath = pathname.replace(/\/+$/, '') || '/articles'
+  return buildRedirectLocation(cleanPath, new URLSearchParams(url.searchParams))
+}
+
+
+function buildCatalogTrailingSlashRedirect(url: URL, pathname: string) {
+  if (!pathname.endsWith('/')) return null
+  if (pathname !== '/catalog/' && !pathname.startsWith('/catalog/')) return null
+
+  const cleanPath = pathname.replace(/\/+$/, '') || '/catalog'
+  return buildRedirectLocation(cleanPath, new URLSearchParams(url.searchParams))
+}
+
+function buildArticlesPaginationRedirect(url: URL, pathname: string) {
+  if ((pathname === '/articles' || pathname === '/articles/') && url.searchParams.has('page')) {
+    const page = Math.max(1, Math.floor(Number(url.searchParams.get('page')) || 1))
+    const kept = new URLSearchParams(url.searchParams)
+    kept.delete('page')
+    return buildRedirectLocation(page <= 1 ? '/articles' : `/articles/page${page}`, kept)
+  }
+
+  const match = pathname.match(/^\/articles\/page(\d+)\/?$/)
+  if (!match) return null
+
+  const page = Math.max(1, Math.floor(Number(match[1]) || 1))
+  const cleanPath = page <= 1 ? '/articles' : `/articles/page${page}`
+  if (pathname === cleanPath && page > 1) return null
+  return buildRedirectLocation(cleanPath, new URLSearchParams(url.searchParams))
+}
 
 // ===== ПОДГОТОВКА КАРТ С УЧЁТОМ MODE =====
 const BASE_PATH_REDIRECTS = normalizePathMap(
@@ -110,6 +260,48 @@ const QUERY_REDIRECTS = MODE === 'oldToNew' ? RAW_QUERY_REDIRECTS : invert(RAW_Q
 export default defineEventHandler((event) => {
   const url = getRequestURL(event)
   const pathname = decodeURI(url.pathname)
+
+  // --- START: временный отдельный блок новых SEO redirect rules (307) ---
+  const articlePaginationTarget = buildArticlesPaginationRedirect(url, pathname)
+  if (articlePaginationTarget) return sendRedirect(event, articlePaginationTarget, SEO_TEST_REDIRECT_CODE)
+
+  const articleTrailingSlashTarget = buildArticleTrailingSlashRedirect(url, pathname)
+  if (articleTrailingSlashTarget) return sendRedirect(event, articleTrailingSlashTarget, SEO_TEST_REDIRECT_CODE)
+
+  const legacyProductTarget = buildLegacyProductRedirect(url, pathname)
+  if (legacyProductTarget) return sendRedirect(event, legacyProductTarget, SEO_TEST_REDIRECT_CODE)
+
+  const legacyFilterTarget = buildLegacyCatalogFilterRedirect(url, pathname)
+  if (legacyFilterTarget) return sendRedirect(event, legacyFilterTarget, SEO_TEST_REDIRECT_CODE)
+
+  const catalogQueryTarget = buildCatalogQueryRedirect(url, pathname)
+  if (catalogQueryTarget) return sendRedirect(event, catalogQueryTarget, SEO_TEST_REDIRECT_CODE)
+
+  const canonicalSeoLocation = canonicalCatalogSeoLocation(pathname)
+  if (canonicalSeoLocation) {
+    const kept = new URLSearchParams(url.searchParams)
+
+    // Фильтры, которые раньше были вторым/третьим path-сегментом,
+    // переносим в query. Они сохраняют UX-фильтрацию, но не участвуют в SEO.
+    for (const [key, value] of Object.entries(canonicalSeoLocation.query)) {
+      kept.set(key, value)
+    }
+
+    return sendRedirect(
+      event,
+      buildRedirectLocation(canonicalSeoLocation.path, kept),
+      SEO_TEST_REDIRECT_CODE,
+    )
+  }
+
+
+  // Единый формат URL каталога: без завершающего слэша.
+  // Ставим после legacy/query/SEO-нормализации, чтобы не создавать цепочки редиректов.
+  const catalogTrailingSlashTarget = buildCatalogTrailingSlashRedirect(url, pathname)
+  if (catalogTrailingSlashTarget) {
+    return sendRedirect(event, catalogTrailingSlashTarget, SEO_TEST_REDIRECT_CODE)
+  }
+  // --- END: временный отдельный блок новых SEO redirect rules (307) ---
 
   // Evolution: старый slug всегда ведём на новый SEO URL.
   // Правило не зависит от MODE, чтобы не инвертировалось вместе с общей картой редиректов.

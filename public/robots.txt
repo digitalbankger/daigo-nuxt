@@ -1,1 +1,91 @@
+User-agent: Yandex
 
+# --- Служебные и закрытые разделы ---
+Disallow: /thanks/
+Disallow: /cart/
+Disallow: /profile/
+Disallow: /orders/
+Disallow: /oplata/
+Disallow: /usloviya-dostavki/
+Disallow: /user-agreement/
+Disallow: /privacy/
+Disallow: /terms-sale
+Disallow: /usloviya-vozvrata-i-obmena
+Disallow: /soglasie-na-
+Disallow: /bonusopad
+Disallow: /konkurs
+Disallow: /akcii?
+
+# --- Временно: старые SEO-URL должны быть доступны роботу, чтобы он увидел 307 ---
+Allow: /catalog?*napravlennost=*
+Allow: /catalog?*pomogaet-pri=*
+Allow: /catalog?*klass-produkta=*
+Allow: /articles?*page=*
+
+# --- Блокировка остальных URL с параметрами ---
+Disallow: /*?*
+
+# --- Дополнительная очистка от явного мусора ---
+Disallow: /*utm_
+Disallow: /*etext=
+Disallow: /*ybaip=
+Disallow: /*yclid=
+Disallow: /*qleads=
+Disallow: /*mango=
+Disallow: /*PAGEN_
+Disallow: /*amp
+Disallow: /*?yandex-source
+Disallow: /*?yprqee
+Disallow: /*?yclyyd
+Disallow: /*?yqrid
+Disallow: /*?retarget
+Disallow: /*?add-to-cart
+
+# Чистые /catalog/... и /articles/... не запрещаем:
+# они индексируются по умолчанию и не конфликтуют с Disallow: /*?*.
+Disallow: /?*
+Allow: /$
+
+User-agent: *
+
+Disallow: /thanks/
+Disallow: /cart/
+Disallow: /profile/
+Disallow: /orders/
+Disallow: /oplata/
+Disallow: /usloviya-dostavki/
+Disallow: /user-agreement/
+Disallow: /privacy/
+Disallow: /terms-sale
+Disallow: /usloviya-vozvrata-i-obmena
+Disallow: /soglasie-na-
+Disallow: /bonusopad
+Disallow: /konkurs
+Disallow: /akcii?
+
+# Временно для миграции старых URL на ЧПУ (307 на этапе теста)
+Allow: /catalog?*napravlennost=*
+Allow: /catalog?*pomogaet-pri=*
+Allow: /catalog?*klass-produkta=*
+Allow: /articles?*page=*
+
+Disallow: /*?*
+Disallow: /*utm_
+Disallow: /*etext=
+Disallow: /*ybaip=
+Disallow: /*yclid=
+Disallow: /*qleads=
+Disallow: /*mango=
+Disallow: /*PAGEN_
+Disallow: /*amp
+Disallow: /*?yandex-source
+Disallow: /*?yprqee
+Disallow: /*?yclyyd
+Disallow: /*?yqrid
+Disallow: /*?retarget
+Disallow: /*?add-to-cart
+
+Disallow: /?*
+Allow: /$
+
+Sitemap: https://daigo.ru/sitemap.xml

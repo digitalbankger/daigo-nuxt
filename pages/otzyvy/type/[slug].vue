@@ -35,7 +35,7 @@ const loadError = ref<unknown>(null)
 
 const conf = computed(() => TYPE_MAP[String(route.params.slug)])
 if (!conf.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Подкатегория отзывов не найдена' })
+  throw createError({ statusCode: 404, statusMessage: 'Подкатегория отзывов не найдена', fatal: true })
 }
 
 /** загрузка данных без блокировки рендера */

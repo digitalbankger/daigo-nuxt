@@ -22,15 +22,13 @@ const CATEGORIES_BASE: Record<CategorySlug, Omit<ResearchCategory, 'researchCoun
 export default defineEventHandler((event) => {
   const { slug } = event.context.params || {}
 
-  const categorySlug: CategorySlug =
-    slug === 'plazmogeny' ? 'plazmogeny' :
-    slug === 'metabiotiki' ? 'metabiotiki' :
-    // совместимость: старые ссылки/ошибки — по умолчанию metabiotiki
-    'metabiotiki'
+  if (slug !== 'plazmogeny' && slug !== 'metabiotiki') {
+    throw createError({ statusCode: 404, statusMessage: 'Категория не найдена' })
+  }
 
+  const categorySlug: CategorySlug = slug
   const counts = getCategoryCounts()
   const base = CATEGORIES_BASE[categorySlug]
-  if (!base) throw createError({ statusCode: 404, statusMessage: 'Категория не найдена' })
 
   const category: ResearchCategory = { ...base, researchCount: counts[categorySlug] }
 

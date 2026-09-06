@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: "main" });
+definePageMeta({ layout: "main", hideGlobalBreadcrumbs: true });
 
 import {
   useRoute,
@@ -21,12 +21,24 @@ import CatalogBanner from "~/components/catalog/CatalogBanner.vue";
 import WeeklyProducts from "~/components/catalog/WeeklyProducts.vue";
 import Button from "~/components/ui/Button.vue";
 import BaseContainer from "~/components/layout/BaseContainer.vue";
+import Breadcrumbs from "~/components/ui/Breadcrumbs.vue";
 import { useYtm } from "@/composables/useYtm";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
 import {
   getWeeklyProductSort,
   isWeeklyProductSlug,
 } from "~/constants/weeklyProducts";
+import {
+  buildCatalogCanonicalPath,
+  buildCatalogFilterLocation,
+  getCatalogPrimarySeoSelection,
+  catalogFiltersToApiQuery,
+  mergeCatalogFilters,
+  normalizeCatalogFilters,
+  parseCatalogQueryFilters,
+  parseCatalogSeoPathSegments,
+  type CatalogFilterValues,
+} from "~/utils/catalogFilterRoute";
 
 const ytm = useYtm();
 const route = useRoute();
@@ -62,24 +74,44 @@ const allowedFilterSlugs = computed(
   () => new Set(catalogStore.filters.map((group) => group.slug)),
 );
 
-function isCatalogFilterQueryKey(key: string) {
-  return allowedFilterSlugs.value.has(key);
-}
+const normalizedFilters = computed<CatalogFilterValues>(() =>
+  mergeCatalogFilters(
+    parseCatalogSeoPathSegments(route.params.filters),
+    parseCatalogQueryFilters(route.query as Record<string, unknown>, allowedFilterSlugs.value),
+  ),
+);
 
-const normalizedQuery = computed(() => {
-  return Object.fromEntries(
-    Object.entries(route.query)
-      .filter(([key]) => isCatalogFilterQueryKey(key))
-      .map(([key, value]) => [
-        key,
-        Array.isArray(value) ? (value[0] ?? "") : (value ?? ""),
-      ]),
-  ) as Record<string, string>;
-});
+const normalizedQuery = computed(() =>
+  catalogFiltersToApiQuery(normalizedFilters.value),
+);
 
 const directionQuickFilters = computed(() =>
   catalogStore.filters.find((group) => group.slug === "napravlennost")?.options ?? [],
 );
+
+const catalogPageHeading = computed(() => {
+  const pathFilters = parseCatalogSeoPathSegments(route.params.filters);
+  const primary = getCatalogPrimarySeoSelection(pathFilters);
+  if (!primary) return "Каталог";
+
+  const group = catalogStore.filters.find((item) => item.slug === primary.key);
+  const option = group?.options.find((item) => item.value === primary.value);
+
+  return option?.label || primary.value.replace(/-/g, " ");
+});
+
+const catalogBreadcrumbs = computed(() => {
+  const crumbs = [{ title: "Каталог", to: "/catalog" }];
+
+  if (catalogPageHeading.value !== "Каталог") {
+    crumbs.push({
+      title: catalogPageHeading.value,
+      to: buildCatalogCanonicalPath(normalizedFilters.value),
+    });
+  }
+
+  return crumbs;
+});
 
 function getHumanFilterSummary() {
   return Object.entries(normalizedQuery.value)
@@ -234,21 +266,18 @@ function hasDeprecatedCatalogQuery(query: typeof route.query) {
 }
 
 function buildCatalogCanonicalHref() {
-  const params = new URLSearchParams();
+  return `https://daigo.ru${buildCatalogCanonicalPath(normalizedFilters.value)}`;
+}
 
-  for (const [key, value] of Object.entries(normalizedQuery.value)) {
-    if (!value) continue;
-    params.set(key, String(value));
-  }
-
-  const qs = params.toString().replaceAll("%2C", ",");
-  return `https://daigo.ru/catalog${qs ? `?${qs}` : ""}`;
+function isDirectionQuickFilterActive(value: string) {
+  return parseCatalogFilterValues(normalizedQuery.value.napravlennost).includes(value);
 }
 
 function applyQuickFilter(key: string, value: string) {
-  const query = cleanupQuery(route.query);
-  query[key] = value;
-  router.push({ query, hash: route.hash });
+  const filters = normalizeCatalogFilters(normalizedFilters.value);
+  filters[key] = [value];
+  const location = buildCatalogFilterLocation(filters);
+  router.push({ path: location.path, query: location.query, hash: route.hash });
 }
 
 function loadMoreProducts() {
@@ -308,7 +337,8 @@ watch(
   () => route.query,
   () => {
     if (!hasDeprecatedCatalogQuery(route.query)) return;
-    router.replace({ query: cleanupQuery(route.query), hash: route.hash });
+    const location = buildCatalogFilterLocation(normalizedFilters.value);
+    router.replace({ path: location.path, query: location.query, hash: route.hash });
   },
   { immediate: true, deep: true },
 );
@@ -377,7 +407,11 @@ useHead(() => {
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
-      { name: "robots", content: "index, follow" },
+      { property: "og:url", content: buildCatalogCanonicalHref() },
+      {
+        name: "robots",
+        content: Object.keys(route.query).length ? "noindex, follow" : "index, follow",
+      },
     ],
     link: [
       {
@@ -388,16 +422,72 @@ useHead(() => {
     script: [
       {
         type: "application/ld+json",
-        innerHTML: JSON.stringify({
+        children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "CollectionPage",
-          name: title,
-          description,
-          isPartOf: {
-            "@type": "WebSite",
-            name: "Daigo",
-            url: "https://daigo.ru/catalog",
-          },
+          "@graph": [
+            {
+              "@type": "CollectionPage",
+              "@id": `${buildCatalogCanonicalHref()}#collection`,
+              name: title,
+              description,
+              url: buildCatalogCanonicalHref(),
+              isPartOf: { "@id": "https://daigo.ru/#website" },
+              mainEntity: { "@id": `${buildCatalogCanonicalHref()}#products` },
+              inLanguage: "ru-RU",
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${buildCatalogCanonicalHref()}#breadcrumbs`,
+              itemListElement: [
+                {
+                  "@type": "ListItem",
+                  position: 1,
+                  name: "Главная",
+                  item: "https://daigo.ru/",
+                },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Каталог",
+                  item: "https://daigo.ru/catalog",
+                },
+                ...(catalogPageHeading.value !== "Каталог"
+                  ? [
+                      {
+                        "@type": "ListItem",
+                        position: 3,
+                        name: catalogPageHeading.value,
+                        item: buildCatalogCanonicalHref(),
+                      },
+                    ]
+                  : []),
+              ],
+            },
+            {
+              "@type": "ItemList",
+              "@id": `${buildCatalogCanonicalHref()}#products`,
+              name: title,
+              numberOfItems: Number(catalogStore.totalProducts || visibleProducts.value.length),
+              itemListElement: visibleProducts.value.map((product, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                url: `https://daigo.ru/catalog/${product.slug}`,
+                item: {
+                  "@type": "Product",
+                  "@id": `https://daigo.ru/catalog/${product.slug}#product`,
+                  name: product.name,
+                  url: `https://daigo.ru/catalog/${product.slug}`,
+                  ...(product.image
+                    ? {
+                        image: String(product.image).startsWith("http")
+                          ? product.image
+                          : `https://daigo.ru${product.image}`,
+                      }
+                    : {}),
+                },
+              })),
+            },
+          ],
         }),
       },
     ],
@@ -484,8 +574,10 @@ watch(
 <template>
   <BaseContainer>
     <section class="relative w-full">
+      <Breadcrumbs :crumbs="catalogBreadcrumbs" />
+
       <div class="flex flex-row items-centr justify-between">
-        <h1 class="text-slider font-medium mb-4 md:mb-10">Каталог</h1>
+        <h1 class="text-slider font-medium mb-4 md:mb-10">{{ catalogPageHeading }}</h1>
       </div>
 
       <div class="flex items-center gap-4 mb-6 relative z-10">
@@ -503,7 +595,7 @@ watch(
             :key="tag.value"
             class="flex-shrink-0 px-4 py-2 rounded-md"
             :class="
-              normalizedQuery.napravlennost === tag.value
+              isDirectionQuickFilterActive(tag.value)
                 ? 'bg-primary text-white'
                 : 'bg-hoverbtn'
             "

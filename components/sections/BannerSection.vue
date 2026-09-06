@@ -175,7 +175,7 @@ const buttonClasses = (banner: Banner) => [
               </component>
             </div>
 
-            <h1
+            <h2
               v-if="banner.title"
               :class="titleClasses(banner)"
               :style="titleStyle(banner)"

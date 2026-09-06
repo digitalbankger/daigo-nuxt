@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { COMPANY_CONTACTS } from '~/constants/company'
 const config = useRuntimeConfig()
 const ymCounterId = Number(config.public.ymCounterId || 0)
 const clarityProjectId = String(config.public.clarityProjectId || '').trim()
@@ -36,6 +37,52 @@ if (ymCounterId) {
       `});`
   })
 }
+
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  '@id': 'https://daigo.ru/#organization',
+  name: 'Daigo',
+  legalName: 'ООО «МЕТАБИОТИК»',
+  url: 'https://daigo.ru/',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://daigo.ru/logo.svg',
+  },
+  telephone: COMPANY_CONTACTS.mainPhone.schema,
+  email: 'info@daigo.ru',
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '127051',
+    addressLocality: 'Москва',
+    streetAddress: COMPANY_CONTACTS.address,
+    addressCountry: 'RU',
+  },
+}
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': 'https://daigo.ru/#website',
+  url: 'https://daigo.ru/',
+  name: 'Daigo',
+  inLanguage: 'ru-RU',
+  publisher: { '@id': 'https://daigo.ru/#organization' },
+}
+
+scripts.push(
+  {
+    key: 'schema-organization',
+    type: 'application/ld+json',
+    children: JSON.stringify(organizationJsonLd),
+  },
+  {
+    key: 'schema-website',
+    type: 'application/ld+json',
+    children: JSON.stringify(websiteJsonLd),
+  },
+)
 
 useHead({
   meta: [

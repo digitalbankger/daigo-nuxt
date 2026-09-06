@@ -1,12 +1,12 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, useAsyncData, computed, ref, watch } from '#imports'
+import { useRoute, useRouter, useHead, useAsyncData, computed, ref, watch, createError } from '#imports'
 import { useArticlesStore } from '~/stores/articlesStore'
 import ArticleCard from '~/components/articles/ArticleCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
-import FilterPanel from '~/components/catalog/FilterPanel.vue'
+import ArticleFilterPanel from '~/components/articles/ArticleFilterPanel.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -28,35 +28,56 @@ watch(searchInput, (val) => {
   if (searchTimer) clearTimeout(searchTimer)
   searchTimer = setTimeout(() => {
     const q = String(val ?? '').trim()
-    const nextQuery: Record<string, any> = { ...(route.query as any), page: '1' }
+    const nextQuery: Record<string, any> = { ...(route.query as any) }
+    delete nextQuery.page
     if (q) nextQuery.q = q
     else delete nextQuery.q
     router.push({ path: '/articles', query: nextQuery })
   }, 1500)
 })
 
-function buildCleanQuery(q: Record<string, any>) {
-  return Object.fromEntries(
-    Object.entries(q)
-      .map(([key, value]) => [key, Array.isArray(value) ? (value[0] ?? '') : (value ?? '')])
-      .filter(([key, val]) => key === 'page' || (typeof val === 'string' && val.trim() !== ''))
-  ) as Record<string, string>
+function getRoutePage() {
+  const raw = route.params.page ?? route.query.page ?? 1
+  const value = Number(Array.isArray(raw) ? raw[0] : raw)
+  return Number.isFinite(value) && value > 0 ? Math.floor(value) : 1
 }
 
-const initialQuery = buildCleanQuery(route.query as Record<string, any>)
+function buildCleanQuery(q: Record<string, any>, pageNumber = getRoutePage()) {
+  const query = Object.fromEntries(
+    Object.entries(q)
+      .filter(([key]) => key !== 'page')
+      .map(([key, value]) => [key, Array.isArray(value) ? (value[0] ?? '') : (value ?? '')])
+      .filter(([, val]) => typeof val === 'string' && val.trim() !== '')
+  ) as Record<string, string>
+
+  query.page = String(pageNumber)
+  return query
+}
+
+const page = computed(() => getRoutePage())
+const initialQuery = buildCleanQuery(route.query as Record<string, any>, page.value)
 
 // В SSR/prerender обязательно ждём список и фильтры.
 // useAsyncData переносит результат в Nuxt payload, поэтому при hydration запрос повторно не выполняется.
-await Promise.all([
+const [, initialArticlesState] = await Promise.all([
   useAsyncData('articles:filters', () => articlesStore.fetchFilters()),
   useAsyncData(`articles:list:${route.fullPath}`, () => articlesStore.fetchArticles(initialQuery)),
 ])
 
-const page = computed(() => Number(route.query.page || 1))
+const initialTotalPages = Number(initialArticlesState.data.value?.totalPages || 1)
+if (page.value > initialTotalPages) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Страница статей не найдена',
+    fatal: true,
+  })
+}
+
+const articleFilterSlugs = computed(() => new Set(articlesStore.filters.map(group => group.slug)))
 
 const activeQuery = computed(() => {
   const q = route.query as Record<string, any>
-  return Object.fromEntries(Object.entries(q).filter(([k]) => k !== 'page' && k !== 'q'))
+  return Object.fromEntries(Object.entries(q).filter(([key]) => articleFilterSlugs.value.has(key)))
 })
 
 const filterLabelByValue = computed(() => {
@@ -70,7 +91,7 @@ const filterLabelByValue = computed(() => {
 function clearFilterKey(key: string) {
   const nextQuery: Record<string, any> = { ...(route.query as any) }
   delete nextQuery[key]
-  nextQuery.page = '1'
+  delete nextQuery.page
   router.push({ path: '/articles', query: nextQuery })
 }
 
@@ -79,64 +100,113 @@ function clearAllFilters() {
   // сохраняем поиск, если он есть
   const q = String((route.query as any).q ?? '').trim()
   if (q) nextQuery.q = q
-  nextQuery.page = '1'
   router.push({ path: '/articles', query: nextQuery })
 }
 
 
 // После первого SSR/prerender обновляем список только при клиентской смене query.
 watch(
-  () => route.query,
+  () => [route.params.page, route.query],
   async () => {
     articlesStore.setPage(page.value)
-    const normalizedQuery = buildCleanQuery(route.query as Record<string, any>)
+    const normalizedQuery = buildCleanQuery(route.query as Record<string, any>, page.value)
     await articlesStore.fetchArticles(normalizedQuery)
   },
   { deep: true }
 )
 
-function updateFilters(selected: Record<string, string[]>) {
-  const query: Record<string, string> = {}
-  for (const key in selected) {
-    if (selected[key]?.length) query[key] = selected[key].join(',')
-  }
-  query.page = '1'
-  router.push({ path: '/articles', query })
-}
 
 useHead(() => {
   const q = route.query as Record<string, any>
   const filters = Object.entries(q)
-    .filter(([k]) => k !== 'page')
-    .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(',') : v}`)
+    .filter(([key]) => articleFilterSlugs.value.has(key))
+    .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(',') : value}`)
     .join(', ')
 
+  const cleanPagePath = page.value <= 1 ? '/articles' : `/articles/page${page.value}`
+  const canonical = `https://daigo.ru${cleanPagePath}`
   const isEmpty = (articlesStore.articles ?? articlesStore.list).length === 0
-  const title = isEmpty ? 'Статьи не найдены — Daigo' : (filters ? `Статьи по фильтрам: ${filters} — Daigo` : 'Статьи — Daigo')
+  const pageSuffix = page.value > 1 ? ` — страница ${page.value}` : ''
+  const title = isEmpty
+    ? 'Статьи не найдены — Daigo'
+    : filters
+      ? `Статьи по фильтрам: ${filters}${pageSuffix} — Daigo`
+      : `Статьи${pageSuffix} — Daigo`
   const description = isEmpty
     ? 'По вашему запросу статьи не найдены.'
-    : (filters ? `Статьи Daigo по выбранным темам: ${filters}.` : 'Статьи Daigo о микробиоте, пищеварении, иммунитете, питании и долголетии: исследования, рекомендации экспертов и практические материалы.')
+    : filters
+      ? `Статьи Daigo по выбранным темам: ${filters}.`
+      : `Статьи Daigo о микробиоте, пищеварении, иммунитете, питании и долголетии${page.value > 1 ? `, страница ${page.value}` : ''}.`
 
   return {
     title,
     meta: [
       { name: 'description', content: description },
       { property: 'og:title', content: title },
-      { property: 'og:description', content: description }
+      { property: 'og:description', content: description },
+      { property: 'og:url', content: canonical },
+      { name: 'robots', content: Object.keys(route.query).length ? 'noindex, follow' : 'index, follow' },
     ],
+    link: [{ rel: 'canonical', href: canonical }],
     script: [
       {
         type: 'application/ld+json',
         children: JSON.stringify({
           '@context': 'https://schema.org',
-          '@type': 'CollectionPage',
-          name: title,
-          description,
-          isPartOf: {
-            '@type': 'WebSite',
-            name: 'Daigo',
-            url: 'https://daigo.ru/articles'
-          }
+          '@graph': [
+            {
+              '@type': 'CollectionPage',
+              '@id': `${canonical}#collection`,
+              name: title,
+              description,
+              url: canonical,
+              isPartOf: { '@id': 'https://daigo.ru/#website' },
+              mainEntity: { '@id': `${canonical}#articles` },
+              inLanguage: 'ru-RU'
+            },
+            {
+              '@type': 'BreadcrumbList',
+              '@id': `${canonical}#breadcrumbs`,
+              itemListElement: [
+                {
+                  '@type': 'ListItem',
+                  position: 1,
+                  name: 'Главная',
+                  item: 'https://daigo.ru/'
+                },
+                {
+                  '@type': 'ListItem',
+                  position: 2,
+                  name: page.value > 1 ? `Статьи — страница ${page.value}` : 'Статьи',
+                  item: canonical
+                }
+              ]
+            },
+            {
+              '@type': 'ItemList',
+              '@id': `${canonical}#articles`,
+              name: title,
+              itemListElement: (articlesStore.articles ?? articlesStore.list ?? []).map((article: any, index: number) => ({
+                '@type': 'ListItem',
+                position: index + 1,
+                url: `https://daigo.ru/articles/${article.slug}`,
+                item: {
+                  '@type': 'Article',
+                  '@id': `https://daigo.ru/articles/${article.slug}#article`,
+                  headline: article.title,
+                  url: `https://daigo.ru/articles/${article.slug}`,
+                  ...(article.image
+                    ? {
+                        image: String(article.image).startsWith('http')
+                          ? article.image
+                          : `https://daigo.ru${article.image}`
+                      }
+                    : {}),
+                  ...(article.date ? { datePublished: article.date } : {})
+                }
+              }))
+            }
+          ]
         })
       }
     ]
@@ -211,13 +281,7 @@ const displayArticles = computed(() => {
               </svg>
             </button>
           </div>
-          <FilterPanel
-            :store="articlesStore"
-            :filters="articlesStore.filters"
-            :counts="articlesStore.counts"
-            entity="articles"
-            @update:filters="updateFilters"
-          />
+          <ArticleFilterPanel :store="articlesStore" />
         </div>
       </Transition>
 
@@ -242,7 +306,7 @@ const displayArticles = computed(() => {
             :key="tag.value"
             class="flex-shrink-0 px-4 py-2 rounded-md"
             :class="route.query.napravlennost === tag.value ? 'bg-primary text-white' : 'bg-hoverbtn'"
-            @click="router.push({ query: { ...route.query, napravlennost: tag.value, page: '1' } })"
+            @click="router.push({ path: '/articles', query: { ...route.query, napravlennost: tag.value } })"
             type="button"
           >
             {{ tag.label }}
@@ -311,7 +375,7 @@ const displayArticles = computed(() => {
 
       <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
-      <Pagination class="mt-1" :current="page" :total="articlesStore.totalPages" />
+      <Pagination class="mt-1" :current="page" :total="articlesStore.totalPages" mode="articles" />
     </section>
   </BaseContainer>
 </template>

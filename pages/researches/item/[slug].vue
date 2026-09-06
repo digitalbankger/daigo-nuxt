@@ -11,7 +11,7 @@ import UiInput from '~/components/ui/UiInput.vue'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import { useNewsletter } from '~/composables/useNewsletter'
 
-definePageMeta({ layout: 'main' })
+definePageMeta({ layout: 'main', hideGlobalBreadcrumbs: true })
 
 const route = useRoute()
 const slug = computed(() => String(route.params.slug))
@@ -25,8 +25,12 @@ const { data: research, error: researchError } = await useAsyncData<ArticleDetai
   () => store.fetchResearchById(slug.value).then(() => store.currentResearch as ArticleDetail)
 )
 
-if (researchError.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Исследование не найдено' })
+if (researchError.value || !research.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Исследование не найдено',
+    fatal: true,
+  })
 }
 
 // SEO
@@ -49,8 +53,21 @@ useSeoMeta({
 useHead({ link: [{ rel: 'canonical', href: canonical }] })
 
 // schema.org Article + Breadcrumbs
-const breadcrumbs = (research.value?.breadcrumbs || []).map((b, i) => ({
-  '@type': 'ListItem', position: i + 1, name: b.label, item: `https://example.com${b.to}`
+const visibleBreadcrumbs = computed(() =>
+  research.value?.breadcrumbs?.length
+    ? research.value.breadcrumbs
+    : [
+        { label: 'Главная', to: '/' },
+        { label: 'Исследования', to: '/researches' },
+        { label: title, to: canonical },
+      ],
+)
+
+const breadcrumbs = visibleBreadcrumbs.value.map((b, i) => ({
+  '@type': 'ListItem',
+  position: i + 1,
+  name: b.label,
+  item: b.to.startsWith('http') ? b.to : `https://daigo.ru${b.to}`,
 }))
 const articleJsonLd = {
   '@context': 'https://schema.org',
@@ -159,9 +176,9 @@ async function submitSubscribe() {
       <!-- breadcrumbs -->
       <nav aria-label="Хлебные крошки" class="mb-4 text-base text-black/50">
         <ul class="flex flex-wrap items-center gap-1">
-          <li v-for="(bc, i) in research?.breadcrumbs" :key="bc.to" class="flex items-center gap-2">
+          <li v-for="(bc, i) in visibleBreadcrumbs" :key="bc.to" class="flex items-center gap-2">
             <NuxtLink :to="bc.to" class="hover:text-black underline-offset-4 hover:underline">{{ bc.label }}</NuxtLink>
-            <span v-if="i < (research?.breadcrumbs?.length || 0) - 1">/</span>
+            <span v-if="i < visibleBreadcrumbs.length - 1">/</span>
           </li>
         </ul>
       </nav>

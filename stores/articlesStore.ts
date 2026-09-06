@@ -86,7 +86,7 @@ export const useArticlesStore = defineStore('articles', () => {
     const key = 'filters'
     try {
       setLoading(key, true)
-      const result = await $fetch<FilterGroup[]>('/api/shop/filters')
+      const result = await $fetch<FilterGroup[]>('/api/articles/filters')
       filters.value = result || []
       setError(key, null)
       return filters.value
@@ -98,7 +98,7 @@ export const useArticlesStore = defineStore('articles', () => {
     }
   }
 
-  async function fetchCounts(baseQuery: Record<string, string[]> = {}) {
+  async function fetchCounts(baseQuery: Record<string, string[]> = {}, search = '') {
     const key = 'counts'
     try {
       setLoading(key, true)
@@ -107,6 +107,7 @@ export const useArticlesStore = defineStore('articles', () => {
       for (const [k, v] of Object.entries(baseQuery)) {
         if (Array.isArray(v) && v.length) q[k] = v.join(',')
       }
+      if (search.trim()) q.q = search.trim()
 
       const { counts: result } = await $fetch<{ counts: Record<string, number> }>('/api/articles/counts', { query: q })
       counts.value = result || {}

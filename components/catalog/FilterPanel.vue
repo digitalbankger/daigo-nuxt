@@ -12,27 +12,18 @@
       :key="group.slug"
       class="border-b border-gray-200 py-3"
     >
-      <button
-        class="w-full text-left text-xl flex justify-between items-center"
-        @click="toggle(group.slug)"
-      >
+      <div class="w-full text-left text-xl flex justify-between items-center">
         {{ group.label }}
-        <span
-          :class="isOpen(group.slug) ? '-rotate-90' : 'rotate-90'"
-          class="transition-transform"
-        >
-          <img src="/icons/arrow-right-pag.svg" class="opacity-60" width="8" />
-        </span>
-      </button>
+      </div>
 
-      <div v-if="isOpen(group.slug)" class="mt-5 space-y-4">
+      <div class="mt-5 space-y-4">
         <label
           v-for="option in group.options"
           :key="option.value"
           class="flex items-center gap-2 text-base"
         >
           <BaseCheckbox
-            :modelValue="selected[group.slug]?.includes(option.value)"
+            :modelValue="Boolean(selected[group.slug]?.includes(option.value))"
             @update:modelValue="toggleOption(group.slug, option.value)"
           >
             {{ option.label }}
@@ -55,65 +46,41 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed, reactive, ref, watch, onMounted } from 'vue'
+import { computed, reactive, watch, onMounted } from 'vue'
 import type { FilterGroup } from '~/types/filter'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import Button from '~/components/ui/Button.vue'
+import {
+  buildCatalogFilterLocation,
+  getCatalogTrackingQuery,
+  mergeCatalogFilters,
+  parseCatalogQueryFilters,
+  parseCatalogSeoPathSegments,
+  stableCatalogFiltersKey,
+  type CatalogFilterValues,
+} from '~/utils/catalogFilterRoute'
 
 const props = defineProps<{
   store: {
     filters: FilterGroup[]
     counts: Record<string, number>
-    fetchCounts: (baseQuery?: Record<string, string[]>) => void
+    fetchCounts: (baseQuery?: Record<string, string[]>) => void | Promise<void>
   }
   withShadow?: boolean
 }>()
 
 const filters = computed(() => props.store.filters)
-const counts  = computed(() => props.store.counts)
+const counts = computed(() => props.store.counts)
 
 const router = useRouter()
-const route  = useRoute()
+const route = useRoute()
 const selected = reactive<Record<string, string[]>>({})
-const opened   = ref<string[]>([])
-
-const allowedSlugs = computed(() => new Set(filters.value.map(g => g.slug)))
-const SERVICE_QUERY_KEYS = new Set(['empty', 'page', 'page_size', 'limit', 'no_total', 'for'])
+const allowedSlugs = computed(() => new Set(filters.value.map((group) => group.slug)))
 
 let countsTimer: ReturnType<typeof setTimeout> | null = null
-let didScheduleInitialCounts = false
+let didHydrate = false
+let syncingRoute = false
 
-function queueCountsRecalc(delay = 120) {
-  if (countsTimer) clearTimeout(countsTimer)
-  countsTimer = setTimeout(() => {
-    props.store.fetchCounts(cleanedSelected())
-  }, delay)
-}
-
-function scheduleInitialCounts() {
-  if (didScheduleInitialCounts) return
-  didScheduleInitialCounts = true
-
-  if (typeof window !== 'undefined') {
-    const idleWindow = window as Window & {
-      requestIdleCallback?: (callback: () => void, options?: { timeout: number }) => number
-    }
-
-    if (typeof idleWindow.requestIdleCallback === 'function') {
-      idleWindow.requestIdleCallback(() => queueCountsRecalc(0), { timeout: 1500 })
-      return
-    }
-  }
-
-  queueCountsRecalc(1200)
-}
-
-function toggle(slug: string) {
-  opened.value.includes(slug)
-    ? (opened.value = opened.value.filter(s => s !== slug))
-    : opened.value.push(slug)
-}
-function isOpen(slug: string) { return opened.value.includes(slug) }
 
 function toggleOption(groupSlug: string, value: string) {
   if (!Array.isArray(selected[groupSlug])) selected[groupSlug] = []
@@ -122,127 +89,97 @@ function toggleOption(groupSlug: string, value: string) {
   else selected[groupSlug].splice(index, 1)
 }
 
-function shouldDropQueryKeyOnFilterChange(key: string) {
-  return allowedSlugs.value.has(key) || SERVICE_QUERY_KEYS.has(key)
-}
-
-function getPreservedQuery() {
-  const query: Record<string, string | string[]> = {}
-
-  for (const [key, value] of Object.entries(route.query)) {
-    if (shouldDropQueryKeyOnFilterChange(key)) continue
-    if (value == null) continue
-
-    if (Array.isArray(value)) {
-      const values = value.filter((item): item is string => typeof item === 'string' && item !== '')
-      if (values.length) query[key] = values
-      continue
-    }
-
-    const stringValue = String(value)
-    if (stringValue) query[key] = stringValue
-  }
-
-  return query
-}
-
-function buildSelectedFilterQuery() {
-  const query: Record<string, string> = {}
-  const allow = allowedSlugs.value
+function cleanedSelected(): CatalogFilterValues {
+  const clean: CatalogFilterValues = {}
 
   for (const [key, values] of Object.entries(selected)) {
-    if (!allow.has(key)) continue
-    if (Array.isArray(values) && values.length) query[key] = values.join(',')
+    if (!allowedSlugs.value.has(key)) continue
+    if (Array.isArray(values) && values.length) clean[key] = [...values]
   }
 
-  return query
-}
-
-function getCurrentFilterQuery() {
-  const query: Record<string, string> = {}
-  const allow = allowedSlugs.value
-
-  for (const [key, value] of Object.entries(route.query)) {
-    if (!allow.has(key)) continue
-    if (Array.isArray(value)) {
-      const firstValue = value.find((item): item is string => typeof item === 'string' && item !== '')
-      if (firstValue) query[key] = firstValue
-      continue
-    }
-
-    const stringValue = String(value ?? '')
-    if (stringValue) query[key] = stringValue
-  }
-
-  return query
-}
-
-function clearFilters() {
-  for (const key in selected) selected[key] = []
-  router.push({ path: route.path, query: getPreservedQuery(), hash: route.hash })
-  queueCountsRecalc(0)
-}
-
-function cleanedSelected(): Record<string, string[]> {
-  const clean: Record<string, string[]> = {}
-  const allow = allowedSlugs.value
-  for (const [k, v] of Object.entries(selected)) {
-    if (!allow.has(k)) continue
-    if (Array.isArray(v) && v.length) clean[k] = [...v]
-  }
   return clean
 }
 
+function currentRouteFilters(): CatalogFilterValues {
+  return mergeCatalogFilters(
+    parseCatalogSeoPathSegments(route.params.filters),
+    parseCatalogQueryFilters(route.query as Record<string, unknown>, allowedSlugs.value),
+  )
+}
+
 function hydrateFromRoute() {
-  const allow = allowedSlugs.value
-  for (const key of Object.keys(selected)) {
-    if (allow.has(key)) selected[key] = []
+  syncingRoute = true
+  const current = currentRouteFilters()
+
+  for (const group of filters.value) {
+    selected[group.slug] = [...(current[group.slug] || [])]
   }
 
-  for (const [key, raw] of Object.entries(route.query)) {
-    if (!allow.has(key)) continue
-    const values =
-      typeof raw === 'string'
-        ? raw.split(',').filter(Boolean)
-        : Array.isArray(raw)
-          ? raw.flatMap(v => typeof v === 'string' ? v.split(',') : []).filter(Boolean)
-          : []
-    selected[key] = values
-  }
+  queueMicrotask(() => {
+    syncingRoute = false
+    didHydrate = true
+  })
+}
+
+function queueCountsRecalc(delay = 120) {
+  if (countsTimer) clearTimeout(countsTimer)
+  countsTimer = setTimeout(() => {
+    props.store.fetchCounts(cleanedSelected())
+  }, delay)
+}
+
+function routeToSelectedFilters() {
+  const location = buildCatalogFilterLocation(cleanedSelected())
+  const tracking = getCatalogTrackingQuery(route.query as Record<string, unknown>)
+
+  return router.push({
+    path: location.path,
+    query: { ...location.query, ...tracking },
+    hash: route.hash,
+  })
+}
+
+function clearFilters() {
+  for (const group of filters.value) selected[group.slug] = []
+  const tracking = getCatalogTrackingQuery(route.query as Record<string, unknown>)
+  router.push({ path: '/catalog', query: tracking, hash: route.hash })
+  queueCountsRecalc(0)
 }
 
 onMounted(() => {
   hydrateFromRoute()
-  scheduleInitialCounts()
+  queueCountsRecalc(400)
 })
 
-watch(() => filters.value.length, () => {
-  hydrateFromRoute()
-  scheduleInitialCounts()
-})
+watch(
+  () => filters.value.map((group) => group.slug).join('|'),
+  () => {
+    hydrateFromRoute()
+    queueCountsRecalc(200)
+  },
+)
 
-watch(selected, () => {
-  if (!didScheduleInitialCounts) return
-  queueCountsRecalc(120)
-}, { deep: true })
+watch(
+  () => [route.path, route.query, route.params.filters],
+  () => {
+    hydrateFromRoute()
+  },
+  { deep: true },
+)
 
-watch(selected, () => {
-  const filterQuery = buildSelectedFilterQuery()
-  const currentFilterQuery = getCurrentFilterQuery()
+watch(
+  selected,
+  async () => {
+    if (!didHydrate || syncingRoute) return
 
-  if (JSON.stringify(currentFilterQuery) !== JSON.stringify(filterQuery)) {
-    router.push({
-      path: route.path,
-      query: {
-        ...getPreservedQuery(),
-        ...filterQuery,
-      },
-      hash: route.hash,
-    })
-  }
-}, { deep: true })
+    queueCountsRecalc(120)
 
-watch(() => route.query, () => {
-  hydrateFromRoute()
-}, { deep: true })
+    const currentKey = stableCatalogFiltersKey(currentRouteFilters())
+    const selectedKey = stableCatalogFiltersKey(cleanedSelected())
+    if (currentKey === selectedKey) return
+
+    await routeToSelectedFilters()
+  },
+  { deep: true },
+)
 </script>

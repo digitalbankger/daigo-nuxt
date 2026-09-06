@@ -12,6 +12,7 @@ import { useUserStore } from '@/stores/userStore'
 import { log, mask } from '@/utils/debug'
 import { cartService } from '~/services/cartService'
 import { navigateTo, useRoute } from '#imports'
+import { getGuestSessionId, removeGuestSessionId } from '~/utils/guestSession'
 
 export const useAuthStore = defineStore('auth', () => {
   // UI
@@ -114,11 +115,11 @@ export const useAuthStore = defineStore('auth', () => {
     setAuthData(tokens)
 
     // миграция гостевой корзины
-    const sid = process.client ? localStorage.getItem('guest_session_id') : null
+    const sid = process.client ? getGuestSessionId() : null
     if (sid) {
       try {
         await cartService.migrateGuestToUser(sid, tokens.daigo_id)
-        localStorage.removeItem('guest_session_id')
+        removeGuestSessionId()
       } catch (e) {
         console.warn('[auth] migrateGuestToUser failed', e)
       }
@@ -142,11 +143,11 @@ export const useAuthStore = defineStore('auth', () => {
     async function loginWithTelegramTokens(tokens: TokensResponse, redirectTo?: string) {
     setAuthData(tokens)
 
-    const sid = process.client ? localStorage.getItem('guest_session_id') : null
+    const sid = process.client ? getGuestSessionId() : null
     if (sid) {
       try {
         await cartService.migrateGuestToUser(sid, tokens.daigo_id)
-        localStorage.removeItem('guest_session_id')
+        removeGuestSessionId()
       } catch (e) {
         console.warn('[auth] migrateGuestToUser failed', e)
       }

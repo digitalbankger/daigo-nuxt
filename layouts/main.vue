@@ -8,6 +8,7 @@
       </BaseContainer>
     </header>
     <main>
+      <GlobalBreadcrumbs />
       <NuxtPage />
       <MessageModal />
       <!-- <ClientOnly>
@@ -61,6 +62,7 @@
 
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import GlobalBreadcrumbs from '~/components/layout/GlobalBreadcrumbs.vue'
 import CookieConsentBanner from '~/components/layout/CookieConsentBanner.vue'
 import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'

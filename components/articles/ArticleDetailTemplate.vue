@@ -48,8 +48,12 @@ const { data: article, error } = await useAsyncData<ArticleDetail>(
   },
 );
 
-if (error.value) {
-  throw createError({ statusCode: 404, statusMessage: "Статья не найдена" });
+if (error.value || !article.value) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: "Статья не найдена",
+    fatal: true,
+  });
 }
 
 // ===== SEO =====
@@ -76,29 +80,60 @@ useSeoMeta({
 useHead({ link: [{ rel: "canonical", href: canonical }] });
 
 // schema.org Article + Breadcrumbs (JSON-LD)
-const breadcrumbs = (article.value?.breadcrumbs || []).map((b, idx) => ({
+const articleBreadcrumbSource = article.value?.breadcrumbs?.length
+  ? article.value.breadcrumbs
+  : [
+      { label: "Главная", to: "/" },
+      { label: "Статьи", to: "/articles" },
+      { label: title, to: `/articles/${slug.value}` },
+    ];
+
+const visibleBreadcrumbs = articleBreadcrumbSource;
+
+const breadcrumbs = articleBreadcrumbSource.map((b, idx) => ({
   "@type": "ListItem",
   position: idx + 1,
   name: b.label,
-  item: `https://daigo.ru${b.to}`,
+  item: b.to.startsWith("http") ? b.to : `https://daigo.ru${b.to}`,
 }));
+
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
+  "@id": `${canonical}#article`,
+  url: canonical,
   headline: title,
   image: [metaImage],
-  datePublished: article.value?.date,
-  mainEntityOfPage: canonical,
+  ...(article.value?.date ? { datePublished: article.value.date } : {}),
+  mainEntityOfPage: {
+    "@type": "WebPage",
+    "@id": canonical,
+  },
   author: article.value?.author?.name
     ? { "@type": "Person", name: article.value.author.name }
-    : { "@type": "Organization", name: "Daigo" },
+    : { "@id": "https://daigo.ru/#organization" },
   publisher: {
-    "@type": "Organization",
-    name: "Daigo",
-    url: "https://daigo.ru",
+    "@id": "https://daigo.ru/#organization",
   },
   description,
+  inLanguage: "ru-RU",
 };
+
+const articleFaqJsonLd = article.value?.faq?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: article.value.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    }
+  : null;
+
 useHead({
   script: [
     {
@@ -110,6 +145,9 @@ useHead({
       }),
     },
     { type: "application/ld+json", children: JSON.stringify(articleJsonLd) },
+    ...(articleFaqJsonLd
+      ? [{ type: "application/ld+json", children: JSON.stringify(articleFaqJsonLd) }]
+      : []),
   ],
 });
 
@@ -338,7 +376,7 @@ const summerWideHtml = computed(() =>
       >
         <ul class="flex flex-wrap items-center gap-1">
           <li
-            v-for="(bc, i) in article?.breadcrumbs"
+            v-for="(bc, i) in visibleBreadcrumbs"
             :key="bc.to"
             class="flex items-center gap-2"
           >
@@ -347,7 +385,7 @@ const summerWideHtml = computed(() =>
               class="hover:text-black underline-offset-4 hover:underline"
               >{{ bc.label }}</NuxtLink
             >
-            <span v-if="i < (article?.breadcrumbs?.length || 0) - 1">/</span>
+            <span v-if="i < visibleBreadcrumbs.length - 1">/</span>
           </li>
         </ul>
       </nav>

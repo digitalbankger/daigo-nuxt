@@ -1,59 +1,56 @@
 import { defineEventHandler, getQuery, setResponseHeader } from 'h3'
-import { listArticlesLite } from '~/server/utils/articlesFs'
-import filtersHandler from '~/server/api/shop/filters.get'
+import { ARTICLE_CARDS } from '~/content/articles-json/articles.cards'
+import { getArticleFilterGroups } from '~/server/utils/articleFilters'
 
-type FilterGroup = { slug: string; options: { value: string }[] }
+function normalizeValues(raw: unknown): string[] {
+  if (typeof raw === 'string') return raw.split(',').map(v => v.trim()).filter(Boolean)
+  if (Array.isArray(raw)) return raw.flatMap(v => String(v).split(',')).map(v => v.trim()).filter(Boolean)
+  return []
+}
 
-function matches(a: any, search: string, filters: Record<string, string[]>) {
+function matches(article: any, search: string, filters: Record<string, string[]>) {
   if (search) {
-    const hay = `${String(a.title ?? '')} ${String(a.preview ?? '')}`.toLowerCase()
-    if (!hay.includes(search)) return false
+    const haystack = `${String(article.title ?? '')} ${String(article.preview ?? '')}`.toLowerCase()
+    if (!haystack.includes(search)) return false
   }
+
   for (const [key, values] of Object.entries(filters)) {
-    const prop = a?.properties?.[key]
-    if (prop == null) return false
-    if (Array.isArray(prop)) {
-      if (!prop.some(v => values.includes(String(v)))) return false
-    } else {
-      if (!values.includes(String(prop))) return false
-    }
+    const property = article?.properties?.[key]
+    if (property == null) return false
+    const articleValues = Array.isArray(property) ? property.map(String) : [String(property)]
+    if (!articleValues.some(value => values.includes(value))) return false
   }
+
   return true
 }
 
-export default defineEventHandler(async (event) => {
-  const q = getQuery(event)
-  const search = String(q.q ?? '').trim().toLowerCase()
+export default defineEventHandler((event) => {
+  const query = getQuery(event)
+  const search = String(query.q ?? '').trim().toLowerCase()
+  const groups = getArticleFilterGroups()
+  const allowed = new Set(groups.map(group => group.slug))
 
-  const base = Object.entries(q).reduce<Record<string, string[]>>((acc, [key, raw]) => {
-    if (key === 'page' || key === 'q') return acc
-    const values =
-      typeof raw === 'string'
-        ? raw.split(',').map(v => v.trim()).filter(Boolean)
-        : Array.isArray(raw)
-          ? raw.flatMap(v => String(v).split(',')).map(v => v.trim()).filter(Boolean)
-          : []
+  const base = Object.entries(query).reduce<Record<string, string[]>>((acc, [key, raw]) => {
+    if (!allowed.has(key)) return acc
+    const values = normalizeValues(raw)
     if (values.length) acc[key] = values
     return acc
   }, {})
 
-  const groups = (await (filtersHandler as any)({} as any)) as FilterGroup[]
-  const all = await listArticlesLite()
-
   const counts: Record<string, number> = {}
 
-  for (const g of groups) {
-    for (const opt of g.options) {
+  for (const group of groups) {
+    for (const option of group.options) {
       const test: Record<string, string[]> = {}
-      for (const [k, v] of Object.entries(base)) {
-        if (k !== g.slug) test[k] = v
+      for (const [key, values] of Object.entries(base)) {
+        if (key !== group.slug) test[key] = values
       }
-      test[g.slug] = [opt.value]
-      const c = all.reduce((n, a) => n + (matches(a, search, test) ? 1 : 0), 0)
-      counts[`${g.slug}__${opt.value}`] = c
+      test[group.slug] = [option.value]
+      counts[`${group.slug}__${option.value}`] = (ARTICLE_CARDS as any[])
+        .reduce((total, article) => total + (matches(article, search, test) ? 1 : 0), 0)
     }
   }
 
-  setResponseHeader(event, 'Cache-Control', 'public, max-age=60, s-maxage=60, stale-while-revalidate=120')
+  setResponseHeader(event, 'Cache-Control', 'public, max-age=60, s-maxage=3600, stale-while-revalidate=86400')
   return { counts }
 })

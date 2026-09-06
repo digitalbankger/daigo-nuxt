@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { computed, useRoute, useRouter } from '#imports'
 
-const props = defineProps<{ current: number; total: number }>()
+const props = withDefaults(defineProps<{
+  current: number
+  total: number
+  mode?: 'query' | 'articles'
+}>(), {
+  mode: 'query',
+})
+
 const route = useRoute()
 const router = useRouter()
 
@@ -12,15 +19,14 @@ type PageItem =
 const pages = computed<PageItem[]>(() => {
   const items: PageItem[] = []
   const { current, total } = props
-  const WINDOW = 10 // хотим видеть 10 номеров
+  const WINDOW = 10
 
   if (total <= WINDOW) {
     for (let i = 1; i <= total; i++) items.push({ kind: 'page', value: i })
     return items
   }
 
-  // Считаем окно из 10 страниц, с центровкой вокруг current
-  let start = current - Math.floor(WINDOW / 2) + 1 // так current ближе к центру
+  let start = current - Math.floor(WINDOW / 2) + 1
   let end = start + WINDOW - 1
 
   if (start < 1) { start = 1; end = WINDOW }
@@ -36,7 +42,18 @@ const pages = computed<PageItem[]>(() => {
 const goToPage = (page: number) => {
   const p = Math.min(Math.max(1, page), props.total)
   if (p === props.current) return
-  router.push({ path: route.path, query: { ...route.query, page: String(p) } })
+
+  if (props.mode === 'articles') {
+    const query = { ...route.query }
+    delete query.page
+    router.push({
+      path: p === 1 ? '/articles' : `/articles/page${p}`,
+      query,
+    })
+  } else {
+    router.push({ path: route.path, query: { ...route.query, page: String(p) } })
+  }
+
   if (process.client) window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 </script>

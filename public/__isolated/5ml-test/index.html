@@ -308,19 +308,15 @@
       <button onClick="{{ nextImg }}" aria-label="Следующее фото" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); z-index:4; border:none; background:transparent; box-shadow:none; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;" style-hover="opacity:.55;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
     </div>
     <div data-mobile-carousel="" data-thumbs="" style="display:flex; gap:12px; margin-top:16px; flex-wrap:nowrap; overflow-x:auto; scroll-behavior:smooth; scrollbar-width:none;">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-481137.png?v=1741776597&amp;width=200" onClick="{{ pick0 }}" style="{{ thumb0 }}" alt="">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-869570.webp?v=1741852958&amp;width=200" onClick="{{ pick1 }}" style="{{ thumb1 }}" alt="">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-429086.jpg?v=1741852958&amp;width=200" onClick="{{ pick2 }}" style="{{ thumb2 }}" alt="">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-755873.jpg?v=1741852958&amp;width=200" onClick="{{ pick3 }}" style="{{ thumb3 }}" alt="">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-400377.jpg?v=1741771813&amp;width=200" onClick="{{ pick4 }}" style="{{ thumb4 }}" alt="">
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-911291.jpg?v=1741771813&amp;width=200" onClick="{{ pick5 }}" style="{{ thumb5 }}" alt="">
-      <img src="uploads/Daigo_7.jpg" onClick="{{ pick6 }}" style="{{ thumb6 }}" alt="">
+      <sc-for list="{{ galleryItems }}" as="g" hint-placeholder-count="11">
+        <img sc-camel-src="{{ g.src }}" onClick="{{ g.select }}" style="{{ g.style }}" alt="" loading="lazy" decoding="async">
+      </sc-for>
     </div>
   </div>
 
   <div>
     <div data-trustline="" style="display: flex; align-items: center; gap: 14px; flex-wrap: nowrap; overflow: hidden; white-space: nowrap; margin-bottom: 16px; border-width: 1px; border-style: none; border-color: var(--surface-card-warm)">
-      <div style="display:flex; align-items:center; gap:8px;"><span style="color: var(--brand-amber); letter-spacing: 2px; font-size: 16px">★★★★★</span><span style="font-size:13.5px; color:#3C3C3C; font-weight:600;">5.0 · 22 отзыва</span></div>
+      <div style="display:flex; align-items:center; gap:8px;"><span style="color: var(--brand-amber); letter-spacing: 2px; font-size: 16px">{{ reviewStars }}</span><span style="font-size:13.5px; color:#3C3C3C; font-weight:600;">{{ reviewSummary }}</span></div>
       <span style="width:4px; height:4px; border-radius:50%; background:#CFCFCF;"></span>
       <span style="font-size: 13.5px; color: #3C3C3C; font-weight: 600">120,000+ покупателей</span>
       <span style="width:4px; height:4px; border-radius:50%; background:#CFCFCF;"></span>
@@ -1102,10 +1098,10 @@
       </div>
     </div>
     <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:24px; flex-wrap:wrap;">
-      <span style="color:#AE9D7E; letter-spacing:3px; font-size:18px;">★★★★★</span>
-      <span style="font-size:18px; font-weight:700; color:#1B1B1B;">4.8 <span style="font-size:13px; color:#787878; font-weight:500;">из 5</span></span>
+      <span style="color:#AE9D7E; letter-spacing:3px; font-size:18px;">{{ reviewStars }}</span>
+      <span style="font-size:18px; font-weight:700; color:#1B1B1B;">{{ reviewRatingText }} <span style="font-size:13px; color:#787878; font-weight:500;">из 5</span></span>
       <span style="width:1px; height:18px; background:#D9D9D9;"></span>
-      <span style="font-size:16px; font-weight:700; color:#1B1B1B;">16 255 <span style="font-size:13px; color:#787878; font-weight:500;">проверенных отзывов</span></span>
+      <span style="font-size:16px; font-weight:700; color:#1B1B1B;">{{ reviewCount }} <span style="font-size:13px; color:#787878; font-weight:500;">{{ reviewCountWord }}</span></span>
     </div>
   </div>
 </section>
@@ -1396,8 +1392,8 @@
       <h2 style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:38px; margin:12px 0 0; color:#1B1B1B;">Реальный опыт пользователей</h2>
     </div>
     <div style="display:flex; align-items:center; gap:12px;">
-      <span style="font-family:'Montserrat',sans-serif; font-size:46px; color:#1B1B1B; line-height:1;">5.0</span>
-      <div><div style="color:#AE9D7E; letter-spacing:2px; font-size:16px;">★★★★★</div><div style="font-size:13px; color:#787878;">22 отзыва</div></div>
+      <span style="font-family:'Montserrat',sans-serif; font-size:46px; color:#1B1B1B; line-height:1;">{{ reviewRatingText }}</span>
+      <div><div style="color:#AE9D7E; letter-spacing:2px; font-size:16px;">{{ reviewStars }}</div><div style="font-size:13px; color:#787878;">{{ reviewCount }} {{ reviewCountWord }}</div></div>
     </div>
   </div>
   <div style="display:flex; gap:9px; flex-wrap:wrap; margin:22px 0 28px;">
@@ -1406,21 +1402,30 @@
     </sc-for>
   </div>
   <div style="display:flex; flex-direction:column; gap:16px; max-width:840px; margin:0 auto;">
-    <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="9">
-      <div style="background:#FFFFFF; border:1px solid #D9D9D9; border-radius:16px; padding:22px 26px;">
-        <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
-          <div style="width:38px; height:38px; border-radius:50%; background:#1B1B1B; color:#FCFCFC; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex:0 0 auto;">{{ r.initial }}</div>
-          <div>
-            <div style="font-size:14px; font-weight:600; color:#1B1B1B;">{{ r.name }}</div>
-            <div style="font-size:11.5px; color:#AE9D7E;">Подтверждённый покупатель</div>
+    <sc-if value="{{ hasReviews }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="9">
+        <div style="background:#FFFFFF; border:1px solid #D9D9D9; border-radius:16px; padding:22px 26px;">
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <div style="width:38px; height:38px; border-radius:50%; background:#1B1B1B; color:#FCFCFC; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex:0 0 auto;">{{ r.initial }}</div>
+            <div>
+              <div style="font-size:14px; font-weight:600; color:#1B1B1B;">{{ r.name }}</div>
+              <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:3px; font-size:11.5px; color:#787878;">
+                <sc-if value="{{ r.verified }}" hint-placeholder-val="{{ true }}"><span style="color:#AE9D7E;">Подтверждённый покупатель</span></sc-if>
+                <sc-if value="{{ r.date }}" hint-placeholder-val=""><span>{{ r.date }}</span></sc-if>
+                <sc-if value="{{ r.source }}" hint-placeholder-val=""><span>• {{ r.source }}</span></sc-if>
+              </div>
+            </div>
+            <span style="margin-left:auto; color:#AE9D7E; font-size:12px; letter-spacing:1px;">{{ r.starText }}</span>
           </div>
-          <span style="margin-left:auto; color:#AE9D7E; font-size:12px; letter-spacing:1px;">★★★★★</span>
+          <sc-if value="{{ r.title }}" hint-placeholder-val=""><h3 style="font-size:15px; margin:0 0 7px; color:#1B1B1B;">{{ r.title }}</h3></sc-if>
+          <p style="font-size:13.5px; line-height:1.55; color:#3C3C3C; margin:0 0 12px; white-space:pre-line; display:-webkit-box; -webkit-line-clamp:6; -webkit-box-orient:vertical; overflow:hidden;">{{ r.text }}</p>
+          <sc-if value="{{ r.tagLabel }}" hint-placeholder-val=""><span style="font-size:11.5px; color:#3C3C3C; background:#F0F0F0; padding:3px 10px; border-radius:999px; font-weight:600;">{{ r.tagLabel }}</span></sc-if>
         </div>
-        <h3 style="font-size:15px; margin:0 0 7px; color:#1B1B1B;">{{ r.title }}</h3>
-        <p style="font-size:13.5px; line-height:1.55; color:#3C3C3C; margin:0 0 12px;">{{ r.text }}</p>
-        <span style="font-size:11.5px; color:#3C3C3C; background:#F0F0F0; padding:3px 10px; border-radius:999px; font-weight:600;">{{ r.tagLabel }}</span>
-      </div>
-    </sc-for>
+      </sc-for>
+    </sc-if>
+    <sc-if value="{{ noReviews }}" hint-placeholder-val="">
+      <div style="background:#FFFFFF; border:1px solid #D9D9D9; border-radius:16px; padding:28px; text-align:center; font-size:14px; color:#787878;">Пока нет отзывов об этом товаре.</div>
+    </sc-if>
   </div>
   <p style="text-align:center; font-size:12px; color:#9A9A9A; margin:18px 0 0;">Личный опыт пользователей. БАД, не является лекарственным средством.</p>
 </section><section style="background: #1B1B1B; color: #FCFCFC; display: none" data-om-label="Как производится Daigo">
@@ -1584,7 +1589,7 @@
 </section></x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:900}}">
 class Component extends DCLogic {
-  state = { active:0, plan:'1', cart:0, qty:1, unitPrice:14900, oldPrice:0, openFaq:0, openDetail:0, openAxis:0, openStrain:0, vid:0, reviewTag:'Все', showSticky:false, showFuture:false, showBadge:true, secs: 8*3600+0, offerIdx:0 };
+  state = { active:0, plan:'1', cart:0, qty:1, unitPrice:14900, oldPrice:0, productReviews:{ ratingAvg:0, count:0, source:'', items:[] }, openFaq:0, openDetail:0, openAxis:0, openStrain:0, vid:0, reviewTag:'Все', showSticky:false, showFuture:false, showBadge:true, secs: 8*3600+0, offerIdx:0 };
 
   componentDidMount(){
     if(!this._tlObserver){
@@ -1625,6 +1630,31 @@ class Component extends DCLogic {
       }
       if(data.type === 'cart-sync'){
         this.setState({ cart: Math.max(0, Number(data.cartCount || 0)) });
+      }
+      if(data.type === 'reviews-sync'){
+        const payload = data.reviews && typeof data.reviews === 'object' ? data.reviews : {};
+        const items = Array.isArray(payload.items) ? payload.items.map((r, index)=>({
+          id: String(r && r.id != null ? r.id : ('review-'+index)),
+          author: String(r && r.author ? r.author : 'Не указано'),
+          rating: Math.min(5, Math.max(0, Number(r && r.rating != null ? r.rating : 5) || 0)),
+          date: r && r.date ? String(r.date) : '',
+          title: r && r.title ? String(r.title) : '',
+          text: r && r.text ? String(r.text) : '',
+          source: r && r.source ? String(r.source) : '',
+          verified: !!(r && r.verified),
+          tags: Array.isArray(r && r.tags) ? r.tags.map(t=>String(t)).filter(Boolean) : []
+        })).filter(r=>r.text) : [];
+        const ratingAvg = Number(payload.ratingAvg);
+        const count = Number(payload.count);
+        this.setState({
+          productReviews:{
+            ratingAvg: Number.isFinite(ratingAvg) && ratingAvg > 0 ? ratingAvg : 0,
+            count: Number.isFinite(count) && count >= 0 ? count : items.length,
+            source: payload.source ? String(payload.source) : '',
+            items
+          },
+          reviewTag:'Все'
+        });
       }
     };
     window.addEventListener('message', this._onParentMessage);
@@ -1729,7 +1759,7 @@ class Component extends DCLogic {
   }
   applyTweaks(){}
   goImg(i){
-    const n = (this._gallery && this._gallery.length) || 7, idx = ((i%n)+n)%n;
+    const n = (this._gallery && this._gallery.length) || 11, idx = ((i%n)+n)%n;
     this.setState({ active:idx });
     const g = this._gallery || [];
     const el = document.querySelector('[data-main-img]');
@@ -1826,21 +1856,23 @@ class Component extends DCLogic {
 
     const gallery = [
       G('metabiotic-daigo-5ml-481137.png?v=1741776597&width=1200'),
-      G('metabiotic-daigo-5ml-869570.webp?v=1741852958&width=1200'),
-      G('metabiotic-daigo-5ml-429086.jpg?v=1741852958&width=1200'),
-      G('metabiotic-daigo-5ml-755873.jpg?v=1741852958&width=1200'),
-      G('metabiotic-daigo-5ml-400377.jpg?v=1741771813&width=1200'),
-      G('metabiotic-daigo-5ml-911291.jpg?v=1741771813&width=1200'),
-      'uploads/Daigo_7.jpg'
+      'gallery-new/daigo5-01.webp',
+      'gallery-new/daigo5-02.webp',
+      'gallery-new/daigo5-03.webp',
+      'gallery-new/daigo5-04.webp',
+      'gallery-new/daigo5-05.webp',
+      'gallery-new/daigo5-06.webp',
+      'gallery-new/daigo5-07.webp',
+      'gallery-new/daigo5-08.webp',
+      'gallery-new/daigo5-09.webp',
+      'gallery-new/daigo5-10.webp'
     ];
     const galleryItems = gallery.map((src,i)=>({
       src, select: ()=> this.setState({active:i}),
       style: { width:'74px', height:'74px', flex:'0 0 auto', cursor:'pointer', borderRadius:'12px', overflow:'hidden', background:'#FFFFFF', border: i===this.state.active ? '2px solid #1B1B1B' : '1px solid #D9D9D9', padding:'6px', boxSizing:'border-box', objectFit:'contain', display:'block' }
     }));
-    const mkThumb=(i)=>({ width:'74px', height:'74px', flex:'0 0 auto', cursor:'pointer', borderRadius:'12px', overflow:'hidden', background:'#FFFFFF', border: i===this.state.active ? '2px solid #1B1B1B' : '1px solid #D9D9D9', padding:'6px', boxSizing:'border-box', objectFit:'contain', display:'block' });
     this._gallery = gallery;
     const showImg=(i)=> this.goImg(i);
-    const mkPick=(i)=>()=>showImg(i);
     const vpCur = this.state.vp || (this.props && this.props.viewport) || 'desktop';
     const vpBtn=(k)=>({ width:'34px', height:'34px', display:'flex', alignItems:'center', justifyContent:'center', borderRadius:'999px', border:'none', cursor:'pointer', color: vpCur===k ? '#FCFCFC' : '#787878', background: vpCur===k ? '#1B1B1B' : 'transparent', transition:'background .18s cubic-bezier(.22,.61,.36,1), color .18s' });
     const setVp=(k)=>()=>{ this.setState({ vp:k }, ()=> this.applyViewport()); };
@@ -1882,10 +1914,10 @@ class Component extends DCLogic {
     const oneTime = plans.find(p=>p.boxes===1);
     const showFuture = this.state.showFuture;
     const welcomeKit = [
-      { img:gallery[0], old:'1 490 ₽', name:'5 саше Daigo' },
-      { img:gallery[2], old:'2 900 ₽', name:'Пробник Daigo Lux' },
-      { img:gallery[3], old:'1 200 ₽', name:'Зубная паста' },
-      { img:gallery[4], old:'1 800 ₽', name:'Шампунь Daigo' }
+      { img:G('metabiotic-daigo-5ml-481137.png?v=1741776597&width=600'), old:'1 490 ₽', name:'5 саше Daigo' },
+      { img:G('metabiotic-daigo-5ml-429086.jpg?v=1741852958&width=600'), old:'2 900 ₽', name:'Пробник Daigo Lux' },
+      { img:G('metabiotic-daigo-5ml-755873.jpg?v=1741852958&width=600'), old:'1 200 ₽', name:'Зубная паста' },
+      { img:G('metabiotic-daigo-5ml-400377.jpg?v=1741771813&width=600'), old:'1 800 ₽', name:'Шампунь Daigo' }
     ];
 
     const secs = this.state.secs;
@@ -1968,23 +2000,46 @@ class Component extends DCLogic {
       });
     });
 
-    const reviewTags = ['Все','ЖКТ','Кожа','Иммунитет','Энергия','Семья'];
-    const reviewsRaw = [
-      { name:'Татьяна', initial:'Т', tags:['Иммунитет'], title:'Резкое улучшение состояния', text:'Температура держалась 39 и не сбивалась. Дала метабиотик — через сутки состояние стало отличным. Удивили!' },
-      { name:'Марина', initial:'М', tags:['Иммунитет'], title:'Перестал часто болеть', text:'Впервые уже четвёртый месяц не болеет. Раньше болел весь год. Решила продолжать курс.' },
-      { name:'Мария', initial:'М', tags:['ЖКТ'], title:'Прошла ежедневная изжога', text:'Исчезла изжога, которая беспокоила каждый день. Раньше постоянно принимала «Ренни», теперь не нужно.' },
-      { name:'Белла', initial:'Б', tags:['ЖКТ','Энергия'], title:'Ушли вздутие и колики', text:'Проблемы с пищеварением были всегда: вздутие, колики, нерегулярный стул. За 2 месяца всё исчезло, плюс лёгкость.' },
-      { name:'Анастасия', initial:'А', tags:['Иммунитет'], title:'Насморк прошёл, настроение лучше', text:'Так удивлена — затяжной насморк прошёл, и настроение стало лучше 😊' },
-      { name:'Ева', initial:'Е', tags:['ЖКТ'], title:'Ушли вздутие и тяжесть', text:'Скептически относилась 3 года. Решилась — и уже через пару дней прошли вздутие и тяжесть после еды.' },
-      { name:'Майкл', initial:'M', tags:['Иммунитет'], title:'Год приёма — не болел', text:'Принимал целый год. Не болел даже в пик сезона вирусов. Пищеварение тоже работает прекрасно.' },
-      { name:'София', initial:'S', tags:['Семья','Энергия'], title:'Принимаем всей семьёй', text:'Живём в Дубае, ритм жизни сложный. С метабиотиком стало легче: пищеварение, тонус и больше энергии.' },
-      { name:'Не указано', initial:'Д', tags:['Кожа'], title:'Атопический дерматит: лучше', text:'Качество кожи заметно улучшилось за 2 месяца приёма. Мы выдохнули.' },
-      { name:'Амара', initial:'A', tags:['Кожа','Энергия'], title:'Кожа ровнее + энергия', text:'Уже через несколько дней кожа стала ровнее, цвет лица лучше, появился прилив энергии.' },
-      { name:'Майя', initial:'М', tags:['ЖКТ'], title:'Пищеварение как часы', text:'В течение недели ЖКТ стал работать как часы, появилось ощущение лёгкости.' },
-      { name:'Аалия', initial:'A', tags:['Энергия'], title:'Спорт: быстрее восстановление', text:'Улучшились результаты в беге, а восстановление после интенсивных тренировок стало намного быстрее.' }
-    ];
-    const tag = this.state.reviewTag;
-    const reviews = reviewsRaw.filter(r=> tag==='Все' || r.tags.includes(tag)).map(r=> Object.assign({}, r, { tagLabel: r.tags[0] }));
+    const reviewPayload = this.state.productReviews && typeof this.state.productReviews === 'object'
+      ? this.state.productReviews
+      : { ratingAvg:0, count:0, source:'', items:[] };
+    const reviewsRaw = Array.isArray(reviewPayload.items) ? reviewPayload.items : [];
+    const reviewTags = ['Все'].concat(Array.from(new Set(reviewsRaw.flatMap(r=>Array.isArray(r.tags) ? r.tags : []).filter(Boolean))));
+    const tag = reviewTags.includes(this.state.reviewTag) ? this.state.reviewTag : 'Все';
+    const reviews = reviewsRaw
+      .filter(r=> tag==='Все' || (Array.isArray(r.tags) && r.tags.includes(tag)))
+      .map(r=>({
+        id:r.id,
+        name:r.author || 'Не указано',
+        initial:String(r.author || '?').trim().charAt(0).toUpperCase() || '?',
+        rating:Math.min(5, Math.max(0, Number(r.rating || 0))),
+        starText:'★'.repeat(Math.round(Math.min(5, Math.max(0, Number(r.rating || 0))))) + '☆'.repeat(5-Math.round(Math.min(5, Math.max(0, Number(r.rating || 0))))),
+        date:r.date || '',
+        source:r.source || '',
+        verified:!!r.verified,
+        title:r.title || '',
+        text:r.text || '',
+        tagLabel:Array.isArray(r.tags) && r.tags.length ? r.tags[0] : ''
+      }));
+    const calculatedReviewRating = reviewsRaw.length
+      ? reviewsRaw.reduce((sum,r)=>sum + Math.min(5, Math.max(0, Number(r.rating || 0))), 0) / reviewsRaw.length
+      : 0;
+    const upstreamReviewRating = Number(reviewPayload.ratingAvg);
+    const reviewRating = Number.isFinite(upstreamReviewRating) && upstreamReviewRating > 0 ? upstreamReviewRating : calculatedReviewRating;
+    const upstreamReviewCount = Number(reviewPayload.count);
+    const reviewCount = Number.isFinite(upstreamReviewCount) && upstreamReviewCount >= 0 ? upstreamReviewCount : reviewsRaw.length;
+    const reviewWord = (n)=>{
+      const a=Math.abs(Number(n)||0)%100, b=a%10;
+      if(a>10 && a<20) return 'отзывов';
+      if(b===1) return 'отзыв';
+      if(b>=2 && b<=4) return 'отзыва';
+      return 'отзывов';
+    };
+    const reviewCountWord = reviewWord(reviewCount);
+    const reviewRatingText = reviewRating > 0 ? reviewRating.toFixed(1) : '—';
+    const roundedReviewRating = Math.round(Math.min(5, Math.max(0, reviewRating || 0)));
+    const reviewStars = '★'.repeat(roundedReviewRating) + '☆'.repeat(5-roundedReviewRating);
+    const reviewSummary = reviewRating > 0 ? (reviewRatingText+' · '+reviewCount+' '+reviewCountWord) : (reviewCount+' '+reviewCountWord);
     const tagChips = reviewTags.map(t=>({
       label:t, select:()=> this.setState({reviewTag:t}),
       style: { border:'1px solid ' + (t===tag ? '#1B1B1B':'#D9D9D9'), background: t===tag ? '#1B1B1B':'transparent', color: t===tag ? '#FCFCFC':'#3C3C3C', borderRadius:'999px', padding:'8px 16px', fontSize:'13px', fontWeight:'600', cursor:'pointer', fontFamily:"'Hanken Grotesk',sans-serif", transition:'all .15s ease' }
@@ -2070,12 +2125,10 @@ class Component extends DCLogic {
       mainImage: gallery[this.state.active],
       galleryItems,
       plans, planCards, welcomeKit,
-      thumb0:mkThumb(0), thumb1:mkThumb(1), thumb2:mkThumb(2), thumb3:mkThumb(3), thumb4:mkThumb(4), thumb5:mkThumb(5), thumb6:mkThumb(6),
       prevImg, nextImg,
       vpSwitchStyle,
       vpDesktopStyle:vpBtn('desktop'), vpTabletStyle:vpBtn('tablet'), vpMobileStyle:vpBtn('mobile'),
       setVpDesktop:setVp('desktop'), setVpTablet:setVp('tablet'), setVpMobile:setVp('mobile'),
-      pick0:mkPick(0), pick1:mkPick(1), pick2:mkPick(2), pick3:mkPick(3), pick4:mkPick(4), pick5:mkPick(5), pick6:mkPick(6),
       curPrice: cur.priceFmt, curBoxes: cur.boxes,
       oneTimePrice: oneTime.priceFmt,
       showBadge: this.state.showBadge,
@@ -2112,7 +2165,11 @@ class Component extends DCLogic {
         { name:'Как кишечник связан с иммунитетом? — доктор медицинских наук Мидзуками Омасу', desc:'', url:'https://www.youtube.com/watch?v=U7sBblOgm6A&t=150s' },
         { name:'Как восстановить микрофлору кишечника? (Японские исследования)', desc:'', url:'https://www.youtube.com/watch?v=iofUgEmplCY' }
       ].map(v => ({ ...v, embed: this.ytEmbed(v.url), noEmbed: !this.ytEmbed(v.url) })),
-      tagChips, reviews, productLine, production, safety, faq, stickyStyle,
+      tagChips, reviews,
+      hasReviews: reviewsRaw.length > 0,
+      noReviews: reviewsRaw.length === 0,
+      reviewRatingText, reviewStars, reviewCount, reviewCountWord, reviewSummary,
+      productLine, production, safety, faq, stickyStyle,
       videoTrackStyle,
       videoPrev: ()=> this.setState(s=>({ vid: Math.max(0, s.vid-1) })),
       videoNext: ()=> this.setState(s=>({ vid: Math.min(maxV, s.vid+1) })),

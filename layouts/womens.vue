@@ -7,6 +7,7 @@
       </BaseContainer>
     </header>
     <main>
+      <GlobalBreadcrumbs />
       <NuxtPage />
       <MessageModal />
       <ClientOnly>
@@ -55,6 +56,7 @@
 
 <script setup lang="ts">
 import BaseContainer from '~/components/layout/BaseContainer.vue'
+import GlobalBreadcrumbs from '~/components/layout/GlobalBreadcrumbs.vue'
 import CookieConsentBanner from '~/components/layout/CookieConsentBanner.vue'
 import NavbarWomen from '~/components/layout/NavbarWomen.vue'
 import MessageModal from '~/components/ui/MessageModal.vue'

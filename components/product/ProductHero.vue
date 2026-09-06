@@ -196,7 +196,10 @@ onMounted(() => {
           {{ product.title }}
         </h1>
 
-        <h2 class="text-sm sm:text-lg xl:text-xl font-medium">
+        <h2
+          v-if="String(product.subtitle || '').trim()"
+          class="text-sm sm:text-lg xl:text-xl font-medium"
+        >
           {{ product.subtitle }}
         </h2>
 

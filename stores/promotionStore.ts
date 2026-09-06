@@ -5,6 +5,7 @@ import { useCartStore } from '@/stores/cartStore'
 import { useAuthStore } from '@/stores/authStore'
 import type { ApiPromotionItem, Promotion } from '~/types/promo'
 import { useYtm } from '@/composables/useYtm'
+import { createGuestSessionId, getGuestSessionId, setGuestSessionId } from '~/utils/guestSession'
 
 type PromotionEx = Promotion & {
   is_applied?: boolean
@@ -29,12 +30,12 @@ export const usePromoStore = defineStore('promoStore', () => {
   const error = ref<string | null>(null)
 
   // guest session id
-  const guestSessionId = ref<string | null>(process.client ? localStorage.getItem('guest_session_id') : null)
+  const guestSessionId = ref<string | null>(process.client ? getGuestSessionId() : null)
   function ensureGuestSession(): string {
     if (!guestSessionId.value && process.client) {
-      const id = crypto.randomUUID()
+      const id = createGuestSessionId()
       guestSessionId.value = id
-      localStorage.setItem('guest_session_id', id)
+      setGuestSessionId(id)
     }
     return guestSessionId.value!
   }

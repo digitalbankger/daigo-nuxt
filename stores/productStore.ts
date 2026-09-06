@@ -262,6 +262,7 @@ export const useProductStore = defineStore('product', () => {
   const product = ref<Product | null>(null)
   const pending = ref(false)
   const error = ref<string | null>(null)
+  const errorStatusCode = ref<number | null>(null)
 
   const loadProduct = async (slug: string) => {
     const normalizedSlug = String(slug || '').trim()
@@ -275,6 +276,7 @@ export const useProductStore = defineStore('product', () => {
 
     pending.value = true
     error.value = null
+    errorStatusCode.value = null
 
     try {
       if (isOmegaBundleSlug(normalizedSlug)) {
@@ -325,6 +327,9 @@ export const useProductStore = defineStore('product', () => {
 
       product.value = mergeProductWithBackendCard(mockData || null, backendCard || null)
     } catch (e: any) {
+      errorStatusCode.value = Number(
+        e?.statusCode || e?.status || e?.response?.status || e?.data?.statusCode || 0,
+      ) || null
       error.value = e?.message || e?.statusMessage || 'Ошибка загрузки товара'
       product.value = null
     } finally {
@@ -332,5 +337,5 @@ export const useProductStore = defineStore('product', () => {
     }
   }
 
-  return { product, pending, error, loadProduct }
+  return { product, pending, error, errorStatusCode, loadProduct }
 })

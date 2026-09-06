@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "images:generate": "node scripts/generate-optimized-images.mjs",
-    "articles:prepare": "node scripts/generate-articles-cards.mjs"
+    "articles:prepare": "node scripts/generate-articles-cards.mjs",
+    "build:optimized": "node scripts/generate-optimized-images.mjs && node scripts/generate-articles-cards.mjs && nuxt build"
   },
   "dependencies": {
     "@nuxt/image": "^1.10.0",

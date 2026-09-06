@@ -7,6 +7,7 @@ import {
   EVOLUTION_LEGACY_SLUG,
   EVOLUTION_SINGLE_SLUG,
 } from '~/constants/evolution'
+import { buildCatalogSeoPath } from '~/utils/catalogFilterRoute'
 
 type Changefreq = 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never'
 
@@ -72,16 +73,11 @@ const STATIC_ARTICLE_ROUTES: SitemapEntry[] = [
 
 const RESEARCH_CATEGORIES = ['metabiotiki', 'plazmogeny']
 
-/**
- * Не включаем `produkty`, потому что такие страницы дублируют карточки товара.
- * Не включаем `sostav`, потому что это может дать много тонких низкочастотных страниц.
- * Оставляем только фильтры, которые выглядят как SEO-посадочные страницы каталога.
- */
+// В sitemap идут только SEO-фильтры, которые теперь имеют чистый path.
+// Остальные фильтры остаются query-параметрами для UX и закрыты robots.txt.
 const INDEXABLE_CATALOG_FILTERS = new Set([
   'napravlennost',
   'pomogaet-pri',
-  'klass-produkta',
-  'podarochnye',
 ])
 
 function xmlEscape(value: string) {
@@ -288,8 +284,12 @@ function addCatalogUrls(target: Map<string, SitemapEntry>, products: ProductLike
       const count = products.filter(product => getPropValues(product, group.slug).includes(value)).length
       if (count <= 0) continue
 
-      const params = new URLSearchParams({ [group.slug]: value })
-      addCatalogPagination(target, `/catalog?${params.toString()}`, count, 0.72)
+      addCatalogPagination(
+        target,
+        buildCatalogSeoPath({ [group.slug]: [value] }),
+        count,
+        0.72,
+      )
     }
   }
 }
@@ -305,6 +305,15 @@ async function addArticleUrls(target: Map<string, SitemapEntry>) {
       lastmod: toIsoDate(article.updated_at || article.updatedAt || article.date),
       changefreq: 'monthly',
       priority: 0.72,
+    })
+  }
+
+  const articlePages = Math.max(1, Math.ceil(articles.length / 15))
+  for (let page = 2; page <= articlePages; page++) {
+    addEntry(target, {
+      loc: `/articles/page${page}`,
+      changefreq: 'weekly',
+      priority: 0.78,
     })
   }
 

@@ -1,5 +1,6 @@
 import { readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
+import { CATALOG_SEO_ROUTE_PATTERN } from "./constants/catalogSeoFilters";
 
 const parsePublicJsonRecord = (value?: string): Record<string, string> => {
   if (!value) return {};
@@ -28,10 +29,48 @@ const articlePrerenderRoutes = readdirSync(articlesContentDir, { withFileTypes: 
   .map((entry) => `/articles/${entry.name.replace(/\.json$/, "")}`)
   .sort();
 
+const ARTICLE_LIST_PAGE_SIZE = 15;
+const articlePaginationPrerenderRoutes = Array.from(
+  { length: Math.max(0, Math.ceil(articlePrerenderRoutes.length / ARTICLE_LIST_PAGE_SIZE) - 1) },
+  (_, index) => `/articles/page${index + 2}`,
+);
+
+// Новые SEO URL используют те же реальные page-компоненты, что и базовые страницы.
+// Не оборачиваем pages/*.vue в промежуточные компоненты: layout/meta должны быть
+// известны роутеру до первого render, иначе при текущей app/layout архитектуре
+// NuxtLayout может отдать пустую страницу.
+const catalogIndexPage = fileURLToPath(
+  new URL("./pages/catalog/index.vue", import.meta.url),
+);
+const articlesIndexPage = fileURLToPath(
+  new URL("./pages/articles/index.vue", import.meta.url),
+);
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   ssr: true,
   devtools: { enabled: true },
+
+  hooks: {
+    "pages:extend"(pages) {
+      // SEO-фильтры каталога имеют ровно один SEO-сегмент после /catalog.
+      // Route приоритетнее обычной карточки /catalog/[slug], но regex не перехватывает товары.
+      pages.unshift({
+        name: "catalog-seo-filter",
+        path: `/catalog/:filters(${CATALOG_SEO_ROUTE_PATTERN})`,
+        file: catalogIndexPage,
+        meta: { layout: "main", hideGlobalBreadcrumbs: true },
+      });
+
+      // /articles/page2, /articles/page3 ... приоритетнее /articles/[slug].
+      pages.unshift({
+        name: "articles-pagination",
+        path: "/articles/page:page(\\d+)",
+        file: articlesIndexPage,
+        meta: { layout: "main" },
+      });
+    },
+  },
 
   runtimeConfig: {
     dadataToken:
@@ -132,7 +171,7 @@ export default defineNuxtConfig({
     prerender: {
       // /articles + каждый JSON из content/articles-json превращаются в статический HTML
       // во время pnpm build. Новый JSON автоматически попадёт в следующий деплой.
-      routes: ["/articles", ...articlePrerenderRoutes],
+      routes: ["/articles", ...articlePaginationPrerenderRoutes, ...articlePrerenderRoutes],
       crawlLinks: false,
       failOnError: true,
     },

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ArticleDetailTemplate from '~/components/articles/ArticleDetailTemplate.vue'
 
-definePageMeta({ layout: 'main' })
+definePageMeta({ layout: 'main', hideGlobalBreadcrumbs: true })
 </script>
 
 <template>

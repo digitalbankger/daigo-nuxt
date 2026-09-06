@@ -4,7 +4,7 @@
     :alt="alt"
     :width="width"
     :height="height"
-    loading="eager"
+    :loading="eager ? 'eager' : 'lazy'"
     :fetchpriority="fetchPriority"
     decoding="async"
     :class="class"
@@ -15,6 +15,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
+import { buildOptimizedImageUrl } from '~/utils/optimizedImage'
 
 const props = withDefaults(defineProps<{
   src: string
@@ -30,23 +31,43 @@ const props = withDefaults(defineProps<{
   eager: false,
 })
 
-const fallbackSrc = '/images/placeholder-product.png'
+const placeholderSrc = '/images/placeholder-product.png'
 
-const normalizedSrc = computed(() =>
-  normalizeMediaUrlOrFallback(props.src, fallbackSrc)
+const originalSrc = computed(() =>
+  normalizeMediaUrlOrFallback(props.src, placeholderSrc)
 )
 
-const currentSrc = ref(normalizedSrc.value)
+// generate-optimized-images.mjs создаёт только 480/640. Для карточки используем
+// один заранее известный WebP. Если скрипт не запускался или конкретное фото
+// не смогло сгенерироваться, @error мгновенно откатывается на исходный URL.
+const prerenderedSrc = computed(() => {
+  const targetWidth = Number(props.width) <= 480 ? 480 : 640
+  // ВАЖНО: путь строим из исходного src ровно так же, как build-time скрипт.
+  // originalSrc может быть уже переписан в /media-s3/... для браузерного fallback,
+  // тогда его hash/path не совпадёт с файлом, созданным из исходного S3 URL.
+  return buildOptimizedImageUrl(props.src, targetWidth, 'webp')
+})
 
-watch(normalizedSrc, (src) => {
-  currentSrc.value = src || fallbackSrc
+const currentSrc = ref(prerenderedSrc.value || originalSrc.value)
+let fallbackStage = 0
+
+watch([prerenderedSrc, originalSrc], ([optimized, original]) => {
+  fallbackStage = 0
+  currentSrc.value = optimized || original || placeholderSrc
 })
 
 const fetchPriority = computed(() => props.eager ? 'high' : 'auto')
 
 function handleImageError() {
-  if (currentSrc.value !== fallbackSrc) {
-    currentSrc.value = fallbackSrc
+  if (fallbackStage === 0 && currentSrc.value !== originalSrc.value) {
+    fallbackStage = 1
+    currentSrc.value = originalSrc.value
+    return
+  }
+
+  if (currentSrc.value !== placeholderSrc) {
+    fallbackStage = 2
+    currentSrc.value = placeholderSrc
   }
 }
 </script>

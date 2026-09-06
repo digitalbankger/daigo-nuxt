@@ -1,5 +1,5 @@
 <script setup lang="ts">
-definePageMeta({ layout: "main", key: (route) => route.fullPath });
+definePageMeta({ layout: "main", key: (route) => route.fullPath, hideGlobalBreadcrumbs: true });
 
 import { useProductStore } from "~/stores/productStore";
 import { useAuthStore } from "~/stores/authStore";
@@ -210,6 +210,15 @@ const route = useRoute();
 const productStore = useProductStore();
 await productStore.loadProduct(route.params.slug as string);
 
+if (!productStore.product) {
+  const statusCode = productStore.errorStatusCode === 404 ? 404 : 502;
+  throw createError({
+    statusCode,
+    statusMessage: statusCode === 404 ? "Товар не найден" : "Не удалось загрузить товар",
+    fatal: true,
+  });
+}
+
 const { data: productReviewsResponse } = await useFetch<ProductReviewsData>(
   `/api/shop/reviews/${route.params.slug as string}`,
   {
@@ -386,6 +395,7 @@ const productJsonLd = computed(() => {
   const currentProduct = product.value;
   if (!currentProduct) return null;
 
+  const productUrl = `${SITE_URL}/catalog/${currentProduct.slug}`;
   const images = (currentProduct.images || [])
     .map((image) => normalizeMediaUrl(image.image_url))
     .filter(Boolean)
@@ -393,44 +403,95 @@ const productJsonLd = computed(() => {
       image!.startsWith("http") ? image! : `${SITE_URL}${image}`,
     );
 
+  const seller = { "@id": `${SITE_URL}/#organization` };
   const variants = currentProduct.variants || [];
-  const offers = variants.length
-    ? variants.map((variant) => ({
+  const variantOffers = variants
+    .filter((variant) => Number(variant.price || 0) > 0)
+    .map((variant) => ({
+      "@type": "Offer",
+      sku: `${currentProduct.product_id}:${variant.variant_id}`,
+      name: variant.label,
+      price: Number(variant.price),
+      priceCurrency: "RUB",
+      availability: currentProduct.isActive
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      itemCondition: "https://schema.org/NewCondition",
+      url: productUrl,
+      seller,
+    }));
+
+  const defaultOffer = Number(currentProduct.price || 0) > 0
+    ? [{
         "@type": "Offer",
-        sku: `${currentProduct.product_id}:${variant.variant_id}`,
-        name: variant.label,
-        price: Number(variant.price || 0),
+        sku: String(currentProduct.product_id),
+        price: Number(currentProduct.price),
         priceCurrency: "RUB",
         availability: currentProduct.isActive
           ? "https://schema.org/InStock"
           : "https://schema.org/OutOfStock",
-        url: `${SITE_URL}/catalog/${currentProduct.slug}`,
-      }))
-    : [
-        {
-          "@type": "Offer",
-          sku: String(currentProduct.product_id),
-          price: Number(currentProduct.price || 0),
-          priceCurrency: "RUB",
-          availability: currentProduct.isActive
-            ? "https://schema.org/InStock"
-            : "https://schema.org/OutOfStock",
-          url: `${SITE_URL}/catalog/${currentProduct.slug}`,
-        },
-      ];
+        itemCondition: "https://schema.org/NewCondition",
+        url: productUrl,
+        seller,
+      }]
+    : [];
+
+  const offers = variantOffers.length ? variantOffers : defaultOffer;
+  const reviewItems = productReviews.value.items || [];
+  const calculatedRating = reviewItems.length
+    ? reviewItems.reduce((sum, item) => sum + Number(item.rating || 0), 0) / reviewItems.length
+    : 0;
+  const apiRatingValue = Number(productReviews.value.ratingAvg || 0);
+  const ratingValue = Number(apiRatingValue || calculatedRating || 0);
+  // Если API не дал агрегированный рейтинг, не приписываем вычисленному
+  // по загруженной выборке количество отзывов, которых в этой выборке нет.
+  const reviewCount = apiRatingValue > 0
+    ? Number(productReviews.value.count || reviewItems.length || 0)
+    : reviewItems.length;
+
+  const reviewsJsonLd = reviewItems
+    .filter((review) => review.author && review.text && Number(review.rating || 0) > 0)
+    .slice(0, 10)
+    .map((review) => ({
+      "@type": "Review",
+      author: { "@type": "Person", name: review.author },
+      ...(review.title ? { name: review.title } : {}),
+      reviewBody: review.text,
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: Number(review.rating),
+        bestRating: 5,
+        worstRating: 1,
+      },
+    }));
 
   return {
     "@context": "https://schema.org",
     "@type": "Product",
+    "@id": `${productUrl}#product`,
+    url: productUrl,
     name: currentProduct.title,
-    description: currentProduct.shortDescription,
+    description: currentProduct.shortDescription || currentProduct.title,
     sku: String(currentProduct.product_id),
     brand: {
       "@type": "Brand",
       name: "Daigo",
     },
+    ...(currentProduct.category ? { category: currentProduct.category } : {}),
     ...(images.length ? { image: images } : {}),
-    offers,
+    ...(offers.length ? { offers } : {}),
+    ...(reviewCount > 0 && ratingValue > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: Number(ratingValue.toFixed(2)),
+            reviewCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
+    ...(reviewsJsonLd.length ? { review: reviewsJsonLd } : {}),
   };
 });
 

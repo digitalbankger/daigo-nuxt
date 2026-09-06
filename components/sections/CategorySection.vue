@@ -19,7 +19,7 @@ const doctorsProgramUrl = 'https://res.daigo.ru'
 
 const linkFor = (c: Category) => {
   if (c.slug === 'catalog') return '/catalog'
-  return { path: '/catalog', query: { napravlennost: c.slug } }
+  return `/catalog/${c.slug}`
 }
 </script>
 

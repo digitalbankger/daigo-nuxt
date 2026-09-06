@@ -14,8 +14,20 @@ import { useSeoMeta, useHead } from '#imports'
 const route = useRoute()
 const store = useResearchStore()
 
-// SSR-фетч
-await store.fetchCategoryItems(route.params.slug as string)
+// SSR-фетч. Неизвестная категория должна быть настоящей 404,
+// а не пустой страницей или неявным fallback на другую категорию.
+const { error: categoryError } = await useAsyncData(
+  `research-category:${String(route.params.slug || '')}`,
+  () => store.fetchCategoryItems(route.params.slug as string),
+)
+
+if (categoryError.value || !store.currentCategory) {
+  throw createError({
+    statusCode: 404,
+    statusMessage: 'Категория исследований не найдена',
+    fatal: true,
+  })
+}
 
 // вычисления для верстки
 const featured = computed(() => store.researches.filter(i => i.isFeatured))

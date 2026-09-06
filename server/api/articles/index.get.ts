@@ -1,5 +1,6 @@
 import { defineEventHandler, getQuery, setResponseHeader } from 'h3'
 import { ARTICLE_CARDS } from '~/content/articles-json/articles.cards'
+import { getArticleFilterGroups } from '~/server/utils/articleFilters'
 
 const PINNED_SLUG = 'iskusstvo-dolgoletiya-filosofiya-zdorovogo-dolgoletiya-daigo'
 
@@ -23,10 +24,11 @@ export default defineEventHandler((event) => {
   const page = Math.max(1, Number(query.page ?? 1))
   const perPage = Math.max(1, Math.min(100, Number(query.page_size ?? query.per_page ?? 15)))
   const search = String(query.q ?? '').trim().toLowerCase()
+  const allowedFilters = new Set(getArticleFilterGroups().map(group => group.slug))
 
   const activeFilters = Object.entries(query).reduce<Record<string, string[]>>(
     (filters, [key, raw]) => {
-      if (key === 'page' || key === 'q' || key === 'page_size' || key === 'per_page') return filters
+      if (!allowedFilters.has(key)) return filters
       const values = normalizeValues(raw)
       if (values.length) filters[key] = values
       return filters

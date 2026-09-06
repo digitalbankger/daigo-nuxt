@@ -11,6 +11,26 @@ const EMBED_SOURCE = 'daigo-5ml-embed'
 const PARENT_SOURCE = 'daigo-nuxt-5ml'
 const EMBED_URL = '/__isolated/5ml-test/index.html'
 
+
+type ProductReviewItem = {
+  id: string
+  author: string
+  rating: number
+  date?: string
+  title?: string
+  text: string
+  source?: string
+  verified?: boolean
+  tags?: string[]
+}
+
+type ProductReviewsData = {
+  ratingAvg?: number
+  count?: number
+  source?: string
+  items: ProductReviewItem[]
+}
+
 useHead({
   title: 'Daigo 5 мл — тестовая страница',
   meta: [
@@ -38,6 +58,20 @@ const adding = ref(false)
 const errorMessage = ref('')
 
 await productStore.loadProduct(PRODUCT_SLUG)
+
+
+const { data: productReviewsResponse } = await useFetch<ProductReviewsData>(
+  `/api/shop/reviews/${PRODUCT_SLUG}`,
+  {
+    key: `product-reviews:${PRODUCT_SLUG}`,
+    default: () => ({ items: [] }),
+  },
+)
+
+const productReviews = computed<ProductReviewsData>(() => {
+  const value = productReviewsResponse.value
+  return value && Array.isArray(value.items) ? value : { items: [] }
+})
 
 const product = computed(() => productStore.product)
 const coverImage = computed(() => {
@@ -75,6 +109,40 @@ function syncCart() {
   postToEmbed({
     type: 'cart-sync',
     cartCount: Number(cartStore.itemsCount || 0),
+  })
+}
+
+
+function syncReviews() {
+  const value = productReviews.value
+  const items = Array.isArray(value.items)
+    ? value.items.map((item) => ({
+        id: String(item.id || ''),
+        author: String(item.author || 'Не указано'),
+        rating: Number(item.rating || 5),
+        date: item.date ? String(item.date) : '',
+        title: item.title ? String(item.title) : '',
+        text: String(item.text || ''),
+        source: item.source ? String(item.source) : '',
+        verified: item.verified === true,
+        tags: Array.isArray(item.tags) ? item.tags.map((tag) => String(tag)) : [],
+      }))
+    : []
+
+  const calculatedRating = items.length
+    ? items.reduce((sum, item) => sum + Math.min(5, Math.max(0, Number(item.rating) || 0)), 0) / items.length
+    : 0
+  const upstreamRating = Number(value.ratingAvg)
+  const upstreamCount = Number(value.count)
+
+  postToEmbed({
+    type: 'reviews-sync',
+    reviews: {
+      ratingAvg: Number.isFinite(upstreamRating) && upstreamRating > 0 ? upstreamRating : calculatedRating,
+      count: Number.isFinite(upstreamCount) && upstreamCount >= 0 ? upstreamCount : items.length,
+      source: value.source ? String(value.source) : '',
+      items,
+    },
   })
 }
 
@@ -133,6 +201,7 @@ function onFrameMessage(event: MessageEvent) {
   if (data.type === 'ready') {
     bridgeReady.value = true
     syncProductAndCart()
+    syncReviews()
     return
   }
 
@@ -149,6 +218,7 @@ function onFrameMessage(event: MessageEvent) {
 function onFrameLoad() {
   bridgeReady.value = true
   syncProductAndCart()
+  syncReviews()
 }
 
 onMounted(async () => {
@@ -162,6 +232,7 @@ onMounted(async () => {
 
   await nextTick()
   syncProductAndCart()
+  syncReviews()
 
   const currentProduct = product.value
   if (currentProduct) {
@@ -199,6 +270,15 @@ watch(
     if (bridgeReady.value) syncProductAndCart()
   },
 )
+
+watch(
+  () => productReviewsResponse.value,
+  () => {
+    if (bridgeReady.value) syncReviews()
+  },
+  { deep: true },
+)
+
 </script>
 
 <template>

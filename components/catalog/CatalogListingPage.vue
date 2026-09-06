@@ -55,10 +55,7 @@ const quickReasonFilters: QuickReasonFilter[] = [
     label: 'ЖКТ у детей',
     query: { 'pomogaet-pri': ['meteorism', 'disbakterioz', 'kishechnaya-neprokhodimost-zapor'] },
   },
-  {
-    label: 'Профилактика',
-    query: { 'klass-produkta': ['metobiotiki'] },
-  },
+  // 'Класс продукта' отключён в каталоге.
   {
     label: 'Аллергии',
     query: { 'pomogaet-pri': ['allergiya', 'pishchevaya-neperenosimost'] },
