@@ -51,7 +51,10 @@ export function isOptimizableImageSrc(src?: string | null): boolean {
     return ENABLE_REMOTE_OPTIMIZED_IMAGES
   }
 
-  if (isProxiedS3MediaUrl(normalized)) return false
+  // /media-s3/... — это браузерная форма FirstVDS S3 URL.
+  // Скрипт оптимизации сохраняет эти же файлы как remote/s3.firstvds.ru/...
+  // Поэтому такие URL тоже можно сопоставить с build-time вариантами.
+  if (isProxiedS3MediaUrl(normalized)) return true
 
   return normalized.startsWith('/')
 }
@@ -64,9 +67,17 @@ export function getOptimizedImageBasePath(src?: string | null): string | null {
   }
 
   const absolute = /^https?:\/\//i.test(normalized)
-  const parts = absolute
-    ? ['remote', ...getRemotePathParts(normalized)]
-    : ['local', ...getLocalPathParts(normalized)]
+  const proxiedS3 = isProxiedS3MediaUrl(normalized)
+
+  const parts = proxiedS3
+    ? [
+        'remote',
+        's3.firstvds.ru',
+        ...getLocalPathParts(normalized.replace(/^\/media-s3\//, '/')),
+      ]
+    : absolute
+      ? ['remote', ...getRemotePathParts(normalized)]
+      : ['local', ...getLocalPathParts(normalized)]
 
   if (!parts.length) return null
 
