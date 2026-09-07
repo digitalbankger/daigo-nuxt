@@ -302,39 +302,3 @@ function decrementHandler() {
   cartStore.updateItem(String(product.product_id), quantityInCart.value - 1)
 }
 </script>
-
-<style scoped>
-.summer-ribbon {
-  background:
-    radial-gradient(circle at top right, rgba(255, 255, 255, 0.24), transparent 30%),
-    radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.18), transparent 32%),
-    linear-gradient(135deg, rgba(30, 166, 210, 0.96) 0%, rgba(26, 142, 189, 0.97) 62%, rgba(18, 121, 167, 1) 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.22);
-}
-
-.summer-ribbon::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  pointer-events: none;
-  background-image: linear-gradient(115deg, transparent 22%, rgba(255,255,255,0.16) 30%, transparent 40%),
-    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 52%);
-  opacity: 0.95;
-}
-
-.summer-ribbon__timer {
-  animation: summer-ribbon-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes summer-ribbon-pulse {
-  0%, 100% { opacity: 1; transform: translateY(0); }
-  50% { opacity: 0.62; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .summer-ribbon__timer { 
-    animation: none;
-  }
-}
-</style>

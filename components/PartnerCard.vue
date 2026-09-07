@@ -17,7 +17,7 @@
       :href="partner.link"
       target="_blank"
       rel="noopener noreferrer"
-      class="font-mont inline-block mt-4 underline text-sm md:text-base"
+      class="inline-block mt-4 underline text-sm md:text-base"
     >Перейти на сайт партнера</a>
   </div>
 

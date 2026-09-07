@@ -11,7 +11,7 @@
         class="hidden sm:flex items-center gap-3 justify-center uppercase tracking-wide transition duration-300"
         @click="sendInformerGoal"
       >
-        <span class="text-sm sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
+        <span class="text-sm sm:text-lg font-medium">5% скидка на первый заказ</span>
       </NuxtLink>
 
       <!-- DESKTOP BUTTON -->
@@ -26,7 +26,7 @@
 
       <!-- MOBILE -->
       <div class="flex flex-col items-center gap-2 w-full justify-center sm:hidden uppercase">
-        <span class="text-xs sm:text-lg font-mont font-medium">5% скидка на первый заказ</span>
+        <span class="text-xs sm:text-lg font-medium">5% скидка на первый заказ</span>
 
         <button
           type="button"

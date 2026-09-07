@@ -9,10 +9,10 @@ import {
   onMounted,
   onBeforeUnmount,
   nextTick,
+  defineAsyncComponent,
 } from '#imports'
 import { useCatalogStore } from '~/stores/catalogStore'
 import { useAnalytics } from '@/composables/useAnalytics'
-import FilterPanel from '~/components/catalog/FilterPanel.vue'
 import ProductCard from '~/components/catalog/ProductCard.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { useYtm } from '@/composables/useYtm'
@@ -87,6 +87,8 @@ const quickReasonFilters: QuickReasonFilter[] = [
 const ytm = useYtm()
 const route = useRoute()
 const router = useRouter()
+const LazyFilterPanel = defineAsyncComponent(() => import('~/components/catalog/FilterPanel.vue'))
+
 const catalogStore = useCatalogStore()
 const analytics = useAnalytics()
 const isCatalogLoading = ref(true)
@@ -95,6 +97,12 @@ const currentLazyPage = ref(1)
 const loadMoreTrigger = ref<HTMLElement | null>(null)
 const skeletonItems = Array.from({ length: PRODUCTS_LIMIT })
 let loadMoreObserver: IntersectionObserver | null = null
+let desktopFilterMedia: MediaQueryList | null = null
+const shouldMountDesktopFilter = ref(false)
+
+function syncDesktopFilterMount() {
+  shouldMountDesktopFilter.value = Boolean(desktopFilterMedia?.matches)
+}
 
 await catalogStore.fetchFilters()
 
@@ -396,12 +404,18 @@ async function scrollToHash(hash = route.hash) {
 }
 
 onMounted(() => {
+  desktopFilterMedia = window.matchMedia('(min-width: 1024px)')
+  syncDesktopFilterMount()
+  desktopFilterMedia.addEventListener?.('change', syncDesktopFilterMount)
+
   scrollToHash()
   attachLoadMoreObserver(loadMoreTrigger.value)
 })
 
 onBeforeUnmount(() => {
   if (loadMoreObserver) loadMoreObserver.disconnect()
+  desktopFilterMedia?.removeEventListener?.('change', syncDesktopFilterMount)
+  desktopFilterMedia = null
 })
 
 watch(
@@ -472,13 +486,17 @@ watch(
               </svg>
             </button>
           </div>
-          <FilterPanel :store="catalogStore" />
+          <LazyFilterPanel :store="catalogStore" />
         </div>
       </Transition>
 
       <div class="flex flex-row items-start gap-7">
         <aside class="hidden w-full lg:sticky lg:top-[120px] lg:block lg:max-h-[calc(100vh-140px)] lg:w-1/4 lg:self-start lg:overflow-y-auto lg:pr-1">
-          <FilterPanel :store="catalogStore" :with-shadow="true" />
+          <LazyFilterPanel
+            v-if="shouldMountDesktopFilter"
+            :store="catalogStore"
+            :with-shadow="true"
+          />
         </aside>
 
         <div v-if="isCatalogLoading" class="w-full lg:w-3/4">
@@ -511,7 +529,7 @@ watch(
               :product="product"
               :index="idx"
               :global-index="idx"
-              :priority="idx < 3"
+              :priority="idx < 2"
             />
           </div>
 

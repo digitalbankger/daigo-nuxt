@@ -27,6 +27,6 @@ withDefaults(defineProps<{
   height: 560,
   class: '',
   eager: false,
-  sizes: '(max-width: 1023px) 50vw, 26vw',
+  sizes: '(max-width: 1023px) calc(50vw - 24px), 26vw',
 })
 </script>

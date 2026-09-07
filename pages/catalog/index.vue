@@ -676,7 +676,7 @@ watch(
               :product="product"
               :index="idx"
               :global-index="idx"
-              :priority="idx < 3"
+              :priority="idx < 2"
             />
           </div>
 

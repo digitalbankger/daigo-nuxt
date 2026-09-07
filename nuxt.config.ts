@@ -232,16 +232,9 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-        { rel: "preconnect", href: "https://fonts.googleapis.com" },
-        {
-          rel: "preconnect",
-          href: "https://fonts.gstatic.com",
-          crossorigin: "",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap",
-        },
+        // Каталог и основной layout больше не зависят от Google Fonts.
+        // Montserrat подключается точечно только там, где он действительно нужен.
+        { rel: "preconnect", href: "https://api.daigo.ru", crossorigin: "anonymous" },
       ],
       script: [
         {
@@ -290,6 +283,13 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@vueuse/nuxt",
   ],
+
+  // main.css уже содержит @tailwind base/components/utilities.
+  // Без этого @nuxtjs/tailwindcss добавлял второй Tailwind stylesheet,
+  // из-за чего Lighthouse видел два почти одинаковых блока preflight (~43 KiB unused CSS).
+  tailwindcss: {
+    cssPath: false,
+  },
 
   image: {
     provider: "ipx",

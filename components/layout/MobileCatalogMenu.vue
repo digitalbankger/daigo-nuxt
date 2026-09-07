@@ -124,13 +124,13 @@
 
           <div class="mobile-catalog-menu__meta">
             <div class="mobile-catalog-menu__code-row">
-              <span class="mobile-catalog-menu__code font-mont">{{ item.code }}</span>
+              <span class="mobile-catalog-menu__code">{{ item.code }}</span>
               <span v-if="item.badge" class="mobile-catalog-menu__badge">
                 {{ item.badge }}
               </span>
             </div>
 
-            <div class="mobile-catalog-menu__title font-mont">
+            <div class="mobile-catalog-menu__title">
               {{ item.title }}
             </div>
           </div>

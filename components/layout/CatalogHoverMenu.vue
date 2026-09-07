@@ -44,13 +44,13 @@
 
           <div class="catalog-hover-menu__meta">
             <div class="catalog-hover-menu__code-row">
-              <span class="catalog-hover-menu__code font-mont">{{ item.code }}</span>
+              <span class="catalog-hover-menu__code">{{ item.code }}</span>
               <span v-if="item.badge" class="catalog-hover-menu__badge">
                 {{ item.badge }}
               </span>
             </div>
 
-            <div class="catalog-hover-menu__title font-mont">
+            <div class="catalog-hover-menu__title">
               {{ item.title }}
             </div>
           </div>
@@ -64,11 +64,11 @@
           </div>
 
           <div class="catalog-hover-menu__preview-content">
-            <h3 class="catalog-hover-menu__preview-title font-mont">
+            <h3 class="catalog-hover-menu__preview-title">
               {{ activeItem.title }}
             </h3>
 
-            <p class="catalog-hover-menu__preview-text font-mont">
+            <p class="catalog-hover-menu__preview-text">
               {{ activeItem.description }}
             </p>
 

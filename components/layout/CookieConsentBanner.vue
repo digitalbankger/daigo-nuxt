@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useCookie } from '#imports'
-import Button from '~/components/ui/Button.vue'
 
 const CONSENT_VERSION = '2026-06-03'
 const CONSENT_STORAGE_KEY = `daigo_cookie_consent:${CONSENT_VERSION}`
@@ -55,44 +54,30 @@ onMounted(() => {
 </script>
 
 <template>
-  <Teleport to="body">
-    <Transition name="cookie-banner">
-      <section
-        v-if="isVisible"
-        class="fixed inset-x-0 bottom-0 z-[9999999999] px-3 pb-3 sm:px-5 sm:pb-5"
-        aria-label="Согласие на обработку данных о посещениях"
+  <!-- fixed-позиционирование не требует Teleport. Так баннер попадает прямо в SSR DOM
+       и не ждёт отдельного teleport/hydration шага перед первой отрисовкой. -->
+  <section
+    v-if="isVisible"
+    class="fixed inset-x-0 bottom-0 z-[9999999999] px-3 pb-3 sm:px-5 sm:pb-5"
+    aria-label="Согласие на обработку данных о посещениях"
+  >
+    <div
+      class="mx-auto flex w-full max-w-[820px] items-center gap-3 rounded-2xl border border-black/10 bg-white px-3 py-2.5 shadow-[0_8px_28px_rgba(17,17,17,0.14)] sm:px-4 sm:py-3"
+    >
+      <p class="min-w-0 flex-1 text-[11px] leading-[1.35] text-[#49454F] sm:text-sm">
+        Продолжая использовать сайт, вы соглашаетесь на обработку данных о посещениях согласно
+        <NuxtLink to="/privacy" class="text-primary underline underline-offset-2 hover:text-textbtnhover">
+          политике конфиденциальности
+        </NuxtLink>.
+      </p>
+
+      <button
+        type="button"
+        class="inline-flex h-9 shrink-0 items-center justify-center rounded-lg bg-primary px-3 text-xs font-medium text-white transition hover:bg-primary/90 sm:h-10 sm:px-4 sm:text-sm"
+        @click="acceptCookies"
       >
-        <div class="mx-auto flex w-full max-w-[1180px] flex-col gap-4 rounded-[24px] border border-black/10 bg-white p-4 shadow-[0_12px_40px_rgba(17,17,17,0.16)] sm:flex-row sm:items-center sm:justify-between sm:p-5">
-          <div class="max-w-[860px] text-sm leading-relaxed text-[#49454F] sm:text-base">
-            <p>
-              Продолжая использовать сайт, вы соглашаетесь на обработку данных о посещениях,
-              необходимых для работы сайта, улучшения сервиса и анализа посещаемости, в соответствии с
-              <NuxtLink to="/privacy" class="text-primary underline underline-offset-2 hover:text-textbtnhover">
-                политикой конфиденциальности
-              </NuxtLink>.
-            </p>
-          </div>
-
-          <div class="flex shrink-0 items-center gap-3">
-            <Button class="w-full sm:w-auto" type="button" @click="acceptCookies">
-              Закрыть
-            </Button>
-          </div>
-        </div>
-      </section>
-    </Transition>
-  </Teleport>
+        Закрыть
+      </button>
+    </div>
+  </section>
 </template>
-
-<style scoped>
-.cookie-banner-enter-active,
-.cookie-banner-leave-active {
-  transition: opacity 0.22s ease, transform 0.22s ease;
-}
-
-.cookie-banner-enter-from,
-.cookie-banner-leave-to {
-  opacity: 0;
-  transform: translateY(18px);
-}
-</style>

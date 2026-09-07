@@ -7,7 +7,9 @@
             <img
               src="/logo.svg"
               alt="Daigo"
-              class="w-24 md:w-32"
+              width="128"
+              height="48"
+              class="w-24 h-auto md:w-32"
               loading="lazy"
               decoding="async"
             />

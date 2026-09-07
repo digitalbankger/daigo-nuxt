@@ -1,5 +1,6 @@
 
 <script setup lang="ts">
+useMontserratFont()
 import { computed } from 'vue'
 import { useSeoMeta, useHead } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'

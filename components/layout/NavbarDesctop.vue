@@ -10,7 +10,7 @@
     <div class="w-full flex flex-row items-center justify-between py-2 gap-7 px-0 sm:px-2">
       <div class="flex items-center gap-7 shrink-0">
         <NuxtLink to="/" aria-label="Главная">
-          <img src="/logo.svg" alt="daigo logo" class="h-10 md:h-12 xl:h-16" />
+          <img src="/logo.svg" alt="daigo logo" width="128" height="48" class="h-10 w-auto md:h-12 xl:h-16" fetchpriority="high" />
           <p class="text-[8px] md:text-[10px] text-[#454749] mt-1 xs-max:hidden">
             С 1914 г. заботимся о вашем здоровье
           </p>

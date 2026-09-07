@@ -10,7 +10,7 @@
     <main>
       <GlobalBreadcrumbs />
       <NuxtPage />
-      <MessageModal />
+      <LazyMessageModal v-if="modalStore.isOpen" />
       <!-- <ClientOnly>
         <FirstOrderWelcomePopup />
       </ClientOnly> -->
@@ -66,12 +66,12 @@ import GlobalBreadcrumbs from '~/components/layout/GlobalBreadcrumbs.vue'
 import CookieConsentBanner from '~/components/layout/CookieConsentBanner.vue'
 import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
 import FooterDesctop from '~/components/layout/FooterDesctop.vue'
-import MessageModal from '~/components/ui/MessageModal.vue'
 // import FirstOrderWelcomePopup from '~/components/promotions/FirstOrderWelcomePopup.vue'
 import MobileNav from '~/components/MobileNav.vue'
 import { defineAsyncComponent } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useAuthStore } from '@/stores/authStore'
+import { useModalStore } from '~/stores/modalStore'
 import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 const { public: { carrotId = '65310-79e35206a74ce38752218d816a' } } = useRuntimeConfig()
 useHead({
@@ -92,8 +92,10 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const LazyAuthForm = defineAsyncComponent(() => import('@/components/AuthForm.vue'))
+const LazyMessageModal = defineAsyncComponent(() => import('~/components/ui/MessageModal.vue'))
 
 const auth = useAuthStore()
+const modalStore = useModalStore()
 const { isAuthModalOpen } = storeToRefs(auth)
 const { closeAuth } = auth
 
