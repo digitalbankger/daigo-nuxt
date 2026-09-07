@@ -49,7 +49,7 @@ const articlesIndexPage = fileURLToPath(
 export default defineNuxtConfig({
   compatibilityDate: "2024-11-01",
   ssr: true,
-  devtools: { enabled: true },
+  devtools: { enabled: process.env.NODE_ENV !== "production" },
 
   hooks: {
     "pages:extend"(pages) {
@@ -220,10 +220,6 @@ export default defineNuxtConfig({
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@300;400;500;600;700;800;900&display=swap",
         },
       ],
       script: [

@@ -50,7 +50,6 @@ const isCatalogLoading = ref(false);
 
 const PRODUCTS_PER_LOAD = 12;
 const PIVOT = 15;
-const displayLimit = ref(PRODUCTS_PER_LOAD);
 const loadMoreTrigger = ref<HTMLElement | null>(null);
 let loadMoreObserver: IntersectionObserver | null = null;
 
@@ -136,40 +135,24 @@ function getHumanFilterSummary() {
     .join(", ");
 }
 
-// Initial SSR/catalog fetch: товары должны попасть в HTML, а не появляться только после hydration.
-// useAsyncData дополнительно сериализует результат в payload Nuxt, поэтому карточки не теряются
-// между серверным рендером и клиентской гидрацией.
+// Initial SSR/catalog fetch: первая порция товаров попадает прямо в HTML.
+// В useAsyncData хранится только флаг выполнения; сами 12 карточек гидратируются через Pinia,
+// поэтому массив товаров не дублируется в Nuxt payload.
 const initialCatalogQuery = normalizedQuery.value;
-const { data: initialCatalogPayload } = await useAsyncData(
+await useAsyncData(
   `catalog-products:${JSON.stringify(initialCatalogQuery)}`,
   async () => {
     await catalogStore.fetchProducts(initialCatalogQuery);
-
-    return {
-      products: catalogStore.products,
-      totalProducts: catalogStore.totalProducts,
-      totalPages: catalogStore.totalPages,
-      page: catalogStore.page,
-    };
+    // Сами товары уже сериализуются Pinia. Не дублируем их второй раз в
+    // Nuxt payload: это заметно уменьшает HTML первой загрузки каталога.
+    return true;
   },
   {
     server: true,
     lazy: false,
-    default: () => ({
-      products: [],
-      totalProducts: 0,
-      totalPages: 1,
-      page: 1,
-    }),
+    default: () => false,
   },
 );
-
-if (initialCatalogPayload.value) {
-  catalogStore.products = initialCatalogPayload.value.products;
-  catalogStore.totalProducts = initialCatalogPayload.value.totalProducts;
-  catalogStore.totalPages = initialCatalogPayload.value.totalPages;
-  catalogStore.page = initialCatalogPayload.value.page;
-}
 
 isCatalogLoading.value = false;
 
@@ -214,13 +197,11 @@ const weekProducts = computed(() => {
    return visibleProducts.value;
  });
 
-const renderedProducts = computed(() =>
-  regularProducts.value.slice(0, displayLimit.value),
-);
-const analyticsProducts = computed(() => [
-  ...weekProducts.value,
-  ...renderedProducts.value,
-]);
+// products в store теперь содержит только реально загруженные порции.
+const renderedProducts = computed(() => regularProducts.value);
+// WeeklyProducts сейчас не рендерится отдельным блоком, поэтому не дублируем
+// те же товары в аналитике. Это сильно сокращает payload событий Roistat/YTM.
+const analyticsProducts = computed(() => renderedProducts.value);
 //const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3));
 // const featuredProducts = computed(() => {
 //   return weekProducts.value.length
@@ -244,10 +225,10 @@ const otherProducts = computed(() =>
 );
 
 const hasMoreProducts = computed(
-  () => renderedProducts.value.length < regularProducts.value.length,
+  () => catalogStore.products.length < catalogStore.totalProducts,
 );
 const remainingProductsCount = computed(() =>
-  Math.max(0, regularProducts.value.length - renderedProducts.value.length),
+  Math.max(0, catalogStore.totalProducts - catalogStore.products.length),
 );
 const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD });
 
@@ -280,12 +261,17 @@ function applyQuickFilter(key: string, value: string) {
   router.push({ path: location.path, query: location.query, hash: route.hash });
 }
 
-function loadMoreProducts() {
-  if (!hasMoreProducts.value) return;
-  displayLimit.value = Math.min(
-    displayLimit.value + PRODUCTS_PER_LOAD,
-    regularProducts.value.length,
-  );
+const isLoadingMore = ref(false);
+
+async function loadMoreProducts() {
+  if (!hasMoreProducts.value || isLoadingMore.value) return;
+  isLoadingMore.value = true;
+  try {
+    await catalogStore.loadMoreProducts(normalizedQuery.value);
+  } finally {
+    isLoadingMore.value = false;
+    setupLoadMoreObserver();
+  }
 }
 
 function disconnectLoadMoreObserver() {
@@ -321,8 +307,6 @@ watch(
   normalizedQuery,
   async () => {
     if (import.meta.client) isCatalogLoading.value = true;
-    displayLimit.value = PRODUCTS_PER_LOAD;
-
     try {
       await catalogStore.fetchProducts(normalizedQuery.value);
     } finally {
@@ -360,14 +344,8 @@ watch(
         url: `/catalog/${p.slug}`,
         image_url: p.image,
       })),
-      page_count: Math.max(
-        1,
-        Math.ceil(visibleProducts.value.length / PRODUCTS_PER_LOAD),
-      ),
-      current_page: Math.max(
-        1,
-        Math.ceil(renderedProducts.value.length / PRODUCTS_PER_LOAD),
-      ),
+      page_count: Math.max(1, catalogStore.totalPages),
+      current_page: Math.max(1, catalogStore.page),
     });
 
     analytics.viewItemList(
@@ -719,9 +697,10 @@ watch(
             <Button
               type="button"
               class="min-w-[220px]"
+              :disabled="isLoadingMore"
               @click="loadMoreProducts"
             >
-              Показать ещё
+              {{ isLoadingMore ? 'Загрузка...' : 'Показать ещё' }}
               <span v-if="remainingProductsCount"
                 >({{ remainingProductsCount }})</span
               >

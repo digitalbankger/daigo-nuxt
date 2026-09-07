@@ -5,7 +5,9 @@
         :src="article.image"
         :alt="article.title"
         class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
-        loading="lazy"
+        :loading="priority ? 'eager' : 'lazy'"
+        :fetchpriority="priority ? 'high' : 'auto'"
+        decoding="async"
         width="416"
         height="350"
       />
@@ -22,7 +24,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Article } from '~/types/articles'
+import type { ArticleListItem } from '~/types/articles'
 
-defineProps<{ article: Article }>()
+withDefaults(defineProps<{ article: ArticleListItem; priority?: boolean }>(), {
+  priority: false,
+})
 </script>

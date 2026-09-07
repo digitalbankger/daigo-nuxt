@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
+import { useCookie } from '#imports'
 import Button from '~/components/ui/Button.vue'
 
 const CONSENT_VERSION = '2026-06-03'
@@ -8,7 +9,17 @@ const LEGACY_STORAGE_KEY = 'daigo_cookie_consent'
 const CONSENT_COOKIE_NAME = 'daigo_cookie_consent'
 const CONSENT_TTL_DAYS = 365
 
-const isVisible = ref(false)
+const consentCookie = useCookie<string>(CONSENT_COOKIE_NAME, {
+  default: () => '',
+  maxAge: CONSENT_TTL_DAYS * 24 * 60 * 60,
+  sameSite: 'lax',
+  secure: import.meta.server ? true : window.location.protocol === 'https:',
+  path: '/',
+})
+
+// Для нового посетителя баннер виден уже в SSR HTML. Раньше он появлялся
+// только в onMounted и становился поздним LCP-элементом в Lighthouse.
+const isVisible = ref(consentCookie.value !== 'accepted')
 
 const consentPayload = computed(() => ({
   status: 'accepted',
@@ -16,31 +27,13 @@ const consentPayload = computed(() => ({
   acceptedAt: new Date().toISOString(),
 }))
 
-const readCookie = (name: string) => {
-  if (!process.client) return ''
-
-  return document.cookie
-    .split('; ')
-    .find(row => row.startsWith(`${name}=`))
-    ?.split('=')[1] || ''
-}
-
-const setConsentCookie = () => {
-  if (!process.client) return
-
-  const maxAge = CONSENT_TTL_DAYS * 24 * 60 * 60
-  const secure = window.location.protocol === 'https:' ? '; Secure' : ''
-
-  document.cookie = `${CONSENT_COOKIE_NAME}=accepted; Max-Age=${maxAge}; Path=/; SameSite=Lax${secure}`
-}
-
 const hasConsent = () => {
   if (!process.client) return true
 
   return (
+    consentCookie.value === 'accepted' ||
     localStorage.getItem(CONSENT_STORAGE_KEY) === 'accepted' ||
-    localStorage.getItem(LEGACY_STORAGE_KEY) === 'accepted' ||
-    readCookie(CONSENT_COOKIE_NAME) === 'accepted'
+    localStorage.getItem(LEGACY_STORAGE_KEY) === 'accepted'
   )
 }
 
@@ -50,11 +43,13 @@ const acceptCookies = () => {
   localStorage.setItem(CONSENT_STORAGE_KEY, 'accepted')
   localStorage.setItem(LEGACY_STORAGE_KEY, 'accepted')
   localStorage.setItem(`${CONSENT_STORAGE_KEY}:meta`, JSON.stringify(consentPayload.value))
-  setConsentCookie()
+  consentCookie.value = 'accepted'
   isVisible.value = false
 }
 
 onMounted(() => {
+  // Legacy localStorage поддерживаем, но новый посетитель больше не ждёт
+  // hydration, чтобы увидеть баннер.
   isVisible.value = !hasConsent()
 })
 </script>

@@ -126,11 +126,12 @@ export async function fetchArticlesFromGo(event: H3Event) {
     url.searchParams.set('page_size', String(DEFAULT_PAGE_SIZE))
   }
 
-  const raw = await $fetch<any>(url.toString(), {
+  const response = await $fetch.raw<any>(url.toString(), {
     headers: { accept: 'application/json' },
     timeout: 10_000,
     retry: 0,
   })
+  const raw = response._data
 
   const extracted = extractItems(raw)
   if (!extracted.recognized) {
@@ -144,13 +145,15 @@ export async function fetchArticlesFromGo(event: H3Event) {
     .map(mapGoArticleListItem)
     .filter(article => article.slug && article.title)
 
+  const headerTotal = toFiniteNumber(response.headers.get('x-total-count'), 0)
   const total = toFiniteNumber(
     raw?.total ??
     raw?.count ??
     raw?.meta?.total ??
     raw?.data?.total ??
     raw?.data?.count ??
-    raw?.data?.meta?.total,
+    raw?.data?.meta?.total ??
+    (headerTotal > 0 ? headerTotal : undefined),
     items.length,
   )
 

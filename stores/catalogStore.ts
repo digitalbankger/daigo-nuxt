@@ -189,15 +189,56 @@ export const useCatalogStore = defineStore('catalog', () => {
   }
 
   const fetchProducts = async (params: Record<string, string>) => {
-    await ensureAllLoaded()
+    const res = await $fetch<{
+      items: ProductCard[]
+      total: number
+      page?: number
+      pageSize?: number
+    }>('/api/shop/products', {
+      query: {
+        ...params,
+        page: '1',
+        page_size: String(LOAD_BATCH_SIZE),
+        for: 'catalog-page',
+      },
+    })
 
-    const baseQuery = buildBaseQueryFromParams(params)
-    const filteredProducts = allProducts.value.filter((product) => matchesBaseFilters(product, baseQuery))
-
-    products.value = filteredProducts
-    totalProducts.value = filteredProducts.length
-    totalPages.value = Math.max(1, Math.ceil(filteredProducts.length / LOAD_BATCH_SIZE))
+    products.value = Array.isArray(res?.items) ? res.items : []
+    totalProducts.value = Number(res?.total || products.value.length)
+    totalPages.value = Math.max(1, Math.ceil(totalProducts.value / LOAD_BATCH_SIZE))
     page.value = 1
+  }
+
+  const loadMoreProducts = async (params: Record<string, string>) => {
+    if (products.value.length >= totalProducts.value) return
+
+    const nextPage = page.value + 1
+    const res = await $fetch<{
+      items: ProductCard[]
+      total: number
+      page?: number
+      pageSize?: number
+    }>('/api/shop/products', {
+      query: {
+        ...params,
+        page: String(nextPage),
+        page_size: String(LOAD_BATCH_SIZE),
+        for: 'catalog-page',
+      },
+    })
+
+    const incoming = Array.isArray(res?.items) ? res.items : []
+    const seen = new Set(products.value.map(product => String(product.product_id || product.slug)))
+    products.value.push(...incoming.filter(product => {
+      const key = String(product.product_id || product.slug)
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    }))
+
+    totalProducts.value = Number(res?.total || totalProducts.value || products.value.length)
+    totalPages.value = Math.max(1, Math.ceil(totalProducts.value / LOAD_BATCH_SIZE))
+    page.value = nextPage
   }
 
   const fetchCounts = async (baseQuery: BaseQuery = {}) => {
@@ -254,6 +295,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     setPage,
     fetchFilters,
     fetchProducts,
+    loadMoreProducts,
     fetchCatalogBanner,
     fetchCounts,
     buildBaseQueryFromParams,

@@ -4,7 +4,7 @@
     :alt="alt"
     :width="width"
     :height="height"
-    :widths="[480, 640]"
+    :widths="[320, 640]"
     :sizes="sizes"
     :eager="eager"
     :class="class"

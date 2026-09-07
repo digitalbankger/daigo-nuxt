@@ -11,10 +11,11 @@ if (clarityProjectId) {
     key: 'microsoft-clarity',
     type: 'text/javascript',
     children:
-      `(function(c,l,a,r,i,t,y){` +
+      `(function(c,l,a,r,i){` +
       `c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};` +
-      `t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;` +
-      `y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);` +
+      `function loadClarity(){if(l.querySelector('script[data-daigo-clarity]'))return;var t=l.createElement(r);t.async=1;t.dataset.daigoClarity='1';t.src="https://www.clarity.ms/tag/"+i;var y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);}` +
+      `function schedule(){setTimeout(loadClarity,2500);}` +
+      `if(l.readyState==='complete')schedule();else c.addEventListener('load',schedule,{once:true});` +
       `})(window, document, "clarity", "script", ${JSON.stringify(clarityProjectId)});`
   })
 }
@@ -85,12 +86,7 @@ scripts.push(
 )
 
 useHead({
-  meta: [
-    {
-      name: 'viewport',
-      content: 'width=device-width, initial-scale=1, maximum-scale=1'
-    }
-  ],
+  htmlAttrs: { lang: 'ru' },
   script: scripts
 })
 </script>

@@ -463,6 +463,39 @@ export default defineEventHandler(async (event) => {
   const noTotalMode = q.no_total === '1' || q.for === 'counts' || q.for === 'catalog'
 
   try {
+    // Для каталога фильтруем по полной выборке на сервере, но в SSR/client payload
+    // возвращаем только текущую порцию. Так сохраняется прежняя точность локальных
+    // фильтров, но больше не сериализуются все товары в HTML первой загрузки.
+    if (q.for === 'catalog-page') {
+      const { raw } = await collectRawProducts(base, q, false)
+      const filtered = applyLocalFilters(prepareCatalogProducts(raw, normalizeImg), q)
+
+      const PIVOT = 15
+      filtered.sort((a: any, b: any) => {
+        const aSort = Number.isFinite(+a.sort) ? +a.sort : 0
+        const bSort = Number.isFinite(+b.sort) ? +b.sort : 0
+        const aKey = aSort === 0 ? PIVOT + 0.5 : aSort
+        const bKey = bSort === 0 ? PIVOT + 0.5 : bSort
+        if (aKey !== bKey) return aKey - bKey
+
+        const aTie = String(a.name ?? a.product_id ?? '')
+        const bTie = String(b.name ?? b.product_id ?? '')
+        return aTie.localeCompare(bTie, 'ru')
+      })
+
+      const total = filtered.length
+      const start = Math.max(0, (page - 1) * pageSize)
+      const payload = {
+        items: filtered.slice(start, start + pageSize),
+        total,
+        page,
+        pageSize,
+      }
+
+      setCachedValue(responseCache, responseKey, payload, RESPONSE_TTL_MS)
+      return payload
+    }
+
     if (noTotalMode || pageSize >= 999) {
       const { raw } = await collectRawProducts(base, q, false)
       const items = applyLocalFilters(prepareCatalogProducts(raw, normalizeImg), q)

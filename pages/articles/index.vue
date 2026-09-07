@@ -1,12 +1,32 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
-import { useRoute, useRouter, useHead, useAsyncData, computed, ref, watch, createError } from '#imports'
+import {
+  computed,
+  createError,
+  onBeforeUnmount,
+  ref,
+  showError,
+  useAsyncData,
+  useHead,
+  useRoute,
+  useRouter,
+  watch,
+} from '#imports'
 import { useArticlesStore } from '~/stores/articlesStore'
+import type { ArticleListItem } from '~/types/articles'
+import type { FilterGroup } from '~/types/filter'
 import ArticleCard from '~/components/articles/ArticleCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ArticleFilterPanel from '~/components/articles/ArticleFilterPanel.vue'
+
+type ArticleListResponse = {
+  items: ArticleListItem[]
+  total: number
+  page: number
+  perPage: number
+}
 
 const route = useRoute()
 const router = useRouter()
@@ -33,7 +53,11 @@ watch(searchInput, (val) => {
     if (q) nextQuery.q = q
     else delete nextQuery.q
     router.push({ path: '/articles', query: nextQuery })
-  }, 1500)
+  }, 700)
+})
+
+onBeforeUnmount(() => {
+  if (searchTimer) clearTimeout(searchTimer)
 })
 
 function getRoutePage() {
@@ -55,22 +79,70 @@ function buildCleanQuery(q: Record<string, any>, pageNumber = getRoutePage()) {
 }
 
 const page = computed(() => getRoutePage())
-const initialQuery = buildCleanQuery(route.query as Record<string, any>, page.value)
+const requestQuery = computed(() => buildCleanQuery(route.query as Record<string, any>, page.value))
 
-// В SSR/prerender обязательно ждём список и фильтры.
-// useAsyncData переносит результат в Nuxt payload, поэтому при hydration запрос повторно не выполняется.
-const [, initialArticlesState] = await Promise.all([
-  useAsyncData('articles:filters', () => articlesStore.fetchFilters()),
-  useAsyncData(`articles:list:${route.fullPath}`, () => articlesStore.fetchArticles(initialQuery)),
-])
+// Фильтры храним в Pinia, но данные списка статей больше не зависят от побочного
+// эффекта внутри store. Это важно для prerender payload и SPA-переходов.
+const { data: filtersData } = await useAsyncData<FilterGroup[]>(
+  'articles:filters:data',
+  () => $fetch<FilterGroup[]>('/api/articles/filters'),
+  { default: () => [] },
+)
 
-const initialTotalPages = Number(initialArticlesState.data.value?.totalPages || 1)
-if (page.value > initialTotalPages) {
-  throw createError({
+articlesStore.setFilters(filtersData.value ?? [])
+watch(filtersData, (value) => articlesStore.setFilters(value ?? []))
+
+// На SSR/prerender данные попадают прямо в Nuxt payload.
+// На клиентских переходах refresh() запрашивает новую страницу и обновляет этот ref,
+// поэтому рендер больше не зависит от того, выполнился ли callback Pinia-store.
+const initialListKey = `articles:list:${route.fullPath}`
+const {
+  data: articlePageData,
+  pending: articlesPending,
+  refresh: refreshArticles,
+} = await useAsyncData<ArticleListResponse>(
+  initialListKey,
+  () => $fetch<ArticleListResponse>('/api/articles', { query: requestQuery.value }),
+  {
+    default: () => ({
+      items: [],
+      total: 0,
+      page: page.value,
+      perPage: 15,
+    }),
+  },
+)
+
+const totalPages = computed(() => {
+  const total = Number(articlePageData.value?.total ?? 0)
+  const perPage = Math.max(1, Number(articlePageData.value?.perPage ?? 15))
+  return Math.max(1, Math.ceil(total / perPage))
+})
+
+function pageNotFoundError() {
+  return createError({
     statusCode: 404,
     statusMessage: 'Страница статей не найдена',
     fatal: true,
   })
+}
+
+// Для прямого SSR/prerender запроса возвращаем настоящий 404.
+if (page.value > totalPages.value) {
+  throw pageNotFoundError()
+}
+
+// При SPA-переходе route меняется без повторной загрузки документа.
+// Явно обновляем список по текущему URL и только после ответа проверяем номер страницы.
+if (import.meta.client) {
+  watch(
+    () => route.fullPath,
+    async () => {
+      await refreshArticles()
+      if (page.value > totalPages.value) showError(pageNotFoundError())
+    },
+    { flush: 'post' },
+  )
 }
 
 const articleFilterSlugs = computed(() => new Set(articlesStore.filters.map(group => group.slug)))
@@ -97,24 +169,16 @@ function clearFilterKey(key: string) {
 
 function clearAllFilters() {
   const nextQuery: Record<string, any> = {}
-  // сохраняем поиск, если он есть
   const q = String((route.query as any).q ?? '').trim()
   if (q) nextQuery.q = q
   router.push({ path: '/articles', query: nextQuery })
 }
 
-
-// После первого SSR/prerender обновляем список только при клиентской смене query.
-watch(
-  () => [route.params.page, route.query],
-  async () => {
-    articlesStore.setPage(page.value)
-    const normalizedQuery = buildCleanQuery(route.query as Record<string, any>, page.value)
-    await articlesStore.fetchArticles(normalizedQuery)
-  },
-  { deep: true }
-)
-
+const displayArticles = computed<ArticleListItem[]>(() => {
+  return Array.isArray(articlePageData.value?.items)
+    ? articlePageData.value!.items
+    : []
+})
 
 useHead(() => {
   const q = route.query as Record<string, any>
@@ -125,7 +189,7 @@ useHead(() => {
 
   const cleanPagePath = page.value <= 1 ? '/articles' : `/articles/page${page.value}`
   const canonical = `https://daigo.ru${cleanPagePath}`
-  const isEmpty = (articlesStore.articles ?? articlesStore.list).length === 0
+  const isEmpty = displayArticles.value.length === 0
   const pageSuffix = page.value > 1 ? ` — страница ${page.value}` : ''
   const title = isEmpty
     ? 'Статьи не найдены — Daigo'
@@ -186,7 +250,7 @@ useHead(() => {
               '@type': 'ItemList',
               '@id': `${canonical}#articles`,
               name: title,
-              itemListElement: (articlesStore.articles ?? articlesStore.list ?? []).map((article: any, index: number) => ({
+              itemListElement: displayArticles.value.map((article, index) => ({
                 '@type': 'ListItem',
                 position: index + 1,
                 url: `https://daigo.ru/articles/${article.slug}`,
@@ -211,26 +275,6 @@ useHead(() => {
       }
     ]
   }
-})
-
-
-const PINNED_SLUG = 'iskusstvo-dolgoletiya-filosofiya-zdorovogo-dolgoletiya-daigo'
-
-const displayArticles = computed(() => {
-  const list = (articlesStore.articles ?? articlesStore.list ?? []) as any[]
-
-  // важно: не мутируем store-массив
-  return list.slice().sort((a, b) => {
-    // пин в начало
-    if (a.slug === PINNED_SLUG) return -1
-    if (b.slug === PINNED_SLUG) return 1
-
-    // далее сортировка по дате (новые выше)
-    const ad = String(a.date ?? '')
-    const bd = String(b.date ?? '')
-    // ISO "YYYY-MM-DD" корректно сравнивается строками
-    return bd.localeCompare(ad)
-  })
 })
 </script>
 
@@ -360,12 +404,25 @@ const displayArticles = computed(() => {
       </div>
 
 
-      <div v-if="displayArticles.length > 0">
+      <div v-if="articlesPending" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8" aria-live="polite" aria-busy="true">
+        <div
+          v-for="n in 6"
+          :key="`article-skeleton-${n}`"
+          class="mt-6 animate-pulse"
+        >
+          <div class="w-full h-[285px] md:h-[350px] rounded-[15px] bg-gray-100 mb-4" />
+          <div class="h-7 bg-gray-100 rounded w-4/5 mb-4" />
+          <div class="h-4 bg-gray-100 rounded w-full mb-2" />
+          <div class="h-4 bg-gray-100 rounded w-2/3" />
+        </div>
+      </div>
+      <div v-else-if="displayArticles.length > 0">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-8">
           <ArticleCard
-            v-for="article in displayArticles"
+            v-for="(article, index) in displayArticles"
             :key="article.slug"
             :article="article"
+            :priority="index < 3"
           />
         </div>
       </div>
@@ -375,7 +432,7 @@ const displayArticles = computed(() => {
 
       <p class="xs-max:text-base text-lg font-medium mx-auto text-center mt-20 border-y py-4 w-full">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ</p>
 
-      <Pagination class="mt-1" :current="page" :total="articlesStore.totalPages" mode="articles" />
+      <Pagination class="mt-1" :current="page" :total="totalPages" mode="articles" />
     </section>
   </BaseContainer>
 </template>

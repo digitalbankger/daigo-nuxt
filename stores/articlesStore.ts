@@ -51,6 +51,7 @@ export const useArticlesStore = defineStore('articles', () => {
   }
 
   function setPage(val: number) { page.value = val }
+  function setFilters(val: FilterGroup[]) { filters.value = Array.isArray(val) ? val : [] }
 
   // утилита: очистка пустых query-параметров
   function cleanQuery(obj: Record<string, string> = {}) {
@@ -282,6 +283,7 @@ export const useArticlesStore = defineStore('articles', () => {
 
     // actions
     setPage,
+    setFilters,
     fetchArticles,
     fetchFilters,
     fetchCounts,

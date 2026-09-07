@@ -1,41 +1,40 @@
-# Articles prerender
+# Articles: API list + local detail prerender
 
-Статьи являются build-time контентом.
+## Текущая схема
 
-## Источник
+Список статей и пагинация получают актуальные данные через Go API:
 
-- `content/articles-json/*.json` — полные статьи.
-- `content/articles-json/articles.cards.ts` — лёгкий список, автоматически пересобирается из JSON.
+`Go /v1/shop/articles` → `server/api/articles` → `pages/articles/index.vue`.
 
-## Сборка
+Frontend не обращается к Go напрямую: Nitro остаётся адаптером, нормализует ответ, ставит короткий cache и при кратковременной ошибке Go использует локальный build-content fallback.
 
-`pnpm build` сначала запускает `scripts/generate-articles-cards.mjs`, затем Nuxt/Nitro автоматически добавляет `/articles` и все JSON slug в prerender.
+Полные detail-страницы пока остаются локальными:
 
-В production output каждая статья получает заранее сформированный HTML и Nuxt payload. При первом открытии статьи запрос к Go API не требуется.
+- `content/articles-json/*.json` — полный контент статьи;
+- `/articles/<slug>` → локальный JSON через Nitro;
+- detail-страницы продолжают prerenderиться при `pnpm build`.
 
-## SEO description
+Это сделано намеренно: в текущем проекте подтверждён контракт Go API для списка `/v1/shop/articles`, но нет подтверждённого отдельного detail-контракта, способного без потерь заменить авторские `layout/sections/contentTop/contentBottom` из локальных JSON.
 
-Для каждой статьи meta description формируется в порядке:
+## Список
 
-1. `description`
-2. `preview`
-3. текст из `contentTop`
-4. `contentBottom`
-5. `title`
+`server/api/articles/index.get.ts` сначала обращается к Go API. Заголовок ответа показывает источник:
 
-HTML удаляется, пробелы нормализуются, текст ограничивается SEO-длиной. Поэтому отсутствие `description` в старом JSON не оставляет страницу без `<meta name="description">`.
+- `X-Articles-Source: go-api`;
+- `X-Articles-Source: go-api-cache`;
+- `X-Articles-Source: build-content-fallback` — только если Go временно недоступен.
 
-## Новая статья
+Кэш списка — короткий, чтобы новые публикации появлялись без нового frontend-деплоя.
 
-Добавить JSON в `content/articles-json/` и выполнить обычный `pnpm build`. Роут вручную в `nuxt.config.ts` добавлять не нужно.
+## Detail/prerender
 
-## Пагинация списка
+`pnpm build` по-прежнему запускает `scripts/generate-articles-cards.mjs` и prerender локальных article detail routes. Локальные cards также остаются как аварийный fallback и источник существующих filter-counts.
 
-Список статей использует ЧПУ:
+## Пагинация
 
 - `/articles` — первая страница;
-- `/articles/page2`, `/articles/page3`, ... — следующие страницы.
+- `/articles/page2`, `/articles/page3`, ... — следующие страницы;
+- SPA-переходы обновляют список без F5;
+- старые `/articles?page=2` переводятся временным 307 на `/articles/page2`.
 
-Количество страниц вычисляется автоматически из количества JSON (15 статей на страницу). Все существующие страницы пагинации также попадают в Nitro prerender при `pnpm build`. После добавления новых JSON новые `/articles/pageN` появятся автоматически.
-
-Старые URL вида `/articles?page=2` сейчас переводятся отдельным временным **307** на `/articles/page2`.
+Количество build-time prerender pagination routes пока рассчитывается по локальным JSON. Runtime-страница при этом получает актуальный список из Go API. После подключения подтверждённого Go detail endpoint имеет смысл перевести на API также sitemap и discovery prerender routes.

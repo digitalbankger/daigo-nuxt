@@ -148,7 +148,16 @@ function clearFilters() {
 
 onMounted(() => {
   hydrateFromRoute()
-  queueCountsRecalc(400)
+
+  // Количества в фильтрах не нужны для первого экрана. Старый вариант через
+  // 400 мс начинал полную выборку товаров и конкурировал с LCP. Считаем их
+  // только в idle-период (или максимум через ~2.5 с).
+  const requestIdle = (window as any).requestIdleCallback as undefined | ((cb: () => void, options?: { timeout?: number }) => number)
+  if (requestIdle) {
+    requestIdle(() => queueCountsRecalc(0), { timeout: 2500 })
+  } else {
+    window.setTimeout(() => queueCountsRecalc(0), 1800)
+  }
 })
 
 watch(

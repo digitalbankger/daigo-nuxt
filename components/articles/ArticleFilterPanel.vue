@@ -17,7 +17,7 @@
       <div v-if="isOpen(group.slug)" class="mt-5 space-y-4">
         <label v-for="option in group.options" :key="option.value" class="flex items-center gap-2 text-base">
           <BaseCheckbox
-            :modelValue="selected[group.slug]?.includes(option.value)"
+            :modelValue="Boolean(selected[group.slug]?.includes(option.value))"
             @update:modelValue="toggleOption(group.slug, option.value)"
           >
             {{ option.label }}

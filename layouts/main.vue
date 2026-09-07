@@ -79,7 +79,7 @@ useHead({
     {
       key: 'carrotquest',
       type: 'text/javascript',
-      children: `!function(){function t(t,e){return function(){window.carrotquestasync.push(t,arguments)}}if("undefined"==typeof carrotquest){var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://cdn.carrotquest.app/api.min.js",document.getElementsByTagName("head")[0].appendChild(e),window.carrotquest={},window.carrotquestasync=[],carrotquest.settings={};for(var n=["connect","track","identify","auth","onReady","addCallback","removeCallback","trackMessageInteraction"],a=0;a<n.length;a++)carrotquest[n[a]]=t(n[a])}}(),carrotquest.connect("${carrotId}");`
+      children: `!function(){function t(t,e){return function(){window.carrotquestasync.push(t,arguments)}}function load(){if(document.querySelector('script[data-daigo-carrot]'))return;var e=document.createElement("script");e.type="text/javascript",e.async=!0,e.dataset.daigoCarrot='1',e.src="https://cdn.carrotquest.app/api.min.js",document.getElementsByTagName("head")[0].appendChild(e)}if("undefined"==typeof carrotquest){window.carrotquest={},window.carrotquestasync=[],carrotquest.settings={};for(var n=["connect","track","identify","auth","onReady","addCallback","removeCallback","trackMessageInteraction"],a=0;a<n.length;a++)carrotquest[n[a]]=t(n[a])}carrotquest.connect("${carrotId}");function schedule(){setTimeout(load,2500)}document.readyState==="complete"?schedule():window.addEventListener("load",schedule,{once:true})}();`
     },
   ]
   })

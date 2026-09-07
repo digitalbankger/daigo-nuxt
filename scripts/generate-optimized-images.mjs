@@ -38,7 +38,7 @@ const RAW_FILES_BASE =
   DAIGO_API_BASE
 
 const FILES_BASE = String(RAW_FILES_BASE).replace(/\/+$/, '')
-const WIDTHS = [480, 640]
+const WIDTHS = [320, 640]
 
 function stripQueryAndHash(value) {
   return String(value || '').split('#')[0].split('?')[0]
