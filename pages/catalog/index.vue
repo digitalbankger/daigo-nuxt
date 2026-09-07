@@ -12,22 +12,17 @@ import {
   onMounted,
   onBeforeUnmount,
   nextTick,
+  defineAsyncComponent,
 } from "#imports";
 import { useCatalogStore } from "~/stores/catalogStore";
 import { useDeviceStore } from "~/stores/deviceStore";
-import FilterPanel from "~/components/catalog/FilterPanel.vue";
 import ProductCard from "~/components/catalog/ProductCard.vue";
 import CatalogBanner from "~/components/catalog/CatalogBanner.vue";
-import WeeklyProducts from "~/components/catalog/WeeklyProducts.vue";
 import Button from "~/components/ui/Button.vue";
 import BaseContainer from "~/components/layout/BaseContainer.vue";
 import Breadcrumbs from "~/components/ui/Breadcrumbs.vue";
 import { useYtm } from "@/composables/useYtm";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
-import {
-  getWeeklyProductSort,
-  isWeeklyProductSlug,
-} from "~/constants/weeklyProducts";
 import {
   buildCatalogCanonicalPath,
   buildCatalogFilterLocation,
@@ -39,6 +34,11 @@ import {
   parseCatalogSeoPathSegments,
   type CatalogFilterValues,
 } from "~/utils/catalogFilterRoute";
+
+
+const LazyFilterPanel = defineAsyncComponent(() =>
+  import("~/components/catalog/FilterPanel.vue"),
+);
 
 const ytm = useYtm();
 const route = useRoute();
@@ -52,6 +52,12 @@ const PRODUCTS_PER_LOAD = 12;
 const PIVOT = 15;
 const loadMoreTrigger = ref<HTMLElement | null>(null);
 let loadMoreObserver: IntersectionObserver | null = null;
+let desktopFilterMedia: MediaQueryList | null = null;
+const shouldMountDesktopFilter = ref(false);
+
+function syncDesktopFilterMount() {
+  shouldMountDesktopFilter.value = Boolean(desktopFilterMedia?.matches);
+}
 
 const SERVICE_QUERY_KEYS = new Set([
   "empty",
@@ -174,17 +180,7 @@ const visibleProducts = computed(() => {
   });
 });
 
-const weekProducts = computed(() => {
-  return visibleProducts.value
-    .filter((product) =>
-      isWeeklyProductSlug(product.slug),
-    )
-    .sort(
-      (a, b) =>
-        getWeeklyProductSort(a.slug) -
-        getWeeklyProductSort(b.slug),
-    );
-});
+
 
 // const regularProducts = computed(() => {
 //   return visibleProducts.value.filter(
@@ -522,12 +518,21 @@ async function scrollToHash(hash = route.hash) {
 }
 
 onMounted(() => {
+  // Desktop-панель фильтров не должна даже создаваться на мобильном.
+  // Сам aside остаётся в разметке и резервирует ширину на desktop,
+  // а тяжёлый FilterPanel грузится отдельным async-chunk только при необходимости.
+  desktopFilterMedia = window.matchMedia("(min-width: 1024px)");
+  syncDesktopFilterMount();
+  desktopFilterMedia.addEventListener?.("change", syncDesktopFilterMount);
+
   scrollToHash();
   setupLoadMoreObserver();
 });
 
 onBeforeUnmount(() => {
   disconnectLoadMoreObserver();
+  desktopFilterMedia?.removeEventListener?.("change", syncDesktopFilterMount);
+  desktopFilterMedia = null;
 });
 
 watch(
@@ -616,13 +621,17 @@ watch(
               </svg>
             </button>
           </div>
-          <FilterPanel :store="catalogStore" />
+          <LazyFilterPanel :store="catalogStore" />
         </div>
       </Transition>
 
       <div class="flex flex-row gap-7">
         <aside class="hidden lg:block w-full lg:w-1/4">
-          <FilterPanel :store="catalogStore" :with-shadow="true" />
+          <LazyFilterPanel
+            v-if="shouldMountDesktopFilter"
+            :store="catalogStore"
+            :with-shadow="true"
+          />
         </aside>
 
         <div v-if="isCatalogLoading" class="w-full lg:w-3/4">

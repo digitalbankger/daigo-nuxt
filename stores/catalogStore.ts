@@ -9,10 +9,6 @@ type BaseQuery = Record<string, string[]>
 
 const LOAD_BATCH_SIZE = 12
 
-const PROPERTY_ALIASES: Record<string, string[]> = {
-  produkty: ['produkty', 'producty', 'products', 'name'],
-}
-
 function normalizeFilterValue(value: string) {
   const normalized = String(value || '').trim()
 
@@ -34,10 +30,6 @@ function toStringArray(value: unknown) {
     .split(',')
     .map((item) => normalizeFilterValue(item))
     .filter(Boolean)
-}
-
-function unique(values: string[]) {
-  return Array.from(new Set(values))
 }
 
 export const useCatalogStore = defineStore('catalog', () => {
@@ -123,70 +115,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     return base
   }
 
-  function propValues(product: ProductCard, slug: string): string[] {
-    const aliases = PROPERTY_ALIASES[slug] || [slug]
-    const values: string[] = []
 
-    for (const key of aliases) {
-      values.push(...toStringArray((product as any)?.properties?.[key]))
-    }
-
-    if (
-      (slug === 'produkty' || slug === 'podarochnye') &&
-      String(product.slug || '').startsWith('sertifikat')
-    ) {
-      values.push('sertificate')
-    }
-
-    return unique(values)
-  }
-
-  function strictDirectionMatch(product: ProductCard, direction: string): boolean | null {
-    const identity = [
-      String(product.slug || ''),
-      String(product.name || ''),
-      ...propValues(product, 'produkty'),
-    ]
-      .join(' ')
-      .toLowerCase()
-
-    if (direction === 'zuby-i-desna') {
-      return identity.includes('dent') || identity.includes('zubnaya-pasta') || identity.includes('зубн')
-    }
-
-    if (direction === 'kosti-i-myshtsy') {
-      return identity.includes('jointic')
-    }
-
-    return null
-  }
-
-  function matchesBaseFilters(
-    product: ProductCard,
-    base: BaseQuery,
-    skipGroup?: string
-  ) {
-    for (const [key, values] of Object.entries(base)) {
-      if (key === skipGroup) continue
-      if (!values?.length) continue
-
-      const productValues = propValues(product, key)
-      const normalizedValues = values.map(normalizeFilterValue)
-
-      const matches = normalizedValues.some((value) => {
-        if (key === 'napravlennost') {
-          const strictMatch = strictDirectionMatch(product, value)
-          if (strictMatch != null) return strictMatch
-        }
-
-        return productValues.includes(value)
-      })
-
-      if (!matches) return false
-    }
-
-    return true
-  }
 
   const fetchProducts = async (params: Record<string, string>) => {
     const res = await $fetch<{
@@ -256,30 +185,26 @@ export const useCatalogStore = defineStore('catalog', () => {
       return
     }
 
-    await ensureAllLoaded()
-    const flat: Record<string, number> = {}
+    // Количества считаются на сервере по единому snapshot каталога.
+    // В браузер больше не скачивается весь каталог ради цифр в фильтрах.
+    const query = Object.fromEntries(
+      Object.entries(baseQuery)
+        .filter(([, values]) => Array.isArray(values) && values.length)
+        .map(([key, values]) => [key, values.join(',')])
+    )
 
-    for (const group of filters.value || []) {
-      const slug = group.slug
+    const response = await $fetch<{
+      counts: Record<string, number>
+      generatedAt?: string
+    }>('/api/shop/catalog-counts', { query })
 
-      for (const option of group.options) {
-        const value = normalizeFilterValue(option.value)
-        const count = allProducts.value.filter((product) => {
-          if (!matchesBaseFilters(product, baseQuery, slug)) return false
-          if (slug === 'napravlennost') {
-            const strictMatch = strictDirectionMatch(product, value)
-            if (strictMatch != null) return strictMatch
-          }
-          return propValues(product, slug).includes(value)
-        }).length
-
-        flat[`${slug}__${option.value}`] = count
-      }
-    }
-
-    countsCache.set(cacheKey, flat)
-    counts.value = flat
+    const nextCounts = response?.counts || {}
+    countsCache.set(cacheKey, nextCounts)
+    counts.value = nextCounts
   }
+
+  const hasMore = computed(() => products.value.length < totalProducts.value)
+
 
   return {
     products,
@@ -290,6 +215,7 @@ export const useCatalogStore = defineStore('catalog', () => {
     perPageDisplayed,
     totalPages,
     totalProducts,
+    hasMore,
     allProducts,
     ensureAllLoaded,
     setPage,

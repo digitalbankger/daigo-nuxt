@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { computed, reactive, watch, onMounted } from 'vue'
+import { computed, reactive, watch, onMounted, onBeforeUnmount } from 'vue'
 import type { FilterGroup } from '~/types/filter'
 import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 import Button from '~/components/ui/Button.vue'
@@ -149,15 +149,16 @@ function clearFilters() {
 onMounted(() => {
   hydrateFromRoute()
 
-  // Количества в фильтрах не нужны для первого экрана. Старый вариант через
-  // 400 мс начинал полную выборку товаров и конкурировал с LCP. Считаем их
-  // только в idle-период (или максимум через ~2.5 с).
-  const requestIdle = (window as any).requestIdleCallback as undefined | ((cb: () => void, options?: { timeout?: number }) => number)
-  if (requestIdle) {
-    requestIdle(() => queueCountsRecalc(0), { timeout: 2500 })
-  } else {
-    window.setTimeout(() => queueCountsRecalc(0), 1800)
-  }
+  // Теперь counts считаются на Nitro по уже готовому snapshot каталога.
+  // Полную товарную выборку в браузер больше не загружаем, поэтому запрос
+  // можно выполнять сразу после фактического mount панели. На мобильном
+  // компонент вообще не монтируется, пока пользователь не откроет фильтры.
+  queueCountsRecalc(0)
+})
+
+onBeforeUnmount(() => {
+  if (countsTimer) clearTimeout(countsTimer)
+  countsTimer = null
 })
 
 watch(

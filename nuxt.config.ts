@@ -77,9 +77,24 @@ export default defineNuxtConfig({
       process.env.NUXT_DADATA_TOKEN ||
       "ac0fc720467713631eff0602ba19a2648c34f21d",
     B24_WEBHOOK_BASE: process.env.B24_WEBHOOK_BASE,
+
+    // Единый server-side snapshot каталога. По умолчанию живёт 15 минут;
+    // после TTL stale snapshot отдаётся сразу, а обновление идёт в фоне.
+    // 0 = без автоматического истечения, только ручной refresh/clear.
+    catalogSnapshotTtlSeconds: Number(
+      process.env.CATALOG_SNAPSHOT_TTL_SECONDS || 900,
+    ),
+    // Необязательный ключ только для удалённого refresh/clear cache endpoint.
+    // Прямой curl на 127.0.0.1 к Nitro может обновлять cache без ключа.
+    catalogCacheResetKey: process.env.CATALOG_CACHE_RESET_KEY || "",
+
     public: {
       apiBase: process.env.API_BASE || "/api",
       daigoApiBase: process.env.NUXT_PUBLIC_API_BASE || "https://api.daigo.ru",
+      daigoFilesBase:
+        process.env.NUXT_PUBLIC_FILES_BASE ||
+        process.env.NUXT_PUBLIC_API_BASE ||
+        "https://api.daigo.ru",
       testApiBase: process.env.NUXT_PUBLIC_TEST_API_BASE || "https://daigo.ru",
       // Все маркетинговые идентификаторы держим здесь.
       // При необходимости маркетолог может дать новые значения для .env:
@@ -157,11 +172,17 @@ export default defineNuxtConfig({
       },
     },
 
+    // Каталог кэшируется внутри Nitro snapshot/storage. Отдельный HTTP s-maxage
+    // здесь не нужен: иначе ручной refresh snapshot мог бы ещё несколько минут
+    // отдавать старую API-страницу из промежуточного shared cache.
     "/api/shop/products": {
-      headers: {
-        "cache-control":
-          "public, max-age=0, s-maxage=300, stale-while-revalidate=600",
-      },
+      headers: { "cache-control": "private, max-age=0, must-revalidate" },
+    },
+    "/api/shop/catalog-counts": {
+      headers: { "cache-control": "private, max-age=0, must-revalidate" },
+    },
+    "/api/shop/catalog-cache": {
+      headers: { "cache-control": "no-store" },
     },
   },
 
