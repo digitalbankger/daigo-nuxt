@@ -1,4 +1,5 @@
 import { createError, defineEventHandler, getQuery, setResponseHeader } from 'h3'
+import { getWeeklyProductSort, isWeeklyProductSlug } from '~/constants/weeklyProducts'
 import {
   filterCatalogProducts,
   getCatalogSnapshot,
@@ -35,6 +36,23 @@ export default defineEventHandler(async (event) => {
 
     const filtered = filterCatalogProducts(snapshot.products, query)
     const total = filtered.length
+
+    // Для каталога гарантируем попадание «Продуктов недели» в первую SSR-порцию
+    // без отдельного запроса к API и без дублирования ProductCard-данных.
+    // Остальные товары сохраняют исходный порядок snapshot, а пагинация работает
+    // уже по единой последовательности weekly + regular, поэтому loadMore не дублирует товары.
+    const paginatedProducts = query.for === 'catalog-page'
+      ? [
+          ...filtered
+            .filter((product) => isWeeklyProductSlug(product.slug))
+            .sort(
+              (a, b) =>
+                getWeeklyProductSort(a.slug) - getWeeklyProductSort(b.slug),
+            ),
+          ...filtered.filter((product) => !isWeeklyProductSlug(product.slug)),
+        ]
+      : filtered
+
     const page = positiveInt(query.page, 1)
     const requestedPageSize = positiveInt(query.page_size ?? query.limit, DEFAULT_PAGE_SIZE)
     const pageSize = Math.min(requestedPageSize, MAX_PAGE_SIZE)
@@ -58,7 +76,7 @@ export default defineEventHandler(async (event) => {
 
     const start = Math.max(0, (page - 1) * pageSize)
     return {
-      items: filtered.slice(start, start + pageSize),
+      items: paginatedProducts.slice(start, start + pageSize),
       total,
       page,
       pageSize,

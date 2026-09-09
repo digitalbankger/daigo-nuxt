@@ -291,7 +291,7 @@ onMounted(loadOffers);
                       : 'mt-2 text-[11px] sm:text-xs'
                   "
                 >
-                  + Daigo Dent в подарок
+                  
                 </p>
               </div>
               <img

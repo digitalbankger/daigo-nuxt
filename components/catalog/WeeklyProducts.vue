@@ -9,12 +9,9 @@ defineProps<{
 
 <template>
   <section
-    class="relative mb-8 overflow-hidden rounded-[18px] bg-cover bg-center bg-no-repeat p-3 sm:mb-10 sm:p-5 lg:rounded-[22px] lg:p-6"
-    style="background-image: url('/images/articles/iskusstvo-dolgoletiya/banner-microbiom.png')"
+    class="relative mb-8 overflow-hidden rounded-[18px] bg-primary p-3 sm:mb-10 sm:p-5 lg:rounded-[22px] lg:p-6"
     aria-labelledby="weekly-products-title"
   >
-    <div class="absolute inset-0 bg-black/5"></div>
-
     <div class="relative z-10">
       <h2
         id="weekly-products-title"
@@ -24,7 +21,7 @@ defineProps<{
       </h2>
 
       <div
-        class="weekly-products-scroll -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0"
+        class="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0"
       >
         <div
           v-for="(product, index) in products"
@@ -35,7 +32,7 @@ defineProps<{
             :product="product"
             :index="index"
             :global-index="index"
-            :priority="false"
+            :priority="index === 0"
             variant="weekly"
           />
         </div>
@@ -43,13 +40,3 @@ defineProps<{
     </div>
   </section>
 </template>
-
-<style scoped>
-.weekly-products-scroll {
-  scrollbar-width: none;
-}
-
-.weekly-products-scroll::-webkit-scrollbar {
-  display: none;
-}
-</style>

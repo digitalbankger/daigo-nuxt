@@ -17,7 +17,7 @@ import {
 import { useCatalogStore } from "~/stores/catalogStore";
 import { useDeviceStore } from "~/stores/deviceStore";
 import ProductCard from "~/components/catalog/ProductCard.vue";
-import CatalogBanner from "~/components/catalog/CatalogBanner.vue";
+import WeeklyProducts from "~/components/catalog/WeeklyProducts.vue";
 import Button from "~/components/ui/Button.vue";
 import BaseContainer from "~/components/layout/BaseContainer.vue";
 import Breadcrumbs from "~/components/ui/Breadcrumbs.vue";
@@ -30,10 +30,15 @@ import {
   catalogFiltersToApiQuery,
   mergeCatalogFilters,
   normalizeCatalogFilters,
+  parseCatalogFilterValues,
   parseCatalogQueryFilters,
   parseCatalogSeoPathSegments,
   type CatalogFilterValues,
 } from "~/utils/catalogFilterRoute";
+import {
+  getWeeklyProductSort,
+  isWeeklyProductSlug,
+} from "~/constants/weeklyProducts";
 
 
 const LazyFilterPanel = defineAsyncComponent(() =>
@@ -69,11 +74,6 @@ const SERVICE_QUERY_KEYS = new Set([
 ]);
 
 await catalogStore.fetchFilters();
-try {
-  await catalogStore.fetchCatalogBanner();
-} catch (error) {
-  console.warn("Catalog banner loading failed", error);
-}
 
 const allowedFilterSlugs = computed(
   () => new Set(catalogStore.filters.map((group) => group.slug)),
@@ -182,42 +182,55 @@ const visibleProducts = computed(() => {
 
 
 
-// const regularProducts = computed(() => {
-//   return visibleProducts.value.filter(
-//     (product) =>
-//       !isWeeklyProductSlug(product.slug),
-//   );
-// });
+// «Продукты недели» берём из уже загруженной SSR-порции каталога.
+// Дополнительного API-запроса нет: те же ProductCard-данные просто
+// раскладываются по двум визуальным блокам. Порядок фиксирован в constants/weeklyProducts.ts.
+const weekProducts = computed(() =>
+  visibleProducts.value
+    .filter((product) => isWeeklyProductSlug(product.slug))
+    .slice()
+    .sort(
+      (a, b) =>
+        getWeeklyProductSort(a.slug) - getWeeklyProductSort(b.slug),
+    ),
+);
 
- const regularProducts = computed(() => {
-   return visibleProducts.value;
- });
+const regularProducts = computed(() =>
+  visibleProducts.value.filter(
+    (product) => !isWeeklyProductSlug(product.slug),
+  ),
+);
 
-// products в store теперь содержит только реально загруженные порции.
+// products в store содержит только реально загруженные порции.
 const renderedProducts = computed(() => regularProducts.value);
-// WeeklyProducts сейчас не рендерится отдельным блоком, поэтому не дублируем
-// те же товары в аналитике. Это сильно сокращает payload событий Roistat/YTM.
-const analyticsProducts = computed(() => renderedProducts.value);
-//const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3));
-// const featuredProducts = computed(() => {
-//   return weekProducts.value.length
-//     ? []
-//     : renderedProducts.value.slice(0, featuredCount.value);
-// });
-// const otherProducts = computed(() => {
-//   return weekProducts.value.length
-//     ? renderedProducts.value
-//     : renderedProducts.value.slice(featuredCount.value);
-// });
+
+// Аналитика повторяет реальный порядок блоков на странице и получает каждый
+// товар ровно один раз: сначала продукты недели, затем остальные товары.
+const analyticsProducts = computed(() => [
+  ...weekProducts.value,
+  ...renderedProducts.value,
+]);
 
 const featuredCount = computed(() => (deviceStore.isMobile ? 2 : 3));
 
+// Если есть «Продукты недели», они заменяют верхнюю обычную строку карточек.
+// Это не увеличивает количество карточек в первом SSR и не раздувает payload.
 const featuredProducts = computed(() =>
-  renderedProducts.value.slice(0, featuredCount.value),
+  weekProducts.value.length
+    ? []
+    : renderedProducts.value.slice(0, featuredCount.value),
 );
 
 const otherProducts = computed(() =>
-  renderedProducts.value.slice(featuredCount.value),
+  weekProducts.value.length
+    ? renderedProducts.value
+    : renderedProducts.value.slice(featuredCount.value),
+);
+
+const otherProductsGlobalOffset = computed(() =>
+  weekProducts.value.length
+    ? weekProducts.value.length
+    : featuredCount.value,
 );
 
 const hasMoreProducts = computed(
@@ -227,16 +240,6 @@ const remainingProductsCount = computed(() =>
   Math.max(0, catalogStore.totalProducts - catalogStore.products.length),
 );
 const skeletonItems = Array.from({ length: PRODUCTS_PER_LOAD });
-
-function cleanupQuery(query: typeof route.query) {
-  const nextQuery = { ...query };
-
-  for (const key of SERVICE_QUERY_KEYS) {
-    delete nextQuery[key];
-  }
-
-  return nextQuery;
-}
 
 function hasDeprecatedCatalogQuery(query: typeof route.query) {
   return Object.keys(query).some((key) => SERVICE_QUERY_KEYS.has(key));
@@ -443,8 +446,8 @@ useHead(() => {
               "@type": "ItemList",
               "@id": `${buildCatalogCanonicalHref()}#products`,
               name: title,
-              numberOfItems: Number(catalogStore.totalProducts || visibleProducts.value.length),
-              itemListElement: visibleProducts.value.map((product, index) => ({
+              numberOfItems: analyticsProducts.value.length,
+              itemListElement: analyticsProducts.value.map((product, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
                 url: `https://daigo.ru/catalog/${product.slug}`,
@@ -558,7 +561,7 @@ watch(
     <section class="relative w-full">
       <Breadcrumbs :crumbs="catalogBreadcrumbs" />
 
-      <div class="flex flex-row items-centr justify-between">
+      <div class="flex flex-row items-center justify-between">
         <h1 class="text-slider font-medium mb-4 md:mb-10">{{ catalogPageHeading }}</h1>
       </div>
 
@@ -637,9 +640,13 @@ watch(
         </div>
 
         <div v-else-if="analyticsProducts.length" class="w-full lg:w-3/4">
-          <!-- <WeeklyProducts v-if="weekProducts.length" :products="weekProducts" /> -->
+          <WeeklyProducts
+            v-if="weekProducts.length"
+            :products="weekProducts"
+          />
 
           <div
+            v-if="featuredProducts.length"
             class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 gap-y-6 md:gap-y-20"
           >
             <ProductCard
@@ -665,8 +672,8 @@ watch(
               v-for="(product, idx) in otherProducts"
               :key="String(product.product_id)"
               :product="product"
-              :index="idx + featuredCount"
-              :global-index="idx + featuredCount"
+              :index="idx + otherProductsGlobalOffset"
+              :global-index="idx + otherProductsGlobalOffset"
             />
           </div>
 
@@ -688,35 +695,6 @@ watch(
             </Button>
           </div>
 
-          <div
-            class="mt-0 text-sm text-gray-700 leading-relaxed h-2 relative overflow-hidden"
-          >
-            <h2
-              class="md:w-[88%] font-medium leading-tight mb-6 text-[clamp(2rem,6vw,2.8rem)] text-white"
-            >
-              Широкий выбор биологически активных добавок на Daigo.ru
-            </h2>
-            <p class="mb-20 text-base md:text-lg text-white">
-              Онлайн магазин БАДов «Дайго» - это надёжное место для покупки
-              качественных биологически активных добавок.
-              <br />Забота о здоровье становится все более актуальной темой.
-              Люди стремятся к жизни полной энергии и бодрости, и правильное
-              питание играет здесь ключевую роль. <br />Магазин «Дайго»
-              предлагает широкий ассортимент БАДов, которые помогут поддержать
-              организм в тонусе, улучшить общее состояние и повысить иммунитет.
-              <br /><br />Один из ключевых принципов магазина «Дайго» - это
-              качество и безопасность продукции. Представленные на сайте товары
-              прошли строгий контроль качества, что позволяет быть уверенными в
-              их эффективности и безопасности для здоровья. Приятным бонусом для
-              наших клиентов является удобная система заказа и доставки. Вы
-              можете оформить покупку в любое время, не выходя из дома, и
-              получить заказ в кратчайшие сроки. Забота о собственном здоровье —
-              это важный шаг на пути к полноценной и счастливой жизни.
-              Поддерживайте организм с помощью качественных биологически
-              активных добавок из магазина «Дайго» и наслаждайтесь активным
-              образом жизни!
-            </p>
-          </div>
         </div>
 
         <div v-else class="text-center text-black/70 m-auto">
