@@ -21,12 +21,12 @@ defineProps<{
       </h2>
 
       <div
-        class="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid lg:grid-cols-3 lg:overflow-visible lg:px-0"
+        class="no-scrollbar -mx-1 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-1 lg:mx-0 lg:grid grid-cols-2 lg:grid-cols-3 lg:overflow-visible lg:px-0"
       >
         <div
           v-for="(product, index) in products"
           :key="String(product.product_id)"
-          class="min-w-[84%] snap-start sm:min-w-[47%] lg:min-w-0"
+          class="min-w-[calc(50%-5px)] snap-start sm:min-w-[47%] lg:min-w-0"
         >
           <ProductCard
             :product="product"
