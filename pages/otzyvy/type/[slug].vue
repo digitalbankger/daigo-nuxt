@@ -27,6 +27,7 @@ const TYPE_MAP: Record<string, { type: Review['type'], h1: string, seoTitle: str
 }
 
 const route = useRoute()
+const canonical = usePageCanonical(() => `/otzyvy/type/${String(route.params.slug)}`)
 const router = useRouter()
 const reviewsStore = useReviewsStore()
 
@@ -85,7 +86,7 @@ useSeoMeta({
   ogTitle: conf.value.seoTitle,
   ogDescription: conf.value.seoDesc,
   ogType: 'website',
-  ogUrl: () => `https://daigo.ru${route.fullPath}`, // если нужен каноникал — подставьте свой домен
+  ogUrl: () => canonical.value,
 })
 </script>
 

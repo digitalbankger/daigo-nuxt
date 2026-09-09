@@ -5,6 +5,8 @@ import type { H3EventContext } from 'h3'
 const route = useRoute()
 const id = route.params.id as string
 
+const canonical = usePageCanonical(() => `/otzyvy/${id}`)
+
 const review = await $fetch<{
   id: string
   author: string
@@ -16,8 +18,6 @@ const review = await $fetch<{
 useHead(() => {
   const title = `Отзыв: ${review.author}`
   const desc = (review.content || '').replace(/<[^>]+>/g, '').slice(0, 160)
-  const url = `https://your-domain/reviews/${id}`
-
   return {
     title,
     meta: [
@@ -25,7 +25,7 @@ useHead(() => {
       { property: 'og:title', content: title },
       { property: 'og:description', content: desc },
       { property: 'og:type', content: 'article' },
-      { property: 'og:url', content: url }
+      { property: 'og:url', content: canonical.value }
     ],
     script: [
       {

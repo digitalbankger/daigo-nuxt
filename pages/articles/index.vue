@@ -20,6 +20,7 @@ import ArticleCard from '~/components/articles/ArticleCard.vue'
 import Pagination from '~/components/ui/Pagination.vue'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import ArticleFilterPanel from '~/components/articles/ArticleFilterPanel.vue'
+import { useBodyScrollLock } from '~/composables/useBodyScrollLock'
 
 type ArticleListResponse = {
   items: ArticleListItem[]
@@ -33,6 +34,7 @@ const router = useRouter()
 const articlesStore = useArticlesStore()
 
 const isFilterModalOpen = ref(false)
+useBodyScrollLock(isFilterModalOpen)
 const openFilters = () => { isFilterModalOpen.value = true }
 const closeFilters = () => { isFilterModalOpen.value = false }
 
@@ -180,8 +182,13 @@ const displayArticles = computed<ArticleListItem[]>(() => {
     : []
 })
 
+function isTrackingQueryKey(key: string) {
+  return key.startsWith('utm_') || ['ysclid', 'yclid', 'gclid', 'fbclid', 'etext', 'ybaip'].includes(key)
+}
+
 useHead(() => {
   const q = route.query as Record<string, any>
+  const hasIndexAffectingQuery = Object.keys(q).some((key) => !isTrackingQueryKey(key))
   const filters = Object.entries(q)
     .filter(([key]) => articleFilterSlugs.value.has(key))
     .map(([key, value]) => `${key}: ${Array.isArray(value) ? value.join(',') : value}`)
@@ -209,7 +216,7 @@ useHead(() => {
       { property: 'og:title', content: title },
       { property: 'og:description', content: description },
       { property: 'og:url', content: canonical },
-      { name: 'robots', content: Object.keys(route.query).length ? 'noindex, follow' : 'index, follow' },
+      { name: 'robots', content: hasIndexAffectingQuery ? 'noindex, follow' : 'index, follow' },
     ],
     link: [{ rel: 'canonical', href: canonical }],
     script: [
@@ -308,15 +315,15 @@ useHead(() => {
       <Transition name="fade">
         <div
           v-if="isFilterModalOpen"
-          class="fixed inset-0 z-40 bg-black/20"
+          class="fixed inset-0 z-[110] bg-black/30"
           @click="closeFilters"
         />
       </Transition>
 
-      <Transition name="slide-left">
+      <Transition name="filter-drawer">
         <div
           v-if="isFilterModalOpen"
-          class="fixed inset-y-0 left-0 z-50 w-full sm:w-[500px] bg-white p-6 overflow-y-auto"
+          class="fixed inset-x-0 bottom-0 z-[120] h-[70dvh] max-h-[70dvh] sm:h-full sm:max-h-full rounded-t-[28px] bg-white p-4 overflow-y-auto sm:inset-y-0 sm:left-0 sm:right-auto sm:bottom-auto sm:h-auto sm:max-h-none sm:w-[500px] sm:rounded-none sm:p-6"
         >
           <div class="w-full flex justify-between items-center mb-4">
             <button @click="closeFilters" class="absolute top-4 right-4" aria-label="Закрыть фильтры">
@@ -441,9 +448,12 @@ useHead(() => {
 .fade-enter-active, .fade-leave-active { transition: opacity 0.3s ease; }
 .fade-enter-from, .fade-leave-to { opacity: 0; }
 .fade-enter-to, .fade-leave-from { opacity: 1; }
-.slide-left-enter-active, .slide-left-leave-active { transition: transform 0.3s ease; }
-.slide-left-enter-from { transform: translateX(-100%); }
-.slide-left-enter-to { transform: translateX(0); }
-.slide-left-leave-from { transform: translateX(0); }
-.slide-left-leave-to { transform: translateX(-100%); }
+.filter-drawer-enter-active, .filter-drawer-leave-active { transition: transform 0.25s ease; }
+.filter-drawer-enter-from, .filter-drawer-leave-to { transform: translateY(100%); }
+.filter-drawer-enter-to, .filter-drawer-leave-from { transform: translateY(0); }
+
+@media (min-width: 640px) {
+  .filter-drawer-enter-from, .filter-drawer-leave-to { transform: translateX(-100%); }
+  .filter-drawer-enter-to, .filter-drawer-leave-from { transform: translateX(0); }
+}
 </style>

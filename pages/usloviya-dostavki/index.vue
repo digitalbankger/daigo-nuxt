@@ -7,6 +7,8 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { definePageMeta } from '#imports'
 
 definePageMeta({ layout: 'main' })
+
+usePageCanonical('/usloviya-dostavki')
 </script>
 
 <template>

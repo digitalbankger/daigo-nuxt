@@ -48,10 +48,10 @@ const RAW_PATH_REDIRECTS: Record<string, string> = {
 const RAW_QUERY_REDIRECTS: Record<string, string> = {}
 
 
-// Старый Bitrix-каталог использовал вложенность
-// /catalog/<раздел>/<slug-товара>/, тогда как текущие карточки живут на
-// /catalog/<slug-товара>. Берём только уже проверенные пары из базовой карты,
-// чтобы не перенаправлять произвольные двухуровневые URL на несуществующие товары.
+// Старый Bitrix-каталог
+// /catalog/<раздел>/<slug-товара>/, 
+// текущие карточки на
+// /catalog/<slug-товара>. 
 const LEGACY_PRODUCT_TEST_REDIRECTS: Record<string, string> = Object.fromEntries(
   Object.entries(RAW_PATH_REDIRECTS)
     .filter(([currentPath, legacyPath]) => {
@@ -75,12 +75,12 @@ const withSlash = (p: string) => (p === '/' ? '/' : p.endsWith('/') ? p : `${p}/
 const invert = (obj: Record<string, string>): Record<string, string> =>
   Object.fromEntries(Object.entries(obj).map(([k, v]) => [v, k]))
 
-// нормализация ключей (чтобы '/catalog' и '/catalog/' считались одним и тем же)
+// нормализация ключей
 const normalizePathMap = (map: Record<string, string>) => {
   const out: Record<string, string> = {}
   for (const [from, to] of Object.entries(map)) {
     out[withSlash(from)] = withSlash(to)
-    // также учтём вариант без завершающего слэша
+    // учет варианта без завершающего слэша
     out[from.replace(/\/$/, '')] = withSlash(to)
   }
   return out
@@ -92,7 +92,7 @@ function parseRuleKey(ruleKey: string): { path: string; params: URLSearchParams 
   return { path: rawPath, params: new URLSearchParams(rawQuery) }
 }
 
-// проверка: все требуемые параметры совпадают
+// проверка: (для себя)
 function matchesParams(actual: URLSearchParams, required: URLSearchParams) {
   for (const [k, v] of required.entries()) {
     if (actual.get(k) !== v) return false
@@ -246,7 +246,7 @@ const BASE_PATH_REDIRECTS = normalizePathMap(
 // ДОП. АЛИАС: shop → catalog (без дубля ключа в RAW)
 const EXTRA_ALIAS =
   MODE === 'oldToNew'
-    ? { '/catalog/': '/shop/' }   // чтобы после invert получилось /shop/ → /catalog/
+    ? { '/catalog/': '/shop/' }   // после invert получилось /shop/ → /catalog/
     : { '/shop/': '/catalog/' }   // при текущем MODE='newToOld' нужно финально /shop/ → /catalog/
 
 const PATH_REDIRECTS = {
@@ -296,14 +296,14 @@ export default defineEventHandler((event) => {
 
 
   // Единый формат URL каталога: без завершающего слэша.
-  // Ставим после legacy/query/SEO-нормализации, чтобы не создавать цепочки редиректов.
+  // после legacy/query/SEO-нормализации, чтобы не создавать цепочки редиректов.
   const catalogTrailingSlashTarget = buildCatalogTrailingSlashRedirect(url, pathname)
   if (catalogTrailingSlashTarget) {
     return sendRedirect(event, catalogTrailingSlashTarget, SEO_TEST_REDIRECT_CODE)
   }
   // --- END: временный отдельный блок новых SEO redirect rules (307) ---
 
-  // Evolution: старый slug всегда ведём на новый SEO URL.
+  // Evolution: новый SEO URL.
   // Правило не зависит от MODE, чтобы не инвертировалось вместе с общей картой редиректов.
   const evolutionPath = pathname.replace(/\/+$/, '')
   if (evolutionPath === '/catalog/evolution-mg') {
@@ -315,7 +315,7 @@ export default defineEventHandler((event) => {
   // 0.1) /WD → /womens-day?utm_source=share&utm_campaign=080326&utm_content=landing
   const pNorm = pathname.replace(/\/+$/, '')
   if (pNorm.toLowerCase() === '/wd') {
-    const qs = new URLSearchParams(url.searchParams) // сохраняем существующие query, если есть
+    const qs = new URLSearchParams(url.searchParams)
 
     // гарантируем нужные UTM
     qs.set('utm_source', 'share')

@@ -71,7 +71,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -145,7 +145,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -153,7 +153,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -234,7 +234,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -308,7 +308,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -316,7 +316,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -395,7 +395,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -469,7 +469,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -477,7 +477,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -556,7 +556,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -630,7 +630,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -638,7 +638,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -717,7 +717,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -791,7 +791,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -799,7 +799,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -880,7 +880,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -954,7 +954,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -962,7 +962,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1041,7 +1041,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1115,7 +1115,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1123,7 +1123,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1202,7 +1202,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1276,7 +1276,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1284,7 +1284,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1363,7 +1363,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1437,7 +1437,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1445,7 +1445,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1524,7 +1524,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1598,7 +1598,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1606,7 +1606,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1685,7 +1685,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1759,7 +1759,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1767,7 +1767,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -1846,7 +1846,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -1920,7 +1920,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -1928,7 +1928,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2007,7 +2007,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2081,7 +2081,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2089,7 +2089,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2168,7 +2168,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2242,7 +2242,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2250,7 +2250,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2329,7 +2329,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2403,7 +2403,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2411,7 +2411,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2490,7 +2490,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2564,7 +2564,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2572,7 +2572,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2651,7 +2651,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2725,7 +2725,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2733,7 +2733,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2812,7 +2812,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -2886,7 +2886,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -2894,7 +2894,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -2973,7 +2973,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3047,7 +3047,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3055,7 +3055,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3134,7 +3134,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3208,7 +3208,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3216,7 +3216,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3295,7 +3295,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3369,7 +3369,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3377,7 +3377,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3456,7 +3456,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3530,7 +3530,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3538,7 +3538,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3617,7 +3617,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3691,7 +3691,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3699,7 +3699,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3778,7 +3778,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -3852,7 +3852,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -3860,7 +3860,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -3939,7 +3939,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4013,7 +4013,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4021,7 +4021,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4100,7 +4100,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4174,7 +4174,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4182,7 +4182,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4263,7 +4263,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4337,7 +4337,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4345,7 +4345,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4426,7 +4426,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4500,7 +4500,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4508,7 +4508,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4587,7 +4587,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4661,7 +4661,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4669,7 +4669,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4750,7 +4750,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4824,7 +4824,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4832,7 +4832,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -4913,7 +4913,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -4987,7 +4987,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -4995,7 +4995,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5074,7 +5074,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5148,7 +5148,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5156,7 +5156,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5235,7 +5235,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5309,7 +5309,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5317,7 +5317,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5398,7 +5398,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5472,7 +5472,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5480,7 +5480,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5559,7 +5559,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5633,7 +5633,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5641,7 +5641,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5720,7 +5720,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5794,7 +5794,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5802,7 +5802,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -5881,7 +5881,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -5955,7 +5955,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -5963,7 +5963,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6042,7 +6042,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6116,7 +6116,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6124,7 +6124,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6203,7 +6203,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6277,7 +6277,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6285,7 +6285,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6364,7 +6364,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6438,7 +6438,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6446,7 +6446,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6525,7 +6525,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6599,7 +6599,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6607,7 +6607,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6686,7 +6686,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6760,7 +6760,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6768,7 +6768,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -6847,7 +6847,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -6921,7 +6921,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -6929,7 +6929,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7008,7 +7008,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7082,7 +7082,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7090,7 +7090,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7171,7 +7171,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7245,7 +7245,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7253,7 +7253,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7334,7 +7334,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7408,7 +7408,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7416,7 +7416,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7495,7 +7495,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7569,7 +7569,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7577,7 +7577,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7658,7 +7658,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7732,7 +7732,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7740,7 +7740,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7821,7 +7821,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -7895,7 +7895,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -7903,7 +7903,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -7982,7 +7982,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8056,7 +8056,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8064,7 +8064,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8143,7 +8143,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8217,7 +8217,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8225,7 +8225,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8304,7 +8304,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8378,7 +8378,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8386,7 +8386,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8465,7 +8465,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8539,7 +8539,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8547,7 +8547,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8626,7 +8626,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8700,7 +8700,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8708,7 +8708,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8787,7 +8787,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -8861,7 +8861,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -8869,7 +8869,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -8948,7 +8948,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9022,7 +9022,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9030,7 +9030,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9109,7 +9109,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9183,7 +9183,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9191,7 +9191,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9270,7 +9270,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9344,7 +9344,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9352,7 +9352,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9431,7 +9431,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9505,7 +9505,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9513,7 +9513,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9592,7 +9592,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9666,7 +9666,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9674,7 +9674,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9753,7 +9753,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9827,7 +9827,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9835,7 +9835,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -9914,7 +9914,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -9988,7 +9988,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -9996,7 +9996,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10075,7 +10075,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10149,7 +10149,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10157,7 +10157,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10236,7 +10236,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10310,7 +10310,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10318,7 +10318,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10399,7 +10399,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10473,7 +10473,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10481,7 +10481,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10560,7 +10560,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10634,7 +10634,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10642,7 +10642,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10723,7 +10723,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10797,7 +10797,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10805,7 +10805,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -10886,7 +10886,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -10960,7 +10960,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -10968,7 +10968,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11047,7 +11047,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11121,7 +11121,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11129,7 +11129,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11208,7 +11208,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11282,7 +11282,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11290,7 +11290,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11369,7 +11369,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11443,7 +11443,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11451,7 +11451,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11530,7 +11530,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11604,7 +11604,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11612,7 +11612,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11691,7 +11691,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11765,7 +11765,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11773,7 +11773,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -11852,7 +11852,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -11926,7 +11926,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -11934,7 +11934,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12013,7 +12013,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12087,7 +12087,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12095,7 +12095,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12174,7 +12174,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12248,7 +12248,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12256,7 +12256,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12335,7 +12335,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12409,7 +12409,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12417,7 +12417,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12496,7 +12496,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12570,7 +12570,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12578,7 +12578,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12659,7 +12659,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12733,7 +12733,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12741,7 +12741,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12820,7 +12820,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -12894,7 +12894,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -12902,7 +12902,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -12983,7 +12983,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13057,7 +13057,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13065,7 +13065,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13144,7 +13144,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13218,7 +13218,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13226,7 +13226,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13307,7 +13307,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13381,7 +13381,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13389,7 +13389,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13470,7 +13470,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13544,7 +13544,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13552,7 +13552,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13631,7 +13631,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13705,7 +13705,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13713,7 +13713,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13792,7 +13792,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -13866,7 +13866,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -13874,7 +13874,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -13955,7 +13955,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14029,7 +14029,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14037,7 +14037,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14118,7 +14118,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14192,7 +14192,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14200,7 +14200,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14279,7 +14279,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14353,7 +14353,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14361,7 +14361,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14442,7 +14442,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14516,7 +14516,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14524,7 +14524,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14603,7 +14603,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14677,7 +14677,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14685,7 +14685,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14764,7 +14764,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -14838,7 +14838,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -14846,7 +14846,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -14927,7 +14927,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15001,7 +15001,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15009,7 +15009,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15088,7 +15088,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15162,7 +15162,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15170,7 +15170,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15249,7 +15249,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15323,7 +15323,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15331,7 +15331,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15410,7 +15410,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15484,7 +15484,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15492,7 +15492,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15573,7 +15573,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15647,7 +15647,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15655,7 +15655,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15734,7 +15734,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15808,7 +15808,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15816,7 +15816,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -15897,7 +15897,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -15971,7 +15971,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -15979,7 +15979,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16058,7 +16058,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16132,7 +16132,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16140,7 +16140,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16219,7 +16219,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16293,7 +16293,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16301,7 +16301,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16382,7 +16382,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16456,7 +16456,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16464,7 +16464,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16545,7 +16545,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16619,7 +16619,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16627,7 +16627,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16706,7 +16706,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16780,7 +16780,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16788,7 +16788,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -16867,7 +16867,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -16941,7 +16941,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -16949,7 +16949,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17028,7 +17028,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17102,7 +17102,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17110,7 +17110,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17191,7 +17191,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17265,7 +17265,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17273,7 +17273,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17352,7 +17352,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17426,7 +17426,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17434,7 +17434,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17513,7 +17513,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17587,7 +17587,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17595,7 +17595,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17674,7 +17674,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17748,7 +17748,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17756,7 +17756,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17835,7 +17835,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -17909,7 +17909,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -17917,7 +17917,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -17998,7 +17998,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18072,7 +18072,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18080,7 +18080,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18159,7 +18159,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18233,7 +18233,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18241,7 +18241,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18320,7 +18320,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18394,7 +18394,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18402,7 +18402,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18481,7 +18481,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18555,7 +18555,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18563,7 +18563,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18642,7 +18642,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18716,7 +18716,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18724,7 +18724,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18805,7 +18805,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -18879,7 +18879,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -18887,7 +18887,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -18966,7 +18966,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19040,7 +19040,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19048,7 +19048,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19127,7 +19127,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19201,7 +19201,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19209,7 +19209,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19290,7 +19290,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19364,7 +19364,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19372,7 +19372,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19451,7 +19451,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19525,7 +19525,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19533,7 +19533,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19612,7 +19612,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19686,7 +19686,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19694,7 +19694,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19773,7 +19773,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -19847,7 +19847,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -19855,7 +19855,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -19934,7 +19934,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20008,7 +20008,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20016,7 +20016,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20095,7 +20095,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20169,7 +20169,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20177,7 +20177,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20256,7 +20256,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20330,7 +20330,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20338,7 +20338,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20419,7 +20419,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20493,7 +20493,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20501,7 +20501,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20581,7 +20581,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20655,7 +20655,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20663,7 +20663,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20742,7 +20742,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20816,7 +20816,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20824,7 +20824,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -20905,7 +20905,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -20979,7 +20979,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -20987,7 +20987,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21066,7 +21066,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21140,7 +21140,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21148,7 +21148,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21227,7 +21227,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21301,7 +21301,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21309,7 +21309,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21390,7 +21390,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21464,7 +21464,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21472,7 +21472,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21553,7 +21553,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21627,7 +21627,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21635,7 +21635,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21714,7 +21714,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21788,7 +21788,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21796,7 +21796,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -21877,7 +21877,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -21951,7 +21951,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -21959,7 +21959,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22038,7 +22038,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22112,7 +22112,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22120,7 +22120,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22201,7 +22201,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22275,7 +22275,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22283,7 +22283,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22362,7 +22362,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22436,7 +22436,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22444,7 +22444,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22524,7 +22524,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22598,7 +22598,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22606,7 +22606,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22687,7 +22687,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22761,7 +22761,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22769,7 +22769,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -22848,7 +22848,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -22922,7 +22922,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -22930,7 +22930,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23009,7 +23009,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23083,7 +23083,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23091,7 +23091,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23170,7 +23170,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23244,7 +23244,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23252,7 +23252,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23333,7 +23333,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23407,7 +23407,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23415,7 +23415,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23494,7 +23494,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23568,7 +23568,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23576,7 +23576,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23657,7 +23657,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23731,7 +23731,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23739,7 +23739,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23820,7 +23820,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -23894,7 +23894,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -23902,7 +23902,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -23981,7 +23981,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24055,7 +24055,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24063,7 +24063,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24142,7 +24142,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24216,7 +24216,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24224,7 +24224,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24305,7 +24305,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24379,7 +24379,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24387,7 +24387,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24466,7 +24466,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24540,7 +24540,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24548,7 +24548,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24627,7 +24627,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24701,7 +24701,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24709,7 +24709,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24788,7 +24788,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -24862,7 +24862,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -24870,7 +24870,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -24949,7 +24949,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25023,7 +25023,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25031,7 +25031,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25110,7 +25110,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25184,7 +25184,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25192,7 +25192,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25271,7 +25271,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25345,7 +25345,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25353,7 +25353,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25432,7 +25432,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25506,7 +25506,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25514,7 +25514,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25593,7 +25593,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25667,7 +25667,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25675,7 +25675,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25754,7 +25754,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25828,7 +25828,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25836,7 +25836,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -25915,7 +25915,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -25989,7 +25989,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -25997,7 +25997,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26076,7 +26076,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26150,7 +26150,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26158,7 +26158,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26237,7 +26237,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26311,7 +26311,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26319,7 +26319,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26398,7 +26398,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26472,7 +26472,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26480,7 +26480,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26559,7 +26559,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26633,7 +26633,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26641,7 +26641,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26720,7 +26720,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26794,7 +26794,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26802,7 +26802,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -26883,7 +26883,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -26957,7 +26957,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -26965,7 +26965,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27044,7 +27044,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27118,7 +27118,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27126,7 +27126,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27205,7 +27205,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27279,7 +27279,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27287,7 +27287,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27366,7 +27366,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27440,7 +27440,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27448,7 +27448,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27527,7 +27527,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27601,7 +27601,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27609,7 +27609,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27690,7 +27690,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27764,7 +27764,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27772,7 +27772,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -27853,7 +27853,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -27927,7 +27927,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -27935,7 +27935,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28016,7 +28016,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28090,7 +28090,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28098,7 +28098,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28177,7 +28177,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28251,7 +28251,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28259,7 +28259,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28338,7 +28338,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28412,7 +28412,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28420,7 +28420,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28499,7 +28499,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28573,7 +28573,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28581,7 +28581,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28660,7 +28660,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28734,7 +28734,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28742,7 +28742,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28821,7 +28821,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -28895,7 +28895,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -28903,7 +28903,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -28982,7 +28982,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29056,7 +29056,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29064,7 +29064,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29143,7 +29143,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29217,7 +29217,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29225,7 +29225,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29304,7 +29304,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29378,7 +29378,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29386,7 +29386,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29467,7 +29467,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29541,7 +29541,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29549,7 +29549,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29628,7 +29628,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29702,7 +29702,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29710,7 +29710,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29789,7 +29789,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -29863,7 +29863,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -29871,7 +29871,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -29950,7 +29950,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30024,7 +30024,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30032,7 +30032,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30111,7 +30111,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30185,7 +30185,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30193,7 +30193,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30272,7 +30272,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30346,7 +30346,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30354,7 +30354,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30433,7 +30433,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30507,7 +30507,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30515,7 +30515,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30594,7 +30594,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30668,7 +30668,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30676,7 +30676,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30755,7 +30755,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30829,7 +30829,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30837,7 +30837,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -30916,7 +30916,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -30990,7 +30990,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -30998,7 +30998,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31079,7 +31079,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31153,7 +31153,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31161,7 +31161,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31240,7 +31240,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31314,7 +31314,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31322,7 +31322,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31401,7 +31401,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31475,7 +31475,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31483,7 +31483,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31564,7 +31564,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31638,7 +31638,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31646,7 +31646,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31725,7 +31725,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31799,7 +31799,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31807,7 +31807,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -31886,7 +31886,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -31960,7 +31960,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -31968,7 +31968,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32047,7 +32047,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32121,7 +32121,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32129,7 +32129,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32208,7 +32208,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32282,7 +32282,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32290,7 +32290,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32369,7 +32369,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32443,7 +32443,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32451,7 +32451,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32532,7 +32532,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32606,7 +32606,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32614,7 +32614,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32693,7 +32693,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32767,7 +32767,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32775,7 +32775,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -32854,7 +32854,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -32928,7 +32928,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -32936,7 +32936,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33015,7 +33015,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33089,7 +33089,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33097,7 +33097,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33176,7 +33176,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33250,7 +33250,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33258,7 +33258,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33337,7 +33337,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33411,7 +33411,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33419,7 +33419,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33498,7 +33498,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33572,7 +33572,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33580,7 +33580,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33659,7 +33659,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33733,7 +33733,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33741,7 +33741,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33820,7 +33820,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -33894,7 +33894,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -33902,7 +33902,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -33981,7 +33981,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34055,7 +34055,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34063,7 +34063,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34142,7 +34142,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34216,7 +34216,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34224,7 +34224,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34303,7 +34303,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34377,7 +34377,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34385,7 +34385,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34464,7 +34464,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34538,7 +34538,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34546,7 +34546,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34625,7 +34625,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34699,7 +34699,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34707,7 +34707,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34786,7 +34786,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -34860,7 +34860,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -34868,7 +34868,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -34947,7 +34947,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35021,7 +35021,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35029,7 +35029,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35108,7 +35108,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35182,7 +35182,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35190,7 +35190,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35269,7 +35269,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35343,7 +35343,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35351,7 +35351,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35430,7 +35430,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35504,7 +35504,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35512,7 +35512,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35591,7 +35591,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35665,7 +35665,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35673,7 +35673,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35752,7 +35752,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35826,7 +35826,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35834,7 +35834,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -35913,7 +35913,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -35987,7 +35987,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -35995,7 +35995,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36074,7 +36074,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36148,7 +36148,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36156,7 +36156,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36235,7 +36235,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36309,7 +36309,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36317,7 +36317,7 @@ export const DETAIL_BY_SLUG: Record<string, any> = {
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36396,7 +36396,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36470,7 +36470,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36478,7 +36478,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36557,7 +36557,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36631,7 +36631,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36639,7 +36639,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36720,7 +36720,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36794,7 +36794,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36802,7 +36802,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -36883,7 +36883,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -36957,7 +36957,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -36965,7 +36965,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37044,7 +37044,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37118,7 +37118,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37126,7 +37126,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37205,7 +37205,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37279,7 +37279,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37287,7 +37287,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37368,7 +37368,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37442,7 +37442,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37450,7 +37450,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37529,7 +37529,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37603,7 +37603,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37611,7 +37611,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37690,7 +37690,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37764,7 +37764,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37772,7 +37772,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -37853,7 +37853,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -37927,7 +37927,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -37935,7 +37935,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38016,7 +38016,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38090,7 +38090,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38098,7 +38098,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38179,7 +38179,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38253,7 +38253,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38261,7 +38261,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38340,7 +38340,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38414,7 +38414,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38422,7 +38422,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38503,7 +38503,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38577,7 +38577,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38585,7 +38585,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38664,7 +38664,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38738,7 +38738,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38746,7 +38746,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38825,7 +38825,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -38899,7 +38899,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -38907,7 +38907,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -38986,7 +38986,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39060,7 +39060,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39068,7 +39068,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39147,7 +39147,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39221,7 +39221,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39229,7 +39229,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39308,7 +39308,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39382,7 +39382,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39390,7 +39390,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39469,7 +39469,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39543,7 +39543,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39551,7 +39551,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39630,7 +39630,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39704,7 +39704,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39712,7 +39712,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39791,7 +39791,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -39865,7 +39865,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -39873,7 +39873,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -39952,7 +39952,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40026,7 +40026,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40034,7 +40034,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40113,7 +40113,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40187,7 +40187,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40195,7 +40195,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40274,7 +40274,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40348,7 +40348,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40356,7 +40356,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40435,7 +40435,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40509,7 +40509,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40517,7 +40517,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40598,7 +40598,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40672,7 +40672,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40680,7 +40680,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40759,7 +40759,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40833,7 +40833,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -40841,7 +40841,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -40920,7 +40920,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -40994,7 +40994,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41002,7 +41002,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41081,7 +41081,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41155,7 +41155,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41163,7 +41163,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41242,7 +41242,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41316,7 +41316,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41324,7 +41324,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41403,7 +41403,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41477,7 +41477,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41485,7 +41485,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41566,7 +41566,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41640,7 +41640,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41648,7 +41648,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41729,7 +41729,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41803,7 +41803,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41811,7 +41811,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -41892,7 +41892,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -41966,7 +41966,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -41974,7 +41974,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42055,7 +42055,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42129,7 +42129,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42137,7 +42137,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42216,7 +42216,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42290,7 +42290,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42298,7 +42298,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42377,7 +42377,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42451,7 +42451,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42459,7 +42459,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42538,7 +42538,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42612,7 +42612,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42620,7 +42620,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42700,7 +42700,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42774,7 +42774,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42782,7 +42782,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -42861,7 +42861,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -42935,7 +42935,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -42943,7 +42943,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43022,7 +43022,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43096,7 +43096,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43104,7 +43104,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43183,7 +43183,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43257,7 +43257,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43265,7 +43265,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43343,7 +43343,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43417,7 +43417,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43425,7 +43425,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43506,7 +43506,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43580,7 +43580,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43588,7 +43588,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43669,7 +43669,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43743,7 +43743,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43751,7 +43751,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43830,7 +43830,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -43904,7 +43904,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -43912,7 +43912,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -43991,7 +43991,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44065,7 +44065,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44073,7 +44073,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44154,7 +44154,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44228,7 +44228,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44236,7 +44236,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44315,7 +44315,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44389,7 +44389,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44397,7 +44397,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44478,7 +44478,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44552,7 +44552,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44560,7 +44560,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44639,7 +44639,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44713,7 +44713,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44721,7 +44721,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44800,7 +44800,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -44874,7 +44874,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -44882,7 +44882,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -44961,7 +44961,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45035,7 +45035,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45043,7 +45043,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45122,7 +45122,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45196,7 +45196,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45204,7 +45204,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45283,7 +45283,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45357,7 +45357,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45365,7 +45365,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45446,7 +45446,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45520,7 +45520,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45528,7 +45528,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45607,7 +45607,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45681,7 +45681,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45689,7 +45689,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45768,7 +45768,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -45842,7 +45842,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -45850,7 +45850,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -45929,7 +45929,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46003,7 +46003,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46011,7 +46011,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46092,7 +46092,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46166,7 +46166,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46174,7 +46174,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46255,7 +46255,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46329,7 +46329,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46337,7 +46337,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46416,7 +46416,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46490,7 +46490,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46498,7 +46498,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46577,7 +46577,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46651,7 +46651,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46659,7 +46659,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46740,7 +46740,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46814,7 +46814,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46822,7 +46822,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -46901,7 +46901,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -46975,7 +46975,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -46983,7 +46983,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -47062,7 +47062,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -47136,7 +47136,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -47144,7 +47144,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -47223,7 +47223,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -47297,7 +47297,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -47305,7 +47305,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -47384,7 +47384,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -47458,7 +47458,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -47466,7 +47466,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -47545,7 +47545,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -47619,7 +47619,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -47627,7 +47627,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }
@@ -47706,7 +47706,7 @@ XX и XXI века стали эпохой стремительных измен
     specialist: {
       name: "Анна Иванова",
       position: "Главный врач",
-      avatarUrl: "http://localhost:3000/images/mock/article/spec.jpg",
+      avatarUrl: "/images/mock/article/spec.jpg",
       description: "Специализируется на лечении заболеваний ЖКТ. Занимается ведением пациентов с инфекционной патологией.",
       social: [
         {
@@ -47780,7 +47780,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 1,
       title: "Daigo Lux",
-      image: "http://localhost:3000/images/mock/catalog/daigo-lux.png",
+      image: "/images/mock/catalog/daigo-lux.png",
       price: 95700,
       url: "/catalog/daigo-lux",
       "badge": "Хит"
@@ -47788,7 +47788,7 @@ XX и XXI века стали эпохой стремительных измен
     {
       id: 5,
       title: "Tamotsu",
-      image: "http://localhost:3000/images/mock/catalog/tamotsu.png",
+      image: "/images/mock/catalog/tamotsu.png",
       price: 67500,
       url: "/catalog/tamotsu"
     }

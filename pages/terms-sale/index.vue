@@ -4,7 +4,7 @@ definePageMeta({ layout: 'main' })
 
 const title = 'Условия продажи товаров'
 const description = 'Полный текст Условий продажи товаров сайта daigo.ru.'
-const canonical = 'https://daigo.ru/sale-terms'
+const canonical = 'https://daigo.ru/terms-sale'
 
 useHead({
   title,

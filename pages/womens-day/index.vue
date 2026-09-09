@@ -14,6 +14,8 @@ definePageMeta({
   layout: 'womens',
 })
 
+usePageCanonical('/womens-day')
+
 const heroTitle = 'XX и XXI век'
 const heroSubtitle = 'время великих женщин'
 

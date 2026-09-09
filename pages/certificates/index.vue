@@ -2,6 +2,8 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/certificates')
+
 import { useHead } from '#imports'
 
 useHead({

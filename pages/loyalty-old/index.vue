@@ -7,6 +7,8 @@ import BonusesHistory from '~/components/loyalty/BonusSection.vue'
 
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/loyalty-old')
+
 </script>
 
 <template>

@@ -3,6 +3,8 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok')
+
 
 
 </script>

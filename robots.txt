@@ -20,7 +20,7 @@ Disallow: /akcii?
 Allow: /catalog?*napravlennost=*
 Allow: /catalog?*pomogaet-pri=*
 Allow: /catalog?*klass-produkta=*
-Allow: /articles?*page=*
+# Allow: /articles?*page=*  # временное правило отключено: пагинация/фильтры статей остаются на query
 
 # --- Блокировка остальных URL с параметрами ---
 Disallow: /*?*
@@ -67,7 +67,7 @@ Disallow: /akcii?
 Allow: /catalog?*napravlennost=*
 Allow: /catalog?*pomogaet-pri=*
 Allow: /catalog?*klass-produkta=*
-Allow: /articles?*page=*
+# Allow: /articles?*page=*  # временное правило отключено: пагинация/фильтры статей остаются на query
 
 Disallow: /*?*
 Disallow: /*utm_

@@ -5,6 +5,8 @@ import MicrobiomeReviewModal from "~/components/promotions/MicrobiomeReviewModal
 
 definePageMeta({ layout: "main" });
 
+usePageCanonical('/microbiome-day')
+
 const isReviewOpen = ref(false);
 
 // useSeoMeta({

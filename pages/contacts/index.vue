@@ -8,12 +8,12 @@ import { COMPANY_CONTACTS } from '~/constants/company'
 
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/contacts')
+
 const showPopup = ref(false)
 const togglePopup = () => {
   showPopup.value = !showPopup.value
 }
-
-const videoUrl = 'https://s3.amazonaws.com/your-bucket/videos/office.mp4'
 
 useHead({
   title: 'Контакты — Daigo',

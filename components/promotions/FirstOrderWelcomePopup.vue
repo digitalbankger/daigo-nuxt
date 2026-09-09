@@ -25,7 +25,7 @@
 
 
         <div class="mt-[10px] md:mt-[15px] pt-4 flex flex-wrap items-center gap-x-[1.4rem] md:gap-x-[1.9rem] gap-y-2 sm:mt-7">
-          <img src="localhost:3000/public/images/articles/summer/20.png" alt="Лето - это не только отдых" class="h-[60px] sm:h-[82px] w-auto" />
+          <img src="/images/articles/summer/20.png" alt="Лето - это не только отдых" class="h-[60px] sm:h-[82px] w-auto" />
 
           <div class="max-w-[190px] text-[clamp(24px,3vw,40px)] font-haido font-light uppercase leading-[1.05]">
             на все<br />

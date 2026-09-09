@@ -2,6 +2,8 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/user-agreement')
+
 const title = 'Пользовательское соглашение'
 const description = 'Официальная редакция Пользовательского соглашения сайта daigo.ru.'
 const canonical = 'https://daigo.ru/user-agreement'

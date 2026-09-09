@@ -12,6 +12,7 @@ import { useResearchStore } from '~/stores/researchStore'
 import { useSeoMeta, useHead } from '#imports'
 
 const route = useRoute()
+const canonical = usePageCanonical(() => `/researches/${String(route.params.slug)}`)
 const store = useResearchStore()
 
 // SSR-фетч. Неизвестная категория должна быть настоящей 404,

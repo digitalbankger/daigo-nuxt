@@ -6,6 +6,8 @@ import BaseCheckbox from '~/components/ui/BaseCheckbox.vue'
 
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/form')
+
 const SUBJECT_OPTIONS = [
   'Партнерство',
   'Технические проблемы',

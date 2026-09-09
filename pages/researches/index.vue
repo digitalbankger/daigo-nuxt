@@ -2,6 +2,8 @@
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/researches')
+
 import { useResearchStore } from '~/stores/researchStore'
 import { useHead } from '#imports'
 

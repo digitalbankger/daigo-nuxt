@@ -1,5 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
+
+usePageCanonical('/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota')
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
 import PopularArticles from '~/components/articles/PopularArticles.vue'
@@ -12,7 +14,7 @@ useHead({
     { property: 'og:title', content: 'Как микрофлора создает гармонию в отношениях и почему ей нужна забота?' },
     { property: 'og:description', content: 'Микрофлора кишечника влияет на эмоциональное состояние и качество отношений. Узнайте, как забота о здоровье кишечника улучшает гармонию в отношениях.' },
     { property: 'og:image', content: 'https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
-    { property: 'og:url', content: 'https://daigo.ru/articles/plasmalogens' },
+    { property: 'og:url', content: 'https://daigo.ru/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota' },
     { property: 'og:type', content: 'article' },
   ],
   script: [
@@ -21,7 +23,7 @@ useHead({
       children: JSON.stringify({
         '@context': 'https://schema.org',
         '@type': 'Article',
-        headline: 'Принцип действия плазмалогенов',
+        headline: 'Как микрофлора создает гармонию в отношениях и почему ей нужна забота?',
         image: ['https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg'],
         author: {
           '@type': 'Organization',
@@ -32,11 +34,11 @@ useHead({
           name: 'daigo',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://daigo.ru/logo.png'
+            url: 'https://daigo.ru/logo.svg'
           }
         },
         datePublished: '2025-07-16',
-        mainEntityOfPage: 'https://daigo.ru/articles/plasmalogens'
+        mainEntityOfPage: 'https://daigo.ru/articles/kak-mikroflora-sozdaet-garmoniyu-v-otnosheniyah-i-pochemu-ey-nuzhna-zabota'
       })
     }
   ]

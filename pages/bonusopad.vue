@@ -5,6 +5,8 @@ import { useSeoMeta, useHead } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 definePageMeta({ layout: 'main', hideFooter: true })
 
+usePageCanonical('/bonusopad')
+
 import { useCartStore } from '~/stores/cartStore'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'

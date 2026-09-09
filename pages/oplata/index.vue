@@ -9,6 +9,8 @@ import BaseContainer from '~/components/layout/BaseContainer.vue'
 import { definePageMeta } from '#imports'
 
 definePageMeta({ layout: 'main' })
+
+usePageCanonical('/oplata')
 </script>
 
 <template>

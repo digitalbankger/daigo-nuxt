@@ -130,7 +130,7 @@ const faq = [
   },
 ]
 
-const canonical = '/quality-and-safety'
+const canonical = 'https://daigo.ru/quality-and-safety'
 
 useHead(() => ({
   title,

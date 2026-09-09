@@ -1,6 +1,8 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
 
+usePageCanonical('/otzyvy')
+
 import { ref, computed, onMounted, defineAsyncComponent } from 'vue'
 import { useHead } from '#imports'
 import BaseContainer from '~/components/layout/BaseContainer.vue'
@@ -89,9 +91,10 @@ async function submitSiteReview(payload: any) {
 useHead(() => {
   const title = 'Отзывы о Daigo — видео, аудио и тексты'
   const description = 'Живые отзывы пользователей и известных людей о Daigo: видео, аудио и текстовые впечатления. Сопутствующие товары и полезные истории.'
-  const url = 'https://your-domain/otzyvy'
+  const url = 'https://daigo.ru/otzyvy'
   return {
     title,
+    link: [{ key: 'canonical', rel: 'canonical', href: url }],
     meta: [
       { name: 'description', content: description },
       { property: 'og:title', content: title },

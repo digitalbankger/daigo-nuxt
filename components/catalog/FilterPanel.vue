@@ -16,7 +16,29 @@
         {{ group.label }}
       </div>
 
-      <div class="mt-5 space-y-4">
+      <div v-if="isPlainListGroup(group.slug)" class="mt-5 flex flex-col gap-1.5">
+        <button
+          v-for="option in group.options"
+          :key="option.value"
+          type="button"
+          class="w-full py-1.5 text-left text-base transition-colors"
+          :class="isSelected(group.slug, option.value)
+            ? 'text-primary font-medium'
+            : 'text-black hover:text-primary'"
+          :aria-pressed="isSelected(group.slug, option.value)"
+          @click="toggleOption(group.slug, option.value)"
+        >
+          <span>{{ option.label }}</span>
+          <span
+            v-if="counts[`${group.slug}__${option.value}`] !== undefined"
+            class="ml-1 text-sm opacity-60"
+          >
+            ({{ counts[`${group.slug}__${option.value}`] }})
+          </span>
+        </button>
+      </div>
+
+      <div v-else class="mt-5 space-y-4">
         <label
           v-for="option in group.options"
           :key="option.value"
@@ -76,11 +98,19 @@ const router = useRouter()
 const route = useRoute()
 const selected = reactive<Record<string, string[]>>({})
 const allowedSlugs = computed(() => new Set(filters.value.map((group) => group.slug)))
+const PLAIN_LIST_GROUPS = new Set(['napravlennost', 'pomogaet-pri'])
 
 let countsTimer: ReturnType<typeof setTimeout> | null = null
 let didHydrate = false
 let syncingRoute = false
 
+function isPlainListGroup(groupSlug: string) {
+  return PLAIN_LIST_GROUPS.has(groupSlug)
+}
+
+function isSelected(groupSlug: string, value: string) {
+  return Boolean(selected[groupSlug]?.includes(value))
+}
 
 function toggleOption(groupSlug: string, value: string) {
   if (!Array.isArray(selected[groupSlug])) selected[groupSlug] = []
@@ -148,11 +178,7 @@ function clearFilters() {
 
 onMounted(() => {
   hydrateFromRoute()
-
-  // Теперь counts считаются на Nitro по уже готовому snapshot каталога.
-  // Полную товарную выборку в браузер больше не загружаем, поэтому запрос
-  // можно выполнять сразу после фактического mount панели. На мобильном
-  // компонент вообще не монтируется, пока пользователь не откроет фильтры.
+  // Counts берутся из серверного snapshot и не тянут весь каталог в браузер.
   queueCountsRecalc(0)
 })
 

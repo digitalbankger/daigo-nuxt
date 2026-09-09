@@ -1,5 +1,7 @@
 <script setup lang="ts">
 definePageMeta({ layout: 'main' })
+
+usePageCanonical('/aminobiotics')
 import BaseContainer from '~/components/layout/BaseContainer.vue'
 import AccordionItem from '~/components/ui/AccordionItem.vue'
 import PopularArticles from '~/components/articles/PopularArticles.vue'
@@ -11,7 +13,7 @@ useHead({
     { property: 'og:title', content: 'Принцип действия аминобиотиков | daigo' },
     { property: 'og:description', content: 'Узнайте, как аминобиотики помогают твоему  организму. Линейка аминобиотиков Brainy, Jointic, Dermic – источник здоровья из Японии.' },
     { property: 'og:image', content: 'https://daigo.ru/images/principes/plasmalogeny-dlya-mozga-upakovka-tamotsu.jpg' },
-    { property: 'og:url', content: 'https://daigo.ru/articles/plasmalogens' },
+    { property: 'og:url', content: 'https://daigo.ru/aminobiotics' },
     { property: 'og:type', content: 'article' },
   ],
   script: [
@@ -31,11 +33,11 @@ useHead({
           name: 'daigo',
           logo: {
             '@type': 'ImageObject',
-            url: 'https://daigo.ru/logo.png'
+            url: 'https://daigo.ru/logo.svg'
           }
         },
         datePublished: '2025-07-16',
-        mainEntityOfPage: 'https://daigo.ru/articles/plasmalogens'
+        mainEntityOfPage: 'https://daigo.ru/aminobiotics'
       })
     }
   ]
