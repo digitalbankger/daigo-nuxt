@@ -11,6 +11,7 @@ import { useCartStore } from '~/stores/cartStore'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import type { ProductCard } from '~/types/product'
+import { getPreorderRule } from '~/constants/preorderProducts'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -58,8 +59,9 @@ const quantityInCart = (p: ProductCard) => {
   return item?.quantity ?? 0
 }
 
-const PREORDER_IDS = new Set<string>(['old-02417fb2-3a7d-40fd-a2fd-02446eef174f'])
-const isPreorder = (p: ProductCard) => PREORDER_IDS.has(String(p.product_id))
+const getPromoPreorderRule = (p: ProductCard) => getPreorderRule(p)
+const isPreorder = (p: ProductCard) => Boolean(getPromoPreorderRule(p))
+const cartButtonLabel = (p: ProductCard) => getPromoPreorderRule(p)?.ctaLabel || 'В корзину'
 
 function addToCartHandler(p: ProductCard) {
   cartStore.addToCart({
@@ -236,12 +238,12 @@ useHead({
         v-if="quantityInCart(p) === 0"
         type="button"
         @click.stop="addToCartHandler(p)"
-        :aria-label="isPreorder(p) ? 'Предзаказ' : 'В корзину'"
+        :aria-label="cartButtonLabel(p)"
         class="promo-btn"
       >
         <span class="promo-btn__shine" aria-hidden="true"></span>
         <img src="/icons/add-to-cart.svg" alt="" class="promo-btn__icon" />
-        <span class="promo-btn__text">{{ isPreorder(p) ? 'Предзаказ' : 'В корзину' }}</span>
+        <span class="promo-btn__text">{{ cartButtonLabel(p) }}</span>
       </button>
 
       <div v-else class="promo-counter">

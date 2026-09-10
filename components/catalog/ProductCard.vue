@@ -73,22 +73,22 @@
             </span>
           </div>
 
-          <div v-if="isPreorder" class="w-full flex flex-col gap-2">
+          <div v-if="preorderRule" class="w-full flex flex-col gap-2">
             <a
-              href="tel:88005552043"
+              :href="preorderRule.phoneHref"
               class="text-xs sm:text-sm text-black/50 w-fit"
               aria-label="Позвонить для предзаказа"
             >
-              8 (800) 555-20-43
+              {{ preorderRule.phoneLabel }}
             </a>
 
             <div
               class="bg-hoverbtn text-black w-full h-10 sm:h-12 flex items-center justify-center
                      xs-max:text-xs text-sm sm:text-base px-2 md:px-4
                      rounded-lg whitespace-nowrap select-none cursor-default"
-              aria-label="Предзаказ"
+              :aria-label="preorderRule.ctaLabel"
             >
-              Предзаказ
+              {{ preorderRule.ctaLabel }}
             </div>
           </div>
 
@@ -168,6 +168,7 @@ import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import CatalogCardImage from '~/components/catalog/CatalogCardImage.vue'
 import { normalizeMediaUrlOrFallback } from '~/utils/mediaUrl'
+import { getPreorderRule } from '~/constants/preorderProducts'
 import {
   EVOLUTION_SINGLE_DELIVERY_MESSAGE,
   canAddEvolutionSingle,
@@ -229,8 +230,7 @@ const discountPercent = computed(() => {
 
 const cartStore = useCartStore()
 
-const PREORDER_IDS = new Set<string>([''])
-const isPreorder = computed(() => PREORDER_IDS.has(String(product.product_id)))
+const preorderRule = computed(() => getPreorderRule(product))
 
 const isEvolutionSingle = computed(() => isEvolutionSingleProduct(product))
 const evolutionSingleBlocked = computed(() =>

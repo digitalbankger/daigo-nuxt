@@ -25,6 +25,7 @@ const config = useRuntimeConfig()
 const yandexKey = computed(() => String(config.public.yandexMapsApiKey || ''))
 
 const cityQuery = ref(String(props.city || ''))
+const addressQuery = ref('')
 const cities = ref<CdekCity[]>([])
 const selectedCityCode = ref<number | null>(null)
 const offices = ref<CdekOffice[]>([])
@@ -60,6 +61,35 @@ const selectedOfficeAddress = computed(() => {
   return officeAddress(selectedOffice.value)
 })
 
+function normalizeOfficeSearch(value: string | null | undefined) {
+  return String(value || '')
+    .toLocaleLowerCase('ru-RU')
+    .replace(/ё/g, 'е')
+    .replace(/[.,/\\()[\]{}:;#№_-]+/g, ' ')
+    .replace(/\b(?:г|город|ул|улица|д|дом|стр|строение|корп|корпус)\b/gu, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+const filteredOffices = computed(() => {
+  const normalizedQuery = normalizeOfficeSearch(addressQuery.value)
+  if (!normalizedQuery) return offices.value
+
+  const queryParts = normalizedQuery.split(' ').filter(Boolean)
+
+  return offices.value.filter((office) => {
+    const searchableText = normalizeOfficeSearch([
+      officeAddress(office),
+      office.location?.city,
+      office.nearest_station,
+      office.address_comment,
+      office.code,
+    ].filter(Boolean).join(' '))
+
+    return queryParts.every(part => searchableText.includes(part))
+  })
+})
+
 watch(() => props.city, (value) => {
   const next = String(value || '').trim()
   if (next !== cityQuery.value) cityQuery.value = next
@@ -72,6 +102,7 @@ watch(cityQuery, (value, previousValue) => {
     && normalizeCityName(value) !== normalizeCityName(previousValue)
   ) {
     selectedCityCode.value = null
+    addressQuery.value = ''
     offices.value = []
     selected.value = null
     emit('update:modelValue', null)
@@ -265,6 +296,26 @@ onBeforeUnmount(() => {
       </div>
     </div>
 
+    <div
+      v-if="selectedCityCode"
+      class="space-y-2 rounded-xl border border-[#E5E7EB] bg-white p-4"
+    >
+      <label for="cdek-pvz-address-search" class="block text-sm font-medium">
+        Адрес ПВЗ
+      </label>
+      <input
+        id="cdek-pvz-address-search"
+        v-model="addressQuery"
+        type="text"
+        autocomplete="off"
+        class="h-11 w-full rounded-lg border border-[#E5E7EB] px-3 outline-none transition focus:border-primary"
+        placeholder="Например: Ленинградский проспект, 37"
+      />
+      <p class="text-xs leading-relaxed text-black/50">
+        Можно ввести улицу, номер дома, метро или код ПВЗ — список справа от карты отфильтруется по совпадению.
+      </p>
+    </div>
+
     <div v-if="error" class="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{{ error }}</div>
     <div v-if="!canLoadMap" class="rounded-lg bg-yellow-50 px-3 py-2 text-sm text-yellow-800">Карта временно недоступна.</div>
     <div v-if="loadingOffices" class="text-sm text-gray-500">Загружаем ПВЗ…</div>
@@ -279,12 +330,24 @@ onBeforeUnmount(() => {
         @wheel.stop
         @touchmove.stop
       >
-        <button v-for="o in offices" :key="o.code" type="button" class="w-full text-left p-4 hover:bg-[#F7F7F7] transition" :class="selected?.code === o.code ? 'bg-primary/10' : ''" @click="selectOffice(o)">
+        <div
+          v-if="addressQuery.trim()"
+          class="border-b border-[#E5E7EB] px-4 py-3 text-xs text-black/55"
+        >
+          Найдено ПВЗ: {{ filteredOffices.length }}
+        </div>
+        <button v-for="o in filteredOffices" :key="o.code" type="button" class="w-full text-left p-4 hover:bg-[#F7F7F7] transition" :class="selected?.code === o.code ? 'bg-primary/10' : ''" @click="selectOffice(o)">
           <div class="font-medium">{{ officeAddress(o) }}</div>
           <div class="mt-1 text-xs text-gray-500">{{ o.work_time }}</div>
           <div v-if="o.nearest_station" class="mt-1 text-xs text-gray-500">{{ o.nearest_station }}</div>
           <div class="mt-2 text-xs text-primary">Код ПВЗ: {{ o.code }}</div>
         </button>
+        <div
+          v-if="addressQuery.trim() && !filteredOffices.length"
+          class="p-4 text-sm leading-relaxed text-black/55"
+        >
+          По этому адресу совпадений не найдено. Попробуйте ввести только улицу или номер дома.
+        </div>
       </div>
     </div>
 

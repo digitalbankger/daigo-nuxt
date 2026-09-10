@@ -3,6 +3,7 @@ import { onMounted, onBeforeUnmount, ref, computed } from 'vue'
 import type { Product } from '~/types/product'
 import { useCartStore } from '~/stores/cartStore'
 import OptimizedPicture from '~/components/ui/OptimizedPicture.vue'
+import { getPreorderRule } from '~/constants/preorderProducts'
 import {
   EVOLUTION_SINGLE_DELIVERY_MESSAGE,
   canAddEvolutionSingle,
@@ -24,9 +25,8 @@ const evolutionSingleBlocked = computed(() =>
 )
 const evolutionSingleDeliveryMessage = EVOLUTION_SINGLE_DELIVERY_MESSAGE
 
-/** список товаров с предзаказом */
-const PREORDER_IDS = new Set<string>([''])
-const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value))
+/** Единое правило предзаказа: статус, CTA и связанные ограничения. */
+const preorderRule = computed(() => getPreorderRule(props.product))
 
 const truncatedTitle = computed(() => {
   const t = props.product.title ?? ''
@@ -198,21 +198,21 @@ onBeforeUnmount(() => {
       </div>
 
       <!-- Если нет в корзине — кнопка -->
-      <div v-if="isPreorder" class="shrink-0 flex flex-col gap-2">
+      <div v-if="preorderRule" class="shrink-0 flex flex-col gap-2">
         <a
-          href="tel:88005552043"
+          :href="preorderRule.phoneHref"
           class="text-xs text-primary border-primary w-fit"
           aria-label="Позвонить для предзаказа"
         >
-          8 (800) 555-20-43
+          {{ preorderRule.phoneLabel }}
         </a>
         <div
           class="inline-flex items-center justify-center px-4 md:px-5 h-10 md:h-12
                  rounded-lg sm:rounded-xl bg-hoverbtn text-black text-sm md:text-base
                  select-none cursor-default"
-          aria-label="Предзаказ"
+          :aria-label="preorderRule.ctaLabel"
         >
-          Предзаказ
+          {{ preorderRule.ctaLabel }}
         </div>
       </div>
 

@@ -8,8 +8,10 @@ import { useSummerPromoCountdown } from "~/composables/useSummerPromoCountdown";
 import OmegaBundleOfferPanel from "~/components/cart/OmegaBundleOfferPanel.vue";
 import {
   OMEGA_PRODUCT_SLUG,
+  getAvailableOmegaBundleForProductSlug,
   type OmegaBundleSlug,
 } from "~/constants/omegaBundles";
+import { getPreorderRule } from "~/constants/preorderProducts";
 import {
   EVOLUTION_SINGLE_DELIVERY_MESSAGE,
   canAddEvolutionSingle,
@@ -19,13 +21,8 @@ import {
 const { product } = defineProps<{ product: Product }>();
 const cartStore = useCartStore();
 const isStandaloneOmega = computed(() => product.slug === OMEGA_PRODUCT_SLUG);
-const aminoBundleSlug = computed<OmegaBundleSlug | undefined>(
-  () =>
-    ({
-      "daigo-brain": "dvizhenie-mysli",
-      "daigo-dermic": "obnovlenie-kozhi",
-      "daigo-jointic": "svoboda-dvizheniya",
-    })[product.slug] as OmegaBundleSlug | undefined,
+const aminoBundleSlug = computed<OmegaBundleSlug | undefined>(() =>
+  getAvailableOmegaBundleForProductSlug(product.slug) ?? undefined,
 );
 
 const hasDiscount = computed(
@@ -51,9 +48,8 @@ const productIdStr = computed(() => {
   return id ? String(id) : "";
 });
 
-/** список товаров с предзаказом (можно расширять) через '3232-3232-2323' */
-const PREORDER_IDS = new Set<string>([""]);
-const isPreorder = computed(() => PREORDER_IDS.has(productIdStr.value));
+/** Единое правило предзаказа: статус, CTA и связанные ограничения. */
+const preorderRule = computed(() => getPreorderRule(product));
 
 const adding = ref(false);
 const isEvolutionSingle = computed(() => isEvolutionSingleProduct(product));
@@ -105,7 +101,7 @@ async function addToCartHandler() {
       quantity: 1,
       image: coverImageUrl.value ?? "",
       // можно передать маркер в корзину:
-      // meta: { preorder: isPreorder.value }
+      // meta: { preorder: Boolean(preorderRule.value) }
     });
   } catch (e) {
     console.warn("addToCart failed, syncing cart...", e);
@@ -363,12 +359,12 @@ onMounted(() => {
           class="flex flex-col sm:flex-row justify-between gap-4 sm:gap-6 mt-3 sm:mt-6"
         >
           <!-- Если товара нет — большая кнопка -->
-          <div v-if="isPreorder" class="w-full sm:w-[50%] flex flex-col gap-2">
+          <div v-if="preorderRule" class="w-full sm:w-[50%] flex flex-col gap-2">
             <Button
               disabled
               variant="solid"
               class="w-full disabled:opacity-100 !bg-hoverbtn !text-black cursor-default select-none"
-              aria-label="Предзаказ"
+              :aria-label="preorderRule.ctaLabel"
             >
               <template #icon>
                 <svg
@@ -382,7 +378,7 @@ onMounted(() => {
                   />
                 </svg>
               </template>
-              Предзаказ
+              {{ preorderRule.ctaLabel }}
             </Button>
           </div>
 

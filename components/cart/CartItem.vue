@@ -2,7 +2,10 @@
 import { computed, ref } from "vue";
 import { useRuntimeConfig } from "#imports";
 import OmegaBundleOfferPanel from "~/components/cart/OmegaBundleOfferPanel.vue";
-import type { OmegaBundleSlug } from "~/constants/omegaBundles";
+import {
+  getAvailableOmegaBundleForProductTitle,
+  type OmegaBundleSlug,
+} from "~/constants/omegaBundles";
 import { normalizeMediaUrl } from "~/utils/mediaUrl";
 
 // Определяем пропсы
@@ -30,26 +33,9 @@ const displayOriginalPrice = computed(() => {
   return props.item.originalPrice;
 });
 
-const relatedBundleSlug = computed<OmegaBundleSlug | null>(() => {
-  const title = props.item.title.toLowerCase().replace(/ё/g, "е");
-
-  // Предложение показываем только у одиночных аминобиотиков, но не у наборов.
-  if (
-    title.includes("омега") ||
-    title.includes("движение мысли") ||
-    title.includes("обновление кожи") ||
-    title.includes("свобода движения")
-  ) {
-    return null;
-  }
-
-  if (title.includes("brainy")) return "dvizhenie-mysli";
-  if (title.includes("dermic")) return "obnovlenie-kozhi";
-  if (title.includes("jointic") || title.includes("jontic"))
-    return "svoboda-dvizheniya";
-
-  return null;
-});
+const relatedBundleSlug = computed<OmegaBundleSlug | null>(() =>
+  getAvailableOmegaBundleForProductTitle(props.item.title),
+);
 
 const hasBundleOffer = computed(
   () => Boolean(props.showBundleOffer) || Boolean(relatedBundleSlug.value),

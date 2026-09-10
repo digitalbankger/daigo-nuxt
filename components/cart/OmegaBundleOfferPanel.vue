@@ -34,13 +34,16 @@ const products = ref<BundleCard[]>([]);
 const pending = ref(true);
 const addingKey = ref("");
 const swiper = ref<SwiperInstance | null>(null);
-const activeDirection = ref<OmegaBundleSlug>("dvizhenie-mysli");
+const activeDirection = ref<OmegaBundleSlug>(
+  OMEGA_BUNDLE_SLUGS[0] ?? "obnovlenie-kozhi",
+);
 
-const directions: Direction[] = [
-  { slug: "dvizhenie-mysli", label: "Фокус" },
-  { slug: "obnovlenie-kozhi", label: "Кожа" },
-  { slug: "svoboda-dvizheniya", label: "Движение" },
-];
+const directions = computed<Direction[]>(() =>
+  OMEGA_BUNDLE_SLUGS.map((slug) => ({
+    slug,
+    label: OMEGA_BUNDLE_UI[slug].tabLabel,
+  })),
+);
 const formatMoney = (value: number) =>
   new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 0 }).format(value);
 const omegaQuantity = (variant: ProductVariant) => {
@@ -102,7 +105,11 @@ const selectDirection = async (slug: OmegaBundleSlug) => {
 async function loadOffers() {
   pending.value = true;
   try {
-    const slugs = props.bundleSlug ? [props.bundleSlug] : OMEGA_BUNDLE_SLUGS;
+    const slugs = props.bundleSlug
+      ? OMEGA_BUNDLE_SLUGS.includes(props.bundleSlug)
+        ? [props.bundleSlug]
+        : []
+      : OMEGA_BUNDLE_SLUGS;
     const result = await Promise.all(
       slugs.map(async (slug) => {
         try {

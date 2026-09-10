@@ -12,6 +12,7 @@ import { useCartStore } from '~/stores/cartStore'
 import { useYtm } from '@/composables/useYtm'
 import { useRoute } from '#imports'
 import type { ProductCard } from '~/types/product'
+import { getPreorderRule } from '~/constants/preorderProducts'
 
 const route = useRoute()
 const ytm = useYtm()
@@ -59,8 +60,8 @@ const quantityInCart = (p: ProductCard) => {
   return item?.quantity ?? 0
 }
 
-const PREORDER_IDS = new Set<string>(['old-02417fb2-3a7d-40fd-a2fd-02446eef174f'])
-const isPreorder = (p: ProductCard) => PREORDER_IDS.has(String(p.product_id))
+const getPromoPreorderRule = (p: ProductCard) => getPreorderRule(p)
+const isPreorder = (p: ProductCard) => Boolean(getPromoPreorderRule(p))
 
 function addToCartHandler(p: ProductCard) {
   cartStore.addToCart({

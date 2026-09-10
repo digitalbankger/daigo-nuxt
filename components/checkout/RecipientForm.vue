@@ -32,17 +32,32 @@ const email = computed({
   get: () => store.state.recipient.email,
   set: (v: string) => (store.state.recipient.email = v)
 })
-const birthDay = computed({
-  get: () => store.state.recipient.birth_day,
-  set: (v: string) => (store.state.recipient.birth_day = v)
-})
 
-const today = computed(() => {
-  const date = new Date()
-  const year = date.getFullYear()
-  const month = String(date.getMonth() + 1).padStart(2, '0')
-  const day = String(date.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
+function formatBirthDayForInput(value: string): string {
+  const raw = String(value || '').trim()
+  const isoMatch = raw.match(/^(\d{4})-(\d{2})-(\d{2})$/)
+
+  if (isoMatch) {
+    return `${isoMatch[3]}.${isoMatch[2]}.${isoMatch[1]}`
+  }
+
+  return maskBirthDayInput(raw)
+}
+
+function maskBirthDayInput(value: string): string {
+  const digits = String(value || '').replace(/\D/g, '').slice(0, 8)
+  const day = digits.slice(0, 2)
+  const month = digits.slice(2, 4)
+  const year = digits.slice(4, 8)
+
+  if (digits.length <= 2) return day
+  if (digits.length <= 4) return `${day}.${month}`
+  return `${day}.${month}.${year}`
+}
+
+const birthDay = computed({
+  get: () => formatBirthDayForInput(store.state.recipient.birth_day),
+  set: (v: string) => (store.state.recipient.birth_day = maskBirthDayInput(v))
 })
 
 /** Другой получатель — храним в store.state */
@@ -158,8 +173,10 @@ watch(() => lastName.value, (v) => {
     <UiInput
       id="checkout-birth-day"
       v-model="birthDay"
-      type="date"
-      :max="today"
+      type="text"
+      inputmode="numeric"
+      :maxlength="10"
+      placeholder="Дата рождения* — ДД.ММ.ГГГГ"
       name="birth_day"
       required
       :error="store.errors.recipient.birth_day"

@@ -6,6 +6,7 @@ import { cartService } from "~/services/cartService";
 import { useAnalytics } from "~/composables/useAnalytics";
 import { useYtm } from "@/composables/useYtm";
 import { getCouponApplyMessage, isCouponApplySuccess } from "@/utils/coupon";
+import { getPreorderRule } from "~/constants/preorderProducts";
 import { createGuestSessionId, getGuestSessionId, removeGuestSessionId, setGuestSessionId } from "~/utils/guestSession";
 import {
   EVOLUTION_SINGLE_DELIVERY_MESSAGE,
@@ -366,6 +367,11 @@ export const useCartStore = defineStore("cart", () => {
 
   /** Добавление товара (оптимистично) */
   async function addToCart(item: CartItem) {
+    const preorderRule = getPreorderRule({ product_id: item.id });
+    if (preorderRule) {
+      throw new Error(preorderRule.cartBlockedMessage);
+    }
+
     if (String(item.id) === EVOLUTION_SINGLE_PRODUCT_ID) {
       if (!isLoaded.value) {
         await loadCart();
@@ -445,6 +451,11 @@ export const useCartStore = defineStore("cart", () => {
         String(i.variantId || "") === String(variantId || ""),
     );
     const beforeQty = Number(before?.quantity ?? 0);
+
+    const preorderRule = getPreorderRule({ product_id: id });
+    if (preorderRule && quantity > beforeQty) {
+      throw new Error(preorderRule.cartBlockedMessage);
+    }
 
     if (
       String(id) === EVOLUTION_SINGLE_PRODUCT_ID &&

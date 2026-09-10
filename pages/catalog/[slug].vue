@@ -30,6 +30,7 @@ import DaigoSpecialSections from "@/components/product/special/DaigoSpecialSecti
 import { getOmegaBundlePageContent } from "~/data/omegaBundlePageContent";
 import {
   isOmegaBundleSlug,
+  OMEGA_BUNDLE_SLUGS,
   type OmegaBundleSlug,
 } from "~/constants/omegaBundles";
 import type { BundleContentSection } from "~/types/product";
@@ -48,6 +49,14 @@ const relatedOmegaBundles: BundleContentSection[] = [
     type: "related-products",
     products: [
       {
+        product_id: "f3972a31-b77c-4bd6-b916-cfdc1f475a04",
+        variant_id: "e0108282-cb3a-4949-81a0-25987ec60d99",
+        slug: "dvizhenie-mysli",
+        title: "Движение мысли. Омега-3 и аминобиотик Brainy",
+        image: "/images/omega-bundle/omega-brainy.jpg",
+        price: 36500,
+      },
+      {
         product_id: "999f9a93-f82e-4614-bad8-17f7b4f42a0a",
         variant_id: "f134ec3f-bd83-49a5-b17e-9de116d48822",
         slug: "obnovlenie-kozhi",
@@ -63,15 +72,9 @@ const relatedOmegaBundles: BundleContentSection[] = [
         image: "/images/omega-bundle/omega-jointic.jpg",
         price: 36500,
       },
-      {
-        product_id: "f3972a31-b77c-4bd6-b916-cfdc1f475a04",
-        variant_id: "e0108282-cb3a-4949-81a0-25987ec60d99",
-        slug: "dvizhenie-mysli",
-        title: "Движение мысли. Омега-3 и аминобиотик Brainy",
-        image: "/images/omega-bundle/omega-brainy.jpg",
-        price: 36500,
-      },
-    ],
+    ].filter((item) =>
+      OMEGA_BUNDLE_SLUGS.includes(item.slug as OmegaBundleSlug),
+    ),
   },
 ];
 
