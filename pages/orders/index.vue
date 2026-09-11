@@ -113,6 +113,10 @@ function fmtPrice(n: number) {
 // Нельзя отменять, если заказ уже отправлен (shipped) и далее по цепочке
 const NON_CANCELABLE: Array<ReturnType<typeof normalizeStatus>> = ['shipped', 'delivered', 'canceled', 'failed']
 
+function canCancelOrder(o: any): boolean {
+  return !NON_CANCELABLE.includes(normalizeStatus(o?.status))
+}
+
 const isOtherReason = computed(() => selectedReason.value === 'other')
 
 const canSubmitCancel = computed(() => {
@@ -122,6 +126,8 @@ const canSubmitCancel = computed(() => {
 })
 
 function openCancelModal(o: any) {
+  if (!canCancelOrder(o)) return
+
   const idForApi = o.order_id ?? o.id ?? o.number
   cancelOrderId.value = idForApi
   selectedReason.value = null
@@ -217,8 +223,9 @@ function closeCancelModal() {
             </button>
 
             <button
+              v-if="canCancelOrder(o)"
               class="px-4 py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white disabled:opacity-50"
-              :disabled="NON_CANCELABLE.includes(normalizeStatus(o.status)) || busyId===(o.id ?? o.order_id ?? o.number)"
+              :disabled="busyId===(o.id ?? o.order_id ?? o.number)"
               @click="openCancelModal(o)"
             >
               {{ busyId===(o.id ?? o.order_id ?? o.number) ? 'Отменяем…' : 'Отменить заказ' }}

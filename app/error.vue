@@ -1,81 +1,69 @@
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useError, clearError } from '#imports'
+import BaseContainer from '~/components/layout/BaseContainer.vue'
+import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
+import FooterDesctop from '~/components/layout/FooterDesctop.vue'
+import MobileNav from '~/components/MobileNav.vue'
+
+const err = useError()
+const statusCode = computed(() => (err.value as any)?.statusCode || 500)
+const is404 = computed(() => statusCode.value === 404)
+
+const goHome = () => clearError({ redirect: '/' })
+const goCatalog = () => clearError({ redirect: '/catalog' })
+const goProfile = () => clearError({ redirect: '/profile' })
+</script>
+
 <template>
-  <div class="min-h-[70vh] bg-white">
-    <BaseContainer>
-      <div class="py-16 sm:py-24">
-        <div class="max-w-[720px]">
-          <p class="text-sm font-medium text-gray-500">Ошибка {{ statusCode }}</p>
-          <h1 class="mt-3 text-3xl sm:text-5xl font-semibold leading-tight">
-            {{ title }}
+  <div class="flex min-h-screen w-full flex-col bg-white">
+    <header>
+      <BaseContainer>
+        <NavbarDesctop />
+      </BaseContainer>
+    </header>
+
+    <main class="flex flex-1 items-center py-12 sm:py-16 lg:py-20">
+      <BaseContainer>
+        <section class="mx-auto w-full max-w-[860px] text-center">
+          <div
+            class="text-[112px] font-medium leading-[0.82] tracking-[-0.07em] text-primary sm:text-[168px] lg:text-[220px]"
+            aria-hidden="true"
+          >
+            {{ statusCode }}
+          </div>
+
+          <h1 class="mt-7 text-3xl font-medium leading-tight sm:text-4xl lg:text-5xl">
+            {{ is404 ? 'Страница не найдена' : 'Произошла ошибка' }}
           </h1>
-          <p class="mt-5 text-base sm:text-lg text-gray-600 leading-relaxed">
-            {{ description }}
+
+          <p class="mx-auto mt-4 max-w-[620px] text-base leading-relaxed text-black/55 sm:text-lg">
+            <template v-if="is404">
+              Возможно, страница была перемещена или адрес указан неверно. Перейдите на главную страницу или в каталог.
+            </template>
+            <template v-else>
+              Попробуйте обновить страницу. Если проблема повторяется, вернитесь немного позже.
+            </template>
           </p>
 
-          <div class="mt-8 flex flex-wrap gap-3">
-            <button
-              class="px-5 py-3 rounded-xl bg-black text-white hover:opacity-90"
-              @click="goHome"
-            >
+          <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <button type="button" class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90" @click="goHome">
               На главную
             </button>
-
-            <NuxtLink
-              to="/catalog"
-              class="px-5 py-3 rounded-xl border border-gray-200 hover:border-gray-300"
-            >
+            <button type="button" class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90" @click="goCatalog">
               В каталог
-            </NuxtLink>
-
-            <NuxtLink
-              to="/profile"
-              class="px-5 py-3 rounded-xl border border-gray-200 hover:border-gray-300"
-            >
+            </button>
+            <button type="button" class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90" @click="goProfile">
               Профиль
-            </NuxtLink>
+            </button>
           </div>
+        </section>
+      </BaseContainer>
+    </main>
 
-          <div v-if="details" class="mt-10 rounded-2xl bg-gray-50 p-5">
-            <p class="text-xs font-medium text-gray-500">Техническая информация</p>
-            <pre class="mt-2 whitespace-pre-wrap text-xs text-gray-600">{{ details }}</pre>
-          </div>
-        </div>
-      </div>
+    <BaseContainer>
+      <FooterDesctop />
+      <MobileNav class="block lg:hidden" />
     </BaseContainer>
   </div>
 </template>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useError, clearError, useRoute } from '#imports'
-import BaseContainer from '~/components/layout/BaseContainer.vue'
-
-const err = useError()
-const route = useRoute()
-
-const statusCode = computed(() => (err.value as any)?.statusCode || 500)
-
-const title = computed(() => {
-  if (statusCode.value === 404) return 'Страница не найдена'
-  return 'Произошла ошибка'
-})
-
-const description = computed(() => {
-  if (statusCode.value === 404) {
-    return `Мы не нашли страницу по адресу “${route.fullPath}”. Проверьте ссылку или перейдите в каталог.`
-  }
-  return 'Попробуйте обновить страницу. Если проблема повторяется — вернитесь позже.'
-})
-
-// В продакшене технические детали обычно не показывают.
-// В дев-режиме Nuxt всё равно покажет оверлей, но пусть будет компактно.
-const details = computed(() => {
-  const e: any = err.value
-  if (!e) return ''
-  const msg = e.message || e.statusMessage || ''
-  return msg ? String(msg) : ''
-})
-
-const goHome = () => {
-  clearError({ redirect: '/' })
-}
-</script>

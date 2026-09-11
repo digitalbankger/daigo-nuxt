@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { NuxtError } from '#app'
+import BaseContainer from '~/components/layout/BaseContainer.vue'
+import NavbarDesctop from '~/components/layout/NavbarDesctop.vue'
+import FooterDesctop from '~/components/layout/FooterDesctop.vue'
+import MobileNav from '~/components/MobileNav.vue'
 
 const props = defineProps<{ error: NuxtError }>()
 
@@ -17,27 +21,66 @@ const goProfile = () => clearError({ redirect: '/profile' })
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center px-6 bg-white">
-    <div class="max-w-xl w-full text-center">
-      <div class="text-7xl font-bold">
-        {{ statusCode }}
-      </div>
+  <div class="flex min-h-screen w-full flex-col bg-white">
+    <header>
+      <BaseContainer>
+        <NavbarDesctop />
+      </BaseContainer>
+    </header>
 
-      <div class="mt-4 text-2xl font-semibold">
-        {{ is404 ? 'Страница не найдена' : 'Произошла ошибка' }}
-      </div>
+    <main class="flex flex-1 items-center py-12 sm:py-16 lg:py-20">
+      <BaseContainer>
+        <section class="mx-auto w-full max-w-[860px] text-center">
+          <div
+            class="text-[112px] font-medium leading-[0.82] tracking-[-0.07em] text-primary sm:text-[168px] lg:text-[220px]"
+            aria-hidden="true"
+          >
+            {{ statusCode }}
+          </div>
 
-      <div class="mt-2 text-gray-500">
-        <span v-if="is404">Неверный адрес:</span>
-        <span v-else>Детали:</span>
-        <span class="break-all"> {{ (error as any)?.url || '' }}</span>
-      </div>
+          <h1 class="mt-7 text-3xl font-medium leading-tight sm:text-4xl lg:text-5xl">
+            {{ is404 ? 'Страница не найдена' : 'Произошла ошибка' }}
+          </h1>
 
-      <div class="mt-8 flex flex-wrap gap-3 justify-center">
-        <button class="px-5 py-2 rounded-lg border" @click="goHome">На главную</button>
-        <button class="px-5 py-2 rounded-lg border" @click="goCatalog">Каталог</button>
-        <button class="px-5 py-2 rounded-lg border" @click="goProfile">Профиль</button>
-      </div>
-    </div>
+          <p class="mx-auto mt-4 max-w-[620px] text-base leading-relaxed text-black/55 sm:text-lg">
+            <template v-if="is404">
+              Возможно, страница была перемещена или адрес указан неверно. Перейдите на главную страницу или в каталог.
+            </template>
+            <template v-else>
+              Попробуйте обновить страницу. Если проблема повторяется, вернитесь немного позже.
+            </template>
+          </p>
+
+          <div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <button
+              type="button"
+              class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              @click="goHome"
+            >
+              На главную
+            </button>
+            <button
+              type="button"
+              class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              @click="goCatalog"
+            >
+              В каталог
+            </button>
+            <button
+              type="button"
+              class="min-w-[160px] rounded-xl bg-primary px-6 py-3 text-sm font-medium text-white transition hover:opacity-90"
+              @click="goProfile"
+            >
+              Профиль
+            </button>
+          </div>
+        </section>
+      </BaseContainer>
+    </main>
+
+    <BaseContainer>
+      <FooterDesctop />
+      <MobileNav class="block lg:hidden" />
+    </BaseContainer>
   </div>
 </template>

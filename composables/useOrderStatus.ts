@@ -32,6 +32,13 @@ export function normalizeStatus(raw?: string): OrderStatusKey {
   if (s === 'payment_done' || s === 'payment_success') return 'paid'
   if (s === 'in_way') return 'shipped'
   if (s === 'received') return 'delivered'
+  if (
+    s === 'cancelled' ||
+    s === 'cancelled_by_user' ||
+    s === 'canceled_by_user' ||
+    s === 'отменен' ||
+    s === 'отменён'
+  ) return 'canceled'
 
   if (s in MAP) return s as OrderStatusKey
   return 'unknown'

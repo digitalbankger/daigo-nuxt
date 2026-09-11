@@ -5,6 +5,7 @@ import BaseCheckbox from "~/components/ui/BaseCheckbox.vue";
 import expertImage from "~/assets/images/consultation/expert-reference.png";
 import { useBodyScrollLock } from "~/composables/useBodyScrollLock";
 import { useAnalytics } from "~/composables/useAnalytics";
+import { useFeedback } from "~/composables/useFeedback";
 
 const props = withDefaults(defineProps<{
   productId: string | number;
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<{
 });
 
 const analytics = useAnalytics();
+const { send: sendFeedback, error: feedbackError } = useFeedback();
 const isOpen = ref(false);
 const isSubmitting = ref(false);
 const isSuccess = ref(false);
@@ -124,15 +126,16 @@ async function submit() {
   isSubmitting.value = true;
 
   try {
-    await $fetch("/api/feedback/consultation", {
-      method: "POST",
-      body: {
-        type: "product",
-        product_id: normalizedProductId.value,
-        phone_number: normalizePhone(form.phone),
-        name: form.name.trim(),
-      },
+    const productLabel = props.productTitle?.trim() || "товар Daigo";
+    const response = await sendFeedback({
+      fio: form.name.trim(),
+      phone_number: `+${normalizePhone(form.phone)}`,
+      message: `Консультация по товару: ${productLabel}. ID товара: ${normalizedProductId.value}`,
     });
+
+    if (!response.success) {
+      throw new Error(feedbackError.value || "Не удалось отправить заявку");
+    }
 
     analytics.reach("product_consultation_submit", {
       form: "product_consultation",
@@ -148,6 +151,7 @@ async function submit() {
     submitError.value =
       error?.data?.message ||
       error?.statusMessage ||
+      error?.message ||
       "Не удалось отправить заявку. Попробуйте ещё раз.";
   } finally {
     isSubmitting.value = false;

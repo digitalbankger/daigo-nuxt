@@ -1,7 +1,23 @@
 // server/api/feedback/callback.post.ts
 import { defineEventHandler, readBody } from 'h3'
 
-type CallbackReq = { fio: string; phone_number: string; message: string; roistat?: string }
+type CallbackUtmReq = {
+  source?: string
+  medium?: string
+  term?: string
+  content?: string
+  campaign?: string
+}
+
+type CallbackReq = {
+  fio: string
+  phone_number: string
+  message: string
+  subject?: string | null
+  utm?: CallbackUtmReq
+  roistat?: string
+}
+
 type GoResp = { success: boolean; lead_id?: number; message?: string }
 
 export default defineEventHandler(async (event) => {
@@ -11,14 +27,13 @@ export default defineEventHandler(async (event) => {
     return { success: false, message: 'Все поля обязательны' }
   }
 
-  // ⬅️ БЕРЁМ ИЗ public
   const { public: { daigoApiBase } } = useRuntimeConfig()
 
   try {
     const res = await $fetch<GoResp>('/v1/shop/feedback/callback', {
-      baseURL: daigoApiBase, // например https://api.daigo.ru
+      baseURL: daigoApiBase,
       method: 'POST',
-      body
+      body,
     })
     return res
   } catch (e: any) {
