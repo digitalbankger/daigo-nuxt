@@ -141,7 +141,7 @@ export function mergeCatalogFilters(...sources: CatalogFilterValues[]): CatalogF
 export function catalogFiltersToApiQuery(filters: CatalogFilterValues): Record<string, string> {
   const query: Record<string, string> = {}
 
-  for (const [key, values] of Object.entries(normalizeCatalogFilters(filters))) {
+  for (const [key, values] of Object.entries(normalizeExclusiveCatalogSeoFilters(filters))) {
     if (values.length) query[key] = values.join(',')
   }
 
@@ -153,10 +153,10 @@ export type CatalogPrimarySeoSelection = {
   value: string
 }
 
-// В каталоге индексируем только ОДИН SEO-сегмент после /catalog.
-// Приоритет: «Направления» → «Помогает при». Если одновременно выбраны
-// несколько SEO-фильтров, только первый становится ЧПУ, остальные остаются query.
-// Это гарантирует максимальную глубину: /catalog/<slug>.
+// В каталоге активен только ОДИН навигационный SEO-фильтр:
+// либо «Направления», либо «Помогает при». При старом/ручном URL с несколькими
+// значениями выбирается один основной фильтр; остальные SEO-значения отбрасываются.
+// Это гарантирует максимальную глубину ЧПУ: /catalog/<slug>.
 export function getCatalogPrimarySeoSelection(
   filters: CatalogFilterValues,
 ): CatalogPrimarySeoSelection | null {
@@ -173,6 +173,44 @@ export function getCatalogPrimarySeoSelection(
   return null
 }
 
+
+export function normalizeExclusiveCatalogSeoFilters(
+  filters: CatalogFilterValues,
+  preferred: CatalogPrimarySeoSelection | null = null,
+): CatalogFilterValues {
+  const normalized = normalizeCatalogFilters(filters)
+
+  const preferredIsSelected = Boolean(
+    preferred
+      && normalized[preferred.key]?.includes(preferred.value)
+      && isCatalogSeoFilterValue(preferred.key, preferred.value),
+  )
+
+  const active = preferredIsSelected
+    ? preferred
+    : getCatalogPrimarySeoSelection(normalized)
+
+  for (const key of CATALOG_SEO_FILTER_KEYS) delete normalized[key]
+
+  if (active) normalized[active.key] = [active.value]
+
+  return normalized
+}
+
+export function selectExclusiveCatalogSeoFilter(
+  filters: CatalogFilterValues,
+  key: CatalogSeoFilterKey,
+  value: string,
+): CatalogFilterValues {
+  const normalized = normalizeCatalogFilters(filters)
+
+  for (const seoKey of CATALOG_SEO_FILTER_KEYS) delete normalized[seoKey]
+
+  if (isCatalogSeoFilterValue(key, value)) normalized[key] = [value]
+
+  return normalized
+}
+
 export function buildCatalogSeoPath(filters: CatalogFilterValues): string {
   const primary = getCatalogPrimarySeoSelection(filters)
   return primary ? `/catalog/${encodeURIComponent(primary.value)}` : '/catalog'
@@ -182,7 +220,7 @@ export function buildCatalogFilterLocation(filters: CatalogFilterValues): {
   path: string
   query: Record<string, string>
 } {
-  const normalized = normalizeCatalogFilters(filters)
+  const normalized = normalizeExclusiveCatalogSeoFilters(filters)
   const primary = getCatalogPrimarySeoSelection(normalized)
   const query: Record<string, string> = {}
 

@@ -30,6 +30,9 @@ import {
   catalogFiltersToApiQuery,
   mergeCatalogFilters,
   normalizeCatalogFilters,
+  normalizeExclusiveCatalogSeoFilters,
+  selectExclusiveCatalogSeoFilter,
+  stableCatalogFiltersKey,
   parseCatalogFilterValues,
   parseCatalogQueryFilters,
   parseCatalogSeoPathSegments,
@@ -79,12 +82,21 @@ const allowedFilterSlugs = computed(
   () => new Set(catalogStore.filters.map((group) => group.slug)),
 );
 
-const normalizedFilters = computed<CatalogFilterValues>(() =>
+const rawRouteFilters = computed<CatalogFilterValues>(() =>
   mergeCatalogFilters(
     parseCatalogSeoPathSegments(route.params.filters),
     parseCatalogQueryFilters(route.query as Record<string, unknown>, allowedFilterSlugs.value),
   ),
 );
+
+const normalizedFilters = computed<CatalogFilterValues>(() => {
+  const pathFilters = parseCatalogSeoPathSegments(route.params.filters);
+
+  return normalizeExclusiveCatalogSeoFilters(
+    rawRouteFilters.value,
+    getCatalogPrimarySeoSelection(pathFilters),
+  );
+});
 
 const normalizedQuery = computed(() =>
   catalogFiltersToApiQuery(normalizedFilters.value),
@@ -254,8 +266,11 @@ function isDirectionQuickFilterActive(value: string) {
 }
 
 function applyQuickFilter(key: string, value: string) {
-  const filters = normalizeCatalogFilters(normalizedFilters.value);
-  filters[key] = [value];
+  const filters = selectExclusiveCatalogSeoFilter(
+    normalizeCatalogFilters(normalizedFilters.value),
+    key as 'napravlennost' | 'pomogaet-pri',
+    value,
+  );
   const location = buildCatalogFilterLocation(filters);
   router.push({ path: location.path, query: location.query, hash: route.hash });
 }
@@ -317,11 +332,21 @@ watch(
 );
 
 watch(
-  () => route.query,
+  () => [route.path, route.query],
   () => {
-    if (!hasDeprecatedCatalogQuery(route.query)) return;
+    const hasConflictingSeoFilters =
+      stableCatalogFiltersKey(rawRouteFilters.value) !==
+      stableCatalogFiltersKey(normalizedFilters.value);
+
+    if (!hasDeprecatedCatalogQuery(route.query) && !hasConflictingSeoFilters) return;
+
     const location = buildCatalogFilterLocation(normalizedFilters.value);
-    router.replace({ path: location.path, query: location.query, hash: route.hash });
+    const tracking = getCatalogTrackingQuery(route.query as Record<string, unknown>);
+    router.replace({
+      path: location.path,
+      query: { ...location.query, ...tracking },
+      hash: route.hash,
+    });
   },
   { immediate: true, deep: true },
 );

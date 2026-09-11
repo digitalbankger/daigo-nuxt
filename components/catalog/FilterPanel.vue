@@ -75,7 +75,9 @@ import Button from '~/components/ui/Button.vue'
 import {
   buildCatalogFilterLocation,
   getCatalogTrackingQuery,
+  getCatalogPrimarySeoSelection,
   mergeCatalogFilters,
+  normalizeExclusiveCatalogSeoFilters,
   parseCatalogQueryFilters,
   parseCatalogSeoPathSegments,
   stableCatalogFiltersKey,
@@ -114,6 +116,19 @@ function isSelected(groupSlug: string, value: string) {
 
 function toggleOption(groupSlug: string, value: string) {
   if (!Array.isArray(selected[groupSlug])) selected[groupSlug] = []
+
+  // «Направления» и «Помогает при» — навигационные SEO-фильтры.
+  // Они взаимоисключающие: одновременно может быть выбран только один пункт
+  // из обеих групп. Остальные checkbox-фильтры остаются мультивыбором.
+  if (isPlainListGroup(groupSlug)) {
+    const wasSelected = selected[groupSlug].includes(value)
+
+    for (const seoGroup of PLAIN_LIST_GROUPS) selected[seoGroup] = []
+
+    if (!wasSelected) selected[groupSlug] = [value]
+    return
+  }
+
   const index = selected[groupSlug].indexOf(value)
   if (index === -1) selected[groupSlug].push(value)
   else selected[groupSlug].splice(index, 1)
@@ -127,13 +142,21 @@ function cleanedSelected(): CatalogFilterValues {
     if (Array.isArray(values) && values.length) clean[key] = [...values]
   }
 
-  return clean
+  return normalizeExclusiveCatalogSeoFilters(clean)
 }
 
 function currentRouteFilters(): CatalogFilterValues {
-  return mergeCatalogFilters(
-    parseCatalogSeoPathSegments(route.params.filters),
+  const pathFilters = parseCatalogSeoPathSegments(route.params.filters)
+  const merged = mergeCatalogFilters(
+    pathFilters,
     parseCatalogQueryFilters(route.query as Record<string, unknown>, allowedSlugs.value),
+  )
+
+  // Если открыт старый URL с двумя SEO-фильтрами, сохраняем фильтр из ЧПУ
+  // и не показываем одновременно второе активное значение из query.
+  return normalizeExclusiveCatalogSeoFilters(
+    merged,
+    getCatalogPrimarySeoSelection(pathFilters),
   )
 }
 
