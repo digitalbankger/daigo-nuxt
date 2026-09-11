@@ -875,7 +875,7 @@ useHead(() => {
             <Button
               tp="/articles"
               variant="outline"
-              class="!text-white !border-white hover:!text-black !bg-white hover:bg-white !text-xs md:!text-lg !px-2 h-8 md:h-12 w-40 md:w-60"
+              class="!text-black !border-white hover:!text-black !bg-white hover:bg-white !text-xs md:!text-lg !px-2 h-8 md:h-12 w-40 md:w-60"
             >
               Перейти к статьям
             </Button>
