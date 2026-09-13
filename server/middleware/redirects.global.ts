@@ -31,7 +31,7 @@ const RAW_PATH_REDIRECTS: Record<string, string> = {
   '/catalog/usilennyy-kurs-kishechnik-mozg/': '/catalog/nabory/usilennyy-kurs-kishechnik-mozg/',
   '/catalog/vosstanovlenie-kognitivnykh-funktsiy/': '/catalog/nabory/vosstanovlenie-kognitivnykh-funktsiy/',
   '/catalog/polnyy-nabor-zdorovya-ot-daygo/': '/catalog/nabory/polnyy-nabor-zdorovya-ot-daygo/',
-  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-ot-daygo/', // <-- fixed "ot"
+  '/catalog/pol-goda-zdorovya-ot-daygo/': '/catalog/nabory/pol-goda-zdorovya-ot-daygo/',
   '/catalog/12-mesyatsev-priema-daigo/': '/catalog/metabiotik/12-mesyatsev-priema-daigo/',
   '/catalog/podarochnyy-nabor-daigo-samurai/': '/catalog/nabory/podarochnyy-nabor-daigo-samurai/',
   '/catalog/business-box/': '/catalog/nabory/business-box/',
@@ -114,6 +114,7 @@ function buildRedirectLocation(pathname: string, params: URLSearchParams) {
 // ===== ВРЕМЕННЫЕ SEO-РЕДИРЕКТЫ: ТОЛЬКО 307 ДЛЯ ТЕСТА =====
 // После проверки этот блок можно механически переключить на 301.
 const SEO_TEST_REDIRECT_CODE = 307
+
 const REMOVED_CATALOG_FILTER_KEYS = new Set(['klass-produkta'])
 const CATALOG_SERVICE_KEYS = new Set(['page', 'empty', 'page_size', 'limit', 'no_total', 'for'])
 
@@ -263,7 +264,9 @@ export default defineEventHandler((event) => {
 
   // --- START: временный отдельный блок новых SEO redirect rules (307) ---
   const articlePaginationTarget = buildArticlesPaginationRedirect(url, pathname)
-  if (articlePaginationTarget) return sendRedirect(event, articlePaginationTarget, SEO_TEST_REDIRECT_CODE)
+  if (articlePaginationTarget) {
+    return sendRedirect(event, articlePaginationTarget, SEO_TEST_REDIRECT_CODE)
+  }
 
   const articleTrailingSlashTarget = buildArticleTrailingSlashRedirect(url, pathname)
   if (articleTrailingSlashTarget) return sendRedirect(event, articleTrailingSlashTarget, SEO_TEST_REDIRECT_CODE)
