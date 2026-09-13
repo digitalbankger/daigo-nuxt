@@ -192,7 +192,7 @@ export default defineNuxtConfig({
     prerender: {
       // /articles + каждый JSON из content/articles-json превращаются в статический HTML
       // во время pnpm build. Новый JSON автоматически попадёт в следующий деплой.
-      routes: ["/articles", ...articlePaginationPrerenderRoutes, ...articlePrerenderRoutes],
+      routes: [...articlePaginationPrerenderRoutes, ...articlePrerenderRoutes],
       crawlLinks: false,
       failOnError: true,
     },
