@@ -52,15 +52,15 @@ const STATIC_ROUTES: SitemapEntry[] = [
   { loc: '/otzyvy/type/daigo-text', changefreq: 'weekly', priority: 0.65 },
   { loc: '/faq', changefreq: 'monthly', priority: 0.7 },
   { loc: '/dostavka', changefreq: 'monthly', priority: 0.7 },
-  { loc: '/oplata', changefreq: 'monthly', priority: 0.7 },
+  // { loc: '/oplata', changefreq: 'monthly', priority: 0.7 },
   { loc: '/contacts', changefreq: 'monthly', priority: 0.65 },
-  { loc: '/privacy', changefreq: 'yearly', priority: 0.35 },
-  { loc: '/user-agreement', changefreq: 'yearly', priority: 0.35 },
-  { loc: '/terms-sale', changefreq: 'yearly', priority: 0.35 },
-  { loc: '/usloviya-dostavki', changefreq: 'yearly', priority: 0.35 },
-  { loc: '/usloviya-vozvrata-i-obmena', changefreq: 'yearly', priority: 0.35 },
-  { loc: '/soglasie-na-obrabotku-personalnykh-dannykh', changefreq: 'yearly', priority: 0.3 },
-  { loc: '/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok', changefreq: 'yearly', priority: 0.3 },
+  // { loc: '/privacy', changefreq: 'yearly', priority: 0.35 },
+  // { loc: '/user-agreement', changefreq: 'yearly', priority: 0.35 },
+  // { loc: '/terms-sale', changefreq: 'yearly', priority: 0.35 },
+  // { loc: '/usloviya-dostavki', changefreq: 'yearly', priority: 0.35 },
+  // { loc: '/usloviya-vozvrata-i-obmena', changefreq: 'yearly', priority: 0.35 },
+  // { loc: '/soglasie-na-obrabotku-personalnykh-dannykh', changefreq: 'yearly', priority: 0.3 },
+  // { loc: '/soglasie-na-poluchenie-informatsionnykh-i-reklamnykh-rassylok', changefreq: 'yearly', priority: 0.3 },
 ]
 
 const STATIC_ARTICLE_ROUTES: SitemapEntry[] = [
