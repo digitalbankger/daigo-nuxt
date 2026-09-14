@@ -43,9 +43,9 @@ useHead({
   ],
 })
 
-definePageMeta({
-  layout: 'five-ml',
-})
+// definePageMeta({
+//   layout: 'five-ml',
+// })
 
 const productStore = useProductStore()
 const cartStore = useCartStore()

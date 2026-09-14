@@ -1,7 +1,7 @@
 export const WEEKLY_PRODUCT_SLUGS = [
-  'meta-napitok-daigo-evolution-mg10',
-  'metabiotik-daigo',
-  'daigo-jointic',
+  // 'meta-napitok-daigo-evolution-mg10',
+  // 'metabiotik-daigo',
+  // 'daigo-jointic',
 ] as const
 
 export type WeeklyProductSlug =
