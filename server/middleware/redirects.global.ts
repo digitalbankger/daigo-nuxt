@@ -113,7 +113,7 @@ function buildRedirectLocation(pathname: string, params: URLSearchParams) {
 
 // ===== ВРЕМЕННЫЕ SEO-РЕДИРЕКТЫ: ТОЛЬКО 307 ДЛЯ ТЕСТА =====
 // После проверки этот блок можно механически переключить на 301.
-const SEO_TEST_REDIRECT_CODE = 307
+const SEO_TEST_REDIRECT_CODE = 301
 
 const REMOVED_CATALOG_FILTER_KEYS = new Set(['klass-produkta'])
 const CATALOG_SERVICE_KEYS = new Set(['page', 'empty', 'page_size', 'limit', 'no_total', 'for'])
