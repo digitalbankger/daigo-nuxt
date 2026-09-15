@@ -31,7 +31,7 @@ onMounted(() => {
 
         <NuxtLink
           to="/catalog"
-          class="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg bg-[#1B1B1B] px-3 text-sm font-medium text-white transition hover:bg-black/80 sm:h-10 sm:px-4 sm:text-base"
+          class="inline-flex h-9 shrink-0 items-center gap-2 rounded-lg bg-[#4f8eff] px-3 text-sm font-medium text-white transition hover:bg-[#3f7fe8] sm:h-10 sm:px-4 sm:text-base"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -40,11 +40,23 @@ onMounted(() => {
         </NuxtLink>
       </div>
 
-      <div class="flex shrink-0 items-center gap-2 sm:gap-5">
+      <div class="flex shrink-0 items-center gap-1.5 sm:gap-4 lg:gap-5">
+        <a
+          :href="companyContacts.mainPhone.href"
+          data-ym="header-phone-mobile"
+          class="inline-flex items-center gap-1 text-[11px] font-medium text-black transition hover:text-[#4f8eff] sm:text-sm md:hidden"
+          :aria-label="`Позвонить ${companyContacts.mainPhone.display}`"
+        >
+          <svg class="h-3.5 w-3.5 shrink-0" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M7.2 3.5 9.4 8l-2 1.8c1 2.1 2.7 3.8 4.8 4.8l1.8-2 4.5 2.2-.5 3.4c-.2 1.2-1.2 2.1-2.4 2.1C9 20.3 3.7 15 3.7 8.4c0-1.2.9-2.2 2.1-2.4l1.4-.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <span>{{ companyContacts.mainPhone.display }}</span>
+        </a>
+
         <a
           :href="companyContacts.mainPhone.href"
           data-ym="header-phone"
-          class="hidden items-center gap-2 text-sm text-black transition hover:text-black/60 md:flex lg:text-base"
+          class="hidden items-center gap-2 text-sm text-black transition hover:text-[#4f8eff] md:flex lg:text-base"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M7.2 3.5 9.4 8l-2 1.8c1 2.1 2.7 3.8 4.8 4.8l1.8-2 4.5 2.2-.5 3.4c-.2 1.2-1.2 2.1-2.4 2.1C9 20.3 3.7 15 3.7 8.4c0-1.2.9-2.2 2.1-2.4l1.4-.2Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>

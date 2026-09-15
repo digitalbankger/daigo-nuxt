@@ -472,23 +472,23 @@ useHead(() => {
               "@id": `${buildCatalogCanonicalHref()}#products`,
               name: title,
               numberOfItems: analyticsProducts.value.length,
+              // На странице списка не размечаем каждую карточку как Product.
+              // Google валидирует любой Product как отдельный товар и требует
+              // хотя бы offers / review / aggregateRating. Для каталога семантически
+              // корректнее ItemList + ListItem, а полноценный Product JSON-LD
+              // остаётся только на детальной странице товара.
               itemListElement: analyticsProducts.value.map((product, index) => ({
                 "@type": "ListItem",
                 position: index + 1,
+                name: product.name,
                 url: `https://daigo.ru/catalog/${product.slug}`,
-                item: {
-                  "@type": "Product",
-                  "@id": `https://daigo.ru/catalog/${product.slug}#product`,
-                  name: product.name,
-                  url: `https://daigo.ru/catalog/${product.slug}`,
-                  ...(product.image
-                    ? {
-                        image: String(product.image).startsWith("http")
-                          ? product.image
-                          : `https://daigo.ru${product.image}`,
-                      }
-                    : {}),
-                },
+                ...(product.image
+                  ? {
+                      image: String(product.image).startsWith("http")
+                        ? product.image
+                        : `https://daigo.ru${product.image}`,
+                    }
+                  : {}),
               })),
             },
           ],

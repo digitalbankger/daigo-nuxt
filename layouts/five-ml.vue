@@ -15,7 +15,7 @@ const ui = useUiStore()
   >
     <HeadInformer
       v-if="ui.isHeadInformerVisible"
-      background-color="#1B1B1B"
+      background-color="#4f8eff"
       @close="ui.closeHeadInformer"
     />
 

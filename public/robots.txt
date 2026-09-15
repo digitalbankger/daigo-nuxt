@@ -1,31 +1,9 @@
 User-agent: Yandex
-
-# --- Служебные и закрытые разделы ---
-Disallow: /thanks/
 Disallow: /cart/
 Disallow: /profile/
 Disallow: /orders/
-Disallow: /oplata/
-Disallow: /usloviya-dostavki/
-Disallow: /user-agreement/
-Disallow: /privacy/
-Disallow: /terms-sale
-Disallow: /usloviya-vozvrata-i-obmena
-Disallow: /soglasie-na-
-Disallow: /bonusopad
-Disallow: /konkurs
-Disallow: /akcii?
 
-# --- Временно: старые SEO-URL должны быть доступны роботу, чтобы он увидел 307 ---
-Allow: /catalog?*napravlennost=*
-Allow: /catalog?*pomogaet-pri=*
-Allow: /catalog?*klass-produkta=*
-Allow: /articles?*page=*
-
-# --- Блокировка остальных URL с параметрами ---
-Disallow: /*?*
-
-# --- Дополнительная очистка от явного мусора ---
+# --- Блокировка мусорных параметров ---
 Disallow: /*utm_
 Disallow: /*etext=
 Disallow: /*ybaip=
@@ -41,35 +19,25 @@ Disallow: /*?yqrid
 Disallow: /*?retarget
 Disallow: /*?add-to-cart
 
-# Чистые /catalog/... и /articles/... не запрещаем:
-# они индексируются по умолчанию и не конфликтуют с Disallow: /*?*.
+# --- Общий запрет на параметры (для отсечения мусора) ---
+Disallow: /*?*
+
+# --- Разрешения для фильтров статей (включая наборные) ---
+Allow: /articles?*napravlennost=*
+Allow: /articles?*pomogaet-pri=*
+Allow: /articles?*klass-produkta=*
+Allow: /articles?*produkty=*
+Allow: /articles?*sostav=*
+
 Disallow: /?*
 Allow: /$
 
 User-agent: *
-
-Disallow: /thanks/
 Disallow: /cart/
 Disallow: /profile/
 Disallow: /orders/
-Disallow: /oplata/
-Disallow: /usloviya-dostavki/
-Disallow: /user-agreement/
-Disallow: /privacy/
-Disallow: /terms-sale
-Disallow: /usloviya-vozvrata-i-obmena
-Disallow: /soglasie-na-
-Disallow: /bonusopad
-Disallow: /konkurs
-Disallow: /akcii?
 
-# Временно для миграции старых URL на ЧПУ (307 на этапе теста)
-Allow: /catalog?*napravlennost=*
-Allow: /catalog?*pomogaet-pri=*
-Allow: /catalog?*klass-produkta=*
-Allow: /articles?*page=*
-
-Disallow: /*?*
+# --- Блокировка мусорных параметров ---
 Disallow: /*utm_
 Disallow: /*etext=
 Disallow: /*ybaip=
@@ -84,6 +52,16 @@ Disallow: /*?yclyyd
 Disallow: /*?yqrid
 Disallow: /*?retarget
 Disallow: /*?add-to-cart
+
+# --- Общий запрет на параметры (для отсечения мусора) ---
+Disallow: /*?*
+
+# --- Разрешения для фильтров статей (включая наборные) ---
+Allow: /articles?*napravlennost=*
+Allow: /articles?*pomogaet-pri=*
+Allow: /articles?*klass-produkta=*
+Allow: /articles?*produkty=*
+Allow: /articles?*sostav=*
 
 Disallow: /?*
 Allow: /$

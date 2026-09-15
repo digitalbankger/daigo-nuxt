@@ -468,6 +468,15 @@ const productJsonLd = computed(() => {
       },
     }));
 
+  // Для Google Product snippets один Product должен содержать хотя бы один
+  // коммерческий/рейтинговый сигнал: offers, review или aggregateRating.
+  // Если цена и отзывы временно не пришли с API, лучше не отдавать невалидный
+  // Product JSON-LD, чем создавать критическую ошибку в Search Console.
+  const hasAggregateRating = reviewCount > 0 && ratingValue > 0;
+  if (!offers.length && !reviewsJsonLd.length && !hasAggregateRating) {
+    return null;
+  }
+
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -483,7 +492,7 @@ const productJsonLd = computed(() => {
     ...(currentProduct.category ? { category: currentProduct.category } : {}),
     ...(images.length ? { image: images } : {}),
     ...(offers.length ? { offers } : {}),
-    ...(reviewCount > 0 && ratingValue > 0
+    ...(hasAggregateRating
       ? {
           aggregateRating: {
             "@type": "AggregateRating",

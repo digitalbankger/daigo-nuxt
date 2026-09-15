@@ -26,6 +26,26 @@
   @keyframes daigoFade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;} }
   @keyframes daigoMarquee{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
   image-slot{ display:block; width:100%; height:100%; }
+
+  /* Carousel interaction: horizontal swipe/drag without stealing vertical page scroll. */
+  [data-mobile-carousel]{
+    flex-wrap:nowrap !important;
+    overflow-x:auto !important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    scroll-behavior:smooth;
+    touch-action:pan-x pan-y pinch-zoom;
+    overscroll-behavior-x:contain;
+    cursor:grab;
+  }
+  [data-mobile-carousel]::-webkit-scrollbar{ display:none; }
+  [data-mobile-carousel] > *{ flex:0 0 auto !important; }
+  [data-mobile-carousel] img,
+  [data-mobile-carousel] video,
+  [data-mobile-carousel] image-slot{ touch-action:pan-x pan-y pinch-zoom !important; }
+  [data-mobile-carousel] image-slot::part(image){ touch-action:pan-x pan-y pinch-zoom !important; }
+  [data-mobile-carousel].is-dragging{ cursor:grabbing; user-select:none; }
+  @media (max-width:1100px){ [data-mobile-carousel]{ justify-content:flex-start !important; } }
   html, body{ overflow-x:clip; }
 
   /* viewport tweak: device-frame preview on a desktop canvas */
@@ -92,7 +112,7 @@
   .daigo-mobile [data-cmp-row]{ display:grid !important; grid-template-columns:128px 190px 148px 148px 148px !important; min-width:762px !important; border-top:1px solid #EAEAEA !important; padding:0 !important; }
   .daigo-mobile [data-cmp-row] > div{ padding:13px 14px !important; font-size:12.5px !important; }
   .daigo-mobile [data-cmp-row] > div:nth-child(n+2)::before{ display:none !important; content:none !important; }
-  .daigo-mobile [data-cmp-head] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:3 !important; background:#1B1B1B !important; }
+  .daigo-mobile [data-cmp-head] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:3 !important; background:#4f8eff !important; }
   .daigo-mobile [data-cmp-row] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:2 !important; background:#FFFFFF !important; box-shadow:1px 0 0 #EAEAEA; font-weight:600 !important; }
   .daigo-mobile [data-comment-anchor="e1c4f23c1d-section"]{ padding-left:0 !important; padding-right:0 !important; }
   .daigo-mobile [data-comment-anchor="e1c4f23c1d-section"] > div:first-child{ padding-left:0 !important; padding-right:0 !important; }
@@ -219,7 +239,7 @@
     [data-cmp-row]{ display:grid !important; grid-template-columns:128px 190px 148px 148px 148px !important; min-width:762px !important; border-top:1px solid #EAEAEA !important; padding:0 !important; }
     [data-cmp-row] > div{ padding:13px 14px !important; font-size:12.5px !important; }
     [data-cmp-row] > div:nth-child(n+2)::before{ display:none !important; content:none !important; }
-    [data-cmp-head] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:3 !important; background:#1B1B1B !important; }
+    [data-cmp-head] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:3 !important; background:#4f8eff !important; }
     [data-cmp-row] > div:nth-child(1){ position:sticky !important; left:0 !important; z-index:2 !important; background:#FFFFFF !important; box-shadow:1px 0 0 #EAEAEA; font-weight:600 !important; }
   }
   html{ scroll-behavior:smooth; }
@@ -249,7 +269,7 @@
   </div>
 </div>
 
-<header data-nav-bar="" aria-hidden="true" style="display:none!important; position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(252,252,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid #D9D9D9; transform:translateY(-100%); opacity:0; pointer-events:none; transition:transform .28s ease, opacity .28s ease;">
+<header data-nav-bar="" aria-hidden="true" style="position:fixed; top:0; left:0; right:0; z-index:60; background:rgba(252,252,252,.92); backdrop-filter:blur(12px); border-bottom:1px solid #D9D9D9; transform:translateY(-100%); opacity:0; pointer-events:none; transition:transform .28s ease, opacity .28s ease;">
   <div style="max-width:1200px; margin:0 auto; padding:0 28px; height:66px; display:flex; align-items:center; justify-content:center;">
     <nav data-main-nav="" style="display:flex; gap:16px; align-items:center; font-size:13px; font-weight:500; color:#3C3C3C; overflow-x:auto; scrollbar-width:none;">
       <a href="#result" style="color:inherit; text-decoration:none; white-space:nowrap;">Результат</a>
@@ -265,9 +285,9 @@
 </header>
 
 <!-- HERO -->
-<section style="background:#FFFFFF; max-width: 1200px; margin: 0 auto; padding: 44px 28px 56px; display: grid; grid-template-columns: minmax(0,1.05fr) minmax(0,0.95fr); gap: 54px; align-items: start">
+<section data-product-hero="" style="background:#FFFFFF; max-width:1200px; margin:0 auto; padding:0 28px 56px; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,0.95fr); gap:54px; align-items:start">
   <div style="position: sticky; top: 88px;">
-    <div data-gal-box="" style="position:relative; background:#FFFFFF; border:1px solid #D9D9D9; border-radius:22px; padding:0; overflow:hidden; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1;">
+    <div data-gal-box="" style="position:relative; background:#FFFFFF; border:none; border-radius:22px; padding:0; overflow:hidden; display:flex; align-items:center; justify-content:center; aspect-ratio:1/1;">
       <sc-if value="{{ showBadge }}" hint-placeholder-val="{{ true }}">
         <div style="position: absolute; top: 16px; left: 15px; z-index: 3; display: none; align-items: stretch; gap: 10px; max-width: 350px; background: #FFFFFF; border: 1px solid #E2DCCD; border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.12); padding: 11px 26px 11px 12px" data-om-label="Выбор врачей">
           <div style="display:flex; align-items:center; gap:3px; flex:0 0 auto; color:#6E1A1A;">
@@ -300,10 +320,10 @@
         </div>
         <div style="display: none; align-items: center; gap: 9px; background: #FFFFFF; border: 1px solid #E2DCCD; border-radius: 999px; box-shadow: 0 6px 18px rgba(0,0,0,.10); padding: 6px 15px 6px 7px">
           <div style="width:34px; height:34px; border-radius:50%; background:#FFFFFF; border:1px solid #E2DCCD; display:flex; align-items:center; justify-content:center; flex:0 0 auto;"><div style="width:17px; height:17px; border-radius:50%; background:#BC002D;"></div></div>
-          <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; color:#1B1B1B; line-height:1.15;">Производится в Японии<br>с 1914 года</span>
+          <span style="font-family:'Montserrat',sans-serif; font-size:11px; font-weight:700; color:#1B1B1B; line-height:1.15;">Производится<br>в Японии</span>
         </div>
       </div>
-      <img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-481137.png?v=1741776597&amp;width=1200" alt="Метабиотик Daigo 5 мл" data-main-img="1" style="width:100%; height:100%; object-fit:contain;">
+      <img sc-camel-src="{{ mainImage }}" src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-481137.png?v=1741776597&amp;width=1200" alt="Метабиотик Daigo 5 мл" data-main-img="1" style="width:100%; height:100%; object-fit:contain;">
       <button onClick="{{ prevImg }}" aria-label="Предыдущее фото" style="position:absolute; left:14px; top:50%; transform:translateY(-50%); z-index:4; border:none; background:transparent; box-shadow:none; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;" style-hover="opacity:.55;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"></path></svg></button>
       <button onClick="{{ nextImg }}" aria-label="Следующее фото" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); z-index:4; border:none; background:transparent; box-shadow:none; display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0;" style-hover="opacity:.55;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"></path></svg></button>
     </div>
@@ -322,9 +342,9 @@
       <span style="width:4px; height:4px; border-radius:50%; background:#CFCFCF;"></span>
       <span style="font-size: 13.5px; color: #3C3C3C; font-weight: 600">1М+ порций</span>
     </div>
-    <div style="display: none; align-items: center; gap: 8px; background: #F0F0F0; color: #3C3C3C; font-size: 11px; font-weight: 600; letter-spacing: .03em; padding: 6px 13px; border-radius: 999px">🇯🇵 Оригинальная японский метабиотик с 1914 года</div>
+    <div style="display: none; align-items: center; gap: 8px; background: #F0F0F0; color: #3C3C3C; font-size: 11px; font-weight: 600; letter-spacing: .03em; padding: 6px 13px; border-radius: 999px">🇯🇵 Оригинальный японский метабиотик</div>
     <h1 style="font-family: 'Montserrat',sans-serif; font-weight: 600; font-size: 40px; line-height: 1.05; letter-spacing: -.01em; margin: 16px 0 0; color: #1B1B1B">Метабиотик Daigo 5мл<span style="display: block; font-size: 16px; color: var(--ink); font-style: italic; margin-top: 8px">Для тех, кто хочет снова чувствовать абсолютную легкость пищеварения и чистую энергию<br></span></h1>
-    <div style="font-size: 14px; line-height: 1.55; color: #3C3C3C; margin: 20px 0 0; max-width: 524px">Премиальный японский комплекс из ценных ферментов от 16 штаммов лактобактерий, который начинает работать мгновенно. В отличие от обычных пробиотиков, Daigo не требует «приживления» чужеродных бактерий и помогает восстанановить баланс кишечной микрофлоры на клеточном уровне.<br><br><p class="p1" style="font-style: normal; font-variant: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(0, 0, 0);"><span class="s1" style="font-style: normal; font-variant: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;.Apple Color Emoji UI&quot;;">🇯🇵</span> Создано в Японии по стандартам GMP на основе научных трудов лауреата Нобелевской премии И. И. Мечникова. Производится с 1914 года.</p></div>
+    <div style="font-size: 14px; line-height: 1.55; color: #3C3C3C; margin: 20px 0 0; max-width: 524px">Премиальный японский комплекс из ценных ферментов от 16 штаммов лактобактерий, который начинает работать мгновенно. В отличие от обычных пробиотиков, Daigo не требует «приживления» чужеродных бактерий и помогает восстанановить баланс кишечной микрофлоры на клеточном уровне.<br><br><p class="p1" style="font-style: normal; font-variant: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;Helvetica Neue&quot;; color: rgb(0, 0, 0);"><span class="s1" style="font-style: normal; font-variant: normal; font-size-adjust: none; font-language-override: normal; font-kerning: auto; font-optical-sizing: auto; font-feature-settings: normal; font-variation-settings: normal; font-stretch: normal; font-size: 13px; line-height: normal; font-family: &quot;.Apple Color Emoji UI&quot;;">🇯🇵</span> Создано в Японии по стандартам GMP на основе научных трудов лауреата Нобелевской премии И. И. Мечникова.</p></div>
 
     <div style="margin-top:22px;">
       <div style="font-size:13px; font-weight:700; letter-spacing:.04em; color:#1B1B1B; text-transform:uppercase; margin-bottom:12px;">Особенно эффективен при:</div>
@@ -333,7 +353,9 @@
           <div style="display:flex; align-items:flex-start; gap:10px;"><span style="flex:0 0 auto; margin-top:1px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#8FBBA0"></circle><path d="M17 8.5 10.5 15.5 7 12" stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span style="font-size:14.5px; line-height:1.5; color:#3C3C3C;"><strong style="color:#1B1B1B;">{{ bl.t }}</strong> {{ bl.d }}</span></div>
         </sc-for>
       </div>
-    </div><div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:14px; margin-bottom:14px; flex-wrap:wrap;" data-om-label="Add to cart">
+    </div>
+    <p style="font-size:14px; line-height:1.45; font-weight:500; color:#1B1B1B; margin:20px 0 8px;">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ. ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ.</p>
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:8px; margin-bottom:14px; flex-wrap:wrap;" data-om-label="Add to cart">
         <span style="font-weight:700; font-size:26px; color:#1B1B1B;">{{ oneTimePrice }}</span>
         <div style="display: none; align-items: center; gap: 14px">
           <div style="display:flex; align-items:center; border:1px solid #D9D9D9; border-radius:999px; overflow:hidden;">
@@ -341,7 +363,7 @@
             <span style="min-width:28px; text-align:center; font-size:14px; font-weight:600; color:#1B1B1B;">{{ qty }}</span>
             <button onClick="{{ incQty }}" style="width:34px; height:34px; border:none; background:#FFFFFF; font-size:16px; color:#1B1B1B; cursor:pointer;">+</button>
           </div>
-          <button onClick="{{ addToCart }}" style="background:#1B1B1B; color:#FCFCFC; border:none; border-radius:999px; padding:10px 24px; font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; cursor:pointer;">Добавить в корзину</button>
+          <button onClick="{{ addToCart }}" style="background:#4f8eff; color:#FCFCFC; border:none; border-radius:999px; padding:10px 24px; font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; cursor:pointer;">Добавить в корзину</button>
         </div>
       </div>
 
@@ -355,7 +377,7 @@
             <span style="min-width:28px; text-align:center; font-size:14px; font-weight:600; color:#1B1B1B;">{{ qty }}</span>
             <button onClick="{{ incQty }}" style="width:34px; height:34px; border:none; background:#FFFFFF; font-size:16px; color:#1B1B1B; cursor:pointer;">+</button>
           </div>
-          <button onClick="{{ addToCart }}" style="background:#1B1B1B; color:#FCFCFC; border:none; border-radius:999px; padding:10px 24px; font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; cursor:pointer;">Добавить в корзину</button>
+          <button onClick="{{ addToCart }}" style="background:#4f8eff; color:#FCFCFC; border:none; border-radius:999px; padding:10px 24px; font-family:'Montserrat',sans-serif; font-size:13.5px; font-weight:700; cursor:pointer;">Добавить в корзину</button>
         </div>
       </div>
       <div style="font-family:'Montserrat',sans-serif; font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#1B1B1B; margin-bottom:14px;">Выберите курс и сэкономьте</div>
@@ -433,7 +455,7 @@
     <div style="text-align: center; margin-bottom: 12px; display: none">
       <span onClick="{{ selectOneTime }}" style="font-size:13px; color:#1B1B1B; text-decoration:underline; text-underline-offset:3px; cursor:pointer;">Разовая покупка — {{ oneTimePrice }}</span>
     </div>
-    <button onClick="{{ addToCart }}" style="margin-top:22px; width:100%; background:#1B1B1B; color:#FCFCFC; border:none; border-radius:999px; padding:17px 28px; font-family:'Montserrat',sans-serif; font-size:16px; font-weight:700; letter-spacing:.02em; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px;">
+    <button onClick="{{ addToCart }}" style="margin-top:22px; width:100%; background:#4f8eff; color:#FCFCFC; border:none; border-radius:999px; padding:17px 28px; font-family:'Montserrat',sans-serif; font-size:16px; font-weight:700; letter-spacing:.02em; cursor:pointer; display:flex; align-items:center; justify-content:space-between; gap:16px;">
       <span>Добавить в корзину</span>
       <span style="opacity:.85;">{{ curPrice }}</span>
     </button>
@@ -448,11 +470,21 @@
     <div data-delivery-row="" style="display:flex; gap:8px 22px; margin-top:16px; flex-wrap:wrap;">
       <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:#3C3C3C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> Бесплатная доставка по РФ от 10 тыс</div>
       <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:#3C3C3C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> Самовывоз</div>
-      <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:#3C3C3C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> Экспресс-доставка за 2 часа (Мск и МО)</div>
       <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:#3C3C3C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> ПВЗ</div>
       <div style="display:flex; align-items:center; gap:7px; font-size:13px; color:#3C3C3C;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B1B1B" stroke-width="2"><path d="M20 6 9 17l-5-5"></path></svg> Курьер РФ</div>
     </div>
-    <p style="font-size:12px; color:#9A9A9A; margin:16px 0 0;">БАД. НЕ ЯВЛЯЕТСЯ ЛЕКАРСТВЕННЫМ СРЕДСТВОМ. ИМЕЮТСЯ ПРОТИВОПОКАЗАНИЯ.</p>
+
+    <div style="margin-top:26px; border:1px solid #D9D9D9; border-radius:16px; overflow:hidden; background:#FFFFFF;">
+      <sc-for list="{{ details }}" as="d" hint-placeholder-count="5">
+        <div style="border-top:1px solid #EAEAEA;">
+          <button onClick="{{ d.toggle }}" style="width:100%; background:none; border:none; cursor:pointer; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; text-align:left; font-family:'Montserrat',sans-serif;">
+            <span style="font-size:16px; font-weight:600; letter-spacing:.01em; color:#1B1B1B;">{{ d.q }}</span>
+            <span style="font-family:'Montserrat',sans-serif; font-size:24px; color:#1B1B1B; flex:0 0 auto; line-height:1;">{{ d.sign }}</span>
+          </button>
+          <div style="{{ d.bodyStyle }}">{{ d.a }}</div>
+        </div>
+      </sc-for>
+    </div>
 
 <!-- NATURAL COMPOSITION (in column copy) -->
     <div style="margin-top:26px; border:1px solid #D9D9D9; border-radius:16px; background:#FCFCFC; padding:26px 24px; text-align:center;">
@@ -469,22 +501,10 @@
         </sc-for>
       </div>
     </div>
-
-    <div style="margin-top:26px; border:1px solid #D9D9D9; border-radius:16px; overflow:hidden; background:#FFFFFF;">
-      <sc-for list="{{ details }}" as="d" hint-placeholder-count="5">
-        <div style="border-top:1px solid #EAEAEA;">
-          <button onClick="{{ d.toggle }}" style="width:100%; background:none; border:none; cursor:pointer; padding:18px 22px; display:flex; align-items:center; justify-content:space-between; gap:16px; text-align:left; font-family:'Montserrat',sans-serif;">
-            <span style="font-size:16px; font-weight:600; letter-spacing:.01em; color:#1B1B1B;">{{ d.q }}</span>
-            <span style="font-family:'Montserrat',sans-serif; font-size:24px; color:#1B1B1B; flex:0 0 auto; line-height:1;">{{ d.sign }}</span>
-          </button>
-          <div style="{{ d.bodyStyle }}">{{ d.a }}</div>
-        </div>
-      </sc-for>
-    </div>
 <!-- VIDEO REVIEWS (in column) -->
     <div style="margin-top: 26px; display: none" data-om-label="Амбасадоры вверх">
     <h3 style="font-family:'Montserrat',sans-serif; font-weight:700; font-size:13px; letter-spacing:.05em; text-transform:uppercase; color:#1B1B1B; margin:0 0 14px;">Что говорят амбассадоры Daigo</h3>
-    <div style="display:flex; gap:10px; overflow-x:auto; padding-bottom:6px;">
+    <div data-mobile-carousel="" style="display:flex; gap:10px; overflow-x:auto; padding-bottom:6px;">
       <div style="flex:0 0 124px; position:relative; aspect-ratio:3/4; border-radius:16px; overflow:hidden; background:#EDE9E2; box-shadow:0 6px 18px rgba(0,0,0,.06);">
         <image-slot id="daigo-amb-1" src="uploads/IMG_1895.jpg" shape="rect" placeholder="Видео" style="position:absolute; inset:0; width:100%; height:100%;"></image-slot>
         <div style="position:absolute; left:10px; bottom:12px; background:#FF7171; color:#FFFFFF; font-size:11px; font-weight:700; padding:4px 9px; border-radius:6px; pointer-events:none; max-width:72%;">это всё, что нужно</div>
@@ -720,7 +740,6 @@
         <p style="font-size:16px; line-height:1.6; color:#3C3C3C; margin:0;">Бактерии кишечника размножаются и закрепляются постепенно, адаптируясь к изменениям в питании и образе жизни. Этот процесс требует времени для формирования стабильного и сбалансированного бактериального сообщества.</p>
         <p style="font-size:16px; line-height:1.6; color:#3C3C3C; margin:0;">Уникальность Daigo в его органичности и безопасности. Состояние кишечной микрофлоры на момент начала приема продукта у всех разное, поэтому ощутимые изменения наступают по-разному (даже в одной семье). Первые изменения могут начать проявляться уже в течение 30 календарных дней.</p>
       </div>
-      <a href="#research" style="font-size:14px; font-weight:600; color:#1B1B1B; text-decoration:underline; text-underline-offset:3px;">Смотреть клинические данные →</a>
     </div>
     <div style="display:grid; grid-template-columns:1fr 1.05fr; gap:54px; align-items:start;">
       <div style="display:flex; flex-direction:column; gap:30px; border-left:2px solid #E2DCCD; padding-left:26px;">
@@ -966,7 +985,7 @@
     <p style="font-size:15px; color:#787878; margin:0;">Обычные пробиотики пытаются заселить ваш кишечник чужими живыми бактериями, которые часто погибают в кислой среде желудка. Daigo действует принципиально иначе.</p>
   </div>
   <div data-cmp-wrap="" style="border:1px solid #D9D9D9; border-radius:18px; overflow:hidden; background:#FFFFFF; margin-top:34px;">
-    <div data-cmp-head="" style="display:grid; grid-template-columns:1.1fr 1.4fr 1.2fr 1.2fr 1.2fr; background:#1B1B1B; color:#FCFCFC; font-size:13px; font-weight:700; letter-spacing:.03em;">
+    <div data-cmp-head="" style="display:grid; grid-template-columns:1.1fr 1.4fr 1.2fr 1.2fr 1.2fr; background:#4f8eff; color:#FCFCFC; font-size:13px; font-weight:700; letter-spacing:.03em;">
       <div style="padding:16px 20px;"></div>
       <div style="padding:12px 20px; background:#AE9D7E; color:#1B1B1B; display:flex; align-items:center; gap:10px;"><img src="https://daigoworld.com/cdn/shop/files/metabiotic-daigo-5ml-481137.png?v=1741776597&amp;width=200" alt="Daigo" style="width:64px; height:64px; object-fit:contain; background:#FFFFFF; border-radius:6px; padding:3px; flex:0 0 auto;"><span style="font-weight:700;">Метабиотик Daigo</span></div>
       <div style="padding:16px 20px; display:flex; align-items:center; justify-content:center; text-align:center;">Другие метабиотики</div>
@@ -1034,7 +1053,7 @@
       <div style="font-size:12px; letter-spacing:.18em; font-weight:700; color:#AE9D7E; text-transform:uppercase;">#НАМ ДОВЕРЯЮТ ЛУЧШИЕ</div>
       <h2 style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.18; margin:18px 0 0; color:#1B1B1B;">Выбор тех, для кого высокая энергия — стандарт жизни</h2>
     </div>
-    <div style="display:flex; gap:18px; overflow-x:auto; padding:42px 2px 12px;">
+    <div data-mobile-carousel="" style="display:flex; gap:18px; overflow-x:auto; padding:42px 2px 12px;">
       <div style="flex:0 0 270px; background:#FFFFFF; border:1px solid #E2DCCD; border-radius:14px; overflow:hidden;">
         <div style="position:relative; aspect-ratio:9/16; background:#F0F0F0;"><image-slot id="amb-trust-1" src="uploads/IMG_1884.jpg" shape="rect" fit="cover" placeholder="Фото амбассадора" style="width:100%;height:100%;background:#F0F0F0"></image-slot></div>
         <div style="padding:18px;">
@@ -1093,7 +1112,7 @@
       <h2 style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; margin:14px 0 0; color:#1B1B1B;">Врачи о Daigo</h2>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:28px;">
-      <sc-for list="{{ videoReviews }}" as="vr" hint-placeholder-count="19">
+      <sc-for list="{{ videoReviews }}" as="vr" hint-placeholder-count="10">
         <div>
           <div style="position:relative; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#000000;">
             <sc-if value="{{ vr.embed }}" hint-placeholder-val="">
@@ -1390,10 +1409,10 @@
       <div style="padding:30px; text-align:center;"><div style="font-family:'Montserrat',sans-serif; font-size:40px; color:#1B1B1B;">×1000</div><div style="font-size:13px; color:#AE9D7E; margin-top:6px;">плотность культуры</div></div>
     </div>
   </div>
-</section><section style="max-width: 1200px; margin: 0 auto; padding: 0" data-om-label="#ФИЛОСОФИЯ · С 1914 ГОДА">
+</section><section style="max-width: 1200px; margin: 0 auto; padding: 0" data-om-label="#ФИЛОСОФИЯ">
   <div style="display:grid; grid-template-columns:1fr 1fr; align-items:stretch;">
     <div style="padding:84px 56px; display:flex; flex-direction:column; justify-content:center;">
-      <div style="font-size:13px; letter-spacing:.2em; color:#AE9D7E; font-weight:600;">#ФИЛОСОФИЯ · С 1914 ГОДА</div>
+      <div style="font-size:13px; letter-spacing:.2em; color:#AE9D7E; font-weight:600;">#ФИЛОСОФИЯ</div>
       <h2 style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:36px; line-height:1.2; margin:16px 0 18px; color:#1B1B1B;">На стыке японской ферментации и науки о микробиоме</h2>
       <p style="font-size:15.5px; line-height:1.65; color:#3C3C3C; margin:0 0 16px;">Илья Мечников, лауреат Нобелевской премии (1908), одним из первых связал кишечную микрофлору с иммунной регуляцией и старением. В Японии эти идеи развил <strong>Какутаро Масагаки</strong>, а его последователь <strong>Кадзуоши Масагаки</strong> сделал ключевой шаг — переход от самих бактерий к продуктам их жизнедеятельности.</p>
       <p style="font-size:15.5px; line-height:1.65; color:#3C3C3C; margin:0;">Именно эта эволюция взглядов легла в основу Daigo: ферментационный экстракт с микробными метаболитами как функциональная поддержка среды — без этапа колонизации.</p>
@@ -1475,7 +1494,7 @@
   <div style="max-width:1200px; margin:0 auto; padding:56px 28px; display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:40px;">
     <div>
       <div style="font-family:'Montserrat',sans-serif; font-size:26px; font-weight:700; letter-spacing:-.01em; display:flex;"><span style="color:#F54EB4;">d</span><span style="color:#00AFD1;">a</span><span style="color:#FFB423;">i</span><span style="color:#80DA29;">g</span><span style="color:#7477C5;">o</span></div>
-      <p style="font-size:13.5px; line-height:1.6; margin:14px 0 0; max-width:300px;">С 1914 года заботимся о вашем здоровье. Японский метабиотик — поддержка микробной среды через готовые метаболиты.</p>
+      <p style="font-size:13.5px; line-height:1.6; margin:14px 0 0; max-width:300px;">Японский метабиотик — поддержка микробной среды через готовые метаболиты.</p>
     </div>
     <div>
       <div style="font-size:12px; letter-spacing:.1em; color:#9A9A9A; font-weight:600; margin-bottom:14px;">МАГАЗИН</div>
@@ -1545,7 +1564,7 @@
   <div style="max-width:760px; margin:0 auto; padding:86px 28px; text-align:center;">
     <h2 style="font-family:'Montserrat',sans-serif; font-weight:600; font-size:40px; line-height:1.18; margin:0 0 18px;">Начните курс Daigo сегодня</h2>
     <p style="font-size:17px; color:#CFCFCF; margin:0 0 34px;">Выбрано: <strong style="color:#FFFFFF;">{{ curBoxes }}</strong> кор. · <strong style="color:#FFFFFF;">{{ curPrice }}</strong></p>
-    <button onClick="{{ addToCart }}" style="background:#FCFCFC; color:#1B1B1B; border:none; border-radius:999px; padding:17px 44px; font-family:'Montserrat',sans-serif; font-size:16px; font-weight:700; cursor:pointer;">Добавить в корзину · {{ curPrice }}</button>
+    <button onClick="{{ addToCart }}" style="background:#4f8eff; color:#FCFCFC; border:none; border-radius:999px; padding:17px 44px; font-family:'Montserrat',sans-serif; font-size:16px; font-weight:700; cursor:pointer;">Добавить в корзину · {{ curPrice }}</button>
     <p style="font-size:12.5px; color:#9A9A9A; margin:24px 0 0;">Возврат 30 дней · Бесплатная доставка · Отмена в любой момент</p>
   </div>
 </section>
@@ -1562,7 +1581,7 @@
         <div style="font-size:13px; color:#787878;">{{ curPrice }}</div>
       </div>
     </div>
-    <button onClick="{{ addToCart }}" style="background:#1B1B1B; color:#FCFCFC; border:none; border-radius:999px; padding:12px 26px; font-family:'Montserrat',sans-serif; font-size:14.5px; font-weight:700; cursor:pointer; white-space:nowrap; flex:0 0 auto;">В корзину</button>
+    <button onClick="{{ addToCart }}" style="background:#4f8eff; color:#FCFCFC; border:none; border-radius:999px; padding:12px 26px; font-family:'Montserrat',sans-serif; font-size:14.5px; font-weight:700; cursor:pointer; white-space:nowrap; flex:0 0 auto;">В корзину</button>
   </div>
 </div>
 </section></x-dc>
@@ -1587,9 +1606,11 @@ class Component extends DCLogic {
     this._onScroll = ()=>{ const y = window.scrollY||document.documentElement.scrollTop||0; const show = y>820; if(show!==this.state.showSticky) this.setState({ showSticky:show }); this.syncNav(y); };
     this.syncNav(window.scrollY||0);
     window.addEventListener('scroll', this._onScroll, { passive:true });
-    this._onAnyScroll = (e)=>{
-      const t = e.target;
-      const y = (t && t.scrollTop != null && t !== document) ? t.scrollTop : (window.scrollY||document.documentElement.scrollTop||0);
+    this._onAnyScroll = ()=>{
+      // Horizontal/nested scroll containers (nav, galleries, tables) also emit
+      // captured scroll events. Always use the page scroll position so such
+      // gestures cannot hide the already visible sticky navigation.
+      const y = window.scrollY || document.documentElement.scrollTop || 0;
       this.syncNav(y);
     };
     document.addEventListener('scroll', this._onAnyScroll, { passive:true, capture:true });
@@ -1660,6 +1681,7 @@ class Component extends DCLogic {
     try { window.parent.postMessage({ source:'daigo-5ml-embed', type:'ready' }, window.location.origin); } catch(e) {}
     this.applyViewport();
     this.wireSwipe();
+    this.wireCarousels();
     this.applyTweaks();
   }
   ambVideo(el){
@@ -1735,6 +1757,7 @@ class Component extends DCLogic {
     h.style.transform = show ? 'translateY(0)' : 'translateY(-100%)';
     h.style.opacity = show ? '1' : '0';
     h.style.pointerEvents = show ? 'auto' : 'none';
+    h.setAttribute('aria-hidden', show ? 'false' : 'true');
   }
   applyTweaks(){}
   goImg(i){
@@ -1803,6 +1826,51 @@ class Component extends DCLogic {
     this._swipeTry = setInterval(()=>{ if(attach()) clearInterval(this._swipeTry); }, 300);
     setTimeout(()=> clearInterval(this._swipeTry), 6000);
   }
+  wireCarousels(){
+    const init = ()=>{
+      document.querySelectorAll('[data-mobile-carousel]').forEach((el)=>{
+        if(el._daigoCarouselWired) return;
+        el._daigoCarouselWired = true;
+        let active = false, dragging = false, startX = 0, startY = 0, startScroll = 0, suppressClick = false;
+        const down = (e)=>{
+          if(e.button !== 0) return;
+          active = true; dragging = false; suppressClick = false;
+          startX = e.clientX; startY = e.clientY; startScroll = el.scrollLeft;
+        };
+        const move = (e)=>{
+          if(!active) return;
+          const dx = e.clientX - startX, dy = e.clientY - startY;
+          if(!dragging){
+            if(Math.abs(dx) < 7 && Math.abs(dy) < 7) return;
+            if(Math.abs(dy) > Math.abs(dx)){ active = false; return; }
+            dragging = true; suppressClick = true;
+            el.classList.add('is-dragging');
+          }
+          if(e.cancelable) e.preventDefault();
+          el.scrollLeft = startScroll - dx;
+        };
+        const up = ()=>{
+          active = false;
+          if(dragging){ el.classList.remove('is-dragging'); setTimeout(()=>{ suppressClick = false; }, 0); }
+          dragging = false;
+        };
+        const click = (e)=>{
+          if(!suppressClick) return;
+          e.preventDefault(); e.stopPropagation();
+          suppressClick = false;
+        };
+        el.addEventListener('mousedown', down);
+        window.addEventListener('mousemove', move, { passive:false });
+        window.addEventListener('mouseup', up);
+        el.addEventListener('mouseleave', ()=>{ if(dragging) up(); });
+        el.addEventListener('dragstart', (e)=>{ if(active) e.preventDefault(); });
+        el.addEventListener('click', click, true);
+      });
+    };
+    init();
+    this._carouselWireInterval = setInterval(init, 600);
+    setTimeout(()=>{ clearInterval(this._carouselWireInterval); this._carouselWireInterval = null; }, 6000);
+  }
   componentDidUpdate(prev){ if(!prev || prev !== this.props){ this.applyViewport(); this.applyTweaks(); } }
   applyViewport(){
     const el = document.querySelector('[data-main-img]');
@@ -1812,22 +1880,19 @@ class Component extends DCLogic {
     host.classList.toggle('daigo-mobile', v === 'mobile');
     host.classList.toggle('daigo-tablet', v === 'tablet');
   }
-  componentWillUnmount(){ clearInterval(this._tick); clearInterval(this._offer); clearInterval(this._tlWireInterval); if(this._tlObserver) this._tlObserver.disconnect(); window.removeEventListener('scroll', this._onScroll); if(this._onParentMessage) window.removeEventListener('message', this._onParentMessage); }
+  componentWillUnmount(){ clearInterval(this._tick); clearInterval(this._offer); clearInterval(this._tlWireInterval); clearInterval(this._carouselWireInterval); if(this._tlObserver) this._tlObserver.disconnect(); window.removeEventListener('scroll', this._onScroll); if(this._onAnyScroll) document.removeEventListener('scroll', this._onAnyScroll, true); if(this._onParentMessage) window.removeEventListener('message', this._onParentMessage); }
 
   fmt(n){ return Math.round(n).toLocaleString('ru-RU') + ' ₽'; }
   pad(n){ return String(n).padStart(2,'0'); }
   ytEmbedRaw(url){ return this.ytEmbed(url); }
   ytEmbed(url){
     if(!url) return '';
-    let id = '';
-    const m1 = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|shorts\/|watch\?v=|watch\?.*&v=))([\w-]{6,})/);
-    if(m1) id = m1[1];
-    return id ? ('https://www.youtube-nocookie.com/embed/'+id+'?rel=0&modestbranding=1&playsinline=1') : '';
+    const m = String(url).match(/rutube\.ru\/(?:video\/|play\/embed\/)([a-f0-9]{32})/i);
+    return m ? ('https://rutube.ru/play/embed/'+m[1]) : '';
   }
-  ytThumb(url){
-    if(!url) return '';
-    const m1 = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|shorts\/|watch\?v=|watch\?.*&v=))([\w-]{6,})/);
-    return m1 ? ('https://img.youtube.com/vi/'+m1[1]+'/hqdefault.jpg') : '';
+  ytThumb(){
+    // RUTUBE preview is rendered by the embedded player itself.
+    return '';
   }
 
   renderVals(){
@@ -1847,8 +1912,8 @@ class Component extends DCLogic {
       'gallery-new/daigo5-10.webp'
     ];
     const galleryItems = gallery.map((src,i)=>({
-      src, select: ()=> this.setState({active:i}),
-      style: { width:'74px', height:'74px', flex:'0 0 auto', cursor:'pointer', borderRadius:'12px', overflow:'hidden', background:'#FFFFFF', border: i===this.state.active ? '2px solid #1B1B1B' : '1px solid #D9D9D9', padding:'6px', boxSizing:'border-box', objectFit:'contain', display:'block' }
+      src, select: ()=> this.goImg(i),
+      style: { width:'74px', height:'74px', flex:'0 0 auto', cursor:'pointer', borderRadius:'12px', overflow:'hidden', background:'#FFFFFF', border: i===this.state.active ? '2px solid #4f8eff' : '1px solid #D9D9D9', padding:'6px', boxSizing:'border-box', objectFit:'contain', display:'block' }
     }));
     this._gallery = gallery;
     const showImg=(i)=> this.goImg(i);
@@ -1904,7 +1969,7 @@ class Component extends DCLogic {
     const countdown = this.pad(h)+' : '+this.pad(m)+' : '+this.pad(s);
     const offerTrackStyle = { display:'flex', width:'100%', transition:'transform .5s cubic-bezier(.22,.61,.36,1)', transform:'translateX(-'+(this.state.offerIdx*100)+'%)' };
 
-    const trust = ['С 1914 года','Произведено в Японии','Сертификат GMP','B&S Corporation','16 штаммов Lactobacillus','120 000+ покупателей'];
+    const trust = ['Произведено в Японии','Сертификат GMP','B&S Corporation','16 штаммов Lactobacillus','120 000+ покупателей'];
 
     const bullets = [
       { t:'Хроническом дискомфорте в ЖКТ:', d:'вздутие, тяжесть после еды, метеоризм и нерегулярный стул.' },
@@ -2121,28 +2186,19 @@ class Component extends DCLogic {
       videoThumb: this.ytThumb(this.props.bestsellerVideoUrl),
       videoThumbStyle: { position:'absolute', inset:0, width:'100%', height:'100%', backgroundImage: 'url('+this.ytThumb(this.props.bestsellerVideoUrl)+')', backgroundSize:'cover', backgroundPosition:'center' },
       videoWatchUrl: this.props.bestsellerVideoUrl || '',
-      videoEmbedUrl: this.ytEmbed(this.props.bestsellerVideoUrl || 'https://www.youtube.com/watch?v=KURz-oVkPtg'),
-      noVideoEmbed: !this.ytEmbed(this.props.bestsellerVideoUrl || 'https://www.youtube.com/watch?v=KURz-oVkPtg'),
+      videoEmbedUrl: this.ytEmbed(this.props.bestsellerVideoUrl || 'https://rutube.ru/video/5c44dad4b9808954675396a5938c71ee/'),
+      noVideoEmbed: !this.ytEmbed(this.props.bestsellerVideoUrl || 'https://rutube.ru/video/5c44dad4b9808954675396a5938c71ee/'),
       videoReviews: [
-        { name:'Кому помог Daigo в 2024 году? Истории успеха от врачей', desc:'', url:'https://www.youtube.com/watch?v=eZrSTRMb8sg' },
-        { name:'Без заголовка, видео не открывается', desc:'', url:'https://www.youtube.com/watch?v=CnlvPPay82M' },
-        { name:'Топ добавки для микрофлоры кишечника и слизистой. Микробиолог Дмитрий Алексеев', desc:'', url:'https://www.youtube.com/watch?v=BriElPBaBdo&t=485s' },
-        { name:'В чём отличия пробиотиков, пребиотиков и метабиотиков — Дмитрий Алексеев', desc:'', url:'https://www.youtube.com/watch?v=41gLBg0_jWE' },
-        { name:'Кишечник и иммунитет — противостоим новым вызовам XXI века', desc:'', url:'https://www.youtube.com/watch?v=ojw3ob99OPg&t=3526s' },
-        { name:'Почему пробиотики и пребиотики не работают. Объяснение простыми словами', desc:'', url:'https://www.youtube.com/watch?v=VYGMB70LB9U' },
-        { name:'Роль продуктов функционального питания. Метабиотики в сохранении активного долголетия', desc:'', url:'https://www.youtube.com/watch?v=2i62IYqhwdw' },
-        { name:'Что такое Daigo? Как связан Daigo и доктор Хироми Шинья?', desc:'', url:'https://www.youtube.com/watch?v=sxPCzM3GpqE' },
-        { name:'Ответы на вопросы врачей и пациентов о метабиотике Дайго — профессор Ролик И.С.', desc:'', url:'https://www.youtube.com/watch?v=9fH__TRFlus' },
-        { name:'Забота и уход за собой. Семинар главного врача Verba Mayr', desc:'', url:'https://www.youtube.com/watch?v=MEmy0IO8LaQ' },
-        { name:'Диетолог Пьер Дюкан о метабиотике Дайго (Daigo)', desc:'', url:'https://www.youtube.com/watch?v=iwcHhqISHu8' },
-        { name:'Доктор Хироми Шинья. Результаты клинических исследований метабиотика Дайго', desc:'', url:'https://www.youtube.com/watch?v=mWmTxXxvWXQ' },
-        { name:'Пробиотики, пребиотики — не работают! Отличие метабиотика от пробиотиков и пребиотиков', desc:'', url:'https://www.youtube.com/watch?v=TXlgApcAo0I' },
-        { name:'Отзыв врача акушера-гинеколога о метабиотике Дайго', desc:'', url:'https://www.youtube.com/watch?v=wz_qw1gHtaw&t=59s' },
-        { name:'Интервью с врачом остеопатом Н.М. Марунчак о метабиотике Дайго', desc:'', url:'https://www.youtube.com/watch?v=mDKJ6byA6ig' },
-        { name:'Как здоровье зависит от состояния кишечника — доктор Акира Кавашима', desc:'', url:'https://www.youtube.com/watch?v=MEen6SKO0cY' },
-        { name:'Связь кишечника и ротовой полости — японский доктор Кохара Такутомонобу', desc:'', url:'https://www.youtube.com/watch?v=yQbfJWl98Mg' },
-        { name:'Как кишечник связан с иммунитетом? — доктор медицинских наук Мидзуками Омасу', desc:'', url:'https://www.youtube.com/watch?v=U7sBblOgm6A&t=150s' },
-        { name:'Как восстановить микрофлору кишечника? (Японские исследования)', desc:'', url:'https://www.youtube.com/watch?v=iofUgEmplCY' }
+        { name:'Видео Daigo', desc:'', url:'https://rutube.ru/video/5c44dad4b9808954675396a5938c71ee/' },
+        { name:'Осложнения сахарного диабета: диабетическая стопа и остеоартропатия', desc:'', url:'https://rutube.ru/video/9e49f6d9b06093f97d3c2afa4eaa7c75/' },
+        { name:'Кому помог Дайго в 2024 году? Истории успеха от врачей', desc:'', url:'https://rutube.ru/video/251ce167e518199f516ea3554bbc9c31/' },
+        { name:'От кишечника до мочевого пузыря: как бактерии влияют на здоровье мочеполовой системы?', desc:'', url:'https://rutube.ru/video/acd1658b0bd4b9bd1df2e016e31ef9cd/' },
+        { name:'Кишечная микрофлора: как по ней спрогнозировать болезни и зачем изучать?', desc:'', url:'https://rutube.ru/video/d1ee0c5105ff800a1dfe90bb0c4c8c39/' },
+        { name:'Восстанавливаются ли нервные клетки? И как они связаны с кишечником?', desc:'', url:'https://rutube.ru/video/4a9315924d97e5f8e6e9f7568a988431/' },
+        { name:'Микробы и ожирение — микробиолог Дмитрий Алексеев', desc:'', url:'https://rutube.ru/video/b40742bc9e4f7456fa6062f9a5c104c6/' },
+        { name:'Президент компании Фукуи Масакацу о метабиотике Daigo и Daigo Lux', desc:'', url:'https://rutube.ru/video/14c2633532161e2ab08c9e3e81e95db4/' },
+        { name:'Что такое anti-age и правда ли можно сохранить здоровье и молодость?', desc:'', url:'https://rutube.ru/video/4d28ccb98fc0cdfd2139f2da8768b817/' },
+        { name:'Псориаз: как не потерять качество жизни?', desc:'', url:'https://rutube.ru/video/fd628330ded2d05dd431fb8ab970e09a/' }
       ].map(v => ({ ...v, embed: this.ytEmbed(v.url), noEmbed: !this.ytEmbed(v.url) })),
       tagChips, reviews,
       hasReviews: reviewsRaw.length > 0,

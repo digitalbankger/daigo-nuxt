@@ -77,5 +77,5 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 ## 5ml isolated runtime fix (2026-09-01)
 
 - The CSP for `/__isolated/5ml-test/**` allows `https://unpkg.com` only for scripts because the exported DC runtime loads pinned React/ReactDOM 18.3.1 UMD files with SRI.
-- Dynamic YouTube iframe bindings use `sc-camel-src` instead of raw `src="{{ ... }}"`, so the browser does not request encoded template placeholders before the DC runtime mounts.
-- `frame-src` remains restricted to `https://www.youtube-nocookie.com`.
+- Dynamic RUTUBE iframe bindings use `sc-camel-src` instead of raw `src="{{ ... }}"`, so the browser does not request encoded template placeholders before the DC runtime mounts.
+- The isolated 5 ml page now embeds RUTUBE via `https://rutube.ru/play/embed/<video-id>`. If CSP is also configured in Nginx, `frame-src` must allow `https://rutube.ru`.

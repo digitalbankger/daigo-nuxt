@@ -30,6 +30,12 @@ COPY --from=build /app/.output ./.output
 
 COPY --from=build /app/content ./content
 
+# Nitro writes runtime cache/IPX files here. Create the directories in the image
+# and hand ownership to the non-root runtime user so every new container works
+# without a manual `docker exec -u 0 ... chown`.
+RUN mkdir -p /app/.nitro/cache/catalog /app/.nitro/ipx \
+ && chown -R node:node /app/.nitro
+
 EXPOSE 3003
 
 USER node
